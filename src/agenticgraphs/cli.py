@@ -40,7 +40,16 @@ def main(argv: list[str] | None = None) -> int:
     op = sub.add_parser("optimize", help="v0 structural optimizer: dry-run by default (M2)")
     op.add_argument("name"); op.add_argument("--apply", action="store_true")
     ap = sub.add_parser("adapt", help="compile a graph to framework source (M3)")
-    ap.add_argument("name"); ap.add_argument("--target", default="langgraph", choices=["langgraph"])
+    ap.add_argument("name")
+    ap.add_argument("--target", default="langgraph", choices=["langgraph", "crewai", "autogen"],
+                    help="target framework: langgraph (default), crewai, or autogen")
+    cp = sub.add_parser("compose", help="sequentially chain two graphs into one (M4)")
+    cp.add_argument("graph_a", metavar="graph-a", help="graph run first")
+    cp.add_argument("graph_b", metavar="graph-b", help="graph run after graph-a")
+    cp.add_argument("-o", "--output", type=Path, help="write composed graph.yaml here instead of stdout")
+    cp.add_argument("--name", help="name for the composed graph (default: '<a>-then-<b>')")
+    cp.add_argument("--allow-gaps", action="store_true",
+                    help="proceed even if graph-b needs blackboard keys graph-a doesn't appear to produce")
     sub.add_parser("mcp", help="serve the registry over MCP stdio (M3)")
     args = p.parse_args(argv)
 
@@ -80,8 +89,28 @@ def main(argv: list[str] | None = None) -> int:
             print(("applied: " if args.apply else "proposed: ") + note)
         return 0
     if args.cmd == "adapt":
-        from .adapters import emit_langgraph
-        print(emit_langgraph(_need(args.name)))
+        from .adapters import emit_autogen, emit_crewai, emit_langgraph
+        emitters = {"langgraph": emit_langgraph, "crewai": emit_crewai, "autogen": emit_autogen}
+        print(emitters[args.target](_need(args.name)))
+        return 0
+    if args.cmd == "compose":
+        from .compose import ComposeError, compose
+
+        try:
+            doc, warnings = compose(_need(args.graph_a), _need(args.graph_b),
+                                     name=args.name, allow_gaps=args.allow_gaps)
+        except ComposeError as e:
+            print(f"compose failed: {e}", file=sys.stderr)
+            print("(pass --allow-gaps to bypass a contract mismatch)", file=sys.stderr)
+            return 1
+        for w in warnings:
+            print(w, file=sys.stderr)
+        text = yaml.safe_dump(doc, sort_keys=False, width=120)
+        if args.output:
+            args.output.write_text(text)
+            print(f"wrote {args.output}")
+        else:
+            print(text, end="")
         return 0
     if args.cmd == "mcp":
         from .mcp_server import main as serve
