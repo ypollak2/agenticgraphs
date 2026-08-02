@@ -89,6 +89,10 @@ def repo_clone(tmp_path):
     history (no stray `auto/mutations` branch left behind)."""
     dst = tmp_path / "clone"
     subprocess.run(["git", "clone", "-q", "--no-hardlinks", str(ROOT), str(dst)], check=True)
+    # Pin the clone to a branch of our own. Cloning a source repo that is itself in
+    # detached HEAD — which is exactly what a tag build checks out in CI — otherwise
+    # leaves the clone with no branch, and `symbolic-ref HEAD` below exits 128.
+    subprocess.run(["git", "-C", str(dst), "checkout", "-q", "-B", "agr-test-base"], check=True)
     subprocess.run(["git", "-C", str(dst), "config", "user.name", "Autonomy Test"], check=True)
     subprocess.run(["git", "-C", str(dst), "config", "user.email", "autonomy-test@example.com"], check=True)
     return dst
