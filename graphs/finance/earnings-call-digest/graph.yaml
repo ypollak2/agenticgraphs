@@ -28,4 +28,4 @@ termination:
   max_steps: 12
   contract: every figure matches transcript; no invented numbers
 verification:
-- assert: every figure matches transcript; no invented numbers
+- assert: all(f.matches_transcript for f in output.figures) and not output.invented_numbers

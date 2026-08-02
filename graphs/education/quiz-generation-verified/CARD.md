@@ -5,16 +5,18 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-071` | education | **generator-critic** | 2 | 2 | 1 | 0 | 10 | write |
+| `AGR-071` | education | **generator-critic** | 3 | 3 | 1 | 0 | 10 | write |
 
 ## The graph
 
 ```mermaid
 flowchart LR
-    N0["generate<br/><i>producer</i>"]
-    N1{{"critique<br/><i>critic</i>"}}
+    N0["intake<br/><i>analyst</i>"]
+    N1["generate<br/><i>producer</i>"]
+    N2{{"critique<br/><i>critic</i>"}}
     N0 --> N1
-    N1 -->|rejected and attempts < 3| N0
+    N1 --> N2
+    N2 -->|rejected and attempts < 3| N1
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -28,9 +30,10 @@ Generate items, critic solves them blind to verify keys.
 The generator optimizes for recall, the critic for precision. Nothing is accepted until the critic signs off, which filters out trivial, tautological, or hallucinated output before it ever reaches you.
 
 - **Exit contract** — critic answers match keys; distractors plausible
-- **Machine-checked** — `critic answers match keys; distractors plausible`
+- **Machine-checked** — `all(i.answer_matches_key and i.distractors_plausible for i in output.entries)`
 - **Bounded** — hard stop after 10 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval quiz-generation-verified` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/quiz-generation-verified.md)
 
 ## How to work with it
 
@@ -38,6 +41,7 @@ The generator optimizes for recall, the critic for precision. Nothing is accepte
 uv run agr show quiz-generation-verified       # full definition
 uv run agr profile quiz-generation-verified    # deterministic structural facts
 uv run agr mermaid quiz-generation-verified    # regenerate the diagram below
+uv run agr eval quiz-generation-verified       # run golden cases (add --live for your endpoint)
 uv run agr adapt quiz-generation-verified --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize quiz-generation-verified   # propose bounded structural improvements (dry-run)
 ```
@@ -49,6 +53,7 @@ To evolve it: `uv run agr infuse quiz-generation-verified <node> <ability>` — 
 
 | Node | Speciality | Kind | Abilities |
 |---|---|---|---|
+| `intake` | analyst | agent | analyze |
 | `generate` | producer | agent | generate |
 | `critique` | critic | verifier | critique |
 
@@ -56,6 +61,7 @@ To evolve it: `uv run agr infuse quiz-generation-verified <node> <ability>` — 
 
 | From | To | Condition |
 |---|---|---|
+| `intake` | `generate` | always |
 | `generate` | `critique` | always |
 | `critique` | `generate` | rejected and attempts < 3 |
 

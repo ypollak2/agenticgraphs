@@ -30,9 +30,10 @@ Compare against playbook, propose redlines with rationale.
 Staged specialists each own one narrow concern, so quality problems are localized to the stage that produced them instead of being smeared across a single mega-prompt. Output only leaves the graph through the exit contract.
 
 - **Exit contract** — every redline cites a playbook position
-- **Machine-checked** — `every redline cites a playbook position`
+- **Machine-checked** — `all(r.playbook_ref for r in output.redlines)`
 - **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval contract-redline-pipeline` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/contract-redline-pipeline.md)
 
 ## How to work with it
 
@@ -40,6 +41,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 uv run agr show contract-redline-pipeline       # full definition
 uv run agr profile contract-redline-pipeline    # deterministic structural facts
 uv run agr mermaid contract-redline-pipeline    # regenerate the diagram below
+uv run agr eval contract-redline-pipeline       # run golden cases (add --live for your endpoint)
 uv run agr adapt contract-redline-pipeline --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize contract-redline-pipeline   # propose bounded structural improvements (dry-run)
 ```

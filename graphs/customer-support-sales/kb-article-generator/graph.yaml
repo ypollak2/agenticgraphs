@@ -28,4 +28,4 @@ termination:
   max_steps: 12
   contract: steps reproduce resolution; duplicates deduped
 verification:
-- assert: steps reproduce resolution; duplicates deduped
+- assert: output.reproduces_resolution and output.duplicates_deduped

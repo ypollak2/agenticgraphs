@@ -1,0 +1,14 @@
+# This graph is a strictly linear pipeline (partition -> map -> reduce) with
+# no router or loop-back edge, so both cases exercise the same route; they
+# differ in data coverage (single item vs. multiple items) instead.
+cases:
+  - id: single-item
+    node_outputs:
+      partition: {shard_count: 1}
+      map: {}
+      reduce: {output: {'notes': [{'text': 'fixed login bug', 'pr_url': 'https://github.com/org/repo/pull/1'}], 'orphan_claims': []}}
+  - id: multi-item
+    node_outputs:
+      partition: {shard_count: 2}
+      map: {}
+      reduce: {output: {'notes': [{'text': 'fixed login bug', 'pr_url': 'https://github.com/org/repo/pull/1'}, {'text': 'improved perf', 'pr_url': 'https://github.com/org/repo/pull/2'}], 'orphan_claims': []}}

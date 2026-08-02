@@ -1,0 +1,14 @@
+# This graph is a strictly linear pipeline (partition -> map -> reduce) with
+# no router or loop-back edge, so both cases exercise the same route; they
+# differ in data coverage (single item vs. multiple items) instead.
+cases:
+  - id: single-item
+    node_outputs:
+      partition: {shard_count: 1}
+      map: {}
+      reduce: {output: {'entries': [{'advisory_url': 'https://vendor.example/advisory/1', 'cve_ids': ['CVE-2026-1']}]}}
+  - id: multi-item
+    node_outputs:
+      partition: {shard_count: 2}
+      map: {}
+      reduce: {output: {'entries': [{'advisory_url': 'https://vendor.example/advisory/1', 'cve_ids': ['CVE-2026-1']}, {'advisory_url': 'https://vendor.example/advisory/2', 'cve_ids': ['CVE-2026-2', 'CVE-2026-3']}]}}

@@ -30,9 +30,10 @@ Rank findings by exploitability and blast radius.
 Staged specialists each own one narrow concern, so quality problems are localized to the stage that produced them instead of being smeared across a single mega-prompt. Output only leaves the graph through the exit contract.
 
 - **Exit contract** — ranking inputs cite scanner evidence and asset map
-- **Machine-checked** — `ranking inputs cite scanner evidence and asset map`
+- **Machine-checked** — `all(r.scanner_evidence and r.asset_map_ref for r in output.ranking)`
 - **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval vuln-prioritization` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/vuln-prioritization.md)
 
 ## How to work with it
 
@@ -40,6 +41,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 uv run agr show vuln-prioritization       # full definition
 uv run agr profile vuln-prioritization    # deterministic structural facts
 uv run agr mermaid vuln-prioritization    # regenerate the diagram below
+uv run agr eval vuln-prioritization       # run golden cases (add --live for your endpoint)
 uv run agr adapt vuln-prioritization --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize vuln-prioritization   # propose bounded structural improvements (dry-run)
 ```

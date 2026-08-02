@@ -29,9 +29,10 @@ Summarize feeds into an actionable daily brief.
 Work fans out over shards and the reduce step merges with explicit dedupe and conflict rules, so throughput scales with shard count while the output stays a single consistent artifact.
 
 - **Exit contract** — every item links source advisory with CVE ids
-- **Machine-checked** — `every item links source advisory with CVE ids`
+- **Machine-checked** — `all(i.advisory_url and i.cve_ids for i in output.entries)`
 - **Bounded** — hard stop after 20 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval threat-intel-digest` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/threat-intel-digest.md)
 
 ## How to work with it
 
@@ -39,6 +40,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 uv run agr show threat-intel-digest       # full definition
 uv run agr profile threat-intel-digest    # deterministic structural facts
 uv run agr mermaid threat-intel-digest    # regenerate the diagram below
+uv run agr eval threat-intel-digest       # run golden cases (add --live for your endpoint)
 uv run agr adapt threat-intel-digest --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize threat-intel-digest   # propose bounded structural improvements (dry-run)
 ```

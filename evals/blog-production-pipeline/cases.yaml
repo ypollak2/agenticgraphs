@@ -1,0 +1,15 @@
+cases:
+  - id: happy-path
+    node_outputs:
+      intake: {summary: "intake complete"}
+      produce: {output: {'lint_passed': True, 'plagiarism_clean': True}}
+      review: {revision_requested: false, attempts: 1}
+  - id: retry-then-resolved
+    node_outputs:
+      intake: {summary: "intake complete"}
+      produce:
+        - {output: {'lint_passed': False, 'plagiarism_clean': False}}
+        - {output: {'lint_passed': True, 'plagiarism_clean': True}}
+      review:
+        - {revision_requested: true, attempts: 1}
+        - {revision_requested: false, attempts: 2}

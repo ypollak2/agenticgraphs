@@ -32,9 +32,10 @@ Route returns by reason to refund, repair, or fraud review.
 A cheap classifier sends every item down the narrowest branch that can handle it, so cost and latency scale with the difficulty of each item rather than the worst case. Escalation edges guarantee hard items still reach the strong path.
 
 - **Exit contract** — routing agrees with policy decision table
-- **Machine-checked** — `routing agrees with policy decision table`
+- **Machine-checked** — `output.matches_policy_table`
 - **Bounded** — hard stop after 12 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval returns-triage` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/returns-triage.md)
 
 ## How to work with it
 
@@ -42,6 +43,7 @@ A cheap classifier sends every item down the narrowest branch that can handle it
 uv run agr show returns-triage       # full definition
 uv run agr profile returns-triage    # deterministic structural facts
 uv run agr mermaid returns-triage    # regenerate the diagram below
+uv run agr eval returns-triage       # run golden cases (add --live for your endpoint)
 uv run agr adapt returns-triage --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize returns-triage   # propose bounded structural improvements (dry-run)
 ```

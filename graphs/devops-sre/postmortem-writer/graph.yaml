@@ -28,4 +28,4 @@ termination:
   max_steps: 12
   contract: every timeline event cites a log or message id
 verification:
-- assert: every timeline event cites a log or message id
+- assert: all(e.get('log_id') or e.get('message_id') for e in output.timeline)

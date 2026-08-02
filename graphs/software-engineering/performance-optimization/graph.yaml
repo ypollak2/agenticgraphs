@@ -3,6 +3,10 @@ name: performance-optimization
 description: Profile, patch hotspot, re-benchmark until budget met.
 category: software-engineering
 nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
 - id: attempt
   speciality: producer
   abilities:
@@ -13,6 +17,8 @@ nodes:
   - evaluate
   kind: verifier
 edges:
+- from: intake
+  to: attempt
 - from: attempt
   to: measure
 - from: measure
@@ -22,4 +28,4 @@ termination:
   max_steps: 15
   contract: benchmark under target with no test regressions
 verification:
-- assert: benchmark under target with no test regressions
+- assert: output.benchmark_ms <= output.target_ms and not output.test_regressions

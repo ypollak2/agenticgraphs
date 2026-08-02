@@ -28,4 +28,4 @@ termination:
   max_steps: 12
   contract: lockfile updated; tests pass; no new deprecation warnings
 verification:
-- assert: lockfile updated; tests pass; no new deprecation warnings
+- assert: output.lockfile_updated and output.tests_pass and not output.new_deprecations

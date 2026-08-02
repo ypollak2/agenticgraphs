@@ -12,3 +12,18 @@ jobs:
       - run: uv run --all-extras agr validate
       - run: uv run --all-extras python scripts/audit_usecases.py
       - run: uv run --all-extras pytest -q
+      - run: uv run --all-extras python scripts/gen_cards.py
+      - run: uv run --all-extras python scripts/gen_scoreboard.py
+      - run: uv run --all-extras python scripts/gen_traces.py
+      - name: fail if generated docs are stale
+        run: |
+          # gen_scoreboard.py / gen_traces.py re-run every graph's golden cases (via
+          # eval_graph) and rewrite graphs/**/profile.json as a side effect. That file
+          # embeds `date: <today>`, so it is never byte-stable across days even with zero
+          # semantic change — it is deliberately excluded from this check. What must stay
+          # byte-identical to what's committed is the generated *documentation* derived
+          # from graph.yaml / evals/*/cases.yaml, so diff that instead.
+          git diff --exit-code -- README.md CARDS.md 'graphs/**/CARD.md' 'docs/traces/**' || {
+            echo "::error::Generated docs are stale — run scripts/gen_cards.py, scripts/gen_scoreboard.py, and scripts/gen_traces.py, then commit the result.";
+            exit 1;
+          }

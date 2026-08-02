@@ -34,6 +34,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 - **Command-checked** — `user-supplied verify command must exit 0`
 - **Bounded** — hard stop after 30 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval verifier-swarm` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/verifier-swarm.md)
 
 ## How to work with it
 

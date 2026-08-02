@@ -28,4 +28,4 @@ termination:
   max_steps: 12
   contract: behavior snapshot tests unchanged before and after
 verification:
-- assert: behavior snapshot tests unchanged before and after
+- assert: output.snapshot_before == output.snapshot_after

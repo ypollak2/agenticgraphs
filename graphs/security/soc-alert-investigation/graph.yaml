@@ -28,4 +28,4 @@ termination:
   max_steps: 25
   contract: conclusion supported by query results attached
 verification:
-- assert: conclusion supported by query results attached
+- assert: len(output.query_results) > 0 and output.conclusion

@@ -1,0 +1,15 @@
+cases:
+  - id: generated-and-approved
+    node_outputs:
+      intake: {summary: "intake complete"}
+      generate: {draft: "v1"}
+      critique: {rejected: false, attempts: 1, output: {'bias_lint_clean': True, 'requirements_deduped': True}}
+  - id: revised-after-rejection
+    node_outputs:
+      intake: {summary: "intake complete"}
+      generate:
+        - {draft: "v1"}
+        - {draft: "v2"}
+      critique:
+        - {rejected: true, attempts: 1}
+        - {rejected: false, attempts: 2, output: {'bias_lint_clean': True, 'requirements_deduped': True}}

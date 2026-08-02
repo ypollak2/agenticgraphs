@@ -29,9 +29,10 @@ Cluster alerts, dedupe storms, emit one incident per cause.
 Work fans out over shards and the reduce step merges with explicit dedupe and conflict rules, so throughput scales with shard count while the output stays a single consistent artifact.
 
 - **Exit contract** — dedupe ratio measured; no missed paging alert
-- **Machine-checked** — `dedupe ratio measured; no missed paging alert`
+- **Machine-checked** — `output.dedupe_ratio > 0 and not output.missed_paging_alerts`
 - **Bounded** — hard stop after 20 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval alert-noise-reduction` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/alert-noise-reduction.md)
 
 ## How to work with it
 
@@ -39,6 +40,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 uv run agr show alert-noise-reduction       # full definition
 uv run agr profile alert-noise-reduction    # deterministic structural facts
 uv run agr mermaid alert-noise-reduction    # regenerate the diagram below
+uv run agr eval alert-noise-reduction       # run golden cases (add --live for your endpoint)
 uv run agr adapt alert-noise-reduction --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize alert-noise-reduction   # propose bounded structural improvements (dry-run)
 ```

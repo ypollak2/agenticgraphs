@@ -3,6 +3,10 @@ name: jd-drafting-critic
 description: Draft job descriptions, critic removes bias and inflation.
 category: hr-people
 nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
 - id: generate
   speciality: producer
   abilities:
@@ -13,6 +17,8 @@ nodes:
   - critique
   kind: verifier
 edges:
+- from: intake
+  to: generate
 - from: generate
   to: critique
 - from: critique
@@ -22,4 +28,4 @@ termination:
   max_steps: 10
   contract: bias-term lint clean; requirements deduplicated
 verification:
-- assert: bias-term lint clean; requirements deduplicated
+- assert: output.bias_lint_clean and output.requirements_deduped

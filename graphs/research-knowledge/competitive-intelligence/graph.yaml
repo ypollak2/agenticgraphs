@@ -26,4 +26,4 @@ termination:
   max_steps: 20
   contract: every finding links a dated public source
 verification:
-- assert: every finding links a dated public source
+- assert: all(f.source_url and f.source_date for f in output.findings)

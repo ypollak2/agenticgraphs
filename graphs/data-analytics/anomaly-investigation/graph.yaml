@@ -36,4 +36,4 @@ termination:
   max_steps: 12
   contract: classification agrees with holdout labels
 verification:
-- assert: classification agrees with holdout labels
+- assert: output.matches_holdout

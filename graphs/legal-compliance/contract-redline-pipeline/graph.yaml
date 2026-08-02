@@ -28,4 +28,4 @@ termination:
   max_steps: 12
   contract: every redline cites a playbook position
 verification:
-- assert: every redline cites a playbook position
+- assert: all(r.playbook_ref for r in output.redlines)

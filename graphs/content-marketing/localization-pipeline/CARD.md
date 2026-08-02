@@ -29,9 +29,10 @@ Translate per locale, reduce into a consistency report.
 Work fans out over shards and the reduce step merges with explicit dedupe and conflict rules, so throughput scales with shard count while the output stays a single consistent artifact.
 
 - **Exit contract** — back-translation similarity above threshold; glossary respected
-- **Machine-checked** — `back-translation similarity above threshold; glossary respected`
+- **Machine-checked** — `output.similarity >= output.threshold and not output.glossary_violations`
 - **Bounded** — hard stop after 20 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval localization-pipeline` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/localization-pipeline.md)
 
 ## How to work with it
 
@@ -39,6 +40,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 uv run agr show localization-pipeline       # full definition
 uv run agr profile localization-pipeline    # deterministic structural facts
 uv run agr mermaid localization-pipeline    # regenerate the diagram below
+uv run agr eval localization-pipeline       # run golden cases (add --live for your endpoint)
 uv run agr adapt localization-pipeline --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize localization-pipeline   # propose bounded structural improvements (dry-run)
 ```

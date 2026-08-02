@@ -29,9 +29,10 @@ Scan competitor releases and filings, reduce to a delta brief.
 Work fans out over shards and the reduce step merges with explicit dedupe and conflict rules, so throughput scales with shard count while the output stays a single consistent artifact.
 
 - **Exit contract** — every finding links a dated public source
-- **Machine-checked** — `every finding links a dated public source`
+- **Machine-checked** — `all(f.source_url and f.source_date for f in output.findings)`
 - **Bounded** — hard stop after 20 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval competitive-intelligence` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/competitive-intelligence.md)
 
 ## How to work with it
 
@@ -39,6 +40,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 uv run agr show competitive-intelligence       # full definition
 uv run agr profile competitive-intelligence    # deterministic structural facts
 uv run agr mermaid competitive-intelligence    # regenerate the diagram below
+uv run agr eval competitive-intelligence       # run golden cases (add --live for your endpoint)
 uv run agr adapt competitive-intelligence --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize competitive-intelligence   # propose bounded structural improvements (dry-run)
 ```

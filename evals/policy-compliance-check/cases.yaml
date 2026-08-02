@@ -1,0 +1,15 @@
+cases:
+  - id: happy-path
+    node_outputs:
+      intake: {summary: "intake complete"}
+      produce: {output: {'findings': [{'issue': 'missing encryption at rest', 'clause_id': 'POL-3.2'}]}}
+      review: {revision_requested: false, attempts: 1}
+  - id: retry-then-resolved
+    node_outputs:
+      intake: {summary: "intake complete"}
+      produce:
+        - {output: {'findings': [{'issue': 'missing encryption at rest', 'clause_id': ''}]}}
+        - {output: {'findings': [{'issue': 'missing encryption at rest', 'clause_id': 'POL-3.2'}]}}
+      review:
+        - {revision_requested: true, attempts: 1}
+        - {revision_requested: false, attempts: 2}

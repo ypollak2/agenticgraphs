@@ -26,4 +26,4 @@ termination:
   max_steps: 20
   contract: dedupe ratio measured; no missed paging alert
 verification:
-- assert: dedupe ratio measured; no missed paging alert
+- assert: output.dedupe_ratio > 0 and not output.missed_paging_alerts

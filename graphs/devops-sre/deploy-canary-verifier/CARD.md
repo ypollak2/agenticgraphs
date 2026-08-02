@@ -5,16 +5,18 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-015` | devops-sre | **loop** | 2 | 2 | 1 | 0 | 15 | write |
+| `AGR-015` | devops-sre | **loop** | 3 | 3 | 1 | 0 | 15 | write |
 
 ## The graph
 
 ```mermaid
 flowchart LR
-    N0["attempt<br/><i>producer</i>"]
-    N1{{"measure<br/><i>evaluator</i>"}}
+    N0["intake<br/><i>analyst</i>"]
+    N1["attempt<br/><i>producer</i>"]
+    N2{{"measure<br/><i>evaluator</i>"}}
     N0 --> N1
-    N1 -->|below_target and attempts < 5| N0
+    N1 --> N2
+    N2 -->|below_target and attempts < 5| N1
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -28,9 +30,10 @@ Progressively shift traffic while checking error budgets.
 A bounded improve-and-measure cycle: each iteration must beat the last measured score or the loop exits. `max_steps` is a hard cap, so the graph can refine but never wander.
 
 - **Exit contract** — rollback fires when error rate exceeds threshold
-- **Machine-checked** — `rollback fires when error rate exceeds threshold`
+- **Machine-checked** — `output.error_rate <= output.threshold or output.rollback_fired`
 - **Bounded** — hard stop after 15 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval deploy-canary-verifier` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/deploy-canary-verifier.md)
 
 ## How to work with it
 
@@ -38,6 +41,7 @@ A bounded improve-and-measure cycle: each iteration must beat the last measured 
 uv run agr show deploy-canary-verifier       # full definition
 uv run agr profile deploy-canary-verifier    # deterministic structural facts
 uv run agr mermaid deploy-canary-verifier    # regenerate the diagram below
+uv run agr eval deploy-canary-verifier       # run golden cases (add --live for your endpoint)
 uv run agr adapt deploy-canary-verifier --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize deploy-canary-verifier   # propose bounded structural improvements (dry-run)
 ```
@@ -49,6 +53,7 @@ To evolve it: `uv run agr infuse deploy-canary-verifier <node> <ability>` — ev
 
 | Node | Speciality | Kind | Abilities |
 |---|---|---|---|
+| `intake` | analyst | agent | analyze |
 | `attempt` | producer | agent | generate |
 | `measure` | evaluator | verifier | evaluate |
 
@@ -56,6 +61,7 @@ To evolve it: `uv run agr infuse deploy-canary-verifier <node> <ability>` — ev
 
 | From | To | Condition |
 |---|---|---|
+| `intake` | `attempt` | always |
 | `attempt` | `measure` | always |
 | `measure` | `attempt` | below_target and attempts < 5 |
 

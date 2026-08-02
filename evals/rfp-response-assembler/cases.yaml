@@ -1,0 +1,14 @@
+# This graph is a strictly linear pipeline (partition -> map -> reduce) with
+# no router or loop-back edge, so both cases exercise the same route; they
+# differ in data coverage (single item vs. multiple items) instead.
+cases:
+  - id: single-item
+    node_outputs:
+      partition: {shard_count: 1}
+      map: {}
+      reduce: {output: {'requirements': [{'id': 'R1', 'answered': True, 'flagged': False}, {'id': 'R2', 'answered': False, 'flagged': True}], 'page_count': 8, 'page_limit': 10}}
+  - id: multi-item
+    node_outputs:
+      partition: {shard_count: 2}
+      map: {}
+      reduce: {output: {'requirements': [{'id': 'R1', 'answered': True, 'flagged': False}, {'id': 'R2', 'answered': False, 'flagged': True}, {'id': 'R3', 'answered': True, 'flagged': False}], 'page_count': 10, 'page_limit': 10}}

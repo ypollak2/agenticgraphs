@@ -30,9 +30,10 @@ Reproduce a bug, plan a fix, apply it in isolation, verify.
 The plan makes intent inspectable before anything touches the world, the executor works inside that plan, and the verifier proves the postcondition actually holds — success is demonstrated, not asserted.
 
 - **Exit contract** — repro test fails before patch and passes after
-- **Machine-checked** — `repro test fails before patch and passes after`
+- **Machine-checked** — `output.test_failed_before_patch and output.test_passes_after_patch`
 - **Bounded** — hard stop after 25 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval bug-triage-and-fix` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/bug-triage-and-fix.md)
 
 ## How to work with it
 
@@ -40,6 +41,7 @@ The plan makes intent inspectable before anything touches the world, the executo
 uv run agr show bug-triage-and-fix       # full definition
 uv run agr profile bug-triage-and-fix    # deterministic structural facts
 uv run agr mermaid bug-triage-and-fix    # regenerate the diagram below
+uv run agr eval bug-triage-and-fix       # run golden cases (add --live for your endpoint)
 uv run agr adapt bug-triage-and-fix --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize bug-triage-and-fix   # propose bounded structural improvements (dry-run)
 ```

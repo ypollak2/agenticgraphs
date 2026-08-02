@@ -30,4 +30,4 @@ termination:
   max_steps: 30
   contract: inter-rater agreement above threshold or escalated
 verification:
-- assert: inter-rater agreement above threshold or escalated
+- assert: output.agreement >= output.threshold or output.escalated

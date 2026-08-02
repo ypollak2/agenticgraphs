@@ -29,9 +29,10 @@ Answer each RFP requirement from a knowledge base, assemble.
 Work fans out over shards and the reduce step merges with explicit dedupe and conflict rules, so throughput scales with shard count while the output stays a single consistent artifact.
 
 - **Exit contract** — every requirement answered or flagged; page limit met
-- **Machine-checked** — `every requirement answered or flagged; page limit met`
+- **Machine-checked** — `all(r.answered or r.flagged for r in output.requirements) and output.page_count <= output.page_limit`
 - **Bounded** — hard stop after 20 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval rfp-response-assembler` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/rfp-response-assembler.md)
 
 ## How to work with it
 
@@ -39,6 +40,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 uv run agr show rfp-response-assembler       # full definition
 uv run agr profile rfp-response-assembler    # deterministic structural facts
 uv run agr mermaid rfp-response-assembler    # regenerate the diagram below
+uv run agr eval rfp-response-assembler       # run golden cases (add --live for your endpoint)
 uv run agr adapt rfp-response-assembler --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize rfp-response-assembler   # propose bounded structural improvements (dry-run)
 ```

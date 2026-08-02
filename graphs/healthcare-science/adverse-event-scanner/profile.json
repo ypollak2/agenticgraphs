@@ -1,0 +1,52 @@
+{
+  "name": "adverse-event-scanner",
+  "category": "healthcare-science",
+  "structural": {
+    "nodes": 3,
+    "edges": 2,
+    "verifier_nodes": 1,
+    "router_nodes": 0,
+    "parallel_groups": 1,
+    "max_fan_out": 1,
+    "loops": 0,
+    "loops_bounded": true,
+    "max_steps": 20,
+    "verification_asserts": 1,
+    "risk_surface": "write"
+  },
+  "measured": {
+    "runner": "mock",
+    "provisional": true,
+    "date": "2026-08-02",
+    "cases": 2,
+    "passed": 2,
+    "pass_rate": 1.0,
+    "mean_steps": 3.0,
+    "results": [
+      {
+        "id": "single-item",
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "partition",
+          "map",
+          "reduce"
+        ],
+        "assert_failures": [],
+        "skipped_command_checks": 0
+      },
+      {
+        "id": "multi-item",
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "partition",
+          "map",
+          "reduce"
+        ],
+        "assert_failures": [],
+        "skipped_command_checks": 0
+      }
+    ]
+  }
+}

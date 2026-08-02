@@ -30,4 +30,4 @@ termination:
   max_steps: 30
   contract: violations emitted as machine-readable rules with counts
 verification:
-- assert: violations emitted as machine-readable rules with counts
+- assert: all(v.rule_id and v.count >= 0 for v in output.violations)

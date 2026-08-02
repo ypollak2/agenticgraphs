@@ -27,4 +27,4 @@ termination:
   max_steps: 8
   contract: stats recomputed from raw data reproduce claimed effect
 verification:
-- assert: stats recomputed from raw data reproduce claimed effect
+- assert: abs(output.recomputed_effect - output.claimed_effect) < 0.01

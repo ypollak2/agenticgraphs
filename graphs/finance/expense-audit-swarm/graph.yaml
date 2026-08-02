@@ -30,4 +30,4 @@ termination:
   max_steps: 30
   contract: violations carry line id and policy rule
 verification:
-- assert: violations carry line id and policy rule
+- assert: all(v.line_id and v.policy_rule for v in output.violations)

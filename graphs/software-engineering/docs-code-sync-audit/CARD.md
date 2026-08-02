@@ -30,9 +30,10 @@ Workers execute every doc example against the current API.
 Independent workers cover disjoint slices of the input at the same time. Because they cannot see each other's drafts, agreement is evidence and disagreement surfaces blind spots; the aggregator merges with explicit rules. Wall-clock time is roughly the slowest worker, not the sum.
 
 - **Exit contract** — all documented examples run exit zero
-- **Machine-checked** — `all documented examples run exit zero`
+- **Machine-checked** — `all(e.exit_code == 0 for e in output.examples)`
 - **Bounded** — hard stop after 30 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval docs-code-sync-audit` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/docs-code-sync-audit.md)
 
 ## How to work with it
 
@@ -40,6 +41,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 uv run agr show docs-code-sync-audit       # full definition
 uv run agr profile docs-code-sync-audit    # deterministic structural facts
 uv run agr mermaid docs-code-sync-audit    # regenerate the diagram below
+uv run agr eval docs-code-sync-audit       # run golden cases (add --live for your endpoint)
 uv run agr adapt docs-code-sync-audit --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize docs-code-sync-audit   # propose bounded structural improvements (dry-run)
 ```

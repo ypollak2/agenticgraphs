@@ -3,6 +3,10 @@ name: essay-feedback-critic
 description: Rubric-based feedback with evidence quotes from the essay.
 category: education
 nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
 - id: generate
   speciality: producer
   abilities:
@@ -13,6 +17,8 @@ nodes:
   - critique
   kind: verifier
 edges:
+- from: intake
+  to: generate
 - from: generate
   to: critique
 - from: critique
@@ -22,4 +28,4 @@ termination:
   max_steps: 10
   contract: every comment quotes essay text; rubric ids cited
 verification:
-- assert: every comment quotes essay text; rubric ids cited
+- assert: all(c.quote and c.rubric_id for c in output.comments)

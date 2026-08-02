@@ -36,4 +36,4 @@ termination:
   max_steps: 12
   contract: routing matches on-call ownership map
 verification:
-- assert: routing matches on-call ownership map
+- assert: output.matches_ownership_map

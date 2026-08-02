@@ -28,4 +28,4 @@ termination:
   max_steps: 25
   contract: repro test fails before patch and passes after
 verification:
-- assert: repro test fails before patch and passes after
+- assert: output.test_failed_before_patch and output.test_passes_after_patch

@@ -30,9 +30,10 @@ Check internal docs and processes against a policy set.
 Staged specialists each own one narrow concern, so quality problems are localized to the stage that produced them instead of being smeared across a single mega-prompt. Output only leaves the graph through the exit contract.
 
 - **Exit contract** — findings map to specific policy clause ids
-- **Machine-checked** — `findings map to specific policy clause ids`
+- **Machine-checked** — `all(f.clause_id for f in output.findings)`
 - **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval policy-compliance-check` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/policy-compliance-check.md)
 
 ## How to work with it
 
@@ -40,6 +41,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 uv run agr show policy-compliance-check       # full definition
 uv run agr profile policy-compliance-check    # deterministic structural facts
 uv run agr mermaid policy-compliance-check    # regenerate the diagram below
+uv run agr eval policy-compliance-check       # run golden cases (add --live for your endpoint)
 uv run agr adapt policy-compliance-check --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize policy-compliance-check   # propose bounded structural improvements (dry-run)
 ```

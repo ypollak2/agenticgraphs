@@ -29,9 +29,10 @@ Scan dependency licenses, reduce to obligations report.
 Work fans out over shards and the reduce step merges with explicit dedupe and conflict rules, so throughput scales with shard count while the output stays a single consistent artifact.
 
 - **Exit contract** — SPDX ids resolved; copyleft conflicts flagged
-- **Machine-checked** — `SPDX ids resolved; copyleft conflicts flagged`
+- **Machine-checked** — `all(p.spdx for p in output.packages) and not output.copyleft_conflicts`
 - **Bounded** — hard stop after 20 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval license-compliance-scan` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/license-compliance-scan.md)
 
 ## How to work with it
 
@@ -39,6 +40,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 uv run agr show license-compliance-scan       # full definition
 uv run agr profile license-compliance-scan    # deterministic structural facts
 uv run agr mermaid license-compliance-scan    # regenerate the diagram below
+uv run agr eval license-compliance-scan       # run golden cases (add --live for your endpoint)
 uv run agr adapt license-compliance-scan --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize license-compliance-scan   # propose bounded structural improvements (dry-run)
 ```

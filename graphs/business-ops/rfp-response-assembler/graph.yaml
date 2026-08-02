@@ -26,4 +26,4 @@ termination:
   max_steps: 20
   contract: every requirement answered or flagged; page limit met
 verification:
-- assert: every requirement answered or flagged; page limit met
+- assert: all(r.answered or r.flagged for r in output.requirements) and output.page_count <= output.page_limit

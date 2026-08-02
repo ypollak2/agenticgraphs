@@ -26,4 +26,4 @@ termination:
   max_steps: 20
   contract: SPDX ids resolved; copyleft conflicts flagged
 verification:
-- assert: SPDX ids resolved; copyleft conflicts flagged
+- assert: all(p.spdx for p in output.packages) and not output.copyleft_conflicts

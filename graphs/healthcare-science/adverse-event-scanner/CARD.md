@@ -29,9 +29,10 @@ Scan reports for adverse-event signals, reduce to summary.
 Work fans out over shards and the reduce step merges with explicit dedupe and conflict rules, so throughput scales with shard count while the output stays a single consistent artifact.
 
 - **Exit contract** — every signal cites report ids; counts reproducible
-- **Machine-checked** — `every signal cites report ids; counts reproducible`
+- **Machine-checked** — `all(s.report_ids and s.report_ids[s.count - 1:] and not s.report_ids[s.count:] for s in output.signals)`
 - **Bounded** — hard stop after 20 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval adverse-event-scanner` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/adverse-event-scanner.md)
 
 ## How to work with it
 
@@ -39,6 +40,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 uv run agr show adverse-event-scanner       # full definition
 uv run agr profile adverse-event-scanner    # deterministic structural facts
 uv run agr mermaid adverse-event-scanner    # regenerate the diagram below
+uv run agr eval adverse-event-scanner       # run golden cases (add --live for your endpoint)
 uv run agr adapt adverse-event-scanner --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize adverse-event-scanner   # propose bounded structural improvements (dry-run)
 ```

@@ -1,0 +1,15 @@
+cases:
+  - id: first-attempt-verified
+    node_outputs:
+      plan: {steps: ["decompose goal"]}
+      work: {}
+      verify: {verify_failed: false, attempts: 1, output: {'violations': [{'rule_id': 'null-check', 'count': 3}]}}
+  - id: retry-then-verified
+    node_outputs:
+      plan: {steps: ["decompose goal"]}
+      work:
+        - {}
+        - {}
+      verify:
+        - {verify_failed: true, attempts: 1}
+        - {verify_failed: false, attempts: 2, output: {'violations': [{'rule_id': 'null-check', 'count': 3}]}}

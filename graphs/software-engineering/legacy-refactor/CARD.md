@@ -30,9 +30,10 @@ Refactor a module behind characterization tests.
 Staged specialists each own one narrow concern, so quality problems are localized to the stage that produced them instead of being smeared across a single mega-prompt. Output only leaves the graph through the exit contract.
 
 - **Exit contract** — behavior snapshot tests unchanged before and after
-- **Machine-checked** — `behavior snapshot tests unchanged before and after`
+- **Machine-checked** — `output.snapshot_before == output.snapshot_after`
 - **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval legacy-refactor` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/legacy-refactor.md)
 
 ## How to work with it
 
@@ -40,6 +41,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 uv run agr show legacy-refactor       # full definition
 uv run agr profile legacy-refactor    # deterministic structural facts
 uv run agr mermaid legacy-refactor    # regenerate the diagram below
+uv run agr eval legacy-refactor       # run golden cases (add --live for your endpoint)
 uv run agr adapt legacy-refactor --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize legacy-refactor   # propose bounded structural improvements (dry-run)
 ```
