@@ -35,6 +35,7 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
+    <li><a href="#%EF%B8%8F-the-graph-of-graphs">The Graph of Graphs</a></li>
     <li><a href="#-getting-started">Getting Started</a></li>
     <li><a href="#-usage">Usage</a>
       <ul>
@@ -120,6 +121,56 @@ it lacks the abilities for.
 [![pytest][pytest-badge]][pytest-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- graph-of-graphs:begin -->
+## 🗺️ The graph of graphs
+
+Every shipped graph is one of eight verified patterns. Full per-graph cards (diagram, contract, node roster, use-cases) live in [CARDS.md](CARDS.md).
+
+```mermaid
+flowchart TD
+    ROOT(("🕸️ agenticgraphs<br/>52 graphs · 15 domains"))
+    ROOT --> P0[/"pipeline ×14"/]
+    P0 --> E0["e.g. code-review-pipeline"]
+    ROOT --> P1[/"map-reduce ×9"/]
+    P1 --> E1["e.g. release-notes-generation"]
+    ROOT --> P2[/"router ×8"/]
+    P2 --> E2["e.g. incident-triage-router"]
+    ROOT --> P3[/"parallel-swarm ×8"/]
+    P3 --> E3["e.g. docs-code-sync-audit"]
+    ROOT --> P4[/"generator-critic ×5"/]
+    P4 --> E4["e.g. test-suite-generation"]
+    ROOT --> P5[/"planner-executor-verifier ×4"/]
+    P5 --> E5["e.g. bug-triage-and-fix"]
+    ROOT --> P6[/"loop ×3"/]
+    P6 --> E6["e.g. performance-optimization"]
+    ROOT --> P7[/"debate ×1"/]
+    P7 --> E7["e.g. ab-test-analysis"]
+```
+
+<details><summary>Distribution by domain</summary>
+
+```mermaid
+pie showData title Graphs per domain
+    "software-engineering" : 8
+    "devops-sre" : 6
+    "data-analytics" : 5
+    "research-knowledge" : 5
+    "security" : 4
+    "business-ops" : 3
+    "content-marketing" : 3
+    "customer-support-sales" : 3
+    "education" : 3
+    "finance" : 3
+    "healthcare-science" : 3
+    "legal-compliance" : 3
+    "creative-production" : 1
+    "hr-people" : 1
+    "logistics-retail" : 1
+```
+
+</details>
+<!-- graph-of-graphs:end -->
 
 ## 🚀 Getting Started
 

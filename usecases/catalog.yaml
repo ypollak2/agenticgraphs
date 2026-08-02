@@ -673,3 +673,15 @@ entries:
   pattern: map-reduce
   summary: Tag tracks with genre, mood, and rights metadata.
   verification: tags validate against controlled vocabulary
+- id: uc-113
+  name: cost-routed-research
+  domain: research-knowledge
+  pattern: router
+  summary: Routes research subtasks to the cheapest capable model, escalates low-confidence answers, synthesizes with citations.
+  verification: every claim in the synthesis cites at least one source
+- id: uc-114
+  name: verifier-swarm
+  domain: devops-sre
+  pattern: parallel-swarm
+  summary: Independent verifiers check an artifact in parallel; disagreement blocks release.
+  verification: release verdict requires unanimous verifier pass
