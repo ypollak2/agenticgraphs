@@ -1,5 +1,8 @@
 [project]
-name = "agenticgraphs"
+# PyPI distribution name. The import package, CLI, and repo stay `agenticgraphs`;
+# PyPI rejects that name as too similar to the unrelated `agentic-graphs` project
+# (its similarity check strips separators), so the wheel ships under this name.
+name = "vitruvian-graphs"
 version = "0.1.1"
 description = "A library of evolvable, quality-proven agentic graphs — for frameworks, developers, and agents themselves."
 readme = "README.md"

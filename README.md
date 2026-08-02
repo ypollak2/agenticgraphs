@@ -247,6 +247,19 @@ pie showData title Graphs per domain
 
 ### Installation
 
+**Use it** — the registry ships inside the package, so there's nothing to clone:
+
+```sh
+uvx --from "vitruvian-graphs[mcp]" agr list     # 52 graphs, zero setup
+pip install "vitruvian-graphs[mcp]"             # or install it properly
+```
+
+> Installed as **`vitruvian-graphs`**, imported as **`agenticgraphs`** — PyPI rejects the
+> latter as too similar to an unrelated `agentic-graphs` project. The `agr` CLI, the import
+> name, and every command in this README are unaffected.
+
+**Hack on it** — clone for the full repo (tests, scripts, generated docs):
+
 1. Clone the repo
    ```sh
    git clone https://github.com/ypollak2/agenticgraphs.git && cd agenticgraphs
