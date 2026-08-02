@@ -1,0 +1,14 @@
+name: gate
+on:
+  push: {branches: [main]}
+  pull_request:
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync
+      - run: uv run agr validate
+      - run: uv run python scripts/audit_usecases.py
+      - run: uv run pytest -q

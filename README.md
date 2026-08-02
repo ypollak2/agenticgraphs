@@ -154,7 +154,14 @@ it lacks the abilities for.
 uv run agr list                # browse all 52 graphs
 uv run agr search triage      # find graphs by keyword
 uv run agr validate           # full registry: JSON Schema + MAST structural lint
+uv run agr show verifier-swarm       # full graph definition
+uv run agr mermaid cost-routed-research   # ready-to-paste mermaid diagram
+uv run agr profile verifier-swarm    # structural profile (deterministic facts, not perf)
 ```
+
+`agr profile` reports topology, loop-boundedness, verification-assert count, and the graph's
+**risk surface** (highest ability risk it can exercise: `read` < `write` < `execute`). Its
+`measured` field stays `null` until the M1 eval harness earns real numbers — no fake metrics.
 
 Every number in this README is checkable:
 
@@ -268,7 +275,7 @@ Project Link: [https://github.com/yalipollak/agenticgraphs][repo-url]
 [domains-shield]: https://img.shields.io/badge/domains-15-2ea44f?style=for-the-badge
 [patterns-shield]: https://img.shields.io/badge/patterns-8-2ea44f?style=for-the-badge
 [patterns-url]: #the-eight-patterns
-[tests-shield]: https://img.shields.io/badge/tests-8%2F8-blue?style=for-the-badge
+[tests-shield]: https://img.shields.io/badge/tests-12%2F12-blue?style=for-the-badge
 [tests-url]: tests/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
 [license-url]: LICENSE
