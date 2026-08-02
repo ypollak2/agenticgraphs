@@ -273,12 +273,39 @@ uv run agr eval verifier-swarm       # M1: run golden cases, write profile.json
 uv run agr infuse code-review-pipeline style-review classify_risk   # M2: gate-checked mutation
 uv run agr optimize verifier-swarm --apply   # M2: measurement-driven structural optimizer
 uv run agr adapt cost-routed-research        # M3: compile to runnable LangGraph source
+uv run agr adapt cost-routed-research --target crewai    # M3: compile to CrewAI source
+uv run agr adapt cost-routed-research --target autogen   # M3: compile to AutoGen source
+uv run agr compose incident-triage-router ticket-triage-swarm   # M4: sequentially chain two graphs
 uv run agr mcp                       # M3: serve the registry to agents over MCP stdio
 ```
 
 `agr profile` reports topology, loop-boundedness, verification-assert count, and the graph's
 **risk surface** (highest ability risk it can exercise: `read` < `write` < `execute`). Its
 `measured` field stays `null` until the M1 eval harness earns real numbers — no fake metrics.
+
+### Compose
+
+`agr compose <graph-a> <graph-b>` bolts B onto the end of A: A's terminal node(s) get an
+unconditional edge into B's entry node(s), colliding node ids are namespaced (`a-`/`b-`,
+only where they actually collide), and the two termination contracts + verification blocks
+are merged. Before wiring anything, it checks that B's entry-level `when` conditions don't
+need blackboard keys A never produces (inferred from A's own edge vocabulary and assert
+strings) — a mismatch fails closed with the missing keys named, unless you pass
+`--allow-gaps` to proceed with a warning. The output always re-validates against the schema
+and the MAST lint before it's printed, so a composed graph is exactly as trustworthy as a
+hand-written one. Use `-o out.yaml` to write the result instead of printing it, and `--name`
+to override the default `<a>-then-<b>` name.
+
+### Adapters
+
+`agr adapt <graph> --target {langgraph,crewai,autogen}` compiles a graph to runnable-shaped
+source for a specific framework (`langgraph` is the default). CrewAI nodes become `Agent`s
+(speciality → role, abilities → a tools TODO) and edges become sequential `Task`s, with the
+termination contract as the terminal task's `expected_output`. AutoGen nodes become
+`AssistantAgent`/`ConversableAgent`s in a `GroupChat`, with router `when` conditions compiled
+into a `_select_speaker` function and the termination contract wired into
+`is_termination_msg`. Both targets are generated code, not runtime dependencies — no crewai
+or autogen package is required to run `agr adapt` itself, only to run what it emits.
 
 Every number in this README is checkable:
 
@@ -333,6 +360,9 @@ enforced by an executable audit wired into pytest.
       measurement-driven `max_steps` tightening). AFlow-style MCTS search remains open.
 - [x] **M3** — LangGraph adapter (`agr adapt`: self-contained codegen, no runtime dependency)
       + MCP server (`agr mcp`): `search_graphs / get_graph / instantiate / infuse_ability`.
+- [x] **M4** — `agr adapt --target {crewai,autogen}` (two more self-contained codegen
+      targets) and `agr compose` (sequentially chain two graphs, with a heuristic
+      contract-compatibility check and `--allow-gaps` escape hatch).
 
 Three graphs are handcrafted with domain specialities (`code-review-pipeline`,
 `verifier-swarm`, `cost-routed-research`); the other 49 are pattern-template instantiations
@@ -399,7 +429,7 @@ Project Link: [https://github.com/ypollak2/agenticgraphs][repo-url]
 [domains-shield]: https://img.shields.io/badge/domains-15-2ea44f?style=for-the-badge
 [patterns-shield]: https://img.shields.io/badge/patterns-8-2ea44f?style=for-the-badge
 [patterns-url]: #the-eight-patterns
-[tests-shield]: https://img.shields.io/badge/tests-27%2F27-blue?style=for-the-badge
+[tests-shield]: https://img.shields.io/badge/tests-36%2F36-blue?style=for-the-badge
 [tests-url]: tests/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
 [license-url]: LICENSE
