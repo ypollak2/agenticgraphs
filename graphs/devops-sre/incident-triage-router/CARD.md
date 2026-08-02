@@ -32,9 +32,10 @@ Classify severity and route incidents to the owning team.
 A cheap classifier sends every item down the narrowest branch that can handle it, so cost and latency scale with the difficulty of each item rather than the worst case. Escalation edges guarantee hard items still reach the strong path.
 
 - **Exit contract** — routing matches on-call ownership map
-- **Machine-checked** — `routing matches on-call ownership map`
+- **Machine-checked** — `output.matches_ownership_map`
 - **Bounded** — hard stop after 12 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval incident-triage-router` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/incident-triage-router.md)
 
 ## How to work with it
 
@@ -42,6 +43,7 @@ A cheap classifier sends every item down the narrowest branch that can handle it
 uv run agr show incident-triage-router       # full definition
 uv run agr profile incident-triage-router    # deterministic structural facts
 uv run agr mermaid incident-triage-router    # regenerate the diagram below
+uv run agr eval incident-triage-router       # run golden cases (add --live for your endpoint)
 uv run agr adapt incident-triage-router --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize incident-triage-router   # propose bounded structural improvements (dry-run)
 ```

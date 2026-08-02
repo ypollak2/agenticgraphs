@@ -29,9 +29,10 @@ Two analysts argue significance and pitfalls, judge writes readout.
 Adversarial positions force every claim to survive counter-argument before a judge selects with cited evidence — a structural antidote to sycophancy and single-model anchoring.
 
 - **Exit contract** — stats recomputed from raw data reproduce claimed effect
-- **Machine-checked** — `stats recomputed from raw data reproduce claimed effect`
+- **Machine-checked** — `abs(output.recomputed_effect - output.claimed_effect) < 0.01`
 - **Bounded** — hard stop after 8 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval ab-test-analysis` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/ab-test-analysis.md)
 
 ## How to work with it
 
@@ -39,6 +40,7 @@ Adversarial positions force every claim to survive counter-argument before a jud
 uv run agr show ab-test-analysis       # full definition
 uv run agr profile ab-test-analysis    # deterministic structural facts
 uv run agr mermaid ab-test-analysis    # regenerate the diagram below
+uv run agr eval ab-test-analysis       # run golden cases (add --live for your endpoint)
 uv run agr adapt ab-test-analysis --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize ab-test-analysis   # propose bounded structural improvements (dry-run)
 ```

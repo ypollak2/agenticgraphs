@@ -5,16 +5,18 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-018` | data-analytics | **generator-critic** | 2 | 2 | 1 | 0 | 10 | write |
+| `AGR-018` | data-analytics | **generator-critic** | 3 | 3 | 1 | 0 | 10 | write |
 
 ## The graph
 
 ```mermaid
 flowchart LR
-    N0["generate<br/><i>producer</i>"]
-    N1{{"critique<br/><i>critic</i>"}}
+    N0["intake<br/><i>analyst</i>"]
+    N1["generate<br/><i>producer</i>"]
+    N2{{"critique<br/><i>critic</i>"}}
     N0 --> N1
-    N1 -->|rejected and attempts < 3| N0
+    N1 --> N2
+    N2 -->|rejected and attempts < 3| N1
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -28,9 +30,10 @@ Generate SQL, critic checks schema validity and row sanity.
 The generator optimizes for recall, the critic for precision. Nothing is accepted until the critic signs off, which filters out trivial, tautological, or hallucinated output before it ever reaches you.
 
 - **Exit contract** — query executes; result passes row-count sanity assertions
-- **Machine-checked** — `query executes; result passes row-count sanity assertions`
+- **Machine-checked** — `output.query_executes and output.row_count_sane`
 - **Bounded** — hard stop after 10 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval sql-generation-verified` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/sql-generation-verified.md)
 
 ## How to work with it
 
@@ -38,6 +41,7 @@ The generator optimizes for recall, the critic for precision. Nothing is accepte
 uv run agr show sql-generation-verified       # full definition
 uv run agr profile sql-generation-verified    # deterministic structural facts
 uv run agr mermaid sql-generation-verified    # regenerate the diagram below
+uv run agr eval sql-generation-verified       # run golden cases (add --live for your endpoint)
 uv run agr adapt sql-generation-verified --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize sql-generation-verified   # propose bounded structural improvements (dry-run)
 ```
@@ -49,6 +53,7 @@ To evolve it: `uv run agr infuse sql-generation-verified <node> <ability>` — e
 
 | Node | Speciality | Kind | Abilities |
 |---|---|---|---|
+| `intake` | analyst | agent | analyze |
 | `generate` | producer | agent | generate |
 | `critique` | critic | verifier | critique |
 
@@ -56,6 +61,7 @@ To evolve it: `uv run agr infuse sql-generation-verified <node> <ability>` — e
 
 | From | To | Condition |
 |---|---|---|
+| `intake` | `generate` | always |
 | `generate` | `critique` | always |
 | `critique` | `generate` | rejected and attempts < 3 |
 

@@ -32,9 +32,10 @@ Classify reported emails, route confirmed phish to response.
 A cheap classifier sends every item down the narrowest branch that can handle it, so cost and latency scale with the difficulty of each item rather than the worst case. Escalation edges guarantee hard items still reach the strong path.
 
 - **Exit contract** — verdicts benchmarked against labeled corpus
-- **Machine-checked** — `verdicts benchmarked against labeled corpus`
+- **Machine-checked** — `output.matches_labeled_corpus`
 - **Bounded** — hard stop after 12 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval phishing-triage` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/phishing-triage.md)
 
 ## How to work with it
 
@@ -42,6 +43,7 @@ A cheap classifier sends every item down the narrowest branch that can handle it
 uv run agr show phishing-triage       # full definition
 uv run agr profile phishing-triage    # deterministic structural facts
 uv run agr mermaid phishing-triage    # regenerate the diagram below
+uv run agr eval phishing-triage       # run golden cases (add --live for your endpoint)
 uv run agr adapt phishing-triage --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize phishing-triage   # propose bounded structural improvements (dry-run)
 ```

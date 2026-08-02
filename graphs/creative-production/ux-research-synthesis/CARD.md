@@ -29,9 +29,10 @@ Code interview transcripts, reduce to themed insights.
 Work fans out over shards and the reduce step merges with explicit dedupe and conflict rules, so throughput scales with shard count while the output stays a single consistent artifact.
 
 - **Exit contract** — every insight cites at least two participants
-- **Machine-checked** — `every insight cites at least two participants`
+- **Machine-checked** — `all(i.participant_ids[1:] for i in output.insights)`
 - **Bounded** — hard stop after 20 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval ux-research-synthesis` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/ux-research-synthesis.md)
 
 ## How to work with it
 
@@ -39,6 +40,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 uv run agr show ux-research-synthesis       # full definition
 uv run agr profile ux-research-synthesis    # deterministic structural facts
 uv run agr mermaid ux-research-synthesis    # regenerate the diagram below
+uv run agr eval ux-research-synthesis       # run golden cases (add --live for your endpoint)
 uv run agr adapt ux-research-synthesis --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize ux-research-synthesis   # propose bounded structural improvements (dry-run)
 ```

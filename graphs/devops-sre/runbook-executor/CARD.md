@@ -30,9 +30,10 @@ Execute a runbook step-wise with post-condition checks.
 The plan makes intent inspectable before anything touches the world, the executor works inside that plan, and the verifier proves the postcondition actually holds — success is demonstrated, not asserted.
 
 - **Exit contract** — each step post-condition command exits zero
-- **Machine-checked** — `each step post-condition command exits zero`
+- **Machine-checked** — `all(s.exit_code == 0 for s in output.steps)`
 - **Bounded** — hard stop after 25 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval runbook-executor` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/runbook-executor.md)
 
 ## How to work with it
 
@@ -40,6 +41,7 @@ The plan makes intent inspectable before anything touches the world, the executo
 uv run agr show runbook-executor       # full definition
 uv run agr profile runbook-executor    # deterministic structural facts
 uv run agr mermaid runbook-executor    # regenerate the diagram below
+uv run agr eval runbook-executor       # run golden cases (add --live for your endpoint)
 uv run agr adapt runbook-executor --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize runbook-executor   # propose bounded structural improvements (dry-run)
 ```

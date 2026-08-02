@@ -5,16 +5,18 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-008` | software-engineering | **loop** | 2 | 2 | 1 | 0 | 15 | write |
+| `AGR-008` | software-engineering | **loop** | 3 | 3 | 1 | 0 | 15 | write |
 
 ## The graph
 
 ```mermaid
 flowchart LR
-    N0["attempt<br/><i>producer</i>"]
-    N1{{"measure<br/><i>evaluator</i>"}}
+    N0["intake<br/><i>analyst</i>"]
+    N1["attempt<br/><i>producer</i>"]
+    N2{{"measure<br/><i>evaluator</i>"}}
     N0 --> N1
-    N1 -->|below_target and attempts < 5| N0
+    N1 --> N2
+    N2 -->|below_target and attempts < 5| N1
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -28,9 +30,10 @@ Profile, patch hotspot, re-benchmark until budget met.
 A bounded improve-and-measure cycle: each iteration must beat the last measured score or the loop exits. `max_steps` is a hard cap, so the graph can refine but never wander.
 
 - **Exit contract** — benchmark under target with no test regressions
-- **Machine-checked** — `benchmark under target with no test regressions`
+- **Machine-checked** — `output.benchmark_ms <= output.target_ms and not output.test_regressions`
 - **Bounded** — hard stop after 15 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval performance-optimization` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/performance-optimization.md)
 
 ## How to work with it
 
@@ -38,6 +41,7 @@ A bounded improve-and-measure cycle: each iteration must beat the last measured 
 uv run agr show performance-optimization       # full definition
 uv run agr profile performance-optimization    # deterministic structural facts
 uv run agr mermaid performance-optimization    # regenerate the diagram below
+uv run agr eval performance-optimization       # run golden cases (add --live for your endpoint)
 uv run agr adapt performance-optimization --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize performance-optimization   # propose bounded structural improvements (dry-run)
 ```
@@ -49,6 +53,7 @@ To evolve it: `uv run agr infuse performance-optimization <node> <ability>` — 
 
 | Node | Speciality | Kind | Abilities |
 |---|---|---|---|
+| `intake` | analyst | agent | analyze |
 | `attempt` | producer | agent | generate |
 | `measure` | evaluator | verifier | evaluate |
 
@@ -56,6 +61,7 @@ To evolve it: `uv run agr infuse performance-optimization <node> <ability>` — 
 
 | From | To | Condition |
 |---|---|---|
+| `intake` | `attempt` | always |
 | `attempt` | `measure` | always |
 | `measure` | `attempt` | below_target and attempts < 5 |
 

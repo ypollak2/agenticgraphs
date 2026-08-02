@@ -32,9 +32,10 @@ Route metric anomalies to seasonal, data-bug, or real-change analysts.
 A cheap classifier sends every item down the narrowest branch that can handle it, so cost and latency scale with the difficulty of each item rather than the worst case. Escalation edges guarantee hard items still reach the strong path.
 
 - **Exit contract** — classification agrees with holdout labels
-- **Machine-checked** — `classification agrees with holdout labels`
+- **Machine-checked** — `output.matches_holdout`
 - **Bounded** — hard stop after 12 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval anomaly-investigation` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/anomaly-investigation.md)
 
 ## How to work with it
 
@@ -42,6 +43,7 @@ A cheap classifier sends every item down the narrowest branch that can handle it
 uv run agr show anomaly-investigation       # full definition
 uv run agr profile anomaly-investigation    # deterministic structural facts
 uv run agr mermaid anomaly-investigation    # regenerate the diagram below
+uv run agr eval anomaly-investigation       # run golden cases (add --live for your endpoint)
 uv run agr adapt anomaly-investigation --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize anomaly-investigation   # propose bounded structural improvements (dry-run)
 ```

@@ -30,9 +30,10 @@ Transcript to guidance changes, surprises, and QA highlights.
 Staged specialists each own one narrow concern, so quality problems are localized to the stage that produced them instead of being smeared across a single mega-prompt. Output only leaves the graph through the exit contract.
 
 - **Exit contract** — every figure matches transcript; no invented numbers
-- **Machine-checked** — `every figure matches transcript; no invented numbers`
+- **Machine-checked** — `all(f.matches_transcript for f in output.figures) and not output.invented_numbers`
 - **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval earnings-call-digest` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/earnings-call-digest.md)
 
 ## How to work with it
 
@@ -40,6 +41,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 uv run agr show earnings-call-digest       # full definition
 uv run agr profile earnings-call-digest    # deterministic structural facts
 uv run agr mermaid earnings-call-digest    # regenerate the diagram below
+uv run agr eval earnings-call-digest       # run golden cases (add --live for your endpoint)
 uv run agr adapt earnings-call-digest --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize earnings-call-digest   # propose bounded structural improvements (dry-run)
 ```

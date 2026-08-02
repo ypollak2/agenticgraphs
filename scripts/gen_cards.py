@@ -110,6 +110,8 @@ def gen_card(doc: dict, entry: dict, catalog: list[dict], has_evals: bool) -> st
     if has_evals:
         lines.append(f"- **Golden cases** — `uv run agr eval {name}` replays recorded cases "
                      "through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)")
+        lines.append(f"- **Trace gallery** — [every case's route, node outputs, and checked asserts]"
+                     f"(../../../docs/traces/{name}.md)")
     else:
         lines.append("- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the "
                      "next step for this card (see `evals/` for the format)")

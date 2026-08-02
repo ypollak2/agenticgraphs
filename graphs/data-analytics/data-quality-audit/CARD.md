@@ -30,9 +30,10 @@ Workers profile each table for nulls, drift, and duplicates.
 Independent workers cover disjoint slices of the input at the same time. Because they cannot see each other's drafts, agreement is evidence and disagreement surfaces blind spots; the aggregator merges with explicit rules. Wall-clock time is roughly the slowest worker, not the sum.
 
 - **Exit contract** — violations emitted as machine-readable rules with counts
-- **Machine-checked** — `violations emitted as machine-readable rules with counts`
+- **Machine-checked** — `all(v.rule_id and v.count >= 0 for v in output.violations)`
 - **Bounded** — hard stop after 30 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval data-quality-audit` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/data-quality-audit.md)
 
 ## How to work with it
 
@@ -40,6 +41,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 uv run agr show data-quality-audit       # full definition
 uv run agr profile data-quality-audit    # deterministic structural facts
 uv run agr mermaid data-quality-audit    # regenerate the diagram below
+uv run agr eval data-quality-audit       # run golden cases (add --live for your endpoint)
 uv run agr adapt data-quality-audit --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize data-quality-audit   # propose bounded structural improvements (dry-run)
 ```

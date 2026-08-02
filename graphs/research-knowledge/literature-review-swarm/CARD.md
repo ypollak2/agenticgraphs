@@ -30,9 +30,10 @@ Parallel readers summarize papers, merger builds themed review.
 Independent workers cover disjoint slices of the input at the same time. Because they cannot see each other's drafts, agreement is evidence and disagreement surfaces blind spots; the aggregator merges with explicit rules. Wall-clock time is roughly the slowest worker, not the sum.
 
 - **Exit contract** — every claim cites a specific paper and section
-- **Machine-checked** — `every claim cites a specific paper and section`
+- **Machine-checked** — `all(c.paper and c.section for c in output.claims)`
 - **Bounded** — hard stop after 30 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval literature-review-swarm` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/literature-review-swarm.md)
 
 ## How to work with it
 
@@ -40,6 +41,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 uv run agr show literature-review-swarm       # full definition
 uv run agr profile literature-review-swarm    # deterministic structural facts
 uv run agr mermaid literature-review-swarm    # regenerate the diagram below
+uv run agr eval literature-review-swarm       # run golden cases (add --live for your endpoint)
 uv run agr adapt literature-review-swarm --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize literature-review-swarm   # propose bounded structural improvements (dry-run)
 ```

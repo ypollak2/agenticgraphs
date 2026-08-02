@@ -32,9 +32,10 @@ Route documents by privilege, relevance, and confidentiality.
 A cheap classifier sends every item down the narrowest branch that can handle it, so cost and latency scale with the difficulty of each item rather than the worst case. Escalation edges guarantee hard items still reach the strong path.
 
 - **Exit contract** — recall on seeded relevant set above threshold
-- **Machine-checked** — `recall on seeded relevant set above threshold`
+- **Machine-checked** — `output.recall >= output.threshold`
 - **Bounded** — hard stop after 12 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval ediscovery-triage` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/ediscovery-triage.md)
 
 ## How to work with it
 
@@ -42,6 +43,7 @@ A cheap classifier sends every item down the narrowest branch that can handle it
 uv run agr show ediscovery-triage       # full definition
 uv run agr profile ediscovery-triage    # deterministic structural facts
 uv run agr mermaid ediscovery-triage    # regenerate the diagram below
+uv run agr eval ediscovery-triage       # run golden cases (add --live for your endpoint)
 uv run agr adapt ediscovery-triage --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize ediscovery-triage   # propose bounded structural improvements (dry-run)
 ```

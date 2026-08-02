@@ -32,9 +32,10 @@ Classify and route tickets with priority and sentiment.
 A cheap classifier sends every item down the narrowest branch that can handle it, so cost and latency scale with the difficulty of each item rather than the worst case. Escalation edges guarantee hard items still reach the strong path.
 
 - **Exit contract** — routing accuracy measured on labeled backlog
-- **Machine-checked** — `routing accuracy measured on labeled backlog`
+- **Machine-checked** — `output.routing_correct`
 - **Bounded** — hard stop after 12 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval ticket-triage-swarm` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/ticket-triage-swarm.md)
 
 ## How to work with it
 
@@ -42,6 +43,7 @@ A cheap classifier sends every item down the narrowest branch that can handle it
 uv run agr show ticket-triage-swarm       # full definition
 uv run agr profile ticket-triage-swarm    # deterministic structural facts
 uv run agr mermaid ticket-triage-swarm    # regenerate the diagram below
+uv run agr eval ticket-triage-swarm       # run golden cases (add --live for your endpoint)
 uv run agr adapt ticket-triage-swarm --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize ticket-triage-swarm   # propose bounded structural improvements (dry-run)
 ```

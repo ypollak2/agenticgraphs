@@ -32,9 +32,10 @@ Route new papers by study type and evidence level.
 A cheap classifier sends every item down the narrowest branch that can handle it, so cost and latency scale with the difficulty of each item rather than the worst case. Escalation edges guarantee hard items still reach the strong path.
 
 - **Exit contract** — labels match a validated sample set
-- **Machine-checked** — `labels match a validated sample set`
+- **Machine-checked** — `output.matches_validated_set`
 - **Bounded** — hard stop after 12 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval clinical-literature-triage` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/clinical-literature-triage.md)
 
 ## How to work with it
 
@@ -42,6 +43,7 @@ A cheap classifier sends every item down the narrowest branch that can handle it
 uv run agr show clinical-literature-triage       # full definition
 uv run agr profile clinical-literature-triage    # deterministic structural facts
 uv run agr mermaid clinical-literature-triage    # regenerate the diagram below
+uv run agr eval clinical-literature-triage       # run golden cases (add --live for your endpoint)
 uv run agr adapt clinical-literature-triage --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize clinical-literature-triage   # propose bounded structural improvements (dry-run)
 ```

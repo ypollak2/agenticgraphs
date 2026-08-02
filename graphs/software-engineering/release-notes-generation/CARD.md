@@ -29,9 +29,10 @@ Summarize merged PRs per area, reduce into release notes.
 Work fans out over shards and the reduce step merges with explicit dedupe and conflict rules, so throughput scales with shard count while the output stays a single consistent artifact.
 
 - **Exit contract** — every note links a merged PR; no orphan claims
-- **Machine-checked** — `every note links a merged PR; no orphan claims`
+- **Machine-checked** — `all(n.pr_url for n in output.notes) and not output.orphan_claims`
 - **Bounded** — hard stop after 20 steps; the topology is acyclic
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval release-notes-generation` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/release-notes-generation.md)
 
 ## How to work with it
 
@@ -39,6 +40,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 uv run agr show release-notes-generation       # full definition
 uv run agr profile release-notes-generation    # deterministic structural facts
 uv run agr mermaid release-notes-generation    # regenerate the diagram below
+uv run agr eval release-notes-generation       # run golden cases (add --live for your endpoint)
 uv run agr adapt release-notes-generation --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize release-notes-generation   # propose bounded structural improvements (dry-run)
 ```

@@ -30,9 +30,10 @@ Compress long threads into handoff briefs with state.
 Staged specialists each own one narrow concern, so quality problems are localized to the stage that produced them instead of being smeared across a single mega-prompt. Output only leaves the graph through the exit contract.
 
 - **Exit contract** — brief covers all unresolved asks; quotes traceable
-- **Machine-checked** — `brief covers all unresolved asks; quotes traceable`
+- **Machine-checked** — `output.all_asks_covered and all(a.quote for a in output.asks)`
 - **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval escalation-summarizer` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/escalation-summarizer.md)
 
 ## How to work with it
 
@@ -40,6 +41,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 uv run agr show escalation-summarizer       # full definition
 uv run agr profile escalation-summarizer    # deterministic structural facts
 uv run agr mermaid escalation-summarizer    # regenerate the diagram below
+uv run agr eval escalation-summarizer       # run golden cases (add --live for your endpoint)
 uv run agr adapt escalation-summarizer --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize escalation-summarizer   # propose bounded structural improvements (dry-run)
 ```

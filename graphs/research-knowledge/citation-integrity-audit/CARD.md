@@ -30,9 +30,10 @@ Workers verify each citation exists and supports its claim.
 Independent workers cover disjoint slices of the input at the same time. Because they cannot see each other's drafts, agreement is evidence and disagreement surfaces blind spots; the aggregator merges with explicit rules. Wall-clock time is roughly the slowest worker, not the sum.
 
 - **Exit contract** — every citation resolves; mismatches listed
-- **Machine-checked** — `every citation resolves; mismatches listed`
+- **Machine-checked** — `all(c.resolves for c in output.citations)`
 - **Bounded** — hard stop after 30 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval citation-integrity-audit` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/citation-integrity-audit.md)
 
 ## How to work with it
 
@@ -40,6 +41,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 uv run agr show citation-integrity-audit       # full definition
 uv run agr profile citation-integrity-audit    # deterministic structural facts
 uv run agr mermaid citation-integrity-audit    # regenerate the diagram below
+uv run agr eval citation-integrity-audit       # run golden cases (add --live for your endpoint)
 uv run agr adapt citation-integrity-audit --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize citation-integrity-audit   # propose bounded structural improvements (dry-run)
 ```

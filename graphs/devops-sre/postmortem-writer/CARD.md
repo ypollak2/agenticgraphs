@@ -30,9 +30,10 @@ Assemble timeline from logs and chat, draft blameless postmortem.
 Staged specialists each own one narrow concern, so quality problems are localized to the stage that produced them instead of being smeared across a single mega-prompt. Output only leaves the graph through the exit contract.
 
 - **Exit contract** — every timeline event cites a log or message id
-- **Machine-checked** — `every timeline event cites a log or message id`
+- **Machine-checked** — `all(e.get('log_id') or e.get('message_id') for e in output.timeline)`
 - **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval postmortem-writer` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/postmortem-writer.md)
 
 ## How to work with it
 
@@ -40,6 +41,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 uv run agr show postmortem-writer       # full definition
 uv run agr profile postmortem-writer    # deterministic structural facts
 uv run agr mermaid postmortem-writer    # regenerate the diagram below
+uv run agr eval postmortem-writer       # run golden cases (add --live for your endpoint)
 uv run agr adapt postmortem-writer --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize postmortem-writer   # propose bounded structural improvements (dry-run)
 ```

@@ -30,9 +30,10 @@ Design and build an ETL job from source to warehouse.
 The plan makes intent inspectable before anything touches the world, the executor works inside that plan, and the verifier proves the postcondition actually holds — success is demonstrated, not asserted.
 
 - **Exit contract** — end-to-end run loads expected row counts
-- **Machine-checked** — `end-to-end run loads expected row counts`
+- **Machine-checked** — `output.actual_rows == output.expected_rows`
 - **Bounded** — hard stop after 25 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval etl-pipeline-builder` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/etl-pipeline-builder.md)
 
 ## How to work with it
 
@@ -40,6 +41,7 @@ The plan makes intent inspectable before anything touches the world, the executo
 uv run agr show etl-pipeline-builder       # full definition
 uv run agr profile etl-pipeline-builder    # deterministic structural facts
 uv run agr mermaid etl-pipeline-builder    # regenerate the diagram below
+uv run agr eval etl-pipeline-builder       # run golden cases (add --live for your endpoint)
 uv run agr adapt etl-pipeline-builder --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize etl-pipeline-builder   # propose bounded structural improvements (dry-run)
 ```

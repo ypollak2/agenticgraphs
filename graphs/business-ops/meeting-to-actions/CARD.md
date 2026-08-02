@@ -30,9 +30,10 @@ Transcript to decisions, owners, deadlines, and follow-ups.
 Staged specialists each own one narrow concern, so quality problems are localized to the stage that produced them instead of being smeared across a single mega-prompt. Output only leaves the graph through the exit contract.
 
 - **Exit contract** — each action has owner and date; quotes traceable
-- **Machine-checked** — `each action has owner and date; quotes traceable`
+- **Machine-checked** — `all(a.owner and a.date and a.quote for a in output.actions)`
 - **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
-- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the next step for this card (see `evals/` for the format)
+- **Golden cases** — `uv run agr eval meeting-to-actions` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/meeting-to-actions.md)
 
 ## How to work with it
 
@@ -40,6 +41,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 uv run agr show meeting-to-actions       # full definition
 uv run agr profile meeting-to-actions    # deterministic structural facts
 uv run agr mermaid meeting-to-actions    # regenerate the diagram below
+uv run agr eval meeting-to-actions       # run golden cases (add --live for your endpoint)
 uv run agr adapt meeting-to-actions --target langgraph > app.py   # compile to runnable LangGraph
 uv run agr optimize meeting-to-actions   # propose bounded structural improvements (dry-run)
 ```
