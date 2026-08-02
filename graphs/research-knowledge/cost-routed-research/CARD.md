@@ -36,6 +36,7 @@ A cheap classifier sends every item down the narrowest branch that can handle it
 - **Machine-checked** — `all(c.sources for c in output.claims)`
 - **Bounded** — hard stop after 20 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval cost-routed-research` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
+- **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/cost-routed-research.md)
 
 ## How to work with it
 
