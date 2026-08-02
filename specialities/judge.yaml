@@ -1,0 +1,4 @@
+name: judge
+description: Synthesizes a ruling from opposing positions.
+requires_abilities:
+  - adjudicate

@@ -1,0 +1,3 @@
+name: evaluate
+description: Measure an artifact against a target metric.
+risk: read

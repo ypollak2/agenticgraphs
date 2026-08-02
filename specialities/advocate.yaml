@@ -1,0 +1,4 @@
+name: advocate
+description: Argues one side of a design tradeoff with evidence.
+requires_abilities:
+  - generate

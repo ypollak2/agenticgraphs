@@ -1,0 +1,3 @@
+name: reduce_merge
+description: Merge shard outputs into one artifact.
+risk: write

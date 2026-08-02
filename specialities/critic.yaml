@@ -1,0 +1,4 @@
+name: critic
+description: Rejects artifacts that fail explicit criteria.
+requires_abilities:
+  - critique

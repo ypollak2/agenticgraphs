@@ -1,0 +1,26 @@
+apiVersion: agr/v1
+name: verifier-swarm
+description: Planner fans work out to isolated workers; nothing merges until a verifier command proves the goal is done.
+category: devops-sre
+nodes:
+  - id: planner
+    speciality: planner
+    abilities: [decompose_goal]
+  - id: worker
+    speciality: worker
+    abilities: [run_command, edit_files]
+    parallel_group: swarm
+  - id: verifier
+    speciality: verifier
+    abilities: [run_command]
+    kind: verifier
+edges:
+  - {from: planner, to: worker}
+  - {from: worker, to: verifier}
+  - {from: verifier, to: worker, when: "verify_failed and attempts < 3"}
+termination:
+  max_steps: 30
+  contract: "verifier command exits 0, or 3 failed attempts escalate to human"
+verification:
+  - assert: "output.verified == true or output.escalated == true"
+  - command: "user-supplied verify command must exit 0"

@@ -1,0 +1,4 @@
+name: producer
+description: Drafts the candidate artifact for the stage.
+requires_abilities:
+  - generate

@@ -1,0 +1,31 @@
+apiVersion: agr/v1
+name: runbook-executor
+description: Execute a runbook step-wise with post-condition checks.
+category: devops-sre
+nodes:
+- id: plan
+  speciality: planner
+  abilities:
+  - decompose_goal
+- id: execute
+  speciality: executor
+  abilities:
+  - execute_step
+- id: verify
+  speciality: verifier
+  abilities:
+  - run_command
+  kind: verifier
+edges:
+- from: plan
+  to: execute
+- from: execute
+  to: verify
+- from: verify
+  to: execute
+  when: verify_failed and attempts < 3
+termination:
+  max_steps: 25
+  contract: each step post-condition command exits zero
+verification:
+- assert: each step post-condition command exits zero

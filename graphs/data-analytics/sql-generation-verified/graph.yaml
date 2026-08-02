@@ -1,0 +1,25 @@
+apiVersion: agr/v1
+name: sql-generation-verified
+description: Generate SQL, critic checks schema validity and row sanity.
+category: data-analytics
+nodes:
+- id: generate
+  speciality: producer
+  abilities:
+  - generate
+- id: critique
+  speciality: critic
+  abilities:
+  - critique
+  kind: verifier
+edges:
+- from: generate
+  to: critique
+- from: critique
+  to: generate
+  when: rejected and attempts < 3
+termination:
+  max_steps: 10
+  contract: query executes; result passes row-count sanity assertions
+verification:
+- assert: query executes; result passes row-count sanity assertions

@@ -1,0 +1,25 @@
+apiVersion: agr/v1
+name: performance-optimization
+description: Profile, patch hotspot, re-benchmark until budget met.
+category: software-engineering
+nodes:
+- id: attempt
+  speciality: producer
+  abilities:
+  - generate
+- id: measure
+  speciality: evaluator
+  abilities:
+  - evaluate
+  kind: verifier
+edges:
+- from: attempt
+  to: measure
+- from: measure
+  to: attempt
+  when: below_target and attempts < 5
+termination:
+  max_steps: 15
+  contract: benchmark under target with no test regressions
+verification:
+- assert: benchmark under target with no test regressions

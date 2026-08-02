@@ -1,0 +1,4 @@
+name: dispatcher
+description: Classifies work and routes it to branches.
+requires_abilities:
+  - dispatch

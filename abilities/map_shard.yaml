@@ -1,0 +1,3 @@
+name: map_shard
+description: Process one shard of a partitioned input.
+risk: read

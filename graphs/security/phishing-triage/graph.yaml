@@ -1,0 +1,39 @@
+apiVersion: agr/v1
+name: phishing-triage
+description: Classify reported emails, route confirmed phish to response.
+category: security
+nodes:
+- id: route
+  speciality: dispatcher
+  abilities:
+  - dispatch
+  kind: router
+- id: branch-simple
+  speciality: producer
+  abilities:
+  - generate
+- id: branch-complex
+  speciality: producer
+  abilities:
+  - generate
+- id: verify
+  speciality: critic
+  abilities:
+  - critique
+  kind: verifier
+edges:
+- from: route
+  to: branch-simple
+  when: complexity <= moderate
+- from: route
+  to: branch-complex
+  when: complexity > moderate
+- from: branch-simple
+  to: verify
+- from: branch-complex
+  to: verify
+termination:
+  max_steps: 12
+  contract: verdicts benchmarked against labeled corpus
+verification:
+- assert: verdicts benchmarked against labeled corpus

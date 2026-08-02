@@ -1,0 +1,31 @@
+apiVersion: agr/v1
+name: vuln-prioritization
+description: Rank findings by exploitability and blast radius.
+category: security
+nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
+- id: produce
+  speciality: producer
+  abilities:
+  - generate
+- id: review
+  speciality: critic
+  abilities:
+  - critique
+  kind: verifier
+edges:
+- from: intake
+  to: produce
+- from: produce
+  to: review
+- from: review
+  to: produce
+  when: revision_requested and attempts < 2
+termination:
+  max_steps: 12
+  contract: ranking inputs cite scanner evidence and asset map
+verification:
+- assert: ranking inputs cite scanner evidence and asset map

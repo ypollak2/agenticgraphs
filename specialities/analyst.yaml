@@ -1,0 +1,4 @@
+name: analyst
+description: Extracts structure and constraints from raw input.
+requires_abilities:
+  - analyze

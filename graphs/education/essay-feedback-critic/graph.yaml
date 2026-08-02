@@ -1,0 +1,25 @@
+apiVersion: agr/v1
+name: essay-feedback-critic
+description: Rubric-based feedback with evidence quotes from the essay.
+category: education
+nodes:
+- id: generate
+  speciality: producer
+  abilities:
+  - generate
+- id: critique
+  speciality: critic
+  abilities:
+  - critique
+  kind: verifier
+edges:
+- from: generate
+  to: critique
+- from: critique
+  to: generate
+  when: rejected and attempts < 3
+termination:
+  max_steps: 10
+  contract: every comment quotes essay text; rubric ids cited
+verification:
+- assert: every comment quotes essay text; rubric ids cited

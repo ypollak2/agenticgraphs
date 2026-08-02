@@ -1,0 +1,31 @@
+apiVersion: agr/v1
+name: postmortem-writer
+description: Assemble timeline from logs and chat, draft blameless postmortem.
+category: devops-sre
+nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
+- id: produce
+  speciality: producer
+  abilities:
+  - generate
+- id: review
+  speciality: critic
+  abilities:
+  - critique
+  kind: verifier
+edges:
+- from: intake
+  to: produce
+- from: produce
+  to: review
+- from: review
+  to: produce
+  when: revision_requested and attempts < 2
+termination:
+  max_steps: 12
+  contract: every timeline event cites a log or message id
+verification:
+- assert: every timeline event cites a log or message id

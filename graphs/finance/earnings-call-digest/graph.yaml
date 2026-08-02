@@ -1,0 +1,31 @@
+apiVersion: agr/v1
+name: earnings-call-digest
+description: Transcript to guidance changes, surprises, and QA highlights.
+category: finance
+nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
+- id: produce
+  speciality: producer
+  abilities:
+  - generate
+- id: review
+  speciality: critic
+  abilities:
+  - critique
+  kind: verifier
+edges:
+- from: intake
+  to: produce
+- from: produce
+  to: review
+- from: review
+  to: produce
+  when: revision_requested and attempts < 2
+termination:
+  max_steps: 12
+  contract: every figure matches transcript; no invented numbers
+verification:
+- assert: every figure matches transcript; no invented numbers

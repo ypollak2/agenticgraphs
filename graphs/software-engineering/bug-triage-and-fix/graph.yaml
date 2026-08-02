@@ -1,0 +1,31 @@
+apiVersion: agr/v1
+name: bug-triage-and-fix
+description: Reproduce a bug, plan a fix, apply it in isolation, verify.
+category: software-engineering
+nodes:
+- id: plan
+  speciality: planner
+  abilities:
+  - decompose_goal
+- id: execute
+  speciality: executor
+  abilities:
+  - execute_step
+- id: verify
+  speciality: verifier
+  abilities:
+  - run_command
+  kind: verifier
+edges:
+- from: plan
+  to: execute
+- from: execute
+  to: verify
+- from: verify
+  to: execute
+  when: verify_failed and attempts < 3
+termination:
+  max_steps: 25
+  contract: repro test fails before patch and passes after
+verification:
+- assert: repro test fails before patch and passes after

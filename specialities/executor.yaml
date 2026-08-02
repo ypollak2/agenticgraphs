@@ -1,0 +1,4 @@
+name: executor
+description: Executes plan steps with observable effects.
+requires_abilities:
+  - execute_step

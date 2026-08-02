@@ -1,0 +1,31 @@
+apiVersion: agr/v1
+name: dependency-upgrade
+description: Upgrade pinned deps, scan changelogs for breakage, run suite.
+category: software-engineering
+nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
+- id: produce
+  speciality: producer
+  abilities:
+  - generate
+- id: review
+  speciality: critic
+  abilities:
+  - critique
+  kind: verifier
+edges:
+- from: intake
+  to: produce
+- from: produce
+  to: review
+- from: review
+  to: produce
+  when: revision_requested and attempts < 2
+termination:
+  max_steps: 12
+  contract: lockfile updated; tests pass; no new deprecation warnings
+verification:
+- assert: lockfile updated; tests pass; no new deprecation warnings

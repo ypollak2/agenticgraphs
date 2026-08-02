@@ -1,0 +1,30 @@
+apiVersion: agr/v1
+name: cost-routed-research
+description: Routes research subtasks to the cheapest capable model, escalates low-confidence answers, synthesizes with citations.
+category: research-knowledge
+nodes:
+  - id: router
+    speciality: cost-router
+    abilities: [classify_complexity]
+    kind: router
+  - id: cheap-researcher
+    speciality: researcher
+    abilities: [web_search]
+  - id: deep-researcher
+    speciality: researcher
+    abilities: [web_search, read_papers]
+  - id: synthesizer
+    speciality: synthesizer
+    abilities: [cite_sources]
+    kind: verifier
+edges:
+  - {from: router, to: cheap-researcher, when: "complexity <= moderate"}
+  - {from: router, to: deep-researcher, when: "complexity > moderate"}
+  - {from: cheap-researcher, to: deep-researcher, when: "confidence < 0.7"}
+  - {from: cheap-researcher, to: synthesizer, when: "confidence >= 0.7"}
+  - {from: deep-researcher, to: synthesizer}
+termination:
+  max_steps: 20
+  contract: "synthesizer output cites >=1 source per claim; unverifiable claims are labeled"
+verification:
+  - assert: "all(c.sources for c in output.claims)"

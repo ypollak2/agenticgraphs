@@ -1,0 +1,4 @@
+name: evaluator
+description: Measures output against the target and decides.
+requires_abilities:
+  - evaluate

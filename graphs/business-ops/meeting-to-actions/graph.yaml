@@ -1,0 +1,31 @@
+apiVersion: agr/v1
+name: meeting-to-actions
+description: Transcript to decisions, owners, deadlines, and follow-ups.
+category: business-ops
+nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
+- id: produce
+  speciality: producer
+  abilities:
+  - generate
+- id: review
+  speciality: critic
+  abilities:
+  - critique
+  kind: verifier
+edges:
+- from: intake
+  to: produce
+- from: produce
+  to: review
+- from: review
+  to: produce
+  when: revision_requested and attempts < 2
+termination:
+  max_steps: 12
+  contract: each action has owner and date; quotes traceable
+verification:
+- assert: each action has owner and date; quotes traceable

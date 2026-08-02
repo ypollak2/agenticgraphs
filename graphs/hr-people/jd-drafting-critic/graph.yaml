@@ -1,0 +1,25 @@
+apiVersion: agr/v1
+name: jd-drafting-critic
+description: Draft job descriptions, critic removes bias and inflation.
+category: hr-people
+nodes:
+- id: generate
+  speciality: producer
+  abilities:
+  - generate
+- id: critique
+  speciality: critic
+  abilities:
+  - critique
+  kind: verifier
+edges:
+- from: generate
+  to: critique
+- from: critique
+  to: generate
+  when: rejected and attempts < 3
+termination:
+  max_steps: 10
+  contract: bias-term lint clean; requirements deduplicated
+verification:
+- assert: bias-term lint clean; requirements deduplicated

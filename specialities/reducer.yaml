@@ -1,0 +1,4 @@
+name: reducer
+description: Merges shard outputs; owns the final artifact.
+requires_abilities:
+  - reduce_merge

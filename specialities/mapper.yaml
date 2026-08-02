@@ -1,0 +1,4 @@
+name: mapper
+description: Processes one shard of partitioned work.
+requires_abilities:
+  - map_shard

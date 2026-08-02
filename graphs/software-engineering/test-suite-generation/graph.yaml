@@ -1,0 +1,25 @@
+apiVersion: agr/v1
+name: test-suite-generation
+description: Generate tests, critic rejects trivial or tautological assertions.
+category: software-engineering
+nodes:
+- id: generate
+  speciality: producer
+  abilities:
+  - generate
+- id: critique
+  speciality: critic
+  abilities:
+  - critique
+  kind: verifier
+edges:
+- from: generate
+  to: critique
+- from: critique
+  to: generate
+  when: rejected and attempts < 3
+termination:
+  max_steps: 10
+  contract: coverage delta positive; mutation score above baseline
+verification:
+- assert: coverage delta positive; mutation score above baseline

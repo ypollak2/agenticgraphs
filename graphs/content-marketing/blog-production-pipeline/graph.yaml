@@ -1,0 +1,31 @@
+apiVersion: agr/v1
+name: blog-production-pipeline
+description: Brief to outline to draft to edit to publish-ready post.
+category: content-marketing
+nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
+- id: produce
+  speciality: producer
+  abilities:
+  - generate
+- id: review
+  speciality: critic
+  abilities:
+  - critique
+  kind: verifier
+edges:
+- from: intake
+  to: produce
+- from: produce
+  to: review
+- from: review
+  to: produce
+  when: revision_requested and attempts < 2
+termination:
+  max_steps: 12
+  contract: style guide lint passes; plagiarism scan clean
+verification:
+- assert: style guide lint passes; plagiarism scan clean

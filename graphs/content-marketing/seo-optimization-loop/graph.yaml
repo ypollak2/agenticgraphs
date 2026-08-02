@@ -1,0 +1,25 @@
+apiVersion: agr/v1
+name: seo-optimization-loop
+description: Rewrite for target queries, re-score, iterate to threshold.
+category: content-marketing
+nodes:
+- id: attempt
+  speciality: producer
+  abilities:
+  - generate
+- id: measure
+  speciality: evaluator
+  abilities:
+  - evaluate
+  kind: verifier
+edges:
+- from: attempt
+  to: measure
+- from: measure
+  to: attempt
+  when: below_target and attempts < 5
+termination:
+  max_steps: 15
+  contract: seo score above threshold without keyword stuffing flags
+verification:
+- assert: seo score above threshold without keyword stuffing flags

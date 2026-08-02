@@ -1,0 +1,3 @@
+name: critique
+description: Score an artifact against explicit criteria.
+risk: read

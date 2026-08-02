@@ -1,0 +1,3 @@
+name: analyze
+description: Analyze an input artifact and extract structure.
+risk: read

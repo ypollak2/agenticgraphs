@@ -1,0 +1,31 @@
+apiVersion: agr/v1
+name: policy-compliance-check
+description: Check internal docs and processes against a policy set.
+category: business-ops
+nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
+- id: produce
+  speciality: producer
+  abilities:
+  - generate
+- id: review
+  speciality: critic
+  abilities:
+  - critique
+  kind: verifier
+edges:
+- from: intake
+  to: produce
+- from: produce
+  to: review
+- from: review
+  to: produce
+  when: revision_requested and attempts < 2
+termination:
+  max_steps: 12
+  contract: findings map to specific policy clause ids
+verification:
+- assert: findings map to specific policy clause ids

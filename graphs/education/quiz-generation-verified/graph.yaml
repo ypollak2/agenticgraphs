@@ -1,0 +1,25 @@
+apiVersion: agr/v1
+name: quiz-generation-verified
+description: Generate items, critic solves them blind to verify keys.
+category: education
+nodes:
+- id: generate
+  speciality: producer
+  abilities:
+  - generate
+- id: critique
+  speciality: critic
+  abilities:
+  - critique
+  kind: verifier
+edges:
+- from: generate
+  to: critique
+- from: critique
+  to: generate
+  when: rejected and attempts < 3
+termination:
+  max_steps: 10
+  contract: critic answers match keys; distractors plausible
+verification:
+- assert: critic answers match keys; distractors plausible

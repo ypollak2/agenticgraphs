@@ -30,8 +30,9 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
             if e[end] not in node_ids:
                 errors.append(f"lint: edge references unknown node '{e[end]}'")
 
-    # reachability from entry nodes (nodes with no incoming edges)
-    incoming = {e["to"] for e in doc.get("edges", [])}
+    # reachability from entry nodes: a node is an entry if it has no incoming
+    # *unconditional* edge (conditional back-edges do not define forward flow)
+    incoming = {e["to"] for e in doc.get("edges", []) if not e.get("when")}
     entries = [n for n in node_ids if n not in incoming]
     if not entries:
         errors.append("lint: no entry node (cycle with no way in)")

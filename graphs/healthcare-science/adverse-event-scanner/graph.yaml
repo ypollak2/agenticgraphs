@@ -1,0 +1,29 @@
+apiVersion: agr/v1
+name: adverse-event-scanner
+description: Scan reports for adverse-event signals, reduce to summary.
+category: healthcare-science
+nodes:
+- id: partition
+  speciality: analyst
+  abilities:
+  - analyze
+- id: map
+  speciality: mapper
+  abilities:
+  - map_shard
+  parallel_group: shards
+- id: reduce
+  speciality: reducer
+  abilities:
+  - reduce_merge
+  kind: verifier
+edges:
+- from: partition
+  to: map
+- from: map
+  to: reduce
+termination:
+  max_steps: 20
+  contract: every signal cites report ids; counts reproducible
+verification:
+- assert: every signal cites report ids; counts reproducible

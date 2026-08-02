@@ -1,0 +1,30 @@
+apiVersion: agr/v1
+name: ab-test-analysis
+description: Two analysts argue significance and pitfalls, judge writes readout.
+category: data-analytics
+nodes:
+- id: position-a
+  speciality: advocate
+  abilities:
+  - generate
+  parallel_group: debate
+- id: position-b
+  speciality: advocate
+  abilities:
+  - generate
+  parallel_group: debate
+- id: judge
+  speciality: judge
+  abilities:
+  - adjudicate
+  kind: verifier
+edges:
+- from: position-a
+  to: judge
+- from: position-b
+  to: judge
+termination:
+  max_steps: 8
+  contract: stats recomputed from raw data reproduce claimed effect
+verification:
+- assert: stats recomputed from raw data reproduce claimed effect

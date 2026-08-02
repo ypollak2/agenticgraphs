@@ -1,0 +1,33 @@
+apiVersion: agr/v1
+name: literature-review-swarm
+description: Parallel readers summarize papers, merger builds themed review.
+category: research-knowledge
+nodes:
+- id: plan
+  speciality: planner
+  abilities:
+  - decompose_goal
+- id: work
+  speciality: worker
+  abilities:
+  - run_command
+  - edit_files
+  parallel_group: swarm
+- id: verify
+  speciality: verifier
+  abilities:
+  - run_command
+  kind: verifier
+edges:
+- from: plan
+  to: work
+- from: work
+  to: verify
+- from: verify
+  to: work
+  when: verify_failed and attempts < 3
+termination:
+  max_steps: 30
+  contract: every claim cites a specific paper and section
+verification:
+- assert: every claim cites a specific paper and section

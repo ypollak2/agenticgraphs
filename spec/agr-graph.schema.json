@@ -26,11 +26,21 @@
     },
     "category": {
       "enum": [
-        "coding",
-        "research",
-        "data",
-        "ops",
-        "content"
+        "software-engineering",
+        "devops-sre",
+        "data-analytics",
+        "research-knowledge",
+        "content-marketing",
+        "business-ops",
+        "finance",
+        "legal-compliance",
+        "healthcare-science",
+        "education",
+        "customer-support-sales",
+        "security",
+        "hr-people",
+        "logistics-retail",
+        "creative-production"
       ]
     },
     "nodes": {
