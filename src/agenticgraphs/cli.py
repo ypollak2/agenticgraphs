@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -12,7 +13,7 @@ from .registry import iter_graphs, iter_yaml, load
 from .validate import validate_graph_file, validate_schema
 
 
-def _need(name: str):
+def _need(name: str) -> dict:
     g = find_graph(name)
     if g is None:
         print(f"no graph named '{name}' (try: agr list)", file=sys.stderr)
@@ -30,6 +31,17 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("show", help="show a graph's full definition").add_argument("name")
     sub.add_parser("mermaid", help="emit a mermaid diagram for a graph").add_argument("name")
     sub.add_parser("profile", help="structural profile (deterministic; not a perf measurement)").add_argument("name")
+    ep = sub.add_parser("eval", help="run golden cases, write profile.json (M1)")
+    ep.add_argument("name")
+    ep.add_argument("--live", action="store_true",
+                    help="use AGR_LLM_BASE_URL/AGR_LLM_MODEL instead of mock fixtures")
+    ip = sub.add_parser("infuse", help="add an ability to a node, gate-checked + lineage-logged (M2)")
+    ip.add_argument("name"); ip.add_argument("node"); ip.add_argument("ability")
+    op = sub.add_parser("optimize", help="v0 structural optimizer: dry-run by default (M2)")
+    op.add_argument("name"); op.add_argument("--apply", action="store_true")
+    ap = sub.add_parser("adapt", help="compile a graph to framework source (M3)")
+    ap.add_argument("name"); ap.add_argument("--target", default="langgraph", choices=["langgraph"])
+    sub.add_parser("mcp", help="serve the registry over MCP stdio (M3)")
     args = p.parse_args(argv)
 
     if args.cmd == "list":
@@ -38,8 +50,8 @@ def main(argv: list[str] | None = None) -> int:
             print(f"{d['category']}/{d['name']}: {d['description']}")
         return 0
     if args.cmd == "search":
-        hits = [load(g) for g in iter_graphs()]
-        hits = [d for d in hits if args.term.lower() in (d["name"] + d["description"]).lower()]
+        hits = [d for d in map(load, iter_graphs())
+                if args.term.lower() in (d["name"] + d["description"]).lower()]
         for d in hits:
             print(f"{d['category']}/{d['name']}: {d['description']}")
         return 0 if hits else 1
@@ -51,6 +63,29 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.cmd == "profile":
         print(render_profile(_need(args.name)))
+        return 0
+    if args.cmd == "eval":
+        from .evalcmd import eval_graph
+        profile = eval_graph(args.name, live=args.live)
+        print(json.dumps(profile["measured"], indent=2))
+        return 0 if profile["measured"]["pass_rate"] == 1.0 else 1
+    if args.cmd == "infuse":
+        from .mutate import infuse
+        print(json.dumps(infuse(args.name, args.node, args.ability)))
+        return 0
+    if args.cmd == "optimize":
+        from .mutate import optimize
+        res = optimize(args.name, apply=args.apply)
+        for note in res["notes"] or ["nothing to change"]:
+            print(("applied: " if args.apply else "proposed: ") + note)
+        return 0
+    if args.cmd == "adapt":
+        from .adapters import emit_langgraph
+        print(emit_langgraph(_need(args.name)))
+        return 0
+    if args.cmd == "mcp":
+        from .mcp_server import main as serve
+        serve()
         return 0
     if args.cmd == "validate":
         paths = args.paths or iter_graphs()

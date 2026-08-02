@@ -1,0 +1,65 @@
+{
+  "name": "cost-routed-research",
+  "category": "research-knowledge",
+  "structural": {
+    "nodes": 4,
+    "edges": 5,
+    "verifier_nodes": 1,
+    "router_nodes": 1,
+    "parallel_groups": 0,
+    "max_fan_out": 2,
+    "loops": 0,
+    "loops_bounded": true,
+    "max_steps": 20,
+    "verification_asserts": 1,
+    "risk_surface": "read"
+  },
+  "measured": {
+    "runner": "mock",
+    "provisional": true,
+    "date": "2026-08-02",
+    "cases": 3,
+    "passed": 3,
+    "pass_rate": 1.0,
+    "mean_steps": 3.33,
+    "results": [
+      {
+        "id": "simple-stays-cheap",
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "router",
+          "cheap-researcher",
+          "synthesizer"
+        ],
+        "assert_failures": [],
+        "skipped_command_checks": 0
+      },
+      {
+        "id": "low-confidence-escalates",
+        "passed": true,
+        "steps": 4,
+        "trace": [
+          "router",
+          "cheap-researcher",
+          "deep-researcher",
+          "synthesizer"
+        ],
+        "assert_failures": [],
+        "skipped_command_checks": 0
+      },
+      {
+        "id": "complex-goes-deep",
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "router",
+          "deep-researcher",
+          "synthesizer"
+        ],
+        "assert_failures": [],
+        "skipped_command_checks": 0
+      }
+    ]
+  }
+}

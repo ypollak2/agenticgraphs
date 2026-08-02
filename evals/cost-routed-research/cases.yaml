@@ -1,0 +1,17 @@
+cases:
+  - id: simple-stays-cheap
+    node_outputs:
+      router: {complexity: simple}
+      cheap-researcher: {confidence: 0.9}
+      synthesizer: {output: {claims: [{text: answer, sources: [src-1]}]}}
+  - id: low-confidence-escalates
+    node_outputs:
+      router: {complexity: simple}
+      cheap-researcher: {confidence: 0.4}
+      deep-researcher: {confidence: 0.95}
+      synthesizer: {output: {claims: [{text: answer, sources: [src-1, src-2]}]}}
+  - id: complex-goes-deep
+    node_outputs:
+      router: {complexity: complex}
+      deep-researcher: {confidence: 0.9}
+      synthesizer: {output: {claims: [{text: answer, sources: [src-1]}]}}

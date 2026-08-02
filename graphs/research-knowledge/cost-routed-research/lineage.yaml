@@ -1,0 +1,13 @@
+mutations:
+- at: '2026-08-02T15:11:05+00:00'
+  op: optimize
+  changes:
+  - max_steps 20 -> 8 (observed worst-case 4 across passing cases)
+- at: '2026-08-02T15:15:02+00:00'
+  op: optimize
+  changes:
+  - max_steps 20 -> 8 (observed worst-case 4 across passing cases)
+- at: '2026-08-02T15:16:11+00:00'
+  op: optimize
+  changes:
+  - max_steps 20 -> 8 (observed worst-case 4 across passing cases)

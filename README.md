@@ -157,6 +157,11 @@ uv run agr validate           # full registry: JSON Schema + MAST structural lin
 uv run agr show verifier-swarm       # full graph definition
 uv run agr mermaid cost-routed-research   # ready-to-paste mermaid diagram
 uv run agr profile verifier-swarm    # structural profile (deterministic facts, not perf)
+uv run agr eval verifier-swarm       # M1: run golden cases, write profile.json
+uv run agr infuse code-review-pipeline style-review classify_risk   # M2: gate-checked mutation
+uv run agr optimize verifier-swarm --apply   # M2: measurement-driven structural optimizer
+uv run agr adapt cost-routed-research        # M3: compile to runnable LangGraph source
+uv run agr mcp                       # M3: serve the registry to agents over MCP stdio
 ```
 
 `agr profile` reports topology, loop-boundedness, verification-assert count, and the graph's
@@ -208,9 +213,14 @@ enforced by an executable audit wired into pytest.
 ## 🗺️ Roadmap
 
 - [x] **M0** — AGR v1 spec, validator + MAST lint, `agr` CLI, 52 validating graphs, audit-gated 112-entry catalog
-- [ ] **M1** — eval harness + `profile.json` per graph *(until then: structurally proven, not performance-measured)*
-- [ ] **M2** — `mutate/`: infuse abilities, optimize structure (AFlow-style search)
-- [ ] **M3** — adapters (LangGraph first) + MCP server: `search / get / instantiate / infuse_ability`
+- [x] **M1** — eval harness (`agr eval`): real graph interpreter (routers, joins, bounded loops,
+      contract asserts) + pluggable runners. Mock-fixture profiles are marked `provisional`;
+      set `AGR_LLM_BASE_URL`/`AGR_LLM_MODEL` and pass `--live` for model-quality numbers.
+- [x] **M2** — `agr infuse` (ability injection; schema+lint+golden-case gated, lineage-logged)
+      and `agr optimize` (v0 deterministic hill-climb: dedupe, sibling parallelization,
+      measurement-driven `max_steps` tightening). AFlow-style MCTS search remains open.
+- [x] **M3** — LangGraph adapter (`agr adapt`: self-contained codegen, no runtime dependency)
+      + MCP server (`agr mcp`): `search_graphs / get_graph / instantiate / infuse_ability`.
 
 Three graphs are handcrafted with domain specialities (`code-review-pipeline`,
 `verifier-swarm`, `cost-routed-research`); the other 49 are pattern-template instantiations
@@ -223,10 +233,12 @@ See [open issues][issues-url] for the full list of proposed graphs and known iss
 
 ## 🤖 For Agents
 
-You are a target audience of this repo. Today: clone it, `agr search <task>`, load the YAML,
-map abilities onto your tools. After M3: an MCP server exposes the registry so you can discover,
-instantiate, and mutate graphs at runtime — with each graph's measured profile telling you what
-it's worth before you spend a token.
+You are a target audience of this repo. Run `uv run agr mcp` (install with
+`uv sync --all-extras`) and you get four tools over stdio: `search_graphs` (keyword +
+structural profile), `get_graph` (full YAML), `instantiate` (runnable LangGraph source),
+and `infuse_ability` (a validated mutated copy — persisting is deliberately left to
+`agr infuse` on a human-owned checkout). Each graph's `profile.json` tells you what it's
+worth before you spend a token — and whether that number is provisional (mock) or live.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -275,7 +287,7 @@ Project Link: [https://github.com/yalipollak/agenticgraphs][repo-url]
 [domains-shield]: https://img.shields.io/badge/domains-15-2ea44f?style=for-the-badge
 [patterns-shield]: https://img.shields.io/badge/patterns-8-2ea44f?style=for-the-badge
 [patterns-url]: #the-eight-patterns
-[tests-shield]: https://img.shields.io/badge/tests-12%2F12-blue?style=for-the-badge
+[tests-shield]: https://img.shields.io/badge/tests-27%2F27-blue?style=for-the-badge
 [tests-url]: tests/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
 [license-url]: LICENSE

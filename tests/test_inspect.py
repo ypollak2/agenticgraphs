@@ -33,3 +33,10 @@ def test_profiles_json_serializable_for_all_graphs():
 def test_cli_show_and_unknown(capsys):
     assert main(["show", "code-review-pipeline"]) == 0
     assert "code-review-pipeline" in capsys.readouterr().out
+
+
+def test_cli_adapt_and_eval_and_optimize(capsys):
+    assert main(["adapt", "verifier-swarm"]) == 0
+    assert "StateGraph" in capsys.readouterr().out
+    assert main(["eval", "cost-routed-research"]) == 0
+    assert main(["optimize", "verifier-swarm"]) == 0  # dry-run

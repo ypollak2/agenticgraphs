@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
-      - run: uv sync
-      - run: uv run agr validate
-      - run: uv run python scripts/audit_usecases.py
-      - run: uv run pytest -q
+      - run: uv sync --all-extras
+      - run: uv run --all-extras agr validate
+      - run: uv run --all-extras python scripts/audit_usecases.py
+      - run: uv run --all-extras pytest -q

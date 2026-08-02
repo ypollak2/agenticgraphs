@@ -1,0 +1,53 @@
+{
+  "name": "code-review-pipeline",
+  "category": "software-engineering",
+  "structural": {
+    "nodes": 4,
+    "edges": 4,
+    "verifier_nodes": 1,
+    "router_nodes": 0,
+    "parallel_groups": 1,
+    "max_fan_out": 2,
+    "loops": 0,
+    "loops_bounded": true,
+    "max_steps": 12,
+    "verification_asserts": 2,
+    "risk_surface": "read"
+  },
+  "measured": {
+    "runner": "mock",
+    "provisional": true,
+    "date": "2026-08-02",
+    "cases": 2,
+    "passed": 2,
+    "pass_rate": 1.0,
+    "mean_steps": 3.5,
+    "results": [
+      {
+        "id": "low-risk-clean-approve",
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "triage",
+          "style-review",
+          "synthesize"
+        ],
+        "assert_failures": [],
+        "skipped_command_checks": 0
+      },
+      {
+        "id": "high-risk-blocks-with-located-findings",
+        "passed": true,
+        "steps": 4,
+        "trace": [
+          "triage",
+          "security-review",
+          "style-review",
+          "synthesize"
+        ],
+        "assert_failures": [],
+        "skipped_command_checks": 0
+      }
+    ]
+  }
+}
