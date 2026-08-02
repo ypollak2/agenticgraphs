@@ -135,7 +135,7 @@ it lacks the abilities for.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/yalipollak/agenticgraphs.git && cd agenticgraphs
+   git clone https://github.com/ypollak2/agenticgraphs.git && cd agenticgraphs
    ```
 2. Install dependencies
    ```sh
@@ -264,9 +264,9 @@ Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information
 
 ## 📫 Contact
 
-Yali Pollak — [@yalipollak](https://github.com/yalipollak)
+Yali Pollak — [@ypollak2](https://github.com/ypollak2)
 
-Project Link: [https://github.com/yalipollak/agenticgraphs][repo-url]
+Project Link: [https://github.com/ypollak2/agenticgraphs][repo-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -291,8 +291,8 @@ Project Link: [https://github.com/yalipollak/agenticgraphs][repo-url]
 [tests-url]: tests/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
 [license-url]: LICENSE
-[issues-url]: https://github.com/yalipollak/agenticgraphs/issues
-[repo-url]: https://github.com/yalipollak/agenticgraphs
+[issues-url]: https://github.com/ypollak2/agenticgraphs/issues
+[repo-url]: https://github.com/ypollak2/agenticgraphs
 [gptswarm-url]: https://proceedings.mlr.press/v235/zhuge24a.html
 [aflow-url]: https://openreview.net/forum?id=z5uVAKwmjf
 [mast-url]: https://arxiv.org/abs/2503.13657
