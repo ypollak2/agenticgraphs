@@ -39,6 +39,8 @@ def main(argv: list[str] | None = None) -> int:
     ip.add_argument("name"); ip.add_argument("node"); ip.add_argument("ability")
     op = sub.add_parser("optimize", help="v0 structural optimizer: dry-run by default (M2)")
     op.add_argument("name"); op.add_argument("--apply", action="store_true")
+    op.add_argument("--autonomous", action="store_true",
+                    help="allow --apply to run unattended (also honors AGR_AUTONOMOUS=1); see docs/autonomy.md")
     ap = sub.add_parser("adapt", help="compile a graph to framework source (M3)")
     ap.add_argument("name")
     ap.add_argument("--target", default="langgraph", choices=["langgraph", "crewai", "autogen"],
@@ -50,7 +52,10 @@ def main(argv: list[str] | None = None) -> int:
     cp.add_argument("--name", help="name for the composed graph (default: '<a>-then-<b>')")
     cp.add_argument("--allow-gaps", action="store_true",
                     help="proceed even if graph-b needs blackboard keys graph-a doesn't appear to produce")
-    sub.add_parser("mcp", help="serve the registry over MCP stdio (M3)")
+    mp = sub.add_parser("mcp", help="serve the registry over MCP (stdio by default, or --http)")
+    mp.add_argument("--http", action="store_true",
+                     help="serve over HTTP/SSE instead of stdio (binds 127.0.0.1 only)")
+    mp.add_argument("--port", type=int, default=8765, help="port for --http (default: 8765)")
     args = p.parse_args(argv)
 
     if args.cmd == "list":
@@ -83,7 +88,23 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(infuse(args.name, args.node, args.ability)))
         return 0
     if args.cmd == "optimize":
+        from .autonomy import is_autonomous
         from .mutate import optimize
+        autonomous = args.autonomous or is_autonomous()
+        if args.apply and not autonomous:
+            if sys.stdin.isatty():
+                reply = input(f"apply optimizer changes to '{args.name}'? [y/N] ").strip().lower()
+                if reply not in ("y", "yes"):
+                    print("aborted (not applied)", file=sys.stderr)
+                    return 1
+            else:
+                print(
+                    "optimize --apply refused: no TTY and not autonomous. "
+                    "Pass --autonomous (or set AGR_AUTONOMOUS=1) for unattended runs; "
+                    "see docs/autonomy.md.",
+                    file=sys.stderr,
+                )
+                return 1
         res = optimize(args.name, apply=args.apply)
         for note in res["notes"] or ["nothing to change"]:
             print(("applied: " if args.apply else "proposed: ") + note)
@@ -114,7 +135,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.cmd == "mcp":
         from .mcp_server import main as serve
-        serve()
+        serve(http=args.http, port=args.port)
         return 0
     if args.cmd == "validate":
         paths = args.paths or iter_graphs()

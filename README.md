@@ -378,9 +378,23 @@ See [open issues][issues-url] for the full list of proposed graphs and known iss
 You are a target audience of this repo. Run `uv run agr mcp` (install with
 `uv sync --all-extras`) and you get four tools over stdio: `search_graphs` (keyword +
 structural profile), `get_graph` (full YAML), `instantiate` (runnable LangGraph source),
-and `infuse_ability` (a validated mutated copy — persisting is deliberately left to
+and `infuse_ability` (a validated mutated copy — persisting is by default left to
 `agr infuse` on a human-owned checkout). Each graph's `profile.json` tells you what it's
 worth before you spend a token — and whether that number is provisional (mock) or live.
+
+**Unattended operation** — three opt-in ways to run without a human at the keyboard:
+
+- **Always-on MCP service**: `agr mcp --http [--port 8765]` serves over HTTP instead of
+  stdio (binds `127.0.0.1` only). `scripts/install_service.sh` installs it as a macOS
+  LaunchAgent (`--uninstall` to remove).
+- **Headless recipes**: `scripts/headless_run.sh [term] [graph]` drives a non-interactive
+  `claude -p` run scoped to `Bash(uv run agr *)` and writes a report to `reports/`.
+- **Gated autonomous persist**: set `AGR_AUTONOMOUS=1` and `infuse_ability(persist=true)`
+  writes back through the same schema + MAST-lint gate, committed to a dedicated
+  `auto/mutations` branch (never `main`, never pushed). `agr optimize --apply` honors the
+  same flag (or `--autonomous`) to skip its confirmation prompt. Execute-risk abilities are
+  further capped behind `AGR_AUTONOMOUS_ALLOW_EXECUTE=1`. Full detail in
+  [`docs/autonomy.md`](docs/autonomy.md).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

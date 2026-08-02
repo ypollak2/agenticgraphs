@@ -1,14 +1,20 @@
 """M3 MCP server: expose the registry to agents — search / get / instantiate / infuse.
 
-Read-only over the registry: `infuse_ability` returns a mutated *copy* (validated
-against the graph schema); persisting belongs to `agr infuse` on a human-owned checkout.
-Run with: `agr mcp` (stdio transport).
+Read-only over the registry by default: `infuse_ability` returns a mutated *copy*
+(validated against the graph schema); persisting belongs to `agr infuse` on a
+human-owned checkout. Set `AGR_AUTONOMOUS=1` (see agenticgraphs.autonomy /
+docs/autonomy.md) to allow `infuse_ability(..., persist=True)` to write back,
+gate-checked and committed to a dedicated `auto/mutations` branch.
+
+Run with: `agr mcp` (stdio transport, default) or `agr mcp --http [--port 8765]`
+(binds 127.0.0.1 only).
 """
 from __future__ import annotations
 
 import yaml
 
 from .adapters import emit_langgraph
+from .autonomy import AutonomyError
 from .inspect import find_graph, structural_profile
 from .registry import iter_graphs, iter_yaml, load
 from .validate import validate_schema
@@ -53,8 +59,25 @@ def create_server():
         return emit_langgraph(load(g))
 
     @mcp.tool()
-    def infuse_ability(name: str, node_id: str, ability: str) -> str:
-        """Return a schema-validated copy of the graph with `ability` added to `node_id`."""
+    def infuse_ability(name: str, node_id: str, ability: str, persist: bool = False) -> str:
+        """Add `ability` to `node_id` in graph `name`.
+
+        By default (persist=False) this returns a schema-validated copy of the
+        graph without writing anything. With persist=True, the mutation is
+        gate-checked (schema + MAST lint) and written back to the registry —
+        but only when this process opted into unattended writes via
+        AGR_AUTONOMOUS=1; see docs/autonomy.md. Execute-risk abilities are
+        further capped behind AGR_AUTONOMOUS_ALLOW_EXECUTE=1.
+        """
+        if persist:
+            from .mutate import infuse_autonomous
+
+            try:
+                result = infuse_autonomous(name, node_id, ability)
+            except (AutonomyError, SystemExit) as e:
+                raise ValueError(str(e)) from e
+            return yaml.safe_dump(result, sort_keys=False)
+
         g = find_graph(name)
         if g is None:
             raise ValueError(f"no graph named '{name}'")
@@ -74,5 +97,20 @@ def create_server():
     return mcp
 
 
-def main() -> None:
-    create_server().run()
+def run_server(server, http: bool = False, port: int = 8765) -> None:
+    """Run `server` over stdio (default) or HTTP/SSE bound to 127.0.0.1 only."""
+    if not http:
+        server.run()
+        return
+    try:
+        # mcp SDK >= 2.0: MCPServer.run(transport=..., **kwargs)
+        server.run(transport="streamable-http", host="127.0.0.1", port=port)
+    except TypeError:
+        # mcp SDK 1.x FastMCP: host/port live on .settings
+        server.settings.host = "127.0.0.1"
+        server.settings.port = port
+        server.run(transport="streamable-http")
+
+
+def main(http: bool = False, port: int = 8765) -> None:
+    run_server(create_server(), http=http, port=port)

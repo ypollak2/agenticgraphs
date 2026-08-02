@@ -13,6 +13,7 @@ from pathlib import Path
 
 import yaml
 
+from .autonomy import commit_autonomous_mutation, require_autonomous, require_execute_allowed
 from .harness import MockRunner, run_graph
 from .inspect import find_graph
 from .registry import ROOT, iter_yaml, load
@@ -64,6 +65,29 @@ def infuse(name: str, node_id: str, ability: str, root: Path = ROOT) -> dict:
         raise SystemExit("infusion rejected by gate:\n" + "\n".join(errs))
     _lineage_append(gpath.parent, {"op": "infuse", "node": node_id, "ability": ability})
     return {"changed": True, "node": node_id, "ability": ability}
+
+
+def infuse_autonomous(name: str, node_id: str, ability: str, root: Path = ROOT) -> dict:
+    """Like `infuse`, but for unattended runs: requires AGR_AUTONOMOUS=1, caps
+    execute-risk abilities behind AGR_AUTONOMOUS_ALLOW_EXECUTE=1, and — on a
+    real change — commits the mutated graph + lineage onto `auto/mutations`
+    (never `main`, never pushed). Raises AutonomyError if the gate is closed.
+    """
+    require_autonomous()
+    ability_doc = next((load(p) for p in iter_yaml("abilities", root) if load(p)["name"] == ability), None)
+    if ability_doc is not None:
+        require_execute_allowed(ability_doc.get("risk", "read"))
+    result = infuse(name, node_id, ability, root)
+    if result.get("changed"):
+        gpath = find_graph(name, root)
+        commit = commit_autonomous_mutation(
+            root,
+            [gpath, gpath.parent / "lineage.yaml"],
+            f"auto: {name} {ability} {node_id} [autonomous]",
+        )
+        result["commit"] = commit
+        result["branch"] = "auto/mutations"
+    return result
 
 
 # ---- optimizer operators: each takes doc (+context) and returns list of change notes
