@@ -28,4 +28,4 @@ termination:
   max_steps: 12
   contract: each verdict carries source URL and quote span
 verification:
-- assert: each verdict carries source URL and quote span
+- assert: all(v.source_url and v.quote_span for v in output.verdicts)

@@ -26,4 +26,4 @@ termination:
   max_steps: 20
   contract: every signal cites report ids; counts reproducible
 verification:
-- assert: every signal cites report ids; counts reproducible
+- assert: all(s.report_ids and s.report_ids[s.count - 1:] and not s.report_ids[s.count:] for s in output.signals)

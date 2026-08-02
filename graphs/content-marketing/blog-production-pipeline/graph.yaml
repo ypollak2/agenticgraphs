@@ -28,4 +28,4 @@ termination:
   max_steps: 12
   contract: style guide lint passes; plagiarism scan clean
 verification:
-- assert: style guide lint passes; plagiarism scan clean
+- assert: output.lint_passed and output.plagiarism_clean

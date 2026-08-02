@@ -1,0 +1,15 @@
+cases:
+  - id: first-attempt-verified
+    node_outputs:
+      plan: {steps: ["decompose goal"]}
+      execute: {}
+      verify: {verify_failed: false, attempts: 1, output: {'conclusion': 'confirmed brute-force login attempt', 'query_results': [{'query': 'failed logins by ip', 'result': '42 attempts from 1.2.3.4'}]}}
+  - id: retry-then-verified
+    node_outputs:
+      plan: {steps: ["decompose goal"]}
+      execute:
+        - {}
+        - {}
+      verify:
+        - {verify_failed: true, attempts: 1}
+        - {verify_failed: false, attempts: 2, output: {'conclusion': 'confirmed brute-force login attempt', 'query_results': [{'query': 'failed logins by ip', 'result': '42 attempts from 1.2.3.4'}]}}

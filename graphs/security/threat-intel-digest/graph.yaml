@@ -26,4 +26,4 @@ termination:
   max_steps: 20
   contract: every item links source advisory with CVE ids
 verification:
-- assert: every item links source advisory with CVE ids
+- assert: all(i.advisory_url and i.cve_ids for i in output.entries)

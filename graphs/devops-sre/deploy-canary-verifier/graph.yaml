@@ -3,6 +3,10 @@ name: deploy-canary-verifier
 description: Progressively shift traffic while checking error budgets.
 category: devops-sre
 nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
 - id: attempt
   speciality: producer
   abilities:
@@ -13,6 +17,8 @@ nodes:
   - evaluate
   kind: verifier
 edges:
+- from: intake
+  to: attempt
 - from: attempt
   to: measure
 - from: measure
@@ -22,4 +28,4 @@ termination:
   max_steps: 15
   contract: rollback fires when error rate exceeds threshold
 verification:
-- assert: rollback fires when error rate exceeds threshold
+- assert: output.error_rate <= output.threshold or output.rollback_fired

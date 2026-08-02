@@ -1,0 +1,15 @@
+cases:
+  - id: first-attempt-verified
+    node_outputs:
+      plan: {steps: ["decompose goal"]}
+      execute: {}
+      verify: {verify_failed: false, attempts: 1, output: {'test_failed_before_patch': True, 'test_passes_after_patch': True}}
+  - id: retry-then-verified
+    node_outputs:
+      plan: {steps: ["decompose goal"]}
+      execute:
+        - {}
+        - {}
+      verify:
+        - {verify_failed: true, attempts: 1}
+        - {verify_failed: false, attempts: 2, output: {'test_failed_before_patch': True, 'test_passes_after_patch': True}}

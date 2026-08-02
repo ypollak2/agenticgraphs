@@ -28,4 +28,4 @@ termination:
   max_steps: 25
   contract: end-to-end run loads expected row counts
 verification:
-- assert: end-to-end run loads expected row counts
+- assert: output.actual_rows == output.expected_rows

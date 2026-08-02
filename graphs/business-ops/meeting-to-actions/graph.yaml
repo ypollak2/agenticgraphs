@@ -28,4 +28,4 @@ termination:
   max_steps: 12
   contract: each action has owner and date; quotes traceable
 verification:
-- assert: each action has owner and date; quotes traceable
+- assert: all(a.owner and a.date and a.quote for a in output.actions)

@@ -36,4 +36,4 @@ termination:
   max_steps: 12
   contract: labels match a validated sample set
 verification:
-- assert: labels match a validated sample set
+- assert: output.matches_validated_set

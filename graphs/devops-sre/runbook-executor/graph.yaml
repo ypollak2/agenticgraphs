@@ -28,4 +28,4 @@ termination:
   max_steps: 25
   contract: each step post-condition command exits zero
 verification:
-- assert: each step post-condition command exits zero
+- assert: all(s.exit_code == 0 for s in output.steps)

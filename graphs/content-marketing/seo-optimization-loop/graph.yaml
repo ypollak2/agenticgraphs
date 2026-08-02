@@ -3,6 +3,10 @@ name: seo-optimization-loop
 description: Rewrite for target queries, re-score, iterate to threshold.
 category: content-marketing
 nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
 - id: attempt
   speciality: producer
   abilities:
@@ -13,6 +17,8 @@ nodes:
   - evaluate
   kind: verifier
 edges:
+- from: intake
+  to: attempt
 - from: attempt
   to: measure
 - from: measure
@@ -22,4 +28,4 @@ termination:
   max_steps: 15
   contract: seo score above threshold without keyword stuffing flags
 verification:
-- assert: seo score above threshold without keyword stuffing flags
+- assert: output.seo_score >= output.threshold and not output.stuffing_flags

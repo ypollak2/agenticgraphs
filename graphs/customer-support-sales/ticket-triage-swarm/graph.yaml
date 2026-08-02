@@ -36,4 +36,4 @@ termination:
   max_steps: 12
   contract: routing accuracy measured on labeled backlog
 verification:
-- assert: routing accuracy measured on labeled backlog
+- assert: output.routing_correct

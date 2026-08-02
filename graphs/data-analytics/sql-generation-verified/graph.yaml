@@ -3,6 +3,10 @@ name: sql-generation-verified
 description: Generate SQL, critic checks schema validity and row sanity.
 category: data-analytics
 nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
 - id: generate
   speciality: producer
   abilities:
@@ -13,6 +17,8 @@ nodes:
   - critique
   kind: verifier
 edges:
+- from: intake
+  to: generate
 - from: generate
   to: critique
 - from: critique
@@ -22,4 +28,4 @@ termination:
   max_steps: 10
   contract: query executes; result passes row-count sanity assertions
 verification:
-- assert: query executes; result passes row-count sanity assertions
+- assert: output.query_executes and output.row_count_sane

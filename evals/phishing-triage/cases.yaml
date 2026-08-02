@@ -1,0 +1,11 @@
+cases:
+  - id: simple-branch
+    node_outputs:
+      route: {complexity: low}
+      branch-simple: {handled_by: "simple"}
+      verify: {output: {'verdict': 'phish', 'matches_labeled_corpus': True}}
+  - id: complex-branch
+    node_outputs:
+      route: {complexity: high}
+      branch-complex: {handled_by: "complex"}
+      verify: {output: {'verdict': 'phish', 'matches_labeled_corpus': True}}

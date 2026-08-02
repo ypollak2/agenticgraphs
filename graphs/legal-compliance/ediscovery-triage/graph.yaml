@@ -36,4 +36,4 @@ termination:
   max_steps: 12
   contract: recall on seeded relevant set above threshold
 verification:
-- assert: recall on seeded relevant set above threshold
+- assert: output.recall >= output.threshold

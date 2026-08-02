@@ -3,6 +3,10 @@ name: test-suite-generation
 description: Generate tests, critic rejects trivial or tautological assertions.
 category: software-engineering
 nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
 - id: generate
   speciality: producer
   abilities:
@@ -13,6 +17,8 @@ nodes:
   - critique
   kind: verifier
 edges:
+- from: intake
+  to: generate
 - from: generate
   to: critique
 - from: critique
@@ -22,4 +28,4 @@ termination:
   max_steps: 10
   contract: coverage delta positive; mutation score above baseline
 verification:
-- assert: coverage delta positive; mutation score above baseline
+- assert: output.coverage_delta > 0 and output.mutation_score > output.mutation_baseline

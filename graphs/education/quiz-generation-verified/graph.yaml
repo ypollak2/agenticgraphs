@@ -3,6 +3,10 @@ name: quiz-generation-verified
 description: Generate items, critic solves them blind to verify keys.
 category: education
 nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
 - id: generate
   speciality: producer
   abilities:
@@ -13,6 +17,8 @@ nodes:
   - critique
   kind: verifier
 edges:
+- from: intake
+  to: generate
 - from: generate
   to: critique
 - from: critique
@@ -22,4 +28,4 @@ termination:
   max_steps: 10
   contract: critic answers match keys; distractors plausible
 verification:
-- assert: critic answers match keys; distractors plausible
+- assert: all(i.answer_matches_key and i.distractors_plausible for i in output.entries)

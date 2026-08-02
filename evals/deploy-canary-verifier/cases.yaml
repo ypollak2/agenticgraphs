@@ -1,0 +1,15 @@
+cases:
+  - id: meets-target-first-try
+    node_outputs:
+      intake: {summary: "intake complete"}
+      attempt: {output: {'error_rate': 0.05, 'threshold': 0.01, 'rollback_fired': True}}
+      measure: {below_target: false, attempts: 1}
+  - id: retry-then-meets-target
+    node_outputs:
+      intake: {summary: "intake complete"}
+      attempt:
+        - {output: {'error_rate': 0.05, 'threshold': 0.01, 'rollback_fired': False}}
+        - {output: {'error_rate': 0.05, 'threshold': 0.01, 'rollback_fired': True}}
+      measure:
+        - {below_target: true, attempts: 1}
+        - {below_target: false, attempts: 2}

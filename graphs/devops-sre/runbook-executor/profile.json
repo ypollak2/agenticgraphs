@@ -1,0 +1,54 @@
+{
+  "name": "runbook-executor",
+  "category": "devops-sre",
+  "structural": {
+    "nodes": 3,
+    "edges": 3,
+    "verifier_nodes": 1,
+    "router_nodes": 0,
+    "parallel_groups": 0,
+    "max_fan_out": 1,
+    "loops": 1,
+    "loops_bounded": true,
+    "max_steps": 25,
+    "verification_asserts": 1,
+    "risk_surface": "execute"
+  },
+  "measured": {
+    "runner": "mock",
+    "provisional": true,
+    "date": "2026-08-02",
+    "cases": 2,
+    "passed": 2,
+    "pass_rate": 1.0,
+    "mean_steps": 4.0,
+    "results": [
+      {
+        "id": "first-attempt-verified",
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "plan",
+          "execute",
+          "verify"
+        ],
+        "assert_failures": [],
+        "skipped_command_checks": 0
+      },
+      {
+        "id": "retry-then-verified",
+        "passed": true,
+        "steps": 5,
+        "trace": [
+          "plan",
+          "execute",
+          "verify",
+          "execute",
+          "verify"
+        ],
+        "assert_failures": [],
+        "skipped_command_checks": 0
+      }
+    ]
+  }
+}

@@ -28,4 +28,4 @@ termination:
   max_steps: 12
   contract: findings map to specific policy clause ids
 verification:
-- assert: findings map to specific policy clause ids
+- assert: all(f.clause_id for f in output.findings)

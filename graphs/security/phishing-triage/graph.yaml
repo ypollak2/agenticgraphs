@@ -36,4 +36,4 @@ termination:
   max_steps: 12
   contract: verdicts benchmarked against labeled corpus
 verification:
-- assert: verdicts benchmarked against labeled corpus
+- assert: output.matches_labeled_corpus

@@ -36,4 +36,4 @@ termination:
   max_steps: 12
   contract: routing agrees with policy decision table
 verification:
-- assert: routing agrees with policy decision table
+- assert: output.matches_policy_table

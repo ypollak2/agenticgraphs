@@ -1,0 +1,15 @@
+cases:
+  - id: first-attempt-verified
+    node_outputs:
+      plan: {steps: ["decompose goal"]}
+      execute: {}
+      verify: {verify_failed: false, attempts: 1, output: {'actual_rows': 10000, 'expected_rows': 10000}}
+  - id: retry-then-verified
+    node_outputs:
+      plan: {steps: ["decompose goal"]}
+      execute:
+        - {}
+        - {}
+      verify:
+        - {verify_failed: true, attempts: 1}
+        - {verify_failed: false, attempts: 2, output: {'actual_rows': 10000, 'expected_rows': 10000}}

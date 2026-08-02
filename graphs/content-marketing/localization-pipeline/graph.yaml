@@ -26,4 +26,4 @@ termination:
   max_steps: 20
   contract: back-translation similarity above threshold; glossary respected
 verification:
-- assert: back-translation similarity above threshold; glossary respected
+- assert: output.similarity >= output.threshold and not output.glossary_violations

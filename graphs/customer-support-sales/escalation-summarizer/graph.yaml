@@ -28,4 +28,4 @@ termination:
   max_steps: 12
   contract: brief covers all unresolved asks; quotes traceable
 verification:
-- assert: brief covers all unresolved asks; quotes traceable
+- assert: output.all_asks_covered and all(a.quote for a in output.asks)

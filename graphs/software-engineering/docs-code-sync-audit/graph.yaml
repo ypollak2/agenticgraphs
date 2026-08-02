@@ -30,4 +30,4 @@ termination:
   max_steps: 30
   contract: all documented examples run exit zero
 verification:
-- assert: all documented examples run exit zero
+- assert: all(e.exit_code == 0 for e in output.examples)

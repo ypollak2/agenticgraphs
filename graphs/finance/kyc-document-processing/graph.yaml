@@ -28,4 +28,4 @@ termination:
   max_steps: 12
   contract: extracted fields validate against document images
 verification:
-- assert: extracted fields validate against document images
+- assert: all(f.validated for f in output.fields)

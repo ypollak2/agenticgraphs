@@ -1,0 +1,15 @@
+cases:
+  - id: first-attempt-verified
+    node_outputs:
+      plan: {steps: ["decompose goal"]}
+      work: {}
+      verify: {verify_failed: false, attempts: 1, output: {'violations': [{'line_id': 'L-12', 'policy_rule': 'T&E-4'}]}}
+  - id: retry-then-verified
+    node_outputs:
+      plan: {steps: ["decompose goal"]}
+      work:
+        - {}
+        - {}
+      verify:
+        - {verify_failed: true, attempts: 1}
+        - {verify_failed: false, attempts: 2, output: {'violations': [{'line_id': 'L-12', 'policy_rule': 'T&E-4'}]}}

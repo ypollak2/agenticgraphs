@@ -1,0 +1,15 @@
+cases:
+  - id: first-attempt-verified
+    node_outputs:
+      plan: {steps: ["decompose goal"]}
+      work: {}
+      verify: {verify_failed: false, attempts: 1, output: {'codes': [{'code': 'J45.909', 'note_span': 'pt has asthma, wheezing on exam'}]}}
+  - id: retry-then-verified
+    node_outputs:
+      plan: {steps: ["decompose goal"]}
+      work:
+        - {}
+        - {}
+      verify:
+        - {verify_failed: true, attempts: 1}
+        - {verify_failed: false, attempts: 2, output: {'codes': [{'code': 'J45.909', 'note_span': 'pt has asthma, wheezing on exam'}]}}

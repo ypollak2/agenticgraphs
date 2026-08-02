@@ -26,4 +26,4 @@ termination:
   max_steps: 20
   contract: every note links a merged PR; no orphan claims
 verification:
-- assert: every note links a merged PR; no orphan claims
+- assert: all(n.pr_url for n in output.notes) and not output.orphan_claims

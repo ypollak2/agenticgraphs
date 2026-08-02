@@ -26,4 +26,4 @@ termination:
   max_steps: 20
   contract: every insight cites at least two participants
 verification:
-- assert: every insight cites at least two participants
+- assert: all(i.participant_ids[1:] for i in output.insights)

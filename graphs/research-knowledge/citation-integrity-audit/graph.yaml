@@ -30,4 +30,4 @@ termination:
   max_steps: 30
   contract: every citation resolves; mismatches listed
 verification:
-- assert: every citation resolves; mismatches listed
+- assert: all(c.resolves for c in output.citations)
