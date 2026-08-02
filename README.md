@@ -172,6 +172,67 @@ pie showData title Graphs per domain
 </details>
 <!-- graph-of-graphs:end -->
 
+<!-- scoreboard:begin -->
+## 📊 Eval scoreboard
+
+52/52 graphs have golden eval cases (106 cases total, 52/52 graphs at 100% pass rate). Provisional (mock-runner) numbers prove graph/contract mechanics, not model quality — pass `--live` to `agr eval` for real model numbers. Regenerate with `uv run python scripts/gen_scoreboard.py`.
+
+| Graph | Domain | Cases | Pass rate | Mean steps | Routes exercised |
+|---|---|---|---|---|---|
+| `meeting-to-actions` | business-ops | 2 | 100% | 4 | 2 |
+| `policy-compliance-check` | business-ops | 2 | 100% | 4 | 2 |
+| `rfp-response-assembler` | business-ops | 2 | 100% | 3 | 1 |
+| `blog-production-pipeline` | content-marketing | 2 | 100% | 4 | 2 |
+| `localization-pipeline` | content-marketing | 2 | 100% | 3 | 1 |
+| `seo-optimization-loop` | content-marketing | 2 | 100% | 4 | 2 |
+| `ux-research-synthesis` | creative-production | 2 | 100% | 3 | 1 |
+| `escalation-summarizer` | customer-support-sales | 2 | 100% | 4 | 2 |
+| `kb-article-generator` | customer-support-sales | 2 | 100% | 4 | 2 |
+| `ticket-triage-swarm` | customer-support-sales | 2 | 100% | 3 | 2 |
+| `ab-test-analysis` | data-analytics | 2 | 100% | 3 | 1 |
+| `anomaly-investigation` | data-analytics | 2 | 100% | 3 | 2 |
+| `data-quality-audit` | data-analytics | 2 | 100% | 4 | 2 |
+| `etl-pipeline-builder` | data-analytics | 2 | 100% | 4 | 2 |
+| `sql-generation-verified` | data-analytics | 2 | 100% | 4 | 2 |
+| `alert-noise-reduction` | devops-sre | 2 | 100% | 3 | 1 |
+| `deploy-canary-verifier` | devops-sre | 2 | 100% | 4 | 2 |
+| `incident-triage-router` | devops-sre | 2 | 100% | 3 | 2 |
+| `postmortem-writer` | devops-sre | 2 | 100% | 4 | 2 |
+| `runbook-executor` | devops-sre | 2 | 100% | 4 | 2 |
+| `verifier-swarm` | devops-sre | 3 | 100% | 5 | 3 |
+| `essay-feedback-critic` | education | 2 | 100% | 4 | 2 |
+| `quiz-generation-verified` | education | 2 | 100% | 4 | 2 |
+| `rubric-grading-swarm` | education | 2 | 100% | 4 | 2 |
+| `earnings-call-digest` | finance | 2 | 100% | 4 | 2 |
+| `expense-audit-swarm` | finance | 2 | 100% | 4 | 2 |
+| `kyc-document-processing` | finance | 2 | 100% | 4 | 2 |
+| `adverse-event-scanner` | healthcare-science | 2 | 100% | 3 | 1 |
+| `clinical-literature-triage` | healthcare-science | 2 | 100% | 3 | 2 |
+| `medical-coding-audit` | healthcare-science | 2 | 100% | 4 | 2 |
+| `jd-drafting-critic` | hr-people | 2 | 100% | 4 | 2 |
+| `contract-redline-pipeline` | legal-compliance | 2 | 100% | 4 | 2 |
+| `ediscovery-triage` | legal-compliance | 2 | 100% | 3 | 2 |
+| `license-compliance-scan` | legal-compliance | 2 | 100% | 3 | 1 |
+| `returns-triage` | logistics-retail | 2 | 100% | 3 | 2 |
+| `citation-integrity-audit` | research-knowledge | 2 | 100% | 4 | 2 |
+| `competitive-intelligence` | research-knowledge | 2 | 100% | 3 | 1 |
+| `cost-routed-research` | research-knowledge | 3 | 100% | 3.33 | 3 |
+| `fact-check-pipeline` | research-knowledge | 2 | 100% | 4 | 2 |
+| `literature-review-swarm` | research-knowledge | 2 | 100% | 4 | 2 |
+| `phishing-triage` | security | 2 | 100% | 3 | 2 |
+| `soc-alert-investigation` | security | 2 | 100% | 4 | 2 |
+| `threat-intel-digest` | security | 2 | 100% | 3 | 1 |
+| `vuln-prioritization` | security | 2 | 100% | 4 | 2 |
+| `bug-triage-and-fix` | software-engineering | 2 | 100% | 4 | 2 |
+| `code-review-pipeline` | software-engineering | 2 | 100% | 3.5 | 2 |
+| `dependency-upgrade` | software-engineering | 2 | 100% | 4 | 2 |
+| `docs-code-sync-audit` | software-engineering | 2 | 100% | 4 | 2 |
+| `legacy-refactor` | software-engineering | 2 | 100% | 4 | 2 |
+| `performance-optimization` | software-engineering | 2 | 100% | 4 | 2 |
+| `release-notes-generation` | software-engineering | 2 | 100% | 3 | 1 |
+| `test-suite-generation` | software-engineering | 2 | 100% | 4 | 2 |
+<!-- scoreboard:end -->
+
 ## 🚀 Getting Started
 
 ### Prerequisites
