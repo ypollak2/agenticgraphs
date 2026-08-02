@@ -6,7 +6,21 @@ from pathlib import Path
 
 import yaml
 
-ROOT = Path(__file__).resolve().parents[2]
+def _resolve_root() -> Path:
+    """Locate the registry payload.
+
+    An installed wheel carries the registry under ``agenticgraphs/data/`` (see the
+    force-include block in pyproject.toml); a git checkout keeps it at the repo root
+    so the graphs stay browsable on GitHub and the CARD.md relative links resolve.
+    Prefer the packaged copy, fall back to the checkout layout.
+    """
+    packaged = Path(__file__).resolve().parent / "data"
+    if (packaged / "graphs").is_dir():
+        return packaged
+    return Path(__file__).resolve().parents[2]
+
+
+ROOT = _resolve_root()
 SPEC_DIR = ROOT / "spec"
 
 

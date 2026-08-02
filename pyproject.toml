@@ -1,17 +1,42 @@
 [project]
 name = "agenticgraphs"
-version = "0.1.0"
+version = "0.1.1"
 description = "A library of evolvable, quality-proven agentic graphs — for frameworks, developers, and agents themselves."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
+authors = [{ name = "ypollak2", email = "95884133+ypollak2@users.noreply.github.com" }]
+keywords = ["agents", "multi-agent", "workflow", "graph", "langgraph", "crewai", "autogen", "mcp", "llm"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 dependencies = ["jsonschema>=4.21", "pyyaml>=6.0"]
+
+[project.urls]
+Homepage = "https://github.com/ypollak2/agenticgraphs"
+Repository = "https://github.com/ypollak2/agenticgraphs"
+Documentation = "https://ypollak2.github.io/agenticgraphs/"
+Issues = "https://github.com/ypollak2/agenticgraphs/issues"
+Changelog = "https://github.com/ypollak2/agenticgraphs/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 mcp = ["mcp>=1.2"]
 
 [project.scripts]
+# `agr` is the documented short form. PyPI already hosts an unrelated `agr`
+# package (Agent Resources) that installs a binary of the same name, so the
+# fully-qualified alias below is a collision-free fallback.
 agr = "agenticgraphs.cli:main"
+agenticgraphs = "agenticgraphs.cli:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -19,6 +44,17 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/agenticgraphs"]
+
+# The registry lives at the repo root (browsable on GitHub, CARD.md links resolve)
+# but must ship *inside* the package so an installed wheel is self-contained.
+# registry._resolve_root() prefers this copy, falling back to the checkout layout.
+[tool.hatch.build.targets.wheel.force-include]
+"graphs" = "agenticgraphs/data/graphs"
+"spec" = "agenticgraphs/data/spec"
+"specialities" = "agenticgraphs/data/specialities"
+"abilities" = "agenticgraphs/data/abilities"
+"evals" = "agenticgraphs/data/evals"
+"usecases" = "agenticgraphs/data/usecases"
 
 [dependency-groups]
 dev = ["pytest>=8.0"]
