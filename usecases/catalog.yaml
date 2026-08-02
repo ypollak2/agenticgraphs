@@ -1,0 +1,675 @@
+apiVersion: agr/v1
+kind: UseCaseCatalog
+entries:
+- id: uc-001
+  name: code-review-pipeline
+  domain: software-engineering
+  pattern: pipeline
+  summary: Staged PR review with risk triage and parallel security plus style passes.
+  verification: verdict in approve or request_changes; findings carry file and line
+- id: uc-002
+  name: bug-triage-and-fix
+  domain: software-engineering
+  pattern: planner-executor-verifier
+  summary: Reproduce a bug, plan a fix, apply it in isolation, verify.
+  verification: repro test fails before patch and passes after
+- id: uc-003
+  name: test-suite-generation
+  domain: software-engineering
+  pattern: generator-critic
+  summary: Generate tests, critic rejects trivial or tautological assertions.
+  verification: coverage delta positive; mutation score above baseline
+- id: uc-004
+  name: legacy-refactor
+  domain: software-engineering
+  pattern: pipeline
+  summary: Refactor a module behind characterization tests.
+  verification: behavior snapshot tests unchanged before and after
+- id: uc-005
+  name: framework-migration
+  domain: software-engineering
+  pattern: planner-executor-verifier
+  summary: Port a codebase between frameworks in verifiable slices.
+  verification: build and full test suite green on target stack
+- id: uc-006
+  name: dependency-upgrade
+  domain: software-engineering
+  pattern: pipeline
+  summary: Upgrade pinned deps, scan changelogs for breakage, run suite.
+  verification: lockfile updated; tests pass; no new deprecation warnings
+- id: uc-007
+  name: api-design-review
+  domain: software-engineering
+  pattern: debate
+  summary: Two reviewers argue REST versus RPC tradeoffs, judge synthesizes.
+  verification: spec passes lint; breaking changes enumerated
+- id: uc-008
+  name: performance-optimization
+  domain: software-engineering
+  pattern: loop
+  summary: Profile, patch hotspot, re-benchmark until budget met.
+  verification: benchmark under target with no test regressions
+- id: uc-009
+  name: release-notes-generation
+  domain: software-engineering
+  pattern: map-reduce
+  summary: Summarize merged PRs per area, reduce into release notes.
+  verification: every note links a merged PR; no orphan claims
+- id: uc-010
+  name: docs-code-sync-audit
+  domain: software-engineering
+  pattern: parallel-swarm
+  summary: Workers execute every doc example against the current API.
+  verification: all documented examples run exit zero
+- id: uc-011
+  name: incident-triage-router
+  domain: devops-sre
+  pattern: router
+  summary: Classify severity and route incidents to the owning team.
+  verification: routing matches on-call ownership map
+- id: uc-012
+  name: runbook-executor
+  domain: devops-sre
+  pattern: planner-executor-verifier
+  summary: Execute a runbook step-wise with post-condition checks.
+  verification: each step post-condition command exits zero
+- id: uc-013
+  name: alert-noise-reduction
+  domain: devops-sre
+  pattern: map-reduce
+  summary: Cluster alerts, dedupe storms, emit one incident per cause.
+  verification: dedupe ratio measured; no missed paging alert
+- id: uc-014
+  name: cloud-cost-optimizer
+  domain: devops-sre
+  pattern: pipeline
+  summary: Scan usage, propose rightsizing, verify against SLO headroom.
+  verification: projected savings computed from real billing export
+- id: uc-015
+  name: deploy-canary-verifier
+  domain: devops-sre
+  pattern: loop
+  summary: Progressively shift traffic while checking error budgets.
+  verification: rollback fires when error rate exceeds threshold
+- id: uc-016
+  name: postmortem-writer
+  domain: devops-sre
+  pattern: pipeline
+  summary: Assemble timeline from logs and chat, draft blameless postmortem.
+  verification: every timeline event cites a log or message id
+- id: uc-017
+  name: capacity-forecaster
+  domain: devops-sre
+  pattern: generator-critic
+  summary: Forecast load, critic stress-tests assumptions against history.
+  verification: backtest error within stated confidence band
+- id: uc-018
+  name: sql-generation-verified
+  domain: data-analytics
+  pattern: generator-critic
+  summary: Generate SQL, critic checks schema validity and row sanity.
+  verification: query executes; result passes row-count sanity assertions
+- id: uc-019
+  name: etl-pipeline-builder
+  domain: data-analytics
+  pattern: planner-executor-verifier
+  summary: Design and build an ETL job from source to warehouse.
+  verification: end-to-end run loads expected row counts
+- id: uc-020
+  name: data-quality-audit
+  domain: data-analytics
+  pattern: parallel-swarm
+  summary: Workers profile each table for nulls, drift, and duplicates.
+  verification: violations emitted as machine-readable rules with counts
+- id: uc-021
+  name: dashboard-builder
+  domain: data-analytics
+  pattern: pipeline
+  summary: From metric spec to working dashboard with tested queries.
+  verification: every panel query executes under latency budget
+- id: uc-022
+  name: schema-migration-planner
+  domain: data-analytics
+  pattern: planner-executor-verifier
+  summary: Plan backward-compatible schema changes with shadow reads.
+  verification: shadow-read diff empty before cutover
+- id: uc-023
+  name: anomaly-investigation
+  domain: data-analytics
+  pattern: router
+  summary: Route metric anomalies to seasonal, data-bug, or real-change analysts.
+  verification: classification agrees with holdout labels
+- id: uc-024
+  name: ab-test-analysis
+  domain: data-analytics
+  pattern: debate
+  summary: Two analysts argue significance and pitfalls, judge writes readout.
+  verification: stats recomputed from raw data reproduce claimed effect
+- id: uc-025
+  name: data-catalog-enrichment
+  domain: data-analytics
+  pattern: map-reduce
+  summary: Describe every table and column, reduce into a searchable catalog.
+  verification: descriptions exist for all tables; lineage links resolve
+- id: uc-026
+  name: literature-review-swarm
+  domain: research-knowledge
+  pattern: parallel-swarm
+  summary: Parallel readers summarize papers, merger builds themed review.
+  verification: every claim cites a specific paper and section
+- id: uc-027
+  name: systematic-meta-analysis
+  domain: research-knowledge
+  pattern: pipeline
+  summary: PRISMA-style screen, extract, pool effect sizes.
+  verification: inclusion log complete; effect sizes recomputable
+- id: uc-028
+  name: competitive-intelligence
+  domain: research-knowledge
+  pattern: map-reduce
+  summary: Scan competitor releases and filings, reduce to a delta brief.
+  verification: every finding links a dated public source
+- id: uc-029
+  name: fact-check-pipeline
+  domain: research-knowledge
+  pattern: pipeline
+  summary: Decompose claims, verify each against sources, grade verdicts.
+  verification: each verdict carries source URL and quote span
+- id: uc-030
+  name: patent-landscape
+  domain: research-knowledge
+  pattern: map-reduce
+  summary: Cluster patents by claim family, summarize white space.
+  verification: cluster assignments reproducible; ids valid
+- id: uc-031
+  name: survey-design-critic
+  domain: research-knowledge
+  pattern: generator-critic
+  summary: Draft survey, critic hunts leading and double-barreled items.
+  verification: zero flagged items remain; branching logic validated
+- id: uc-032
+  name: grant-proposal-pipeline
+  domain: research-knowledge
+  pattern: pipeline
+  summary: Aims, methods, budget drafted then compliance-checked.
+  verification: funder checklist items all satisfied
+- id: uc-033
+  name: citation-integrity-audit
+  domain: research-knowledge
+  pattern: parallel-swarm
+  summary: Workers verify each citation exists and supports its claim.
+  verification: every citation resolves; mismatches listed
+- id: uc-034
+  name: blog-production-pipeline
+  domain: content-marketing
+  pattern: pipeline
+  summary: Brief to outline to draft to edit to publish-ready post.
+  verification: style guide lint passes; plagiarism scan clean
+- id: uc-035
+  name: seo-optimization-loop
+  domain: content-marketing
+  pattern: loop
+  summary: Rewrite for target queries, re-score, iterate to threshold.
+  verification: seo score above threshold without keyword stuffing flags
+- id: uc-036
+  name: ad-variant-tournament
+  domain: content-marketing
+  pattern: generator-critic
+  summary: Generate ad variants, critic ranks against brand and claim rules.
+  verification: surviving variants pass legal claim checklist
+- id: uc-037
+  name: brand-consistency-audit
+  domain: content-marketing
+  pattern: parallel-swarm
+  summary: Workers audit assets against voice and visual guidelines.
+  verification: violations reported per asset with rule ids
+- id: uc-038
+  name: localization-pipeline
+  domain: content-marketing
+  pattern: map-reduce
+  summary: Translate per locale, reduce into a consistency report.
+  verification: back-translation similarity above threshold; glossary respected
+- id: uc-039
+  name: social-campaign-planner
+  domain: content-marketing
+  pattern: planner-executor-verifier
+  summary: Plan a campaign calendar, draft posts, verify constraints.
+  verification: calendar has no channel conflicts; lengths within limits
+- id: uc-040
+  name: newsletter-assembler
+  domain: content-marketing
+  pattern: map-reduce
+  summary: Summarize the period's items, reduce into sections.
+  verification: every item links its source; dead links zero
+- id: uc-041
+  name: video-script-writer
+  domain: content-marketing
+  pattern: generator-critic
+  summary: Script drafts critiqued for hook, pacing, and claim accuracy.
+  verification: runtime estimate within brief; claims sourced
+- id: uc-042
+  name: rfp-response-assembler
+  domain: business-ops
+  pattern: map-reduce
+  summary: Answer each RFP requirement from a knowledge base, assemble.
+  verification: every requirement answered or flagged; page limit met
+- id: uc-043
+  name: meeting-to-actions
+  domain: business-ops
+  pattern: pipeline
+  summary: Transcript to decisions, owners, deadlines, and follow-ups.
+  verification: each action has owner and date; quotes traceable
+- id: uc-044
+  name: vendor-comparison-matrix
+  domain: business-ops
+  pattern: parallel-swarm
+  summary: Workers score vendors per criterion from evidence.
+  verification: every score cites vendor documentation
+- id: uc-045
+  name: policy-compliance-check
+  domain: business-ops
+  pattern: pipeline
+  summary: Check internal docs and processes against a policy set.
+  verification: findings map to specific policy clause ids
+- id: uc-046
+  name: okr-drafting-debate
+  domain: business-ops
+  pattern: debate
+  summary: Ambition versus feasibility advocates converge on OKRs.
+  verification: each KR is measurable with a data source named
+- id: uc-047
+  name: invoice-reconciliation
+  domain: business-ops
+  pattern: router
+  summary: Match invoices to POs, route exceptions by mismatch type.
+  verification: matched set balances; exceptions carry mismatch reason
+- id: uc-048
+  name: process-documentation-miner
+  domain: business-ops
+  pattern: map-reduce
+  summary: Mine tickets and chats to document the de facto process.
+  verification: steps corroborated by at least two sources
+- id: uc-049
+  name: earnings-call-digest
+  domain: finance
+  pattern: pipeline
+  summary: Transcript to guidance changes, surprises, and QA highlights.
+  verification: every figure matches transcript; no invented numbers
+- id: uc-050
+  name: budget-variance-analysis
+  domain: finance
+  pattern: map-reduce
+  summary: Explain variance per cost center, reduce to an exec brief.
+  verification: variances sum to total; drivers cite ledger lines
+- id: uc-051
+  name: fraud-pattern-triage
+  domain: finance
+  pattern: router
+  summary: Route flagged transactions to rule, anomaly, or manual review.
+  verification: routing precision measured against labeled history
+- id: uc-052
+  name: kyc-document-processing
+  domain: finance
+  pattern: pipeline
+  summary: Extract, cross-check, and flag gaps in KYC documents.
+  verification: extracted fields validate against document images
+- id: uc-053
+  name: regulatory-filing-check
+  domain: finance
+  pattern: parallel-swarm
+  summary: Workers check filing sections against requirement checklists.
+  verification: every checklist item pass or fail with location
+- id: uc-054
+  name: portfolio-report-generation
+  domain: finance
+  pattern: pipeline
+  summary: Assemble informational holdings and performance reporting.
+  verification: figures reconcile to custodian data; no advice emitted
+- id: uc-055
+  name: expense-audit-swarm
+  domain: finance
+  pattern: parallel-swarm
+  summary: Workers audit expense lines against policy in parallel.
+  verification: violations carry line id and policy rule
+- id: uc-056
+  name: contract-redline-pipeline
+  domain: legal-compliance
+  pattern: pipeline
+  summary: Compare against playbook, propose redlines with rationale.
+  verification: every redline cites a playbook position
+- id: uc-057
+  name: license-compliance-scan
+  domain: legal-compliance
+  pattern: map-reduce
+  summary: Scan dependency licenses, reduce to obligations report.
+  verification: SPDX ids resolved; copyleft conflicts flagged
+- id: uc-058
+  name: gdpr-data-audit
+  domain: legal-compliance
+  pattern: parallel-swarm
+  summary: Workers map personal data flows per system.
+  verification: every flow lists lawful basis or a gap
+- id: uc-059
+  name: ediscovery-triage
+  domain: legal-compliance
+  pattern: router
+  summary: Route documents by privilege, relevance, and confidentiality.
+  verification: recall on seeded relevant set above threshold
+- id: uc-060
+  name: case-law-research
+  domain: legal-compliance
+  pattern: pipeline
+  summary: Find, shepardize, and brief controlling authority.
+  verification: every citation verified as good law with source
+- id: uc-061
+  name: tos-diff-monitor
+  domain: legal-compliance
+  pattern: pipeline
+  summary: Diff terms-of-service versions, classify materiality.
+  verification: each material change quotes old and new text
+- id: uc-062
+  name: ip-portfolio-review
+  domain: legal-compliance
+  pattern: map-reduce
+  summary: Review marks and patents for renewals and conflicts.
+  verification: deadlines extracted match registry records
+- id: uc-063
+  name: clinical-literature-triage
+  domain: healthcare-science
+  pattern: router
+  summary: Route new papers by study type and evidence level.
+  verification: labels match a validated sample set
+- id: uc-064
+  name: protocol-drafting-critic
+  domain: healthcare-science
+  pattern: generator-critic
+  summary: Draft study protocols, critic checks power and ethics gaps.
+  verification: checklist conformance complete; power calc reproducible
+- id: uc-065
+  name: medical-coding-audit
+  domain: healthcare-science
+  pattern: parallel-swarm
+  summary: Workers verify diagnosis and procedure codes against notes.
+  verification: code assignments justified by note spans
+- id: uc-066
+  name: bioinformatics-pipeline-builder
+  domain: healthcare-science
+  pattern: planner-executor-verifier
+  summary: Assemble genomics workflow with validated steps.
+  verification: pipeline reproduces reference results on test data
+- id: uc-067
+  name: adverse-event-scanner
+  domain: healthcare-science
+  pattern: map-reduce
+  summary: Scan reports for adverse-event signals, reduce to summary.
+  verification: every signal cites report ids; counts reproducible
+- id: uc-068
+  name: lab-notebook-summarizer
+  domain: healthcare-science
+  pattern: pipeline
+  summary: Turn raw notebook entries into structured experiment records.
+  verification: records validate against schema; entries linked
+- id: uc-069
+  name: trial-eligibility-screener
+  domain: healthcare-science
+  pattern: pipeline
+  summary: Screen criteria against records for informational matching.
+  verification: each criterion pass or fail with evidence span
+- id: uc-070
+  name: curriculum-designer
+  domain: education
+  pattern: planner-executor-verifier
+  summary: Design course from outcomes to assessments with alignment.
+  verification: every outcome mapped to lesson and assessment
+- id: uc-071
+  name: quiz-generation-verified
+  domain: education
+  pattern: generator-critic
+  summary: Generate items, critic solves them blind to verify keys.
+  verification: critic answers match keys; distractors plausible
+- id: uc-072
+  name: essay-feedback-critic
+  domain: education
+  pattern: generator-critic
+  summary: Rubric-based feedback with evidence quotes from the essay.
+  verification: every comment quotes essay text; rubric ids cited
+- id: uc-073
+  name: tutoring-router
+  domain: education
+  pattern: router
+  summary: Route learner questions by topic and difficulty to tutors.
+  verification: routing matches topic taxonomy on holdout set
+- id: uc-074
+  name: learning-path-planner
+  domain: education
+  pattern: planner-executor-verifier
+  summary: Sequence modules against prerequisites and pace.
+  verification: prerequisite DAG has no violations
+- id: uc-075
+  name: rubric-grading-swarm
+  domain: education
+  pattern: parallel-swarm
+  summary: Independent graders score, disagreements auto-escalate.
+  verification: inter-rater agreement above threshold or escalated
+- id: uc-076
+  name: course-localization
+  domain: education
+  pattern: map-reduce
+  summary: Localize materials per language, reduce into a QA report.
+  verification: terminology glossary respected; media links valid
+- id: uc-077
+  name: ticket-triage-swarm
+  domain: customer-support-sales
+  pattern: router
+  summary: Classify and route tickets with priority and sentiment.
+  verification: routing accuracy measured on labeled backlog
+- id: uc-078
+  name: kb-article-generator
+  domain: customer-support-sales
+  pattern: pipeline
+  summary: Mine resolved tickets into draft knowledge-base articles.
+  verification: steps reproduce resolution; duplicates deduped
+- id: uc-079
+  name: escalation-summarizer
+  domain: customer-support-sales
+  pattern: pipeline
+  summary: Compress long threads into handoff briefs with state.
+  verification: brief covers all unresolved asks; quotes traceable
+- id: uc-080
+  name: churn-signal-analysis
+  domain: customer-support-sales
+  pattern: map-reduce
+  summary: Aggregate account signals, reduce to ranked churn risks.
+  verification: every risk factor cites underlying events
+- id: uc-081
+  name: crm-enrichment-pipeline
+  domain: customer-support-sales
+  pattern: pipeline
+  summary: Fill CRM gaps from public sources with provenance.
+  verification: each field carries source URL and timestamp
+- id: uc-082
+  name: sales-call-scorer
+  domain: customer-support-sales
+  pattern: parallel-swarm
+  summary: Workers score calls per methodology dimension.
+  verification: scores cite transcript spans; calibration checked
+- id: uc-083
+  name: quote-configurator
+  domain: customer-support-sales
+  pattern: pipeline
+  summary: Assemble quotes against price book and discount policy.
+  verification: totals recompute exactly; policy violations zero
+- id: uc-084
+  name: threat-intel-digest
+  domain: security
+  pattern: map-reduce
+  summary: Summarize feeds into an actionable daily brief.
+  verification: every item links source advisory with CVE ids
+- id: uc-085
+  name: phishing-triage
+  domain: security
+  pattern: router
+  summary: Classify reported emails, route confirmed phish to response.
+  verification: verdicts benchmarked against labeled corpus
+- id: uc-086
+  name: vuln-prioritization
+  domain: security
+  pattern: pipeline
+  summary: Rank findings by exploitability and blast radius.
+  verification: ranking inputs cite scanner evidence and asset map
+- id: uc-087
+  name: soc-alert-investigation
+  domain: security
+  pattern: planner-executor-verifier
+  summary: Investigate an alert with hypothesis-driven queries.
+  verification: conclusion supported by query results attached
+- id: uc-088
+  name: pentest-report-synthesis
+  domain: security
+  pattern: pipeline
+  summary: Merge tester notes into a findings report with severities.
+  verification: every finding has repro steps and evidence
+- id: uc-089
+  name: supply-chain-audit
+  domain: security
+  pattern: parallel-swarm
+  summary: Workers audit dependencies for provenance and tampering.
+  verification: attestations verified; unsigned artifacts listed
+- id: uc-090
+  name: compliance-evidence-collector
+  domain: security
+  pattern: map-reduce
+  summary: Gather control evidence per framework requirement.
+  verification: every control maps to dated evidence artifacts
+- id: uc-091
+  name: jd-drafting-critic
+  domain: hr-people
+  pattern: generator-critic
+  summary: Draft job descriptions, critic removes bias and inflation.
+  verification: bias-term lint clean; requirements deduplicated
+- id: uc-092
+  name: interview-question-bank
+  domain: hr-people
+  pattern: generator-critic
+  summary: Generate role questions, critic checks legality and signal.
+  verification: no prohibited-topic questions; rubric attached
+- id: uc-093
+  name: onboarding-plan-builder
+  domain: hr-people
+  pattern: planner-executor-verifier
+  summary: Build role-specific onboarding with checkpoint tasks.
+  verification: every task has owner, system access verified
+- id: uc-094
+  name: engagement-survey-analysis
+  domain: hr-people
+  pattern: map-reduce
+  summary: Theme open-text responses, reduce with anonymity floor.
+  verification: themes cite response counts; k-anonymity respected
+- id: uc-095
+  name: policy-qa-assistant
+  domain: hr-people
+  pattern: pipeline
+  summary: Answer policy questions with citations to the handbook.
+  verification: every answer cites handbook section
+- id: uc-096
+  name: performance-cycle-summarizer
+  domain: hr-people
+  pattern: pipeline
+  summary: Aggregate peer feedback into balanced review drafts.
+  verification: every statement traces to submitted feedback
+- id: uc-097
+  name: training-gap-analyzer
+  domain: hr-people
+  pattern: map-reduce
+  summary: Map skills against role matrix, reduce to training plan.
+  verification: gaps reference assessment evidence
+- id: uc-098
+  name: route-optimization-review
+  domain: logistics-retail
+  pattern: generator-critic
+  summary: Propose delivery routes, critic checks constraints.
+  verification: routes satisfy time windows and capacity
+- id: uc-099
+  name: inventory-forecast-critic
+  domain: logistics-retail
+  pattern: generator-critic
+  summary: Forecast SKU demand, critic backtests against history.
+  verification: backtest error below naive baseline
+- id: uc-100
+  name: supplier-risk-monitor
+  domain: logistics-retail
+  pattern: map-reduce
+  summary: Scan supplier news and filings, reduce to risk deltas.
+  verification: every delta links a dated source
+- id: uc-101
+  name: product-listing-pipeline
+  domain: logistics-retail
+  pattern: pipeline
+  summary: Draft listings from specs with claim and image checks.
+  verification: attributes match spec sheet; banned claims zero
+- id: uc-102
+  name: returns-triage
+  domain: logistics-retail
+  pattern: router
+  summary: Route returns by reason to refund, repair, or fraud review.
+  verification: routing agrees with policy decision table
+- id: uc-103
+  name: demand-signal-digest
+  domain: logistics-retail
+  pattern: map-reduce
+  summary: Merge sales, weather, and events into demand notes.
+  verification: signals quantified with source data ranges
+- id: uc-104
+  name: planogram-compliance-review
+  domain: logistics-retail
+  pattern: parallel-swarm
+  summary: Workers check shelf photos against planograms.
+  verification: violations localized per fixture with confidence
+- id: uc-105
+  name: screenplay-coverage
+  domain: creative-production
+  pattern: pipeline
+  summary: Read script, produce coverage with comps and verdict.
+  verification: verdict rubric complete; quotes have page numbers
+- id: uc-106
+  name: podcast-production-pipeline
+  domain: creative-production
+  pattern: pipeline
+  summary: Outline, script, edit, and show notes with links.
+  verification: chapters match audio markers; links resolve
+- id: uc-107
+  name: game-npc-dialogue
+  domain: creative-production
+  pattern: generator-critic
+  summary: Generate branching dialogue, critic checks lore and tone.
+  verification: branches validate against dialogue schema; lore conflicts zero
+- id: uc-108
+  name: level-design-review
+  domain: creative-production
+  pattern: debate
+  summary: Difficulty versus flow advocates review a level design.
+  verification: playtest checklist complete; blockers enumerated
+- id: uc-109
+  name: book-editing-pipeline
+  domain: creative-production
+  pattern: pipeline
+  summary: Developmental, line, and copy edits in ordered passes.
+  verification: style sheet applied; continuity errors listed resolved
+- id: uc-110
+  name: ux-research-synthesis
+  domain: creative-production
+  pattern: map-reduce
+  summary: Code interview transcripts, reduce to themed insights.
+  verification: every insight cites at least two participants
+- id: uc-111
+  name: image-asset-qa
+  domain: creative-production
+  pattern: parallel-swarm
+  summary: Workers check assets for spec, licensing, and artifacts.
+  verification: every asset pass or fail with rule id
+- id: uc-112
+  name: music-metadata-tagging
+  domain: creative-production
+  pattern: map-reduce
+  summary: Tag tracks with genre, mood, and rights metadata.
+  verification: tags validate against controlled vocabulary
