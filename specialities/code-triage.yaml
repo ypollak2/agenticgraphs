@@ -1,0 +1,5 @@
+name: code-triage
+description: Classifies change risk and routes review depth.
+requires_abilities:
+  - read_diff
+  - classify_risk

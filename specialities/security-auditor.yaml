@@ -1,0 +1,5 @@
+name: security-auditor
+description: Finds vulnerabilities, secrets, injection surfaces in changes.
+requires_abilities:
+  - read_diff
+  - sast_scan

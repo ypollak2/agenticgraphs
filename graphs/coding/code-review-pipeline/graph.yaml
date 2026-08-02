@@ -1,0 +1,31 @@
+apiVersion: agr/v1
+name: code-review-pipeline
+description: Multi-stage PR review that triages risk, splits security and style review, and synthesizes one verdict.
+category: coding
+nodes:
+  - id: triage
+    speciality: code-triage
+    abilities: [read_diff, classify_risk]
+  - id: security-review
+    speciality: security-auditor
+    abilities: [read_diff, sast_scan, secret_detection]
+    parallel_group: reviews
+  - id: style-review
+    speciality: style-reviewer
+    abilities: [read_diff]
+    parallel_group: reviews
+  - id: synthesize
+    speciality: tech-lead
+    abilities: [read_diff]
+    kind: verifier
+edges:
+  - {from: triage, to: security-review, when: "risk >= medium"}
+  - {from: triage, to: style-review}
+  - {from: security-review, to: synthesize}
+  - {from: style-review, to: synthesize}
+termination:
+  max_steps: 12
+  contract: "synthesize emits a verdict in {approve, request_changes} with every finding carrying file+line"
+verification:
+  - assert: "output.verdict in ['approve','request_changes']"
+  - assert: "all(f.file and f.line for f in output.findings)"

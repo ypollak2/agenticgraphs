@@ -1,0 +1,4 @@
+name: planner
+description: Decomposes a goal into independently verifiable subtasks.
+requires_abilities:
+  - decompose_goal

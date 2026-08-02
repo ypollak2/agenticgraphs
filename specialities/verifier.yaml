@@ -1,0 +1,4 @@
+name: verifier
+description: Proves completion via executable checks; never trusts claims.
+requires_abilities:
+  - run_command

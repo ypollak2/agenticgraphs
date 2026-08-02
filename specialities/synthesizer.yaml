@@ -1,0 +1,4 @@
+name: synthesizer
+description: Merges findings into a cited, contradiction-checked answer.
+requires_abilities:
+  - cite_sources

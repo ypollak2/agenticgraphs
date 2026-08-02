@@ -1,0 +1,4 @@
+name: tech-lead
+description: Synthesizes findings into one actionable verdict.
+requires_abilities:
+  - read_diff

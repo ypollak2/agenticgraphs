@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agenticgraphs.dev/spec/agr-graph.schema.json",
+  "title": "AGR Graph v1",
+  "type": "object",
+  "required": [
+    "apiVersion",
+    "name",
+    "description",
+    "category",
+    "nodes",
+    "edges",
+    "termination"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "agr/v1"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{2,63}$"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10
+    },
+    "category": {
+      "enum": [
+        "coding",
+        "research",
+        "data",
+        "ops",
+        "content"
+      ]
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "speciality"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "speciality": {
+            "type": "string"
+          },
+          "abilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "kind": {
+            "enum": [
+              "agent",
+              "verifier",
+              "human",
+              "router"
+            ],
+            "default": "agent"
+          },
+          "parallel_group": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "edges": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "from",
+          "to"
+        ],
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "when": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "state": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "termination": {
+      "type": "object",
+      "required": [
+        "max_steps"
+      ],
+      "properties": {
+        "max_steps": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "contract": {
+          "type": "string"
+        }
+      }
+    },
+    "verification": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "assert": {
+            "type": "string"
+          },
+          "command": {
+            "type": "string"
+          }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "assert"
+            ]
+          },
+          {
+            "required": [
+              "command"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "additionalProperties": false
+}

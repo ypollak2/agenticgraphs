@@ -1,0 +1,4 @@
+name: worker
+description: Executes one subtask in isolation.
+requires_abilities:
+  - run_command

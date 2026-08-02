@@ -1,0 +1,3 @@
+name: sast_scan
+description: Static security scan of changed code.
+risk: read

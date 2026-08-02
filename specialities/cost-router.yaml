@@ -1,0 +1,4 @@
+name: cost-router
+description: Sends each task to the cheapest capable executor.
+requires_abilities:
+  - classify_complexity

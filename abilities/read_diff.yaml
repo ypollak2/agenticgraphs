@@ -1,0 +1,3 @@
+name: read_diff
+description: Read a code diff or patch.
+risk: read

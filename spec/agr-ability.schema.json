@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agenticgraphs.dev/spec/agr-ability.schema.json",
+  "title": "AGR Ability v1",
+  "type": "object",
+  "required": ["name", "description"],
+  "properties": {
+    "name": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_]*$"},
+    "description": {"type": "string"},
+    "binding": {
+      "type": "object",
+      "properties": {
+        "kind": {"enum": ["mcp_tool", "shell", "builtin"]},
+        "ref": {"type": "string"}
+      }
+    },
+    "risk": {"enum": ["read", "write", "execute"], "default": "read"}
+  },
+  "additionalProperties": false
+}

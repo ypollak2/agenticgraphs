@@ -1,0 +1,4 @@
+name: researcher
+description: Gathers and grounds facts from sources.
+requires_abilities:
+  - web_search

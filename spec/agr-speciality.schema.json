@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agenticgraphs.dev/spec/agr-speciality.schema.json",
+  "title": "AGR Speciality v1",
+  "type": "object",
+  "required": ["name", "description", "requires_abilities"],
+  "properties": {
+    "name": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+    "description": {"type": "string"},
+    "requires_abilities": {"type": "array", "items": {"type": "string"}},
+    "optional_abilities": {"type": "array", "items": {"type": "string"}},
+    "prompt_seed": {"type": "string"}
+  },
+  "additionalProperties": false
+}

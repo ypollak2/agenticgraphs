@@ -1,0 +1,4 @@
+name: style-reviewer
+description: Reviews readability, naming, idiomatic usage.
+requires_abilities:
+  - read_diff
