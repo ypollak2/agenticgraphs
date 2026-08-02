@@ -1,0 +1,32 @@
+# GitHub Pages (Jekyll) config — renders the generated markdown as a browsable gallery.
+title: agenticgraphs
+description: "A verified registry of 52 agentic workflow graphs — patterns, contracts, cards, evals."
+theme: jekyll-theme-cayman
+markdown: kramdown
+
+# Rewrite links that point at .md files to their rendered pages.
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: true
+
+# Only ship the browsable artifacts.
+include:
+  - CARDS.md
+exclude:
+  - src
+  - tests
+  - scripts
+  - evals
+  - usecases
+  - pyproject.toml
+  - uv.lock
+  - Makefile
+  - "*.py"
+  - .venv
+  - vendor
+
+defaults:
+  - scope: {path: ""}
+    values: {layout: default}
