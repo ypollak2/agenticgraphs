@@ -11,6 +11,8 @@
 
 <br />
 
+<img src="docs/assets/logo.png" alt="agenticgraphs — the Vitruvian Agent" width="240" />
+
 # 🕸️ agenticgraphs
 
 **Evolvable, quality-proven agentic graphs — for frameworks, developers, and agents themselves.**
