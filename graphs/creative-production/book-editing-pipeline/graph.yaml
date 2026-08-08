@@ -1,0 +1,86 @@
+apiVersion: agr/v1.1
+name: book-editing-pipeline
+description: Take a manuscript through developmental, line and copy edit passes with author sign-off before
+  typesetting.
+category: creative-production
+nodes:
+- id: assess
+  speciality: critic
+  abilities:
+  - critique
+  inputs:
+  - manuscript
+  outputs:
+  - dev_notes
+- id: dev-edit
+  speciality: producer
+  abilities:
+  - generate
+  inputs:
+  - dev_notes
+  outputs:
+  - dev_draft
+- id: line-edit
+  speciality: producer
+  abilities:
+  - generate
+  inputs:
+  - dev_draft
+  outputs:
+  - line_draft
+- id: copy-edit
+  speciality: critic
+  abilities:
+  - critique
+  inputs:
+  - line_draft
+  outputs:
+  - copy_clean
+  - style_violations
+- id: author-signoff
+  speciality: approver
+  kind: human
+  abilities:
+  - approve
+  inputs:
+  - copy_clean
+  outputs:
+  - signed_off
+  approval:
+    contract: signed_off == true and len(style_violations) == 0
+    timeout: 24h
+    on_timeout: escalate
+- id: typeset
+  speciality: executor
+  abilities:
+  - execute_step
+  inputs:
+  - signed_off
+  outputs:
+  - typeset
+edges:
+- from: assess
+  to: dev-edit
+- from: dev-edit
+  to: line-edit
+- from: line-edit
+  to: copy-edit
+- from: copy-edit
+  to: line-edit
+  when: len(style_violations) > 0 and attempts < 2
+- from: copy-edit
+  to: author-signoff
+  when: len(style_violations) == 0
+- from: author-signoff
+  to: typeset
+termination:
+  max_steps: 35
+  contract: nothing typesets with open style violations or without author sign-off
+verification:
+- describe: no style guide violations survive to typesetting
+  assert: len(output.style_violations) == 0
+- describe: the author approved the final text
+  assert: output.signed_off == true
+state:
+  inputs:
+  - manuscript

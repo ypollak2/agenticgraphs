@@ -76,8 +76,8 @@ Adjacent entries from the use-case catalog this card adapts to with small edits:
 - **protocol-drafting-critic** (healthcare-science, generator-critic) — Draft study protocols, critic checks power and ethics gaps. *Verify:* checklist conformance complete; power calc reproducible.
 - **bioinformatics-pipeline-builder** (healthcare-science, planner-executor-verifier) — Assemble genomics workflow with validated steps. *Verify:* pipeline reproduces reference results on test data.
 - **lab-notebook-summarizer** (healthcare-science, pipeline) — Turn raw notebook entries into structured experiment records. *Verify:* records validate against schema; entries linked.
-- **trial-eligibility-screener** (healthcare-science, pipeline) — Screen criteria against records for informational matching. *Verify:* each criterion pass or fail with evidence span.
-- **invoice-reconciliation** (business-ops, router) — Match invoices to POs, route exceptions by mismatch type. *Verify:* matched set balances; exceptions carry mismatch reason.
+- **fraud-pattern-triage** (finance, router) — Route flagged transactions to rule, anomaly, or manual review. *Verify:* routing precision measured against labeled history.
+- **tutoring-router** (education, router) — Route learner questions by topic and difficulty to tutors. *Verify:* routing matches topic taxonomy on holdout set.
 
 ---
 *Regenerate: `uv run python scripts/gen_cards.py` · Index: [CARDS.md](../../../CARDS.md)*

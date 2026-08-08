@@ -1,0 +1,109 @@
+apiVersion: agr/v1.1
+name: feature-delivery-lifecycle
+description: >-
+  End-to-end feature delivery: research a problem, plan it, implement it, test it,
+  audit the change, fix what the audit found, document it, and release behind a
+  human gate with a rollback path. The implement, test and audit phases are not
+  re-authored here — they reference the existing single-purpose graphs as subgraphs.
+category: software-engineering
+state:
+  inputs: [goal, repo]
+nodes:
+  - id: research
+    speciality: researcher
+    abilities: [web_search, read_papers]
+    inputs: [goal]
+    outputs: [research_brief, prior_art]
+
+  - id: plan
+    speciality: planner
+    abilities: [decompose_goal]
+    inputs: [research_brief, repo]
+    outputs: [plan, acceptance_criteria]
+
+  # The thesis of v1.1: the flat library becomes the component library.
+  - id: implement
+    speciality: supervisor
+    kind: subgraph
+    ref: software-engineering/bug-triage-and-fix
+    inputs: [plan]
+    outputs: [patch]
+
+  - id: test
+    speciality: supervisor
+    kind: subgraph
+    ref: software-engineering/test-suite-generation
+    inputs: [patch, acceptance_criteria]
+    outputs: [test_report]
+
+  - id: audit
+    speciality: supervisor
+    kind: subgraph
+    ref: software-engineering/code-review-pipeline
+    inputs: [patch, test_report]
+    outputs: [verdict, findings]
+
+  - id: fix
+    speciality: executor
+    abilities: [execute_step, edit_files]
+    inputs: [findings]
+    outputs: [patch, audit_rounds]
+
+  - id: docs
+    speciality: docs-writer
+    abilities: [write_docs, read_diff]
+    inputs: [patch, verdict]
+    outputs: [docs_updated]
+    join: all
+
+  - id: release-approval
+    speciality: approver
+    kind: human
+    abilities: [approve]
+    inputs: [docs_updated, verdict]
+    outputs: [signed_off]
+    approval:
+      contract: "signed_off == true and verdict == 'approve'"
+      timeout: 24h
+      on_timeout: escalate
+
+  - id: release
+    speciality: release-manager
+    abilities: [cut_release]
+    inputs: [signed_off]
+    outputs: [released, release_tag]
+    on_error: rollback
+
+  - id: rollback
+    speciality: compensator
+    abilities: [rollback]
+    inputs: [release_tag]
+    outputs: [rolled_back]
+
+edges:
+  - {from: research, to: plan}
+  - {from: plan, to: implement}
+  - {from: implement, to: test}
+  - {from: test, to: audit}
+  - {from: audit, to: fix, when: "verdict == 'request_changes'"}
+  - {from: audit, to: docs, when: "verdict == 'approve'"}
+  - {from: fix, to: audit, when: "audit_rounds < 2"}
+  - {from: docs, to: release-approval}
+  - {from: release-approval, to: release}
+  - {from: release, to: rollback, kind: compensate, when: "release_failed"}
+
+termination:
+  max_steps: 60
+  contract: >-
+    A release is cut only after the audit verdict is approve, docs are updated, and a
+    human signs off; a failed release is compensated by a rollback.
+
+verification:
+  - describe: the audit must have cleared before anything ships
+    assert: "output.verdict == 'approve'"
+  - describe: docs ship with the code, not after it
+    assert: "output.docs_updated == true"
+  - describe: a human, not a model, authorised the release
+    assert: "output.signed_off == true"
+  - describe: the release either completed or was rolled back — never partial
+    assert: "output.released == true or output.rolled_back == true"

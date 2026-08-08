@@ -1,0 +1,28 @@
+cases:
+- id: happy-path
+  node_outputs:
+    discover.plan:
+      complexity: simple
+      risk: low
+      revision_requested: false
+      rejected: false
+      verify_failed: false
+      below_target: false
+      attempts: 1
+    discover.work: {}
+    discover.verify:
+      data_map: []
+    classify:
+      lawful_basis: []
+    gap-scan:
+      gaps: &id001
+      - owner: dpo
+        due: '2026-09-01'
+    remediate:
+      remediation_plan: remediation_plan-value
+    attest:
+      attested: true
+      output:
+        unclassified_stores: 0
+        gaps: *id001
+        attested: true

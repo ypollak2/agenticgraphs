@@ -1,0 +1,101 @@
+apiVersion: agr/v1.1
+name: vuln-remediation-lifecycle
+description: Ingest a vulnerability, prioritize it, reproduce it, patch it, prove the patch, and disclose
+  behind a human gate.
+category: security
+nodes:
+- id: ingest
+  speciality: analyst
+  abilities:
+  - analyze
+  inputs:
+  - feed
+  outputs:
+  - advisory
+- id: prioritize
+  speciality: supervisor
+  kind: subgraph
+  ref: security/vuln-prioritization
+  inputs:
+  - advisory
+  outputs:
+  - priority
+  - exploitability
+- id: reproduce
+  speciality: worker
+  abilities:
+  - run_command
+  - edit_files
+  inputs:
+  - priority
+  outputs:
+  - repro_confirmed
+- id: patch
+  speciality: executor
+  abilities:
+  - execute_step
+  - edit_files
+  inputs:
+  - repro_confirmed
+  outputs:
+  - patch
+- id: prove
+  speciality: verifier
+  abilities:
+  - run_command
+  kind: verifier
+  inputs:
+  - patch
+  outputs:
+  - exploit_blocked
+- id: disclose-approval
+  speciality: approver
+  kind: human
+  abilities:
+  - approve
+  inputs:
+  - exploit_blocked
+  outputs:
+  - signed_off
+  approval:
+    contract: signed_off == true and exploit_blocked == true
+    timeout: 24h
+    on_timeout: escalate
+- id: disclose
+  speciality: producer
+  abilities:
+  - generate
+  inputs:
+  - signed_off
+  outputs:
+  - advisory_published
+edges:
+- from: ingest
+  to: prioritize
+- from: prioritize
+  to: reproduce
+- from: reproduce
+  to: patch
+- from: patch
+  to: prove
+- from: prove
+  to: patch
+  when: not exploit_blocked and attempts < 3
+- from: prove
+  to: disclose-approval
+  when: exploit_blocked
+- from: disclose-approval
+  to: disclose
+termination:
+  max_steps: 45
+  contract: nothing is disclosed until the exploit is proven blocked and a human has signed off
+verification:
+- describe: the exploit is proven blocked before anything is disclosed
+  assert: output.exploit_blocked == true
+- describe: disclosure carries a human signature
+  assert: output.signed_off == true
+- describe: the advisory actually shipped
+  assert: output.advisory_published == true
+state:
+  inputs:
+  - feed

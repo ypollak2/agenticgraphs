@@ -69,11 +69,11 @@ To evolve it: `uv run agr infuse dependency-upgrade <node> <ability>` — every 
 
 Adjacent entries from the use-case catalog this card adapts to with small edits:
 
-- **framework-migration** (software-engineering, planner-executor-verifier) — Port a codebase between frameworks in verifiable slices. *Verify:* build and full test suite green on target stack.
 - **api-design-review** (software-engineering, debate) — Two reviewers argue REST versus RPC tradeoffs, judge synthesizes. *Verify:* spec passes lint; breaking changes enumerated.
 - **cloud-cost-optimizer** (devops-sre, pipeline) — Scan usage, propose rightsizing, verify against SLO headroom. *Verify:* projected savings computed from real billing export.
 - **dashboard-builder** (data-analytics, pipeline) — From metric spec to working dashboard with tested queries. *Verify:* every panel query executes under latency budget.
 - **systematic-meta-analysis** (research-knowledge, pipeline) — PRISMA-style screen, extract, pool effect sizes. *Verify:* inclusion log complete; effect sizes recomputable.
+- **grant-proposal-pipeline** (research-knowledge, pipeline) — Aims, methods, budget drafted then compliance-checked. *Verify:* funder checklist items all satisfied.
 
 ---
 *Regenerate: `uv run python scripts/gen_cards.py` · Index: [CARDS.md](../../../CARDS.md)*

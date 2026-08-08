@@ -1,0 +1,80 @@
+apiVersion: agr/v1.1
+name: regulatory-filing-lifecycle
+description: Collect figures, reconcile them to source, gate on controller sign-off, then file and retain
+  evidence.
+category: finance
+nodes:
+- id: collect
+  speciality: mapper
+  abilities:
+  - map_shard
+  inputs:
+  - period
+  outputs:
+  - figures
+- id: reconcile
+  speciality: controller
+  abilities:
+  - analyze
+  inputs:
+  - figures
+  outputs:
+  - variance
+  - reconciled
+- id: controller-signoff
+  speciality: approver
+  kind: human
+  abilities:
+  - approve
+  inputs:
+  - reconciled
+  outputs:
+  - signed_off
+  approval:
+    contract: signed_off == true and reconciled == true
+    timeout: 24h
+    on_timeout: escalate
+- id: file
+  speciality: controller
+  abilities:
+  - analyze
+  - file_record
+  inputs:
+  - signed_off
+  outputs:
+  - filed
+  - confirmation_id
+- id: retain
+  speciality: producer
+  abilities:
+  - generate
+  inputs:
+  - confirmation_id
+  outputs:
+  - evidence_pack
+edges:
+- from: collect
+  to: reconcile
+- from: reconcile
+  to: collect
+  when: not reconciled and attempts < 3
+- from: reconcile
+  to: controller-signoff
+  when: reconciled
+- from: controller-signoff
+  to: file
+- from: file
+  to: retain
+termination:
+  max_steps: 35
+  contract: nothing files until figures reconcile to source and a controller signs
+verification:
+- describe: figures tie to source before filing
+  assert: output.reconciled == true
+- describe: a controller signed the filing
+  assert: output.signed_off == true
+- describe: the filing is evidenced end to end
+  assert: output.filed == true and output.evidence_pack is not None
+state:
+  inputs:
+  - period

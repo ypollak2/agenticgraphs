@@ -1,0 +1,42 @@
+cases:
+- id: happy-path
+  node_outputs:
+    detect:
+      signal: signal-value
+      blast_radius: []
+    triage.route:
+      complexity: simple
+      risk: low
+      revision_requested: false
+      rejected: false
+      verify_failed: false
+      below_target: false
+      attempts: 1
+    triage.branch-simple: {}
+    triage.branch-complex: {}
+    triage.verify:
+      owner: owner-value
+      severity: severity-value
+    mitigate:
+      mitigation: mitigation-value
+      mitigated: true
+    confirm:
+      impact_cleared: true
+    postmortem.intake:
+      complexity: simple
+      risk: low
+      revision_requested: false
+      rejected: false
+      verify_failed: false
+      below_target: false
+      attempts: 1
+    postmortem.produce: {}
+    postmortem.review:
+      postmortem: postmortem-value
+    action-items:
+      actions: &id001
+      - owner: sre
+        task: add alert
+      output:
+        impact_cleared: true
+        actions: *id001

@@ -1,0 +1,73 @@
+apiVersion: agr/v1.1
+name: invoice-reconciliation
+description: Match invoices to POs and receipts cheapest-first, escalating only genuine exceptions to
+  a human.
+category: business-ops
+nodes:
+- id: auto-match
+  speciality: supervisor
+  kind: subgraph
+  ref: finance/expense-audit-swarm
+  inputs:
+  - invoices
+  outputs:
+  - matched
+  - exceptions
+- id: fuzzy-match
+  speciality: escalator
+  abilities:
+  - escalate
+  - classify_complexity
+  inputs:
+  - exceptions
+  outputs:
+  - still_open
+- id: ap-review
+  speciality: approver
+  kind: human
+  abilities:
+  - approve
+  inputs:
+  - still_open
+  outputs:
+  - signed_off
+  approval:
+    contract: signed_off == true
+    timeout: 24h
+    on_timeout: escalate
+- id: post
+  speciality: controller
+  abilities:
+  - analyze
+  inputs:
+  - matched
+  outputs:
+  - posted
+  - unreviewed_exceptions
+  join: any
+edges:
+- from: auto-match
+  to: post
+  when: len(exceptions) == 0
+- from: auto-match
+  to: fuzzy-match
+  when: len(exceptions) > 0
+- from: fuzzy-match
+  to: post
+  when: len(still_open) == 0
+- from: fuzzy-match
+  to: ap-review
+  when: len(still_open) > 0
+- from: ap-review
+  to: post
+termination:
+  max_steps: 30
+  contract: an unmatched invoice never posts without an AP signature
+verification:
+- describe: no exception posts without human review
+  assert: output.unreviewed_exceptions == 0
+- describe: three-way match holds for everything posted
+  assert: output.three_way_matched == true
+state:
+  inputs:
+  - invoices

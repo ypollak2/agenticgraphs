@@ -1,0 +1,77 @@
+apiVersion: agr/v1.1
+name: product-listing-pipeline
+description: Generate marketplace listings from spec sheets, checking claims against source and policy
+  before publish.
+category: logistics-retail
+nodes:
+- id: extract
+  speciality: mapper
+  abilities:
+  - map_shard
+  inputs:
+  - spec_sheets
+  outputs:
+  - attributes
+- id: write
+  speciality: producer
+  abilities:
+  - generate
+  inputs:
+  - attributes
+  outputs:
+  - listing_copy
+- id: claim-check
+  speciality: supervisor
+  kind: subgraph
+  ref: research-knowledge/fact-check-pipeline
+  inputs:
+  - listing_copy
+  - attributes
+  outputs:
+  - unsupported_claims
+  join: all
+- id: policy-check
+  speciality: critic
+  abilities:
+  - critique
+  inputs:
+  - listing_copy
+  outputs:
+  - policy_violations
+- id: publish
+  speciality: executor
+  abilities:
+  - execute_step
+  inputs:
+  - unsupported_claims
+  - policy_violations
+  outputs:
+  - listings_published
+  join: all
+edges:
+- from: extract
+  to: write
+- from: write
+  to: claim-check
+- from: write
+  to: policy-check
+- from: claim-check
+  to: write
+  when: len(unsupported_claims) > 0 and attempts < 2
+- from: claim-check
+  to: publish
+  when: len(unsupported_claims) == 0
+- from: policy-check
+  to: publish
+  when: len(policy_violations) == 0
+termination:
+  max_steps: 30
+  contract: every published claim traces to the spec sheet and clears marketplace policy
+verification:
+- describe: no listing claim lacks a spec-sheet source
+  assert: len(output.unsupported_claims) == 0
+- describe: no marketplace policy violation ships
+  assert: len(output.policy_violations) == 0
+state:
+  inputs:
+  - spec_sheets

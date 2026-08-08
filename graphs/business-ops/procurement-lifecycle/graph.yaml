@@ -1,0 +1,76 @@
+apiVersion: agr/v1.1
+name: procurement-lifecycle
+description: Run an RFP, score vendors, negotiate terms, and gate the award on budget-holder approval.
+category: business-ops
+nodes:
+- id: rfp
+  speciality: supervisor
+  kind: subgraph
+  ref: business-ops/rfp-response-assembler
+  inputs:
+  - requirement
+  outputs:
+  - rfp_responses
+- id: score
+  speciality: evaluator
+  abilities:
+  - evaluate
+  inputs:
+  - rfp_responses
+  outputs:
+  - vendor_scores
+- id: negotiate
+  speciality: buyer
+  abilities:
+  - negotiate
+  - analyze
+  inputs:
+  - vendor_scores
+  outputs:
+  - terms
+  - savings
+- id: budget-approval
+  speciality: approver
+  kind: human
+  abilities:
+  - approve
+  inputs:
+  - terms
+  outputs:
+  - signed_off
+  approval:
+    contract: signed_off == true
+    timeout: 24h
+    on_timeout: escalate
+- id: award
+  speciality: executor
+  abilities:
+  - execute_step
+  inputs:
+  - signed_off
+  outputs:
+  - awarded
+  - scored_vendors
+edges:
+- from: rfp
+  to: score
+- from: score
+  to: negotiate
+- from: negotiate
+  to: score
+  when: savings < target_savings and attempts < 2
+- from: negotiate
+  to: budget-approval
+- from: budget-approval
+  to: award
+termination:
+  max_steps: 35
+  contract: no award without three rubric-scored vendors and a budget-holder signature
+verification:
+- describe: at least three vendors were scored on the same rubric
+  assert: output.scored_vendors >= 3
+- describe: the budget holder approved the award
+  assert: output.signed_off == true
+state:
+  inputs:
+  - requirement

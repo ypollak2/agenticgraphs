@@ -1,0 +1,3 @@
+name: screen
+description: Filter candidates or records against explicit criteria.
+risk: read

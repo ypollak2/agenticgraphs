@@ -1,0 +1,31 @@
+cases:
+- id: happy-path
+  node_outputs:
+    ingest:
+      advisory: advisory-value
+    prioritize.intake:
+      complexity: simple
+      risk: low
+      revision_requested: false
+      rejected: false
+      verify_failed: false
+      below_target: false
+      attempts: 1
+    prioritize.produce: {}
+    prioritize.review:
+      exploitability: exploitability-value
+      priority: priority-value
+    reproduce:
+      repro_confirmed: true
+    patch:
+      patch: patch-value
+    prove:
+      exploit_blocked: true
+    disclose-approval:
+      signed_off: true
+    disclose:
+      advisory_published: true
+      output:
+        exploit_blocked: true
+        signed_off: true
+        advisory_published: true

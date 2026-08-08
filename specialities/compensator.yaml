@@ -1,0 +1,4 @@
+name: compensator
+description: Undoes a failed step so the saga leaves no partial state.
+requires_abilities:
+- rollback

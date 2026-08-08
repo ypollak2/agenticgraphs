@@ -1,0 +1,23 @@
+cases:
+- id: happy-path
+  node_outputs:
+    collect.partition:
+      complexity: simple
+      risk: low
+      revision_requested: false
+      rejected: false
+      verify_failed: false
+      below_target: false
+      attempts: 1
+    collect.map: {}
+    collect.reduce:
+      vendor_docs: []
+    normalize:
+      criteria_grid: []
+    fill:
+      matrix: matrix-value
+    cite-check:
+      uncited_cells: 0
+      output:
+        uncited_cells: 0
+        criteria_consistent: true

@@ -1,0 +1,50 @@
+{
+  "name": "book-editing-pipeline",
+  "category": "creative-production",
+  "structural": {
+    "nodes": 6,
+    "edges": 6,
+    "verifier_nodes": 0,
+    "router_nodes": 0,
+    "parallel_groups": 0,
+    "max_fan_out": 2,
+    "loops": 1,
+    "loops_bounded": true,
+    "max_steps": 35,
+    "verification_asserts": 2,
+    "risk_surface": "execute"
+  },
+  "measured": {
+    "runner": "mock",
+    "provisional": true,
+    "verification_depth": "assert-fixture",
+    "date": "2026-08-09",
+    "cases": 1,
+    "passed": 1,
+    "pass_rate": 1.0,
+    "mean_steps": 6.0,
+    "results": [
+      {
+        "id": "happy-path",
+        "passed": true,
+        "steps": 6,
+        "trace": [
+          "assess",
+          "dev-edit",
+          "line-edit",
+          "copy-edit",
+          "author-signoff",
+          "typeset"
+        ],
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false
+      }
+    ]
+  }
+}

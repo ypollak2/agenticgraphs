@@ -67,11 +67,11 @@ To evolve it: `uv run agr infuse ux-research-synthesis <node> <ability>` — eve
 
 Adjacent entries from the use-case catalog this card adapts to with small edits:
 
-- **screenplay-coverage** (creative-production, pipeline) — Read script, produce coverage with comps and verdict. *Verify:* verdict rubric complete; quotes have page numbers.
-- **podcast-production-pipeline** (creative-production, pipeline) — Outline, script, edit, and show notes with links. *Verify:* chapters match audio markers; links resolve.
 - **game-npc-dialogue** (creative-production, generator-critic) — Generate branching dialogue, critic checks lore and tone. *Verify:* branches validate against dialogue schema; lore conflicts zero.
 - **level-design-review** (creative-production, debate) — Difficulty versus flow advocates review a level design. *Verify:* playtest checklist complete; blockers enumerated.
-- **book-editing-pipeline** (creative-production, pipeline) — Developmental, line, and copy edits in ordered passes. *Verify:* style sheet applied; continuity errors listed resolved.
+- **image-asset-qa** (creative-production, parallel-swarm) — Workers check assets for spec, licensing, and artifacts. *Verify:* every asset pass or fail with rule id.
+- **music-metadata-tagging** (creative-production, map-reduce) — Tag tracks with genre, mood, and rights metadata. *Verify:* tags validate against controlled vocabulary.
+- **data-catalog-enrichment** (data-analytics, map-reduce) — Describe every table and column, reduce into a searchable catalog. *Verify:* descriptions exist for all tables; lineage links resolve.
 
 ---
 *Regenerate: `uv run python scripts/gen_cards.py` · Index: [CARDS.md](../../../CARDS.md)*

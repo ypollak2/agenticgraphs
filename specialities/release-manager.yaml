@@ -1,0 +1,6 @@
+name: release-manager
+description: Owns the release cut and its rollback path.
+requires_abilities:
+- cut_release
+optional_abilities:
+- rollback

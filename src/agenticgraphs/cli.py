@@ -32,6 +32,12 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("mermaid", help="emit a mermaid diagram for a graph").add_argument("name")
     sub.add_parser("profile", help="structural profile (deterministic; not a perf measurement)").add_argument("name")
     ep = sub.add_parser("eval", help="run golden cases, write profile.json (M1)")
+    ep.add_argument("--run-commands", action="store_true",
+                    help="actually execute verification[].command entries (runs real code "
+                         "on this machine); default is to count and skip them")
+    ep.add_argument("--auto-approve", action="store_true",
+                    help="CI only: satisfy human approval gates automatically. Results are "
+                         "stamped auto_approved and are not an authoritative sign-off.")
     ep.add_argument("name")
     ep.add_argument("--live", action="store_true",
                     help="use AGR_LLM_BASE_URL/AGR_LLM_MODEL instead of mock fixtures")
@@ -52,6 +58,9 @@ def main(argv: list[str] | None = None) -> int:
     cp.add_argument("--name", help="name for the composed graph (default: '<a>-then-<b>')")
     cp.add_argument("--allow-gaps", action="store_true",
                     help="proceed even if graph-b needs blackboard keys graph-a doesn't appear to produce")
+    cp.add_argument("--mode", choices=["inline", "subgraph"], default="inline",
+                    help="inline: splice both graphs' nodes (v1). subgraph: emit a two-phase "
+                         "parent that references each graph by ref (v1.1, edits to children propagate)")
     mp = sub.add_parser("mcp", help="serve the registry over MCP (stdio by default, or --http)")
     mp.add_argument("--http", action="store_true",
                      help="serve over HTTP/SSE instead of stdio (binds 127.0.0.1 only)")
@@ -80,7 +89,8 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.cmd == "eval":
         from .evalcmd import eval_graph
-        profile = eval_graph(args.name, live=args.live)
+        profile = eval_graph(args.name, live=args.live, auto_approve=args.auto_approve,
+                             run_commands=args.run_commands)
         print(json.dumps(profile["measured"], indent=2))
         return 0 if profile["measured"]["pass_rate"] == 1.0 else 1
     if args.cmd == "infuse":
@@ -115,11 +125,16 @@ def main(argv: list[str] | None = None) -> int:
         print(emitters[args.target](_need(args.name)))
         return 0
     if args.cmd == "compose":
-        from .compose import ComposeError, compose
+        from .compose import ComposeError, compose, compose_by_reference
 
         try:
-            doc, warnings = compose(_need(args.graph_a), _need(args.graph_b),
-                                     name=args.name, allow_gaps=args.allow_gaps)
+            if args.mode == "subgraph":
+                doc = compose_by_reference(_need(args.graph_a), _need(args.graph_b),
+                                           name=args.name)
+                warnings = []
+            else:
+                doc, warnings = compose(_need(args.graph_a), _need(args.graph_b),
+                                        name=args.name, allow_gaps=args.allow_gaps)
         except ComposeError as e:
             print(f"compose failed: {e}", file=sys.stderr)
             print("(pass --allow-gaps to bypass a contract mismatch)", file=sys.stderr)

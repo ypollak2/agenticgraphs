@@ -69,11 +69,11 @@ To evolve it: `uv run agr infuse docs-code-sync-audit <node> <ability>` — ever
 
 Adjacent entries from the use-case catalog this card adapts to with small edits:
 
-- **framework-migration** (software-engineering, planner-executor-verifier) — Port a codebase between frameworks in verifiable slices. *Verify:* build and full test suite green on target stack.
 - **api-design-review** (software-engineering, debate) — Two reviewers argue REST versus RPC tradeoffs, judge synthesizes. *Verify:* spec passes lint; breaking changes enumerated.
 - **brand-consistency-audit** (content-marketing, parallel-swarm) — Workers audit assets against voice and visual guidelines. *Verify:* violations reported per asset with rule ids.
-- **vendor-comparison-matrix** (business-ops, parallel-swarm) — Workers score vendors per criterion from evidence. *Verify:* every score cites vendor documentation.
 - **regulatory-filing-check** (finance, parallel-swarm) — Workers check filing sections against requirement checklists. *Verify:* every checklist item pass or fail with location.
+- **sales-call-scorer** (customer-support-sales, parallel-swarm) — Workers score calls per methodology dimension. *Verify:* scores cite transcript spans; calibration checked.
+- **supply-chain-audit** (security, parallel-swarm) — Workers audit dependencies for provenance and tampering. *Verify:* attestations verified; unsigned artifacts listed.
 
 ---
 *Regenerate: `uv run python scripts/gen_cards.py` · Index: [CARDS.md](../../../CARDS.md)*

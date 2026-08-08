@@ -1,0 +1,3 @@
+name: delegate
+description: Assign a scoped sub-goal to a subordinate graph or agent.
+risk: read

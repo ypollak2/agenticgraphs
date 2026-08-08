@@ -5,7 +5,7 @@
 [![Graphs][graphs-shield]][graphs-url]
 [![Use Cases][usecases-shield]][usecases-url]
 [![Domains][domains-shield]][usecases-url]
-[![Patterns][patterns-shield]][patterns-url]
+[![Motifs][patterns-shield]][patterns-url]
 [![Tests][tests-shield]][tests-url]
 [![MIT License][license-shield]][license-url]
 
@@ -42,7 +42,8 @@
     <li><a href="#-usage">Usage</a>
       <ul>
         <li><a href="#concepts">Concepts</a></li>
-        <li><a href="#the-eight-patterns">The Eight Patterns</a></li>
+        <li><a href="#the-thirteen-motifs">The Thirteen Motifs</a></li>
+        <li><a href="#composites-reference-they-dont-copy">Composites Reference, They Don't Copy</a></li>
         <li><a href="#the-library-at-a-glance">The Library at a Glance</a></li>
       </ul>
     </li>
@@ -60,7 +61,7 @@
 ## 🧭 About The Project
 
 A **registry of ready-made multi-agent workflow graphs** in a portable, framework-neutral
-format (AGR v1), built on three principles:
+format (AGR v1.1), built on three principles:
 
 ```yaml
 principles:
@@ -127,48 +128,54 @@ it lacks the abilities for.
 <!-- graph-of-graphs:begin -->
 ## 🗺️ The graph of graphs
 
-Every shipped graph is one of eight verified patterns. Full per-graph cards (diagram, contract, node roster, use-cases) live in [CARDS.md](CARDS.md).
+Every shipped graph is one of thirteen verified motifs. Full per-graph cards (diagram, contract, node roster, use-cases) live in [CARDS.md](CARDS.md).
 
 ```mermaid
 flowchart TD
-    ROOT(("🕸️ agenticgraphs<br/>52 graphs · 15 domains"))
-    ROOT --> P0[/"pipeline ×14"/]
+    ROOT(("🕸️ agenticgraphs<br/>74 graphs · 15 domains"))
+    ROOT --> P0[/"pipeline ×20"/]
     P0 --> E0["e.g. code-review-pipeline"]
-    ROOT --> P1[/"map-reduce ×9"/]
+    ROOT --> P1[/"map-reduce ×11"/]
     P1 --> E1["e.g. release-notes-generation"]
-    ROOT --> P2[/"router ×8"/]
-    P2 --> E2["e.g. incident-triage-router"]
-    ROOT --> P3[/"parallel-swarm ×8"/]
-    P3 --> E3["e.g. docs-code-sync-audit"]
-    ROOT --> P4[/"generator-critic ×5"/]
-    P4 --> E4["e.g. test-suite-generation"]
-    ROOT --> P5[/"planner-executor-verifier ×4"/]
-    P5 --> E5["e.g. bug-triage-and-fix"]
-    ROOT --> P6[/"loop ×3"/]
-    P6 --> E6["e.g. performance-optimization"]
-    ROOT --> P7[/"debate ×1"/]
-    P7 --> E7["e.g. ab-test-analysis"]
+    ROOT --> P2[/"parallel-swarm ×10"/]
+    P2 --> E2["e.g. docs-code-sync-audit"]
+    ROOT --> P3[/"router ×9"/]
+    P3 --> E3["e.g. incident-triage-router"]
+    ROOT --> P4[/"planner-executor-verifier ×6"/]
+    P4 --> E4["e.g. bug-triage-and-fix"]
+    ROOT --> P5[/"human-gate ×5"/]
+    P5 --> E5["e.g. clinical-protocol-lifecycle"]
+    ROOT --> P6[/"generator-critic ×5"/]
+    P6 --> E6["e.g. test-suite-generation"]
+    ROOT --> P7[/"loop ×3"/]
+    P7 --> E7["e.g. performance-optimization"]
+    ROOT --> P8[/"lifecycle ×3"/]
+    P8 --> E8["e.g. feature-delivery-lifecycle"]
+    ROOT --> P9[/"debate ×1"/]
+    P9 --> E9["e.g. ab-test-analysis"]
+    ROOT --> P10[/"saga ×1"/]
+    P10 --> E10["e.g. schema-migration-saga"]
 ```
 
 <details><summary>Distribution by domain</summary>
 
 ```mermaid
 pie showData title Graphs per domain
-    "software-engineering" : 8
-    "devops-sre" : 6
-    "data-analytics" : 5
+    "software-engineering" : 10
+    "devops-sre" : 7
+    "business-ops" : 6
+    "data-analytics" : 6
+    "security" : 6
+    "healthcare-science" : 5
+    "legal-compliance" : 5
     "research-knowledge" : 5
-    "security" : 4
-    "business-ops" : 3
+    "creative-production" : 4
+    "finance" : 4
+    "hr-people" : 4
     "content-marketing" : 3
     "customer-support-sales" : 3
     "education" : 3
-    "finance" : 3
-    "healthcare-science" : 3
-    "legal-compliance" : 3
-    "creative-production" : 1
-    "hr-people" : 1
-    "logistics-retail" : 1
+    "logistics-retail" : 3
 ```
 
 </details>
@@ -177,62 +184,93 @@ pie showData title Graphs per domain
 <!-- scoreboard:begin -->
 ## 📊 Eval scoreboard
 
-52/52 graphs have golden eval cases (106 cases total, 52/52 graphs at 100% pass rate). Provisional (mock-runner) numbers prove graph/contract mechanics, not model quality — pass `--live` to `agr eval` for real model numbers. Regenerate with `uv run python scripts/gen_scoreboard.py`.
+74/74 graphs have golden eval cases (130 cases total, 74/74 graphs at 100% pass rate). Regenerate with `uv run python scripts/gen_scoreboard.py`.
 
-| Graph | Domain | Cases | Pass rate | Mean steps | Routes exercised |
-|---|---|---|---|---|---|
-| `meeting-to-actions` | business-ops | 2 | 100% | 4 | 2 |
-| `policy-compliance-check` | business-ops | 2 | 100% | 4 | 2 |
-| `rfp-response-assembler` | business-ops | 2 | 100% | 3 | 1 |
-| `blog-production-pipeline` | content-marketing | 2 | 100% | 4 | 2 |
-| `localization-pipeline` | content-marketing | 2 | 100% | 3 | 1 |
-| `seo-optimization-loop` | content-marketing | 2 | 100% | 4 | 2 |
-| `ux-research-synthesis` | creative-production | 2 | 100% | 3 | 1 |
-| `escalation-summarizer` | customer-support-sales | 2 | 100% | 4 | 2 |
-| `kb-article-generator` | customer-support-sales | 2 | 100% | 4 | 2 |
-| `ticket-triage-swarm` | customer-support-sales | 2 | 100% | 3 | 2 |
-| `ab-test-analysis` | data-analytics | 2 | 100% | 3 | 1 |
-| `anomaly-investigation` | data-analytics | 2 | 100% | 3 | 2 |
-| `data-quality-audit` | data-analytics | 2 | 100% | 4 | 2 |
-| `etl-pipeline-builder` | data-analytics | 2 | 100% | 4 | 2 |
-| `sql-generation-verified` | data-analytics | 2 | 100% | 4 | 2 |
-| `alert-noise-reduction` | devops-sre | 2 | 100% | 3 | 1 |
-| `deploy-canary-verifier` | devops-sre | 2 | 100% | 4 | 2 |
-| `incident-triage-router` | devops-sre | 2 | 100% | 3 | 2 |
-| `postmortem-writer` | devops-sre | 2 | 100% | 4 | 2 |
-| `runbook-executor` | devops-sre | 2 | 100% | 4 | 2 |
-| `verifier-swarm` | devops-sre | 3 | 100% | 5 | 3 |
-| `essay-feedback-critic` | education | 2 | 100% | 4 | 2 |
-| `quiz-generation-verified` | education | 2 | 100% | 4 | 2 |
-| `rubric-grading-swarm` | education | 2 | 100% | 4 | 2 |
-| `earnings-call-digest` | finance | 2 | 100% | 4 | 2 |
-| `expense-audit-swarm` | finance | 2 | 100% | 4 | 2 |
-| `kyc-document-processing` | finance | 2 | 100% | 4 | 2 |
-| `adverse-event-scanner` | healthcare-science | 2 | 100% | 3 | 1 |
-| `clinical-literature-triage` | healthcare-science | 2 | 100% | 3 | 2 |
-| `medical-coding-audit` | healthcare-science | 2 | 100% | 4 | 2 |
-| `jd-drafting-critic` | hr-people | 2 | 100% | 4 | 2 |
-| `contract-redline-pipeline` | legal-compliance | 2 | 100% | 4 | 2 |
-| `ediscovery-triage` | legal-compliance | 2 | 100% | 3 | 2 |
-| `license-compliance-scan` | legal-compliance | 2 | 100% | 3 | 1 |
-| `returns-triage` | logistics-retail | 2 | 100% | 3 | 2 |
-| `citation-integrity-audit` | research-knowledge | 2 | 100% | 4 | 2 |
-| `competitive-intelligence` | research-knowledge | 2 | 100% | 3 | 1 |
-| `cost-routed-research` | research-knowledge | 3 | 100% | 3.33 | 3 |
-| `fact-check-pipeline` | research-knowledge | 2 | 100% | 4 | 2 |
-| `literature-review-swarm` | research-knowledge | 2 | 100% | 4 | 2 |
-| `phishing-triage` | security | 2 | 100% | 3 | 2 |
-| `soc-alert-investigation` | security | 2 | 100% | 4 | 2 |
-| `threat-intel-digest` | security | 2 | 100% | 3 | 1 |
-| `vuln-prioritization` | security | 2 | 100% | 4 | 2 |
-| `bug-triage-and-fix` | software-engineering | 2 | 100% | 4 | 2 |
-| `code-review-pipeline` | software-engineering | 2 | 100% | 3.5 | 2 |
-| `dependency-upgrade` | software-engineering | 2 | 100% | 4 | 2 |
-| `docs-code-sync-audit` | software-engineering | 2 | 100% | 4 | 2 |
-| `legacy-refactor` | software-engineering | 2 | 100% | 4 | 2 |
-| `performance-optimization` | software-engineering | 2 | 100% | 4 | 2 |
-| `release-notes-generation` | software-engineering | 2 | 100% | 3 | 1 |
-| `test-suite-generation` | software-engineering | 2 | 100% | 4 | 2 |
+**Read the Depth column before the Pass rate column.** A 100% pass rate at `assert-fixture` means the assert held against a mock fixture written alongside the graph — it proves the graph routes the value through, not that the claim was earned. Depth grades, weakest first:
+
+| Depth | What actually happened |
+|---|---|
+| `describe-only` | prose; nothing machine-checked |
+| `assert-fixture` | assert held against a mock fixture — **73 of 74 graphs sit here** |
+| `assert-live` | assert held against real model output (`agr eval --live`) |
+| `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |
+
+| Graph | Domain | Cases | Pass rate | Depth | Mean steps | Routes exercised |
+|---|---|---|---|---|---|---|
+| `invoice-reconciliation` | business-ops | 1 | 100% | `assert-fixture` | 4 | 1 |
+| `meeting-to-actions` | business-ops | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `policy-compliance-check` | business-ops | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `procurement-lifecycle` | business-ops | 1 | 100% | `assert-fixture` | 7 | 1 |
+| `rfp-response-assembler` | business-ops | 2 | 100% | `assert-fixture` | 3 | 1 |
+| `vendor-comparison-matrix` | business-ops | 1 | 100% | `assert-fixture` | 6 | 1 |
+| `blog-production-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `localization-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | 3 | 1 |
+| `seo-optimization-loop` | content-marketing | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `book-editing-pipeline` | creative-production | 1 | 100% | `assert-fixture` | 6 | 1 |
+| `podcast-production-pipeline` | creative-production | 1 | 100% | `assert-fixture` | 5 | 1 |
+| `screenplay-coverage` | creative-production | 1 | 100% | `assert-fixture` | 6 | 1 |
+| `ux-research-synthesis` | creative-production | 2 | 100% | `assert-fixture` | 3 | 1 |
+| `escalation-summarizer` | customer-support-sales | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `kb-article-generator` | customer-support-sales | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `ticket-triage-swarm` | customer-support-sales | 2 | 100% | `assert-fixture` | 3 | 2 |
+| `ab-test-analysis` | data-analytics | 2 | 100% | `assert-fixture` | 3 | 1 |
+| `anomaly-investigation` | data-analytics | 2 | 100% | `assert-fixture` | 3 | 2 |
+| `data-quality-audit` | data-analytics | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `etl-pipeline-builder` | data-analytics | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `schema-migration-saga` | data-analytics | 1 | 100% | `assert-fixture` | 5 | 1 |
+| `sql-generation-verified` | data-analytics | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `alert-noise-reduction` | devops-sre | 2 | 100% | `assert-fixture` | 3 | 1 |
+| `deploy-canary-verifier` | devops-sre | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `incident-lifecycle` | devops-sre | 1 | 100% | `assert-fixture` | 10 | 1 |
+| `incident-triage-router` | devops-sre | 2 | 100% | `assert-fixture` | 3 | 2 |
+| `postmortem-writer` | devops-sre | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `runbook-executor` | devops-sre | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `verifier-swarm` | devops-sre | 3 | 100% | `command` | 5 | 3 |
+| `essay-feedback-critic` | education | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `quiz-generation-verified` | education | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `rubric-grading-swarm` | education | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `earnings-call-digest` | finance | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `expense-audit-swarm` | finance | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `kyc-document-processing` | finance | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `regulatory-filing-lifecycle` | finance | 1 | 100% | `assert-fixture` | 5 | 1 |
+| `adverse-event-scanner` | healthcare-science | 2 | 100% | `assert-fixture` | 3 | 1 |
+| `clinical-literature-triage` | healthcare-science | 2 | 100% | `assert-fixture` | 3 | 2 |
+| `clinical-protocol-lifecycle` | healthcare-science | 1 | 100% | `assert-fixture` | 4 | 1 |
+| `medical-coding-audit` | healthcare-science | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `trial-eligibility-screener` | healthcare-science | 1 | 100% | `assert-fixture` | 3 | 1 |
+| `hiring-lifecycle` | hr-people | 1 | 100% | `assert-fixture` | 7 | 1 |
+| `jd-drafting-critic` | hr-people | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `onboarding-plan-builder` | hr-people | 1 | 100% | `assert-fixture` | 4 | 1 |
+| `performance-cycle-summarizer` | hr-people | 1 | 100% | `assert-fixture` | 4 | 1 |
+| `contract-lifecycle` | legal-compliance | 1 | 100% | `assert-fixture` | 7 | 1 |
+| `contract-redline-pipeline` | legal-compliance | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `ediscovery-triage` | legal-compliance | 2 | 100% | `assert-fixture` | 3 | 2 |
+| `gdpr-data-audit` | legal-compliance | 1 | 100% | `assert-fixture` | 7 | 1 |
+| `license-compliance-scan` | legal-compliance | 2 | 100% | `assert-fixture` | 3 | 1 |
+| `product-listing-pipeline` | logistics-retail | 1 | 100% | `assert-fixture` | 7 | 1 |
+| `returns-triage` | logistics-retail | 2 | 100% | `assert-fixture` | 3 | 2 |
+| `supplier-risk-monitor` | logistics-retail | 1 | 100% | `assert-fixture` | 6 | 1 |
+| `citation-integrity-audit` | research-knowledge | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `competitive-intelligence` | research-knowledge | 2 | 100% | `assert-fixture` | 3 | 1 |
+| `cost-routed-research` | research-knowledge | 3 | 100% | `assert-fixture` | 3.33 | 3 |
+| `fact-check-pipeline` | research-knowledge | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `literature-review-swarm` | research-knowledge | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `compliance-evidence-collector` | security | 1 | 100% | `assert-fixture` | 11 | 1 |
+| `phishing-triage` | security | 2 | 100% | `assert-fixture` | 3 | 2 |
+| `soc-alert-investigation` | security | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `threat-intel-digest` | security | 2 | 100% | `assert-fixture` | 3 | 1 |
+| `vuln-prioritization` | security | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `vuln-remediation-lifecycle` | security | 1 | 100% | `assert-fixture` | 9 | 1 |
+| `bug-triage-and-fix` | software-engineering | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `code-review-pipeline` | software-engineering | 2 | 100% | `assert-fixture` | 3.5 | 2 |
+| `dependency-upgrade` | software-engineering | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `docs-code-sync-audit` | software-engineering | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `feature-delivery-lifecycle` | software-engineering | 3 | 100% | `assert-fixture` | 16 | 3 |
+| `framework-migration` | software-engineering | 1 | 100% | `assert-fixture` | 7 | 1 |
+| `legacy-refactor` | software-engineering | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `performance-optimization` | software-engineering | 2 | 100% | `assert-fixture` | 4 | 2 |
+| `release-notes-generation` | software-engineering | 2 | 100% | `assert-fixture` | 3 | 1 |
+| `test-suite-generation` | software-engineering | 2 | 100% | `assert-fixture` | 4 | 2 |
 <!-- scoreboard:end -->
 
 ## 🚀 Getting Started
@@ -336,12 +374,22 @@ uv run python scripts/audit_usecases.py      # 112 use cases, 15 domains, AUDIT 
 | **Graph** | `graphs/<domain>/<name>/graph.yaml` | Nodes + edges + termination contract + verification asserts |
 | **Speciality** | `specialities/*.yaml` | A role a node plays (e.g. `security-auditor`), with required abilities |
 | **Ability** | `abilities/*.yaml` | An atomic capability (e.g. `sast_scan`) with a risk level; MCP-bindable |
-| **Use case** | `usecases/catalog.yaml` | Demand-side backlog: 112 audited entries that graduate into graphs |
-| **Spec** | `spec/*.schema.json` | AGR v1 JSON Schemas for all of the above |
+| **Use case** | `usecases/catalog.yaml` | Demand-side backlog: 123 audited entries that graduate into graphs |
+| **Spec** | `spec/*.schema.json` | AGR v1.1 JSON Schemas for all of the above |
+| **Subgraph** | `nodes[].kind: subgraph` + `ref` | A phase that *is* another registry graph, inlined at load (v1.1) |
+| **Join** | `nodes[].join` | `any` (default) · `all` · `quorum(n)` — when a multi-predecessor node is ready (v1.1) |
+| **Human gate** | `nodes[].kind: human` + `approval` | An approval contract the live runner refuses to sign itself (v1.1) |
+| **Compensation** | `edges[].kind: compensate` | The undo path for a step that writes; lint-required in a saga (v1.1) |
 
-### The Eight Patterns
+### The Thirteen Motifs
 
-| Pattern | Shape | Canonical example |
+The library is two-tier. **Primitives** are the smallest useful units of agentic
+control flow — 2–4 nodes, one concern each. **Composites** (AGR v1.1) assemble
+primitives into multi-phase workflows, referencing them rather than restating them.
+
+**Primitives** — the component library (52 graphs, mean 3.2 nodes):
+
+| Motif | Shape | Canonical example |
 |---|---|---|
 | `pipeline` | staged hand-offs with a reviewing verifier | `contract-redline-pipeline` |
 | `parallel-swarm` | planner fans out isolated workers; verifier gates merge | `verifier-swarm` |
@@ -352,15 +400,51 @@ uv run python scripts/audit_usecases.py      # 112 use cases, 15 domains, AUDIT 
 | `planner-executor-verifier` | plan, execute with effects, prove post-conditions | `runbook-executor` |
 | `loop` | attempt → measure → retry until target or budget | `performance-optimization` |
 
+**Composites** — assembled from the above (22 graphs, mean 6.9 nodes):
+
+| Motif | Shape | Canonical example |
+|---|---|---|
+| `lifecycle` | N phases, each a motif; phases may reference whole graphs | `feature-delivery-lifecycle` |
+| `human-gate` | approval barrier no model may sign; blocks flow until satisfied | `regulatory-filing-lifecycle` |
+| `supervisor-hierarchy` | supervisor delegates slices to subordinate graphs | `framework-migration` |
+| `saga` | every writing step paired with a compensator | `schema-migration-saga` |
+| `escalation-ladder` | cheapest tier first, terminating at a human | `invoice-reconciliation` |
+
+### Composites reference, they don't copy
+
+`feature-delivery-lifecycle` is the whole thesis of v1.1 in one file. Eight phases —
+research → plan → implement → test → audit → fix → docs → release — where three of
+them are not authored at all:
+
+```yaml
+- id: implement
+  kind: subgraph
+  ref: software-engineering/bug-triage-and-fix
+- id: audit
+  kind: subgraph
+  ref: software-engineering/code-review-pipeline
+```
+
+It is 10 authored nodes that execute as 17. Fix a bug in `code-review-pipeline` and
+every composite auditing a change gets the fix — which text-splicing can never do.
+
 ### The Library at a Glance
 
-52 graphs across all 15 domains: software-engineering (8), devops-sre (6),
-research-knowledge (5), data-analytics (5), security (4), and 3 each for content-marketing,
-business-ops, finance, legal-compliance, healthcare-science, education,
-customer-support-sales — plus hr-people, logistics-retail, creative-production.
-Behind them, a [112-entry use-case catalog](usecases/catalog.yaml) whose invariants
+**74 graphs** across all 15 domains: software-engineering (10), devops-sre (7),
+business-ops / data-analytics / security (6 each), healthcare-science /
+legal-compliance / research-knowledge (5 each), creative-production / finance /
+hr-people (4 each), content-marketing / customer-support-sales / education /
+logistics-retail (3 each).
+
+Behind them, a [123-entry use-case catalog](usecases/catalog.yaml) whose invariants
 (≥100 entries, ≥10 domains, unique ids, a verification clause on *every* entry) are
 enforced by an executable audit wired into pytest.
+
+**On the eval numbers:** 74/74 graphs pass their golden cases, but 73 of 74 do so at
+`assert-fixture` depth — the assert held against a mock written alongside the graph.
+That proves the topology routes values correctly; it does not prove a claim was
+earned. The scoreboard grades every graph so the weak level is visible rather than
+averaged away. Deepening it is the open problem, not a solved one.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -378,11 +462,25 @@ enforced by an executable audit wired into pytest.
 - [x] **M4** — `agr adapt --target {crewai,autogen}` (two more self-contained codegen
       targets) and `agr compose` (sequentially chain two graphs, with a heuristic
       contract-compatibility check and `--allow-gaps` escape hatch).
+- [x] **M5 / AGR v1.1 — composites.** Depth instead of length: `kind: subgraph`
+      (inline expansion, depth-capped, cycle-detected), real `join` semantics with
+      dead-branch settlement, executable `kind: human` gates, `error`/`compensate`
+      edge kinds, per-node `retries`, declared `inputs`/`outputs` contracts, and
+      opt-in verification-command execution. 22 composite graphs across five new
+      motifs. The v1 scheduler was replaced wholesale against a
+      [trace lock](tests/fixtures/v1_trace_lock.json) proving all 106 pre-existing
+      cases execute byte-identically. Plan: [v2-agr-1.1.md](docs/plans/v2-agr-1.1.md) ·
+      Audit: [v2-audit.md](docs/plans/v2-audit.md).
+- [ ] **M6 / AGR v1.2 — depth.** Real `fan_out` cardinality, `aggregate: quorum`,
+      `kind: search` (beam/prune), run-scoped memory, phase-scoped verification
+      snapshots. Closes the `assert-fixture` weakness above and the open AFlow/MCTS
+      item. Plan: [graph-expansion-v2-v4.md](docs/plans/graph-expansion-v2-v4.md).
 
-Three graphs are handcrafted with domain specialities (`code-review-pipeline`,
-`verifier-swarm`, `cost-routed-research`); the other 49 are pattern-template instantiations
-carrying real per-use-case contracts — deliberately generic until M1 measurement tells us
-where specialization pays.
+Of the 52 primitives, three are handcrafted with domain specialities
+(`code-review-pipeline`, `verifier-swarm`, `cost-routed-research`) and the other 49 are
+motif-template instantiations carrying real per-use-case contracts. The 22 composites
+each declare an explicit phase list and I/O contract; 14 of them reference a primitive
+by `ref` rather than restating it.
 
 See [open issues][issues-url] for the full list of proposed graphs and known issues.
 
@@ -451,14 +549,14 @@ Project Link: [https://github.com/ypollak2/agenticgraphs][repo-url]
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES (reference style, per Best-README-Template) -->
-[graphs-shield]: https://img.shields.io/badge/graphs-52-2ea44f?style=for-the-badge
+[graphs-shield]: https://img.shields.io/badge/graphs-74-2ea44f?style=for-the-badge
 [graphs-url]: graphs/
-[usecases-shield]: https://img.shields.io/badge/use--case_catalog-112-2ea44f?style=for-the-badge
+[usecases-shield]: https://img.shields.io/badge/use--case_catalog-123-2ea44f?style=for-the-badge
 [usecases-url]: usecases/catalog.yaml
 [domains-shield]: https://img.shields.io/badge/domains-15-2ea44f?style=for-the-badge
-[patterns-shield]: https://img.shields.io/badge/patterns-8-2ea44f?style=for-the-badge
+[patterns-shield]: https://img.shields.io/badge/motifs-13-2ea44f?style=for-the-badge
 [patterns-url]: #the-eight-patterns
-[tests-shield]: https://img.shields.io/badge/tests-36%2F36-blue?style=for-the-badge
+[tests-shield]: https://img.shields.io/badge/tests-100%2F100-blue?style=for-the-badge
 [tests-url]: tests/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
 [license-url]: LICENSE

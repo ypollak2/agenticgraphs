@@ -1,0 +1,3 @@
+name: shadow_write
+description: Dual-write to a new target without serving reads from it.
+risk: execute

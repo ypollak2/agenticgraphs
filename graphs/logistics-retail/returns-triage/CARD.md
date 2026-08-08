@@ -75,9 +75,9 @@ Adjacent entries from the use-case catalog this card adapts to with small edits:
 
 - **route-optimization-review** (logistics-retail, generator-critic) — Propose delivery routes, critic checks constraints. *Verify:* routes satisfy time windows and capacity.
 - **inventory-forecast-critic** (logistics-retail, generator-critic) — Forecast SKU demand, critic backtests against history. *Verify:* backtest error below naive baseline.
-- **supplier-risk-monitor** (logistics-retail, map-reduce) — Scan supplier news and filings, reduce to risk deltas. *Verify:* every delta links a dated source.
-- **product-listing-pipeline** (logistics-retail, pipeline) — Draft listings from specs with claim and image checks. *Verify:* attributes match spec sheet; banned claims zero.
 - **demand-signal-digest** (logistics-retail, map-reduce) — Merge sales, weather, and events into demand notes. *Verify:* signals quantified with source data ranges.
+- **planogram-compliance-review** (logistics-retail, parallel-swarm) — Workers check shelf photos against planograms. *Verify:* violations localized per fixture with confidence.
+- **fraud-pattern-triage** (finance, router) — Route flagged transactions to rule, anomaly, or manual review. *Verify:* routing precision measured against labeled history.
 
 ---
 *Regenerate: `uv run python scripts/gen_cards.py` · Index: [CARDS.md](../../../CARDS.md)*

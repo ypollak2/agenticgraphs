@@ -7,8 +7,11 @@ from pathlib import Path
 
 import yaml
 
+# v1 motifs (M0) plus the five composite motifs introduced by AGR v1.1.
 ALLOWED_PATTERNS = {"pipeline", "parallel-swarm", "router", "debate", "map-reduce",
-                    "generator-critic", "planner-executor-verifier", "loop"}
+                    "generator-critic", "planner-executor-verifier", "loop",
+                    "lifecycle", "human-gate", "supervisor-hierarchy", "saga",
+                    "escalation-ladder"}
 REQUIRED = ("id", "name", "domain", "pattern", "summary", "verification")
 
 

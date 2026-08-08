@@ -1,0 +1,74 @@
+apiVersion: agr/v1.1
+name: framework-migration
+description: Port a codebase between frameworks in verifiable slices, each slice delegated to a refactor
+  subgraph.
+category: software-engineering
+nodes:
+- id: inventory
+  speciality: analyst
+  abilities:
+  - analyze
+  inputs:
+  - repo
+  outputs:
+  - slices
+  - risk_map
+- id: supervise
+  speciality: supervisor
+  abilities:
+  - delegate
+  - decompose_goal
+  inputs:
+  - slices
+  outputs:
+  - slice_queue
+- id: port-slice
+  speciality: supervisor
+  kind: subgraph
+  ref: software-engineering/legacy-refactor
+  inputs:
+  - slice_queue
+  outputs:
+  - slice_ported
+- id: integrate
+  speciality: qa-lead
+  abilities:
+  - run_suite
+  kind: verifier
+  inputs:
+  - slice_ported
+  outputs:
+  - suite_green
+- id: sign-off
+  speciality: tech-lead
+  abilities:
+  - read_diff
+  inputs:
+  - suite_green
+  outputs:
+  - migration_complete
+  join: all
+edges:
+- from: inventory
+  to: supervise
+- from: supervise
+  to: port-slice
+- from: port-slice
+  to: integrate
+- from: integrate
+  to: supervise
+  when: not suite_green and attempts < 3
+- from: integrate
+  to: sign-off
+  when: suite_green
+termination:
+  max_steps: 60
+  contract: build and full test suite green on the target stack with no slice left behind
+verification:
+- describe: the full suite is green on the target stack
+  assert: output.suite_green == true
+- describe: every inventoried slice was ported
+  assert: output.slices_remaining == 0
+state:
+  inputs:
+  - repo

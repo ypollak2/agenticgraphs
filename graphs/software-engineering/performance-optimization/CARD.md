@@ -69,7 +69,6 @@ To evolve it: `uv run agr infuse performance-optimization <node> <ability>` — 
 
 Adjacent entries from the use-case catalog this card adapts to with small edits:
 
-- **framework-migration** (software-engineering, planner-executor-verifier) — Port a codebase between frameworks in verifiable slices. *Verify:* build and full test suite green on target stack.
 - **api-design-review** (software-engineering, debate) — Two reviewers argue REST versus RPC tradeoffs, judge synthesizes. *Verify:* spec passes lint; breaking changes enumerated.
 
 ---

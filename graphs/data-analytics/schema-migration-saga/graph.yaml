@@ -1,0 +1,111 @@
+apiVersion: agr/v1.1
+name: schema-migration-saga
+description: Migrate a schema in four reversible steps; any failure compensates back to a consistent state.
+category: data-analytics
+nodes:
+- id: plan
+  speciality: planner
+  abilities:
+  - decompose_goal
+  inputs:
+  - source_schema
+  outputs:
+  - migration_plan
+- id: shadow-write
+  speciality: migrator
+  abilities:
+  - shadow_write
+  - execute_step
+  inputs:
+  - migration_plan
+  outputs:
+  - shadow_active
+- id: backfill
+  speciality: migrator
+  abilities:
+  - backfill
+  - execute_step
+  inputs:
+  - shadow_active
+  outputs:
+  - backfill_complete
+- id: cutover
+  speciality: migrator
+  abilities:
+  - execute_step
+  inputs:
+  - backfill_complete
+  outputs:
+  - cutover_done
+- id: verify
+  speciality: verifier
+  abilities:
+  - run_command
+  kind: verifier
+  inputs:
+  - cutover_done
+  outputs:
+  - parity_verified
+- id: undo-cutover
+  speciality: compensator
+  abilities:
+  - rollback
+  inputs:
+  - cutover_done
+  outputs:
+  - cutover_undone
+- id: undo-backfill
+  speciality: compensator
+  abilities:
+  - rollback
+  inputs:
+  - backfill_complete
+  outputs:
+  - backfill_undone
+- id: undo-shadow
+  speciality: compensator
+  abilities:
+  - rollback
+  inputs:
+  - shadow_active
+  outputs:
+  - shadow_undone
+  - consistent
+edges:
+- from: plan
+  to: shadow-write
+- from: shadow-write
+  to: backfill
+- from: backfill
+  to: cutover
+- from: cutover
+  to: verify
+- from: verify
+  to: undo-cutover
+  when: not parity_verified
+  kind: compensate
+- from: cutover
+  to: undo-cutover
+  when: cutover_failed
+  kind: compensate
+- from: backfill
+  to: undo-backfill
+  when: backfill_failed
+  kind: compensate
+- from: shadow-write
+  to: undo-shadow
+  when: shadow_failed
+  kind: compensate
+- from: undo-cutover
+  to: undo-backfill
+- from: undo-backfill
+  to: undo-shadow
+termination:
+  max_steps: 40
+  contract: every forward step has a compensator; the saga ends verified or fully unwound
+verification:
+- describe: "the migration either verified or fully unwound \u2014 never partial"
+  assert: output.parity_verified == true or output.consistent == true
+state:
+  inputs:
+  - source_schema

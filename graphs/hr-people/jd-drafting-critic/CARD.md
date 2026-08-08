@@ -70,10 +70,10 @@ To evolve it: `uv run agr infuse jd-drafting-critic <node> <ability>` — every 
 Adjacent entries from the use-case catalog this card adapts to with small edits:
 
 - **interview-question-bank** (hr-people, generator-critic) — Generate role questions, critic checks legality and signal. *Verify:* no prohibited-topic questions; rubric attached.
-- **onboarding-plan-builder** (hr-people, planner-executor-verifier) — Build role-specific onboarding with checkpoint tasks. *Verify:* every task has owner, system access verified.
 - **engagement-survey-analysis** (hr-people, map-reduce) — Theme open-text responses, reduce with anonymity floor. *Verify:* themes cite response counts; k-anonymity respected.
 - **policy-qa-assistant** (hr-people, pipeline) — Answer policy questions with citations to the handbook. *Verify:* every answer cites handbook section.
-- **performance-cycle-summarizer** (hr-people, pipeline) — Aggregate peer feedback into balanced review drafts. *Verify:* every statement traces to submitted feedback.
+- **training-gap-analyzer** (hr-people, map-reduce) — Map skills against role matrix, reduce to training plan. *Verify:* gaps reference assessment evidence.
+- **capacity-forecaster** (devops-sre, generator-critic) — Forecast load, critic stress-tests assumptions against history. *Verify:* backtest error within stated confidence band.
 
 ---
 *Regenerate: `uv run python scripts/gen_cards.py` · Index: [CARDS.md](../../../CARDS.md)*

@@ -106,19 +106,76 @@ def _contract_produced(doc: dict) -> set[str]:
     return keys
 
 
+def _declares_io(doc: dict) -> bool:
+    """True if this graph carries an AGR v1.1 declared I/O contract."""
+    return any(n.get("inputs") or n.get("outputs") for n in doc["nodes"])
+
+
 def produced_keys(doc: dict) -> set[str]:
-    """Best-effort estimate of what a graph makes available on the blackboard."""
+    """What a graph makes available on the blackboard.
+
+    Prefers the v1.1 declared contract (`nodes[].outputs`). Falls back to the
+    v1 heuristic — identifiers appearing in termination-contract asserts and in
+    edge routing conditions — for the graphs that declare nothing.
+    """
+    if _declares_io(doc):
+        return {o for n in doc["nodes"] for o in n.get("outputs") or []}
     return _contract_produced(doc) | _edge_vocab(doc)
 
 
 def required_keys(doc: dict) -> set[str]:
-    """Best-effort estimate of what a graph needs before its entry nodes route."""
+    """What a graph needs before its entry nodes can proceed.
+
+    Declared form: the `inputs` of entry nodes, minus anything the graph
+    supplies itself via `state.inputs`. Heuristic fallback: identifiers in the
+    `when` conditions on entry-originating edges.
+    """
+    if _declares_io(doc):
+        ents = set(_entries(doc))
+        need = {i for n in doc["nodes"] if n["id"] in ents for i in n.get("inputs") or []}
+        return need - set((doc.get("state") or {}).get("inputs") or [])
     return _entry_required(doc)
 
 
+def contract_basis(doc_a: dict, doc_b: dict) -> str:
+    """Which check produced the verdict — reported so callers know its strength."""
+    return "declared" if _declares_io(doc_a) and _declares_io(doc_b) else "heuristic"
+
+
 def check_contract(doc_a: dict, doc_b: dict) -> set[str]:
-    """Keys B's entry edges need that A doesn't appear to produce."""
+    """Keys B needs on entry that A doesn't produce."""
     return required_keys(doc_b) - produced_keys(doc_a)
+
+
+def compose_by_reference(doc_a: dict, doc_b: dict, name: str | None = None) -> dict:
+    """v1.1 composition: a two-phase parent graph that *references* both graphs.
+
+    Preferred over `compose()` when both graphs live in the registry. Nothing is
+    spliced or renamed — the parent names each child with `kind: subgraph` and
+    the runtime inlines them at load. Editing a child updates every composite
+    that references it, which text-splicing can never do.
+    """
+    cat_a, cat_b = doc_a["category"], doc_b["category"]
+    a_id, b_id = doc_a["name"], doc_b["name"]
+    composed_name = (name or f"{a_id}-then-{b_id}")[:64]
+    contracts = [d.get("termination", {}).get("contract") for d in (doc_a, doc_b)]
+    contract = "; then ".join(c for c in contracts if c)
+    return {
+        "apiVersion": "agr/v1.1",
+        "name": composed_name,
+        "description": f"Two-phase composite: {a_id} then {b_id}, each referenced as a subgraph.",
+        "category": cat_a,
+        "nodes": [
+            {"id": a_id, "speciality": "supervisor", "kind": "subgraph", "ref": f"{cat_a}/{a_id}"},
+            {"id": b_id, "speciality": "supervisor", "kind": "subgraph", "ref": f"{cat_b}/{b_id}",
+             "join": "all"},
+        ],
+        "edges": [{"from": a_id, "to": b_id}],
+        "termination": {
+            "max_steps": sum(d.get("termination", {}).get("max_steps", 0) for d in (doc_a, doc_b)),
+            **({"contract": contract} if contract else {}),
+        },
+    }
 
 
 def _namespace(nodes: list[dict], edges: list[dict], prefix: str, collisions: set[str]) -> tuple[list[dict], list[dict], dict[str, str]]:
@@ -157,11 +214,16 @@ def compose(doc_a: dict, doc_b: dict, name: str | None = None, allow_gaps: bool 
 
     missing = check_contract(doc_a, doc_b)
     if missing:
+        basis = contract_basis(doc_a, doc_b)
+        how = (
+            "declared v1.1 node inputs/outputs"
+            if basis == "declared"
+            else "heuristic: termination-contract asserts + edge routing vocabulary"
+        )
         msg = (
-            f"contract mismatch: '{doc_b['name']}' needs {sorted(missing)} "
-            f"on entry, but '{doc_a['name']}' does not appear to produce "
-            f"{sorted(missing)} (checked termination-contract asserts + edge "
-            f"routing vocabulary)"
+            f"contract mismatch [{basis}]: '{doc_b['name']}' needs {sorted(missing)} "
+            f"on entry, but '{doc_a['name']}' does not produce {sorted(missing)} "
+            f"({how})"
         )
         if not allow_gaps:
             raise ComposeError(msg)

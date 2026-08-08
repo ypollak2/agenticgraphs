@@ -69,11 +69,11 @@ To evolve it: `uv run agr infuse contract-redline-pipeline <node> <ability>` —
 
 Adjacent entries from the use-case catalog this card adapts to with small edits:
 
-- **gdpr-data-audit** (legal-compliance, parallel-swarm) — Workers map personal data flows per system. *Verify:* every flow lists lawful basis or a gap.
 - **case-law-research** (legal-compliance, pipeline) — Find, shepardize, and brief controlling authority. *Verify:* every citation verified as good law with source.
 - **tos-diff-monitor** (legal-compliance, pipeline) — Diff terms-of-service versions, classify materiality. *Verify:* each material change quotes old and new text.
 - **ip-portfolio-review** (legal-compliance, map-reduce) — Review marks and patents for renewals and conflicts. *Verify:* deadlines extracted match registry records.
 - **cloud-cost-optimizer** (devops-sre, pipeline) — Scan usage, propose rightsizing, verify against SLO headroom. *Verify:* projected savings computed from real billing export.
+- **dashboard-builder** (data-analytics, pipeline) — From metric spec to working dashboard with tested queries. *Verify:* every panel query executes under latency budget.
 
 ---
 *Regenerate: `uv run python scripts/gen_cards.py` · Index: [CARDS.md](../../../CARDS.md)*

@@ -1,0 +1,76 @@
+apiVersion: agr/v1.1
+name: hiring-lifecycle
+description: Draft a role, screen a pipeline, run a structured interview loop, and gate the offer on a
+  panel decision.
+category: hr-people
+nodes:
+- id: define-role
+  speciality: supervisor
+  kind: subgraph
+  ref: hr-people/jd-drafting-critic
+  inputs:
+  - role_brief
+  outputs:
+  - jd
+- id: screen
+  speciality: recruiter
+  abilities:
+  - screen
+  inputs:
+  - jd
+  outputs:
+  - shortlist
+- id: interview
+  speciality: analyst
+  abilities:
+  - analyze
+  inputs:
+  - shortlist
+  outputs:
+  - scorecards
+- id: panel-decision
+  speciality: approver
+  kind: human
+  abilities:
+  - approve
+  inputs:
+  - scorecards
+  outputs:
+  - signed_off
+  approval:
+    contract: signed_off == true and len(scorecards) >= 3
+    timeout: 24h
+    on_timeout: escalate
+- id: offer
+  speciality: executor
+  abilities:
+  - execute_step
+  inputs:
+  - signed_off
+  outputs:
+  - offer_sent
+  - structured
+edges:
+- from: define-role
+  to: screen
+- from: screen
+  to: interview
+- from: interview
+  to: screen
+  when: len(shortlist) == 0 and attempts < 2
+- from: interview
+  to: panel-decision
+  when: len(scorecards) >= 3
+- from: panel-decision
+  to: offer
+termination:
+  max_steps: 35
+  contract: an offer requires at least three structured scorecards and a panel signature
+verification:
+- describe: no offer without a quorum of structured scorecards
+  assert: output.scorecard_count >= 3
+- describe: a panel, not a model, made the call
+  assert: output.signed_off == true
+state:
+  inputs:
+  - role_brief

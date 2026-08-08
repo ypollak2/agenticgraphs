@@ -1,0 +1,85 @@
+apiVersion: agr/v1.1
+name: incident-lifecycle
+description: Detect, triage, mitigate and prove an incident closed, then write the postmortem and file
+  the actions.
+category: devops-sre
+nodes:
+- id: detect
+  speciality: analyst
+  abilities:
+  - analyze
+  inputs:
+  - alert
+  outputs:
+  - signal
+  - blast_radius
+- id: triage
+  speciality: supervisor
+  kind: subgraph
+  ref: devops-sre/incident-triage-router
+  inputs:
+  - signal
+  outputs:
+  - severity
+  - owner
+- id: mitigate
+  speciality: sre
+  abilities:
+  - run_command
+  inputs:
+  - severity
+  outputs:
+  - mitigation
+  - mitigated
+- id: confirm
+  speciality: verifier
+  abilities:
+  - run_command
+  kind: verifier
+  inputs:
+  - mitigation
+  outputs:
+  - impact_cleared
+- id: postmortem
+  speciality: supervisor
+  kind: subgraph
+  ref: devops-sre/postmortem-writer
+  inputs:
+  - mitigation
+  outputs:
+  - postmortem
+- id: action-items
+  speciality: planner
+  abilities:
+  - decompose_goal
+  inputs:
+  - postmortem
+  outputs:
+  - actions
+edges:
+- from: detect
+  to: triage
+- from: triage
+  to: mitigate
+- from: mitigate
+  to: confirm
+- from: confirm
+  to: mitigate
+  when: not impact_cleared and attempts < 3
+- from: confirm
+  to: postmortem
+  when: impact_cleared
+- from: postmortem
+  to: action-items
+termination:
+  max_steps: 45
+  contract: mitigation is proven effective before the postmortem is written; every postmortem yields owned
+    actions
+verification:
+- describe: impact is cleared before the incident is written up
+  assert: output.impact_cleared == true
+- describe: every postmortem produces at least one owned action
+  assert: len(output.actions) >= 1
+state:
+  inputs:
+  - alert

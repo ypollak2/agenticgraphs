@@ -1,0 +1,6 @@
+name: screener
+description: Filters a population against explicit inclusion and exclusion criteria.
+requires_abilities:
+- screen
+optional_abilities:
+- analyze

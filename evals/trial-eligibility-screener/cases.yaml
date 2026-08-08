@@ -1,0 +1,19 @@
+cases:
+- id: happy-path
+  node_outputs:
+    prefilter:
+      obvious_excludes: []
+    criteria-match:
+      matched:
+      - p: 1
+      ambiguous: []
+    deep-review:
+      escalated_cases: []
+    clinician-review:
+      signed_off: true
+    enrol:
+      enrolled: 12
+      unreviewed_ambiguous: 0
+      output:
+        enrolled: 12
+        unreviewed_ambiguous: 0

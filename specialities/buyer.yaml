@@ -1,0 +1,6 @@
+name: buyer
+description: Runs vendor selection and commercial negotiation.
+requires_abilities:
+- negotiate
+optional_abilities:
+- analyze

@@ -1,0 +1,29 @@
+cases:
+- id: happy-path
+  node_outputs:
+    enumerate:
+      controls: []
+    collect.plan:
+      complexity: simple
+      risk: low
+      revision_requested: false
+      rejected: false
+      verify_failed: false
+      below_target: false
+      attempts: 1
+    collect.execute: {}
+    collect.verify:
+      evidence: evidence-value
+    assess:
+      coverage: coverage-value
+      uncovered:
+      - id: AC-7
+      - id: AU-3
+    report:
+      evidence_report: evidence_report-value
+      output:
+        controls_total: 40
+        controls_evidenced: 38
+        uncovered:
+        - id: AC-7
+        - id: AU-3

@@ -1,0 +1,77 @@
+apiVersion: agr/v1.1
+name: contract-lifecycle
+description: Intake a contract, redline it, gate on residual risk, and execute only with counsel approval.
+category: legal-compliance
+nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
+  inputs:
+  - contract
+  outputs:
+  - clauses
+- id: redline
+  speciality: supervisor
+  kind: subgraph
+  ref: legal-compliance/contract-redline-pipeline
+  inputs:
+  - clauses
+  outputs:
+  - redlines
+- id: risk-assess
+  speciality: counsel
+  abilities:
+  - critique
+  - analyze
+  inputs:
+  - redlines
+  outputs:
+  - residual_risk
+- id: counsel-approval
+  speciality: approver
+  kind: human
+  abilities:
+  - approve
+  inputs:
+  - residual_risk
+  outputs:
+  - signed_off
+  approval:
+    contract: signed_off == true and residual_risk <= medium
+    timeout: 24h
+    on_timeout: escalate
+- id: execute
+  speciality: executor
+  abilities:
+  - execute_step
+  inputs:
+  - signed_off
+  outputs:
+  - executed
+edges:
+- from: intake
+  to: redline
+- from: redline
+  to: risk-assess
+- from: risk-assess
+  to: redline
+  when: residual_risk > medium and attempts < 2
+- from: risk-assess
+  to: counsel-approval
+  when: residual_risk <= medium
+- from: counsel-approval
+  to: execute
+termination:
+  max_steps: 35
+  contract: a contract executes only at or below medium residual risk with counsel signature
+verification:
+- describe: residual risk is at or below the accepted threshold
+  assert: output.residual_risk_level in ['low','medium']
+- describe: counsel signed before execution
+  assert: output.signed_off == true
+- describe: the contract was executed
+  assert: output.executed == true
+state:
+  inputs:
+  - contract

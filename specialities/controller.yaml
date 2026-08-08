@@ -1,0 +1,6 @@
+name: controller
+description: Owns financial accuracy and the filing sign-off.
+requires_abilities:
+- analyze
+optional_abilities:
+- file_record

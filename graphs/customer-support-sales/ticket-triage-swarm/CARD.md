@@ -77,7 +77,7 @@ Adjacent entries from the use-case catalog this card adapts to with small edits:
 - **crm-enrichment-pipeline** (customer-support-sales, pipeline) — Fill CRM gaps from public sources with provenance. *Verify:* each field carries source URL and timestamp.
 - **sales-call-scorer** (customer-support-sales, parallel-swarm) — Workers score calls per methodology dimension. *Verify:* scores cite transcript spans; calibration checked.
 - **quote-configurator** (customer-support-sales, pipeline) — Assemble quotes against price book and discount policy. *Verify:* totals recompute exactly; policy violations zero.
-- **invoice-reconciliation** (business-ops, router) — Match invoices to POs, route exceptions by mismatch type. *Verify:* matched set balances; exceptions carry mismatch reason.
+- **fraud-pattern-triage** (finance, router) — Route flagged transactions to rule, anomaly, or manual review. *Verify:* routing precision measured against labeled history.
 
 ---
 *Regenerate: `uv run python scripts/gen_cards.py` · Index: [CARDS.md](../../../CARDS.md)*

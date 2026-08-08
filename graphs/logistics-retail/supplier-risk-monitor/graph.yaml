@@ -1,0 +1,57 @@
+apiVersion: agr/v1.1
+name: supplier-risk-monitor
+description: Score supplier concentration, financial and geographic risk, then plan mitigation for anything
+  above appetite.
+category: logistics-retail
+nodes:
+- id: ingest
+  speciality: supervisor
+  kind: subgraph
+  ref: research-knowledge/competitive-intelligence
+  inputs:
+  - supplier_list
+  outputs:
+  - supplier_signals
+- id: score
+  speciality: analyst
+  abilities:
+  - analyze
+  inputs:
+  - supplier_signals
+  outputs:
+  - risk_scores
+- id: concentrate
+  speciality: analyst
+  abilities:
+  - analyze
+  inputs:
+  - risk_scores
+  outputs:
+  - concentration
+- id: mitigate
+  speciality: planner
+  abilities:
+  - decompose_goal
+  kind: verifier
+  inputs:
+  - concentration
+  outputs:
+  - mitigations
+edges:
+- from: ingest
+  to: score
+- from: score
+  to: concentrate
+- from: concentrate
+  to: mitigate
+termination:
+  max_steps: 25
+  contract: every supplier above risk appetite carries a named mitigation owner
+verification:
+- describe: every supplier above appetite has a named mitigation
+  assert: output.above_appetite == output.mitigations_planned
+- describe: single-source dependencies are called out explicitly
+  assert: output.single_source_flagged == true
+state:
+  inputs:
+  - supplier_list

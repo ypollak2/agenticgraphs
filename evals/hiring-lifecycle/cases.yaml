@@ -1,0 +1,32 @@
+cases:
+- id: happy-path
+  node_outputs:
+    define-role.intake:
+      complexity: simple
+      risk: low
+      revision_requested: false
+      rejected: false
+      verify_failed: false
+      below_target: false
+      attempts: 1
+    define-role.generate: {}
+    define-role.critique:
+      jd: jd-value
+    screen:
+      shortlist:
+      - c: a
+    interview:
+      scorecards:
+      - i: 1
+      - i: 2
+      - i: 3
+    panel-decision:
+      signed_off: true
+    offer:
+      offer_sent: true
+      structured: true
+      output:
+        scorecard_count: 4
+        signed_off: true
+        offer_sent: true
+        structured: true

@@ -1,0 +1,76 @@
+apiVersion: agr/v1.1
+name: trial-eligibility-screener
+description: Screen patients against trial criteria cheapest-first, escalating ambiguous cases to a clinician.
+category: healthcare-science
+nodes:
+- id: prefilter
+  speciality: screener
+  abilities:
+  - screen
+  inputs:
+  - patient_records
+  outputs:
+  - obvious_excludes
+- id: criteria-match
+  speciality: analyst
+  abilities:
+  - analyze
+  inputs:
+  - obvious_excludes
+  outputs:
+  - matched
+  - ambiguous
+- id: deep-review
+  speciality: escalator
+  abilities:
+  - escalate
+  - classify_complexity
+  inputs:
+  - ambiguous
+  outputs:
+  - escalated_cases
+- id: clinician-review
+  speciality: approver
+  kind: human
+  abilities:
+  - approve
+  inputs:
+  - escalated_cases
+  outputs:
+  - signed_off
+  approval:
+    contract: signed_off == true
+    timeout: 24h
+    on_timeout: escalate
+- id: enrol
+  speciality: executor
+  abilities:
+  - execute_step
+  inputs:
+  - matched
+  outputs:
+  - enrolled
+  - unreviewed_ambiguous
+  join: any
+edges:
+- from: prefilter
+  to: criteria-match
+- from: criteria-match
+  to: enrol
+  when: len(ambiguous) == 0
+- from: criteria-match
+  to: deep-review
+  when: len(ambiguous) > 0
+- from: deep-review
+  to: clinician-review
+- from: clinician-review
+  to: enrol
+termination:
+  max_steps: 30
+  contract: an ambiguous eligibility decision never enrols without a clinician signature
+verification:
+- describe: no ambiguous case is enrolled without clinician review
+  assert: output.unreviewed_ambiguous == 0
+state:
+  inputs:
+  - patient_records

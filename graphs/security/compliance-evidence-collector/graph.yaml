@@ -1,0 +1,58 @@
+apiVersion: agr/v1.1
+name: compliance-evidence-collector
+description: Walk a control framework, collect evidence per control, and flag controls with no live evidence.
+category: security
+nodes:
+- id: enumerate
+  speciality: planner
+  abilities:
+  - decompose_goal
+  inputs:
+  - framework
+  outputs:
+  - controls
+- id: collect
+  speciality: supervisor
+  kind: subgraph
+  ref: devops-sre/runbook-executor
+  inputs:
+  - controls
+  outputs:
+  - evidence
+- id: assess
+  speciality: reducer
+  abilities:
+  - reduce_merge
+  inputs:
+  - evidence
+  outputs:
+  - coverage
+  - uncovered
+- id: report
+  speciality: producer
+  abilities:
+  - generate
+  kind: verifier
+  inputs:
+  - coverage
+  outputs:
+  - evidence_report
+edges:
+- from: enumerate
+  to: collect
+- from: collect
+  to: assess
+- from: assess
+  to: collect
+  when: len(uncovered) > 0 and attempts < 2
+- from: assess
+  to: report
+termination:
+  max_steps: 30
+  contract: no control is silently unevidenced; the uncovered list is explicit
+verification:
+- describe: every control is either evidenced or explicitly listed as uncovered
+  assert: output.controls_total == output.controls_evidenced + len(output.uncovered)
+state:
+  inputs:
+  - framework

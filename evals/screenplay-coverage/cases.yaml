@@ -1,0 +1,27 @@
+cases:
+- id: happy-path
+  node_outputs:
+    read:
+      synopsis: []
+      beats: []
+    structure:
+      structure_notes: []
+    comparables.partition:
+      complexity: simple
+      risk: low
+      revision_requested: false
+      rejected: false
+      verify_failed: false
+      below_target: false
+      attempts: 1
+    comparables.map: {}
+    comparables.reduce:
+      comps: &id001
+      - title: A
+      - title: B
+    recommend:
+      recommendation: consider
+      rationale: rationale-value
+      output:
+        recommendation: consider
+        comps: *id001

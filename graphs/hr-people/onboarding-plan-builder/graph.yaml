@@ -1,0 +1,66 @@
+apiVersion: agr/v1.1
+name: onboarding-plan-builder
+description: Build a role-specific 30/60/90 plan from the JD, team context and access requirements, then
+  verify coverage.
+category: hr-people
+nodes:
+- id: gather
+  speciality: analyst
+  abilities:
+  - analyze
+  inputs:
+  - role
+  - team
+  outputs:
+  - role_context
+- id: draft-plan
+  speciality: producer
+  abilities:
+  - generate
+  inputs:
+  - role_context
+  outputs:
+  - plan_30_60_90
+- id: access-map
+  speciality: mapper
+  abilities:
+  - map_shard
+  inputs:
+  - role_context
+  outputs:
+  - access_requests
+- id: review
+  speciality: critic
+  abilities:
+  - critique
+  kind: verifier
+  inputs:
+  - plan_30_60_90
+  - access_requests
+  outputs:
+  - milestones_covered
+  join: all
+edges:
+- from: gather
+  to: draft-plan
+- from: gather
+  to: access-map
+- from: draft-plan
+  to: review
+- from: access-map
+  to: review
+- from: review
+  to: draft-plan
+  when: not milestones_covered and attempts < 2
+termination:
+  max_steps: 25
+  contract: every checkpoint carries a measurable milestone and day-one access is pre-requested
+verification:
+- describe: all three checkpoints have a measurable milestone
+  assert: output.milestones_covered == true
+- describe: day-one access is requested before the start date
+  assert: output.access_requested == true
+state:
+  inputs:
+  - role
+  - team

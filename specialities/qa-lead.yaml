@@ -1,0 +1,6 @@
+name: qa-lead
+description: Owns the test strategy and the pass/fail verdict for a change.
+requires_abilities:
+- run_suite
+optional_abilities:
+- evaluate

@@ -1,0 +1,6 @@
+name: supervisor
+description: Decomposes a goal and delegates it to subordinate graphs.
+requires_abilities:
+- delegate
+optional_abilities:
+- decompose_goal

@@ -1,0 +1,3 @@
+name: negotiate
+description: Exchange counter-offers against a constraint set.
+risk: read

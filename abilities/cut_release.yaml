@@ -1,0 +1,3 @@
+name: cut_release
+description: Tag, publish and announce a release artifact.
+risk: execute

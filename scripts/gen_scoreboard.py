@@ -10,6 +10,7 @@ then commit the (possibly updated) profile.json files alongside README.md.
 from __future__ import annotations
 
 import sys
+from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
@@ -25,7 +26,7 @@ def row_for(gpath: Path) -> dict:
     has_cases = (ROOT / "evals" / name / "cases.yaml").exists()
     if not has_cases:
         return {"name": name, "category": category, "cases": 0, "pass_rate": None,
-                "mean_steps": None, "routes": 0}
+                "mean_steps": None, "routes": 0, "depth": "none"}
     profile = eval_graph(name)
     measured = profile["measured"]
     results = measured["results"]
@@ -37,12 +38,14 @@ def row_for(gpath: Path) -> dict:
         "pass_rate": measured["pass_rate"],
         "mean_steps": measured["mean_steps"],
         "routes": routes,
+        "depth": measured["verification_depth"],
     }
 
 
 def scoreboard_block(rows: list[dict]) -> str:
     with_cases = [r for r in rows if r["cases"]]
     total_cases = sum(r["cases"] for r in with_cases)
+    depth_counts = Counter(r["depth"] for r in with_cases)
     fully_passing = sum(1 for r in with_cases if r["pass_rate"] == 1.0)
     lines = [
         BEGIN,
@@ -50,12 +53,23 @@ def scoreboard_block(rows: list[dict]) -> str:
         "",
         f"{len(with_cases)}/{len(rows)} graphs have golden eval cases "
         f"({total_cases} cases total, {fully_passing}/{len(with_cases)} graphs at 100% pass rate). "
-        "Provisional (mock-runner) numbers prove graph/contract mechanics, not model quality — "
-        "pass `--live` to `agr eval` for real model numbers. Regenerate with "
-        "`uv run python scripts/gen_scoreboard.py`.",
+        "Regenerate with `uv run python scripts/gen_scoreboard.py`.",
         "",
-        "| Graph | Domain | Cases | Pass rate | Mean steps | Routes exercised |",
-        "|---|---|---|---|---|---|",
+        "**Read the Depth column before the Pass rate column.** A 100% pass rate at "
+        "`assert-fixture` means the assert held against a mock fixture written alongside "
+        "the graph — it proves the graph routes the value through, not that the claim was "
+        "earned. Depth grades, weakest first:",
+        "",
+        "| Depth | What actually happened |",
+        "|---|---|",
+        "| `describe-only` | prose; nothing machine-checked |",
+        f"| `assert-fixture` | assert held against a mock fixture — **{depth_counts.get('assert-fixture', 0)} of "
+        f"{len(with_cases)} graphs sit here** |",
+        "| `assert-live` | assert held against real model output (`agr eval --live`) |",
+        "| `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |",
+        "",
+        "| Graph | Domain | Cases | Pass rate | Depth | Mean steps | Routes exercised |",
+        "|---|---|---|---|---|---|---|",
     ]
     for r in sorted(rows, key=lambda x: (x["category"], x["name"])):
         if r["cases"]:
@@ -65,7 +79,7 @@ def scoreboard_block(rows: list[dict]) -> str:
         else:
             pass_rate = mean_steps = routes = "—"
         lines.append(f"| `{r['name']}` | {r['category']} | {r['cases'] or '—'} "
-                     f"| {pass_rate} | {mean_steps} | {routes} |")
+                     f"| {pass_rate} | `{r['depth']}` | {mean_steps} | {routes} |")
     lines.append(END)
     return "\n".join(lines)
 

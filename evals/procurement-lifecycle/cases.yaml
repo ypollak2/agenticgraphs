@@ -1,0 +1,28 @@
+cases:
+- id: happy-path
+  node_outputs:
+    rfp.partition:
+      complexity: simple
+      risk: low
+      revision_requested: false
+      rejected: false
+      verify_failed: false
+      below_target: false
+      attempts: 1
+    rfp.map: {}
+    rfp.reduce:
+      rfp_responses: []
+    score:
+      vendor_scores: []
+    negotiate:
+      terms: []
+      savings: []
+    budget-approval:
+      signed_off: true
+    award:
+      awarded: true
+      scored_vendors: 3
+      output:
+        scored_vendors: 3
+        signed_off: true
+        awarded: true

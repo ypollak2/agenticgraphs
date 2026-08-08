@@ -1,0 +1,61 @@
+apiVersion: agr/v1.1
+name: performance-cycle-summarizer
+description: Aggregate self, peer and manager input into a calibrated summary with evidence for every
+  claim.
+category: hr-people
+nodes:
+- id: gather
+  speciality: mapper
+  abilities:
+  - map_shard
+  inputs:
+  - cycle
+  outputs:
+  - inputs
+- id: synthesize
+  speciality: reducer
+  abilities:
+  - reduce_merge
+  inputs:
+  - inputs
+  outputs:
+  - draft_summary
+- id: bias-check
+  speciality: critic
+  abilities:
+  - critique
+  inputs:
+  - draft_summary
+  outputs:
+  - bias_flags
+- id: calibrate
+  speciality: judge
+  abilities:
+  - adjudicate
+  kind: verifier
+  inputs:
+  - bias_flags
+  outputs:
+  - calibrated_summary
+edges:
+- from: gather
+  to: synthesize
+- from: synthesize
+  to: bias-check
+- from: bias-check
+  to: synthesize
+  when: len(bias_flags) > 0 and attempts < 2
+- from: bias-check
+  to: calibrate
+  when: len(bias_flags) == 0
+termination:
+  max_steps: 25
+  contract: every statement cites an input and no bias flag survives calibration
+verification:
+- describe: every claim cites a source input
+  assert: output.uncited_claims == 0
+- describe: no unresolved bias flag survives calibration
+  assert: len(output.bias_flags) == 0
+state:
+  inputs:
+  - cycle

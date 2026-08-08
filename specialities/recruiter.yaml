@@ -1,0 +1,6 @@
+name: recruiter
+description: Screens and advances candidates against a scorecard.
+requires_abilities:
+- screen
+optional_abilities:
+- generate

@@ -1,0 +1,3 @@
+name: approve
+description: Record a human sign-off decision against an approval contract.
+risk: write

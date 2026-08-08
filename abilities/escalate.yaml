@@ -1,0 +1,3 @@
+name: escalate
+description: Hand a case up a tier with the evidence gathered so far.
+risk: write

@@ -1,0 +1,63 @@
+apiVersion: agr/v1.1
+name: screenplay-coverage
+description: 'Produce studio-standard coverage: synopsis, structural analysis, comparables, and a defended
+  recommendation.'
+category: creative-production
+nodes:
+- id: read
+  speciality: analyst
+  abilities:
+  - analyze
+  inputs:
+  - screenplay
+  outputs:
+  - synopsis
+  - beats
+- id: structure
+  speciality: critic
+  abilities:
+  - critique
+  inputs:
+  - beats
+  outputs:
+  - structure_notes
+- id: comparables
+  speciality: supervisor
+  kind: subgraph
+  ref: research-knowledge/competitive-intelligence
+  inputs:
+  - synopsis
+  outputs:
+  - comps
+- id: recommend
+  speciality: judge
+  abilities:
+  - adjudicate
+  kind: verifier
+  inputs:
+  - structure_notes
+  - comps
+  outputs:
+  - recommendation
+  - rationale
+  join: all
+edges:
+- from: read
+  to: structure
+- from: read
+  to: comparables
+- from: structure
+  to: recommend
+- from: comparables
+  to: recommend
+termination:
+  max_steps: 25
+  contract: coverage lands one of three verdicts, defended against at least two named comparables
+verification:
+- describe: the recommendation is one of the studio-standard verdicts
+  assert: output.recommendation in ['pass','consider','recommend']
+- describe: the verdict is defended against named comparables
+  assert: len(output.comps) >= 2
+state:
+  inputs:
+  - screenplay

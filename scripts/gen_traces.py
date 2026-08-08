@@ -56,6 +56,17 @@ def fmt_output(d: dict) -> str:
     return "`" + ", ".join(f"{k}={v!r}" for k, v in d.items()) + "`"
 
 
+def _executable(doc: dict) -> dict:
+    """The graph the harness actually runs — subgraph phases inlined.
+
+    A trace of a composite contains the child's prefixed node ids
+    (`auto-match.plan`), which do not exist in the authored node list.
+    """
+    from agenticgraphs.subgraphs import expand, has_subgraphs
+
+    return expand(doc) if has_subgraphs(doc) else doc
+
+
 def gen_trace_doc(doc: dict, profile: dict, cases: list[dict]) -> str:
     name = doc["name"]
     results = profile["measured"]["results"]
@@ -82,7 +93,7 @@ def gen_trace_doc(doc: dict, profile: dict, cases: list[dict]) -> str:
     ]
     for r in results:
         case = cases_by_id[r["id"]]
-        steps = case_steps(doc, case["node_outputs"], r["trace"])
+        steps = case_steps(_executable(doc), case["node_outputs"], r["trace"])
         verdict = "✅ passed" if r["passed"] else "❌ failed"
         lines += [
             f"### `{r['id']}` — {verdict}",

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://agenticgraphs.dev/spec/agr-graph.schema.json",
-  "title": "AGR Graph v1",
+  "title": "AGR Graph v1.1",
   "type": "object",
   "required": [
     "apiVersion",
@@ -14,7 +14,10 @@
   ],
   "properties": {
     "apiVersion": {
-      "const": "agr/v1"
+      "enum": [
+        "agr/v1",
+        "agr/v1.1"
+      ]
     },
     "name": {
       "type": "string",
@@ -55,7 +58,8 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-z0-9][a-z0-9-]*$"
+            "pattern": "^[a-z0-9][a-z0-9.-]*$",
+            "description": "A dot is reserved for subgraph expansion (`phase.child-node`); authored ids should not contain one."
           },
           "speciality": {
             "type": "string"
@@ -71,15 +75,149 @@
               "agent",
               "verifier",
               "human",
-              "router"
+              "router",
+              "subgraph"
             ],
             "default": "agent"
           },
           "parallel_group": {
             "type": "string"
+          },
+          "ref": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+/[a-z0-9-]+$",
+            "description": "v1.1 — <category>/<graph-name> inlined at load time when kind is subgraph."
+          },
+          "join": {
+            "type": "string",
+            "pattern": "^(any|all|quorum\\([1-9][0-9]*\\))$",
+            "default": "any",
+            "description": "v1.1 — readiness rule over resolved incoming flow edges."
+          },
+          "inputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "v1.1 — blackboard keys this node reads."
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "v1.1 — blackboard keys this node is contracted to write."
+          },
+          "on_error": {
+            "type": "string",
+            "description": "v1.1 — node id to route to when this node emits `error`; sugar for an error edge."
+          },
+          "retries": {
+            "type": "object",
+            "properties": {
+              "max": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5
+              },
+              "backoff": {
+                "enum": [
+                  "none",
+                  "linear",
+                  "exponential"
+                ],
+                "default": "none"
+              }
+            },
+            "required": [
+              "max"
+            ],
+            "additionalProperties": false
+          },
+          "approval": {
+            "type": "object",
+            "properties": {
+              "contract": {
+                "type": "string"
+              },
+              "timeout": {
+                "type": "string",
+                "description": "Recorded but NOT enforced in v1.1 — the harness has no clock."
+              },
+              "on_timeout": {
+                "enum": [
+                  "escalate",
+                  "reject",
+                  "proceed"
+                ],
+                "default": "escalate"
+              }
+            },
+            "required": [
+              "contract"
+            ],
+            "additionalProperties": false
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "const": "subgraph"
+                }
+              },
+              "required": [
+                "kind"
+              ]
+            },
+            "then": {
+              "required": [
+                "ref"
+              ],
+              "not": {
+                "required": [
+                  "abilities"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "ref"
+              ]
+            },
+            "then": {
+              "properties": {
+                "kind": {
+                  "const": "subgraph"
+                }
+              },
+              "required": [
+                "kind"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "const": "human"
+                }
+              },
+              "required": [
+                "kind"
+              ]
+            },
+            "then": {
+              "required": [
+                "approval"
+              ]
+            }
+          }
+        ]
       }
     },
     "edges": {
@@ -100,6 +238,15 @@
           },
           "when": {
             "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "flow",
+              "error",
+              "compensate"
+            ],
+            "default": "flow",
+            "description": "v1.1 — error edges fire on `error` in node output; compensate edges are reverse paths exempt from back-edge lint and join accounting."
           }
         },
         "additionalProperties": false
@@ -110,8 +257,16 @@
       "properties": {
         "schema": {
           "type": "string"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "v1.1 — blackboard keys supplied to the graph at entry."
         }
-      }
+      },
+      "additionalProperties": false
     },
     "termination": {
       "type": "object",
@@ -133,6 +288,10 @@
       "items": {
         "type": "object",
         "properties": {
+          "describe": {
+            "type": "string",
+            "description": "v1.1 — prose statement of what is being checked."
+          },
           "assert": {
             "type": "string"
           },
@@ -149,6 +308,11 @@
           {
             "required": [
               "command"
+            ]
+          },
+          {
+            "required": [
+              "describe"
             ]
           }
         ]

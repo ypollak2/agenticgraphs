@@ -1,0 +1,26 @@
+cases:
+- id: happy-path
+  node_outputs:
+    extract:
+      attributes: []
+    write:
+      listing_copy: listing_copy-value
+    claim-check.intake:
+      complexity: simple
+      risk: low
+      revision_requested: false
+      rejected: false
+      verify_failed: false
+      below_target: false
+      attempts: 1
+    claim-check.produce: {}
+    claim-check.review:
+      unsupported_claims: []
+    policy-check:
+      policy_violations: []
+    publish:
+      listings_published: 40
+      output:
+        unsupported_claims: []
+        policy_violations: []
+        listings_published: 40

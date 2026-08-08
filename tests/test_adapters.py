@@ -8,12 +8,21 @@ from agenticgraphs.registry import iter_graphs, load
 
 
 def test_every_graph_compiles_to_valid_langgraph_source():
+    """Emitted source must cover the *executable* graph, not the authored one.
+
+    A `kind: subgraph` phase stands for a child graph's whole topology, so after
+    v1.1 the authored node list is not what runs. Asserting against the authored
+    ids let the adapter drop every child silently.
+    """
+    from agenticgraphs.subgraphs import expand, has_subgraphs
+
     for g in iter_graphs():
         doc = load(g)
         src = emit_langgraph(doc)
         ast.parse(src)  # syntactically valid Python
-        for n in doc["nodes"]:
-            assert f'g.add_node("{n["id"]}"' in src
+        executable = expand(doc) if has_subgraphs(doc) else doc
+        for n in executable["nodes"]:
+            assert f'g.add_node("{n["id"]}"' in src, f"{doc['name']} dropped {n['id']}"
         assert "app = g.compile()" in src
         assert "NotImplementedError" in src  # honest: behavior must be bound
 
@@ -79,3 +88,26 @@ def test_mcp_tools_registered():
 
     tools = asyncio.run(create_server().list_tools())
     assert {t.name for t in tools} == {"search_graphs", "get_graph", "instantiate", "infuse_ability"}
+
+
+def test_compiled_topology_matches_executed_topology():
+    """Parity: what `agr adapt` compiles is what `agr eval` runs.
+
+    Nothing asserted this before, which is how a composite could compile to 10
+    nodes while executing 17 — each subgraph phase became a single
+    NotImplementedError stub and the child graph vanished from the build.
+    """
+    from agenticgraphs.harness import MockRunner, run_graph
+    from agenticgraphs.subgraphs import expand, has_subgraphs
+
+    for g in iter_graphs():
+        doc = load(g)
+        executable = expand(doc) if has_subgraphs(doc) else doc
+        for emit in (emit_langgraph, emit_crewai, emit_autogen):
+            src = emit(doc)
+            for n in executable["nodes"]:
+                assert n["id"] in src, f"{doc['name']}: {emit.__name__} dropped {n['id']}"
+        # and every node the harness can reach is one the adapter emitted
+        compiled = {n["id"] for n in executable["nodes"]}
+        rep = run_graph(doc, MockRunner({}))
+        assert set(rep.trace) <= compiled, doc["name"]

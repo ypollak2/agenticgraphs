@@ -1,0 +1,80 @@
+apiVersion: agr/v1.1
+name: clinical-protocol-lifecycle
+description: Draft a study protocol, critique it against guidance, and register it only after investigator
+  sign-off.
+category: healthcare-science
+nodes:
+- id: draft
+  speciality: producer
+  abilities:
+  - generate
+  inputs:
+  - study_goal
+  outputs:
+  - protocol
+- id: critique
+  speciality: critic
+  abilities:
+  - critique
+  inputs:
+  - protocol
+  outputs:
+  - deviations
+- id: revise
+  speciality: producer
+  abilities:
+  - generate
+  inputs:
+  - deviations
+  outputs:
+  - protocol_final
+- id: investigator-signoff
+  speciality: approver
+  kind: human
+  abilities:
+  - approve
+  inputs:
+  - protocol_final
+  outputs:
+  - signed_off
+  approval:
+    contract: signed_off == true and len(deviations) == 0
+    timeout: 24h
+    on_timeout: escalate
+- id: register
+  speciality: controller
+  abilities:
+  - analyze
+  - file_record
+  inputs:
+  - signed_off
+  outputs:
+  - registered
+  - registry_id
+edges:
+- from: draft
+  to: critique
+- from: critique
+  to: revise
+  when: len(deviations) > 0
+- from: revise
+  to: critique
+  when: attempts < 3
+- from: critique
+  to: investigator-signoff
+  when: len(deviations) == 0
+- from: investigator-signoff
+  to: register
+termination:
+  max_steps: 35
+  contract: a protocol registers only with zero open deviations and a named investigator signature
+verification:
+- describe: no unresolved guidance deviations at registration
+  assert: len(output.deviations) == 0
+- describe: a named investigator signed the protocol
+  assert: output.signed_off == true
+- describe: registration returned an id
+  assert: output.registry_id is not None
+state:
+  inputs:
+  - study_goal

@@ -1,0 +1,55 @@
+{
+  "name": "compliance-evidence-collector",
+  "category": "security",
+  "structural": {
+    "nodes": 4,
+    "edges": 4,
+    "verifier_nodes": 1,
+    "router_nodes": 0,
+    "parallel_groups": 0,
+    "max_fan_out": 2,
+    "loops": 1,
+    "loops_bounded": true,
+    "max_steps": 30,
+    "verification_asserts": 1,
+    "risk_surface": "write"
+  },
+  "measured": {
+    "runner": "mock",
+    "provisional": true,
+    "verification_depth": "assert-fixture",
+    "date": "2026-08-09",
+    "cases": 1,
+    "passed": 1,
+    "pass_rate": 1.0,
+    "mean_steps": 11.0,
+    "results": [
+      {
+        "id": "happy-path",
+        "passed": true,
+        "steps": 11,
+        "trace": [
+          "enumerate",
+          "collect.plan",
+          "collect.execute",
+          "collect.verify",
+          "assess",
+          "collect.plan",
+          "report",
+          "collect.execute",
+          "collect.verify",
+          "assess",
+          "report"
+        ],
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true
+      }
+    ]
+  }
+}

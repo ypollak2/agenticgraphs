@@ -1,0 +1,6 @@
+name: counsel
+description: Reviews legal exposure and holds redline authority.
+requires_abilities:
+- critique
+optional_abilities:
+- analyze

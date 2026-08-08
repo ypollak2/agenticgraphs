@@ -1,0 +1,73 @@
+apiVersion: agr/v1.1
+name: podcast-production-pipeline
+description: 'Turn a raw recording into a published episode: transcript, edit plan, show notes, rights
+  check, publish.'
+category: creative-production
+nodes:
+- id: transcribe
+  speciality: mapper
+  abilities:
+  - map_shard
+  inputs:
+  - recording
+  outputs:
+  - transcript
+- id: edit-plan
+  speciality: producer
+  abilities:
+  - generate
+  inputs:
+  - transcript
+  outputs:
+  - cut_list
+- id: show-notes
+  speciality: producer
+  abilities:
+  - generate
+  inputs:
+  - cut_list
+  outputs:
+  - show_notes
+  - timestamps
+- id: rights-check
+  speciality: counsel
+  abilities:
+  - critique
+  inputs:
+  - cut_list
+  outputs:
+  - clearances
+  - rights_clear
+- id: publish
+  speciality: executor
+  abilities:
+  - execute_step
+  inputs:
+  - show_notes
+  - rights_clear
+  outputs:
+  - published
+  join: all
+edges:
+- from: transcribe
+  to: edit-plan
+- from: edit-plan
+  to: show-notes
+- from: edit-plan
+  to: rights-check
+- from: show-notes
+  to: publish
+- from: rights-check
+  to: publish
+  when: rights_clear
+termination:
+  max_steps: 30
+  contract: no episode publishes with an uncleared cue or drifting timestamps
+verification:
+- describe: every music or clip cue is cleared before publish
+  assert: output.rights_clear == true
+- describe: show notes timestamps line up with the cut
+  assert: output.timestamps_valid == true
+state:
+  inputs:
+  - recording

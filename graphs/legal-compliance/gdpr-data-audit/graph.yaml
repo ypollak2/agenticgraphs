@@ -1,0 +1,67 @@
+apiVersion: agr/v1.1
+name: gdpr-data-audit
+description: Map personal data across systems, classify lawful basis, find gaps, and produce a remediation
+  plan.
+category: legal-compliance
+nodes:
+- id: discover
+  speciality: supervisor
+  kind: subgraph
+  ref: data-analytics/data-quality-audit
+  inputs:
+  - systems
+  outputs:
+  - data_map
+- id: classify
+  speciality: analyst
+  abilities:
+  - analyze
+  inputs:
+  - data_map
+  outputs:
+  - lawful_basis
+- id: gap-scan
+  speciality: critic
+  abilities:
+  - critique
+  inputs:
+  - lawful_basis
+  outputs:
+  - gaps
+- id: remediate
+  speciality: planner
+  abilities:
+  - decompose_goal
+  inputs:
+  - gaps
+  outputs:
+  - remediation_plan
+- id: attest
+  speciality: counsel
+  abilities:
+  - critique
+  kind: verifier
+  inputs:
+  - remediation_plan
+  outputs:
+  - attested
+edges:
+- from: discover
+  to: classify
+- from: classify
+  to: gap-scan
+- from: gap-scan
+  to: remediate
+- from: remediate
+  to: attest
+termination:
+  max_steps: 30
+  contract: every store carries a lawful basis; every gap carries an owner and a due date
+verification:
+- describe: every mapped store has a stated lawful basis
+  assert: output.unclassified_stores == 0
+- describe: each gap carries an owner and a date
+  assert: all(gp.owner and gp.due for gp in output.gaps)
+state:
+  inputs:
+  - systems

@@ -677,7 +677,8 @@ entries:
   name: cost-routed-research
   domain: research-knowledge
   pattern: router
-  summary: Routes research subtasks to the cheapest capable model, escalates low-confidence answers, synthesizes with citations.
+  summary: Routes research subtasks to the cheapest capable model, escalates low-confidence answers, synthesizes
+    with citations.
   verification: every claim in the synthesis cites at least one source
 - id: uc-114
   name: verifier-swarm
@@ -685,3 +686,57 @@ entries:
   pattern: parallel-swarm
   summary: Independent verifiers check an artifact in parallel; disagreement blocks release.
   verification: release verdict requires unanimous verifier pass
+- id: uc-115
+  name: feature-delivery-lifecycle
+  domain: software-engineering
+  pattern: lifecycle
+  summary: Research, plan, implement, test, audit, fix, document and release a feature end to end.
+  verification: audit verdict is approve, docs updated, and a human signed the release
+- id: uc-116
+  name: incident-lifecycle
+  domain: devops-sre
+  pattern: lifecycle
+  summary: Detect, triage, mitigate and prove an incident closed, then write the postmortem and file actions.
+  verification: mitigation verified before write-up; every postmortem yields owned actions
+- id: uc-117
+  name: vuln-remediation-lifecycle
+  domain: security
+  pattern: lifecycle
+  summary: Ingest, prioritize, reproduce, patch, prove and disclose a vulnerability behind a human gate.
+  verification: exploit proven blocked and disclosure signed before publication
+- id: uc-118
+  name: schema-migration-saga
+  domain: data-analytics
+  pattern: saga
+  summary: Migrate a schema in four reversible steps, compensating back to consistency on any failure.
+  verification: migration verified or fully unwound; never partially applied
+- id: uc-119
+  name: clinical-protocol-lifecycle
+  domain: healthcare-science
+  pattern: human-gate
+  summary: Draft, critique and register a study protocol only after investigator sign-off.
+  verification: zero open guidance deviations and a named investigator signature
+- id: uc-120
+  name: contract-lifecycle
+  domain: legal-compliance
+  pattern: human-gate
+  summary: Intake, redline and execute a contract gated on residual risk and counsel approval.
+  verification: residual risk at or below medium with counsel signature before execution
+- id: uc-121
+  name: regulatory-filing-lifecycle
+  domain: finance
+  pattern: human-gate
+  summary: Collect, reconcile, sign off, file and retain evidence for a regulatory filing.
+  verification: figures reconcile to source and a controller signs before filing
+- id: uc-122
+  name: hiring-lifecycle
+  domain: hr-people
+  pattern: human-gate
+  summary: Define a role, screen, interview and gate the offer on a structured panel decision.
+  verification: at least three structured scorecards and a panel signature before offer
+- id: uc-123
+  name: procurement-lifecycle
+  domain: business-ops
+  pattern: human-gate
+  summary: Run an RFP, score vendors, negotiate and gate the award on budget-holder approval.
+  verification: three rubric-scored vendors and a budget-holder signature before award

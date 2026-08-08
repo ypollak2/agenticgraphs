@@ -1,0 +1,1556 @@
+{
+  "ab-test-analysis": [
+    {
+      "assert_failures": [],
+      "case": "significant-effect-confirmed",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "position-a",
+        "position-b",
+        "judge"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "null-result-confirmed",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "position-a",
+        "position-b",
+        "judge"
+      ]
+    }
+  ],
+  "adverse-event-scanner": [
+    {
+      "assert_failures": [],
+      "case": "single-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "multi-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    }
+  ],
+  "alert-noise-reduction": [
+    {
+      "assert_failures": [],
+      "case": "single-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "multi-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    }
+  ],
+  "anomaly-investigation": [
+    {
+      "assert_failures": [],
+      "case": "simple-branch",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "route",
+        "branch-simple",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "complex-branch",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "route",
+        "branch-complex",
+        "verify"
+      ]
+    }
+  ],
+  "blog-production-pipeline": [
+    {
+      "assert_failures": [],
+      "case": "happy-path",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "produce",
+        "review"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-resolved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "produce",
+        "review",
+        "produce",
+        "review"
+      ]
+    }
+  ],
+  "bug-triage-and-fix": [
+    {
+      "assert_failures": [],
+      "case": "first-attempt-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "plan",
+        "execute",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "plan",
+        "execute",
+        "verify",
+        "execute",
+        "verify"
+      ]
+    }
+  ],
+  "citation-integrity-audit": [
+    {
+      "assert_failures": [],
+      "case": "first-attempt-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "plan",
+        "work",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "plan",
+        "work",
+        "verify",
+        "work",
+        "verify"
+      ]
+    }
+  ],
+  "clinical-literature-triage": [
+    {
+      "assert_failures": [],
+      "case": "simple-branch",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "route",
+        "branch-simple",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "complex-branch",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "route",
+        "branch-complex",
+        "verify"
+      ]
+    }
+  ],
+  "code-review-pipeline": [
+    {
+      "assert_failures": [],
+      "case": "low-risk-clean-approve",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "triage",
+        "style-review",
+        "synthesize"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "high-risk-blocks-with-located-findings",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 4,
+      "trace": [
+        "triage",
+        "security-review",
+        "style-review",
+        "synthesize"
+      ]
+    }
+  ],
+  "competitive-intelligence": [
+    {
+      "assert_failures": [],
+      "case": "single-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "multi-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    }
+  ],
+  "contract-redline-pipeline": [
+    {
+      "assert_failures": [],
+      "case": "happy-path",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "produce",
+        "review"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-resolved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "produce",
+        "review",
+        "produce",
+        "review"
+      ]
+    }
+  ],
+  "cost-routed-research": [
+    {
+      "assert_failures": [],
+      "case": "simple-stays-cheap",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "router",
+        "cheap-researcher",
+        "synthesizer"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "low-confidence-escalates",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 4,
+      "trace": [
+        "router",
+        "cheap-researcher",
+        "deep-researcher",
+        "synthesizer"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "complex-goes-deep",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "router",
+        "deep-researcher",
+        "synthesizer"
+      ]
+    }
+  ],
+  "data-quality-audit": [
+    {
+      "assert_failures": [],
+      "case": "first-attempt-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "plan",
+        "work",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "plan",
+        "work",
+        "verify",
+        "work",
+        "verify"
+      ]
+    }
+  ],
+  "dependency-upgrade": [
+    {
+      "assert_failures": [],
+      "case": "happy-path",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "produce",
+        "review"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-resolved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "produce",
+        "review",
+        "produce",
+        "review"
+      ]
+    }
+  ],
+  "deploy-canary-verifier": [
+    {
+      "assert_failures": [],
+      "case": "meets-target-first-try",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "attempt",
+        "measure"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-meets-target",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "attempt",
+        "measure",
+        "attempt",
+        "measure"
+      ]
+    }
+  ],
+  "docs-code-sync-audit": [
+    {
+      "assert_failures": [],
+      "case": "first-attempt-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "plan",
+        "work",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "plan",
+        "work",
+        "verify",
+        "work",
+        "verify"
+      ]
+    }
+  ],
+  "earnings-call-digest": [
+    {
+      "assert_failures": [],
+      "case": "happy-path",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "produce",
+        "review"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-resolved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "produce",
+        "review",
+        "produce",
+        "review"
+      ]
+    }
+  ],
+  "ediscovery-triage": [
+    {
+      "assert_failures": [],
+      "case": "simple-branch",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "route",
+        "branch-simple",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "complex-branch",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "route",
+        "branch-complex",
+        "verify"
+      ]
+    }
+  ],
+  "escalation-summarizer": [
+    {
+      "assert_failures": [],
+      "case": "happy-path",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "produce",
+        "review"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-resolved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "produce",
+        "review",
+        "produce",
+        "review"
+      ]
+    }
+  ],
+  "essay-feedback-critic": [
+    {
+      "assert_failures": [],
+      "case": "generated-and-approved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "generate",
+        "critique"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "revised-after-rejection",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "generate",
+        "critique",
+        "generate",
+        "critique"
+      ]
+    }
+  ],
+  "etl-pipeline-builder": [
+    {
+      "assert_failures": [],
+      "case": "first-attempt-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "plan",
+        "execute",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "plan",
+        "execute",
+        "verify",
+        "execute",
+        "verify"
+      ]
+    }
+  ],
+  "expense-audit-swarm": [
+    {
+      "assert_failures": [],
+      "case": "first-attempt-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "plan",
+        "work",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "plan",
+        "work",
+        "verify",
+        "work",
+        "verify"
+      ]
+    }
+  ],
+  "fact-check-pipeline": [
+    {
+      "assert_failures": [],
+      "case": "happy-path",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "produce",
+        "review"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-resolved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "produce",
+        "review",
+        "produce",
+        "review"
+      ]
+    }
+  ],
+  "incident-triage-router": [
+    {
+      "assert_failures": [],
+      "case": "simple-branch",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "route",
+        "branch-simple",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "complex-branch",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "route",
+        "branch-complex",
+        "verify"
+      ]
+    }
+  ],
+  "jd-drafting-critic": [
+    {
+      "assert_failures": [],
+      "case": "generated-and-approved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "generate",
+        "critique"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "revised-after-rejection",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "generate",
+        "critique",
+        "generate",
+        "critique"
+      ]
+    }
+  ],
+  "kb-article-generator": [
+    {
+      "assert_failures": [],
+      "case": "happy-path",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "produce",
+        "review"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-resolved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "produce",
+        "review",
+        "produce",
+        "review"
+      ]
+    }
+  ],
+  "kyc-document-processing": [
+    {
+      "assert_failures": [],
+      "case": "happy-path",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "produce",
+        "review"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-resolved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "produce",
+        "review",
+        "produce",
+        "review"
+      ]
+    }
+  ],
+  "legacy-refactor": [
+    {
+      "assert_failures": [],
+      "case": "happy-path",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "produce",
+        "review"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-resolved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "produce",
+        "review",
+        "produce",
+        "review"
+      ]
+    }
+  ],
+  "license-compliance-scan": [
+    {
+      "assert_failures": [],
+      "case": "single-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "multi-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    }
+  ],
+  "literature-review-swarm": [
+    {
+      "assert_failures": [],
+      "case": "first-attempt-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "plan",
+        "work",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "plan",
+        "work",
+        "verify",
+        "work",
+        "verify"
+      ]
+    }
+  ],
+  "localization-pipeline": [
+    {
+      "assert_failures": [],
+      "case": "single-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "multi-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    }
+  ],
+  "medical-coding-audit": [
+    {
+      "assert_failures": [],
+      "case": "first-attempt-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "plan",
+        "work",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "plan",
+        "work",
+        "verify",
+        "work",
+        "verify"
+      ]
+    }
+  ],
+  "meeting-to-actions": [
+    {
+      "assert_failures": [],
+      "case": "happy-path",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "produce",
+        "review"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-resolved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "produce",
+        "review",
+        "produce",
+        "review"
+      ]
+    }
+  ],
+  "performance-optimization": [
+    {
+      "assert_failures": [],
+      "case": "meets-target-first-try",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "attempt",
+        "measure"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-meets-target",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "attempt",
+        "measure",
+        "attempt",
+        "measure"
+      ]
+    }
+  ],
+  "phishing-triage": [
+    {
+      "assert_failures": [],
+      "case": "simple-branch",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "route",
+        "branch-simple",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "complex-branch",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "route",
+        "branch-complex",
+        "verify"
+      ]
+    }
+  ],
+  "policy-compliance-check": [
+    {
+      "assert_failures": [],
+      "case": "happy-path",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "produce",
+        "review"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-resolved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "produce",
+        "review",
+        "produce",
+        "review"
+      ]
+    }
+  ],
+  "postmortem-writer": [
+    {
+      "assert_failures": [],
+      "case": "happy-path",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "produce",
+        "review"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-resolved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "produce",
+        "review",
+        "produce",
+        "review"
+      ]
+    }
+  ],
+  "quiz-generation-verified": [
+    {
+      "assert_failures": [],
+      "case": "generated-and-approved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "generate",
+        "critique"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "revised-after-rejection",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "generate",
+        "critique",
+        "generate",
+        "critique"
+      ]
+    }
+  ],
+  "release-notes-generation": [
+    {
+      "assert_failures": [],
+      "case": "single-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "multi-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    }
+  ],
+  "returns-triage": [
+    {
+      "assert_failures": [],
+      "case": "simple-branch",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "route",
+        "branch-simple",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "complex-branch",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "route",
+        "branch-complex",
+        "verify"
+      ]
+    }
+  ],
+  "rfp-response-assembler": [
+    {
+      "assert_failures": [],
+      "case": "single-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "multi-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    }
+  ],
+  "rubric-grading-swarm": [
+    {
+      "assert_failures": [],
+      "case": "first-attempt-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "plan",
+        "work",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "plan",
+        "work",
+        "verify",
+        "work",
+        "verify"
+      ]
+    }
+  ],
+  "runbook-executor": [
+    {
+      "assert_failures": [],
+      "case": "first-attempt-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "plan",
+        "execute",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "plan",
+        "execute",
+        "verify",
+        "execute",
+        "verify"
+      ]
+    }
+  ],
+  "seo-optimization-loop": [
+    {
+      "assert_failures": [],
+      "case": "meets-target-first-try",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "attempt",
+        "measure"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-meets-target",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "attempt",
+        "measure",
+        "attempt",
+        "measure"
+      ]
+    }
+  ],
+  "soc-alert-investigation": [
+    {
+      "assert_failures": [],
+      "case": "first-attempt-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "plan",
+        "execute",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "plan",
+        "execute",
+        "verify",
+        "execute",
+        "verify"
+      ]
+    }
+  ],
+  "sql-generation-verified": [
+    {
+      "assert_failures": [],
+      "case": "generated-and-approved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "generate",
+        "critique"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "revised-after-rejection",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "generate",
+        "critique",
+        "generate",
+        "critique"
+      ]
+    }
+  ],
+  "test-suite-generation": [
+    {
+      "assert_failures": [],
+      "case": "generated-and-approved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "generate",
+        "critique"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "revised-after-rejection",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "generate",
+        "critique",
+        "generate",
+        "critique"
+      ]
+    }
+  ],
+  "threat-intel-digest": [
+    {
+      "assert_failures": [],
+      "case": "single-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "multi-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    }
+  ],
+  "ticket-triage-swarm": [
+    {
+      "assert_failures": [],
+      "case": "simple-branch",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "route",
+        "branch-simple",
+        "verify"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "complex-branch",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "route",
+        "branch-complex",
+        "verify"
+      ]
+    }
+  ],
+  "ux-research-synthesis": [
+    {
+      "assert_failures": [],
+      "case": "single-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "multi-item",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "partition",
+        "map",
+        "reduce"
+      ]
+    }
+  ],
+  "verifier-swarm": [
+    {
+      "assert_failures": [],
+      "case": "first-attempt-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 1,
+      "steps": 3,
+      "trace": [
+        "planner",
+        "worker",
+        "verifier"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-verified",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 1,
+      "steps": 5,
+      "trace": [
+        "planner",
+        "worker",
+        "verifier",
+        "worker",
+        "verifier"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "three-failures-escalates",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 1,
+      "steps": 7,
+      "trace": [
+        "planner",
+        "worker",
+        "verifier",
+        "worker",
+        "verifier",
+        "worker",
+        "verifier"
+      ]
+    }
+  ],
+  "vuln-prioritization": [
+    {
+      "assert_failures": [],
+      "case": "happy-path",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 3,
+      "trace": [
+        "intake",
+        "produce",
+        "review"
+      ]
+    },
+    {
+      "assert_failures": [],
+      "case": "retry-then-resolved",
+      "hit_step_cap": false,
+      "passed": true,
+      "skipped_commands": 0,
+      "steps": 5,
+      "trace": [
+        "intake",
+        "produce",
+        "review",
+        "produce",
+        "review"
+      ]
+    }
+  ]
+}

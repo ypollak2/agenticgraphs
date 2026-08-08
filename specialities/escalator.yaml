@@ -1,0 +1,6 @@
+name: escalator
+description: Decides whether a case clears at this tier or moves up.
+requires_abilities:
+- escalate
+optional_abilities:
+- classify_complexity

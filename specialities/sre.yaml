@@ -1,0 +1,6 @@
+name: sre
+description: Mitigates production impact and proves the mitigation held.
+requires_abilities:
+- run_command
+optional_abilities:
+- analyze

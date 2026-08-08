@@ -35,7 +35,10 @@ def test_lint_catches_unconditional_back_edge():
 
 
 def test_lint_catches_missing_required_ability():
-    doc = load(iter_graphs()[0])
+    # Pinned, not `iter_graphs()[0]`: the alphabetically-first graph is now a
+    # composite whose first node is a `kind: subgraph` phase, and a subgraph node
+    # legitimately declares no abilities (they live in the child graph).
+    doc = load(next(g for g in iter_graphs() if "code-review-pipeline" in str(g)))
     bad = copy.deepcopy(doc)
     bad["nodes"][0]["abilities"] = []
     assert any("missing required abilities" in e for e in lint_graph(bad))

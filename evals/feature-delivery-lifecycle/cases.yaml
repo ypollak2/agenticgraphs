@@ -1,0 +1,90 @@
+# Golden cases for the v1.1 flagship composite.
+# Node ids under `implement.`, `test.` and `audit.` come from subgraph expansion —
+# they are the child graphs' own node ids, prefixed with the phase node's id.
+cases:
+  - id: clean-path-releases
+    node_outputs:
+      research: {research_brief: "prior art reviewed", prior_art: []}
+      plan: {plan: ["slice a", "slice b"], acceptance_criteria: ["p95 < 200ms"]}
+      implement.plan: {steps: ["decompose goal"]}
+      implement.execute: {}
+      implement.verify:
+        {verify_failed: false, attempts: 1, patch: "diff --git a/app.py",
+         test_failed_before_patch: true, test_passes_after_patch: true}
+      test.intake: {}
+      test.generate: {}
+      test.critique: {revision_requested: false, test_report: {passed: 12, failed: 0}}
+      audit.triage: {risk: low}
+      audit.style-review: {style_findings: []}
+      audit.synthesize: {verdict: approve, findings: []}
+      docs: {docs_updated: true}
+      release-approval: {signed_off: true}
+      release:
+        released: true
+        release_tag: v1.2.0
+        release_failed: false
+        output:
+          verdict: approve
+          docs_updated: true
+          signed_off: true
+          released: true
+          rolled_back: false
+
+  - id: audit-requests-changes-then-approves
+    node_outputs:
+      research: {research_brief: "prior art reviewed", prior_art: []}
+      plan: {plan: ["slice a"], acceptance_criteria: ["no regressions"]}
+      implement.plan: {steps: ["decompose goal"]}
+      implement.execute: {}
+      implement.verify:
+        {verify_failed: false, attempts: 1, patch: "diff v1",
+         test_failed_before_patch: true, test_passes_after_patch: true}
+      test.intake: {}
+      test.generate: {}
+      test.critique: {revision_requested: false, test_report: {passed: 8, failed: 0}}
+      audit.triage: [{risk: high}, {risk: low}]
+      audit.security-review: {sec_hits: 1}
+      audit.style-review: {style_findings: []}
+      audit.synthesize:
+        - {verdict: request_changes, findings: [{file: app.py, line: 42, note: hardcoded secret}]}
+        - {verdict: approve, findings: []}
+      fix: {patch: "diff v2", audit_rounds: 1}
+      docs: {docs_updated: true}
+      release-approval: {signed_off: true}
+      release:
+        released: true
+        release_tag: v1.2.1
+        release_failed: false
+        output:
+          verdict: approve
+          docs_updated: true
+          signed_off: true
+          released: true
+          rolled_back: false
+
+  - id: failed-release-is-compensated
+    node_outputs:
+      research: {research_brief: "prior art reviewed", prior_art: []}
+      plan: {plan: ["slice a"], acceptance_criteria: ["no regressions"]}
+      implement.plan: {steps: ["decompose goal"]}
+      implement.execute: {}
+      implement.verify:
+        {verify_failed: false, attempts: 1, patch: "diff v1",
+         test_failed_before_patch: true, test_passes_after_patch: true}
+      test.intake: {}
+      test.generate: {}
+      test.critique: {revision_requested: false, test_report: {passed: 8, failed: 0}}
+      audit.triage: {risk: low}
+      audit.style-review: {style_findings: []}
+      audit.synthesize: {verdict: approve, findings: []}
+      docs: {docs_updated: true}
+      release-approval: {signed_off: true}
+      release: {released: false, release_tag: v1.2.2, release_failed: true}
+      rollback:
+        rolled_back: true
+        output:
+          verdict: approve
+          docs_updated: true
+          signed_off: true
+          released: false
+          rolled_back: true

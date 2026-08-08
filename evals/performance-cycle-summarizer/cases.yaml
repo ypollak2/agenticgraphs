@@ -1,0 +1,14 @@
+cases:
+- id: happy-path
+  node_outputs:
+    gather:
+      inputs: []
+    synthesize:
+      draft_summary: draft_summary-value
+    bias-check:
+      bias_flags: []
+    calibrate:
+      calibrated_summary: calibrated_summary-value
+      output:
+        uncited_claims: 0
+        bias_flags: []

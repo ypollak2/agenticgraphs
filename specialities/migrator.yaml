@@ -1,0 +1,6 @@
+name: migrator
+description: Moves a system between states in verifiable slices.
+requires_abilities:
+- execute_step
+optional_abilities:
+- rollback

@@ -17,6 +17,36 @@ CATALOG = ROOT / "usecases" / "catalog.yaml"
 BEGIN, END = "<!-- graph-of-graphs:begin -->", "<!-- graph-of-graphs:end -->"
 
 RATIONALE = {
+    "lifecycle": (
+        "A multi-phase workflow where each phase is itself a motif and hand-offs are "
+        "explicit. Phases that duplicate an existing single-purpose graph reference it "
+        "with `kind: subgraph` instead of restating it, so the flat library becomes the "
+        "component library and a fix to a child propagates to every composite using it."
+    ),
+    "human-gate": (
+        "A `kind: human` node holds an approval contract that no model may sign — the "
+        "live runner raises rather than approve its own work. Downstream flow edges stay "
+        "blocked until the contract evaluates true, which is what makes a graph usable "
+        "in a regulated domain instead of merely plausible-looking."
+    ),
+    "supervisor-hierarchy": (
+        "A supervisor decomposes a goal and delegates each slice to a subordinate graph "
+        "rather than to more nodes in its own topology. This buys depth without a "
+        "forty-node flat blob: the parent reads as five phases, and each phase is "
+        "independently testable and independently reusable."
+    ),
+    "saga": (
+        "Every forward step that writes has a paired compensator reachable by a "
+        "`kind: compensate` edge, so a failure unwinds to a consistent state instead of "
+        "leaving the system half-migrated. Lint refuses a saga whose execute-risk step "
+        "has no compensator — the failure mode is caught at author time, not in prod."
+    ),
+    "escalation-ladder": (
+        "Tiers are attempted cheapest-first, each with an explicit exit test, and the "
+        "ladder terminates at a human rather than at a confident guess. Cost tracks the "
+        "difficulty of each item, and the honest floor means an ambiguous case is "
+        "escalated rather than resolved by whichever tier ran out of ideas."
+    ),
     "pipeline": (
         "Staged specialists each own one narrow concern, so quality problems are "
         "localized to the stage that produced them instead of being smeared across a "
@@ -203,7 +233,7 @@ def graph_of_graphs(rows: list[dict]) -> str:
         BEGIN,
         "## 🗺️ The graph of graphs",
         "",
-        "Every shipped graph is one of eight verified patterns. Full per-graph cards "
+        "Every shipped graph is one of thirteen verified motifs. Full per-graph cards "
         "(diagram, contract, node roster, use-cases) live in [CARDS.md](CARDS.md).",
         "",
         *g, "",

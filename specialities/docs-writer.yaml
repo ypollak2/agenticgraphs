@@ -1,0 +1,6 @@
+name: docs-writer
+description: Turns shipped behavior into user-facing documentation.
+requires_abilities:
+- write_docs
+optional_abilities:
+- read_diff

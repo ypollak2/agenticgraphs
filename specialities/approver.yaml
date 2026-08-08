@@ -1,0 +1,4 @@
+name: approver
+description: Holds sign-off authority at a human gate; cannot be an agent.
+requires_abilities:
+- approve

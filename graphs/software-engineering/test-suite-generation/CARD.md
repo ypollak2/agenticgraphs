@@ -69,11 +69,11 @@ To evolve it: `uv run agr infuse test-suite-generation <node> <ability>` — eve
 
 Adjacent entries from the use-case catalog this card adapts to with small edits:
 
-- **framework-migration** (software-engineering, planner-executor-verifier) — Port a codebase between frameworks in verifiable slices. *Verify:* build and full test suite green on target stack.
 - **api-design-review** (software-engineering, debate) — Two reviewers argue REST versus RPC tradeoffs, judge synthesizes. *Verify:* spec passes lint; breaking changes enumerated.
 - **capacity-forecaster** (devops-sre, generator-critic) — Forecast load, critic stress-tests assumptions against history. *Verify:* backtest error within stated confidence band.
 - **survey-design-critic** (research-knowledge, generator-critic) — Draft survey, critic hunts leading and double-barreled items. *Verify:* zero flagged items remain; branching logic validated.
 - **ad-variant-tournament** (content-marketing, generator-critic) — Generate ad variants, critic ranks against brand and claim rules. *Verify:* surviving variants pass legal claim checklist.
+- **video-script-writer** (content-marketing, generator-critic) — Script drafts critiqued for hook, pacing, and claim accuracy. *Verify:* runtime estimate within brief; claims sourced.
 
 ---
 *Regenerate: `uv run python scripts/gen_cards.py` · Index: [CARDS.md](../../../CARDS.md)*
