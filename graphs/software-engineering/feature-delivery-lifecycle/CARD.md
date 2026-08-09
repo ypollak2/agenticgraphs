@@ -70,7 +70,7 @@ To evolve it: `uv run agr infuse feature-delivery-lifecycle <node> <ability>` �
 
 | Node | Speciality | Kind | Abilities |
 |---|---|---|---|
-| `research` | researcher | agent | web_search, read_papers |
+| `research` | researcher | agent | read_papers, web_search |
 | `plan` | planner | agent | decompose_goal |
 | `implement` | supervisor | subgraph | — |
 | `test` | supervisor | subgraph | — |

@@ -23,9 +23,10 @@ nodes:
   speciality: reducer
   abilities:
   - reduce_merge
+  - web_search
   kind: verifier
   outputs:
-  - findings
+  - findings: list[{source_date:any, source_url:any}]
   - output
 edges:
 - from: partition

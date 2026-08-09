@@ -13,8 +13,8 @@ nodes:
 - id: research
   speciality: researcher
   abilities:
-  - web_search
   - read_papers
+  - web_search
   inputs:
   - goal
   outputs:
@@ -61,7 +61,7 @@ nodes:
   - test_report
   outputs:
   - verdict
-  - findings
+  - findings: list[{file:any, line:int}]
 - id: fix
   speciality: executor
   abilities:

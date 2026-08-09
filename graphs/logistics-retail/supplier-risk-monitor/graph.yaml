@@ -11,7 +11,7 @@ nodes:
   inputs:
   - supplier_list
   outputs:
-  - findings
+  - findings: list[{source_date:any, source_url:any}]
   - supplier_signals
 - id: score
   speciality: analyst

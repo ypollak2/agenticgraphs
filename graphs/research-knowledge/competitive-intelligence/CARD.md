@@ -54,7 +54,7 @@ To evolve it: `uv run agr infuse competitive-intelligence <node> <ability>` — 
 |---|---|---|---|
 | `partition` | analyst | agent | analyze |
 | `map` | mapper | agent | map_shard |
-| `reduce` | reducer | verifier | reduce_merge |
+| `reduce` | reducer | verifier | reduce_merge, web_search |
 
 ## Edge logic
 

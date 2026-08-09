@@ -33,7 +33,7 @@ nodes:
   - read_diff
   kind: verifier
   outputs:
-  - findings
+  - findings: list[{file:any, line:int}]
   - verdict
 edges:
 - from: triage

@@ -18,7 +18,7 @@ nodes:
   inputs:
   - clauses
   outputs:
-  - redlines
+  - redlines: list[{playbook_ref:any}]
 - id: risk-assess
   speciality: counsel
   abilities:

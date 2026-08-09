@@ -30,7 +30,7 @@ nodes:
   - cite_sources
   kind: verifier
   outputs:
-  - claims
+  - claims: list[{sources:any}]
 edges:
 - from: router
   to: cheap-researcher

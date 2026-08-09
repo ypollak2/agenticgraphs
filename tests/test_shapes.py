@@ -168,3 +168,64 @@ def test_no_registry_shape_is_malformed():
     bad = {load(gp)["name"]: [e for e in lint_graph(load(gp)) if "bad shape" in e]
            for gp in iter_graphs() if any("bad shape" in e for e in lint_graph(load(gp)))}
     assert not bad, bad
+
+
+# ------------------------------------------------- the provenance-gap lint (T2)
+
+
+def test_an_assert_demanding_provenance_with_no_bindable_ability_is_flagged():
+    """`vendor-comparison-matrix` asked for `source_url` from nodes that could only
+    `analyze` and `reduce_merge`. Nothing could search. That went undetected for
+    nine versions because nothing ever asked."""
+    from agenticgraphs.validate import provenance_gaps
+
+    doc = _g([{"id": "a", "speciality": "analyst", "abilities": ["analyze"],
+               "outputs": ["findings"]},
+              {"id": "b", "speciality": "producer", "abilities": ["generate"]}],
+             verification=[{"assert": "all(f.source_url for f in output.findings)"}])
+    gaps = provenance_gaps(doc)
+    assert gaps and gaps[0][1] == ["source_url"]
+
+
+def test_declaring_a_bindable_ability_closes_the_gap():
+    from agenticgraphs.validate import provenance_gaps
+
+    doc = _g([{"id": "a", "speciality": "researcher",
+               "abilities": ["analyze", "web_search"], "outputs": ["findings"]},
+              {"id": "b", "speciality": "producer", "abilities": ["generate"]}],
+             verification=[{"assert": "all(f.source_url for f in output.findings)"}])
+    assert provenance_gaps(doc) == []
+
+
+def test_the_gap_is_advisory_not_fatal():
+    """A graph waiting for an integration must not be un-runnable."""
+    from agenticgraphs.validate import lint_advisories, lint_graph
+
+    doc = _g([{"id": "a", "speciality": "analyst", "abilities": ["analyze"],
+               "outputs": ["findings"]},
+              {"id": "b", "speciality": "producer", "abilities": ["generate"]}],
+             verification=[{"assert": "all(f.scanner_evidence for f in output.findings)"}])
+    assert not [e for e in lint_graph(doc) if "provenance" in e]
+    assert any("provenance" in w for w in lint_advisories(doc))
+
+
+def test_asserted_keys_deep_reaches_record_fields():
+    """`asserted_keys` returns blackboard keys; provenance lives one level in."""
+    from agenticgraphs.validate import asserted_keys_deep
+
+    got = asserted_keys_deep("all(e.get('log_id') or e.message_id for e in output.timeline)")
+    assert {"log_id", "message_id", "timeline"} <= got
+
+
+def test_a_speciality_never_loses_a_required_ability():
+    """Minimality does not override what a role is defined to need — a pass to
+    strip redundant grants removed `web_search` from a `researcher` node."""
+    from agenticgraphs.registry import iter_yaml
+
+    specs = {load(p)["name"]: load(p) for p in iter_yaml("specialities")}
+    for gp in iter_graphs():
+        for n in load(gp)["nodes"]:
+            if n.get("kind") == "subgraph":
+                continue
+            required = set(specs.get(n["speciality"], {}).get("requires_abilities") or [])
+            assert required <= set(n.get("abilities") or []), f"{gp.parent.name}/{n['id']}"

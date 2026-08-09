@@ -54,7 +54,7 @@ To evolve it: `uv run agr infuse fact-check-pipeline <node> <ability>` — every
 | Node | Speciality | Kind | Abilities |
 |---|---|---|---|
 | `intake` | analyst | agent | analyze |
-| `produce` | producer | agent | generate |
+| `produce` | producer | agent | generate, web_search |
 | `review` | critic | verifier | critique |
 
 ## Edge logic

@@ -26,7 +26,7 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
-| 2 | `produce` | `output={'timeline': [{'event': 'alert fired', 'log_id': 'L-1'}, {'event': 'paged on-call', 'message_id': 'M-2'}]}` |
+| 2 | `produce` | `output={'timeline': [{'event': 'alert fired', 'log_id': 'L-1', 'message_id': 'value'}, {'event': 'paged on-call', 'message_id': 'M-2', 'log_id': 'value'}]}` |
 | 3 | `review` | `revision_requested=False, attempts=1` |
 
 **Verification checked:**
@@ -40,9 +40,9 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
-| 2 | `produce` | `output={'timeline': [{'event': 'alert fired'}]}` |
+| 2 | `produce` | `output={'timeline': [{'event': 'alert fired', 'log_id': 'value', 'message_id': 'value'}]}` |
 | 3 | `review` | `revision_requested=True, attempts=1` |
-| 4 | `produce` | `output={'timeline': [{'event': 'alert fired', 'log_id': 'L-1'}, {'event': 'paged on-call', 'message_id': 'M-2'}]}` |
+| 4 | `produce` | `output={'timeline': [{'event': 'alert fired', 'log_id': 'L-1', 'message_id': 'value'}, {'event': 'paged on-call', 'message_id': 'M-2', 'log_id': 'value'}]}` |
 | 5 | `review` | `revision_requested=False, attempts=2` |
 
 **Verification checked:**

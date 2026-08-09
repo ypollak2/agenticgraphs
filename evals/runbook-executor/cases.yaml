@@ -3,7 +3,7 @@ cases:
   node_outputs:
     plan:
       steps:
-      - decompose goal
+      - exit_code: 1
     execute:
       step_result: &id001
         step: 1
@@ -19,7 +19,7 @@ cases:
   node_outputs:
     plan:
       steps:
-      - decompose goal
+      - exit_code: 1
     execute:
     - step_result: *id001
     - step_result: *id001

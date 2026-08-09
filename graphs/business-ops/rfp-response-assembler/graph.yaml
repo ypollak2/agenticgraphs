@@ -28,7 +28,7 @@ nodes:
   - output
   - page_count
   - page_limit
-  - requirements
+  - requirements: list[{answered:bool, flagged:bool}]
 edges:
 - from: partition
   to: map

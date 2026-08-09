@@ -12,7 +12,7 @@ nodes:
   outputs:
   - page_count
   - page_limit
-  - requirements
+  - requirements: list[{answered:bool, flagged:bool}]
   - rfp_responses
 - id: score
   speciality: evaluator

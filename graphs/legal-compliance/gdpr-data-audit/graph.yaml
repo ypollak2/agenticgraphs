@@ -12,7 +12,7 @@ nodes:
   - systems
   outputs:
   - data_map
-  - violations
+  - violations: list[{count:int, rule_id:any}]
 - id: classify
   speciality: analyst
   abilities:
@@ -28,7 +28,7 @@ nodes:
   inputs:
   - lawful_basis
   outputs:
-  - gaps
+  - gaps: list[{due:any, owner:any}]
 - id: remediate
   speciality: planner
   abilities:

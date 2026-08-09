@@ -12,7 +12,7 @@
     "loops_bounded": true,
     "max_steps": 20,
     "verification_asserts": 1,
-    "risk_surface": "write"
+    "risk_surface": "execute"
   },
   "measured": {
     "runner": "mock",

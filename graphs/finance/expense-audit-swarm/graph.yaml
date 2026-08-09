@@ -27,7 +27,7 @@ nodes:
   kind: verifier
   outputs:
   - output
-  - violations
+  - violations: list[{line_id:any, policy_rule:any}]
 edges:
 - from: plan
   to: work

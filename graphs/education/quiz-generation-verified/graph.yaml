@@ -21,7 +21,7 @@ nodes:
   - critique
   kind: verifier
   outputs:
-  - entries
+  - entries: list[{answer_matches_key:any, distractors_plausible:any}]
   - output
 edges:
 - from: intake

@@ -29,7 +29,7 @@ nodes:
   - synopsis
   outputs:
   - comps
-  - findings
+  - findings: list[{source_date:any, source_url:any}]
 - id: recommend
   speciality: judge
   abilities:

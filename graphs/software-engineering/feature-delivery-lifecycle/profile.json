@@ -131,7 +131,7 @@
   "measured_live": {
     "runner": "llm-replay:gpt-4o,qwen3-coder:30b",
     "provisional": false,
-    "verification_depth": "assert-live",
+    "verification_depth": "assert-grounded",
     "date": "2026-08-09",
     "cases": 2,
     "passed": 0,
@@ -162,6 +162,8 @@
           "release"
         ],
         "assert_failures": [
+          "[implement] output.test_failed_before_patch and output.test_passes_after_patch",
+          "[test] output.coverage_delta > 0 and output.mutation_score > output.mutation_baseline",
           "[audit] all(f.file and f.line for f in output.findings) (AttributeError: 'str' object has no attribute 'file')"
         ],
         "skipped_command_checks": 0,
@@ -172,8 +174,104 @@
         "auto_approved": true,
         "subgraphs_expanded": true,
         "truncations": [],
-        "grounded": false,
-        "tool_calls": []
+        "grounded": true,
+        "tool_calls": [
+          {
+            "ability": "web_search",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "web_search",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "web_search",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "web_search",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "web_search",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "web_search",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "web_search",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "web_search",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "web_search",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "read_diff",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "read_diff",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "read_diff",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "read_diff",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "read_diff",
+            "ok": true,
+            "detail": "ok"
+          }
+        ]
       },
       {
         "id": "clean-path-releases",

@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-009` | software-engineering | **map-reduce** | 3 | 2 | 1 | 0 | 20 | write |
+| `AGR-009` | software-engineering | **map-reduce** | 3 | 2 | 1 | 0 | 20 | execute |
 
 ## The graph
 
@@ -54,7 +54,7 @@ To evolve it: `uv run agr infuse release-notes-generation <node> <ability>` — 
 |---|---|---|---|
 | `partition` | analyst | agent | analyze |
 | `map` | mapper | agent | map_shard |
-| `reduce` | reducer | verifier | reduce_merge |
+| `reduce` | reducer | verifier | reduce_merge, run_command |
 
 ## Edge logic
 

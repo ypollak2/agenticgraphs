@@ -13,7 +13,7 @@ nodes:
   outputs:
   - exceptions
   - matched
-  - violations
+  - violations: list[{line_id:any, policy_rule:any}]
 - id: fuzzy-match
   speciality: escalator
   abilities:

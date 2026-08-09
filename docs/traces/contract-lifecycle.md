@@ -32,7 +32,7 @@ flowchart LR
 | 1 | `intake` | `clauses=[]` |
 | 2 | `redline.intake` | `summary='intake complete'` |
 | 3 | `redline.produce` | `output={'redlines': [{'clause': 'limitation of liability', 'playbook_ref': 'PB-4'}]}` |
-| 4 | `redline.review` | `redlines=[{'clause': 7}], revision_requested=False, attempts=1` |
+| 4 | `redline.review` | `redlines=[{'clause': 7, 'playbook_ref': 'value'}], revision_requested=False, attempts=1` |
 | 5 | `risk-assess` | `residual_risk='low'` |
 | 6 | `counsel-approval` | `signed_off=True` |
 | 7 | `execute` | `executed=True, output={'residual_risk_level': 'low', 'signed_off': True, 'executed': True}` |

@@ -3,7 +3,7 @@ cases:
   node_outputs:
     collect.plan:
       steps:
-      - decompose goal
+      - exit_code: 1
     collect.execute: {}
     collect.verify:
       evidence: evidence-value

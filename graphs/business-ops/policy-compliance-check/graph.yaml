@@ -14,7 +14,7 @@ nodes:
   abilities:
   - generate
   outputs:
-  - findings
+  - findings: list[{clause_id:any}]
 - id: review
   speciality: critic
   abilities:

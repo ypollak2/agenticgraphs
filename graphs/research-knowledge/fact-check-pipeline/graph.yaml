@@ -13,8 +13,9 @@ nodes:
   speciality: producer
   abilities:
   - generate
+  - web_search
   outputs:
-  - verdicts
+  - verdicts: list[{quote_span:any, source_url:any}]
 - id: review
   speciality: critic
   abilities:

@@ -14,7 +14,7 @@ nodes:
   abilities:
   - generate
   outputs:
-  - timeline
+  - timeline: list[{log_id:any, message_id:any}]
 - id: review
   speciality: critic
   abilities:

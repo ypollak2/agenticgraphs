@@ -54,7 +54,7 @@ To evolve it: `uv run agr infuse threat-intel-digest <node> <ability>` — every
 |---|---|---|---|
 | `partition` | analyst | agent | analyze |
 | `map` | mapper | agent | map_shard |
-| `reduce` | reducer | verifier | reduce_merge |
+| `reduce` | reducer | verifier | reduce_merge, web_search |
 
 ## Edge logic
 

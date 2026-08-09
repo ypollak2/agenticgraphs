@@ -49,7 +49,7 @@ nodes:
   - mitigation
   outputs:
   - postmortem
-  - timeline
+  - timeline: list[{log_id:any, message_id:any}]
 - id: action-items
   speciality: planner
   abilities:

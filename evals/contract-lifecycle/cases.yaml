@@ -11,6 +11,7 @@ cases:
     redline.review:
       redlines:
       - clause: 7
+        playbook_ref: value
       revision_requested: false
       attempts: 1
     intake:

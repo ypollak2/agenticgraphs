@@ -23,9 +23,10 @@ nodes:
   speciality: reducer
   abilities:
   - reduce_merge
+  - run_command
   kind: verifier
   outputs:
-  - notes
+  - notes: list[{pr_url:any}]
   - orphan_claims
   - output
 edges:

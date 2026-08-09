@@ -291,7 +291,8 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
         if unknown:
             errors.append(f"lint: node '{n['id']}' unknown abilities {sorted(unknown)}")
 
-    return errors + _lint_v11(doc, root) + _lint_v14(doc) + _lint_v15(doc) + _lint_shapes(doc)
+    return (errors + _lint_v11(doc, root) + _lint_v14(doc) + _lint_v15(doc)
+            + _lint_shapes(doc) + _lint_provenance(doc, root))
 
 
 def _contract_gap_message(doc: dict) -> str | None:
@@ -403,6 +404,77 @@ def joint_precondition_asserts(doc: dict) -> list[tuple[str, list[str]]]:
     return out
 
 
+#: Fields no model can produce by generating — they name a fact that exists in
+#: some system, or does not exist at all.
+PROVENANCE_FIELDS = {
+    "source_url", "source_date", "log_id", "message_id", "exit_code", "file",
+    "line", "quote_span", "playbook_ref", "scanner_evidence", "asset_map_ref",
+    "advisory_url", "pr_url", "spdx", "citation",
+}
+
+
+def provenance_gaps(doc: dict, root: Path = ROOT) -> list[tuple[str, list[str]]]:
+    """Asserts demanding provenance that no node on their path can obtain.
+
+    `vendor-comparison-matrix` asserts
+    `all(f.source_url and f.source_date for f in output.findings)` while its nodes
+    declare `analyze`, `map_shard`, `reduce_merge`. Nothing can search. The
+    contract demands citations from nodes given no way to obtain one — which is a
+    graph-authoring defect, not a model failure, and it went undetected for nine
+    versions because nothing ever asked.
+
+    Returns `[(assert, [fields])]` for each such assert.
+    """
+    from .bindings import BUILTINS
+
+    obtainable = {a for n in doc.get("nodes", []) for a in (n.get("abilities") or [])
+                  if a in BUILTINS}
+    gaps: list[tuple[str, list[str]]] = []
+    for v in doc.get("verification") or []:
+        expr = v.get("assert")
+        if not expr:
+            continue
+        wanted = sorted(PROVENANCE_FIELDS & asserted_keys_deep(expr))
+        if wanted and not obtainable:
+            gaps.append((expr, wanted))
+    return gaps
+
+
+def asserted_keys_deep(expr: str) -> set[str]:
+    """Every attribute name an assert touches, including record fields.
+
+    `asserted_keys` returns the blackboard keys — `findings`. This returns the
+    fields *inside* them too, which is where provenance actually lives.
+    """
+    try:
+        tree = ast.parse(expr, mode="eval")
+    except SyntaxError:
+        return set()
+    out: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Attribute):
+            out.add(node.attr)
+        elif (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
+              and node.func.attr == "get" and node.args
+              and isinstance(node.args[0], ast.Constant)):
+            out.add(str(node.args[0].value))
+    return out
+
+
+def _lint_provenance(doc: dict, root: Path = ROOT) -> list[str]:
+    gaps = provenance_gaps(doc, root)
+    if not gaps:
+        return []
+    msgs = [
+        f"asserts on provenance {fields} but no node declares an ability that can "
+        f"obtain one: {expr[:70]}"
+        for expr, fields in gaps
+    ]
+    if doc.get("apiVersion") == "agr/v1.6":
+        return [f"lint: {m}" for m in msgs]
+    return []
+
+
 def _lint_shapes(doc: dict) -> list[str]:
     """A declared shape must be well-formed. An unparseable one is worse than none."""
     from .shapes import declared
@@ -440,6 +512,12 @@ def lint_advisories(doc: dict) -> list[str]:
     silence = _silence_message(doc)
     if silence and doc.get("apiVersion") != "agr/v1.5":
         out.append(f"warn: {silence} (declare them to reach apiVersion agr/v1.5)")
+    for expr, fields in provenance_gaps(doc):
+        out.append(
+            f"warn: asserts on provenance {fields} but no node declares an ability "
+            f"that can obtain one — declare web_search/run_command/read_diff on the "
+            f"producing node, or the contract is unsatisfiable by construction: {expr[:60]}"
+        )
     for expr, producers in joint_precondition_asserts(doc):
         out.append(
             f"warn: assert spans keys from {producers} — both must survive to the "

@@ -8,7 +8,7 @@ nodes:
   abilities:
   - decompose_goal
   outputs:
-  - steps
+  - steps: list[{exit_code:int}]
 - id: execute
   speciality: executor
   abilities:

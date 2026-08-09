@@ -18,8 +18,10 @@ cases:
         timeline:
         - event: alert fired
           log_id: L-1
+          message_id: value
         - event: paged on-call
           message_id: M-2
+          log_id: value
     postmortem.review:
       postmortem: postmortem-value
       revision_requested: false

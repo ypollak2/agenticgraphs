@@ -27,7 +27,7 @@ nodes:
   outputs:
   - copyleft_conflicts
   - output
-  - packages
+  - packages: list[{spdx:any}]
 edges:
 - from: partition
   to: map

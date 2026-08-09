@@ -5,113 +5,182 @@
   "node_outputs": {
     "enumerate": {
       "controls": [
-        "controls_evidenced",
-        "uncovered"
+        "output.controls_total",
+        "output.controls_evidenced",
+        "output.uncovered"
       ]
     },
     "collect.plan": [
       {
         "steps": [
-          "identify_uncovered_controls",
-          "gather_evidence_for_controls",
-          "review_evidence_for_controls",
-          "document_evidence_collection",
-          "validate_controls_evidence",
-          "finalize_control_status_report"
+          {
+            "exit_code": 0
+          },
+          {
+            "exit_code": 1
+          },
+          {
+            "exit_code": 2
+          }
         ]
       },
       {
         "steps": [
-          "identify_uncovered_controls",
-          "gather_evidence_for_controls",
-          "review_evidence_for_controls",
-          "document_evidence_collection",
-          "validate_controls_evidence",
-          "finalize_control_status_report",
-          "plan_remediation_for_uncovered_controls"
+          {
+            "exit_code": 1
+          },
+          {
+            "exit_code": 1
+          },
+          {
+            "exit_code": 1
+          }
         ]
       }
     ],
     "collect.execute": [
       {
-        "step_result": "Execution of step 'finalize_control_status_report' completed successfully."
+        "step_result": "Execution completed with mixed results: step 1 was successful, step 2 failed, and step 3 encountered an issue."
       },
       {
-        "step_result": "Execution of step 'plan_remediation_for_uncovered_controls' completed successfully."
+        "step_result": "Execution incomplete due to missing files: output.controls_total, output.controls_evidenced, and output.uncovered. All attempts returned exit code 1 indicating failure."
       }
     ],
     "collect.verify": [
       {
-        "evidence": "All control evidences validated and verified. Uncovered controls documented for further action.",
-        "output": "Verification of evidence completed successfully.",
+        "evidence": "Files output.controls_total, output.controls_evidenced, and output.uncovered are missing.",
+        "output": "Verification failed due to missing files required for evidence.",
         "steps": [
-          "identify_uncovered_controls",
-          "gather_evidence_for_controls",
-          "review_evidence_for_controls",
-          "document_evidence_collection",
-          "validate_controls_evidence",
-          "finalize_control_status_report"
+          {
+            "command": "cat output.controls_total",
+            "exit_code": 1,
+            "stdout": "",
+            "stderr": "cat: output.controls_total: No such file or directory\n"
+          },
+          {
+            "command": "cat output.controls_evidenced",
+            "exit_code": 1,
+            "stdout": "",
+            "stderr": "cat: output.controls_evidenced: No such file or directory\n"
+          },
+          {
+            "command": "cat output.uncovered",
+            "exit_code": 1,
+            "stdout": "",
+            "stderr": "cat: output.uncovered: No such file or directory\n"
+          }
         ]
       },
       {
-        "evidence": "All control evidences validated and verified. Uncovered controls documented for further action.",
+        "evidence": "Files output.controls_total, output.controls_evidenced, and output.uncovered are missing.",
         "output": {
-          "controls_evidenced": 1,
-          "controls_total": 2,
-          "uncovered": [
-            "uncovered"
-          ]
+          "controls_evidenced": "Files missing",
+          "controls_total": "Files missing",
+          "uncovered": "Files missing"
         },
         "steps": [
-          "identify_uncovered_controls",
-          "gather_evidence_for_controls",
-          "review_evidence_for_controls",
-          "document_evidence_collection",
-          "validate_controls_evidence",
-          "finalize_control_status_report",
-          "plan_remediation_for_uncovered_controls"
+          {
+            "exit_code": 1
+          },
+          {
+            "exit_code": 1
+          },
+          {
+            "exit_code": 1
+          },
+          {
+            "exit_code": 1
+          },
+          {
+            "exit_code": 1
+          },
+          {
+            "exit_code": 1
+          }
         ]
       }
     ],
     "assess": [
       {
-        "coverage": "all controls have been either evidenced or marked as uncovered",
-        "uncovered": [
-          "uncovered"
-        ]
+        "coverage": 0,
+        "uncovered": "Files missing"
       },
       {
-        "coverage": "all controls have been either evidenced or marked as uncovered",
-        "uncovered": [
-          "uncovered"
-        ]
+        "coverage": 0,
+        "uncovered": "Files missing"
       }
     ],
     "report": [
       {
-        "controls_evidenced": 1,
-        "controls_total": 2,
-        "evidence_report": "All control evidences validated and verified. Uncovered controls documented for further action.",
+        "controls_evidenced": "Files missing",
+        "controls_total": "Files missing",
+        "evidence_report": "Files output.controls_total, output.controls_evidenced, and output.uncovered are missing.",
         "output": {
-          "controls_evidenced": 1,
-          "controls_total": 2,
-          "uncovered": [
-            "uncovered"
-          ]
+          "controls_evidenced": "Files missing",
+          "controls_total": "Files missing",
+          "uncovered": "Files missing"
         }
       },
       {
-        "controls_evidenced": 1,
-        "controls_total": 2,
-        "evidence_report": "All control evidences validated and verified. Uncovered controls documented for further action.",
+        "controls_evidenced": "Files missing",
+        "controls_total": "Files missing",
+        "evidence_report": "Files output.controls_total, output.controls_evidenced, and output.uncovered are missing.",
         "output": {
-          "controls_evidenced": 1,
-          "controls_total": 2,
-          "uncovered": [
-            "uncovered"
-          ]
+          "controls_evidenced": "Files missing",
+          "controls_total": "Files missing",
+          "uncovered": "Files missing"
         }
       }
     ]
-  }
+  },
+  "tool_calls": [
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "cat output.controls_total"
+      },
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "cat output.controls_evidenced"
+      },
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "cat output.uncovered"
+      },
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "ls output.controls_total"
+      },
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "ls output.controls_evidenced"
+      },
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "ls output.uncovered"
+      },
+      "ok": true,
+      "detail": "ok"
+    }
+  ]
 }

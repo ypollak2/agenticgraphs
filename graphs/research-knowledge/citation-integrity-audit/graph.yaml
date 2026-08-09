@@ -26,7 +26,7 @@ nodes:
   - run_command
   kind: verifier
   outputs:
-  - citations
+  - citations: list[{resolves:bool}]
   - output
 edges:
 - from: plan

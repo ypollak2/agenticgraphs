@@ -5,29 +5,51 @@
   "node_outputs": {
     "intake": {
       "clauses": [
-        "Ensure the residual risk level is at or below medium.",
-        "Obtain counsel's signature for approval.",
-        "Execute the contract upon meeting the risk and signature requirements."
+        "The residual risk level has been assessed to be at or below medium.",
+        "The contract must be signed off by the counsel.",
+        "The contract will be executed once the above conditions are met."
       ]
     },
     "redline.intake": {
-      "summary": "The current process involves reducing the residual risk to a medium or lower level, acquiring approval via counsel's signature, and finalizing the contract once the risk and signature criteria are satisfied."
+      "summary": "The contract is pending execution, contingent upon counsel approval and the assessed residual risk level being medium or lower."
     },
     "redline.produce": {
       "redlines": [
-        "Add a clause specifying a timeline for risk reassessment to ensure the risk level remains acceptable.",
-        "Include a requirement for periodic updates to the risk management plan.",
-        "Clarify the legal jurisdiction governing the contract to prevent disputes.",
-        "Insert a contingency plan in case risk levels escalate unexpectedly beyond medium."
+        {
+          "playbook_ref": "revise_condition_for_clarity"
+        },
+        {
+          "playbook_ref": "verify_risk_assessment_criteria"
+        },
+        {
+          "playbook_ref": "confirm_authorization_process"
+        },
+        {
+          "playbook_ref": "ensure_counsel_review"
+        },
+        {
+          "playbook_ref": "finalize_execution_procedure"
+        }
       ]
     },
     "redline.review": {
-      "output": "The document currently provides an overarching framework but lacks specific procedural details.",
+      "output": "The contract execution is awaiting completion pending legal counsel review and confirmation of medium or lower residual risk level. It is important to ensure clarity in conditions that govern these reviews, verify the criteria for risk assessment, confirm the authorization processes involved, and review the counsel's role meticulously. These steps will facilitate a smooth and unambiguous execution process.",
       "redlines": [
-        "Add a clause specifying a timeline for risk reassessment to ensure the risk level remains acceptable.",
-        "Include a requirement for periodic updates to the risk management plan.",
-        "Clarify the legal jurisdiction governing the contract to prevent disputes.",
-        "Insert a contingency plan in case risk levels escalate unexpectedly beyond medium."
+        {
+          "playbook_ref": "enhance_condition_clarity"
+        },
+        {
+          "playbook_ref": "detail_risk_assessment_criteria"
+        },
+        {
+          "playbook_ref": "validate_authorization_chain"
+        },
+        {
+          "playbook_ref": "review_counsel_involvement"
+        },
+        {
+          "playbook_ref": "streamline_execution_steps"
+        }
       ]
     },
     "risk-assess": {
@@ -42,5 +64,6 @@
       },
       "residual_risk_level": "medium"
     }
-  }
+  },
+  "tool_calls": []
 }

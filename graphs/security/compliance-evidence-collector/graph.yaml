@@ -19,7 +19,7 @@ nodes:
   - controls
   outputs:
   - evidence
-  - steps
+  - steps: list[{exit_code:int}]
 - id: assess
   speciality: reducer
   abilities:

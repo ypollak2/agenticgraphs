@@ -14,7 +14,7 @@ nodes:
   abilities:
   - generate
   outputs:
-  - ranking
+  - ranking: list[{asset_map_ref:any, scanner_evidence:any}]
 - id: review
   speciality: critic
   abilities:

@@ -38,7 +38,7 @@ flowchart LR
 | 5 | `mitigate` | `mitigation='mitigation-value', mitigated=True` |
 | 6 | `confirm` | `impact_cleared=True` |
 | 7 | `postmortem.intake` | `summary='intake complete'` |
-| 8 | `postmortem.produce` | `output={'timeline': [{'event': 'alert fired', 'log_id': 'L-1'}, {'event': 'paged on-call', 'message_id': 'M-2'}]}` |
+| 8 | `postmortem.produce` | `output={'timeline': [{'event': 'alert fired', 'log_id': 'L-1', 'message_id': 'value'}, {'event': 'paged on-call', 'message_id': 'M-2', 'log_id': 'value'}]}` |
 | 9 | `postmortem.review` | `postmortem='postmortem-value', revision_requested=False, attempts=1` |
 | 10 | `action-items` | `actions=[{'owner': 'sre', 'task': 'add alert'}], output={'impact_cleared': True, 'actions': [{'owner': 'sre', 'task': 'add alert'}]}` |
 

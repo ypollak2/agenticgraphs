@@ -14,7 +14,7 @@ nodes:
   abilities:
   - generate
   outputs:
-  - redlines
+  - redlines: list[{playbook_ref:any}]
 - id: review
   speciality: critic
   abilities:

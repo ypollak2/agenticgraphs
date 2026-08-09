@@ -25,7 +25,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `plan` | `steps=['decompose goal']` |
+| 1 | `plan` | `steps=[{'exit_code': 1}]` |
 | 2 | `execute` | `step_result={'step': 1, 'status': 'done'}` |
 | 3 | `verify` | `verify_failed=False, attempts=1, output={'steps': [{'id': 's1', 'exit_code': 0}]}` |
 
@@ -39,7 +39,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `plan` | `steps=['decompose goal']` |
+| 1 | `plan` | `steps=[{'exit_code': 1}]` |
 | 2 | `execute` | `step_result={'step': 1, 'status': 'done'}` |
 | 3 | `verify` | `verify_failed=True, attempts=1` |
 | 4 | `execute` | `step_result={'step': 1, 'status': 'done'}` |

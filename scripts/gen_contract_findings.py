@@ -13,6 +13,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from agenticgraphs.evalcmd import eval_graph  # noqa: E402
 from agenticgraphs.registry import ROOT, iter_graphs, load  # noqa: E402
+from agenticgraphs.subgraphs import expand, has_subgraphs  # noqa: E402
+from agenticgraphs.validate import provenance_gaps  # noqa: E402
 
 OUT = ROOT / "docs" / "contract-findings.md"
 
@@ -30,6 +32,15 @@ def main() -> int:
         return 0
 
     unsat = [(d, lv) for d, lv in rows if lv.get("fails_every_model")]
+    # Two very different things were sitting in one column. A contract no model
+    # satisfies may still be satisfiable — with a binding. One whose evidence has
+    # no source in this repo cannot be, and is not a defect: it is a graph waiting
+    # for an integration.
+    def _gaps(doc):
+        return provenance_gaps(expand(doc, ROOT) if has_subgraphs(doc) else doc)
+
+    by_construction = [(d, lv) for d, lv in unsat if _gaps(d)]
+    by_model = [(d, lv) for d, lv in unsat if not _gaps(d)]
     split = [(d, lv) for d, lv in rows if lv.get("models_disagree")
              and not lv.get("fails_every_model")]
     clean = [(d, lv) for d, lv in rows if lv["pass_rate"] == 1.0]
@@ -47,7 +58,9 @@ def main() -> int:
         "",
         f"- ✅ **{len(clean)}** satisfy their contract on every model",
         f"- ⚠️ **{len(split)}** are satisfied by some models and not others",
-        f"- 🚫 **{len(unsat)}** are satisfied by no model",
+        f"- 🚫 **{len(by_model)}** are satisfied by no model, but *could* be",
+        f"- 🔌 **{len(by_construction)}** are unsatisfiable **by construction** — their "
+        "evidence has no source in this repo",
         "",
         "## 🚫 Satisfied by no model",
         "",
@@ -71,6 +84,18 @@ def main() -> int:
             md.append(f"| `{d['name']}` | {d['termination']['contract'][:70]} | `{first[:90]}` |")
     else:
         md.append("*None — every recorded graph is satisfied by at least one model.*")
+
+    md += ["", "## 🔌 Unsatisfiable by construction", "",
+           "These assert on a fact no binding here can obtain — a log store, a scanner,",
+           "a playbook, an SPDX index. **Not a defect.** A graph waiting for an",
+           "integration, listed so it is not mistaken for one pending a fix.", ""]
+    if by_construction:
+        md += ["| Graph | Evidence it needs |", "|---|---|"]
+        for d, _ in by_construction:
+            fields = sorted({f for _, fs in _gaps(d) for f in fs})
+            md.append(f"| `{d['name']}` | {', '.join(f'`{f}`' for f in fields)} |")
+    else:
+        md.append("*None.*")
 
     md += ["", "## ⚠️ Model-dependent", "",
            "Satisfied by some models and not others. This is the column that separates a",

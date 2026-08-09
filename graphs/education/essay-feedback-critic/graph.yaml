@@ -21,7 +21,7 @@ nodes:
   - critique
   kind: verifier
   outputs:
-  - comments
+  - comments: list[{quote:any, rubric_id:any}]
   - output
 edges:
 - from: intake

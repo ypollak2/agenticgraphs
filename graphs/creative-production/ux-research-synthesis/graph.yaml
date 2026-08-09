@@ -25,7 +25,7 @@ nodes:
   - reduce_merge
   kind: verifier
   outputs:
-  - insights
+  - insights: list[{participant_ids:any}]
   - output
 edges:
 - from: partition

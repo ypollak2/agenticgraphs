@@ -14,7 +14,7 @@ nodes:
   abilities:
   - generate
   outputs:
-  - figures
+  - figures: list[{matches_transcript:bool}]
   - invented_numbers
 - id: review
   speciality: critic

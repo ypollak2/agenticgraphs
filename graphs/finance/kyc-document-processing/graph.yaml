@@ -14,7 +14,7 @@ nodes:
   abilities:
   - generate
   outputs:
-  - fields
+  - fields: list[{validated:bool}]
 - id: review
   speciality: critic
   abilities:

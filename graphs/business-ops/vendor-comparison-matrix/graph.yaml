@@ -10,7 +10,7 @@ nodes:
   inputs:
   - vendors
   outputs:
-  - findings
+  - findings: list[{source_date:any, source_url:any}]
   - vendor_docs
 - id: normalize
   speciality: analyst

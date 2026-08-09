@@ -14,7 +14,7 @@ nodes:
   abilities:
   - generate
   outputs:
-  - actions
+  - actions: list[{date:any, owner:any, quote:any}]
 - id: review
   speciality: critic
   abilities:

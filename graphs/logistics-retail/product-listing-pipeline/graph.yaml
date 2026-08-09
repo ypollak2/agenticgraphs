@@ -29,7 +29,7 @@ nodes:
   - attributes
   outputs:
   - unsupported_claims
-  - verdicts
+  - verdicts: list[{quote_span:any, source_url:any}]
   join: all
 - id: policy-check
   speciality: critic

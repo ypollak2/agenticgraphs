@@ -28,11 +28,11 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `enumerate` | `controls=[]` |
-| 2 | `collect.plan` | `steps=['decompose goal']` |
+| 2 | `collect.plan` | `steps=[{'exit_code': 1}]` |
 | 3 | `collect.execute` | *(no fixture — empty output)* |
 | 4 | `collect.verify` | `evidence='evidence-value', verify_failed=False, attempts=1, output={'steps': [{'id': 's1', 'exit_code': 0}]}` |
 | 5 | `assess` | `coverage='coverage-value', uncovered=[{'id': 'AC-7'}, {'id': 'AU-3'}]` |
-| 6 | `collect.plan` | `steps=['decompose goal']` |
+| 6 | `collect.plan` | `steps=[{'exit_code': 1}]` |
 | 7 | `report` | `evidence_report='evidence_report-value', output={'controls_total': 40, 'controls_evidenced': 38, 'uncovered': [{'id': 'AC-7'}, {'id': 'AU-3'}]}` |
 | 8 | `collect.execute` | *(no fixture — empty output)* |
 | 9 | `collect.verify` | `evidence='evidence-value', verify_failed=False, attempts=1, output={'steps': [{'id': 's1', 'exit_code': 0}]}` |

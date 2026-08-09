@@ -26,7 +26,7 @@ nodes:
   kind: verifier
   outputs:
   - output
-  - signals
+  - signals: list[{count:int, report_ids:any}]
 edges:
 - from: partition
   to: map

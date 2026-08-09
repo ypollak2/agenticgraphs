@@ -26,7 +26,7 @@ nodes:
   - run_command
   kind: verifier
   outputs:
-  - claims
+  - claims: list[{paper:any, section:any}]
   - output
 edges:
 - from: plan
