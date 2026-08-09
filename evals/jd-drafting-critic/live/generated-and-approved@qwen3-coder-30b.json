@@ -4,10 +4,10 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "summary": "Initial intake analysis complete. Verified single attempt recorded. Confirmed downstream assertions for bias-term lint clean and requirements deduplicated are properly aligned with workflow exit contract. All requirements remain intact and deduplicated as required."
+      "summary": "Input analysis complete. Verified bias-term lint and clean requirements are met. Confirmed requirements deduplication applied."
     },
     "generate": {
-      "draft": "Initial intake analysis complete. Verified single attempt recorded. Confirmed downstream assertions for bias-term lint clean and requirements deduplicated are properly aligned with workflow exit contract. All requirements remain intact and deduplicated as required."
+      "draft": "Input analysis complete. Verified bias-term lint and clean requirements are met. Confirmed requirements deduplication applied."
     },
     "critique": {
       "bias_lint_clean": true,

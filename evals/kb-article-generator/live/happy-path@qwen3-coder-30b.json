@@ -4,7 +4,7 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "summary": "Analysis complete. Reproduction steps have been generated and duplicate entries have been removed from the resolution set."
+      "summary": "Analysis complete. Reproduction steps have been identified and documented. Duplicate entries have been removed from the dataset."
     },
     "produce": {
       "duplicates_deduped": true,

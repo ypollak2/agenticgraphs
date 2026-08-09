@@ -4,19 +4,19 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "summary": "All asks resolved with traceable quotes"
+      "summary": "Analysis complete. All asks resolved with traceable quotes."
     },
     "produce": {
       "all_asks_covered": true,
       "asks": [
         {
-          "quote": "Quote for ask 1"
+          "quote": "https://example.com/quote1"
         },
         {
-          "quote": "Quote for ask 2"
+          "quote": "https://example.com/quote2"
         },
         {
-          "quote": "Quote for ask 3"
+          "quote": "https://example.com/quote3"
         }
       ]
     },
@@ -25,13 +25,13 @@
         "all_asks_covered": true,
         "asks": [
           {
-            "quote": "Quote for ask 1"
+            "quote": "https://example.com/quote1"
           },
           {
-            "quote": "Quote for ask 2"
+            "quote": "https://example.com/quote2"
           },
           {
-            "quote": "Quote for ask 3"
+            "quote": "https://example.com/quote3"
           }
         ]
       }

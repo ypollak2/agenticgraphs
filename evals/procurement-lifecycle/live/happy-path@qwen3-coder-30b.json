@@ -1,0 +1,70 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "rfp.partition": {
+      "shards": [
+        {
+          "vendor_id": "vendor_1",
+          "score": 85,
+          "status": "approved"
+        },
+        {
+          "vendor_id": "vendor_2",
+          "score": 92,
+          "status": "approved"
+        },
+        {
+          "vendor_id": "vendor_3",
+          "score": 78,
+          "status": "approved"
+        }
+      ]
+    },
+    "rfp.map": [
+      {
+        "shard_result": "approved"
+      },
+      {
+        "shard_result": {
+          "vendor_id": "vendor_2",
+          "score": 92,
+          "status": "approved"
+        }
+      },
+      {
+        "shard_result": "approved"
+      }
+    ],
+    "rfp.reduce": {
+      "output": {
+        "scored_vendors": 3,
+        "signed_off": false
+      },
+      "page_count": 0,
+      "page_limit": 0,
+      "requirements": [],
+      "rfp_responses": []
+    },
+    "score": {
+      "vendor_scores": [
+        85,
+        92,
+        78
+      ]
+    },
+    "negotiate": {
+      "terms": "Negotiate with vendor_2 for final contract terms including delivery schedule, payment milestones, and service level agreements while maintaining competitive pressure from vendor_1 and vendor_3",
+      "savings": 12000
+    },
+    "award": {
+      "awarded": true,
+      "output": {
+        "scored_vendors": 3,
+        "signed_off": true
+      },
+      "scored_vendors": 3
+    }
+  }
+}

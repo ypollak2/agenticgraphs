@@ -72,14 +72,15 @@
     "verification_depth": "assert-live",
     "date": "2026-08-09",
     "cases": 3,
-    "passed": 1,
-    "pass_rate": 0.333,
+    "passed": 0,
+    "pass_rate": 0.0,
     "mean_steps": 3.0,
     "results": [
       {
         "id": "first-attempt-verified",
         "model": "hermes3:8b",
         "recorded": "2026-08-09",
+        "gate_auto_approved": false,
         "passed": false,
         "steps": 3,
         "trace": [
@@ -103,6 +104,7 @@
         "id": "first-attempt-verified",
         "model": "qwen2.5-coder:7b",
         "recorded": "2026-08-09",
+        "gate_auto_approved": false,
         "passed": false,
         "steps": 3,
         "trace": [
@@ -126,14 +128,17 @@
         "id": "first-attempt-verified",
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-09",
-        "passed": true,
+        "gate_auto_approved": false,
+        "passed": false,
         "steps": 3,
         "trace": [
           "plan",
           "execute",
           "verify"
         ],
-        "assert_failures": [],
+        "assert_failures": [
+          "output.test_failed_before_patch and output.test_passes_after_patch"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -154,9 +159,16 @@
     "per_model_pass_rate": {
       "hermes3:8b": 0.0,
       "qwen2.5-coder:7b": 0.0,
-      "qwen3-coder:30b": 1.0
+      "qwen3-coder:30b": 0.0
     },
-    "models_disagree": true,
-    "fails_every_model": false
+    "models_disagree": false,
+    "fails_every_model": true,
+    "flaky_models": [],
+    "samples_per_model": {
+      "hermes3:8b": 1,
+      "qwen2.5-coder:7b": 1,
+      "qwen3-coder:30b": 1
+    },
+    "gate_auto_approved": false
   }
 }

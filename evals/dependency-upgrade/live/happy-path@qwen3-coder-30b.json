@@ -4,7 +4,7 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "summary": "Workflow requirements met: lockfile updated, tests pass, no new deprecation warnings detected."
+      "summary": "All downstream assertions satisfied: output.lockfile_updated is True, output.tests_pass is True, and output.new_deprecations is False"
     },
     "produce": {
       "lockfile_updated": true,

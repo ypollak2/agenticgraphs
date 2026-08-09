@@ -1,0 +1,22 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "draft": {
+      "protocol": "draft_protocol_001"
+    },
+    "critique": {
+      "deviations": []
+    },
+    "register": {
+      "output": {
+        "deviations": [],
+        "registry_id": null,
+        "signed_off": true
+      },
+      "registered": false,
+      "registry_id": null
+    }
+  }
+}

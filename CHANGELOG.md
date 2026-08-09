@@ -1,5 +1,49 @@
 # Changelog
 
+## [0.6.1] — full-registry live coverage
+
+No spec change. v1.5 closed the last structural gap, so the next finding had to
+come from evidence — and it did.
+
+**The v0.6.0 claim "contracts satisfied by no recorded model: 0" was read off a
+slice, and the slice was the 25 *smallest* graphs.**
+
+Recording all 83 — every composite and every human-gated graph, for the first
+time — on `qwen3-coder:30b`:
+
+| | 25-graph slice | all 83 |
+|---|---|---|
+| satisfied on every model | 13 | **42** |
+| satisfied by **no** model | 0 | **27** |
+
+And it is not spread evenly:
+
+| shape | satisfied by no model |
+|---|---|
+| primitive | 11 of 65 |
+| human-gated | 2 of 4 |
+| **composite** | **14 of 14** |
+
+**Every multi-phase composite fails on every model** — the graphs that were the
+whole thesis of v1.1. The sample said 96%; the registry is 64%, and 0% on its most
+ambitious graphs.
+
+### Added
+- `scripts/gen_breadth_report.py` → `docs/live-coverage.md`: what the evidence
+  covers, by graph shape, so a pass rate can never again be read off a slice.
+- `AGR_SAMPLES`: multiple recordings per graph+model cell. A second sample is a
+  different observation, not a correction — one recording cannot distinguish a
+  graph that passes from one that passed by luck. 🎲 marks the two cells where the
+  same model both passed and failed.
+- Replaying a human-gated graph honours the auto-approval its recording was made
+  with, and stamps `gate_auto_approved` so the result is never mistaken for
+  evidence the approval happened.
+
+### Known limits
+- One sample per cell for 130 of 133 cells; 🎲 only appears where there is more
+  than one.
+- Three local models, 7B–30B.
+
 ## [0.6.0] — AGR v1.5 "every node declares"
 
 **v1.4'''s published diagnosis was wrong, and correcting it is this version.**

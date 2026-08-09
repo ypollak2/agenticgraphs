@@ -8,19 +8,18 @@
         "decompose_goal('repro test fails before patch and passes after')",
         "execute_reproduction_test()",
         "apply_patch()",
-        "verify_test_passes_after_patch()",
-        "confirm_original_failure()"
+        "verify_test_passes_after_patch()"
       ]
     },
     "execute": {
-      "step_result": "decompose_goal('repro test fails before patch and passes after')"
+      "step_result": "execute_reproduction_test()"
     },
     "verify": {
       "output": {
-        "test_failed_before_patch": true,
+        "test_failed_before_patch": false,
         "test_passes_after_patch": true
       },
-      "test_failed_before_patch": true,
+      "test_failed_before_patch": false,
       "test_passes_after_patch": true
     }
   }

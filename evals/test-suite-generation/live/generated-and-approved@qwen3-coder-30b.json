@@ -1,0 +1,23 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "summary": "Analysis complete. Coverage delta is positive and mutation score exceeds baseline as required by exit contract."
+    },
+    "generate": {
+      "draft": "Analysis complete. Coverage delta is positive and mutation score exceeds baseline as required by exit contract."
+    },
+    "critique": {
+      "coverage_delta": null,
+      "mutation_baseline": null,
+      "mutation_score": null,
+      "output": {
+        "coverage_delta": null,
+        "mutation_baseline": null,
+        "mutation_score": null
+      }
+    }
+  }
+}

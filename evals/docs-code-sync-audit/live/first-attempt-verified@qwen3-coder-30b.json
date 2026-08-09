@@ -5,24 +5,22 @@
   "node_outputs": {
     "plan": {
       "tasks": [
-        "decompose_goal"
+        "decompose_goal('run all documented examples and ensure exit code zero')"
       ]
     },
     "work": {
-      "work_result": "decompose_goal"
+      "work_result": "run_command('find . -name '*.py' -path '*/examples/*' | head -10 | xargs -I {} python3 {}')"
     },
     "verify": {
       "examples": [
         {
-          "exit_code": 0,
-          "name": "decompose_goal"
+          "exit_code": 0
         }
       ],
       "output": {
         "examples": [
           {
-            "exit_code": 0,
-            "name": "decompose_goal"
+            "exit_code": 0
           }
         ]
       }

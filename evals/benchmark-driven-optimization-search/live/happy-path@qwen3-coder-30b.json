@@ -4,97 +4,97 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "profile": {
-      "hotspot": "memory_allocation",
-      "baseline_ms": 1247
+      "hotspot": "cpu_time",
+      "baseline_ms": 1250
     },
     "explore": [
       {
-        "patch": "optimize_memory_pool_growth",
-        "bench_ms": 1102
+        "patch": "optimize_cpu_pipeline",
+        "bench_ms": 890
       },
       {
-        "patch": "memory_pooling_optimization",
-        "bench_ms": 1102
+        "patch": "optimize_cpu_allocation",
+        "bench_ms": 1100
       },
       {
-        "patch": "optimize_memory_allocation_with_better_cache_lines",
-        "bench_ms": 1022
+        "patch": "optimize_cpu_dispatch",
+        "bench_ms": 892
       },
       {
-        "patch": "optimize_memory_allocation_strategy",
-        "bench_ms": 1023
+        "patch": "optimize_cpu_allocation",
+        "bench_ms": 1100
       },
       {
-        "patch": "optimize_memory_allocation_with_better_cache_lines",
-        "bench_ms": 1022
+        "patch": "optimize_cpu_pipeline",
+        "bench_ms": 890
       },
       {
-        "patch": "optimize_memory_allocation_with_better_cache_lines",
-        "bench_ms": 1022
+        "patch": "optimize_cpu_pipeline",
+        "bench_ms": 890
       },
       {
-        "patch": "optimize_memory_allocation_with_better_cache_lines",
-        "bench_ms": 1022
+        "patch": "optimize_cpu_pipeline",
+        "bench_ms": 890
       },
       {
-        "patch": "optimize_memory_allocation_with_better_cache_lines",
-        "bench_ms": 1022
+        "patch": "optimize_cpu_pipeline",
+        "bench_ms": 890
       },
       {
-        "patch": "optimize_memory_allocation_strategy",
-        "bench_ms": 1023
+        "patch": "optimize_cpu_dispatch",
+        "bench_ms": 892
       },
       {
-        "patch": "optimize_memory_allocation_strategy",
-        "bench_ms": 1023
+        "patch": "optimize_cpu_dispatch",
+        "bench_ms": 892
       },
       {
-        "patch": "optimize_memory_allocation_strategy",
-        "bench_ms": 1023
+        "patch": "optimize_cpu_dispatch",
+        "bench_ms": 892
       },
       {
-        "patch": "optimize_memory_allocation_strategy",
-        "bench_ms": 1023
+        "patch": "optimize_cpu_dispatch",
+        "bench_ms": 892
       },
       {
-        "patch": "optimize_memory_allocation_with_better_cache_lines",
-        "bench_ms": 1022
+        "patch": "optimize_cpu_pipeline",
+        "bench_ms": 890
       },
       {
-        "patch": "optimize_memory_allocation_with_better_cache_lines",
-        "bench_ms": 1022
+        "patch": "optimize_cpu_pipeline",
+        "bench_ms": 890
       },
       {
-        "patch": "optimize_memory_allocation_with_better_cache_lines",
-        "bench_ms": 1022
+        "patch": "optimize_cpu_pipeline",
+        "bench_ms": 890
       },
       {
-        "patch": "optimize_memory_allocation_with_better_cache_lines",
-        "bench_ms": 1022
+        "patch": "optimize_cpu_pipeline",
+        "bench_ms": 890
       },
       {
-        "patch": "optimize_memory_allocation_with_better_cache_lines",
-        "bench_ms": 1022
+        "patch": "optimize_cpu_pipeline",
+        "bench_ms": 890
       },
       {
-        "patch": "optimize_memory_allocation_with_better_cache_lines",
-        "bench_ms": 1022
+        "patch": "optimize_cpu_pipeline",
+        "bench_ms": 890
       },
       {
-        "patch": "optimize_memory_allocation_with_better_cache_lines",
-        "bench_ms": 1022
+        "patch": "optimize_cpu_pipeline",
+        "bench_ms": 890
       },
       {
-        "patch": "optimize_memory_allocation_with_better_cache_lines",
-        "bench_ms": 1022
+        "patch": "optimize_cpu_pipeline",
+        "bench_ms": 890
       }
     ],
     "verify": {
-      "baseline_ms": 1247,
-      "bench_ms": 1022,
+      "baseline_ms": 1250,
+      "bench_ms": 890,
       "output": {
-        "baseline_ms": 1247,
-        "bench_ms": 1022,
+        "baseline_ms": 1250,
+        "bench_ms": 890,
         "suite_green": true
       },
       "suite_green": true

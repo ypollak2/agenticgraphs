@@ -1,0 +1,73 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "advisory_url": "https://access.redhat.com/security/cve/CVE-2023-12345",
+          "cve_ids": [
+            "CVE-2023-12345"
+          ]
+        },
+        {
+          "advisory_url": "https://ubuntu.com/security/notices/USN-1234-1",
+          "cve_ids": [
+            "CVE-2023-67890"
+          ]
+        }
+      ]
+    },
+    "map": [
+      {
+        "shard_result": {
+          "advisory_url": "https://access.redhat.com/security/cve/CVE-2023-12345",
+          "cve_ids": [
+            "CVE-2023-12345"
+          ]
+        }
+      },
+      {
+        "shard_result": {
+          "advisory_url": "https://ubuntu.com/security/notices/USN-1234-1",
+          "cve_ids": [
+            "CVE-2023-67890"
+          ]
+        }
+      }
+    ],
+    "reduce": {
+      "entries": [
+        {
+          "advisory_url": "https://access.redhat.com/security/cve/CVE-2023-12345",
+          "cve_ids": [
+            "CVE-2023-12345"
+          ]
+        },
+        {
+          "advisory_url": "https://ubuntu.com/security/notices/USN-1234-1",
+          "cve_ids": [
+            "CVE-2023-67890"
+          ]
+        }
+      ],
+      "output": {
+        "entries": [
+          {
+            "advisory_url": "https://access.redhat.com/security/cve/CVE-2023-12345",
+            "cve_ids": [
+              "CVE-2023-12345"
+            ]
+          },
+          {
+            "advisory_url": "https://ubuntu.com/security/notices/USN-1234-1",
+            "cve_ids": [
+              "CVE-2023-67890"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

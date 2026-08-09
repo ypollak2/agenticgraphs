@@ -64,7 +64,7 @@ def _model_dir(name: str, model: str) -> str:
     return model.replace("/", "-").replace(":", "-")
 
 
-def record(name: str) -> dict:
+def record(name: str, sample: int = 0) -> dict:
     gpath = find_graph(name)
     doc = load(gpath)
     cases = yaml.safe_load((ROOT / "evals" / name / "cases.yaml").read_text())["cases"]
@@ -80,16 +80,22 @@ def record(name: str) -> dict:
         "node_outputs": runner.captured,
     }
     model_tag = _model_dir(name, os.environ["AGR_LLM_MODEL"])
-    (out_dir / f"{case['id']}@{model_tag}.json").write_text(json.dumps(payload, indent=2) + "\n")
+    # A second sample of the same graph+model is a different observation, not a
+    # correction of the first: one recording per cell cannot distinguish a graph
+    # that passes from one that passed by luck.
+    suffix = f"@{model_tag}" + (f"#{sample}" if sample else "")
+    (out_dir / f"{case['id']}{suffix}.json").write_text(json.dumps(payload, indent=2) + "\n")
     return {"graph": name, "case": case["id"], "passed": rep.passed,
             "steps": rep.steps, "failures": rep.assert_failures}
 
 
 def main() -> int:
     results = []
+    samples = int(os.environ.get("AGR_SAMPLES", "1"))
     for name in sys.argv[1:]:
         try:
-            results.append(record(name))
+            for i in range(samples):
+                results.append(record(name, sample=i))
         except Exception as ex:  # noqa: BLE001 — a failed recording is a result, not a crash
             results.append({"graph": name, "error": f"{type(ex).__name__}: {ex}"})
     for r in results:

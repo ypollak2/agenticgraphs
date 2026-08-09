@@ -5,27 +5,30 @@
   "node_outputs": {
     "intake": {
       "presentations": [
-        {
-          "node": "intake",
-          "speciality": "analyst",
-          "content": "Analysis complete. No consensus reached among downstream assertions. Disagreement detected and retained.",
-          "status": "final"
-        }
+        "Initial analysis complete. No consensus reached among input data points.",
+        "Dissenting opinions identified and documented in accordance with workflow requirements."
       ]
     },
-    "diagnose": {
-      "ranking": 0.85
-    },
+    "diagnose": [
+      {
+        "ranking": 0.5
+      },
+      {
+        "ranking": 0.85
+      }
+    ],
     "adjudicate": {
       "consensus": null,
       "dissent": [
-        "Analysis complete. No consensus reached among downstream assertions. Disagreement detected and retained."
+        "Initial analysis complete. No consensus reached among input data points.",
+        "Dissenting opinions identified and documented in accordance with workflow requirements."
       ],
       "dissent_retained": true,
       "output": {
         "consensus": null,
         "dissent": [
-          "Analysis complete. No consensus reached among downstream assertions. Disagreement detected and retained."
+          "Initial analysis complete. No consensus reached among input data points.",
+          "Dissenting opinions identified and documented in accordance with workflow requirements."
         ],
         "dissent_retained": true
       }

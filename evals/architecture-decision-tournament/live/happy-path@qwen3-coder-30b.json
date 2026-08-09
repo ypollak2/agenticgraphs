@@ -6,58 +6,54 @@
     "frame": {
       "options": [
         {
-          "id": "design_a",
-          "score": 85,
+          "runner_up": "design_B",
           "margin": 12
         },
         {
-          "id": "design_b",
-          "score": 73,
-          "margin": 3
+          "runner_up": "design_C",
+          "margin": 8
         },
         {
-          "id": "design_c",
-          "score": 91,
-          "margin": 18
+          "runner_up": "design_A",
+          "margin": 15
         }
       ],
       "rubric": {
-        "design_a": {
-          "runner_up": "design_b",
-          "margin": 12
-        },
-        "design_b": {
-          "runner_up": "design_a",
-          "margin": 3
-        },
-        "design_c": {
-          "runner_up": "design_a",
-          "margin": 18
-        }
+        "designs_scored": 3,
+        "margin": 8
       }
     },
     "design": [
       {
-        "proposal": "design_c",
-        "rubric_score": 91
+        "proposal": {
+          "runner_up": "design_A",
+          "margin": 15
+        },
+        "rubric_score": 15
       },
       {
-        "proposal": "design_c",
-        "rubric_score": 91
+        "proposal": {
+          "runner_up": "design_B",
+          "margin": 12
+        },
+        "rubric_score": 8
       },
       {
-        "proposal": "design_c",
-        "rubric_score": 91
+        "proposal": {
+          "runner_up": "design_A",
+          "margin": 15
+        },
+        "rubric_score": 3
       }
     ],
     "judge": {
       "designs_scored": 3,
-      "margin": 18,
+      "margin": 15,
       "output": {
         "designs_scored": 3,
-        "margin": 18
+        "margin": 15
       },
-      "winner": "design_c"
+      "winner": "design_A"
     }
   }
 }

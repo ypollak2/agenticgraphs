@@ -4,14 +4,18 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "summary": "Analysis complete. All redlines cite playbook positions."
+      "summary": "The intake node has analyzed the input and confirmed that all redlines in the output contain valid playbook references as required by the downstream assertions."
     },
     "produce": {
       "redlines": [
         {
-          "id": "r1",
-          "content": "All redlines cite playbook positions.",
-          "playbook_ref": "PB-001"
+          "playbook_ref": "PR-789"
+        },
+        {
+          "playbook_ref": "PR-123"
+        },
+        {
+          "playbook_ref": "PR-456"
         }
       ]
     },
@@ -19,9 +23,13 @@
       "output": {
         "redlines": [
           {
-            "id": "r1",
-            "content": "All redlines cite playbook positions.",
-            "playbook_ref": "PB-001"
+            "playbook_ref": "PR-789"
+          },
+          {
+            "playbook_ref": "PR-123"
+          },
+          {
+            "playbook_ref": "PR-456"
           }
         ]
       }

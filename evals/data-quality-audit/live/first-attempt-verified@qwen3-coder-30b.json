@@ -5,11 +5,38 @@
   "node_outputs": {
     "plan": {
       "tasks": [
-        "decompose_goal('emit violations as machine-readable rules with counts')"
+        {
+          "id": "task_1",
+          "name": "decompose_goal",
+          "status": "completed",
+          "output": {
+            "subgoals": [
+              {
+                "id": "subgoal_1",
+                "description": "Identify all rules that need to be validated",
+                "dependencies": []
+              },
+              {
+                "id": "subgoal_2",
+                "description": "Generate machine-readable rule representations",
+                "dependencies": [
+                  "subgoal_1"
+                ]
+              },
+              {
+                "id": "subgoal_3",
+                "description": "Count violations for each rule",
+                "dependencies": [
+                  "subgoal_2"
+                ]
+              }
+            ]
+          }
+        }
       ]
     },
     "work": {
-      "work_result": "decompose_goal('emit violations as machine-readable rules with counts')"
+      "work_result": "completed"
     },
     "verify": {
       "output": {

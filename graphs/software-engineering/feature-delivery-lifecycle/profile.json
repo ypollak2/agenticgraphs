@@ -121,5 +121,70 @@
         "truncations": []
       }
     ]
+  },
+  "measured_live": {
+    "runner": "llm-replay:qwen3-coder:30b",
+    "provisional": false,
+    "verification_depth": "assert-live",
+    "date": "2026-08-09",
+    "cases": 1,
+    "passed": 0,
+    "pass_rate": 0.0,
+    "mean_steps": 14.0,
+    "results": [
+      {
+        "id": "clean-path-releases",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-09",
+        "gate_auto_approved": true,
+        "passed": false,
+        "steps": 14,
+        "trace": [
+          "research",
+          "plan",
+          "implement.plan",
+          "implement.execute",
+          "implement.verify",
+          "test.intake",
+          "test.generate",
+          "test.critique",
+          "audit.triage",
+          "audit.style-review",
+          "audit.synthesize",
+          "docs",
+          "release-approval",
+          "release"
+        ],
+        "assert_failures": [
+          "output.released == true or output.rolled_back == true",
+          "[implement] output.test_failed_before_patch and output.test_passes_after_patch (AttributeError: test_failed_before_patch)",
+          "[test] output.coverage_delta > 0 and output.mutation_score > output.mutation_baseline (AttributeError: coverage_delta)",
+          "[audit] all(f.file and f.line for f in output.findings) (AttributeError: findings)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": true,
+        "subgraphs_expanded": true,
+        "truncations": []
+      }
+    ],
+    "models": [
+      "qwen3-coder:30b"
+    ],
+    "recorded": "2026-08-09",
+    "age_days": 0,
+    "per_model_pass_rate": {
+      "qwen3-coder:30b": 0.0
+    },
+    "models_disagree": false,
+    "fails_every_model": true,
+    "flaky_models": [],
+    "samples_per_model": {
+      "qwen3-coder:30b": 1
+    },
+    "gate_auto_approved": true
   }
 }

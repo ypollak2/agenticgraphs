@@ -1,0 +1,159 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "ingest.partition": {
+      "shards": [
+        {
+          "supplier_id": "supp_001",
+          "risk_level": "high",
+          "mitigation_owner": "alice",
+          "above_appetite": true,
+          "mitigations_planned": true,
+          "single_source_flagged": true
+        },
+        {
+          "supplier_id": "supp_002",
+          "risk_level": "medium",
+          "mitigation_owner": "bob",
+          "above_appetite": false,
+          "mitigations_planned": false,
+          "single_source_flagged": false
+        },
+        {
+          "supplier_id": "supp_003",
+          "risk_level": "high",
+          "mitigation_owner": "charlie",
+          "above_appetite": true,
+          "mitigations_planned": true,
+          "single_source_flagged": true
+        }
+      ]
+    },
+    "ingest.map": [
+      {
+        "shard_result": {
+          "supplier_id": "supp_001",
+          "risk_level": "high",
+          "mitigation_owner": "alice",
+          "above_appetite": true,
+          "mitigations_planned": true,
+          "single_source_flagged": true
+        }
+      },
+      {
+        "shard_result": {
+          "supplier_id": "supp_002",
+          "risk_level": "medium",
+          "mitigation_owner": "bob",
+          "above_appetite": false,
+          "mitigations_planned": false,
+          "single_source_flagged": false
+        }
+      },
+      {
+        "shard_result": {
+          "supplier_id": "supp_003",
+          "risk_level": "high",
+          "mitigation_owner": "charlie",
+          "above_appetite": true,
+          "mitigations_planned": true,
+          "single_source_flagged": true
+        }
+      }
+    ],
+    "ingest.reduce": {
+      "findings": [
+        {
+          "supplier_id": "supp_001",
+          "above_appetite": true,
+          "mitigations_planned": true,
+          "single_source_flagged": true
+        },
+        {
+          "supplier_id": "supp_002",
+          "above_appetite": false,
+          "mitigations_planned": false,
+          "single_source_flagged": false
+        },
+        {
+          "supplier_id": "supp_003",
+          "above_appetite": true,
+          "mitigations_planned": true,
+          "single_source_flagged": true
+        }
+      ],
+      "output": {
+        "above_appetite": true,
+        "mitigations_planned": true,
+        "single_source_flagged": true
+      },
+      "supplier_signals": [
+        {
+          "supplier_id": "supp_001",
+          "risk_level": "high",
+          "mitigation_owner": "alice",
+          "above_appetite": true,
+          "mitigations_planned": true,
+          "single_source_flagged": true
+        },
+        {
+          "supplier_id": "supp_002",
+          "risk_level": "medium",
+          "mitigation_owner": "bob",
+          "above_appetite": false,
+          "mitigations_planned": false,
+          "single_source_flagged": false
+        },
+        {
+          "supplier_id": "supp_003",
+          "risk_level": "high",
+          "mitigation_owner": "charlie",
+          "above_appetite": true,
+          "mitigations_planned": true,
+          "single_source_flagged": true
+        }
+      ]
+    },
+    "score": {
+      "risk_scores": [
+        {
+          "supplier_id": "supp_001",
+          "risk_score": 0.9
+        },
+        {
+          "supplier_id": "supp_002",
+          "risk_score": 0.5
+        },
+        {
+          "supplier_id": "supp_003",
+          "risk_score": 0.9
+        }
+      ]
+    },
+    "concentrate": {
+      "concentration": 2
+    },
+    "mitigate": {
+      "above_appetite": true,
+      "mitigations": [
+        {
+          "supplier_id": "supp_001",
+          "mitigation_owner": "alice"
+        },
+        {
+          "supplier_id": "supp_003",
+          "mitigation_owner": "charlie"
+        }
+      ],
+      "mitigations_planned": true,
+      "output": {
+        "above_appetite": true,
+        "mitigations_planned": true,
+        "single_source_flagged": true
+      },
+      "single_source_flagged": true
+    }
+  }
+}

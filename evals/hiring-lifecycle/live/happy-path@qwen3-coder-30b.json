@@ -1,0 +1,31 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "define-role.intake": {
+      "summary": "Intake analysis complete. Requirements met for offer processing with three structured scorecards and panel signature confirmation."
+    },
+    "define-role.generate": {
+      "draft": "Offer documentation generated with three structured scorecards and panel signature confirmation."
+    },
+    "define-role.critique": {
+      "bias_lint_clean": true,
+      "jd": "Intake analysis complete. Requirements met for offer processing with three structured scorecards and panel signature confirmation.",
+      "output": {
+        "scorecard_count": 3,
+        "signed_off": true
+      },
+      "requirements_deduped": [
+        "output.scorecard_count >= 3",
+        "output.signed_off == true"
+      ]
+    },
+    "screen": {
+      "shortlist": true
+    },
+    "interview": {
+      "scorecards": 3
+    }
+  }
+}

@@ -59,8 +59,9 @@ def eval_graph(name: str, root: Path = ROOT, live: bool = False,
     doc = load(gpath)
     cases = yaml.safe_load(cases_file.read_text())["cases"]
 
-    def _run(runner):
-        rep = run_graph(doc, runner, root=root, auto_approve=auto_approve,
+    def _run(runner, approve: bool | None = None):
+        rep = run_graph(doc, runner, root=root,
+                        auto_approve=auto_approve if approve is None else approve,
                         run_commands=run_commands, resume_from=resume_from)
         return {"passed": rep.passed, "steps": rep.steps, "trace": rep.trace,
                 "assert_failures": rep.assert_failures,
@@ -106,8 +107,15 @@ def eval_graph(name: str, root: Path = ROOT, live: bool = False,
         for case in cases:
             for rec in _recordings(root, name, case["id"]):
                 runner = ReplayRunner.load(rec)
+                # A recording of a human-gated graph was necessarily made with the
+                # gate auto-approved — a replay cannot sign anything. Honour that
+                # here and stamp it, so the live result for such a graph is never
+                # mistaken for evidence that the approval itself happened.
+                gated = any(n.get("kind") == "human" for n in doc["nodes"])
+                res = _run(runner, approve=gated or auto_approve)
                 live_results.append({"id": case["id"], "model": runner.model,
-                                     "recorded": runner.recorded, **_run(runner)})
+                                     "recorded": runner.recorded,
+                                     "gate_auto_approved": gated, **res})
         if live_results:
             models = sorted({r["model"] for r in live_results})
             block = _block(live_results, "llm-replay:" + ",".join(models))
@@ -125,6 +133,17 @@ def eval_graph(name: str, root: Path = ROOT, live: bool = False,
             # nothing, so it is reported rather than averaged away.
             block["models_disagree"] = len(set(per_model.values())) > 1
             block["fails_every_model"] = all(v == 0.0 for v in per_model.values())
+            # A model that both passes and fails the same graph across samples is
+            # telling you something a single recording cannot: the result is a
+            # coin flip, not a property. Reported separately from a clean pass so
+            # "✅" never quietly means "passed once".
+            block["flaky_models"] = sorted(
+                m for m, rate in per_model.items() if 0.0 < rate < 1.0
+            )
+            block["samples_per_model"] = {
+                m: sum(1 for r in live_results if r["model"] == m) for m in models
+            }
+            block["gate_auto_approved"] = any(r.get("gate_auto_approved") for r in live_results)
             profile["measured_live"] = block
 
     (gpath.parent / "profile.json").write_text(json.dumps(profile, indent=2) + "\n")

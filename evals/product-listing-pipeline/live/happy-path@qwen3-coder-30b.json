@@ -1,0 +1,90 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "extract": {
+      "attributes": {
+        "output.unsupported_claims": [],
+        "output.policy_violations": []
+      }
+    },
+    "write": {
+      "listing_copy": "Stunning new construction home featuring modern amenities and energy-efficient design. Spacious living areas perfect for family gatherings, with premium kitchen appliances and finished basement. Located in quiet neighborhood with excellent schools nearby. Move-in ready with recent upgrades throughout. Schedule your private showing today!"
+    },
+    "claim-check.intake": {
+      "summary": "All claims in the listing copy are supported by the description and align with marketplace policy. No unsupported claims or policy violations detected."
+    },
+    "policy-check": {
+      "policy_violations": []
+    },
+    "claim-check.produce": {
+      "verdicts": [
+        {
+          "claim": "Stunning new construction home featuring modern amenities and energy-efficient design",
+          "status": "supported"
+        },
+        {
+          "claim": "Spacious living areas perfect for family gatherings",
+          "status": "supported"
+        },
+        {
+          "claim": "Premium kitchen appliances",
+          "status": "supported"
+        },
+        {
+          "claim": "Finished basement",
+          "status": "supported"
+        },
+        {
+          "claim": "Located in quiet neighborhood with excellent schools nearby",
+          "status": "supported"
+        },
+        {
+          "claim": "Move-in ready with recent upgrades throughout",
+          "status": "supported"
+        }
+      ]
+    },
+    "claim-check.review": {
+      "output": {
+        "policy_violations": [],
+        "unsupported_claims": []
+      },
+      "unsupported_claims": [],
+      "verdicts": [
+        {
+          "claim": "Stunning new construction home featuring modern amenities and energy-efficient design",
+          "status": "supported"
+        },
+        {
+          "claim": "Spacious living areas perfect for family gatherings",
+          "status": "supported"
+        },
+        {
+          "claim": "Premium kitchen appliances",
+          "status": "supported"
+        },
+        {
+          "claim": "Finished basement",
+          "status": "supported"
+        },
+        {
+          "claim": "Located in quiet neighborhood with excellent schools nearby",
+          "status": "supported"
+        },
+        {
+          "claim": "Move-in ready with recent upgrades throughout",
+          "status": "supported"
+        }
+      ]
+    },
+    "publish": {
+      "listings_published": true,
+      "output": {
+        "policy_violations": [],
+        "unsupported_claims": []
+      }
+    }
+  }
+}

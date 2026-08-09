@@ -5,22 +5,18 @@
   "node_outputs": {
     "plan": {
       "steps": [
-        "load_test_data",
-        "execute_query",
-        "count_actual_rows",
-        "compare_row_counts",
-        "validate_assertion"
+        "decompose_goal"
       ]
     },
     "execute": {
-      "step_result": "pass"
+      "step_result": "execute_step"
     },
     "verify": {
-      "actual_rows": 100,
-      "expected_rows": 100,
+      "actual_rows": null,
+      "expected_rows": null,
       "output": {
-        "actual_rows": 100,
-        "expected_rows": 100
+        "actual_rows": null,
+        "expected_rows": null
       }
     }
   }

@@ -1,0 +1,25 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        "decompose_goal"
+      ]
+    },
+    "work": {
+      "work_result": "decompose_goal_completed"
+    },
+    "verify": {
+      "agreement": 0.85,
+      "escalated": false,
+      "output": {
+        "agreement": 0.85,
+        "escalated": false,
+        "threshold": 0.8
+      },
+      "threshold": 0.8
+    }
+  }
+}

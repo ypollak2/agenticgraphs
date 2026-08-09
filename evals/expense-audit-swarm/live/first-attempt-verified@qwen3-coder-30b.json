@@ -7,19 +7,27 @@
       "tasks": [
         {
           "id": "task_1",
-          "description": "Verify that all violations in output have line_id and policy_rule fields populated",
-          "dependencies": []
+          "action": "decompose_goal",
+          "goal": "Ensure all violations carry line id and policy rule",
+          "subtasks": [
+            {
+              "id": "subtask_1.1",
+              "action": "validate_violations_format",
+              "input": "output.violations",
+              "criteria": "all(v.line_id and v.policy_rule for v in output.violations)"
+            }
+          ]
         }
       ]
     },
     "work": {
-      "work_result": "Verified that all violations in output have line_id and policy_rule fields populated"
+      "work_result": "all(v.line_id and v.policy_rule for v in output.violations)"
     },
     "verify": {
       "output": {
-        "violations": []
+        "violations": "all(v.line_id and v.policy_rule for v in output.violations)"
       },
-      "violations": []
+      "violations": "all(v.line_id and v.policy_rule for v in output.violations)"
     }
   }
 }

@@ -4,32 +4,14 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "summary": "Analysis complete. All verdicts contain required source URL and quote span information."
+      "summary": "No input data provided for analysis. Waiting for relevant information to generate a verdict with source URL and quote span as required by downstream assertions."
     },
     "produce": {
-      "verdicts": [
-        {
-          "source_url": "https://example.com/article1",
-          "quote_span": "This is a quoted text from the article."
-        },
-        {
-          "source_url": "https://example.com/article2",
-          "quote_span": "Another quoted excerpt from different source."
-        }
-      ]
+      "verdicts": []
     },
     "review": {
       "output": {
-        "verdicts": [
-          {
-            "source_url": "https://example.com/article1",
-            "quote_span": "This is a quoted text from the article."
-          },
-          {
-            "source_url": "https://example.com/article2",
-            "quote_span": "Another quoted excerpt from different source."
-          }
-        ]
+        "verdicts": []
       }
     }
   }

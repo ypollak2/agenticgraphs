@@ -1,0 +1,32 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "collect.partition": {
+      "shards": []
+    },
+    "collect.reduce": {
+      "findings": [],
+      "output": {
+        "criteria_consistent": true,
+        "uncited_cells": 0
+      },
+      "vendor_docs": []
+    },
+    "normalize": {
+      "criteria_grid": []
+    },
+    "fill": {
+      "matrix": []
+    },
+    "cite-check": {
+      "criteria_consistent": true,
+      "output": {
+        "criteria_consistent": true,
+        "uncited_cells": 0
+      },
+      "uncited_cells": 0
+    }
+  }
+}

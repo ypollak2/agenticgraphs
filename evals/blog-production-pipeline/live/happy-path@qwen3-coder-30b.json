@@ -4,7 +4,7 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "summary": "Intake analysis complete. All downstream assertions satisfied. Workflow meets exit contract requirements for style guide lint passes and plagiarism scan clean."
+      "summary": "Workflow analysis complete. All downstream assertions satisfied. Style guide lint passes and plagiarism scan clean."
     },
     "produce": {
       "lint_passed": true,

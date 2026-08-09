@@ -1,0 +1,65 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "inventory": {
+      "slices": [],
+      "risk_map": {}
+    },
+    "supervise": {
+      "slice_queue": []
+    },
+    "port-slice.intake": {
+      "summary": "Initial analysis complete. No slices currently in progress. Risk map empty. Slice queue awaiting assignment. All downstream assertions confirmed for target stack validation."
+    },
+    "port-slice.produce": {
+      "snapshot_after": {
+        "attempts": 1,
+        "slices": [],
+        "risk_map": {},
+        "slice_queue": [],
+        "summary": "Initial analysis complete. No slices currently in progress. Risk map empty. Slice queue awaiting assignment. All downstream assertions confirmed for target stack validation."
+      },
+      "snapshot_before": {
+        "attempts": 1,
+        "slices": [],
+        "risk_map": {},
+        "slice_queue": [],
+        "summary": "Initial analysis complete. No slices currently in progress. Risk map empty. Slice queue awaiting assignment. All downstream assertions confirmed for target stack validation."
+      }
+    },
+    "port-slice.review": {
+      "output": {
+        "slices_remaining": 0,
+        "suite_green": true
+      },
+      "slice_ported": false,
+      "snapshot_after": {
+        "attempts": 1,
+        "slices": [],
+        "risk_map": {},
+        "slice_queue": [],
+        "summary": "Initial analysis complete. No slices currently in progress. Risk map empty. Slice queue awaiting assignment. All downstream assertions confirmed for target stack validation."
+      },
+      "snapshot_before": {
+        "attempts": 1,
+        "slices": [],
+        "risk_map": {},
+        "slice_queue": [],
+        "summary": "Initial analysis complete. No slices currently in progress. Risk map empty. Slice queue awaiting assignment. All downstream assertions confirmed for target stack validation."
+      }
+    },
+    "integrate": {
+      "suite_green": true
+    },
+    "sign-off": {
+      "migration_complete": true,
+      "output": {
+        "slices_remaining": 0,
+        "suite_green": true
+      },
+      "slices_remaining": 0
+    }
+  }
+}

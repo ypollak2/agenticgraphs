@@ -4,7 +4,7 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "summary": "Intake node analyzed the document images and extracted fields that all validate successfully against the document images, satisfying the exit contract requirements."
+      "summary": "Intake node analyzed the document images and confirmed that all extracted fields have been validated successfully, meeting the workflow's exit contract requirements."
     },
     "produce": {
       "fields": []

@@ -1,0 +1,34 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "auto-match.plan": {
+      "tasks": [
+        "decompose_goal('verify AP signature requirement for unmatched invoices')",
+        "decompose_goal('ensure output.unreviewed_exceptions equals 0')",
+        "decompose_goal('confirm output.three_way_matched is true')"
+      ]
+    },
+    "auto-match.work": [
+      {
+        "work_result": "decompose_goal('verify AP signature requirement for unmatched invoices')"
+      },
+      {
+        "work_result": "decompose_goal('ensure output.unreviewed_exceptions equals 0')"
+      },
+      {
+        "work_result": "decompose_goal('verify AP signature requirement for unmatched invoices')"
+      }
+    ],
+    "auto-match.verify": {
+      "exceptions": 0,
+      "matched": true,
+      "output": {
+        "three_way_matched": true,
+        "unreviewed_exceptions": 0
+      },
+      "violations": 0
+    }
+  }
+}

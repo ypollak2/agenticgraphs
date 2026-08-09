@@ -1,0 +1,22 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "summary": "Initial analysis complete. Waiting for seo score and stuffing flags evaluation to meet exit contract requirements."
+    },
+    "attempt": {
+      "seo_score": 85,
+      "stuffing_flags": false,
+      "threshold": 80
+    },
+    "measure": {
+      "output": {
+        "seo_score": 85,
+        "stuffing_flags": false,
+        "threshold": 80
+      }
+    }
+  }
+}

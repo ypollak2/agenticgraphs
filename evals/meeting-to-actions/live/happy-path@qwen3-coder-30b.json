@@ -1,0 +1,30 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "summary": "Initial intake analysis complete. Waiting for downstream actions to populate owner, date, and quote fields as required by exit contract."
+    },
+    "produce": {
+      "actions": [
+        {
+          "owner": "produce",
+          "date": "2023-10-01",
+          "quote": "Q001"
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "actions": [
+          {
+            "owner": "produce",
+            "date": "2023-10-01",
+            "quote": "Q001"
+          }
+        ]
+      }
+    }
+  }
+}

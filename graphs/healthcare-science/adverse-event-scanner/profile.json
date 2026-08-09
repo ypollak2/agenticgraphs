@@ -78,6 +78,7 @@
         "id": "single-item",
         "model": "hermes3:8b",
         "recorded": "2026-08-09",
+        "gate_auto_approved": false,
         "passed": true,
         "steps": 3,
         "trace": [
@@ -99,6 +100,7 @@
         "id": "single-item",
         "model": "qwen2.5-coder:7b",
         "recorded": "2026-08-09",
+        "gate_auto_approved": false,
         "passed": false,
         "steps": 3,
         "trace": [
@@ -122,6 +124,7 @@
         "id": "single-item",
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-09",
+        "gate_auto_approved": false,
         "passed": true,
         "steps": 3,
         "trace": [
@@ -153,6 +156,13 @@
       "qwen3-coder:30b": 1.0
     },
     "models_disagree": true,
-    "fails_every_model": false
+    "fails_every_model": false,
+    "flaky_models": [],
+    "samples_per_model": {
+      "hermes3:8b": 1,
+      "qwen2.5-coder:7b": 1,
+      "qwen3-coder:30b": 1
+    },
+    "gate_auto_approved": false
   }
 }

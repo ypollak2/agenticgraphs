@@ -105,6 +105,8 @@ def scoreboard_block(rows: list[dict]) -> str:
             per = lv.get("per_model_pass_rate", {})
             if lv.get("fails_every_model"):
                 mark = "🚫"          # no model satisfies this contract
+            elif lv.get("flaky_models"):
+                mark = "🎲"          # same model, different answer between samples
             elif lv.get("models_disagree"):
                 mark = "⚠️"          # some models satisfy it, others do not
             elif lv["pass_rate"] == 1.0:

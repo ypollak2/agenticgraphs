@@ -1,0 +1,44 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "summary": "Analyzed the timeline events and confirmed that each event contains either a log_id or message_id as required by the exit contract."
+    },
+    "produce": {
+      "timeline": [
+        {
+          "log_id": "log_001",
+          "message_id": null
+        },
+        {
+          "log_id": null,
+          "message_id": "msg_002"
+        },
+        {
+          "log_id": "log_003",
+          "message_id": null
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "timeline": [
+          {
+            "log_id": "log_001",
+            "message_id": null
+          },
+          {
+            "log_id": null,
+            "message_id": "msg_002"
+          },
+          {
+            "log_id": "log_003",
+            "message_id": null
+          }
+        ]
+      }
+    }
+  }
+}

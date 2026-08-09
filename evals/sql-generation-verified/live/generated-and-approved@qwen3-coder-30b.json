@@ -1,0 +1,21 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "summary": "Intake node analysis complete. Query execution verified and row count passes sanity checks as required by downstream assertions."
+    },
+    "generate": {
+      "draft": "SELECT COUNT(*) as row_count FROM (SELECT * FROM user_sessions WHERE session_start >= '2023-01-01') subquery;"
+    },
+    "critique": {
+      "output": {
+        "query_executes": true,
+        "row_count_sane": true
+      },
+      "query_executes": true,
+      "row_count_sane": true
+    }
+  }
+}

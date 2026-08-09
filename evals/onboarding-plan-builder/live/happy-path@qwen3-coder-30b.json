@@ -1,0 +1,50 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "gather": {
+      "role_context": "analyst"
+    },
+    "draft-plan": {
+      "plan_30_60_90": {
+        "day_30": {
+          "milestone": "initial_data_collection_complete",
+          "access": "pre-requested"
+        },
+        "day_60": {
+          "milestone": "analysis_framework_validated",
+          "access": "pre-requested"
+        },
+        "day_90": {
+          "milestone": "final_report_delivered",
+          "access": "pre-requested"
+        }
+      }
+    },
+    "access-map": {
+      "access_requests": [
+        {
+          "milestone": "initial_data_collection_complete",
+          "access_level": "pre-requested"
+        },
+        {
+          "milestone": "analysis_framework_validated",
+          "access_level": "pre-requested"
+        },
+        {
+          "milestone": "final_report_delivered",
+          "access_level": "pre-requested"
+        }
+      ]
+    },
+    "review": {
+      "access_requested": true,
+      "milestones_covered": true,
+      "output": {
+        "access_requested": true,
+        "milestones_covered": true
+      }
+    }
+  }
+}

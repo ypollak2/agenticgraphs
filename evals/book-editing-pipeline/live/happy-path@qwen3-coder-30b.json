@@ -1,0 +1,27 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "assess": {
+      "dev_notes": "No style violations found and author has provided sign-off as required by the exit contract."
+    },
+    "dev-edit": {
+      "dev_draft": "No style violations found and author has provided sign-off as required by the exit contract. The document is ready for final review and approval."
+    },
+    "line-edit": {
+      "line_draft": "No style violations found and author has provided sign-off as required by the exit contract. The document is ready for final review and approval."
+    },
+    "copy-edit": {
+      "copy_clean": true,
+      "style_violations": []
+    },
+    "typeset": {
+      "output": {
+        "signed_off": true,
+        "style_violations": []
+      },
+      "typeset": false
+    }
+  }
+}

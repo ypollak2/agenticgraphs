@@ -1,0 +1,51 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "ingest": {
+      "advisory": "Exploit analysis complete - advisory published and awaiting human sign-off for final verification"
+    },
+    "prioritize.intake": {
+      "summary": "Exploit analysis complete with advisory published and awaiting human sign-off for final verification. Confirmation required that exploit is blocked, advisory is published, and human has signed off before proceeding."
+    },
+    "prioritize.produce": {
+      "ranking": 0.95
+    },
+    "prioritize.review": {
+      "exploitability": 0.95,
+      "output": {
+        "advisory_published": true,
+        "exploit_blocked": false,
+        "signed_off": false
+      },
+      "priority": "high",
+      "ranking": 0.95
+    },
+    "reproduce": {
+      "repro_confirmed": false
+    },
+    "patch": [
+      {
+        "patch": "execute_step('block_exploit', {'exploit_id': 'CVE-2023-12345'})"
+      },
+      {
+        "patch": "execute_step('block_exploit', {'exploit_id': 'CVE-2023-12345'})"
+      },
+      {
+        "patch": "execute_step('block_exploit', {'exploit_id': 'CVE-2023-12345'})"
+      }
+    ],
+    "prove": [
+      {
+        "exploit_blocked": false
+      },
+      {
+        "exploit_blocked": false
+      },
+      {
+        "exploit_blocked": false
+      }
+    ]
+  }
+}
