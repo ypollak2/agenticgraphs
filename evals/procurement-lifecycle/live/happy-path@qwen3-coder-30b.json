@@ -9,7 +9,7 @@
     "rfp.reduce": {
       "output": "reduce_merge",
       "page_count": 0,
-      "page_limit": 0,
+      "page_limit": 100,
       "requirements": [],
       "rfp_responses": []
     },
@@ -17,8 +17,8 @@
       "vendor_scores": []
     },
     "negotiate": {
-      "terms": "30-day payment cycle with 2% early payment discount, mandatory performance bond",
-      "savings": 12500
+      "terms": "30-day payment terms with 2% early payment discount, volume pricing tiers starting at 1000 units",
+      "savings": 15000
     },
     "award": {
       "awarded": true,

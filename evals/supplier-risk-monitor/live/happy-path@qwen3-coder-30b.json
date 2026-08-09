@@ -4,28 +4,31 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "ingest.partition": {
-      "shards": 1
+      "shards": 4
     },
     "ingest.reduce": {
-      "findings": [],
-      "output": null,
+      "findings": "Shard processing completed with 4 shards, 0 failed",
+      "output": "All shards processed successfully",
       "supplier_signals": []
     },
     "score": {
       "risk_scores": [
-        0.85
+        0.85,
+        0.92,
+        0.78,
+        0.88
       ]
     },
     "concentrate": {
-      "concentration": 0.85
+      "concentration": 0.92
     },
     "mitigate": {
-      "above_appetite": 1,
+      "above_appetite": 2,
       "mitigations": [],
-      "mitigations_planned": 1,
+      "mitigations_planned": 2,
       "output": {
-        "above_appetite": 1,
-        "mitigations_planned": 1,
+        "above_appetite": 2,
+        "mitigations_planned": 2,
         "single_source_flagged": true
       },
       "single_source_flagged": true

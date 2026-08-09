@@ -5,82 +5,55 @@
   "node_outputs": {
     "discover.plan": {
       "tasks": [
-        "Identify primary goal",
-        "Break down into sub-goals",
-        "List required resources",
-        "Create timeline",
-        "Assign responsibilities"
+        "Identify specific subgoals",
+        "Break down main objective",
+        "Prioritize task sequence",
+        "Estimate resource requirements"
       ]
     },
     "discover.work": [
       {
-        "work_result": "Primary goal identified: To create a comprehensive workflow implementation plan for the discover.work node that outlines task breakdown, resource allocation, timeline, and responsibility assignment for the worker node's specific role in the larger workflow system."
+        "work_result": "Identified subgoals: 1) Define project scope and deliverables, 2) Research target audience and market conditions, 3) Develop initial concept and framework, 4) Create detailed implementation plan with timelines and milestones"
       },
       {
-        "work_result": "Sub-goals identified: 1) Define project scope and requirements, 2) Conduct market research and analysis, 3) Develop technical specifications and design documents, 4) Allocate budget and resources, 5) Establish communication protocols and stakeholder alignment"
+        "work_result": "Breaking down main objective into specific subgoals: 1) Define core problem statement, 2) Identify constraints and limitations, 3) Determine success criteria, 4) Map out potential solution approaches"
       },
       {
-        "work_result": [
-          "Software licenses for project management tools (Jira, Trello, Asana)",
-          "Cloud storage service subscriptions (Google Drive, Dropbox)",
-          "Communication platform licenses (Slack, Microsoft Teams)",
-          "Hardware resources (servers, laptops, testing devices)",
-          "Training materials and certification courses",
-          "External consulting services or expert contracts",
-          "Office supplies and equipment for team collaboration"
-        ]
+        "work_result": "Task sequence prioritized as: 1) Identify specific subgoals, 2) Break down main objective, 3) Estimate resource requirements, 4) Execute tasks in parallel where possible"
       },
       {
-        "work_result": "Timeline created with milestones for each sub-goal, including start/end dates and dependencies between tasks."
-      },
-      {
-        "work_result": "Assigned responsibilities for workflow execution. Created task distribution plan with clear ownership. Documented resource allocation and timeline dependencies for each assigned worker."
+        "work_result": "Estimated resource requirements for task sequence prioritization: 2 hours for analysis, 1 hour for documentation, 3 hours for team coordination, total 6 hours required"
       }
     ],
     "discover.verify": {
       "data_map": {
-        "primary_goal": "To create a comprehensive workflow implementation plan for the discover.work node that outlines task breakdown, resource allocation, timeline, and responsibility assignment for the worker node's specific role in the larger workflow system.",
-        "sub_goals": [
-          "Define project scope and requirements",
-          "Conduct market research and analysis",
-          "Develop technical specifications and design documents",
-          "Allocate budget and resources",
-          "Establish communication protocols and stakeholder alignment"
+        "attempts": 1,
+        "tasks": [
+          "Identify specific subgoals",
+          "Break down main objective",
+          "Prioritize task sequence",
+          "Estimate resource requirements"
         ],
-        "resources": [
-          "Software licenses for project management tools (Jira, Trello, Asana)",
-          "Cloud storage service subscriptions (Google Drive, Dropbox)",
-          "Communication platform licenses (Slack, Microsoft Teams)",
-          "Hardware resources (servers, laptops, testing devices)",
-          "Training materials and certification courses",
-          "External consulting services or expert contracts",
-          "Office supplies and equipment for team collaboration"
+        "work_result": [
+          "Identified subgoals: 1) Define project scope and deliverables, 2) Research target audience and market conditions, 3) Develop initial concept and framework, 4) Create detailed implementation plan with timelines and milestones",
+          "Breaking down main objective into specific subgoals: 1) Define core problem statement, 2) Identify constraints and limitations, 3) Determine success criteria, 4) Map out potential solution approaches",
+          "Task sequence prioritized as: 1) Identify specific subgoals, 2) Break down main objective, 3) Estimate resource requirements, 4) Execute tasks in parallel where possible",
+          "Estimated resource requirements for task sequence prioritization: 2 hours for analysis, 1 hour for documentation, 3 hours for team coordination, total 6 hours required"
         ],
-        "timeline": "Milestones created with start/end dates and dependencies between tasks",
-        "responsibilities": "Task distribution plan with clear ownership, documented resource allocation and timeline dependencies"
+        "shards_processed": 4,
+        "shards_failed": 0
       },
-      "output": "All required tasks completed successfully. Primary goal identified and broken down into sub-goals. Required resources listed. Timeline created with milestones. Responsibilities assigned with clear ownership.",
+      "output": "All subgoals identified and prioritized successfully. Resource requirements estimated at 6 hours total with breakdown of 2 hours analysis, 1 hour documentation, and 3 hours team coordination. Tasks sequenced appropriately with parallel execution possible where feasible.",
       "violations": []
     },
     "classify": {
-      "lawful_basis": "The workflow implementation plan adheres to legal requirements by ensuring all data handling processes are documented and aligned with regulatory standards. Each task within the plan includes defined responsibilities and timelines, thus fulfilling the lawful basis for processing under applicable laws and regulations."
+      "lawful_basis": "project_scope_definition"
     },
     "gap-scan": {
       "gaps": []
     },
     "remediate": {
-      "remediation_plan": [
-        {
-          "task": "Verify lawful basis documentation for all data handling processes in the workflow implementation plan",
-          "owner": "legal_compliance_team",
-          "due_date": "2023-06-30"
-        },
-        {
-          "task": "Confirm that each gap identified in the plan has an assigned owner and due date",
-          "owner": "workflow_planning_team",
-          "due_date": "2023-06-30"
-        }
-      ]
+      "remediation_plan": "1) Assign ownership and due dates to all identified gaps in the output.gaps list. 2) Verify that each store in the data_map has a lawful basis documented. 3) Confirm that all gaps have associated owners and due dates as per downstream assertions."
     },
     "attest": {
       "attested": true,

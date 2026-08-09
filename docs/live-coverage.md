@@ -12,9 +12,9 @@ the registry.
 | composite | 14 | 0 |
 | human-gated | 4 | 0 |
 
-- ✅ **42** satisfied on every model, every sample
+- ✅ **48** satisfied on every model, every sample
 - 🎲 **2** where one model both passed and failed across samples
-- 🚫 **27** satisfied by no model
+- 🚫 **21** satisfied by no model
 
 Samples per graph+model cell: {1: 130, 2: 3}. A cell with one
 sample cannot distinguish a graph that passes from one that passed by luck; 🎲
@@ -31,12 +31,9 @@ is what that looks like once there is more than one.
 
 | Graph | Shape |
 |---|---|
-| `invoice-reconciliation` | composite |
-| `procurement-lifecycle` | composite |
 | `vendor-comparison-matrix` | composite |
 | `screenplay-coverage` | composite |
 | `ab-test-analysis` | primitive |
-| `schema-migration-saga` | primitive |
 | `incident-lifecycle` | composite |
 | `incident-triage-router` | primitive |
 | `self-healing-ci` | primitive |
@@ -45,15 +42,12 @@ is what that looks like once there is more than one.
 | `trial-eligibility-screener` | human-gated |
 | `hiring-lifecycle` | composite |
 | `contract-lifecycle` | composite |
-| `gdpr-data-audit` | composite |
 | `product-listing-pipeline` | composite |
 | `supplier-risk-monitor` | composite |
-| `cost-routed-research` | primitive |
 | `literature-review-swarm` | primitive |
 | `compliance-evidence-collector` | composite |
 | `vuln-remediation-lifecycle` | composite |
 | `bug-triage-and-fix` | primitive |
-| `code-review-pipeline` | primitive |
 | `feature-delivery-lifecycle` | composite |
 | `flaky-test-reflexion` | primitive |
 | `framework-migration` | composite |

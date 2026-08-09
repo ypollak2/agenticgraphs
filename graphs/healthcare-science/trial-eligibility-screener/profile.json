@@ -67,7 +67,7 @@
           "criteria-match"
         ],
         "assert_failures": [
-          "output.unreviewed_ambiguous == 0 (NameError: name 'output' is not defined)"
+          "output.unreviewed_ambiguous == 0 (AttributeError: unreviewed_ambiguous)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,

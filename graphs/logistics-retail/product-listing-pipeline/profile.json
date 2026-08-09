@@ -76,7 +76,7 @@
           "publish"
         ],
         "assert_failures": [
-          "[claim-check] all(v.source_url and v.quote_span for v in output.verdicts) (AttributeError: verdicts)"
+          "[claim-check] all(v.source_url and v.quote_span for v in output.verdicts) (AttributeError: source_url)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,

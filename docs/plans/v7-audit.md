@@ -112,7 +112,52 @@ forward none: the failure is silent and looks like a negative result.
 
 ---
 
-## 5. What v1.7 should be
+## 5. v1.7 — the structural fixes, and what they moved
+
+Both items below were implemented after this audit was written, and measured.
+
+**Fix A — `phase_frame` is key-preserving.** `output` is an accumulator, not a
+slot: merging a phase's writes now unions `output` dicts key-wise, and a scalar
+never displaces facts already gathered. This is what undid v1.6's reconcile
+node-by-node and made it measure as no change at all.
+
+**Fix B — one vocabulary.** `output.X` resolves to a flat blackboard key `X` when
+`output` does not carry it (`OutputView`). A key genuinely inside `output` still
+wins, so a graph that nests properly is unaffected. This resolves the two
+conventions where they actually meet — at evaluation — rather than trying to
+instruct a model out of the ambiguity, which failed three times.
+
+### Result
+
+**Composites satisfied by no model: 14 → 11.** `gdpr-data-audit`,
+`invoice-reconciliation` and `procurement-lifecycle` pass. The first movement in
+the whole investigation, and it came from the structural layer exactly where this
+audit said it would.
+
+F2's bar was ≤7, so **F2 is still missed** — 11 is not 7.
+
+But the remaining failures have changed character entirely:
+
+| failure kind | count |
+|---|---|
+| required key absent from the blackboard entirely | 11 |
+| present but wrong type | 2 |
+| evaluated false on real values | 4 |
+
+None is a misplaced fact. **The nesting problem is gone; what is left is the model
+not producing the fact at all**, which is a statement about 30B-class local models
+rather than about the harness. 10 of 43 child nodes still return `output` as a
+string, and it no longer matters — the fact is found on the blackboard regardless.
+
+### What that means for the next version
+
+The honest reading is the one this audit flagged as a possible outcome: for the
+remaining 11, *these composites are not achievable with 7B–30B local models.* The
+next useful measurement is a frontier model, not another harness patch. Until
+someone runs one, the README should say the composites are unproven at this model
+scale rather than pending a fix.
+
+## 6. Original "what v1.7 should be"
 
 Not another prompt patch.
 

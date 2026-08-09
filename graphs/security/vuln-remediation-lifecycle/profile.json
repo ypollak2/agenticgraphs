@@ -59,7 +59,7 @@
     "cases": 1,
     "passed": 0,
     "pass_rate": 0.0,
-    "mean_steps": 11.0,
+    "mean_steps": 9.0,
     "results": [
       {
         "id": "happy-path",
@@ -67,7 +67,7 @@
         "recorded": "2026-08-09",
         "gate_auto_approved": true,
         "passed": false,
-        "steps": 11,
+        "steps": 9,
         "trace": [
           "ingest",
           "prioritize.intake",
@@ -76,23 +76,18 @@
           "reproduce",
           "patch",
           "prove",
-          "patch",
-          "prove",
-          "patch",
-          "prove"
+          "disclose-approval",
+          "disclose"
         ],
         "assert_failures": [
-          "output.exploit_blocked == true (AttributeError: 'str' object has no attribute 'exploit_blocked')",
-          "output.signed_off == true (AttributeError: 'str' object has no attribute 'signed_off')",
-          "output.advisory_published == true (AttributeError: 'str' object has no attribute 'advisory_published')",
-          "[prioritize] all(r.scanner_evidence and r.asset_map_ref for r in output.ranking) (AttributeError: 'str' object has no attribute 'ranking')"
+          "[prioritize] all(r.scanner_evidence and r.asset_map_ref for r in output.ranking) (TypeError: 'int' object is not iterable)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
         "rejected_approvals": [],
-        "auto_approved": false,
+        "auto_approved": true,
         "subgraphs_expanded": true,
         "truncations": []
       }

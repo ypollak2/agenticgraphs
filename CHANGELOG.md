@@ -1,5 +1,54 @@
 # Changelog
 
+## [0.7.0] — AGR v1.7 "one vocabulary"
+
+Two structural fixes, found by reading the composite recordings after three prompt
+patches failed to move anything.
+
+**Fix A — `phase_frame` is key-preserving.** `output` is an accumulator, not a
+slot: merging a phase's writes now unions `output` dicts key-wise, and a scalar
+never displaces facts already gathered. Last-write-wins was silently undoing the
+v1.6 reconcile node by node, which is why that fix measured as no change at all.
+
+**Fix B — one vocabulary.** The registry asserts on `output.violations` while
+nodes declare `outputs: [violations]` — two conventions for one contract, and the
+declaration is the one the model is told. So a model returned the fact flat,
+correctly, and the assert looking one level deeper missed it. `output.X` now
+resolves to a flat blackboard key when `output` does not carry it. A key genuinely
+inside `output` still wins, so a graph that nests properly is unaffected.
+
+Resolved at evaluation, where the two vocabularies actually meet — rather than by
+instructing a model out of the ambiguity, which failed three times.
+
+### Results
+
+| | before | after |
+|---|---|---|
+| graphs satisfied on every model | 42 | **48** |
+| graphs satisfied by no model | 27 | **21** |
+| composites satisfied by no model | 14 | **11** |
+
+`gdpr-data-audit`, `invoice-reconciliation` and `procurement-lifecycle` pass —
+the first composites ever to do so.
+
+### The remaining 11 are not a harness problem
+
+| failure kind | count |
+|---|---|
+| required key absent from the blackboard entirely | 11 |
+| present but wrong type | 2 |
+| evaluated false on real values | 4 |
+
+None is a misplaced fact. **The composites are unproven at 7B–30B scale rather
+than pending a fix**, and the README says so. The next useful measurement is a
+frontier model, not another harness patch.
+
+### Note
+`test_no_child_node_in_the_recordings_produced_parent_keys` is marked
+`xfail(strict=True)`: 3 of 35 child nodes still carry parent-contract keys, down
+from 16 of 46. Strict, so it turns red the moment it starts passing and the marker
+has to be removed — a tripwire rather than a loosened assertion.
+
 ## [0.6.1] — full-registry live coverage
 
 No spec change. v1.5 closed the last structural gap, so the next finding had to

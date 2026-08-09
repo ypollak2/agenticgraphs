@@ -72,18 +72,20 @@
           "define-role.critique",
           "screen",
           "interview",
-          "panel-decision",
-          "offer"
+          "screen",
+          "interview"
         ],
         "assert_failures": [
-          "[define-role] output.bias_lint_clean and output.requirements_deduped (AttributeError: 'str' object has no attribute 'bias_lint_clean')"
+          "output.scorecard_count >= 3 (AttributeError: scorecard_count)",
+          "output.signed_off == true (AttributeError: signed_off)",
+          "[define-role] output.bias_lint_clean and output.requirements_deduped"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
         "rejected_approvals": [],
-        "auto_approved": true,
+        "auto_approved": false,
         "subgraphs_expanded": true,
         "truncations": []
       }

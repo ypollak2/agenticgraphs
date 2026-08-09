@@ -72,8 +72,8 @@
     "verification_depth": "assert-live",
     "date": "2026-08-09",
     "cases": 3,
-    "passed": 1,
-    "pass_rate": 0.333,
+    "passed": 2,
+    "pass_rate": 0.667,
     "mean_steps": 3.0,
     "results": [
       {
@@ -81,16 +81,14 @@
         "model": "hermes3:8b",
         "recorded": "2026-08-09",
         "gate_auto_approved": false,
-        "passed": false,
+        "passed": true,
         "steps": 3,
         "trace": [
           "intake",
           "produce",
           "review"
         ],
-        "assert_failures": [
-          "output.all_asks_covered and all(a.quote for a in output.asks) (AttributeError: 'list' object has no attribute 'all_asks_covered')"
-        ],
+        "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -155,7 +153,7 @@
     "recorded": "2026-08-09",
     "age_days": 0,
     "per_model_pass_rate": {
-      "hermes3:8b": 0.0,
+      "hermes3:8b": 1.0,
       "qwen2.5-coder:7b": 0.0,
       "qwen3-coder:30b": 1.0
     },

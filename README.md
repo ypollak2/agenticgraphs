@@ -208,14 +208,14 @@ pie showData title Graphs per domain
 | `assert-live` | assert held against real model output (`agr eval --live`) |
 | `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |
 
-**Real-model evidence:** 83 graphs carry checked-in recordings of actual model runs across 3 models (`evals/<graph>/live/`); **42 of 83** satisfy their contract on every model, and **27 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
+**Real-model evidence:** 83 graphs carry checked-in recordings of actual model runs across 3 models (`evals/<graph>/live/`); **48 of 83** satisfy their contract on every model, and **21 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
 
 | Graph | Domain | Cases | Pass rate | Depth | Live (real model) | Mean steps | Routes |
 |---|---|---|---|---|---|---|---|
-| `invoice-reconciliation` | business-ops | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 4 | 1 |
+| `invoice-reconciliation` | business-ops | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 1 |
 | `meeting-to-actions` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 4 | 2 |
 | `policy-compliance-check` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
-| `procurement-lifecycle` | business-ops | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 7 | 1 |
+| `procurement-lifecycle` | business-ops | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 7 | 1 |
 | `rfp-response-assembler` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 1 |
 | `vendor-comparison-matrix` | business-ops | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 6 | 1 |
 | `blog-production-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 4 | 2 |
@@ -225,7 +225,7 @@ pie showData title Graphs per domain
 | `podcast-production-pipeline` | creative-production | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 5 | 1 |
 | `screenplay-coverage` | creative-production | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 6 | 1 |
 | `ux-research-synthesis` | creative-production | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 1 |
-| `escalation-summarizer` | customer-support-sales | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
+| `escalation-summarizer` | customer-support-sales | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 4 | 2 |
 | `kb-article-generator` | customer-support-sales | 2 | 100% | `assert-fixture` | 🎲 100%/50%/100% · 2026-08-09 | 4 | 2 |
 | `sales-call-scorer` | customer-support-sales | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 1 |
 | `ticket-triage-swarm` | customer-support-sales | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 2 |
@@ -233,7 +233,7 @@ pie showData title Graphs per domain
 | `anomaly-investigation` | data-analytics | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 2 |
 | `data-quality-audit` | data-analytics | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `etl-pipeline-builder` | data-analytics | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
-| `schema-migration-saga` | data-analytics | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 5 | 1 |
+| `schema-migration-saga` | data-analytics | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 5 | 1 |
 | `sql-generation-verified` | data-analytics | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
 | `alert-noise-reduction` | devops-sre | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/0% · 2026-08-09 | 3 | 1 |
 | `deploy-canary-verifier` | devops-sre | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
@@ -263,14 +263,14 @@ pie showData title Graphs per domain
 | `contract-lifecycle` | legal-compliance | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 7 | 1 |
 | `contract-redline-pipeline` | legal-compliance | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
 | `ediscovery-triage` | legal-compliance | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 2 |
-| `gdpr-data-audit` | legal-compliance | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 7 | 1 |
+| `gdpr-data-audit` | legal-compliance | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 7 | 1 |
 | `license-compliance-scan` | legal-compliance | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 1 |
 | `product-listing-pipeline` | logistics-retail | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 7 | 1 |
 | `returns-triage` | logistics-retail | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 2 |
 | `supplier-risk-monitor` | logistics-retail | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 6 | 1 |
 | `citation-integrity-audit` | research-knowledge | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `competitive-intelligence` | research-knowledge | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 3 | 1 |
-| `cost-routed-research` | research-knowledge | 3 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 3.33 | 3 |
+| `cost-routed-research` | research-knowledge | 3 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3.33 | 3 |
 | `fact-check-pipeline` | research-knowledge | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 4 | 2 |
 | `literature-review-swarm` | research-knowledge | 2 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 4 | 2 |
 | `prompt-graph-optimization` | research-knowledge | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 1 |
@@ -285,7 +285,7 @@ pie showData title Graphs per domain
 | `architecture-decision-tournament` | software-engineering | 1 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 3 | 1 |
 | `benchmark-driven-optimization-search` | software-engineering | 1 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 3 | 1 |
 | `bug-triage-and-fix` | software-engineering | 2 | 100% | `assert-fixture` | 🚫 0%/0%/0% · 2026-08-09 | 4 | 2 |
-| `code-review-pipeline` | software-engineering | 2 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 3.5 | 2 |
+| `code-review-pipeline` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3.5 | 2 |
 | `dependency-upgrade` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `docs-code-sync-audit` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `feature-delivery-lifecycle` | software-engineering | 3 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 16 | 3 |
@@ -501,9 +501,20 @@ And it is not spread evenly:
 | human-gated | 2 of 4 |
 | **composite** | **14 of 14** |
 
-**Every multi-phase composite fails on every model** — the graphs that were the
-whole thesis of v1.1. The sample said 96%; the registry is 64% on its strongest
+**Every multi-phase composite failed on every model** — the graphs that were the
+whole thesis of v1.1. The sample said 96%; the registry was 64% on its strongest
 tested model, and 0% on its most ambitious graphs.
+
+Reading those recordings found two structural bugs, not a prompt problem: a phase
+merge that lost any fact a later node overwrote, and asserts reading
+`output.violations` while nodes declared `outputs: [violations]` — two conventions
+for one contract, with the declaration being the one the model was told. Fixing
+both moved the registry to **48 clean / 21 unsatisfied**, and 3 composites now pass.
+
+The remaining 11 composite failures are no longer misplaced facts: the required key
+is absent from the blackboard entirely. That is a statement about 30B-class local
+models, not the harness — **the composites are unproven at this model scale rather
+than pending a fix.** See [`docs/plans/v7-audit.md`](docs/plans/v7-audit.md).
 
 This is exactly the failure [`docs/live-coverage.md`](docs/live-coverage.md) exists
 to prevent, made one commit before that report was written. A pass rate over the

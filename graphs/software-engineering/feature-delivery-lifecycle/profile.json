@@ -156,9 +156,9 @@
           "release"
         ],
         "assert_failures": [
-          "[implement] output.test_failed_before_patch and output.test_passes_after_patch (AttributeError: test_failed_before_patch)",
-          "[test] output.coverage_delta > 0 and output.mutation_score > output.mutation_baseline (AttributeError: coverage_delta)",
-          "[audit] all(f.file and f.line for f in output.findings) (AttributeError: findings)"
+          "[implement] output.test_failed_before_patch and output.test_passes_after_patch",
+          "[test] output.coverage_delta > 0 and output.mutation_score > output.mutation_baseline",
+          "[audit] all(f.file and f.line for f in output.findings) (AttributeError: 'str' object has no attribute 'file')"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,

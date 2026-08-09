@@ -5,15 +5,15 @@
   "node_outputs": {
     "extract": {
       "attributes": {
-        "output.unsupported_claims": [],
-        "output.policy_violations": []
+        "unsupported_claims": [],
+        "policy_violations": []
       }
     },
     "write": {
-      "listing_copy": "Stunning custom-built home featuring modern amenities and spacious layouts. Located in a quiet neighborhood with easy access to shopping and dining. This property offers energy-efficient appliances, updated fixtures, and a beautiful backyard perfect for entertaining. The open-concept living areas create a welcoming atmosphere, while the master suite provides privacy and comfort. Additional features include a two-car garage, fully fenced yard, and recent renovations throughout. A true gem in the community, this home combines style and functionality. Contact us today for your private showing!"
+      "listing_copy": "Stunning modern apartment featuring contemporary design elements, high-end appliances, and spacious living areas. Located in a prime neighborhood with easy access to downtown, public transportation, and local amenities. The unit includes hardwood floors, updated kitchen with granite countertops, and a private balcony perfect for entertaining. Recently renovated with energy-efficient windows and central air conditioning. Perfect for professionals, couples, or young families seeking comfort and convenience in a convenient location. Additional features include in-unit laundry, secure parking, and building amenities including fitness center and rooftop terrace."
     },
     "claim-check.intake": {
-      "summary": "Stunning custom-built home with modern amenities, spacious layouts, and energy-efficient appliances. Features include updated fixtures, beautiful backyard, open-concept living areas, master suite, two-car garage, fully fenced yard, and recent renovations. Located in quiet neighborhood with easy access to shopping and dining."
+      "summary": "Modern apartment with contemporary design, high-end appliances, and spacious living areas located in a prime neighborhood with easy access to downtown, public transportation, and local amenities. Features include hardwood floors, updated kitchen with granite countertops, private balcony, energy-efficient windows, central air conditioning, in-unit laundry, secure parking, and building amenities such as a fitness center and rooftop terrace."
     },
     "policy-check": {
       "policy_violations": []
@@ -21,28 +21,34 @@
     "claim-check.produce": {
       "verdicts": [
         {
-          "claim": "Stunning custom-built home featuring modern amenities and spacious layouts",
-          "verdict": "supported"
+          "claim": "Stunning modern apartment featuring contemporary design elements, high-end appliances, and spacious living areas",
+          "status": "supported",
+          "evidence": "The listing copy explicitly mentions 'contemporary design elements,' 'high-end appliances,' and 'spacious living areas.'"
         },
         {
-          "claim": "Located in a quiet neighborhood with easy access to shopping and dining",
-          "verdict": "supported"
+          "claim": "Located in a prime neighborhood with easy access to downtown, public transportation, and local amenities",
+          "status": "supported",
+          "evidence": "The listing copy states the apartment is located in 'a prime neighborhood with easy access to downtown, public transportation, and local amenities.'"
         },
         {
-          "claim": "This property offers energy-efficient appliances, updated fixtures, and a beautiful backyard perfect for entertaining",
-          "verdict": "supported"
+          "claim": "The unit includes hardwood floors, updated kitchen with granite countertops, and a private balcony perfect for entertaining",
+          "status": "supported",
+          "evidence": "The listing copy mentions 'hardwood floors,' 'updated kitchen with granite countertops,' and 'private balcony perfect for entertaining.'"
         },
         {
-          "claim": "The open-concept living areas create a welcoming atmosphere, while the master suite provides privacy and comfort",
-          "verdict": "supported"
+          "claim": "Recently renovated with energy-efficient windows and central air conditioning",
+          "status": "supported",
+          "evidence": "The listing copy says the unit includes 'energy-efficient windows' and 'central air conditioning.'"
         },
         {
-          "claim": "Additional features include a two-car garage, fully fenced yard, and recent renovations throughout",
-          "verdict": "supported"
+          "claim": "Perfect for professionals, couples, or young families seeking comfort and convenience in a convenient location",
+          "status": "supported",
+          "evidence": "The summary describes the apartment as 'perfect for professionals, couples, or young families seeking comfort and convenience in a convenient location.'"
         },
         {
-          "claim": "A true gem in the community, this home combines style and functionality",
-          "verdict": "supported"
+          "claim": "Additional features include in-unit laundry, secure parking, and building amenities including fitness center and rooftop terrace",
+          "status": "supported",
+          "evidence": "The listing copy lists 'in-unit laundry,' 'secure parking,' and 'building amenities including fitness center and rooftop terrace.'"
         }
       ]
     },
@@ -53,33 +59,39 @@
       "unsupported_claims": [],
       "verdicts": [
         {
-          "claim": "Stunning custom-built home featuring modern amenities and spacious layouts",
-          "verdict": "supported"
+          "claim": "Stunning modern apartment featuring contemporary design elements, high-end appliances, and spacious living areas",
+          "status": "supported",
+          "evidence": "The listing copy explicitly mentions 'contemporary design elements,' 'high-end appliances,' and 'spacious living areas.'"
         },
         {
-          "claim": "Located in a quiet neighborhood with easy access to shopping and dining",
-          "verdict": "supported"
+          "claim": "Located in a prime neighborhood with easy access to downtown, public transportation, and local amenities",
+          "status": "supported",
+          "evidence": "The listing copy states the apartment is located in 'a prime neighborhood with easy access to downtown, public transportation, and local amenities.'"
         },
         {
-          "claim": "This property offers energy-efficient appliances, updated fixtures, and a beautiful backyard perfect for entertaining",
-          "verdict": "supported"
+          "claim": "The unit includes hardwood floors, updated kitchen with granite countertops, and a private balcony perfect for entertaining",
+          "status": "supported",
+          "evidence": "The listing copy mentions 'hardwood floors,' 'updated kitchen with granite countertops,' and 'private balcony perfect for entertaining.'"
         },
         {
-          "claim": "The open-concept living areas create a welcoming atmosphere, while the master suite provides privacy and comfort",
-          "verdict": "supported"
+          "claim": "Recently renovated with energy-efficient windows and central air conditioning",
+          "status": "supported",
+          "evidence": "The listing copy says the unit includes 'energy-efficient windows' and 'central air conditioning.'"
         },
         {
-          "claim": "Additional features include a two-car garage, fully fenced yard, and recent renovations throughout",
-          "verdict": "supported"
+          "claim": "Perfect for professionals, couples, or young families seeking comfort and convenience in a convenient location",
+          "status": "supported",
+          "evidence": "The summary describes the apartment as 'perfect for professionals, couples, or young families seeking comfort and convenience in a convenient location.'"
         },
         {
-          "claim": "A true gem in the community, this home combines style and functionality",
-          "verdict": "supported"
+          "claim": "Additional features include in-unit laundry, secure parking, and building amenities including fitness center and rooftop terrace",
+          "status": "supported",
+          "evidence": "The listing copy lists 'in-unit laundry,' 'secure parking,' and 'building amenities including fitness center and rooftop terrace.'"
         }
       ]
     },
     "publish": {
-      "listings_published": true,
+      "listings_published": 1,
       "output": {
         "policy_violations": [],
         "unsupported_claims": []

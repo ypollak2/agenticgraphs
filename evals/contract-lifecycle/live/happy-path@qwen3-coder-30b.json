@@ -5,33 +5,30 @@
   "node_outputs": {
     "intake": {
       "clauses": [
-        "risk assessment completed",
-        "counsel review conducted",
-        "residual risk evaluated as medium or lower",
-        "signed off by authorized counsel",
-        "execution approved"
+        "The contract shall be executed only at or below medium residual risk level",
+        "Counsel signature is required for contract execution",
+        "Residual risk level must be documented and approved",
+        "Signed off by authorized counsel prior to execution"
       ]
     },
     "redline.intake": {
-      "summary": "Intake analysis complete. All risk assessment clauses satisfied with medium to low residual risk levels, authorized counsel-signed off, and execution approved."
+      "summary": "Contract execution is conditional on maintaining medium residual risk level or below, requires counsel signature, mandates documentation and approval of residual risk level, and must be signed off by authorized counsel prior to execution."
     },
     "redline.produce": {
       "redlines": [
-        "risk assessment completed",
-        "counsel review conducted",
-        "residual risk evaluated as medium or lower",
-        "signed off by authorized counsel",
-        "execution approved"
+        "The contract shall be executed only at or below medium residual risk level",
+        "Counsel signature is required for contract execution",
+        "Residual risk level must be documented and approved",
+        "Signed off by authorized counsel prior to execution"
       ]
     },
     "redline.review": {
-      "output": "Review complete. All risk assessment clauses satisfied with medium to low residual risk levels, authorized counsel-signed off, and execution approved.",
+      "output": "The contract clauses are well-structured and address key risk management and authorization requirements. However, the language could be more precise in defining 'medium residual risk level' to avoid interpretation discrepancies. Consider adding specific metrics or criteria for determining risk levels, and clarify what constitutes 'authorized counsel' with potential designations or qualifications.",
       "redlines": [
-        "risk assessment completed",
-        "counsel review conducted",
-        "residual risk evaluated as medium or lower",
-        "signed off by authorized counsel",
-        "execution approved"
+        "The contract shall be executed only at or below medium residual risk level - REDLINE: Define 'medium residual risk level' with specific quantitative or qualitative criteria",
+        "Counsel signature is required for contract execution - REDLINE: Specify which counsel positions are authorized to sign (e.g., Senior Counsel, Legal Director)",
+        "Residual risk level must be documented and approved - REDLINE: Clarify approval process hierarchy and required documentation formats",
+        "Signed off by authorized counsel prior to execution - REDLINE: Define 'authorized counsel' with specific titles, roles, or organizational designations"
       ]
     },
     "risk-assess": {

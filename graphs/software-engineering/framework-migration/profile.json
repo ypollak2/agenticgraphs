@@ -86,8 +86,7 @@
         ],
         "assert_failures": [
           "output.suite_green == true",
-          "output.slices_remaining == 0 (AttributeError: slices_remaining)",
-          "[port-slice] output.snapshot_before == output.snapshot_after (AttributeError: snapshot_before)"
+          "output.slices_remaining == 0 (AttributeError: slices_remaining)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,

@@ -89,7 +89,7 @@
           "review"
         ],
         "assert_failures": [
-          "output.reproduces_resolution and output.duplicates_deduped (AttributeError: 'bool' object has no attribute 'reproduces_resolution')"
+          "output.reproduces_resolution and output.duplicates_deduped (AttributeError: reproduces_resolution)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,

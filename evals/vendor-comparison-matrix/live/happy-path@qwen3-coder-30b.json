@@ -4,18 +4,18 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "collect.partition": {
-      "shards": 4
+      "shards": 3
     },
     "collect.reduce": {
-      "findings": "Shard processing completed with 4 shards, 0 failed, 0 skipped",
-      "output": "All shards processed successfully",
-      "vendor_docs": "No vendor documentation required for shard reduction"
+      "findings": "Initial shard processing started with 3 shards, 1 attempt made",
+      "output": "Processing in progress, 0 shards completed, 0 shards failed",
+      "vendor_docs": "Shard processing workflow initialized, awaiting shard results"
     },
     "normalize": {
-      "criteria_grid": "Shard processing completed with 4 shards, 0 failed, 0 skipped. All shards processed successfully. No vendor documentation required for shard reduction."
+      "criteria_grid": []
     },
     "fill": {
-      "matrix": "Shard processing completed with 4 shards, 0 failed, 0 skipped. All shards processed successfully. No vendor documentation required for shard reduction. Every matrix cell cites its source and all vendors share one criteria set."
+      "matrix": []
     },
     "cite-check": {
       "criteria_consistent": true,

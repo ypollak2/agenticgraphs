@@ -75,7 +75,7 @@
         ],
         "assert_failures": [
           "len(output.comps) >= 2 (TypeError: object of type 'int' has no len())",
-          "[comparables] all(f.source_url and f.source_date for f in output.findings) (AttributeError: 'str' object has no attribute 'findings')"
+          "[comparables] all(f.source_url and f.source_date for f in output.findings) (AttributeError: 'str' object has no attribute 'source_url')"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,

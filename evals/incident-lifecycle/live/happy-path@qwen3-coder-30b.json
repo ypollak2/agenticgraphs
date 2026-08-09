@@ -4,11 +4,52 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "detect": {
-      "signal": "investigate",
-      "blast_radius": 3
+      "signal": "positive",
+      "blast_radius": 2
     },
     "triage.route": {
-      "complexity": 0.45
+      "complexity": "medium"
+    },
+    "triage.branch-simple": {
+      "handled_by": "triage.branch-simple"
+    },
+    "triage.verify": {
+      "matches_ownership_map": true,
+      "output": "Verification complete",
+      "owner": "triage.verify",
+      "severity": "low"
+    },
+    "mitigate": {
+      "mitigation": "Deploy automated rollback mechanism for affected services",
+      "mitigated": true
+    },
+    "confirm": {
+      "impact_cleared": true
+    },
+    "postmortem.intake": {
+      "summary": "Low severity issue resolved with automated rollback mechanism deployment. Impact cleared and mitigated."
+    },
+    "postmortem.produce": {
+      "timeline": "2024-01-15T10:30:00Z"
+    },
+    "postmortem.review": {
+      "output": {
+        "impact_cleared": true,
+        "mitigated": true
+      },
+      "postmortem": "Issue was low severity and resolved through automated rollback mechanism deployment. Impact has been cleared and mitigated. The solution demonstrates effective handling of the incident with appropriate remediation measures.",
+      "timeline": "2024-01-15T10:30:00Z"
+    },
+    "action-items": {
+      "actions": [
+        "Deploy automated rollback mechanism for affected services"
+      ],
+      "output": {
+        "actions": [
+          "Deploy automated rollback mechanism for affected services"
+        ],
+        "impact_cleared": true
+      }
     }
   }
 }

@@ -76,7 +76,7 @@
           "execute"
         ],
         "assert_failures": [
-          "[redline] all(r.playbook_ref for r in output.redlines) (AttributeError: 'str' object has no attribute 'redlines')"
+          "[redline] all(r.playbook_ref for r in output.redlines) (AttributeError: 'str' object has no attribute 'playbook_ref')"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,

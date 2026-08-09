@@ -20,51 +20,427 @@
     ],
     "port-slice.intake": [
       {
-        "summary": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty."
+        "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
       },
       {
-        "summary": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty."
+        "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false."
       },
       {
-        "summary": "Workflow state after attempt 2 with slices generated and risk mappings established. Slice queue contains newly produced slices."
+        "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false."
       }
     ],
     "port-slice.produce": [
       {
-        "snapshot_after": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty.",
-        "snapshot_before": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty."
+        "snapshot_after": {
+          "attempts": 1,
+          "slices": [],
+          "risk_map": {},
+          "slice_queue": [],
+          "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+        },
+        "snapshot_before": {
+          "attempts": 1,
+          "slices": [],
+          "risk_map": {},
+          "slice_queue": [],
+          "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+        }
       },
       {
-        "snapshot_after": "Workflow state after attempt 2 with slices generated and risk mappings established. Slice queue contains newly produced slices.",
-        "snapshot_before": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty."
+        "snapshot_after": {
+          "attempts": 2,
+          "slices": [],
+          "risk_map": {},
+          "slice_queue": [],
+          "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false.",
+          "snapshot_after": {
+            "attempts": 1,
+            "slices": [],
+            "risk_map": {},
+            "slice_queue": [],
+            "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+          },
+          "snapshot_before": {
+            "attempts": 1,
+            "slices": [],
+            "risk_map": {},
+            "slice_queue": [],
+            "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+          },
+          "output": {
+            "suite_green": false
+          },
+          "slice_ported": false,
+          "suite_green": false
+        },
+        "snapshot_before": {
+          "attempts": 2,
+          "slices": [],
+          "risk_map": {},
+          "slice_queue": [],
+          "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false.",
+          "snapshot_after": {
+            "attempts": 1,
+            "slices": [],
+            "risk_map": {},
+            "slice_queue": [],
+            "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+          },
+          "snapshot_before": {
+            "attempts": 1,
+            "slices": [],
+            "risk_map": {},
+            "slice_queue": [],
+            "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+          },
+          "output": {
+            "suite_green": false
+          },
+          "slice_ported": false,
+          "suite_green": false
+        }
       },
       {
-        "snapshot_after": "Workflow state after attempt 2 with slices generated and risk mappings established. Slice queue contains newly produced slices.",
-        "snapshot_before": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty."
+        "snapshot_after": {
+          "attempts": 3,
+          "slices": [],
+          "risk_map": {},
+          "slice_queue": [],
+          "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false.",
+          "snapshot_after": {
+            "attempts": 2,
+            "slices": [],
+            "risk_map": {},
+            "slice_queue": [],
+            "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false.",
+            "snapshot_after": {
+              "attempts": 1,
+              "slices": [],
+              "risk_map": {},
+              "slice_queue": [],
+              "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+            },
+            "snapshot_before": {
+              "attempts": 1,
+              "slices": [],
+              "risk_map": {},
+              "slice_queue": [],
+              "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+            },
+            "output": {
+              "suite_green": false
+            },
+            "slice_ported": false,
+            "suite_green": false
+          },
+          "snapshot_before": {
+            "attempts": 2,
+            "slices": [],
+            "risk_map": {},
+            "slice_queue": [],
+            "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false.",
+            "snapshot_after": {
+              "attempts": 1,
+              "slices": [],
+              "risk_map": {},
+              "slice_queue": [],
+              "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+            },
+            "snapshot_before": {
+              "attempts": 1,
+              "slices": [],
+              "risk_map": {},
+              "slice_queue": [],
+              "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+            },
+            "output": {
+              "suite_green": false
+            },
+            "slice_ported": false,
+            "suite_green": false
+          },
+          "output": {
+            "suite_green": false
+          },
+          "slice_ported": false,
+          "suite_green": false
+        },
+        "snapshot_before": {
+          "attempts": 3,
+          "slices": [],
+          "risk_map": {},
+          "slice_queue": [],
+          "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false.",
+          "snapshot_after": {
+            "attempts": 2,
+            "slices": [],
+            "risk_map": {},
+            "slice_queue": [],
+            "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false.",
+            "snapshot_after": {
+              "attempts": 1,
+              "slices": [],
+              "risk_map": {},
+              "slice_queue": [],
+              "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+            },
+            "snapshot_before": {
+              "attempts": 1,
+              "slices": [],
+              "risk_map": {},
+              "slice_queue": [],
+              "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+            },
+            "output": {
+              "suite_green": false
+            },
+            "slice_ported": false,
+            "suite_green": false
+          },
+          "snapshot_before": {
+            "attempts": 2,
+            "slices": [],
+            "risk_map": {},
+            "slice_queue": [],
+            "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false.",
+            "snapshot_after": {
+              "attempts": 1,
+              "slices": [],
+              "risk_map": {},
+              "slice_queue": [],
+              "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+            },
+            "snapshot_before": {
+              "attempts": 1,
+              "slices": [],
+              "risk_map": {},
+              "slice_queue": [],
+              "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+            },
+            "output": {
+              "suite_green": false
+            },
+            "slice_ported": false,
+            "suite_green": false
+          },
+          "output": {
+            "suite_green": false
+          },
+          "slice_ported": false,
+          "suite_green": false
+        }
       }
     ],
     "port-slice.review": [
       {
-        "output": "No slices available for review. The workflow is in initial state with empty slice queue and no attempts made yet.",
+        "output": "No slices exist to review. Initial analysis shows empty workflow state with no risk map or slice queue populated. Waiting for incoming slice data to process and analyze for downstream workflow execution. Critical analysis cannot be performed without slice data.",
         "slice_ported": false,
-        "snapshot_after": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty.",
-        "snapshot_before": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty."
+        "snapshot_after": {
+          "attempts": 1,
+          "slices": [],
+          "risk_map": {},
+          "slice_queue": [],
+          "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+        },
+        "snapshot_before": {
+          "attempts": 1,
+          "slices": [],
+          "risk_map": {},
+          "slice_queue": [],
+          "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+        }
       },
       {
         "output": {
           "suite_green": false
         },
         "slice_ported": false,
-        "snapshot_after": "Workflow state after attempt 2 with slices generated and risk mappings established. Slice queue contains newly produced slices.",
-        "snapshot_before": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty."
+        "snapshot_after": {
+          "attempts": 2,
+          "slices": [],
+          "risk_map": {},
+          "slice_queue": [],
+          "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false.",
+          "snapshot_after": {
+            "attempts": 1,
+            "slices": [],
+            "risk_map": {},
+            "slice_queue": [],
+            "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+          },
+          "snapshot_before": {
+            "attempts": 1,
+            "slices": [],
+            "risk_map": {},
+            "slice_queue": [],
+            "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+          },
+          "output": {
+            "suite_green": false
+          },
+          "slice_ported": false,
+          "suite_green": false
+        },
+        "snapshot_before": {
+          "attempts": 2,
+          "slices": [],
+          "risk_map": {},
+          "slice_queue": [],
+          "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false.",
+          "snapshot_after": {
+            "attempts": 1,
+            "slices": [],
+            "risk_map": {},
+            "slice_queue": [],
+            "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+          },
+          "snapshot_before": {
+            "attempts": 1,
+            "slices": [],
+            "risk_map": {},
+            "slice_queue": [],
+            "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+          },
+          "output": {
+            "suite_green": false
+          },
+          "slice_ported": false,
+          "suite_green": false
+        }
       },
       {
         "output": {
           "suite_green": false
         },
         "slice_ported": false,
-        "snapshot_after": "Workflow state after attempt 2 with slices generated and risk mappings established. Slice queue contains newly produced slices.",
-        "snapshot_before": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty."
+        "snapshot_after": {
+          "attempts": 3,
+          "slices": [],
+          "risk_map": {},
+          "slice_queue": [],
+          "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false.",
+          "snapshot_after": {
+            "attempts": 2,
+            "slices": [],
+            "risk_map": {},
+            "slice_queue": [],
+            "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false.",
+            "snapshot_after": {
+              "attempts": 1,
+              "slices": [],
+              "risk_map": {},
+              "slice_queue": [],
+              "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+            },
+            "snapshot_before": {
+              "attempts": 1,
+              "slices": [],
+              "risk_map": {},
+              "slice_queue": [],
+              "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+            },
+            "output": {
+              "suite_green": false
+            },
+            "slice_ported": false,
+            "suite_green": false
+          },
+          "snapshot_before": {
+            "attempts": 2,
+            "slices": [],
+            "risk_map": {},
+            "slice_queue": [],
+            "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false.",
+            "snapshot_after": {
+              "attempts": 1,
+              "slices": [],
+              "risk_map": {},
+              "slice_queue": [],
+              "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+            },
+            "snapshot_before": {
+              "attempts": 1,
+              "slices": [],
+              "risk_map": {},
+              "slice_queue": [],
+              "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+            },
+            "output": {
+              "suite_green": false
+            },
+            "slice_ported": false,
+            "suite_green": false
+          },
+          "output": {
+            "suite_green": false
+          },
+          "slice_ported": false,
+          "suite_green": false
+        },
+        "snapshot_before": {
+          "attempts": 3,
+          "slices": [],
+          "risk_map": {},
+          "slice_queue": [],
+          "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false.",
+          "snapshot_after": {
+            "attempts": 2,
+            "slices": [],
+            "risk_map": {},
+            "slice_queue": [],
+            "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false.",
+            "snapshot_after": {
+              "attempts": 1,
+              "slices": [],
+              "risk_map": {},
+              "slice_queue": [],
+              "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+            },
+            "snapshot_before": {
+              "attempts": 1,
+              "slices": [],
+              "risk_map": {},
+              "slice_queue": [],
+              "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+            },
+            "output": {
+              "suite_green": false
+            },
+            "slice_ported": false,
+            "suite_green": false
+          },
+          "snapshot_before": {
+            "attempts": 2,
+            "slices": [],
+            "risk_map": {},
+            "slice_queue": [],
+            "summary": "Initial analysis of intake port slice configuration complete. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Awaiting incoming slice data for processing and downstream workflow execution. Output indicates suite_green is false and slice_ported is false.",
+            "snapshot_after": {
+              "attempts": 1,
+              "slices": [],
+              "risk_map": {},
+              "slice_queue": [],
+              "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+            },
+            "snapshot_before": {
+              "attempts": 1,
+              "slices": [],
+              "risk_map": {},
+              "slice_queue": [],
+              "summary": "Initial analysis of intake port slice configuration. No slices currently exist in the workflow. Risk map is empty. Slice queue is empty. Waiting for incoming slice data to process and analyze for downstream workflow execution."
+            },
+            "output": {
+              "suite_green": false
+            },
+            "slice_ported": false,
+            "suite_green": false
+          },
+          "output": {
+            "suite_green": false
+          },
+          "slice_ported": false,
+          "suite_green": false
+        }
       }
     ],
     "integrate": [

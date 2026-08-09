@@ -63,6 +63,41 @@ class DotDict(dict):
             raise AttributeError(k) from e
 
 
+class OutputView(DotDict):
+    """`output.X` and a bare `X` on the blackboard are one fact, not two.
+
+    The registry asserts on `output.violations` while nodes declare
+    `outputs: [violations]` — two conventions for one contract, and the
+    declaration is the one the model is told. So a model returns the fact flat,
+    correctly, and an assert looking one level deeper misses it. Three separate
+    patches at the prompt layer failed to route around that (see
+    docs/plans/v7-audit.md); this resolves it where the two vocabularies actually
+    meet, at evaluation.
+
+    Precedence is deliberate: a key genuinely inside `output` wins, so a graph
+    that nests properly is unaffected. The blackboard is only consulted for keys
+    `output` does not carry.
+    """
+
+    def __init__(self, inner, blackboard):
+        # Wrap on the way in: everything reached through `output` must keep
+        # attribute access, or `all(f.file for f in output.findings)` breaks on
+        # the plain dicts a fixture supplies.
+        super().__init__(wrap(inner) if isinstance(inner, dict) else {})
+        self._bb = blackboard
+
+    def __getattr__(self, k):
+        if k == "_bb":
+            raise AttributeError(k)
+        try:
+            return self[k]
+        except KeyError:
+            pass
+        if k in self._bb:
+            return wrap(self._bb[k])
+        raise AttributeError(k)
+
+
 def wrap(v):
     if isinstance(v, dict):
         return DotDict({k: wrap(x) for k, x in v.items()})
@@ -78,6 +113,8 @@ _SAFE = {"len": len, "all": all, "any": any, "sum": sum, "min": min, "max": max,
 
 def safe_eval(expr: str, bb: dict):
     ns = {**_SAFE, **wrap(dict(bb))}
+    # `output` is the one name whose lookup falls through to the blackboard.
+    ns["output"] = OutputView(bb.get("output"), dict(bb))
     return eval(expr, {"__builtins__": {}}, ns)  # noqa: S307 — namespace is closed
 
 
@@ -197,8 +234,18 @@ class RunReport:
         """
         merged: dict = {}
         for f in self.frames:
-            if f["node"] == phase or f["node"].startswith(phase + "."):
-                merged.update(f["out"])
+            if not (f["node"] == phase or f["node"].startswith(phase + ".")):
+                continue
+            for k, v in f["out"].items():
+                # `output` is an accumulator, not a slot. Last-write-wins lost any
+                # fact established mid-phase whenever a later node in the same
+                # phase wrote its own `output` — which undid the v1.6 reconcile
+                # node-by-node and is why that fix measured as no change at all.
+                if k == "output" and isinstance(merged.get(k), dict):
+                    if isinstance(v, dict):
+                        merged[k] = {**merged[k], **v}
+                    continue  # a scalar never displaces facts already gathered
+                merged[k] = v
         return merged
 
     @property
