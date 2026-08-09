@@ -208,7 +208,7 @@ pie showData title Graphs per domain
 | `assert-live` | assert held against real model output (`agr eval --live`) |
 | `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |
 
-**Real-model evidence:** 83 graphs carry checked-in recordings of actual model runs across 4 models (`evals/<graph>/live/`); **47 of 83** satisfy their contract on every model, and **19 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
+**Real-model evidence:** 83 graphs carry checked-in recordings of actual model runs across 4 models (`evals/<graph>/live/`); **46 of 83** satisfy their contract on every model, and **19 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
 
 | Graph | Domain | Cases | Pass rate | Depth | Live (real model) | Mean steps | Routes |
 |---|---|---|---|---|---|---|---|
@@ -287,7 +287,7 @@ pie showData title Graphs per domain
 | `bug-triage-and-fix` | software-engineering | 2 | 100% | `assert-fixture` | 🚫 0%/0%/0% · 2026-08-09 | 4 | 2 |
 | `code-review-pipeline` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3.5 | 2 |
 | `dependency-upgrade` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
-| `docs-code-sync-audit` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
+| `docs-code-sync-audit` | software-engineering | 2 | 100% | `assert-fixture` | ⚠️ 0%/100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `feature-delivery-lifecycle` | software-engineering | 3 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 16 | 3 |
 | `flaky-test-reflexion` | software-engineering | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 4 | 1 |
 | `framework-migration` | software-engineering | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 7 | 1 |
@@ -537,6 +537,33 @@ The graphs whose contracts are satisfiable by generation alone pass at 47 of 83.
 The ones that demand evidence correctly refuse. See
 [`docs/plans/v8-frontier-finding.md`](docs/plans/v8-frontier-finding.md).
 
+### So the abilities got bound — and the pilot graph stopped passing
+
+`docs-code-sync-audit` asserts `all(e.exit_code == 0 for e in output.examples)`.
+Run against `gpt-4o` twice:
+
+| | tool calls | result | depth |
+|---|---|---|---|
+| tools **off** | 0 | **PASS** | `assert-live` |
+| tools **on** | 20, all succeeded | **FAIL** | `assert-grounded` |
+
+**It only ever passed because the model fabricated `exit_code: 0`.** With
+`run_command` actually bound it fails, and the failure is the correct answer.
+
+A new depth grade sits above `assert-live`:
+
+```
+describe-only < assert-fixture < assert-live < assert-grounded < command
+```
+
+`assert-grounded` means the assert held *and* the values trace to a recorded tool
+call. It does **not** mean the call was the right one — on that pilot run several
+of the 20 were theatre (`echo 'Running test command 2'`). The trace proves
+something ran, not that the right thing ran. Stated plainly, because
+`assert-fixture` went over-read for five versions.
+
+See [`docs/agr-bindings.md`](docs/agr-bindings.md).
+
 This is exactly the failure [`docs/live-coverage.md`](docs/live-coverage.md) exists
 to prevent, made one commit before that report was written. A pass rate over the
 easiest quarter of a registry is not a pass rate.
@@ -746,7 +773,7 @@ Project Link: [https://github.com/ypollak2/agenticgraphs][repo-url]
 [domains-shield]: https://img.shields.io/badge/domains-15-2ea44f?style=for-the-badge
 [patterns-shield]: https://img.shields.io/badge/motifs-19-2ea44f?style=for-the-badge
 [patterns-url]: #the-eight-patterns
-[tests-shield]: https://img.shields.io/badge/tests-184%2F184-blue?style=for-the-badge
+[tests-shield]: https://img.shields.io/badge/tests-204%2F204-blue?style=for-the-badge
 [tests-url]: tests/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
 [license-url]: LICENSE

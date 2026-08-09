@@ -1,5 +1,50 @@
 # Changelog
 
+## [0.8.0] — ability bindings
+
+The seam shipped in M0 and no ability ever used it: `spec/agr-ability.schema.json`
+has carried `binding: {kind, ref}` since the first commit, and 0 of 32 abilities
+declared one. Every run in this repo'''s history sent a prompt and parsed JSON.
+
+**The demonstration.** `docs-code-sync-audit` asserts
+`all(e.exit_code == 0 for e in output.examples)`. Against `gpt-4o`:
+
+| | tool calls | result | depth |
+|---|---|---|---|
+| tools off | 0 | **PASS** | `assert-live` |
+| tools on | 20, all succeeded | **FAIL** | `assert-grounded` |
+
+It only ever passed because the model fabricated `exit_code: 0`. With
+`run_command` bound it fails, and the failure is the correct answer.
+
+### Added
+- `bindings.py`: `run_command`, `read_diff`, `web_search` bound to real
+  implementations. Only a node'''s **declared** abilities are offered — never a
+  general toolbox, which would discard the property that makes these graphs
+  auditable.
+- `ToolRunner`: an OpenAI tool-call loop over those bindings, bounded at 4 rounds.
+- `assert-grounded`, above `assert-live`: the assert held *and* its values trace
+  to a recorded tool call.
+- `rep.tool_calls`, persisted into recordings so the grade survives replay.
+  Grounding is a property of the run, not the node outputs — without this a
+  replayed grounded run graded `assert-live`, the identical failure
+  `assert-live` had before recordings existed.
+- 21 tests, including the inverse property and the limit below.
+
+### The permission model already existed
+`abilities/*.yaml` has declared `risk: read|write|execute` since M0 — 18/6/8.
+`read` binds freely; `write`/`execute` need `AGR_ALLOW_MUTATING=1`, the same gate
+`agr eval --run-commands` uses. No second permission model was invented.
+
+### What assert-grounded does NOT mean
+The call was the right one. On the pilot run several of the 20 were theatre
+(`echo '''Running test command 2'''`) and the node then described results in prose.
+The trace proves something ran, not that the right thing ran. Stated because
+`assert-fixture` went over-read for five versions.
+
+`log_id`, `scanner_evidence` and `playbook_ref` need systems this repo has no
+binding for. Those contracts stay unsatisfiable, truthfully.
+
 ## [0.7.0] — AGR v1.7 "one vocabulary"
 
 Two structural fixes, found by reading the composite recordings after three prompt

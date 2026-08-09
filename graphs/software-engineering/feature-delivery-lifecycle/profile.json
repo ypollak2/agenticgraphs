@@ -52,7 +52,9 @@
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": true,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       },
       {
         "id": "audit-requests-changes-then-approves",
@@ -87,7 +89,9 @@
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": true,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       },
       {
         "id": "failed-release-is-compensated",
@@ -118,7 +122,9 @@
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": true,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       }
     ]
   },
@@ -165,7 +171,9 @@
         "rejected_approvals": [],
         "auto_approved": true,
         "subgraphs_expanded": true,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       },
       {
         "id": "clean-path-releases",
@@ -202,7 +210,9 @@
         "rejected_approvals": [],
         "auto_approved": true,
         "subgraphs_expanded": true,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       }
     ],
     "models": [

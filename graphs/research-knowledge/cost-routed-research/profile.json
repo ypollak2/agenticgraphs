@@ -41,7 +41,9 @@
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       },
       {
         "id": "low-confidence-escalates",
@@ -61,7 +63,9 @@
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       },
       {
         "id": "complex-goes-deep",
@@ -80,7 +84,9 @@
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       }
     ]
   },
@@ -114,7 +120,9 @@
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       }
     ],
     "models": [

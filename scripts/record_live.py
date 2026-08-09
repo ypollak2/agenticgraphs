@@ -24,7 +24,7 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from agenticgraphs.harness import LLMRunner, run_graph  # noqa: E402
+from agenticgraphs.harness import LLMRunner, ToolRunner, run_graph  # noqa: E402
 from agenticgraphs.inspect import find_graph  # noqa: E402
 from agenticgraphs.registry import ROOT, load  # noqa: E402
 
@@ -78,7 +78,16 @@ def record(name: str, sample: int = 0) -> dict:
     doc = load(gpath)
     cases = yaml.safe_load((ROOT / "evals" / name / "cases.yaml").read_text())["cases"]
     case = cases[0]
-    runner = RecordingRunner(LLMRunner())
+    # AGR_TOOLS=1 binds each node's declared abilities; AGR_ALLOW_MUTATING=1 also
+    # permits risk: write/execute, the same gate `agr eval --run-commands` uses.
+    if os.environ.get("AGR_TOOLS") == "1":
+        inner = ToolRunner(root=ROOT,
+                           allow_mutating=os.environ.get("AGR_ALLOW_MUTATING") == "1")
+    else:
+        inner = LLMRunner()
+    runner = RecordingRunner(inner)
+    if hasattr(runner.inner, "report"):
+        runner.inner.report = None  # set after RunReport exists, below
     rep = run_graph(doc, runner, root=ROOT, auto_approve=True)
     out_dir = ROOT / "evals" / name / "live"
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -87,6 +96,14 @@ def record(name: str, sample: int = 0) -> dict:
         "recorded": date.today().isoformat(),
         "endpoint": os.environ["AGR_LLM_BASE_URL"],
         "node_outputs": runner.captured,
+        # Grounding is a property of the RUN, not of the node outputs. Without
+        # carrying the trace, a replay of a tool-bound run grades `assert-live`
+        # and the strongest evidence in the repo can never reach CI — the same
+        # failure `assert-live` itself had before recordings existed.
+        "tool_calls": [
+            {"ability": c.ability, "args": c.args, "ok": c.ok, "detail": c.detail}
+            for c in rep.tool_calls
+        ],
     }
     model_tag = _model_dir(name, os.environ["AGR_LLM_MODEL"])
     # A second sample of the same graph+model is a different observation, not a
@@ -95,7 +112,9 @@ def record(name: str, sample: int = 0) -> dict:
     suffix = f"@{model_tag}" + (f"#{sample}" if sample else "")
     (out_dir / f"{case['id']}{suffix}.json").write_text(json.dumps(payload, indent=2) + "\n")
     return {"graph": name, "case": case["id"], "passed": rep.passed,
-            "steps": rep.steps, "failures": rep.assert_failures}
+            "steps": rep.steps, "failures": rep.assert_failures,
+            "tool_calls": len(rep.tool_calls),
+            "grounded": rep.grounded}
 
 
 def main() -> int:
@@ -112,7 +131,8 @@ def main() -> int:
             print(f"ERROR   {r['graph']}: {r['error']}")
         else:
             mark = "PASS" if r["passed"] else "FAIL"
-            print(f"{mark}    {r['graph']} ({r['steps']} steps) {r['failures'] or ''}")
+            tools = f" [{r.get('tool_calls', 0)} tool calls{', grounded' if r.get('grounded') else ''}]"
+            print(f"{mark}    {r['graph']} ({r['steps']} steps){tools} {r['failures'] or ''}")
     return 0
 
 

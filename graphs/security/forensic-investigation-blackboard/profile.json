@@ -41,7 +41,9 @@
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       }
     ]
   },
@@ -81,7 +83,9 @@
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       },
       {
         "id": "happy-path",
@@ -107,7 +111,9 @@
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       },
       {
         "id": "happy-path",
@@ -129,7 +135,9 @@
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       }
     ],
     "models": [

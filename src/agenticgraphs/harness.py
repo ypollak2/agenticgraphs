@@ -211,6 +211,17 @@ class RunReport:
     # phase-scoped verification, fan-out and reflexion memory all read from.
     frames: list[dict] = field(default_factory=list)
     assembled: list[str] = field(default_factory=list)
+    tool_calls: list = field(default_factory=list)
+
+    @property
+    def grounded(self) -> bool:
+        """Did any claim in this run trace to a real tool call?
+
+        The distinction `assert-grounded` rests on: an assert that held because a
+        command exited 0 is evidence; the same assert holding because a model said
+        so is not.
+        """
+        return any(c.ok for c in self.tool_calls)
     lessons: list[dict] = field(default_factory=list)
     budget_exhausted: str = ""
     journal: list[dict] = field(default_factory=list)
@@ -420,6 +431,9 @@ class ReplayRunner:
     def __init__(self, recording: dict):
         self.model = recording.get("model", "unknown")
         self.recorded = recording.get("recorded", "unknown")
+        # Replayed so the grade survives: a recording of a grounded run must
+        # still read as grounded.
+        self.recorded_tool_calls = recording.get("tool_calls") or []
         self.node_outputs = recording["node_outputs"]
         self.visits: dict = defaultdict(int)
         self.name = f"llm-replay:{self.model}"
@@ -443,6 +457,96 @@ class ReplayRunner:
                 "recording is not a sign-off"
             )
         return {"signed_off": True, "approver": "auto-approve", "auto_approved": True}
+
+
+class ToolRunner(LLMRunner):
+    """LLMRunner plus the abilities each node declares, actually bound.
+
+    Only a node's own `abilities` are offered — never a general toolbox. The
+    registry's premise is that what a node may do is written down, and handing a
+    model an open set of tools would discard exactly that property.
+
+    Mutating abilities (`risk: write`/`execute`) stay unbound unless the caller
+    opts in, reusing the risk level `abilities/*.yaml` has declared since M0
+    rather than inventing a second permission model.
+    """
+
+    MAX_TOOL_ROUNDS = 4
+
+    def __init__(self, root=None, allow_mutating: bool = False, report=None):
+        super().__init__()
+        self.root = Path(root) if root else Path.cwd()
+        self.allow_mutating = allow_mutating
+        self.report = report
+        self.name = f"tools:{self.model}"
+
+    def _chat(self, messages: list, tools: list) -> dict:
+        payload = {"model": self.model, "messages": messages}
+        if tools:
+            payload["tools"] = tools
+        req = urllib.request.Request(
+            f"{self.base}/chat/completions", data=json.dumps(payload).encode(),
+            headers={"Content-Type": "application/json",
+                     **({"Authorization": f"Bearer {self.key}"} if self.key else {})},
+        )
+        with urllib.request.urlopen(req, timeout=180) as r:  # noqa: S310
+            return json.load(r)["choices"][0]["message"]
+
+    def run(self, node: dict, bb: dict) -> dict:
+        from . import bindings
+
+        bound = bindings.bind_for(node, self.allow_mutating, self.root)
+        if not bound:
+            return super().run(node, bb)  # nothing to ground; behave as before
+
+        base = super()._prompt(node, bb) if hasattr(super(), "_prompt") else None
+        messages = [{"role": "user", "content": self._prompt_text(node, bb, bound)}]
+        tools = bindings.as_openai_tools(bound)
+
+        for _ in range(self.MAX_TOOL_ROUNDS):
+            msg = self._chat(messages, tools)
+            calls = msg.get("tool_calls") or []
+            if not calls:
+                return extract_json(msg.get("content") or "")
+            messages.append(msg)
+            for call in calls:
+                fn = call["function"]
+                try:
+                    args = json.loads(fn.get("arguments") or "{}")
+                except json.JSONDecodeError:
+                    args = {}
+                rec = bindings.invoke(fn["name"], args, self.root,
+                                      self.allow_mutating, self.root)
+                if self.report is not None:
+                    self.report.tool_calls.append(rec)
+                messages.append({
+                    "role": "tool", "tool_call_id": call["id"],
+                    "content": json.dumps(rec.evidence if rec.ok else {"error": rec.detail},
+                                          default=str)[:4000],
+                })
+        # Out of rounds: ask once more, without tools, for the final object.
+        messages.append({"role": "user",
+                         "content": "Now return ONLY the JSON object, using the tool "
+                                    "results above. Do not call further tools."})
+        return extract_json(self._chat(messages, [])["content"] or "")
+
+    def _prompt_text(self, node: dict, bb: dict, bound: dict) -> str:
+        declared = node.get("outputs") or []
+        scoped = self.contract_for(node)
+        names = ", ".join(sorted(bound))
+        return (
+            f"You are node '{node['id']}' (speciality: {node['speciality']}) in a workflow.\n"
+            f"Blackboard so far: {json.dumps(bb, default=str)}\n"
+            + (f"Downstream assertions that must hold: {json.dumps(scoped['checks'])}\n"
+               if scoped["checks"] else "")
+            + f"You have these tools and MUST use them for any fact you cannot "
+              f"otherwise verify: {names}. Never invent a URL, exit code, file, line "
+              f"number or identifier — obtain it from a tool.\n"
+            + (f"You MUST return exactly these keys, with concrete values: "
+               f"{json.dumps(declared)}. " if declared else "")
+            + self._assembly_hint(declared, scoped["keys"])
+            + "When done, reply with ONLY a JSON object. No prose, no markdown fence."
+        )
 
 
 def _normalize(doc: dict) -> dict:
@@ -560,6 +664,18 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
     rep = RunReport()
     if hasattr(runner, "bind"):
         runner.bind(doc)
+    # Give a tool-bound runner the report to append its calls to, unwrapping a
+    # recording wrapper. Without this the calls happen and leave no trace, which
+    # is the same failure as not making them.
+    for candidate in (runner, getattr(runner, "inner", None)):
+        if candidate is not None and hasattr(candidate, "allow_mutating"):
+            candidate.report = rep
+    for rec in getattr(runner, "recorded_tool_calls", []):
+        from .bindings import ToolCall
+
+        rep.tool_calls.append(
+            ToolCall(rec["ability"], rec.get("args", {}), rec["ok"], rec.get("detail", ""))
+        )
     if has_subgraphs(doc):
         doc = expand(doc, root) if root else expand(doc)
         rep.expanded = True

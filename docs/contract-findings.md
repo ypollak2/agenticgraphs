@@ -6,8 +6,8 @@ by hand is a label that can be set to make a number look better.
 
 **83 graphs recorded across 4 models:** `gpt-4o`, `hermes3:8b`, `qwen2.5-coder:7b`, `qwen3-coder:30b`
 
-- ✅ **47** satisfy their contract on every model
-- ⚠️ **17** are satisfied by some models and not others
+- ✅ **46** satisfy their contract on every model
+- ⚠️ **18** are satisfied by some models and not others
 - 🚫 **19** are satisfied by no model
 
 ## 🚫 Satisfied by no model
@@ -70,3 +70,4 @@ one model was the first thing v1.3 did.
 | `fact-check-pipeline` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `forensic-investigation-blackboard` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |
 | `benchmark-driven-optimization-search` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
+| `docs-code-sync-audit` | `gpt-4o` 0%, `hermes3:8b` 100%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |

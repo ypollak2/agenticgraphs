@@ -1,3 +1,6 @@
 name: run_command
 description: Execute a shell command.
 risk: execute
+binding:
+  kind: builtin
+  ref: agenticgraphs.bindings:run_command

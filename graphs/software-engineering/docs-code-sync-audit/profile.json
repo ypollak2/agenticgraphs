@@ -41,7 +41,9 @@
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       },
       {
         "id": "retry-then-verified",
@@ -62,20 +64,149 @@
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       }
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:hermes3:8b,qwen2.5-coder:7b,qwen3-coder:30b",
+    "runner": "llm-replay:gpt-4o,hermes3:8b,qwen2.5-coder:7b,qwen3-coder:30b",
     "provisional": false,
-    "verification_depth": "assert-live",
+    "verification_depth": "assert-grounded",
     "date": "2026-08-09",
-    "cases": 3,
+    "cases": 4,
     "passed": 3,
-    "pass_rate": 1.0,
+    "pass_rate": 0.75,
     "mean_steps": 3.0,
     "results": [
+      {
+        "id": "first-attempt-verified",
+        "model": "gpt-4o",
+        "recorded": "2026-08-09",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 3,
+        "trace": [
+          "plan",
+          "work",
+          "verify"
+        ],
+        "assert_failures": [
+          "all(e.exit_code == 0 for e in output.examples) (AttributeError: 'str' object has no attribute 'exit_code')"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": true,
+        "tool_calls": [
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "ability": "run_command",
+            "ok": true,
+            "detail": "ok"
+          }
+        ]
+      },
       {
         "id": "first-attempt-verified",
         "model": "hermes3:8b",
@@ -96,7 +227,9 @@
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       },
       {
         "id": "first-attempt-verified",
@@ -118,7 +251,9 @@
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       },
       {
         "id": "first-attempt-verified",
@@ -140,10 +275,13 @@
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
-        "truncations": []
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       }
     ],
     "models": [
+      "gpt-4o",
       "hermes3:8b",
       "qwen2.5-coder:7b",
       "qwen3-coder:30b"
@@ -151,14 +289,16 @@
     "recorded": "2026-08-09",
     "age_days": 0,
     "per_model_pass_rate": {
+      "gpt-4o": 0.0,
       "hermes3:8b": 1.0,
       "qwen2.5-coder:7b": 1.0,
       "qwen3-coder:30b": 1.0
     },
-    "models_disagree": false,
+    "models_disagree": true,
     "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
+      "gpt-4o": 1,
       "hermes3:8b": 1,
       "qwen2.5-coder:7b": 1,
       "qwen3-coder:30b": 1
