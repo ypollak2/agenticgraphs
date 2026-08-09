@@ -23,6 +23,7 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from agenticgraphs.registry import ROOT, iter_graphs, load  # noqa: E402
+from agenticgraphs.shapes import names as _names  # noqa: E402
 from agenticgraphs.subgraphs import expand, has_subgraphs  # noqa: E402
 from agenticgraphs.validate import (  # noqa: E402
     asserted_keys,
@@ -83,7 +84,7 @@ def derive(gpath: Path) -> tuple[str, list[str], list[str]]:
             if fixture_id.split(".")[0] == nid and fixture_id != nid:
                 emitted |= set(keys)
         emitted -= {"attempts"}  # runtime-owned, never a node's to promise
-        if emitted and not node.get("outputs"):
+        if emitted and not _names(node):
             node["outputs"] = sorted(emitted)
             added += [f"{nid}.{k}" for k in sorted(emitted)]
 
@@ -102,8 +103,8 @@ def derive(gpath: Path) -> tuple[str, list[str], list[str]]:
         if node is None:
             unresolved.append(key)
             continue
-        if key not in (node.get("outputs") or []):
-            node["outputs"] = sorted({*(node.get("outputs") or []), key})
+        if key not in _names(node):
+            node["outputs"] = sorted({*_names(node), key})
             added.append(f"{target}.{key}")
 
     if added:

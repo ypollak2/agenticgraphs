@@ -7,8 +7,8 @@ by hand is a label that can be set to make a number look better.
 **83 graphs recorded across 4 models:** `gpt-4o`, `hermes3:8b`, `qwen2.5-coder:7b`, `qwen3-coder:30b`
 
 - ✅ **46** satisfy their contract on every model
-- ⚠️ **18** are satisfied by some models and not others
-- 🚫 **19** are satisfied by no model
+- ⚠️ **17** are satisfied by some models and not others
+- 🚫 **20** are satisfied by no model
 
 ## 🚫 Satisfied by no model
 
@@ -40,6 +40,7 @@ produce what it asserts on. That is the v1.4 item.
 | `compliance-evidence-collector` | no control is silently unevidenced; the uncovered list is explicit | `[collect] all(s.exit_code == 0 for s in output.steps) (AttributeError: 'str' object has no` |
 | `vuln-remediation-lifecycle` | nothing is disclosed until the exploit is proven blocked and a human h | `[prioritize] all(r.scanner_evidence and r.asset_map_ref for r in output.ranking) (Attribut` |
 | `bug-triage-and-fix` | repro test fails before patch and passes after | `output.test_failed_before_patch and output.test_passes_after_patch` |
+| `docs-code-sync-audit` | all documented examples run exit zero | `all(e.exit_code == 0 for e in output.examples)` |
 | `feature-delivery-lifecycle` | A release is cut only after the audit verdict is approve, docs are upd | `[audit] all(f.file and f.line for f in output.findings) (AttributeError: 'str' object has ` |
 | `flaky-test-reflexion` | stability is proven over repeated runs, and every failed attempt is re | `output.consecutive_green >= 3` |
 | `framework-migration` | build and full test suite green on the target stack with no slice left | `[port-slice] output.snapshot_before == output.snapshot_after` |
@@ -70,4 +71,3 @@ one model was the first thing v1.3 did.
 | `fact-check-pipeline` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `forensic-investigation-blackboard` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |
 | `benchmark-driven-optimization-search` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
-| `docs-code-sync-audit` | `gpt-4o` 0%, `hermes3:8b` 100%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |

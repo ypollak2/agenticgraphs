@@ -5,38 +5,54 @@
   "node_outputs": {
     "plan": {
       "tasks": [
-        "Identify examples to document",
-        "Develop code snippets for each example",
-        "Run code snippets to test execution",
-        "Verify all code snippets exit with code zero",
-        "Document successful examples with results"
+        {
+          "doc": "Ensure example_1 runs successfully with exit code 0",
+          "snippet": "example_1.run(); assert example_1.exit_code == 0"
+        },
+        {
+          "doc": "Ensure example_2 runs successfully with exit code 0",
+          "snippet": "example_2.run(); assert example_2.exit_code == 0"
+        },
+        {
+          "doc": "Ensure example_3 runs successfully with exit code 0",
+          "snippet": "example_3.run(); assert example_3.exit_code == 0"
+        }
       ]
     },
     "work": [
       {
-        "work_result": "No examples to document. The command 'ls | grep .example' failed, indicating no matching examples were found."
+        "work_result": "FileNotFoundError: The 'example_1.run', 'example_2.run', and 'example_3.run' commands were not found."
       },
       {
-        "work_result": "Developed the code snippet for a simple 'Hello, World!' example in JavaScript. It has been written to 'hello_world.js'."
+        "work_result": "example_2 failed to run successfully with an exit code of 0 due to a missing file error."
       },
       {
-        "work_result": "All code snippets executed successfully with an exit code of 0."
-      },
-      {
-        "work_result": "No code snippets were found in the current directory to verify their exit codes."
-      },
-      {
-        "work_result": "One or more code snippets have been identified, but not all of them execute successfully due to missing dependencies, such as the 'yaml' module in 'gen_graphs.py'. Therefore, the task to document successful examples cannot be completed successfully because downstream assertions cannot pass."
+        "work_result": "error: Executables example_1, example_2, and example_3 were not found. Please ensure they are available in the current directory."
       }
     ],
     "verify": {
-      "examples": [],
+      "examples": [
+        {
+          "exit_code": 1
+        },
+        {
+          "exit_code": 1
+        },
+        {
+          "exit_code": 1
+        }
+      ],
       "output": {
         "examples": [
-          "No examples to document. The command 'ls | grep .example' failed, indicating no matching examples were found.",
-          "All code snippets executed successfully with an exit code of 0.",
-          "No code snippets were found in the current directory to verify their exit codes.",
-          "One or more code snippets have been identified, but not all of them execute successfully due to missing dependencies, such as the 'yaml' module in 'gen_graphs.py'. Therefore, the task to document successful examples cannot be completed successfully because downstream assertions cannot pass."
+          {
+            "exit_code": 1
+          },
+          {
+            "exit_code": 1
+          },
+          {
+            "exit_code": 1
+          }
         ]
       }
     }
@@ -45,7 +61,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "ls | grep .example"
+        "command": "example_1.run"
       },
       "ok": true,
       "detail": "ok"
@@ -53,7 +69,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "echo 'console.log(\"Hello, World!\");' > hello_world.js"
+        "command": "example_2.run"
       },
       "ok": true,
       "detail": "ok"
@@ -61,7 +77,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "echo 'Hello, World!'"
+        "command": "example_3.run"
       },
       "ok": true,
       "detail": "ok"
@@ -69,7 +85,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "echo 'Running test command 2'"
+        "command": "example_2.run()"
       },
       "ok": true,
       "detail": "ok"
@@ -77,7 +93,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "echo 'Testing command 3'"
+        "command": "python3 example_2.py"
       },
       "ok": true,
       "detail": "ok"
@@ -85,7 +101,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "echo 'Command test 4'"
+        "command": "example_3.run(); echo $? > exit_code.txt; cat exit_code.txt"
       },
       "ok": true,
       "detail": "ok"
@@ -93,7 +109,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "echo 'Final command test 5'"
+        "command": "./example_1"
       },
       "ok": true,
       "detail": "ok"
@@ -101,7 +117,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "ls *.sh"
+        "command": "./example_2"
       },
       "ok": true,
       "detail": "ok"
@@ -109,7 +125,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "ls *.py"
+        "command": "./example_3"
       },
       "ok": true,
       "detail": "ok"
@@ -117,7 +133,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "ls *.js"
+        "command": "which example_1"
       },
       "ok": true,
       "detail": "ok"
@@ -125,7 +141,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "ls *.java"
+        "command": "which example_2"
       },
       "ok": true,
       "detail": "ok"
@@ -133,71 +149,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "ls *.rb"
-      },
-      "ok": true,
-      "detail": "ok"
-    },
-    {
-      "ability": "run_command",
-      "args": {
-        "command": "ls *.c"
-      },
-      "ok": true,
-      "detail": "ok"
-    },
-    {
-      "ability": "run_command",
-      "args": {
-        "command": "ls -1 *.sh"
-      },
-      "ok": true,
-      "detail": "ok"
-    },
-    {
-      "ability": "run_command",
-      "args": {
-        "command": "ls -1 *.py"
-      },
-      "ok": true,
-      "detail": "ok"
-    },
-    {
-      "ability": "run_command",
-      "args": {
-        "command": "find . -type f -name '*.sh' -o -name '*.py' -exec sh -c 'echo {} && {}' \\;"
-      },
-      "ok": true,
-      "detail": "ok"
-    },
-    {
-      "ability": "run_command",
-      "args": {
-        "command": "python3 ./scripts/gen_graphs.py"
-      },
-      "ok": true,
-      "detail": "ok"
-    },
-    {
-      "ability": "run_command",
-      "args": {
-        "command": "ls"
-      },
-      "ok": true,
-      "detail": "ok"
-    },
-    {
-      "ability": "run_command",
-      "args": {
-        "command": "grep .example"
-      },
-      "ok": true,
-      "detail": "ok"
-    },
-    {
-      "ability": "run_command",
-      "args": {
-        "command": "node hello_world.js"
+        "command": "which example_3"
       },
       "ok": true,
       "detail": "ok"

@@ -133,7 +133,15 @@ def expand(doc: dict, root: Path = ROOT, _depth: int = 0, _path: tuple[str, ...]
                 if node.get("inputs"):
                     cn["inputs"] = sorted({*(cn.get("inputs") or []), *node["inputs"]})
             if cn["id"] in child_terminals and node.get("outputs"):
-                cn["outputs"] = sorted({*(cn.get("outputs") or []), *node["outputs"]})
+                # Merge by name so a typed entry is never duplicated by its
+                # bare-string twin; the phase's declaration wins when both exist.
+                from .shapes import declared as _declared
+
+                merged = {**_declared(cn), **_declared(node)}
+                cn["outputs"] = [
+                    k if shape is None else {k: shape}
+                    for k, shape in sorted(merged.items())
+                ]
             nodes.append(cn)
         for ce in child["edges"]:
             e = dict(ce)

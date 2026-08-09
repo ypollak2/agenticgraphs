@@ -16,6 +16,8 @@ import urllib.request
 from collections import defaultdict
 from copy import deepcopy
 from dataclasses import dataclass, field
+
+from . import shapes as _shapes
 from pathlib import Path
 
 _ORDER = {"trivial": -1, "low": 0, "simple": 0, "medium": 1, "moderate": 1,
@@ -212,6 +214,7 @@ class RunReport:
     frames: list[dict] = field(default_factory=list)
     assembled: list[str] = field(default_factory=list)
     tool_calls: list = field(default_factory=list)
+    shape_violations: list[str] = field(default_factory=list)
 
     @property
     def grounded(self) -> bool:
@@ -267,6 +270,7 @@ class RunReport:
     def passed(self) -> bool:
         return (not self.assert_failures and not self.command_failures
                 and not self.state_violations and not self.budget_exhausted
+                and not self.shape_violations
                 and not self.hit_step_cap and not self.deadlocked)
 
 
@@ -352,7 +356,7 @@ class LLMRunner:
             self.asserted |= _asserted_keys(check)
 
     def run(self, node: dict, bb: dict) -> dict:
-        declared = node.get("outputs") or []
+        declared = _shapes.names(node)
         # "Return the keys this step is responsible for" is a question about the
         # node's JOB, and models answer it as one: `position-a` in
         # `ab-test-analysis` replied {"keys": ["recomputed_effect",
@@ -385,6 +389,7 @@ class LLMRunner:
             + (f"The workflow's exit contract is: {contract}\n" if contract else "")
             + (f"Downstream assertions that must hold: {json.dumps(checks)}\n" if checks else "")
             + wants
+            + _shapes.describe(node)
             + self._assembly_hint(declared, scoped["keys"])
             + "Reply with ONLY a JSON object. No prose, no markdown fence."
         )
@@ -531,7 +536,7 @@ class ToolRunner(LLMRunner):
         return extract_json(self._chat(messages, [])["content"] or "")
 
     def _prompt_text(self, node: dict, bb: dict, bound: dict) -> str:
-        declared = node.get("outputs") or []
+        declared = _shapes.names(node)
         scoped = self.contract_for(node)
         names = ", ".join(sorted(bound))
         return (
@@ -787,9 +792,14 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
         elif node.get("kind") == "search":
             out = _search(node, bb, runner, rep, visits[nid])
         else:
+            before = len(rep.tool_calls)
             out = _reconcile_output(node, runner.run(node, bb), runner, rep)
+            _bind_evidence(bb, rep, before)
             rep.frames.append({"node": nid, "visit": visits[nid], "out": out})
         bb.update(out)
+        violations = _shapes.violations(node, out)
+        if violations:
+            rep.shape_violations += violations
 
         errored = bool(out.get("error"))
         if errored and attempts[nid] < node.get("retries", {}).get("max", 0):
@@ -898,7 +908,7 @@ def _fan_out(node: dict, bb: dict, runner, rep: RunReport, visit: int) -> dict:
         results.append(out)
     errs = [r for r in results if r.get("error")]
     on_partial = spec.get("on_partial", "continue")
-    keys = set(node.get("outputs") or []) | {k for r in results for k in r}
+    keys = set(_shapes.names(node)) | {k for r in results for k in r}
     merged: dict = {k: [r.get(k) for r in results] for k in keys}
     merged["shards_processed"] = len(results)
     merged["shards_failed"] = len(errs)
@@ -1039,6 +1049,31 @@ def _fire(nid, node, out, doc, out_edges, resolved, taken, forced, pending, bb, 
             forced.add(tgt)
         if tgt not in pending:
             pending.append(tgt)
+
+
+def _bind_evidence(bb: dict, rep: RunReport, since: int) -> None:
+    """Put what the tools returned on the blackboard, addressable by ability.
+
+    The gap this closes: `rep.tool_calls` was built for *auditing* — proving a
+    command ran. But an assert reads what the model wrote, so a node could make 20
+    perfect tool calls and still hand the contract prose, because nothing carried
+    the evidence across. `docs-code-sync-audit` failed exactly that way: every
+    exit code existed at run time and was summarised into English before it
+    reached the blackboard.
+
+    Now an assert can read the fact directly:
+
+        all(c.exit_code == 0 for c in tools.run_command)
+
+    which is checkable without trusting a transcription.
+    """
+    fresh = [c for c in rep.tool_calls[since:] if c.ok]
+    if not fresh:
+        return
+    tools = dict(bb.get("tools") or {})
+    for call in fresh:
+        tools.setdefault(call.ability, []).append(call.evidence)
+    bb["tools"] = tools
 
 
 def _reconcile_output(node: dict, out: dict, runner, rep: RunReport) -> dict:

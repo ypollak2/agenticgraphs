@@ -17,6 +17,7 @@ from pathlib import Path
 import jsonschema
 
 from .registry import ROOT, iter_yaml, load, load_schema
+from .shapes import ShapeError, names as _out_names, parse as _parse_shape
 from .subgraphs import entry_nodes
 
 #: Node/edge/graph keys introduced in AGR v1.1.
@@ -73,7 +74,7 @@ def unconnected_keys(doc: dict) -> set[str]:
     declared output. That is how four contracts stayed structurally valid, passed
     the whole suite, and were satisfiable by no model.
     """
-    produced = {o for n in doc.get("nodes", []) for o in n.get("outputs") or []}
+    produced = {o for n in doc.get("nodes", []) for o in _out_names(n)}
     produced |= set((doc.get("state") or {}).get("inputs") or [])
     # No early return for graphs that declare nothing. An earlier draft excused
     # them — "a node that declares nothing makes no promise to break" — and that
@@ -125,7 +126,7 @@ def _lint_v11(doc: dict, root: Path) -> list[str]:
         if n.get("on_error") and n["on_error"] not in node_ids:
             errors.append(f"lint: node '{n['id']}' on_error targets unknown node '{n['on_error']}'")
 
-    produced_all = {o for n in doc.get("nodes", []) for o in n.get("outputs") or []}
+    produced_all = {o for n in doc.get("nodes", []) for o in _out_names(n)}
     supplied_all = set((doc.get("state") or {}).get("inputs") or [])
     # A phase is valid either as an unexpanded `kind: subgraph` node, or — once
     # expanded — as the id prefix its child's nodes now carry. Both forms are
@@ -290,7 +291,7 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
         if unknown:
             errors.append(f"lint: node '{n['id']}' unknown abilities {sorted(unknown)}")
 
-    return errors + _lint_v11(doc, root) + _lint_v14(doc) + _lint_v15(doc)
+    return errors + _lint_v11(doc, root) + _lint_v14(doc) + _lint_v15(doc) + _lint_shapes(doc)
 
 
 def _contract_gap_message(doc: dict) -> str | None:
@@ -337,7 +338,7 @@ def _upstream_outputs(doc: dict) -> dict[str, set[str]]:
         for nid in by_id:
             acc: set[str] = set()
             for p in preds[nid]:
-                acc |= set(by_id[p].get("outputs") or []) | up.get(p, set())
+                acc |= set(_out_names(by_id[p])) | up.get(p, set())
             if acc != up[nid]:
                 up[nid], changed = acc, True
         if not changed:
@@ -366,7 +367,7 @@ def silent_nodes(doc: dict) -> list[str]:
         n["id"] for n in doc.get("nodes", [])
         if n["id"] in has_successor
         and n.get("kind") != "subgraph"  # a phase delegates; the child declares
-        and not n.get("outputs")
+        and not _out_names(n)
     ]
 
 
@@ -390,7 +391,7 @@ def joint_precondition_asserts(doc: dict) -> list[tuple[str, list[str]]]:
     """
     owner: dict[str, str] = {}
     for n in doc.get("nodes", []):
-        for o in n.get("outputs") or []:
+        for o in _out_names(n):
             owner.setdefault(o, n["id"])
     out: list[tuple[str, list[str]]] = []
     for v in doc.get("verification") or []:
@@ -400,6 +401,22 @@ def joint_precondition_asserts(doc: dict) -> list[tuple[str, list[str]]]:
         if len(producers) > 1:
             out.append((v["assert"], sorted(producers)))
     return out
+
+
+def _lint_shapes(doc: dict) -> list[str]:
+    """A declared shape must be well-formed. An unparseable one is worse than none."""
+    from .shapes import declared
+
+    errors: list[str] = []
+    for n in doc.get("nodes", []):
+        for name, expr in declared(n).items():
+            if expr is None:
+                continue
+            try:
+                _parse_shape(expr)
+            except ShapeError as ex:
+                errors.append(f"lint: node '{n['id']}' output '{name}' has a bad shape: {ex}")
+    return errors
 
 
 def _lint_v15(doc: dict) -> list[str]:

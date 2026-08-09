@@ -1,6 +1,7 @@
 apiVersion: agr/v1.5
 name: docs-code-sync-audit
-description: Workers execute every doc example against the current API.
+description: Extract every code example from the docs and execute it, recording the real exit code for
+  each.
 category: software-engineering
 nodes:
 - id: plan
@@ -8,7 +9,7 @@ nodes:
   abilities:
   - decompose_goal
   outputs:
-  - tasks
+  - tasks: list[{doc:str, snippet:str}]
 - id: work
   speciality: worker
   abilities:
@@ -19,14 +20,14 @@ nodes:
     max: 20
     on_partial: continue
   outputs:
-  - work_result
+  - work_result: '{doc:str, command:str, exit_code:int}'
 - id: verify
   speciality: verifier
   abilities:
   - run_command
   kind: verifier
   outputs:
-  - examples
+  - examples: list[{doc:str, exit_code:int}]
   - output
 edges:
 - from: plan

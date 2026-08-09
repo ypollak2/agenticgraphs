@@ -108,10 +108,22 @@
           },
           "outputs": {
             "type": "array",
+            "description": "Keys this node is contracted to write. A bare string names a key; a single-key mapping also gives its shape, e.g. {examples: \"list[{exit_code:int}]\"}.",
             "items": {
-              "type": "string"
-            },
-            "description": "v1.1 \u2014 blackboard keys this node is contracted to write."
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "minProperties": 1,
+                  "maxProperties": 1,
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              ]
+            }
           },
           "on_error": {
             "type": "string",
