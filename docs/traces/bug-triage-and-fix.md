@@ -26,7 +26,7 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `plan` | `steps=['decompose goal']` |
-| 2 | `execute` | *(no fixture — empty output)* |
+| 2 | `execute` | `step_result={'step': 1, 'status': 'done'}` |
 | 3 | `verify` | `verify_failed=False, attempts=1, output={'test_failed_before_patch': True, 'test_passes_after_patch': True}` |
 
 **Verification checked:**
@@ -40,9 +40,9 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `plan` | `steps=['decompose goal']` |
-| 2 | `execute` | *(no fixture — empty output)* |
+| 2 | `execute` | `step_result={'step': 1, 'status': 'done'}` |
 | 3 | `verify` | `verify_failed=True, attempts=1` |
-| 4 | `execute` | *(no fixture — empty output)* |
+| 4 | `execute` | `step_result={'step': 1, 'status': 'done'}` |
 | 5 | `verify` | `verify_failed=False, attempts=2, output={'test_failed_before_patch': True, 'test_passes_after_patch': True}` |
 
 **Verification checked:**

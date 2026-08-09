@@ -4,13 +4,18 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys": [
-        "verdicts"
-      ]
+      "summary": "Analysis complete. All verdicts contain required source URL and quote span information."
     },
     "produce": {
-      "keys": [
-        "verdicts"
+      "verdicts": [
+        {
+          "source_url": "https://example.com/article1",
+          "quote_span": "This is a quoted text from the article."
+        },
+        {
+          "source_url": "https://example.com/article2",
+          "quote_span": "Another quoted excerpt from different source."
+        }
       ]
     },
     "review": {
@@ -18,13 +23,11 @@
         "verdicts": [
           {
             "source_url": "https://example.com/article1",
-            "quote_span": "The product exceeded expectations in every aspect.",
-            "verdict": "This review is overly positive and lacks specific details about what aspects were exceptional."
+            "quote_span": "This is a quoted text from the article."
           },
           {
             "source_url": "https://example.com/article2",
-            "quote_span": "Poor quality, very disappointed with the purchase.",
-            "verdict": "This review clearly expresses dissatisfaction but could benefit from more concrete examples of the poor quality."
+            "quote_span": "Another quoted excerpt from different source."
           }
         ]
       }

@@ -275,7 +275,16 @@ def test_every_registry_graph_has_a_connected_contract():
     assert not unmet, unmet
 
 
-def test_every_registry_graph_declares_v14():
+def test_every_registry_graph_is_fully_declared():
+    """v1.4 connected verification to producers; v1.5 gave every dependent node one."""
+    from agenticgraphs.validate import silent_nodes, unconnected_keys
+
     stragglers = [load(gp)["name"] for gp in iter_graphs()
-                  if load(gp)["apiVersion"] != "agr/v1.4"]
+                  if load(gp)["apiVersion"] not in ("agr/v1.4", "agr/v1.5")]
     assert not stragglers, stragglers
+    silent = {load(gp)["name"]: silent_nodes(load(gp))
+              for gp in iter_graphs() if silent_nodes(load(gp))}
+    assert not silent, silent
+    unmet = {load(gp)["name"]: sorted(unconnected_keys(load(gp)))
+             for gp in iter_graphs() if unconnected_keys(load(gp))}
+    assert not unmet, unmet

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: legacy-refactor
 description: Refactor a module behind characterization tests.
 category: software-engineering
@@ -7,6 +7,8 @@ nodes:
   speciality: analyst
   abilities:
   - analyze
+  outputs:
+  - summary
 - id: produce
   speciality: producer
   abilities:

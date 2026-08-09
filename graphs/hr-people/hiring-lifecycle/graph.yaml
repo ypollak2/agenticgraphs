@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: hiring-lifecycle
 description: Draft a role, screen a pipeline, run a structured interview loop, and gate the offer on a
   panel decision.

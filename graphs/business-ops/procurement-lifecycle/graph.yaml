@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: procurement-lifecycle
 description: Run an RFP, score vendors, negotiate terms, and gate the award on budget-holder approval.
 category: business-ops

@@ -5,26 +5,24 @@
   "node_outputs": {
     "plan": {
       "tasks": [
-        {
-          "id": "task_1",
-          "description": "Decompose the goal into smaller subtasks",
-          "type": "planning",
-          "status": "completed"
-        }
+        "decompose_goal"
       ]
     },
     "work": {
-      "keys": [
-        "shard",
-        "shard_index",
-        "shard_count"
-      ]
+      "work_result": "decompose_goal"
     },
     "verify": {
+      "examples": [
+        {
+          "exit_code": 0,
+          "name": "decompose_goal"
+        }
+      ],
       "output": {
         "examples": [
           {
-            "exit_code": 0
+            "exit_code": 0,
+            "name": "decompose_goal"
           }
         ]
       }

@@ -25,7 +25,7 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `partition` | `shard_count=1, shards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
-| 2 | `map` | *(no fixture — empty output)* |
+| 2 | `map` | `shard_result=[{'id': 1, 'finding': 'ok'}]` |
 | 3 | `reduce` | `output={'dedupe_ratio': 0.8, 'missed_paging_alerts': []}` |
 
 **Verification checked:**
@@ -39,7 +39,7 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `partition` | `shard_count=2, shards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
-| 2 | `map` | *(no fixture — empty output)* |
+| 2 | `map` | `shard_result=[{'id': 1, 'finding': 'ok'}]` |
 | 3 | `reduce` | `output={'dedupe_ratio': 0.4, 'missed_paging_alerts': []}` |
 
 **Verification checked:**

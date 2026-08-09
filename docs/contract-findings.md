@@ -6,9 +6,9 @@ by hand is a label that can be set to make a number look better.
 
 **27 graphs recorded across 3 models:** `hermes3:8b`, `qwen2.5-coder:7b`, `qwen3-coder:30b`
 
-- ✅ **7** satisfy their contract on every model
-- ⚠️ **19** are satisfied by some models and not others
-- 🚫 **1** are satisfied by no model
+- ✅ **13** satisfy their contract on every model
+- ⚠️ **14** are satisfied by some models and not others
+- 🚫 **0** are satisfied by no model
 
 ## 🚫 Satisfied by no model
 
@@ -23,9 +23,7 @@ had. The I/O contract is per-node, the verification contract is graph-level, and
 nothing connects them. No lint asks whether the nodes preceding a verifier actually
 produce what it asserts on. That is the v1.4 item.
 
-| Graph | Contract | What every model missed |
-|---|---|---|
-| `ab-test-analysis` | stats recomputed from raw data reproduce claimed effect | `abs(output.recomputed_effect - output.claimed_effect) < 0.01 (AttributeError: recomputed_e` |
+*None — every recorded graph is satisfied by at least one model.*
 
 ## ⚠️ Model-dependent
 
@@ -35,22 +33,17 @@ one model was the first thing v1.3 did.
 
 | Graph | Per-model pass rate |
 |---|---|
-| `blog-production-pipeline` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |
+| `blog-production-pipeline` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `escalation-summarizer` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `kb-article-generator` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 50%, `qwen3-coder:30b` 100% |
-| `data-quality-audit` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 0% |
-| `etl-pipeline-builder` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
-| `alert-noise-reduction` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 0% |
-| `deploy-canary-verifier` | `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
-| `earnings-call-digest` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |
-| `expense-audit-swarm` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |
-| `kyc-document-processing` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
-| `differential-diagnosis-ensemble` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 0% |
-| `jd-drafting-critic` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 50%, `qwen3-coder:30b` 100% |
-| `contract-redline-pipeline` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
-| `citation-integrity-audit` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
-| `fact-check-pipeline` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |
+| `ab-test-analysis` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
+| `alert-noise-reduction` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 0% |
+| `deploy-canary-verifier` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
+| `earnings-call-digest` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
+| `adverse-event-scanner` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
+| `jd-drafting-critic` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 50%, `qwen3-coder:30b` 100% |
+| `contract-redline-pipeline` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
+| `fact-check-pipeline` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `forensic-investigation-blackboard` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |
-| `architecture-decision-tournament` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |
-| `benchmark-driven-optimization-search` | `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
-| `dependency-upgrade` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
+| `benchmark-driven-optimization-search` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
+| `bug-triage-and-fix` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |

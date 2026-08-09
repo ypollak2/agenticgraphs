@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: code-review-pipeline
 description: Multi-stage PR review that triages risk, splits security and style review, and synthesizes
   one verdict.
@@ -9,6 +9,8 @@ nodes:
   abilities:
   - read_diff
   - classify_risk
+  outputs:
+  - risk
 - id: security-review
   speciality: security-auditor
   abilities:
@@ -16,11 +18,15 @@ nodes:
   - sast_scan
   - secret_detection
   parallel_group: reviews
+  outputs:
+  - sec_hits
 - id: style-review
   speciality: style-reviewer
   abilities:
   - read_diff
   parallel_group: reviews
+  outputs:
+  - style_findings
 - id: synthesize
   speciality: tech-lead
   abilities:

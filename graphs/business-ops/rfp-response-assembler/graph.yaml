@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: rfp-response-assembler
 description: Answer each RFP requirement from a knowledge base, assemble.
 category: business-ops
@@ -17,6 +17,8 @@ nodes:
     over: shards
     max: 20
     on_partial: continue
+  outputs:
+  - shard_result
 - id: reduce
   speciality: reducer
   abilities:

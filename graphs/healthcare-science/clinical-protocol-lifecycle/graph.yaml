@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: clinical-protocol-lifecycle
 description: Draft a study protocol, critique it against guidance, and register it only after investigator
   sign-off.

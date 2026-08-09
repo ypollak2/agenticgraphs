@@ -4,21 +4,29 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "plan": {
-      "plan": {
-        "action": "decompose_goal",
-        "details": "Break down the end-to-end run loads expected row counts goal into smaller, manageable steps."
-      }
-    },
-    "execute": {
-      "responsible_keys": [
-        "details",
-        "estimated_time",
-        "resource_requirements"
+      "steps": [
+        {
+          "action": "run_load",
+          "parameters": {}
+        },
+        {
+          "action": "validate_output",
+          "parameters": {
+            "expected_rows": null,
+            "actual_rows_selector": "$.output.actual_rows"
+          }
+        }
       ]
     },
+    "execute": {
+      "step_result": "failure"
+    },
     "verify": {
+      "actual_rows": null,
+      "expected_rows": null,
       "output": {
-        "details": "Break down the end-to-end run loads expected row counts goal into smaller, manageable steps."
+        "actual_rows": null,
+        "expected_rows": null
       }
     }
   }

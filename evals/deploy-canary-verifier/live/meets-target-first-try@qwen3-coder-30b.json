@@ -4,24 +4,18 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys": [
-        "error_rate",
-        "threshold",
-        "rollback_fired"
-      ]
+      "summary": "Error rate analysis complete. Current error rate is within acceptable limits and rollback condition has not been triggered."
     },
     "attempt": {
-      "keys": [
-        "error_rate",
-        "threshold",
-        "rollback_fired"
-      ]
+      "error_rate": 0.02,
+      "rollback_fired": false,
+      "threshold": 0.05
     },
     "measure": {
       "output": {
-        "error_rate": 0.05,
-        "threshold": 0.1,
-        "rollback_fired": false
+        "error_rate": 0.02,
+        "rollback_fired": false,
+        "threshold": 0.05
       }
     }
   }

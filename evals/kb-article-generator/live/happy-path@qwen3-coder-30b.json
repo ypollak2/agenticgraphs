@@ -4,25 +4,16 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys": [
-        "reproduce",
-        "resolution",
-        "duplicates",
-        "deduped"
-      ]
+      "summary": "Analysis complete. Reproduction steps have been generated and duplicate entries have been removed from the resolution set."
     },
     "produce": {
-      "keys": [
-        "reproduce",
-        "resolution",
-        "duplicates",
-        "deduped"
-      ]
+      "duplicates_deduped": true,
+      "reproduces_resolution": true
     },
     "review": {
       "output": {
-        "reproduces_resolution": true,
-        "duplicates_deduped": true
+        "duplicates_deduped": true,
+        "reproduces_resolution": true
       }
     }
   }

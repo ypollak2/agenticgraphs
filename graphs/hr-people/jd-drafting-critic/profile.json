@@ -72,8 +72,8 @@
     "verification_depth": "assert-live",
     "date": "2026-08-09",
     "cases": 4,
-    "passed": 2,
-    "pass_rate": 0.5,
+    "passed": 3,
+    "pass_rate": 0.75,
     "mean_steps": 3.0,
     "results": [
       {
@@ -101,16 +101,14 @@
         "id": "generated-and-approved",
         "model": "hermes3:8b",
         "recorded": "2026-08-09",
-        "passed": false,
+        "passed": true,
         "steps": 3,
         "trace": [
           "intake",
           "generate",
           "critique"
         ],
-        "assert_failures": [
-          "output.bias_lint_clean and output.requirements_deduped (NameError: name 'output' is not defined)"
-        ],
+        "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -132,7 +130,7 @@
           "critique"
         ],
         "assert_failures": [
-          "output.bias_lint_clean and output.requirements_deduped (AttributeError: requirements_deduped)"
+          "output.bias_lint_clean and output.requirements_deduped"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -173,7 +171,7 @@
     "recorded": "2026-08-09",
     "age_days": 0,
     "per_model_pass_rate": {
-      "hermes3:8b": 0.0,
+      "hermes3:8b": 1.0,
       "qwen2.5-coder:7b": 0.5,
       "qwen3-coder:30b": 1.0
     },

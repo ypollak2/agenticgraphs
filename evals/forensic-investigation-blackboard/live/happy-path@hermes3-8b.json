@@ -5,36 +5,84 @@
   "node_outputs": {
     "seed": {
       "leads": [
-        "For any unresolved claims or open questions to be addressed properly, a more thorough investigation into the available evidence and potential gaps would be necessary.",
-        "Identifying additional sources of information or alternate explanations could help clarify the situation."
+        {
+          "lead": "It seems there were some attempts mentioned in the input blackboard. If this evidence isn't cited to support any conclusions, that would be an unresolved issue that should likely be noted.",
+          "importance": "medium",
+          "justification": "Citing evidence is a key requirement of the workflow exit contract"
+        },
+        {
+          "lead": "The prompt mentions having me generate leads rather than actual outputs. So if there are any open questions or uncited claims in whatever conclusions are drawn downstream, that should be called out as unresolved problems with this system.",
+          "importance": "high",
+          "justification": "Meeting the contractual performance requirements of my role and being up-front about limitations is critical"
+        }
       ]
     },
     "investigate": [
       {
-        "evidence": []
+        "evidence": [
+          "If this evidence isn't cited to support any conclusions, that would be an unresolved issue that should likely be noted.",
+          "The prompt mentions having me generate leads rather than actual outputs. So if there are any open questions or uncited claims in whatever conclusions are drawn downstream, that should be called out as unresolved problems with this system."
+        ]
+      },
+      {
+        "evidence": "The prompt mentions having me generate leads rather than actual outputs. So if there are any open questions or uncited claims in whatever conclusions are drawn downstream, that should be called out as unresolved problems with this system."
       },
       {
         "evidence": [
-          "running the sast_scan to find potential code-level vulnerabilities or security risks that could impact system integrity and overall safety",
-          "comparing source versions with diffs to identify any changes or updates that may be relevant in understanding how this incident occurred",
-          "executing specific commands on server to gather information about existing protection measures, response plans and current state of the art in terms of security practices"
+          "If this evidence isn't cited to support any conclusions, that would be an unresolved issue that should likely be noted.",
+          "The prompt mentions having me generate leads rather than actual outputs. So if there are any open questions or uncited claims in whatever conclusions are drawn downstream, that should be called out as unresolved problems with this system.",
+          "The prompt mentions having me generate leads rather than actual outputs. So if there are any open questions or uncited claims in whatever conclusions are drawn downstream, that should be called out as unresolved problems with this system."
+        ]
+      },
+      {
+        "uncited_claims": 1,
+        "open_questions": [
+          "There seem to be some unresolved issues with this analysis."
+        ]
+      },
+      {
+        "evidence": [
+          "Based on the leads generated so far, it appears there is one uncited claim and one open question that has not been addressed in the conclusions drawn from the evidence presented.",
+          "The prompt mentions having me generate leads rather than actual outputs. So if there are any open questions or uncited claims in whatever conclusions are drawn downstream, that should be called out as unresolved problems with this system.",
+          "There seem to be some unresolved issues with this analysis."
+        ]
+      },
+      {
+        "evidence": [
+          "Based on the leads generated so far, it appears there is one uncited claim and one open question that has not been addressed in the conclusions drawn from the evidence presented."
         ]
       }
     ],
-    "assess": {
-      "picture": {
-        "assess": {
-          "conclusions": [
-            "Given the available evidence, including running sast_scan for vulnerabilities and gathering information on response plans and security practices, it seems there is sufficient context to evaluate what happened."
-          ],
-          "uncited_claims": 0
-        }
+    "assess": [
+      {
+        "uncited_claims": 1,
+        "open_questions": [
+          "There seem to be some unresolved issues with this analysis.",
+          "This system has limitations that should be acknowledged."
+        ]
       },
-      "open_questions": null,
-      "output": {
-        "assess_uncited": true,
-        "has_open_questions": false
+      {
+        "open_questions": [
+          "There seem to be some unresolved issues with this analysis."
+        ],
+        "output": {
+          "uncited_claims": 1,
+          "open_questions": "There seem to be some unresolved issues with this analysis."
+        },
+        "picture": "Based on the leads generated so far, it appears there is one uncited claim and one open question that has not been addressed in the conclusions drawn from the evidence presented.",
+        "uncited_claims": 1
+      },
+      {
+        "open_questions": [
+          "There seem to be some unresolved issues with this analysis."
+        ],
+        "output": {
+          "uncited_claims": 1,
+          "open_questions": "There seem to be some unresolved issues with this analysis."
+        },
+        "picture": "Based on the leads generated so far, it appears there is one uncited claim and one open question that has not been addressed in the conclusions drawn from the evidence presented.",
+        "uncited_claims": 1
       }
-    }
+    ]
   }
 }

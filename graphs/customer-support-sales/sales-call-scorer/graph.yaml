@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: sales-call-scorer
 description: Score a call against a rubric from several independent passes, reporting variance as a confidence
   signal.

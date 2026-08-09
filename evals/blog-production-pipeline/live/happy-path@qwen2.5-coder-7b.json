@@ -4,21 +4,18 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys": [
-        "output.lint_passed",
-        "output.plagiarism_clean"
-      ]
+      "summary": "Not enough information to evaluate whether the style guide lint passes or if there is plagiarism. Please provide further details."
     },
     "produce": {
-      "keys": [
-        "output.lint_passed",
-        "output.plagiarism_clean"
-      ]
+      "output": {
+        "lint_passed": false,
+        "plagiarism_clean": false
+      }
     },
     "review": {
       "output": {
-        "lint_passed": true,
-        "plagiarism_clean": true
+        "lint_passed": false,
+        "plagiarism_clean": false
       }
     }
   }

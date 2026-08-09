@@ -72,22 +72,24 @@
     "verification_depth": "assert-live",
     "date": "2026-08-09",
     "cases": 3,
-    "passed": 2,
-    "pass_rate": 0.667,
+    "passed": 1,
+    "pass_rate": 0.333,
     "mean_steps": 3.0,
     "results": [
       {
         "id": "happy-path",
         "model": "hermes3:8b",
         "recorded": "2026-08-09",
-        "passed": true,
+        "passed": false,
         "steps": 3,
         "trace": [
           "intake",
           "produce",
           "review"
         ],
-        "assert_failures": [],
+        "assert_failures": [
+          "all(r.playbook_ref for r in output.redlines) (AttributeError: playbook_ref)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -109,7 +111,7 @@
           "review"
         ],
         "assert_failures": [
-          "all(r.playbook_ref for r in output.redlines) (AttributeError: 'list' object has no attribute 'redlines')"
+          "all(r.playbook_ref for r in output.redlines)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -150,7 +152,7 @@
     "recorded": "2026-08-09",
     "age_days": 0,
     "per_model_pass_rate": {
-      "hermes3:8b": 1.0,
+      "hermes3:8b": 0.0,
       "qwen2.5-coder:7b": 0.0,
       "qwen3-coder:30b": 1.0
     },

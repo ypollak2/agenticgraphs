@@ -4,18 +4,18 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "presentations": null
+      "presentation": "A diagnosis has been carried to quorum due to disagreement in the input. The output contains both a consensus (based on available data) and a note regarding retained dissent."
     },
     "adjudicate": {
-      "consensus": null,
+      "consensus": " diagnosis based on available data",
       "dissent": [
-        "The presentations have not been provided."
+        "disagreement in the input"
       ],
       "dissent_retained": true,
       "output": {
-        "consensus": null,
+        "consensus": "diagnosis based on available data",
         "dissent": [
-          "The presentations have not been provided."
+          "disagreement in the input"
         ],
         "dissent_retained": true
       }

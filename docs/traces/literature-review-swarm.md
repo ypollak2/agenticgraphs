@@ -26,7 +26,7 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `plan` | `steps=['decompose goal'], tasks=[{'i': 1}, {'i': 2}, {'i': 3}]` |
-| 2 | `work` | *(no fixture — empty output)* |
+| 2 | `work` | `work_result=[{'id': 1, 'status': 'done'}]` |
 | 3 | `verify` | `verify_failed=False, attempts=1, output={'claims': [{'text': 'effect size is moderate', 'paper': 'Smith2024', 'section': '3.2'}]}` |
 
 **Verification checked:**
@@ -40,9 +40,9 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `plan` | `steps=['decompose goal'], tasks=[{'i': 1}, {'i': 2}, {'i': 3}]` |
-| 2 | `work` | *(no fixture — empty output)* |
+| 2 | `work` | `work_result=[{'id': 1, 'status': 'done'}]` |
 | 3 | `verify` | `verify_failed=True, attempts=1` |
-| 4 | `work` | *(no fixture — empty output)* |
+| 4 | `work` | `work_result=[{'id': 1, 'status': 'done'}]` |
 | 5 | `verify` | `verify_failed=False, attempts=2, output={'claims': [{'text': 'effect size is moderate', 'paper': 'Smith2024', 'section': '3.2'}]}` |
 
 **Verification checked:**

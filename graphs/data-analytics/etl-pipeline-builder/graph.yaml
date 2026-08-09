@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: etl-pipeline-builder
 description: Design and build an ETL job from source to warehouse.
 category: data-analytics
@@ -7,10 +7,14 @@ nodes:
   speciality: planner
   abilities:
   - decompose_goal
+  outputs:
+  - steps
 - id: execute
   speciality: executor
   abilities:
   - execute_step
+  outputs:
+  - step_result
 - id: verify
   speciality: verifier
   abilities:

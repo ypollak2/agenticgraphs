@@ -4,16 +4,19 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "analyze_in_progress": true
+      "summary": "Node intake has determined that to satisfy the exit contract and meet the downstream requirements, it must generate redlines citing positions from the playbook."
     },
     "produce": {
-      "output": {
-        "redlines": []
-      }
+      "redlines": []
     },
     "review": {
       "output": {
-        "redlines": []
+        "redlines": [
+          {
+            "summary": "The initial intake indicates that to fulfill the exit contract and meet downstream requirements, each redline must reference a position from the playbook.",
+            "cited_position": "p1"
+          }
+        ]
       }
     }
   }

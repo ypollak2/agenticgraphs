@@ -263,10 +263,20 @@ class LLMRunner:
 
     def run(self, node: dict, bb: dict) -> dict:
         declared = node.get("outputs") or []
+        # "Return the keys this step is responsible for" is a question about the
+        # node's JOB, and models answer it as one: `position-a` in
+        # `ab-test-analysis` replied {"keys": ["recomputed_effect",
+        # "claimed_effect"]} — naming keys instead of producing values, starving
+        # everything downstream. v1.5 declares outputs on every dependent node so
+        # the first branch is what actually runs; the fallback must still ask for
+        # values rather than for a description of the work.
         wants = (
-            f"You MUST return exactly these keys: {json.dumps(declared)}. "
+            f"You MUST return exactly these keys, with concrete values: {json.dumps(declared)}. "
             if declared else
-            "Return the keys this step is responsible for. "
+            "Return a JSON object of the concrete values this step produces. "
+        )
+        wants += (
+            "Return values, never key names, plans, or descriptions of what you would do. "
         )
         contract = getattr(self, "contract", "")
         checks = getattr(self, "checks", [])

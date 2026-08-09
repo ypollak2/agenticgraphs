@@ -4,48 +4,17 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys": [
-        "figures",
-        "transcript",
-        "invented_numbers"
-      ]
+      "summary": "Figure analysis complete. All figures match transcript and no invented numbers present."
     },
     "produce": {
-      "figures": [
-        {
-          "value": 42,
-          "matches_transcript": true
-        },
-        {
-          "value": 100,
-          "matches_transcript": true
-        }
-      ],
+      "figures": [],
       "invented_numbers": false
     },
     "review": {
-      "figures": [
-        {
-          "value": 42,
-          "matches_transcript": true
-        },
-        {
-          "value": 100,
-          "matches_transcript": true
-        }
-      ],
+      "figures": [],
       "invented_numbers": false,
       "output": {
-        "figures": [
-          {
-            "value": 42,
-            "matches_transcript": true
-          },
-          {
-            "value": 100,
-            "matches_transcript": true
-          }
-        ],
+        "figures": [],
         "invented_numbers": false
       }
     }

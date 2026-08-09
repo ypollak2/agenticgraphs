@@ -7,27 +7,19 @@
       "tasks": [
         {
           "id": "task_1",
-          "description": "Decompose the main goal into subtasks",
-          "type": "planning",
+          "description": "Verify that all violations in output have line_id and policy_rule fields populated",
           "dependencies": []
         }
       ]
     },
     "work": {
-      "shard": {
-        "id": "task_1",
-        "description": "Decompose the main goal into subtasks",
-        "type": "planning",
-        "dependencies": []
-      },
-      "shard_index": 0,
-      "shard_count": 1,
-      "attempts": 1
+      "work_result": "Verified that all violations in output have line_id and policy_rule fields populated"
     },
     "verify": {
       "output": {
         "violations": []
-      }
+      },
+      "violations": []
     }
   }
 }

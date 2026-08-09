@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: soc-alert-investigation
 description: Investigate an alert with hypothesis-driven queries.
 category: security
@@ -7,10 +7,14 @@ nodes:
   speciality: planner
   abilities:
   - decompose_goal
+  outputs:
+  - steps
 - id: execute
   speciality: executor
   abilities:
   - execute_step
+  outputs:
+  - step_result
 - id: verify
   speciality: verifier
   abilities:

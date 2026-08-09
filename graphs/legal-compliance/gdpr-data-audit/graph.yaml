@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: gdpr-data-audit
 description: Map personal data across systems, classify lawful basis, find gaps, and produce a remediation
   plan.

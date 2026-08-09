@@ -4,25 +4,29 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys": [
-        "attempts"
-      ]
+      "summary": "Based on 1 attempt recorded, a brief summary has not yet been possible."
     },
     "produce": {
-      "keys": [
-        "attempts"
+      "all_asks_covered": true,
+      "asks": [
+        {
+          "ask": "Summarize the given text based on the provided information.",
+          "quote": "Based on 1 attempt recorded, a brief summary has not yet been possible."
+        }
       ]
     },
     "review": {
-      "output": {
-        "asks": [
-          {
-            "ask": "Provide a critique of the given text.",
-            "answer": "As node 'review' (speciality: critic) in this workflow, my ability is to provide a critique of the given text. However, no text has been provided yet for me to analyze and comment on. Once the necessary input content is available, I would be able to fulfill this ask with an appropriate critical assessment."
-          }
-        ],
-        "all_asks_covered": true
-      }
+      "output": [
+        {
+          "all_asks_covered": true,
+          "asks": [
+            {
+              "ask": "Summarize the given text based on the provided information.",
+              "quote": "Based on 1 attempt recorded, a brief summary has not yet been possible."
+            }
+          ]
+        }
+      ]
     }
   }
 }

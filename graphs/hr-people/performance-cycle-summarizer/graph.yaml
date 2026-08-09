@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: performance-cycle-summarizer
 description: Aggregate self, peer and manager input into a calibrated summary with evidence for every
   claim.

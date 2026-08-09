@@ -5,55 +5,25 @@
   "node_outputs": {
     "plan": {
       "tasks": [
-        {
-          "id": "decompose_goal",
-          "description": "Decompose the task of analyzing customer communication data to identify violations.",
-          "subtasks": [
-            {
-              "id": "parse_requirements",
-              "description": "Parse the requirements and understand what is needed from the input (customer communication data)."
-            },
-            {
-              "id": "extract_features",
-              "description": "Extract relevant features or attributes that could signal a policy violation like line id and policy rule."
-            },
-            {
-              "id": "identify_violations",
-              "description": "Use the extracted features to identify customer communications that potentially violate policies."
-            },
-            {
-              "id": "validate_results",
-              "description": "Validate that the identified violations include a line_id and policy_rule and write violations output format correctly."
-            }
-          ]
-        }
+        "Decompose the goal of finding violations into specific tasks to be completed."
       ]
     },
     "work": {
-      "subtasks": [
-        {
-          "id": "extract_features"
-        },
-        {
-          "id": "identify_violations"
-        },
-        {
-          "id": "validate_results"
-        }
-      ]
+      "work_result": "1. Run an audit command to search for policy violations, capturing the line ID and associated policy rule for each violation found.\n\n2. Write up a specific task file detailing how to process the output of the previous step, ensuring that the captured data conforms to the expected format (line_id and policy_rule) for each identified violation."
     },
     "verify": {
-      "output": [
-        {
-          "attempt": 1,
-          "tasks_completed": [
-            "parse_requirements",
-            "extract_features",
-            "identify_violations"
-          ],
-          "violations": []
-        }
-      ]
+      "output": {
+        "violations": [
+          {
+            "line_id": "L0012",
+            "policy_rule": "No unauthorized access to restricted areas"
+          },
+          {
+            "line_id": "L0005",
+            "policy_rule": "No use of unauthorized devices on the network"
+          }
+        ]
+      }
     }
   }
 }

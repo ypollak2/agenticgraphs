@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: citation-integrity-audit
 description: Workers verify each citation exists and supports its claim.
 category: research-knowledge
@@ -18,6 +18,8 @@ nodes:
     over: tasks
     max: 20
     on_partial: continue
+  outputs:
+  - work_result
 - id: verify
   speciality: verifier
   abilities:

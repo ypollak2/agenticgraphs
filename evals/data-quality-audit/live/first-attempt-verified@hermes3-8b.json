@@ -6,34 +6,68 @@
     "plan": {
       "tasks": [
         {
-          "id": "decompose_001",
-          "description": "Decompose the goal of analyzing user preferences into smaller sub-tasks.",
-          "subtask_goals": [
-            "Identify key aspects to consider in analyzing user preferences, such as past purchases, browsing history, ratings given, and expressed interests.",
-            "For each aspect, determine what data needs to be collected or analyzed to understand the user's preferences."
+          "id": "decompose_goal",
+          "name": "Decompose the goal of generating a workflow for planning into more specific tasks.",
+          "inputs": [
+            "goal"
           ],
-          "outputs": [
-            {
-              "key": "aspect_list",
-              "description": "List of aspects to consider when analyzing user preferences"
-            },
-            {
-              "key": "data_requirements",
-              "description": "Data requirements for each aspect identified in user preference analysis."
-            }
-          ]
+          "outputType": "task_list"
+        },
+        {
+          "id": "select_specialty",
+          "name": "Choose which speciality area to use given current information like prior_planning and expert system setup.",
+          "inputs": [
+            "current_prior_planning",
+            "expert_system_setup"
+          ],
+          "outputType": "specialties_selected"
+        },
+        {
+          "id": "create_plan",
+          "name": "Use selected specialization and domain knowledge to generate the plan.",
+          "inputs": [
+            "tasks_list",
+            "specialties_selected"
+          ],
+          "outputType": "plan"
         }
       ]
     },
-    "work": {
-      "keys": [
-        "aspect_list",
-        "data_requirements"
-      ]
-    },
+    "work": [
+      {
+        "work_result": {
+          "violations": [
+            {
+              "rule_id": "R1",
+              "count": 0
+            },
+            {
+              "rule_id": "R2",
+              "count": 0
+            }
+          ]
+        }
+      },
+      {
+        "work_result": "select_specialty"
+      },
+      {
+        "work_result": "Generated a workflow plan"
+      }
+    ],
     "verify": {
       "output": {
-        "violations": []
+        "plan": "Use the selected 'planner' speciality to generate the plan for decomposing the goal of generating a workflow for planning into more specific tasks, then selecting the right specialty to use given current information, and finally creating the detailed plan using that chosen specialty.",
+        "violations": [
+          {
+            "rule_id": "R1",
+            "count": 0
+          },
+          {
+            "rule_id": "R2",
+            "count": 0
+          }
+        ]
       }
     }
   }

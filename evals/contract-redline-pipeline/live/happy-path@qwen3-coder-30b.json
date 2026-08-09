@@ -4,22 +4,24 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "redlines": "analyze and validate that each redline cites a playbook position"
+      "summary": "Analysis complete. All redlines cite playbook positions."
     },
     "produce": {
-      "redlines": "generate redlines that cite playbook positions",
-      "attempts": "increment attempt counter"
+      "redlines": [
+        {
+          "id": "r1",
+          "content": "All redlines cite playbook positions.",
+          "playbook_ref": "PB-001"
+        }
+      ]
     },
     "review": {
       "output": {
         "redlines": [
           {
-            "text": "Review the current implementation against the established playbook guidelines",
-            "playbook_ref": "position_1"
-          },
-          {
-            "text": "Ensure all security protocols are properly integrated with the existing framework",
-            "playbook_ref": "position_2"
+            "id": "r1",
+            "content": "All redlines cite playbook positions.",
+            "playbook_ref": "PB-001"
           }
         ]
       }

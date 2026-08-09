@@ -6,63 +6,58 @@
     "frame": {
       "options": [
         {
-          "runner_up": "design_b",
-          "margin": 0.15
+          "id": "design_a",
+          "score": 85,
+          "margin": 12
         },
         {
-          "runner_up": "design_c",
-          "margin": 0.08
+          "id": "design_b",
+          "score": 73,
+          "margin": 3
         },
         {
-          "runner_up": "design_a",
-          "margin": 0.12
+          "id": "design_c",
+          "score": 91,
+          "margin": 18
         }
       ],
       "rubric": {
+        "design_a": {
+          "runner_up": "design_b",
+          "margin": 12
+        },
         "design_b": {
-          "score": 85,
-          "comments": "Strong execution but slightly lacks innovation"
+          "runner_up": "design_a",
+          "margin": 3
         },
         "design_c": {
-          "score": 78,
-          "comments": "Good foundation but needs refinement in key areas"
-        },
-        "design_a": {
-          "score": 82,
-          "comments": "Solid approach with clear strengths"
+          "runner_up": "design_a",
+          "margin": 18
         }
       }
     },
     "design": [
       {
-        "proposal": {
-          "runner_up": "design_b",
-          "margin": 0.15
-        },
-        "rubric_score": 85
+        "proposal": "design_c",
+        "rubric_score": 91
       },
       {
-        "proposal": {
-          "runner_up": "design_b",
-          "margin": 0.15
-        },
-        "rubric_score": 85
+        "proposal": "design_c",
+        "rubric_score": 91
       },
       {
-        "proposal": {
-          "runner_up": "design_b",
-          "margin": 0.15
-        },
-        "rubric_score": 85
+        "proposal": "design_c",
+        "rubric_score": 91
       }
     ],
     "judge": {
-      "winner": "design_b",
-      "margin": 0.15,
+      "designs_scored": 3,
+      "margin": 18,
       "output": {
         "designs_scored": 3,
-        "margin": 0.15
-      }
+        "margin": 18
+      },
+      "winner": "design_c"
     }
   }
 }

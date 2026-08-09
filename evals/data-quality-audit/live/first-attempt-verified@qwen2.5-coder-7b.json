@@ -6,23 +6,40 @@
     "plan": {
       "tasks": [
         {
-          "task_name": "decompose_goal",
-          "inputs": {
-            "goal": null,
-            "context": {}
-          },
-          "output_path": "violation_log"
+          "name": "Check current attempts",
+          "action": "evaluate_attempts"
+        },
+        {
+          "name": "Decompose goal based on attempts",
+          "condition": "attempts == 1",
+          "actions": [
+            "decompose_goal"
+          ]
         }
       ]
     },
-    "work": {
-      "keys_responsible_for": [
-        "violations"
-      ]
-    },
+    "work": [
+      {
+        "work_result": {
+          "action": "evaluate_attempts"
+        }
+      },
+      {
+        "work_result": "violations"
+      }
+    ],
     "verify": {
       "output": {
-        "violations": []
+        "violations": [
+          {
+            "rule_id": "shard_processing",
+            "count": 2
+          },
+          {
+            "rule_id": "shard_failure",
+            "count": 0
+          }
+        ]
       }
     }
   }

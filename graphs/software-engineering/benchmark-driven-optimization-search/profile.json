@@ -46,15 +46,36 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:qwen2.5-coder:7b,qwen3-coder:30b",
+    "runner": "llm-replay:hermes3:8b,qwen2.5-coder:7b,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-09",
-    "cases": 2,
-    "passed": 1,
-    "pass_rate": 0.5,
+    "cases": 3,
+    "passed": 2,
+    "pass_rate": 0.667,
     "mean_steps": 3.0,
     "results": [
+      {
+        "id": "happy-path",
+        "model": "hermes3:8b",
+        "recorded": "2026-08-09",
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "profile",
+          "explore",
+          "verify"
+        ],
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": []
+      },
       {
         "id": "happy-path",
         "model": "qwen2.5-coder:7b",
@@ -67,7 +88,8 @@
           "verify"
         ],
         "assert_failures": [
-          "output.suite_green == true (AttributeError: suite_green)"
+          "output.bench_ms < output.baseline_ms (TypeError: '<' not supported between instances of 'int' and 'NoneType')",
+          "output.suite_green == true"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -101,12 +123,14 @@
       }
     ],
     "models": [
+      "hermes3:8b",
       "qwen2.5-coder:7b",
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-09",
     "age_days": 0,
     "per_model_pass_rate": {
+      "hermes3:8b": 1.0,
       "qwen2.5-coder:7b": 0.0,
       "qwen3-coder:30b": 1.0
     },

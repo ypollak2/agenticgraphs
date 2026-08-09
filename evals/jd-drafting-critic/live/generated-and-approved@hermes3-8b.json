@@ -4,19 +4,18 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "step_keys": [
-        "output.bias_term_lint_clean",
-        "output.requirements_deduped"
-      ]
+      "summary": "Received 1 attempt so far to fulfill the workflow requirements for bias-free and clean datasets."
     },
     "generate": {
-      "key": "output.bias_term_lint_clean"
+      "draft": "generate a dataset that has been passed bias and clean linting checks, and deduplicate any overlapping requirements"
     },
     "critique": {
-      "comment": null,
-      "critique": null,
-      "impact": false,
-      "retest": false
+      "bias_lint_clean": true,
+      "output": {
+        "bias_lint_clean": true,
+        "requirements_deduped": true
+      },
+      "requirements_deduped": true
     }
   }
 }

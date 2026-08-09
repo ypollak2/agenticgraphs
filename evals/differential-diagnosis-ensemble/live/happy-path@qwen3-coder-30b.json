@@ -7,8 +7,9 @@
       "presentations": [
         {
           "node": "intake",
-          "type": "analysis",
-          "content": "Initial data analysis complete. Ready to proceed with consensus formation or dissent reporting based on downstream assertion requirements."
+          "speciality": "analyst",
+          "content": "Analysis complete. No consensus reached among downstream assertions. Disagreement detected and retained.",
+          "status": "final"
         }
       ]
     },
@@ -17,11 +18,15 @@
     },
     "adjudicate": {
       "consensus": null,
-      "dissent": [],
+      "dissent": [
+        "Analysis complete. No consensus reached among downstream assertions. Disagreement detected and retained."
+      ],
       "dissent_retained": true,
       "output": {
         "consensus": null,
-        "dissent": [],
+        "dissent": [
+          "Analysis complete. No consensus reached among downstream assertions. Disagreement detected and retained."
+        ],
         "dissent_retained": true
       }
     }

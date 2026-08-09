@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: red-team-blue-team-hardening
 description: An attacker searches for a working bypass while a defender patches, until the attacker is
   exhausted.

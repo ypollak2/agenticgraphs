@@ -4,128 +4,16 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "seed": {
-      "leads": [
-        "The workflow requires that all conclusions cite evidence",
-        "Unresolved questions must be stated rather than dropped",
-        "Downstream assertions mandate zero uncited claims and presence of open questions"
-      ]
+      "leads": []
     },
-    "investigate": [
-      {
-        "evidence": [
-          "The workflow requires that all conclusions cite evidence",
-          "Unresolved questions must be stated rather than dropped",
-          "Downstream assertions mandate zero uncited claims and presence of open questions",
-          "output.uncited_claims == 0",
-          "output.open_questions is not None"
-        ]
+    "assess": {
+      "open_questions": [],
+      "output": {
+        "open_questions": [],
+        "uncited_claims": 0
       },
-      {
-        "evidence": [
-          "The workflow requires that all conclusions cite evidence",
-          "Unresolved questions must be stated rather than dropped",
-          "Downstream assertions mandate zero uncited claims and presence of open questions"
-        ]
-      },
-      {
-        "evidence": [
-          "The workflow requires that all conclusions cite evidence",
-          "Unresolved questions must be stated rather than dropped",
-          "Downstream assertions mandate zero uncited claims and presence of open questions",
-          "The shard 'Downstream assertions mandate zero uncited claims and presence of open questions' is the current focus",
-          "Current shard index 2 of 3 indicates this is a targeted inspection phase"
-        ]
-      },
-      {
-        "evidence": [
-          "The workflow requires that all conclusions cite evidence",
-          "Unresolved questions must be stated rather than dropped",
-          "Downstream assertions mandate zero uncited claims and presence of open questions",
-          "output.uncited_claims == 0",
-          "output.open_questions is not None"
-        ]
-      },
-      {
-        "evidence": [
-          "The workflow requires that all conclusions cite evidence",
-          "Unresolved questions must be stated rather than dropped",
-          "Downstream assertions mandate zero uncited claims and presence of open questions",
-          "output.uncited_claims == 0",
-          "output.open_questions is not None"
-        ]
-      },
-      {
-        "evidence": [
-          "The shard 'Downstream assertions mandate zero uncited claims and presence of open questions' is the current focus",
-          "Current shard index 2 of 3 indicates this is a targeted inspection phase",
-          "output.uncited_claims == 0",
-          "output.open_questions is not None",
-          "The workflow requires that all conclusions cite evidence",
-          "Unresolved questions must be stated rather than dropped",
-          "Downstream assertions mandate zero uncited claims and presence of open questions"
-        ]
-      },
-      {
-        "evidence": [
-          "The workflow requires that all conclusions cite evidence",
-          "Unresolved questions must be stated rather than dropped",
-          "Downstream assertions mandate zero uncited claims and presence of open questions",
-          "output.uncited_claims == 0",
-          "output.open_questions is not None"
-        ]
-      },
-      {
-        "evidence": [
-          "The workflow requires that all conclusions cite evidence",
-          "Unresolved questions must be stated rather than dropped",
-          "Downstream assertions mandate zero uncited claims and presence of open questions",
-          "output.uncited_claims == 0",
-          "output.open_questions is not None"
-        ]
-      },
-      {
-        "evidence": [
-          "The shard 'Downstream assertions mandate zero uncited claims and presence of open questions' is the current focus",
-          "Current shard index 2 of 3 indicates this is a targeted inspection phase",
-          "output.uncited_claims == 0",
-          "output.open_questions is not None"
-        ]
-      }
-    ],
-    "assess": [
-      {
-        "picture": "The workflow is currently in a targeted inspection phase where the focus is on ensuring that downstream assertions mandate zero uncited claims and presence of open questions. All conclusions must cite evidence and unresolved questions must be stated rather than dropped.",
-        "open_questions": [
-          "Are all conclusions properly citing evidence?",
-          "Have all unresolved questions been stated rather than dropped?"
-        ],
-        "output": {
-          "uncited_claims": 0,
-          "open_questions": true
-        }
-      },
-      {
-        "picture": "The workflow is currently in a targeted inspection phase where the focus is on ensuring that downstream assertions mandate zero uncited claims and presence of open questions. All conclusions must cite evidence and unresolved questions must be stated rather than dropped.",
-        "open_questions": [
-          "Are all conclusions properly citing evidence?",
-          "Have all unresolved questions been stated rather than dropped?"
-        ],
-        "output": {
-          "uncited_claims": 0,
-          "open_questions": true
-        }
-      },
-      {
-        "picture": "The workflow is currently in a targeted inspection phase where the focus is on ensuring that downstream assertions mandate zero uncited claims and presence of open questions. All conclusions must cite evidence and unresolved questions must be stated rather than dropped.",
-        "open_questions": [
-          "Are all conclusions properly citing evidence?",
-          "Have all unresolved questions been stated rather than dropped?"
-        ],
-        "output": {
-          "uncited_claims": 0,
-          "open_questions": true
-        }
-      }
-    ]
+      "picture": {},
+      "uncited_claims": 0
+    }
   }
 }

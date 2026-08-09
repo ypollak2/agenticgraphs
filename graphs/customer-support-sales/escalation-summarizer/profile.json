@@ -88,7 +88,7 @@
           "review"
         ],
         "assert_failures": [
-          "output.all_asks_covered and all(a.quote for a in output.asks) (AttributeError: quote)"
+          "output.all_asks_covered and all(a.quote for a in output.asks) (AttributeError: 'list' object has no attribute 'all_asks_covered')"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,

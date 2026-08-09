@@ -4,25 +4,22 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "output_keys": [
-        "verdicts"
-      ]
+      "summary": "The workflow encountered an error in the intake node due to missing source URL and/or quote span in the verdicts output by downstream nodes."
     },
     "produce": {
-      "output_keys": [
-        "verdicts"
+      "verdicts": [
+        {
+          "source_url": null,
+          "quote_span": null
+        }
       ]
     },
     "review": {
       "output": {
         "verdicts": [
           {
-            "source_url": "[example.com/1]",
-            "quote_span": "This is a good attempt."
-          },
-          {
-            "source_url": "[example.com/2]",
-            "quote_span": "Needs more refinement."
+            "source_url": null,
+            "quote_span": null
           }
         ]
       }

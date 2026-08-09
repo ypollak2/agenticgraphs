@@ -16,7 +16,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from agenticgraphs.evalcmd import eval_graph  # noqa: E402
 from agenticgraphs.registry import ROOT, iter_graphs, load  # noqa: E402
-from agenticgraphs.validate import unconnected_keys  # noqa: E402
+from agenticgraphs.validate import silent_nodes, unconnected_keys  # noqa: E402
 
 BEGIN, END = "<!-- scoreboard:begin -->", "<!-- scoreboard:end -->"
 
@@ -28,7 +28,8 @@ def row_for(gpath: Path) -> dict:
     if not has_cases:
         return {"name": name, "category": category, "cases": 0, "pass_rate": None,
                 "mean_steps": None, "routes": 0, "depth": "none", "live": None,
-                "connected": not unconnected_keys(doc)}
+                "connected": not unconnected_keys(doc),
+                "declared": not silent_nodes(doc)}
     profile = eval_graph(name)
     measured = profile["measured"]
     results = measured["results"]
@@ -43,6 +44,7 @@ def row_for(gpath: Path) -> dict:
         "depth": measured["verification_depth"],
         "live": profile.get("measured_live"),
         "connected": not unconnected_keys(doc),
+        "declared": not silent_nodes(doc),
     }
 
 
@@ -116,6 +118,7 @@ def scoreboard_block(rows: list[dict]) -> str:
         lines.append(f"| `{r['name']}` | {r['category']} | {r['cases'] or '—'} "
                      f"| {pass_rate} | `{r['depth']}` | {live_col} | {mean_steps} | {routes} |")
     disconnected = [r["name"] for r in rows if not r["connected"]]
+    undeclared = [r["name"] for r in rows if not r["declared"]]
     lines += ["",
               f"**Contract connection (v1.4):** {len(rows) - len(disconnected)} of {len(rows)} "
               "graphs have every key their verification asserts on declared as some node's "
@@ -123,7 +126,16 @@ def scoreboard_block(rows: list[dict]) -> str:
               "four contracts could be structurally valid, pass the whole suite, and be "
               "satisfiable by no model. "
               + (f"Still disconnected: {', '.join(f'`{n}`' for n in disconnected)}."
-                 if disconnected else "No graph is disconnected.")]
+                 if disconnected else "No graph is disconnected."),
+              "",
+              f"**Node declarations (v1.5):** {len(rows) - len(undeclared)} of {len(rows)} "
+              "graphs have every node that something depends on declaring what it produces. "
+              "103 of 346 nodes were silent when v1.5 began — and a live model told only to "
+              "\"return the keys this step is responsible for\" answers that question "
+              "literally, returning key *names* where values belong and starving everything "
+              "downstream. "
+              + (f"Still silent: {', '.join(f'`{n}`' for n in undeclared)}."
+                 if undeclared else "No node is silent.")]
     lines.append(END)
     return "\n".join(lines)
 

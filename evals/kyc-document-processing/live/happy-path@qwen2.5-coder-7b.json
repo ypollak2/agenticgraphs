@@ -4,28 +4,14 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "next_keys": "output.fields"
+      "summary": "Insufficient information provided to validate any fields. Please provide document images for further analysis."
     },
     "produce": {
-      "keys": [
-        "output.fields"
-      ],
-      "dependencies": []
+      "fields": []
     },
     "review": {
       "output": {
-        "fields": [
-          {
-            "name": "field_1",
-            "value": "extracted_value_1",
-            "validated": true
-          },
-          {
-            "name": "field_2",
-            "value": "extracted_value_2",
-            "validated": false
-          }
-        ]
+        "fields": []
       }
     }
   }

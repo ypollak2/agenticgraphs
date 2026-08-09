@@ -24,7 +24,11 @@ import yaml
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from agenticgraphs.registry import ROOT, iter_graphs, load  # noqa: E402
 from agenticgraphs.subgraphs import expand, has_subgraphs  # noqa: E402
-from agenticgraphs.validate import asserted_keys, unconnected_keys  # noqa: E402
+from agenticgraphs.validate import (  # noqa: E402
+    asserted_keys,
+    silent_nodes,
+    unconnected_keys,
+)
 
 
 def _emitters(cases: list[dict]) -> tuple[dict[str, set[str]], dict[str, set[str]]]:
@@ -64,6 +68,25 @@ def derive(gpath: Path) -> tuple[str, list[str], list[str]]:
     added: list[str] = []
     unresolved: list[str] = []
 
+    # v1.5: every node that something depends on must declare what it produces,
+    # not only the keys verification happens to assert on. 103 of 346 nodes were
+    # contractually silent, and a live model told to "return the keys this step is
+    # responsible for" answers that question literally — naming keys instead of
+    # producing values, and starving everything downstream.
+    has_successor = {e["from"] for e in doc["edges"]}
+    for nid, node in by_id.items():
+        if nid not in has_successor or node.get("kind") == "subgraph":
+            continue
+        emitted = set(top.get(nid, ())) | set(nested.get(nid, ()))
+        # A composite phase's fixtures live under `<phase>.<child>`; roll them up.
+        for fixture_id, keys in {**top, **nested}.items():
+            if fixture_id.split(".")[0] == nid and fixture_id != nid:
+                emitted |= set(keys)
+        emitted -= {"attempts"}  # runtime-owned, never a node's to promise
+        if emitted and not node.get("outputs"):
+            node["outputs"] = sorted(emitted)
+            added += [f"{nid}.{k}" for k in sorted(emitted)]
+
     for key in sorted(needed):
         # Prefer the node that emits the fact directly; fall back to the node that
         # carries it inside `output`. A composite's child node ids are prefixed,
@@ -84,10 +107,11 @@ def derive(gpath: Path) -> tuple[str, list[str], list[str]]:
             added.append(f"{target}.{key}")
 
     if added:
-        doc["apiVersion"] = "agr/v1.4"
+        doc["apiVersion"] = "agr/v1.5"
         gpath.write_text(yaml.safe_dump(doc, sort_keys=False, width=100))
-    elif not unconnected_keys(doc) and doc.get("apiVersion") != "agr/v1.4":
-        doc["apiVersion"] = "agr/v1.4"  # already connected; promote it
+    elif (not unconnected_keys(doc) and not silent_nodes(doc)
+          and doc.get("apiVersion") != "agr/v1.5"):
+        doc["apiVersion"] = "agr/v1.5"  # already fully declared; promote it
         gpath.write_text(yaml.safe_dump(doc, sort_keys=False, width=100))
     return name, added, unresolved
 

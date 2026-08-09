@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: podcast-production-pipeline
 description: 'Turn a raw recording into a published episode: transcript, edit plan, show notes, rights
   check, publish.'

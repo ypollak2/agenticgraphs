@@ -5,95 +5,96 @@
   "node_outputs": {
     "profile": {
       "hotspot": null,
-      "baseline_ms": 100
+      "baseline_ms": null
     },
     "explore": [
       {
-        "patch": "Increase the iteration count of the loop by 10%. Ensure each iteration uses more efficient algorithms and data structures.",
+        "patch": "increase_resolution",
+        "bench_ms": 95
+      },
+      {
+        "patch": null,
+        "bench_ms": 150
+      },
+      {
+        "patch": "optimize_loop",
+        "bench_ms": 950
+      },
+      {},
+      {
+        "patch": "increase_resolution",
+        "bench_ms": 50
+      },
+      {
+        "patch": null,
+        "bench_ms": null
+      },
+      {
+        "patch": "increase_resolution",
+        "bench_ms": 140
+      },
+      {
+        "patch": "increase_resolution",
         "bench_ms": 90
       },
       {
         "patch": null,
+        "bench_ms": 145
+      },
+      {
+        "output": {
+          "patch": null,
+          "bench_ms": 140
+        }
+      },
+      {
+        "patch": "",
+        "bench_ms": 120
+      },
+      {
+        "patch": "",
+        "bench_ms": 120
+      },
+      {
+        "patch": null,
+        "bench_ms": null
+      },
+      {
+        "patch": "increase_resolution",
+        "bench_ms": 45
+      },
+      {
+        "patch": "increase_resolution",
+        "bench_ms": 45
+      },
+      {
+        "patch": null,
+        "bench_ms": null
+      },
+      {
+        "patch": "increase_resolution",
         "bench_ms": 85
       },
       {
-        "patch": "{\"change\":\"optimize_code\"}",
-        "bench_ms": 80
+        "patch": "increase_resolution",
+        "bench_ms": 60
       },
       {
-        "patch": "increase_search_depth",
-        "bench_ms": 150
-      },
-      {
-        "patch": "{\"change\":\"optimize_code\"}",
-        "bench_ms": 75
-      },
-      {
-        "patch": "{\"change\":\"optimize_code\"}",
-        "bench_ms": 75
-      },
-      {
-        "patch": "{\"change\":\"optimize_code\"}",
-        "bench_ms": 70
-      },
-      {
-        "patch": "{\"change\":\"optimize_code\"}",
-        "bench_ms": 70
+        "patch": "increase_resolution",
+        "bench_ms": null
       },
       {
         "patch": null,
-        "bench_ms": 85
-      },
-      {
-        "patch": null,
-        "bench_ms": 80
-      },
-      {
-        "patch": "optimized_code_change",
-        "bench_ms": 75
-      },
-      {
-        "patch": null,
-        "bench_ms": 70
-      },
-      {
-        "patch": "{\"change\":\"optimize_code\"}",
-        "bench_ms": 50
-      },
-      {
-        "patch": "{\"change\":\"optimize_code\"}",
-        "bench_ms": 50
-      },
-      {
-        "patch": "{\"change\":\"optimize_for_performance\"}",
-        "bench_ms": 65
-      },
-      {
-        "patch": "{\"change\":\"optimize_code\"}",
-        "bench_ms": 69
-      },
-      {
-        "patch": "{\"change\":\"optimize_code\"}",
-        "bench_ms": 30
-      },
-      {
-        "patch": "{\"change\":\"optimize_code\"}",
-        "bench_ms": 50
-      },
-      {
-        "patch": "{\"change\":\"optimize_code\"}",
-        "bench_ms": 70
-      },
-      {
-        "patch": "{\"change\":\"optimize_code\"}",
-        "bench_ms": 50
+        "bench_ms": null
       }
     ],
     "verify": {
-      "suite_green": false,
+      "baseline_ms": null,
+      "bench_ms": 45,
       "output": {
-        "bench_ms": 30,
-        "baseline_ms": 100
+        "baseline_ms": null,
+        "bench_ms": 45,
+        "suite_green": false
       }
     }
   }

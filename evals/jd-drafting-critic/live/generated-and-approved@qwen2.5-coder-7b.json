@@ -4,22 +4,26 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys_responsible": [
-        "bias_lint_clean",
-        "requirements_deduplicated"
-      ]
+      "summary": {
+        "bias_lint_clean": true,
+        "requirements_deduped": false,
+        "note": "Review failed for 'requirements_deduped'. Duplicates found."
+      }
     },
     "generate": {
-      "keys_responsible": [
-        "bias_lint_clean",
-        "requirements_deduplicated"
-      ]
+      "output": {
+        "bias_lint_clean": false,
+        "requirements_deduped": true,
+        "note": "Requirements are now deduplicated but bias lint check failed."
+      }
     },
     "critique": {
+      "bias_lint_clean": false,
       "output": {
-        "bias_lint_clean": true,
-        "requirements_deduplicated": false
-      }
+        "bias_lint_clean": false,
+        "requirements_deduped": true
+      },
+      "requirements_deduplicated": true
     }
   }
 }

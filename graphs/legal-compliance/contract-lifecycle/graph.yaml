@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: contract-lifecycle
 description: Intake a contract, redline it, gate on residual risk, and execute only with counsel approval.
 category: legal-compliance

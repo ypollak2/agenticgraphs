@@ -4,21 +4,15 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "analyzer_step1": 1
+      "summary": "Based on the current blackboard state showing 1 attempt was made, it appears that analysis has been performed in this workflow. However, to satisfy downstream requirements, the extracted fields need to be validated against original document images to verify their accuracy and completeness before passing output."
     },
     "produce": {
-      "produce": true
+      "fields": []
     },
     "review": {
-      "output": [
-        {
-          "fields": [
-            {
-              "validated": true
-            }
-          ]
-        }
-      ]
+      "output": {
+        "fields": []
+      }
     }
   }
 }

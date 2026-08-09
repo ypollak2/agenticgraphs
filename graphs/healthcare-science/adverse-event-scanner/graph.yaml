@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: adverse-event-scanner
 description: Scan reports for adverse-event signals, reduce to summary.
 category: healthcare-science
@@ -17,6 +17,8 @@ nodes:
     over: shards
     max: 20
     on_partial: continue
+  outputs:
+  - shard_result
 - id: reduce
   speciality: reducer
   abilities:

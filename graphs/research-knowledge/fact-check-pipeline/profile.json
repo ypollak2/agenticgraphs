@@ -80,16 +80,14 @@
         "id": "happy-path",
         "model": "hermes3:8b",
         "recorded": "2026-08-09",
-        "passed": false,
+        "passed": true,
         "steps": 3,
         "trace": [
           "intake",
           "produce",
           "review"
         ],
-        "assert_failures": [
-          "all(v.source_url and v.quote_span for v in output.verdicts) (AttributeError: 'list' object has no attribute 'verdicts')"
-        ],
+        "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -103,14 +101,16 @@
         "id": "happy-path",
         "model": "qwen2.5-coder:7b",
         "recorded": "2026-08-09",
-        "passed": true,
+        "passed": false,
         "steps": 3,
         "trace": [
           "intake",
           "produce",
           "review"
         ],
-        "assert_failures": [],
+        "assert_failures": [
+          "all(v.source_url and v.quote_span for v in output.verdicts)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -150,8 +150,8 @@
     "recorded": "2026-08-09",
     "age_days": 0,
     "per_model_pass_rate": {
-      "hermes3:8b": 0.0,
-      "qwen2.5-coder:7b": 1.0,
+      "hermes3:8b": 1.0,
+      "qwen2.5-coder:7b": 0.0,
       "qwen3-coder:30b": 1.0
     },
     "models_disagree": true,

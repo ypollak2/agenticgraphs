@@ -4,12 +4,18 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "partition": {
-      "shards": []
+      "shards": 1
     },
     "reduce": {
       "output": {
-        "shards": [],
-        "signals": []
+        "signals": [
+          {
+            "report_ids": [
+              1
+            ],
+            "count": 1
+          }
+        ]
       }
     }
   }

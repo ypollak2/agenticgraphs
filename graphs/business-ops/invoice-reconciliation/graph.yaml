@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: invoice-reconciliation
 description: Match invoices to POs and receipts cheapest-first, escalating only genuine exceptions to
   a human.

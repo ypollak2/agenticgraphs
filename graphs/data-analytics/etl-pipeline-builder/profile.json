@@ -72,8 +72,8 @@
     "verification_depth": "assert-live",
     "date": "2026-08-09",
     "cases": 3,
-    "passed": 2,
-    "pass_rate": 0.667,
+    "passed": 3,
+    "pass_rate": 1.0,
     "mean_steps": 3.0,
     "results": [
       {
@@ -101,16 +101,14 @@
         "id": "first-attempt-verified",
         "model": "qwen2.5-coder:7b",
         "recorded": "2026-08-09",
-        "passed": false,
+        "passed": true,
         "steps": 3,
         "trace": [
           "plan",
           "execute",
           "verify"
         ],
-        "assert_failures": [
-          "output.actual_rows == output.expected_rows (AttributeError: actual_rows)"
-        ],
+        "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -151,10 +149,10 @@
     "age_days": 0,
     "per_model_pass_rate": {
       "hermes3:8b": 1.0,
-      "qwen2.5-coder:7b": 0.0,
+      "qwen2.5-coder:7b": 1.0,
       "qwen3-coder:30b": 1.0
     },
-    "models_disagree": true,
+    "models_disagree": false,
     "fails_every_model": false
   }
 }

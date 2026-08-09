@@ -4,15 +4,25 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "figures": "transcript analysis"
+      "summary": "All figures were found to match the provided transcript and there were no invented numbers in the output."
     },
     "produce": {
-      "figures": "produce transcript figures"
+      "figures": [
+        12.4
+      ],
+      "invented_numbers": false
     },
     "review": {
-      "figures": null,
-      "invented_numbers": true,
-      "output": null
+      "output": {
+        "figures": [
+          12.4
+        ],
+        "invented_numbers": false
+      },
+      "invented_numbers": false,
+      "figures": [
+        12.4
+      ]
     }
   }
 }

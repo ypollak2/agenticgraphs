@@ -4,34 +4,12 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "partition": {
-      "shards": [
-        {
-          "finding": "The partition node analysis reveals critical dependencies",
-          "source_url": "https://example.com/analysis-report-2024",
-          "source_date": "2024-01-15"
-        }
-      ]
-    },
-    "map": {
-      "shard_index": "0",
-      "shard_count": "1",
-      "shards": [
-        {
-          "finding": "The partition node analysis reveals critical dependencies",
-          "source_url": "https://example.com/analysis-report-2024",
-          "source_date": "2024-01-15"
-        }
-      ]
+      "shards": []
     },
     "reduce": {
+      "findings": [],
       "output": {
-        "findings": [
-          {
-            "finding": "The partition node analysis reveals critical dependencies",
-            "source_url": "https://example.com/analysis-report-2024",
-            "source_date": "2024-01-15"
-          }
-        ]
+        "findings": []
       }
     }
   }

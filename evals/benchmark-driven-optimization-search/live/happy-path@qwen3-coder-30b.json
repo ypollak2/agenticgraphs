@@ -4,97 +4,97 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "profile": {
-      "hotspot": "profile",
-      "baseline_ms": 1200
+      "hotspot": "memory_allocation",
+      "baseline_ms": 1247
     },
     "explore": [
       {
-        "patch": "feat: optimize profile hotspot processing\n\n- Redesign hotspot evaluation algorithm\n- Implement early termination conditions\n- Add parallel processing for candidate generation",
-        "bench_ms": 1150
+        "patch": "optimize_memory_pool_growth",
+        "bench_ms": 1102
       },
       {
-        "patch": "feat/explore-improve-benchmark",
-        "bench_ms": 1100
+        "patch": "memory_pooling_optimization",
+        "bench_ms": 1102
       },
       {
-        "patch": "optimize_memory_allocation",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_with_better_cache_lines",
+        "bench_ms": 1022
       },
       {
-        "patch": "optimize_memory_allocation",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_strategy",
+        "bench_ms": 1023
       },
       {
-        "patch": "feat/explore-improve-benchmark",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_with_better_cache_lines",
+        "bench_ms": 1022
       },
       {
-        "patch": "feat/explore-improve-benchmark",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_with_better_cache_lines",
+        "bench_ms": 1022
       },
       {
-        "patch": "feat/explore-improve-benchmark",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_with_better_cache_lines",
+        "bench_ms": 1022
       },
       {
-        "patch": "feat/explore-improve-benchmark",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_with_better_cache_lines",
+        "bench_ms": 1022
       },
       {
-        "patch": "optimize_memory_allocation",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_strategy",
+        "bench_ms": 1023
       },
       {
-        "patch": "optimize_memory_allocation",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_strategy",
+        "bench_ms": 1023
       },
       {
-        "patch": "optimize_memory_allocation",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_strategy",
+        "bench_ms": 1023
       },
       {
-        "patch": "optimize_memory_allocation",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_strategy",
+        "bench_ms": 1023
       },
       {
-        "patch": "feat/explore-improve-benchmark",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_with_better_cache_lines",
+        "bench_ms": 1022
       },
       {
-        "patch": "feat/explore-improve-benchmark",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_with_better_cache_lines",
+        "bench_ms": 1022
       },
       {
-        "patch": "feat/explore-improve-benchmark",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_with_better_cache_lines",
+        "bench_ms": 1022
       },
       {
-        "patch": "feat/explore-improve-benchmark",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_with_better_cache_lines",
+        "bench_ms": 1022
       },
       {
-        "patch": "feat/explore-improve-benchmark",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_with_better_cache_lines",
+        "bench_ms": 1022
       },
       {
-        "patch": "feat/explore-improve-benchmark",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_with_better_cache_lines",
+        "bench_ms": 1022
       },
       {
-        "patch": "feat/explore-improve-benchmark",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_with_better_cache_lines",
+        "bench_ms": 1022
       },
       {
-        "patch": "feat/explore-improve-benchmark",
-        "bench_ms": 1100
+        "patch": "optimize_memory_allocation_with_better_cache_lines",
+        "bench_ms": 1022
       }
     ],
     "verify": {
-      "baseline_ms": 1200,
-      "bench_ms": 1100,
+      "baseline_ms": 1247,
+      "bench_ms": 1022,
       "output": {
-        "baseline_ms": 1200,
-        "bench_ms": 1100,
+        "baseline_ms": 1247,
+        "bench_ms": 1022,
         "suite_green": true
       },
       "suite_green": true

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: ab-test-analysis
 description: Two analysts argue significance and pitfalls, judge writes readout.
 category: data-analytics
@@ -8,11 +8,15 @@ nodes:
   abilities:
   - generate
   parallel_group: debate
+  outputs:
+  - argument
 - id: position-b
   speciality: advocate
   abilities:
   - generate
   parallel_group: debate
+  outputs:
+  - argument
 - id: judge
   speciality: judge
   abilities:

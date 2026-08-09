@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: trial-eligibility-screener
 description: Screen patients against trial criteria cheapest-first, escalating ambiguous cases to a clinician.
 category: healthcare-science

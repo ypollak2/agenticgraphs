@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: compliance-evidence-collector
 description: Walk a control framework, collect evidence per control, and flag controls with no live evidence.
 category: security

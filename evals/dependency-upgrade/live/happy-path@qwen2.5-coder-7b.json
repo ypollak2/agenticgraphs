@@ -4,24 +4,18 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "responsibility": [
-        "output.lockfile_updated",
-        "output.tests_pass",
-        "output.new_deprecations"
-      ]
+      "summary": "Tests passed, lockfile updated, and no new deprecation warnings."
     },
     "produce": {
-      "responsibility": [
-        "output.lockfile_updated",
-        "output.tests_pass",
-        "output.new_deprecations"
-      ]
+      "lockfile_updated": true,
+      "tests_pass": true,
+      "new_deprecations": false
     },
     "review": {
       "output": {
-        "lockfile_updated": false,
-        "tests_pass": false,
-        "new_deprecations": true
+        "lockfile_updated": true,
+        "new_deprecations": false,
+        "tests_pass": true
       }
     }
   }

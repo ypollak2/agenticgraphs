@@ -6,37 +6,59 @@
     "plan": {
       "tasks": [
         {
-          "name": "run_example_1",
-          "script": "example_1.sh"
+          "task_name": "Run the documented examples",
+          "description": "",
+          "requirements": []
         },
         {
-          "name": "run_example_2",
-          "script": "example_2.sh"
+          "task_name": "Verify exit codes",
+          "description": "",
+          "requirements": [
+            "all(e.exit_code == 0 for e in output.examples)"
+          ]
         }
       ]
     },
     "work": [
       {
-        "responsible_keys": [
-          "example_1.sh_script_output",
-          "example_2.sh_script_output"
-        ]
+        "work_result": {
+          "output": {
+            "examples": [
+              {
+                "command": "python example1.py",
+                "exit_code": 0
+              },
+              {
+                "command": "python example2.py",
+                "exit_code": 0
+              }
+            ]
+          }
+        }
       },
       {
-        "responsible_keys": [
-          "output.examples"
-        ]
+        "work_result": "false"
       }
     ],
     "verify": {
+      "examples": [
+        {
+          "command": "python example1.py",
+          "exit_code": 0
+        },
+        {
+          "command": "python example2.py",
+          "exit_code": 0
+        }
+      ],
       "output": {
         "examples": [
           {
-            "script_output": "This is the output of example_1.sh",
+            "command": "python example1.py",
             "exit_code": 0
           },
           {
-            "script_output": "This is the output of example_2.sh",
+            "command": "python example2.py",
             "exit_code": 0
           }
         ]

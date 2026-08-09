@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: prompt-graph-optimization
 description: Search prompt-and-topology variants against a held-out eval set, keeping only measured winners.
 category: research-knowledge

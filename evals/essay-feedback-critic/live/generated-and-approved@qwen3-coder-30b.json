@@ -4,18 +4,49 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys": [
-        "comments"
-      ]
+      "summary": "The essay analyzes the impact of social media on modern communication patterns, examining both positive and negative effects on interpersonal relationships and societal interactions."
     },
     "generate": {
-      "keys": [
-        "comments"
-      ]
+      "draft": "Social media has fundamentally transformed how we communicate, creating new pathways for connection while simultaneously challenging traditional interpersonal dynamics. The constant connectivity_enabled by platforms like Facebook and Twitter has made it easier to maintain relationships across distances, yet this convenience often comes at the cost of deeper, more meaningful interactions. Research indicates that while social media can enhance social support networks, it may also contribute to feelings of isolation and anxiety when used excessively. Furthermore, the brevity inherent in many platforms tends to simplify complex ideas, potentially limiting the depth of discourse in public spaces."
     },
     "critique": {
+      "comments": [
+        {
+          "quote": "Social media has fundamentally transformed how we communicate, creating new pathways for connection while simultaneously challenging traditional interpersonal dynamics.",
+          "rubric_id": "rl-001"
+        },
+        {
+          "quote": "The constant connectivity_enabled by platforms like Facebook and Twitter has made it easier to maintain relationships across distances, yet this convenience often comes at the cost of deeper, more meaningful interactions.",
+          "rubric_id": "rl-002"
+        },
+        {
+          "quote": "Research indicates that while social media can enhance social support networks, it may also contribute to feelings of isolation and anxiety when used excessively.",
+          "rubric_id": "rl-003"
+        },
+        {
+          "quote": "Furthermore, the brevity inherent in many platforms tends to simplify complex ideas, potentially limiting the depth of discourse in public spaces.",
+          "rubric_id": "rl-004"
+        }
+      ],
       "output": {
-        "comments": []
+        "comments": [
+          {
+            "quote": "Social media has fundamentally transformed how we communicate, creating new pathways for connection while simultaneously challenging traditional interpersonal dynamics.",
+            "rubric_id": "rl-001"
+          },
+          {
+            "quote": "The constant connectivity_enabled by platforms like Facebook and Twitter has made it easier to maintain relationships across distances, yet this convenience often comes at the cost of deeper, more meaningful interactions.",
+            "rubric_id": "rl-002"
+          },
+          {
+            "quote": "Research indicates that while social media can enhance social support networks, it may also contribute to feelings of isolation and anxiety when used excessively.",
+            "rubric_id": "rl-003"
+          },
+          {
+            "quote": "Furthermore, the brevity inherent in many platforms tends to simplify complex ideas, potentially limiting the depth of discourse in public spaces.",
+            "rubric_id": "rl-004"
+          }
+        ]
       }
     }
   }

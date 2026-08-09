@@ -4,20 +4,20 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys_responsible": [
-        "attempts"
-      ]
+      "summary": {
+        "message": "Analysis failed: one or more figures did not match transcript; invented numbers were detected"
+      }
     },
     "produce": {
       "figures": [],
-      "invented_numbers": []
+      "invented_numbers": true
     },
     "review": {
       "figures": [],
-      "invented_numbers": [],
+      "invented_numbers": true,
       "output": {
         "figures": [],
-        "invented_numbers": []
+        "invented_numbers": true
       }
     }
   }

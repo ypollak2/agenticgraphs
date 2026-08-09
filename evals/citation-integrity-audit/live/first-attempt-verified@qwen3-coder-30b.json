@@ -5,59 +5,24 @@
   "node_outputs": {
     "plan": {
       "tasks": [
-        {
-          "id": "task_1",
-          "description": "Decompose the main goal into subtasks",
-          "type": "planning"
-        },
-        {
-          "id": "task_2",
-          "description": "Identify all citations that need to be resolved",
-          "type": "analysis"
-        },
-        {
-          "id": "task_3",
-          "description": "Verify each citation resolves correctly",
-          "type": "validation"
-        },
-        {
-          "id": "task_4",
-          "description": "Compile and list any mismatches found",
-          "type": "reporting"
-        }
+        "decompose_goal('resolve all citations and identify mismatches')"
       ]
     },
-    "work": [
-      {
-        "keys": [
-          "task_1",
-          "shard"
-        ]
-      },
-      {
-        "shard_id": "task_2",
-        "responsible_keys": [
-          "citations",
-          "resolved"
-        ]
-      },
-      {
-        "keys": [
-          "citations"
-        ]
-      },
-      {
-        "keys": [
-          "shard",
-          "shard_index",
-          "shard_count",
-          "tasks"
-        ]
-      }
-    ],
+    "work": {
+      "work_result": "decompose_goal('resolve all citations and identify mismatches')"
+    },
     "verify": {
+      "citations": [
+        {
+          "resolves": true
+        }
+      ],
       "output": {
-        "citations": []
+        "citations": [
+          {
+            "resolves": true
+          }
+        ]
       }
     }
   }

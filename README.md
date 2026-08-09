@@ -62,7 +62,7 @@
 ## 🧭 About The Project
 
 A **registry of ready-made multi-agent workflow graphs** in a portable, framework-neutral
-format (AGR v1.4), built on three principles:
+format (AGR v1.5), built on three principles:
 
 ```yaml
 principles:
@@ -208,7 +208,7 @@ pie showData title Graphs per domain
 | `assert-live` | assert held against real model output (`agr eval --live`) |
 | `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |
 
-**Real-model evidence:** 27 graphs carry checked-in recordings of actual model runs across 3 models (`evals/<graph>/live/`); **7 of 27** satisfy their contract on every model, and **1 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
+**Real-model evidence:** 27 graphs carry checked-in recordings of actual model runs across 3 models (`evals/<graph>/live/`); **13 of 27** satisfy their contract on every model, and **0 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
 
 | Graph | Domain | Cases | Pass rate | Depth | Live (real model) | Mean steps | Routes |
 |---|---|---|---|---|---|---|---|
@@ -218,7 +218,7 @@ pie showData title Graphs per domain
 | `procurement-lifecycle` | business-ops | 1 | 100% | `assert-fixture` | — | 7 | 1 |
 | `rfp-response-assembler` | business-ops | 2 | 100% | `assert-fixture` | — | 3 | 1 |
 | `vendor-comparison-matrix` | business-ops | 1 | 100% | `assert-fixture` | — | 6 | 1 |
-| `blog-production-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | ⚠️ 0%/100%/100% · 2026-08-09 | 4 | 2 |
+| `blog-production-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 4 | 2 |
 | `localization-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | — | 3 | 1 |
 | `seo-optimization-loop` | content-marketing | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `book-editing-pipeline` | creative-production | 1 | 100% | `assert-fixture` | — | 6 | 1 |
@@ -229,14 +229,14 @@ pie showData title Graphs per domain
 | `kb-article-generator` | customer-support-sales | 2 | 100% | `assert-fixture` | ⚠️ 100%/50%/100% · 2026-08-09 | 4 | 2 |
 | `sales-call-scorer` | customer-support-sales | 1 | 100% | `assert-fixture` | — | 3 | 1 |
 | `ticket-triage-swarm` | customer-support-sales | 2 | 100% | `assert-fixture` | — | 3 | 2 |
-| `ab-test-analysis` | data-analytics | 2 | 100% | `assert-fixture` | 🚫 0%/0%/0% · 2026-08-09 | 3 | 1 |
+| `ab-test-analysis` | data-analytics | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 3 | 1 |
 | `anomaly-investigation` | data-analytics | 2 | 100% | `assert-fixture` | — | 3 | 2 |
-| `data-quality-audit` | data-analytics | 2 | 100% | `assert-fixture` | ⚠️ 100%/100%/0% · 2026-08-09 | 4 | 2 |
-| `etl-pipeline-builder` | data-analytics | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 4 | 2 |
+| `data-quality-audit` | data-analytics | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
+| `etl-pipeline-builder` | data-analytics | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `schema-migration-saga` | data-analytics | 1 | 100% | `assert-fixture` | — | 5 | 1 |
 | `sql-generation-verified` | data-analytics | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `alert-noise-reduction` | devops-sre | 2 | 100% | `assert-fixture` | ⚠️ 100%/100%/0% · 2026-08-09 | 3 | 1 |
-| `deploy-canary-verifier` | devops-sre | 2 | 100% | `assert-fixture` | ⚠️ 0%/100% · 2026-08-09 | 4 | 2 |
+| `alert-noise-reduction` | devops-sre | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/0% · 2026-08-09 | 3 | 1 |
+| `deploy-canary-verifier` | devops-sre | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
 | `incident-lifecycle` | devops-sre | 1 | 100% | `assert-fixture` | — | 10 | 1 |
 | `incident-triage-router` | devops-sre | 2 | 100% | `assert-fixture` | — | 3 | 2 |
 | `postmortem-writer` | devops-sre | 2 | 100% | `assert-fixture` | — | 4 | 2 |
@@ -246,32 +246,32 @@ pie showData title Graphs per domain
 | `essay-feedback-critic` | education | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 4 | 2 |
 | `quiz-generation-verified` | education | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
 | `rubric-grading-swarm` | education | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `earnings-call-digest` | finance | 2 | 100% | `assert-fixture` | ⚠️ 0%/100%/100% · 2026-08-09 | 4 | 2 |
-| `expense-audit-swarm` | finance | 2 | 100% | `assert-fixture` | ⚠️ 0%/100%/100% · 2026-08-09 | 4 | 2 |
-| `kyc-document-processing` | finance | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
+| `earnings-call-digest` | finance | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
+| `expense-audit-swarm` | finance | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
+| `kyc-document-processing` | finance | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `regulatory-filing-lifecycle` | finance | 1 | 100% | `assert-fixture` | — | 5 | 1 |
-| `adverse-event-scanner` | healthcare-science | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 3 | 1 |
+| `adverse-event-scanner` | healthcare-science | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 3 | 1 |
 | `clinical-literature-triage` | healthcare-science | 2 | 100% | `assert-fixture` | — | 3 | 2 |
 | `clinical-protocol-lifecycle` | healthcare-science | 1 | 100% | `assert-fixture` | — | 4 | 1 |
-| `differential-diagnosis-ensemble` | healthcare-science | 1 | 100% | `assert-fixture` | ⚠️ 0%/100%/0% · 2026-08-09 | 3 | 1 |
+| `differential-diagnosis-ensemble` | healthcare-science | 1 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 3 | 1 |
 | `medical-coding-audit` | healthcare-science | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `trial-eligibility-screener` | healthcare-science | 1 | 100% | `assert-fixture` | — | 3 | 1 |
 | `hiring-lifecycle` | hr-people | 1 | 100% | `assert-fixture` | — | 7 | 1 |
-| `jd-drafting-critic` | hr-people | 2 | 100% | `assert-fixture` | ⚠️ 0%/50%/100% · 2026-08-09 | 4 | 2 |
+| `jd-drafting-critic` | hr-people | 2 | 100% | `assert-fixture` | ⚠️ 100%/50%/100% · 2026-08-09 | 4 | 2 |
 | `onboarding-plan-builder` | hr-people | 1 | 100% | `assert-fixture` | — | 4 | 1 |
 | `performance-cycle-summarizer` | hr-people | 1 | 100% | `assert-fixture` | — | 4 | 1 |
 | `contract-lifecycle` | legal-compliance | 1 | 100% | `assert-fixture` | — | 7 | 1 |
-| `contract-redline-pipeline` | legal-compliance | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 4 | 2 |
+| `contract-redline-pipeline` | legal-compliance | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
 | `ediscovery-triage` | legal-compliance | 2 | 100% | `assert-fixture` | — | 3 | 2 |
 | `gdpr-data-audit` | legal-compliance | 1 | 100% | `assert-fixture` | — | 7 | 1 |
 | `license-compliance-scan` | legal-compliance | 2 | 100% | `assert-fixture` | — | 3 | 1 |
 | `product-listing-pipeline` | logistics-retail | 1 | 100% | `assert-fixture` | — | 7 | 1 |
 | `returns-triage` | logistics-retail | 2 | 100% | `assert-fixture` | — | 3 | 2 |
 | `supplier-risk-monitor` | logistics-retail | 1 | 100% | `assert-fixture` | — | 6 | 1 |
-| `citation-integrity-audit` | research-knowledge | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
+| `citation-integrity-audit` | research-knowledge | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `competitive-intelligence` | research-knowledge | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 3 | 1 |
 | `cost-routed-research` | research-knowledge | 3 | 100% | `assert-fixture` | — | 3.33 | 3 |
-| `fact-check-pipeline` | research-knowledge | 2 | 100% | `assert-fixture` | ⚠️ 0%/100%/100% · 2026-08-09 | 4 | 2 |
+| `fact-check-pipeline` | research-knowledge | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 4 | 2 |
 | `literature-review-swarm` | research-knowledge | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `prompt-graph-optimization` | research-knowledge | 1 | 100% | `assert-fixture` | — | 3 | 1 |
 | `compliance-evidence-collector` | security | 1 | 100% | `assert-fixture` | — | 11 | 1 |
@@ -282,11 +282,11 @@ pie showData title Graphs per domain
 | `threat-intel-digest` | security | 2 | 100% | `assert-fixture` | — | 3 | 1 |
 | `vuln-prioritization` | security | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `vuln-remediation-lifecycle` | security | 1 | 100% | `assert-fixture` | — | 9 | 1 |
-| `architecture-decision-tournament` | software-engineering | 1 | 100% | `assert-fixture` | ⚠️ 0%/100%/100% · 2026-08-09 | 3 | 1 |
-| `benchmark-driven-optimization-search` | software-engineering | 1 | 100% | `assert-fixture` | ⚠️ 0%/100% · 2026-08-09 | 3 | 1 |
-| `bug-triage-and-fix` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 4 | 2 |
+| `architecture-decision-tournament` | software-engineering | 1 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 3 | 1 |
+| `benchmark-driven-optimization-search` | software-engineering | 1 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 3 | 1 |
+| `bug-triage-and-fix` | software-engineering | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
 | `code-review-pipeline` | software-engineering | 2 | 100% | `assert-fixture` | — | 3.5 | 2 |
-| `dependency-upgrade` | software-engineering | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 4 | 2 |
+| `dependency-upgrade` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `docs-code-sync-audit` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `feature-delivery-lifecycle` | software-engineering | 3 | 100% | `assert-fixture` | — | 16 | 3 |
 | `flaky-test-reflexion` | software-engineering | 1 | 100% | `assert-fixture` | — | 4 | 1 |
@@ -297,6 +297,8 @@ pie showData title Graphs per domain
 | `test-suite-generation` | software-engineering | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 
 **Contract connection (v1.4):** 83 of 83 graphs have every key their verification asserts on declared as some node's output. This was 60 of 183 keys connected when v1.4 began — the gap is why four contracts could be structurally valid, pass the whole suite, and be satisfiable by no model. No graph is disconnected.
+
+**Node declarations (v1.5):** 83 of 83 graphs have every node that something depends on declaring what it produces. 103 of 346 nodes were silent when v1.5 began — and a live model told only to "return the keys this step is responsible for" answers that question literally, returning key *names* where values belong and starving everything downstream. No node is silent.
 <!-- scoreboard:end -->
 
 ## 🚀 Getting Started
@@ -401,7 +403,7 @@ uv run python scripts/audit_usecases.py      # 112 use cases, 15 domains, AUDIT 
 | **Speciality** | `specialities/*.yaml` | A role a node plays (e.g. `security-auditor`), with required abilities |
 | **Ability** | `abilities/*.yaml` | An atomic capability (e.g. `sast_scan`) with a risk level; MCP-bindable |
 | **Use case** | `usecases/catalog.yaml` | Demand-side backlog: 123 audited entries that graduate into graphs |
-| **Spec** | `spec/*.schema.json` | AGR v1.4 JSON Schemas ([v1.1](docs/agr-v1.1.md) · [v1.2](docs/agr-v1.2.md) · [v1.4](docs/agr-v1.4.md)) |
+| **Spec** | `spec/*.schema.json` | AGR v1.5 JSON Schemas ([v1.1](docs/agr-v1.1.md) · [v1.2](docs/agr-v1.2.md) · [v1.4](docs/agr-v1.4.md) · [v1.5](docs/agr-v1.5.md)) |
 | **Subgraph** | `nodes[].kind: subgraph` + `ref` | A phase that *is* another registry graph, inlined at load (v1.1) |
 | **Join** | `nodes[].join` | `any` (default) · `all` · `quorum(n)` — when a multi-predecessor node is ready (v1.1) |
 | **Human gate** | `nodes[].kind: human` + `approval` | An approval contract the live runner refuses to sign itself (v1.1) |
@@ -470,13 +472,25 @@ failing, because the model returned `output: true` where an object is required.
 A registry reporting 74/74 at 100% was, on first contact with a real model, 0/5.
 
 v1.3 then recorded **75 runs — 25 graphs × 3 models** — and the same lesson landed
-twice more:
+twice more. v1.5 re-recorded the identical sweep after giving every dependent node
+a declared output:
 
-| Model | Pass | Unparseable |
-|---|---|---|
-| `qwen3-coder:30b` | **19/25** | **0** |
-| `qwen2.5-coder:7b` | 11/25 | 3 |
-| `hermes3:8b` | 7/25 | 8 |
+| Model | v1.3 pass | **v1.5 pass** | unparseable |
+|---|---|---|---|
+| `qwen3-coder:30b` | 19/25 | **24/25** | 0 |
+| `hermes3:8b` | 7/25 | **14/25** | 8 → 5 |
+| `qwen2.5-coder:7b` | 11/25 | 11/25 | 3 → 2 |
+
+Contracts satisfied by **no** model: 4 → 1 → **0**. The 7B model did not improve,
+which is the honest shape of the result: telling a node what it produces helps a
+model that can follow the instruction, and does not make a small model capable of
+work it could not do.
+
+Four versions in, the pattern has a name: **anything optional in the spec ends up
+unused, and anything unused ends up load-bearing by accident.** `outputs` was
+optional from v1.1; 29% of nodes skipped it and the whole registry depended on them
+anyway. Each version's headline failure was the same shape — the artifact looked
+complete and the runtime had nothing to work with.
 
 A large share of apparent *model* failure was the harness again: `LLMRunner`
 extracted JSON with `text[text.index("{"):text.rindex("}")+1]`, which breaks on
@@ -576,12 +590,17 @@ averaged away. Deepening it is the open problem, not a solved one.
       Contracts satisfied by no recorded model: **4 → 1**. Spec:
       [agr-v1.4.md](docs/agr-v1.4.md) · Plan: [v5-agr-1.4.md](docs/plans/v5-agr-1.4.md) ·
       Audit: [v5-audit.md](docs/plans/v5-audit.md).
-- [ ] **M9 / AGR v1.5 — joint preconditions.** `ab-test-analysis` asserts across two
-      facts produced by *different* nodes; every model supplied one and left the
-      other null. Declaring both tells each node what it owes, but nothing states
-      they must hold simultaneously for the assert to mean anything. v1.3 was "the
-      contract is not stated", v1.4 "stated per node", this is "the contract has a
-      joint precondition no single node owns".
+- [x] **M9 / AGR v1.5 — every node declares.** v1.4's diagnosis was wrong, and the
+      recordings said so: `ab-test-analysis` had both keys on *one* node, nothing
+      joint about it. The real gap was **103 of 346 nodes (29%) declaring no outputs
+      at all** — every one feeding a downstream node. Told only to "return the keys
+      this step is responsible for", a live model answers that question literally
+      and returns key *names* where values belong. All 103 now declare; `inputs` are
+      checked against producers that can actually *reach* the consumer; the 6 genuine
+      joint-precondition asserts get an advisory rather than new machinery.
+      Spec: [agr-v1.5.md](docs/agr-v1.5.md) ·
+      Plan: [v6-agr-1.5.md](docs/plans/v6-agr-1.5.md) ·
+      Audit: [v6-audit.md](docs/plans/v6-audit.md).
 
 **Known limits, stated rather than buried:**
 
@@ -672,7 +691,7 @@ Project Link: [https://github.com/ypollak2/agenticgraphs][repo-url]
 [domains-shield]: https://img.shields.io/badge/domains-15-2ea44f?style=for-the-badge
 [patterns-shield]: https://img.shields.io/badge/motifs-19-2ea44f?style=for-the-badge
 [patterns-url]: #the-eight-patterns
-[tests-shield]: https://img.shields.io/badge/tests-166%2F166-blue?style=for-the-badge
+[tests-shield]: https://img.shields.io/badge/tests-184%2F184-blue?style=for-the-badge
 [tests-url]: tests/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
 [license-url]: LICENSE

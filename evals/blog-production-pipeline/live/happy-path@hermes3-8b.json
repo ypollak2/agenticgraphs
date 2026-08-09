@@ -4,15 +4,17 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys": "output.lint_passed, output.plagiarism_clean"
+      "summary": "The intake node should analyze the given data to determine if any attempts have been made in response to the prompt."
     },
     "produce": {
-      "keys": "output.produce_completed"
+      "lint_passed": true,
+      "plagiarism_clean": true
     },
     "review": {
       "output": {
-        "review": "",
-        "rating": null
+        "summary": "The intake node should analyze the given data to determine if any attempts have been made in response to the prompt.",
+        "lint_passed": true,
+        "plagiarism_clean": true
       }
     }
   }

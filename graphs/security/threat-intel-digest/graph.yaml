@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: threat-intel-digest
 description: Summarize feeds into an actionable daily brief.
 category: security
@@ -17,6 +17,8 @@ nodes:
     over: shards
     max: 20
     on_partial: continue
+  outputs:
+  - shard_result
 - id: reduce
   speciality: reducer
   abilities:

@@ -4,24 +4,24 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys": [
-        "attempts",
-        "asks"
-      ]
+      "summary": "All asks have been addressed in the output. Each ask includes a traceable quote."
     },
     "produce": {
-      "keys": [
-        "all_asks_covered",
-        "quotes"
+      "all_asks_covered": false,
+      "asks": [
+        {
+          "quote": null,
+          "unresolved": true
+        }
       ]
     },
     "review": {
       "output": {
         "all_asks_covered": false,
-        "quotes": [
+        "asks": [
           {
-            "ask": "Did all asks in the conversation receive responses?",
-            "quote": "Not all answers provided cover every ask."
+            "quote": null,
+            "unresolved": true
           }
         ]
       }

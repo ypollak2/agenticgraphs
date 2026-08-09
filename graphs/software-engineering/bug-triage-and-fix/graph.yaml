@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: bug-triage-and-fix
 description: Reproduce a bug, plan a fix, apply it in isolation, verify.
 category: software-engineering
@@ -7,10 +7,14 @@ nodes:
   speciality: planner
   abilities:
   - decompose_goal
+  outputs:
+  - steps
 - id: execute
   speciality: executor
   abilities:
   - execute_step
+  outputs:
+  - step_result
 - id: verify
   speciality: verifier
   abilities:

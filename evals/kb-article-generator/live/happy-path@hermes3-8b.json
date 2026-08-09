@@ -4,15 +4,16 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys": "analyzed"
+      "summary": "The intake node has analyzed the current state and determined that there is one attempt recorded on the blackboard so far. No further analysis can be provided without additional context or information to examine."
     },
     "produce": {
-      "keys": "reproduces_resolution duplicates_deduped"
+      "duplicates_deduped": true,
+      "reproduces_resolution": true
     },
     "review": {
       "output": {
-        "reproduces_resolution": true,
-        "duplicates_deduped": true
+        "duplicates_deduped": true,
+        "reproduces_resolution": true
       }
     }
   }

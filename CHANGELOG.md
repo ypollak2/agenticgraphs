@@ -1,5 +1,74 @@
 # Changelog
 
+## [0.6.0] — AGR v1.5 "every node declares"
+
+**v1.4'''s published diagnosis was wrong, and correcting it is this version.**
+
+v1.4 shipped saying `ab-test-analysis` failed because "the contract has a joint
+precondition no single node owns". Both keys were declared on **one** node. Nothing
+joint about it. What the recordings showed — already checked in, unread — was the
+two nodes *upstream* answering a question about their job instead of doing it:
+
+    {"keys": ["recomputed_effect", "claimed_effect"]}
+    {"keys_responsible": ["recomputed_effect"]}
+
+They declared no outputs, so the prompt fell back to "return the keys this step is
+responsible for" — a question about the node'''s job, which models answer literally,
+naming keys instead of producing values. The judge downstream got an empty
+blackboard and correctly emitted `null`.
+
+    nodes (expanded):                      346
+      declaring NO outputs:                103   (29%)
+      of those, feeding a downstream node: 103   (all of them)
+
+v1.4'''s lint asked whether *verification* had producers. Nothing asked whether a
+node'''s **successors** have anything to consume.
+
+### Results
+`ab-test-analysis` — which failed every model for three versions — now passes on
+`qwen3-coder:30b`. Contracts satisfied by no recorded model: 4 → 1 → **0**.
+
+| Model | v1.3 | v1.5 |
+|---|---|---|
+| qwen3-coder:30b | 19/25 | **24/25** |
+| hermes3:8b | 7/25 | **14/25** |
+| qwen2.5-coder:7b | 11/25 | 11/25 |
+
+The 7B model did not improve. Telling a node what it produces helps a model that
+can follow the instruction; it does not make a small model capable of work it could
+not do.
+
+### Added
+- `silent_nodes()` + lint: a node with a successor must declare an output. Error at
+  `agr/v1.5`, advisory below. Terminals and `kind: subgraph` phases are exempt.
+- `inputs` are checked against producers that can actually **reach** the consumer,
+  as a fixed point (AGR graphs are deliberately cyclic). v1.1 checked set
+  membership — "does this key exist anywhere" — which passes when the only producer
+  runs strictly downstream.
+- `joint_precondition_asserts()`: the 6 of 135 asserts genuinely spanning two
+  producers get an advisory, not a `requires_all` field. Six cases do not justify
+  new schema surface.
+- Scoreboard reports node-declaration completeness alongside contract connection.
+
+### Fixed
+- 103 silent nodes declared, derived from the golden fixtures.
+- 20 of them were one template copied 20 times: `mapper`/`worker`/`executor` — the
+  nodes that do the work in map-reduce, parallel-swarm and PEV — declared nothing
+  with a `{}` fixture to match.
+- `LLMRunner` asks for concrete values and explicitly not for key names or plans.
+
+### Guarantee
+**No assert weakened** — 0 expressions changed, verified by parsing every graph at
+HEAD against the working tree.
+
+### The pattern, now named
+Anything optional in the spec ends up unused, and anything unused ends up
+load-bearing by accident. `outputs` was optional from v1.1; 29% of nodes skipped it
+and the registry depended on them anyway. v1.5 adds no optional field.
+
+**v1.5 is the first version where the registry has no known structural gap** — the
+next finding will have to come from evidence, not from reading the spec.
+
 ## [0.5.0] — AGR v1.4 "connect the contracts"
 
 No new machinery: one enum value, one lint, and a migration. The fields needed to

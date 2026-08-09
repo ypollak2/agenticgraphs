@@ -25,7 +25,7 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `partition` | `shard_count=1, shards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
-| 2 | `map` | *(no fixture — empty output)* |
+| 2 | `map` | `shard_result=[{'id': 1, 'finding': 'ok'}]` |
 | 3 | `reduce` | `output={'entries': [{'advisory_url': 'https://vendor.example/advisory/1', 'cve_ids': ['CVE-2026-1']}]}` |
 
 **Verification checked:**
@@ -39,7 +39,7 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `partition` | `shard_count=2, shards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
-| 2 | `map` | *(no fixture — empty output)* |
+| 2 | `map` | `shard_result=[{'id': 1, 'finding': 'ok'}]` |
 | 3 | `reduce` | `output={'entries': [{'advisory_url': 'https://vendor.example/advisory/1', 'cve_ids': ['CVE-2026-1']}, {'advisory_url': 'https://vendor.example/advisory/2', 'cve_ids': ['CVE-2026-2', 'CVE-2026-3']}]}` |
 
 **Verification checked:**

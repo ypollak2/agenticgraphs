@@ -1,15 +1,32 @@
 cases:
-  - id: first-attempt-verified
-    node_outputs:
-      plan: {steps: ["decompose goal"]}
-      execute: {}
-      verify: {verify_failed: false, attempts: 1, output: {'actual_rows': 10000, 'expected_rows': 10000}}
-  - id: retry-then-verified
-    node_outputs:
-      plan: {steps: ["decompose goal"]}
-      execute:
-        - {}
-        - {}
-      verify:
-        - {verify_failed: true, attempts: 1}
-        - {verify_failed: false, attempts: 2, output: {'actual_rows': 10000, 'expected_rows': 10000}}
+- id: first-attempt-verified
+  node_outputs:
+    plan:
+      steps:
+      - decompose goal
+    execute:
+      step_result: &id001
+        step: 1
+        status: done
+    verify:
+      verify_failed: false
+      attempts: 1
+      output:
+        actual_rows: 10000
+        expected_rows: 10000
+- id: retry-then-verified
+  node_outputs:
+    plan:
+      steps:
+      - decompose goal
+    execute:
+    - step_result: *id001
+    - step_result: *id001
+    verify:
+    - verify_failed: true
+      attempts: 1
+    - verify_failed: false
+      attempts: 2
+      output:
+        actual_rows: 10000
+        expected_rows: 10000

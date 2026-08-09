@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: incident-lifecycle
 description: Detect, triage, mitigate and prove an incident closed, then write the postmortem and file
   the actions.

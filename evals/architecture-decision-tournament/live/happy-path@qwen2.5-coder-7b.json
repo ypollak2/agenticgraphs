@@ -5,21 +5,39 @@
   "node_outputs": {
     "frame": {
       "options": {
-        "Runner-up": null,
-        "Margin": null
+        "runner-up": "design B",
+        "margin": "2 points"
       },
       "rubric": {
-        "Criteria 1": "Designs Scored >= 3",
-        "Criteria 2": "Margin is not None"
+        "design A": {
+          "score": 4,
+          "reasons": [
+            "Originality",
+            "Functionality"
+          ]
+        },
+        "design B": {
+          "score": 3,
+          "reasons": [
+            "Creativity"
+          ]
+        },
+        "design C": {
+          "score": 2,
+          "reasons": [
+            "Relevance"
+          ]
+        }
       }
     },
     "judge": {
-      "winner": null,
-      "margin": null,
+      "designs_scored": 3,
+      "margin": 2,
       "output": {
-        "designs_scored": 4,
-        "margin": 10
-      }
+        "designs_scored": 3,
+        "margin": 2
+      },
+      "winner": null
     }
   }
 }

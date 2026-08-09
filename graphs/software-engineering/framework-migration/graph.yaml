@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: framework-migration
 description: Port a codebase between frameworks in verifiable slices, each slice delegated to a refactor
   subgraph.

@@ -4,14 +4,10 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "responsible_keys": [
-        "fields"
-      ]
+      "summary": "Intake node analyzed the document images and extracted fields that all validate successfully against the document images, satisfying the exit contract requirements."
     },
     "produce": {
-      "responsible_keys": [
-        "fields"
-      ]
+      "fields": []
     },
     "review": {
       "output": {

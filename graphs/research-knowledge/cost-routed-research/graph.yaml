@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: cost-routed-research
 description: Routes research subtasks to the cheapest capable model, escalates low-confidence answers,
   synthesizes with citations.
@@ -9,15 +9,21 @@ nodes:
   abilities:
   - classify_complexity
   kind: router
+  outputs:
+  - complexity
 - id: cheap-researcher
   speciality: researcher
   abilities:
   - web_search
+  outputs:
+  - confidence
 - id: deep-researcher
   speciality: researcher
   abilities:
   - web_search
   - read_papers
+  outputs:
+  - confidence
 - id: synthesizer
   speciality: synthesizer
   abilities:

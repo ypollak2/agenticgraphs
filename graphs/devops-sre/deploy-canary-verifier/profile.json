@@ -67,15 +67,38 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:qwen2.5-coder:7b,qwen3-coder:30b",
+    "runner": "llm-replay:hermes3:8b,qwen2.5-coder:7b,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-09",
-    "cases": 2,
+    "cases": 3,
     "passed": 1,
-    "pass_rate": 0.5,
+    "pass_rate": 0.333,
     "mean_steps": 3.0,
     "results": [
+      {
+        "id": "meets-target-first-try",
+        "model": "hermes3:8b",
+        "recorded": "2026-08-09",
+        "passed": false,
+        "steps": 3,
+        "trace": [
+          "intake",
+          "attempt",
+          "measure"
+        ],
+        "assert_failures": [
+          "output.error_rate <= output.threshold or output.rollback_fired"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": []
+      },
       {
         "id": "meets-target-first-try",
         "model": "qwen2.5-coder:7b",
@@ -88,7 +111,7 @@
           "measure"
         ],
         "assert_failures": [
-          "output.error_rate <= output.threshold or output.rollback_fired (AttributeError: threshold)"
+          "output.error_rate <= output.threshold or output.rollback_fired (TypeError: '<=' not supported between instances of 'NoneType' and 'NoneType')"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -122,12 +145,14 @@
       }
     ],
     "models": [
+      "hermes3:8b",
       "qwen2.5-coder:7b",
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-09",
     "age_days": 0,
     "per_model_pass_rate": {
+      "hermes3:8b": 0.0,
       "qwen2.5-coder:7b": 0.0,
       "qwen3-coder:30b": 1.0
     },

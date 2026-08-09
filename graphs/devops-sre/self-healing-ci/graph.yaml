@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: self-healing-ci
 description: Diagnose a red pipeline, attempt a bounded repair, and accumulate what did not work across
   runs.

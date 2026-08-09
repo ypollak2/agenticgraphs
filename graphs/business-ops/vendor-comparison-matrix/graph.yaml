@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: vendor-comparison-matrix
 description: Build a like-for-like vendor matrix where every cell cites the source document it came from.
 category: business-ops

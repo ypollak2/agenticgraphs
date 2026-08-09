@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: book-editing-pipeline
 description: Take a manuscript through developmental, line and copy edit passes with author sign-off before
   typesetting.

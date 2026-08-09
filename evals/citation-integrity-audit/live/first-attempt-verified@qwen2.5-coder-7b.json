@@ -6,32 +6,33 @@
     "plan": {
       "tasks": [
         {
-          "task_name": "Identify_Mismatches",
-          "inputs": {
-            "data_source": "blackboard.attempts"
-          }
-        },
-        {
-          "task_name": "Resolve_Citations",
-          "inputs": {
-            "citations": "output.mismatches"
-          }
+          "action": "resolve_citation",
+          "target_citation": null,
+          "context": "all(c.resolves for c in output.citations)"
         }
       ]
     },
-    "work": [
-      {
-        "responsible_keys": [
-          "output.mismatches"
-        ]
-      },
-      {
-        "output_citations_resolves": true,
-        "reported_mismatches": false
+    "work": {
+      "work_result": {
+        "resolves": true,
+        "mismatches": []
       }
-    ],
+    },
     "verify": {
-      "output": false
+      "citations": [
+        {
+          "resolves": true,
+          "mismatches": []
+        }
+      ],
+      "output": {
+        "citations": [
+          {
+            "resolves": true,
+            "mismatches": []
+          }
+        ]
+      }
     }
   }
 }

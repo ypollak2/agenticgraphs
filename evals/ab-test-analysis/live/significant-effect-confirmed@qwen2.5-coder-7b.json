@@ -4,12 +4,10 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "position-a": {
-      "keys_responsible": [
-        "recomputed_effect"
-      ]
+      "argument": "To reproduce the claimed effect, we need to analyze the raw data again and ensure our statistical computations are accurate. We must cross-check our methods with industry-standard approaches to confirm that any discrepancies are due to minor errors in interpretation rather than flaws in the initial analysis. By applying meticulous scrutiny and rigorous verification, we can enhance the precision of our recomputed stats, thereby fulfilling the exit contract's requirement."
     },
     "position-b": {
-      "keys_responsible": []
+      "argument": "To meet the exit contract, we must ensure our recomputed stats from raw data replicate the claimed effect accurately. This will be achieved by conducting a thorough reanalysis using robust statistical methods, cross-referencing with industry-standard approaches, and meticulously verifying every computational step to eliminate any minor errors in interpretation."
     },
     "judge": {
       "claimed_effect": null,

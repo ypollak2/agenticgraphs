@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: test-suite-generation
 description: Generate tests, critic rejects trivial or tautological assertions.
 category: software-engineering
@@ -7,10 +7,14 @@ nodes:
   speciality: analyst
   abilities:
   - analyze
+  outputs:
+  - summary
 - id: generate
   speciality: producer
   abilities:
   - generate
+  outputs:
+  - draft
 - id: critique
   speciality: critic
   abilities:

@@ -4,22 +4,18 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys": [
-        "attempts"
-      ]
+      "summary": "One attempt has been made to generate the output lockfile, and it has been determined that the lockfile was updated successfully, all tests passed, and there were no new deprecation warnings."
     },
     "produce": {
-      "keys": [
-        "lockfile_updated",
-        "tests_pass",
-        "new_deprecations"
-      ]
+      "lockfile_updated": true,
+      "new_deprecations": false,
+      "tests_pass": true
     },
     "review": {
       "output": {
         "lockfile_updated": true,
-        "tests_pass": true,
-        "new_deprecations": false
+        "new_deprecations": false,
+        "tests_pass": true
       }
     }
   }

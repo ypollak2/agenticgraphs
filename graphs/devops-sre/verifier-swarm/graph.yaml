@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: verifier-swarm
 description: Planner fans work out to isolated workers; nothing merges until a verifier command proves
   the goal is done.
@@ -19,6 +19,8 @@ nodes:
     over: tasks
     max: 20
     on_partial: continue
+  outputs:
+  - patched
 - id: verifier
   speciality: verifier
   abilities:

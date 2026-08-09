@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: fact-check-pipeline
 description: Decompose claims, verify each against sources, grade verdicts.
 category: research-knowledge
@@ -7,6 +7,8 @@ nodes:
   speciality: analyst
   abilities:
   - analyze
+  outputs:
+  - summary
 - id: produce
   speciality: producer
   abilities:

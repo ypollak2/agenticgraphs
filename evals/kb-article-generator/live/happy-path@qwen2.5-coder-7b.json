@@ -4,21 +4,16 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys": [
-        "attempts",
-        "resolution"
-      ]
+      "summary": "The workflow requires actions to reproduce a resolution and deduplicate duplicates."
     },
     "produce": {
-      "keys": [
-        "resolutions",
-        "duplicates_deduped"
-      ]
+      "duplicates_deduped": true,
+      "reproduces_resolution": true
     },
     "review": {
       "output": {
-        "reproduces_resolution": true,
-        "duplicates_deduped": true
+        "duplicates_deduped": true,
+        "reproduces_resolution": true
       }
     }
   }

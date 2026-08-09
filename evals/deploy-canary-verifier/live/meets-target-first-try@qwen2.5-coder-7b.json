@@ -4,21 +4,18 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys_responsible": [
-        "error_rate",
-        "rollback_fired"
-      ]
+      "summary": "Error rate exceeds threshold. Rolling back."
     },
     "attempt": {
-      "keys_responsible": [
-        "error_rate",
-        "rollback_fired"
-      ]
+      "error_rate": null,
+      "rollback_fired": true,
+      "threshold": null
     },
     "measure": {
       "output": {
         "error_rate": null,
-        "rollback_fired": true
+        "rollback_fired": true,
+        "threshold": null
       }
     }
   }

@@ -4,21 +4,14 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "partition": {
-      "shards": [
-        {
-          "index": 0,
-          "dedupe_ratio": 0.98,
-          "missed_paging_alerts": false
-        }
-      ]
-    },
-    "map": {
-      "keys": "dedupe_ratio, missed_paging_alerts"
+      "shards": 1
     },
     "reduce": {
+      "dedupe_ratio": 0,
+      "missed_paging_alerts": true,
       "output": {
-        "dedupe_ratio": true,
-        "missed_paging_alerts": false
+        "dedupe_ratio": 0,
+        "missed_paging_alerts": true
       }
     }
   }

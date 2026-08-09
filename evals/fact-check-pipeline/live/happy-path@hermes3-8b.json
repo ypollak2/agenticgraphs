@@ -4,36 +4,27 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys": [
-        "verdicts"
-      ]
+      "summary": "Based on the given information that there has been 1 attempt, it can be surmised that this is the first time trying to complete whatever task was described in the source URL linked above (quote span not provided). No further conclusions can be drawn without more details."
     },
     "produce": {
-      "keys": [
-        "verdicts"
+      "verdicts": [
+        {
+          "source_url": "https://example.com/article",
+          "quote_span": "Based on the given information that there has been 1 attempt, it can be surmised that this is the first time trying to complete whatever task was described in the source URL linked above. No further conclusions can be drawn without more details.",
+          "summary": "This is the first attempt and no further conclusions can be made without additional context."
+        }
       ]
     },
     "review": {
-      "output": [
-        {
-          "verdict": "Needs Improvement",
-          "source_url": "https://example.com/critique-1",
-          "quote_span": "The overall impression was of underdevelopment and unpolished ideas.",
-          "justification": "The dialogue lacked depth, the plot had several inconsistencies, and some parts felt rushed."
-        },
-        {
-          "verdict": "Recommended with Reservations",
-          "source_url": "https://example.com/critique-2",
-          "quote_span": "While there were moments of brilliance, they were overshadowed by flaws.",
-          "justification": "The visual effects were stunning, but the characters' motivations seemed unclear at times."
-        },
-        {
-          "verdict": "Highly Recommended",
-          "source_url": "https://example.com/critique-3",
-          "quote_span": "A masterful blend of storytelling and technical prowess.",
-          "justification": "The pacing was spot-on, the performances were top-notch, and the world-building was imaginative."
-        }
-      ]
+      "output": {
+        "verdicts": [
+          {
+            "source_url": "https://example.com/article",
+            "quote_span": "Based on the given information that there has been 1 attempt, it can be surmised that this is the first time trying to complete whatever task was described in the source URL linked above. No further conclusions can be drawn without more details.",
+            "summary": "This is the first attempt and no further conclusions can be made without additional context."
+          }
+        ]
+      }
     }
   }
 }

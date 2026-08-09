@@ -4,40 +4,23 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "responsible_keys": {
-        "playbook_ref": true
-      }
+      "summary": "Insufficient information to proceed. Please provide playbook positions."
     },
     "produce": {
-      "responsible_keys": {
-        "playbook_ref": true
-      }
-    },
-    "review": {
-      "output": [
+      "redlines": [
         {
-          "playbook_ref": "position_1",
-          "citations": [
-            {
-              "text": "Critical flaw in the initial requirement gathering phase."
-            },
-            {
-              "text": "Missing key stakeholder information."
-            }
-          ]
-        },
-        {
-          "playbook_ref": "position_2",
-          "citations": [
-            {
-              "text": "Overlooked dependency on an external service."
-            },
-            {
-              "text": "Inadequate security measures in the architecture design."
-            }
-          ]
+          "playbook_ref": null
         }
       ]
+    },
+    "review": {
+      "output": {
+        "redlines": [
+          {
+            "playbook_ref": null
+          }
+        ]
+      }
     }
   }
 }

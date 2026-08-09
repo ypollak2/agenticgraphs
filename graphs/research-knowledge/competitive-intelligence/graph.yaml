@@ -1,4 +1,4 @@
-apiVersion: agr/v1.4
+apiVersion: agr/v1.5
 name: competitive-intelligence
 description: Scan competitor releases and filings, reduce to a delta brief.
 category: research-knowledge
@@ -17,6 +17,8 @@ nodes:
     over: shards
     max: 20
     on_partial: continue
+  outputs:
+  - shard_result
 - id: reduce
   speciality: reducer
   abilities:

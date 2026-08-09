@@ -183,16 +183,20 @@ def _lint_v11(doc: dict, root: Path) -> list[str]:
             "bump to 'agr/v1.1'"
         )
 
-    # Declared I/O contract: every input must be produced upstream, or supplied
-    # at graph entry. Only checked for nodes that opt in by declaring `inputs`.
+    # Declared I/O contract: an input must be produced by a node that can actually
+    # REACH this one, or supplied at graph entry. v1.1 checked set membership —
+    # "does this key exist anywhere in the graph" — which passes even when the
+    # only producer runs strictly downstream and the value can never arrive.
+    # Reachability is only checkable now that v1.5 gave every dependent node an
+    # output to be reachable *from*.
     supplied = set((doc.get("state") or {}).get("inputs") or [])
-    produced = {o for n in doc.get("nodes", []) for o in n.get("outputs") or []}
+    reachable_out = _upstream_outputs(doc)
     for n in doc.get("nodes", []):
-        unmet = set(n.get("inputs") or []) - produced - supplied
+        unmet = set(n.get("inputs") or []) - reachable_out.get(n["id"], set()) - supplied
         if unmet:
             errors.append(
                 f"lint: node '{n['id']}' declares inputs {sorted(unmet)} that no node "
-                "outputs and state.inputs does not supply"
+                "reaching it outputs and state.inputs does not supply"
             )
 
     # A saga must be able to undo itself: any node holding an execute-risk
@@ -286,7 +290,7 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
         if unknown:
             errors.append(f"lint: node '{n['id']}' unknown abilities {sorted(unknown)}")
 
-    return errors + _lint_v11(doc, root) + _lint_v14(doc)
+    return errors + _lint_v11(doc, root) + _lint_v14(doc) + _lint_v15(doc)
 
 
 def _contract_gap_message(doc: dict) -> str | None:
@@ -315,12 +319,116 @@ def _lint_v14(doc: dict) -> list[str]:
     return []
 
 
-def lint_advisories(doc: dict) -> list[str]:
-    """Non-fatal findings: true, worth surfacing, never a reason to refuse work."""
-    msg = _contract_gap_message(doc)
-    if msg and doc.get("apiVersion") != "agr/v1.4":
-        return [f"warn: {msg} (declare them to reach apiVersion agr/v1.4)"]
+def _upstream_outputs(doc: dict) -> dict[str, set[str]]:
+    """For each node, everything produced by a node that can reach it.
+
+    Ancestors via any edge kind, with a visit guard for the retry loops the
+    registry is full of. Fixed-point rather than a topological sort, because AGR
+    graphs are deliberately cyclic.
+    """
+    by_id = {n["id"]: n for n in doc.get("nodes", [])}
+    preds: dict[str, set[str]] = {nid: set() for nid in by_id}
+    for e in doc.get("edges", []):
+        if e["to"] in preds:
+            preds[e["to"]].add(e["from"])
+    up: dict[str, set[str]] = {nid: set() for nid in by_id}
+    for _ in range(len(by_id) + 1):          # fixed point; graphs are small
+        changed = False
+        for nid in by_id:
+            acc: set[str] = set()
+            for p in preds[nid]:
+                acc |= set(by_id[p].get("outputs") or []) | up.get(p, set())
+            if acc != up[nid]:
+                up[nid], changed = acc, True
+        if not changed:
+            break
+    return up
+
+
+def silent_nodes(doc: dict) -> list[str]:
+    """Nodes that something depends on but which declare no outputs.
+
+    THE v1.5 gap. 103 of 346 nodes (29%) were contractually silent, and every one
+    of them fed a downstream node. v1.4's lint asked whether *verification* had
+    producers; nothing asked whether a node's **successors** have anything to
+    consume.
+
+    It matters because of what a live model does with silence. Told only to
+    "return the keys this step is responsible for", `position-a` in
+    `ab-test-analysis` answered the question literally —
+    `{"keys": ["recomputed_effect", "claimed_effect"]}` — naming keys instead of
+    producing values, and the judge downstream received an empty blackboard.
+
+    Terminal nodes are exempt: a node nothing depends on owes nothing.
+    """
+    has_successor = {e["from"] for e in doc.get("edges", [])}
+    return [
+        n["id"] for n in doc.get("nodes", [])
+        if n["id"] in has_successor
+        and n.get("kind") != "subgraph"  # a phase delegates; the child declares
+        and not n.get("outputs")
+    ]
+
+
+def _silence_message(doc: dict) -> str | None:
+    silent = silent_nodes(doc)
+    if not silent:
+        return None
+    return (
+        f"nodes {sorted(silent)} have outgoing edges but declare no outputs — "
+        "their successors have nothing to consume"
+    )
+
+
+def joint_precondition_asserts(doc: dict) -> list[tuple[str, list[str]]]:
+    """Asserts whose keys come from more than one producing node.
+
+    Real but rare — 6 of 135. Advisory only: it is a documentation problem (the
+    graph should say both facts must survive to the end), and inventing a
+    `requires_all` field for six cases would be exactly the optional-and-unused
+    surface this version exists to stop creating.
+    """
+    owner: dict[str, str] = {}
+    for n in doc.get("nodes", []):
+        for o in n.get("outputs") or []:
+            owner.setdefault(o, n["id"])
+    out: list[tuple[str, list[str]]] = []
+    for v in doc.get("verification") or []:
+        if "assert" not in v:
+            continue
+        producers = {owner[k] for k in asserted_keys(v["assert"]) if k in owner}
+        if len(producers) > 1:
+            out.append((v["assert"], sorted(producers)))
+    return out
+
+
+def _lint_v15(doc: dict) -> list[str]:
+    msg = _silence_message(doc)
+    if msg and doc.get("apiVersion") == "agr/v1.5":
+        return [f"lint: {msg}"]
     return []
+
+
+def lint_advisories(doc: dict) -> list[str]:
+    """Non-fatal findings: true, worth surfacing, never a reason to refuse work.
+
+    Kept strictly out of `lint_graph`, whose return value every caller treats as
+    fatal — an earlier draft mixed them and `agr infuse` refused the whole
+    registry with "rejected by gate: warn: ...".
+    """
+    out: list[str] = []
+    gap = _contract_gap_message(doc)
+    if gap and doc.get("apiVersion") != "agr/v1.4":
+        out.append(f"warn: {gap} (declare them to reach apiVersion agr/v1.4)")
+    silence = _silence_message(doc)
+    if silence and doc.get("apiVersion") != "agr/v1.5":
+        out.append(f"warn: {silence} (declare them to reach apiVersion agr/v1.5)")
+    for expr, producers in joint_precondition_asserts(doc):
+        out.append(
+            f"warn: assert spans keys from {producers} — both must survive to the "
+            f"end for the check to be meaningful: {expr}"
+        )
+    return out
 
 
 def validate_graph_file(path: Path, root: Path = ROOT) -> list[str]:

@@ -4,37 +4,36 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "keys": [
-        "analysis",
-        "quotes",
-        "asks_coverage"
-      ]
+      "summary": "All asks resolved with traceable quotes"
     },
     "produce": {
-      "keys": [
-        "quotes",
-        "asks_coverage"
+      "all_asks_covered": true,
+      "asks": [
+        {
+          "quote": "Quote for ask 1"
+        },
+        {
+          "quote": "Quote for ask 2"
+        },
+        {
+          "quote": "Quote for ask 3"
+        }
       ]
     },
     "review": {
       "output": {
-        "quotes": [
-          "The quick brown fox jumps over the lazy dog",
-          "To be or not to be, that is the question"
-        ],
+        "all_asks_covered": true,
         "asks": [
           {
-            "id": "ask1",
-            "text": "What is the capital of France?",
-            "quote": "The quick brown fox jumps over the lazy dog"
+            "quote": "Quote for ask 1"
           },
           {
-            "id": "ask2",
-            "text": "Who wrote Hamlet?",
-            "quote": "To be or not to be, that is the question"
+            "quote": "Quote for ask 2"
+          },
+          {
+            "quote": "Quote for ask 3"
           }
-        ],
-        "all_asks_covered": true
+        ]
       }
     }
   }

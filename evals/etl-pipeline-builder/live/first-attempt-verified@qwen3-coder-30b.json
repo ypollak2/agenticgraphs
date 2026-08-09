@@ -4,18 +4,20 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "plan": {
-      "keys": [
-        "output.actual_rows",
-        "output.expected_rows"
+      "steps": [
+        "load_test_data",
+        "execute_query",
+        "count_actual_rows",
+        "compare_row_counts",
+        "validate_assertion"
       ]
     },
     "execute": {
-      "keys": [
-        "output.actual_rows",
-        "output.expected_rows"
-      ]
+      "step_result": "pass"
     },
     "verify": {
+      "actual_rows": 100,
+      "expected_rows": 100,
       "output": {
         "actual_rows": 100,
         "expected_rows": 100

@@ -4,18 +4,17 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "plan": {
-      "keys_responsible": "test_failed_before_patch, test_passes_after_patch"
+      "steps": [
+        "decompose_goal"
+      ]
     },
     "execute": {
-      "keys_responsible": [
-        "test_failed_before_patch",
-        "test_passes_after_patch"
-      ]
+      "step_result": "execute_next_step"
     },
     "verify": {
       "output": {
         "test_failed_before_patch": true,
-        "test_passes_after_patch": true
+        "test_passes_after_patch": false
       }
     }
   }

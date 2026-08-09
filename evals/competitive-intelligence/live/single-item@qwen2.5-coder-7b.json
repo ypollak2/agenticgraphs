@@ -6,39 +6,44 @@
     "partition": {
       "shards": [
         {
-          "source_url": "https://example.com/source1",
-          "source_date": "2023-04-01"
-        },
-        {
-          "source_url": "https://example.com/source2",
-          "source_date": "2023-05-02"
+          "attempt": 1
         }
       ]
     },
-    "map": [
-      {
-        "keys": [
-          "source_url",
-          "source_date"
-        ]
-      },
-      {
-        "keys_responsible": [
-          "source_url",
-          "source_date"
-        ]
-      }
-    ],
-    "reduce": {
-      "output": {
+    "map": {
+      "shard_result": {
         "findings": [
           {
-            "source_url": "https://example.com/source1",
+            "source_url": "http://example.com/source1",
             "source_date": "2023-04-01"
           },
           {
-            "source_url": "https://example.com/source2",
-            "source_date": "2023-05-02"
+            "source_url": "http://example.com/source2",
+            "source_date": "2023-04-02"
+          }
+        ]
+      }
+    },
+    "reduce": {
+      "findings": [
+        {
+          "source_url": "http://example.com/source1",
+          "source_date": "2023-04-01"
+        },
+        {
+          "source_url": "http://example.com/source2",
+          "source_date": "2023-04-02"
+        }
+      ],
+      "output": {
+        "findings": [
+          {
+            "source_url": "http://example.com/source1",
+            "source_date": "2023-04-01"
+          },
+          {
+            "source_url": "http://example.com/source2",
+            "source_date": "2023-04-02"
           }
         ]
       }
