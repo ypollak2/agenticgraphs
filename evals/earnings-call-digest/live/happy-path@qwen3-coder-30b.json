@@ -1,0 +1,23 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "figures": "analyze and validate against transcript",
+      "invented_numbers": "check for unauthorized number creation"
+    },
+    "produce": {
+      "figures": "analyze and validate against transcript",
+      "invented_numbers": "check for unauthorized number creation"
+    },
+    "review": {
+      "figures": "analyze and validate against transcript",
+      "invented_numbers": "check for unauthorized number creation",
+      "output": {
+        "figures": "analyze and validate against transcript",
+        "invented_numbers": "check for unauthorized number creation"
+      }
+    }
+  }
+}

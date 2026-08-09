@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.3
 name: alert-noise-reduction
 description: Cluster alerts, dedupe storms, emit one incident per cause.
 category: devops-sre
@@ -34,3 +34,11 @@ termination:
   contract: dedupe ratio measured; no missed paging alert
 verification:
 - assert: output.dedupe_ratio > 0 and not output.missed_paging_alerts
+triggers:
+- 'on': schedule
+  cron: 7 * * * *
+budget:
+  usd_max: 1.0
+durability:
+  checkpoint: every_node
+  resume: true

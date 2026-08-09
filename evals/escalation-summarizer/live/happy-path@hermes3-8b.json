@@ -1,0 +1,28 @@
+{
+  "model": "hermes3:8b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "keys": [
+        "attempts"
+      ]
+    },
+    "produce": {
+      "keys": [
+        "attempts"
+      ]
+    },
+    "review": {
+      "output": {
+        "asks": [
+          {
+            "ask": "Provide a critique of the given text.",
+            "answer": "As node 'review' (speciality: critic) in this workflow, my ability is to provide a critique of the given text. However, no text has been provided yet for me to analyze and comment on. Once the necessary input content is available, I would be able to fulfill this ask with an appropriate critical assessment."
+          }
+        ],
+        "all_asks_covered": true
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "id": "task_1",
+          "description": "Decompose the goal into smaller subtasks",
+          "type": "planning",
+          "status": "completed"
+        }
+      ]
+    },
+    "work": {
+      "keys": [
+        "shard",
+        "shard_index",
+        "shard_count"
+      ]
+    },
+    "verify": {
+      "output": {
+        "examples": [
+          {
+            "exit_code": 0
+          }
+        ]
+      }
+    }
+  }
+}

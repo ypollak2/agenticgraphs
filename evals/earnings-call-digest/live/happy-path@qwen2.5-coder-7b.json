@@ -1,0 +1,21 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "responsibilities": []
+    },
+    "produce": {
+      "responsibilities": []
+    },
+    "review": {
+      "figures": [],
+      "invented_numbers": false,
+      "output": {
+        "attempts": 1,
+        "responsibilities": []
+      }
+    }
+  }
+}

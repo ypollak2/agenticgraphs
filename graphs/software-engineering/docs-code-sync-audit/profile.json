@@ -65,5 +65,94 @@
         "truncations": []
       }
     ]
+  },
+  "measured_live": {
+    "runner": "llm-replay:hermes3:8b,qwen2.5-coder:7b,qwen3-coder:30b",
+    "provisional": false,
+    "verification_depth": "assert-live",
+    "date": "2026-08-09",
+    "cases": 3,
+    "passed": 3,
+    "pass_rate": 1.0,
+    "mean_steps": 3.0,
+    "results": [
+      {
+        "id": "first-attempt-verified",
+        "model": "hermes3:8b",
+        "recorded": "2026-08-09",
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "plan",
+          "work",
+          "verify"
+        ],
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": []
+      },
+      {
+        "id": "first-attempt-verified",
+        "model": "qwen2.5-coder:7b",
+        "recorded": "2026-08-09",
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "plan",
+          "work",
+          "verify"
+        ],
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": []
+      },
+      {
+        "id": "first-attempt-verified",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-09",
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "plan",
+          "work",
+          "verify"
+        ],
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": []
+      }
+    ],
+    "models": [
+      "hermes3:8b",
+      "qwen2.5-coder:7b",
+      "qwen3-coder:30b"
+    ],
+    "recorded": "2026-08-09",
+    "age_days": 0,
+    "per_model_pass_rate": {
+      "hermes3:8b": 1.0,
+      "qwen2.5-coder:7b": 1.0,
+      "qwen3-coder:30b": 1.0
+    },
+    "models_disagree": false,
+    "fails_every_model": false
   }
 }

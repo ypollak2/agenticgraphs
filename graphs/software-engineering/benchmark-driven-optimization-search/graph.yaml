@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.3
 name: benchmark-driven-optimization-search
 description: Branch candidate optimizations, score each on a real benchmark, keep the beam, prune the
   rest.
@@ -34,8 +34,10 @@ nodes:
   abilities:
   - run_suite
   outputs:
-  - suite_green
+  - baseline_ms
+  - bench_ms
   - output
+  - suite_green
   inputs:
   - patch
   kind: verifier

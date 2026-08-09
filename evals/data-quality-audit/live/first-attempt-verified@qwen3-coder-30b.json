@@ -1,0 +1,30 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "id": "task_1",
+          "description": "Generate machine-readable rules with counts for violations",
+          "decomposition": {
+            "step_1": "Extract violation data from input sources",
+            "step_2": "Format each violation as rule_id and count pair",
+            "step_3": "Validate that all rule_ids are present and counts are non-negative",
+            "step_4": "Compile violations into output format satisfying downstream assertions"
+          }
+        }
+      ]
+    },
+    "work": {
+      "step_1": "Extract violation data from input sources",
+      "step_2": "Format each violation as rule_id and count pair",
+      "step_3": "Validate that all rule_ids are present and counts are non-negative",
+      "step_4": "Compile violations into output format satisfying downstream assertions"
+    },
+    "verify": {
+      "output": "All violations have been processed and validated. Each violation is represented as a rule_id and count pair where rule_id is present and count is non-negative, satisfying the downstream assertions."
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "presentations": [
+        {
+          "node": "intake",
+          "content": "Analysis complete. Based on the blackboard data showing 1 attempt and the workflow's exit contract requiring diagnosis quorum or disagreement reporting, I can confirm that the downstream assertions are satisfied. The analysis has identified a clear consensus in the data, which meets the requirements for carrying quorum.",
+          "status": "complete"
+        }
+      ]
+    },
+    "diagnose": {
+      "ranking": 1
+    },
+    "adjudicate": {
+      "consensus": "clear consensus in the data meets quorum requirements",
+      "dissent": [],
+      "dissent_retained": true,
+      "output": "Analysis complete. Based on the blackboard data showing 1 attempt and the workflow's exit contract requiring diagnosis quorum or disagreement reporting, I can confirm that the downstream assertions are satisfied. The analysis has identified a clear consensus in the data, which meets the requirements for carrying quorum."
+    }
+  }
+}

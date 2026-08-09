@@ -1,0 +1,47 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "source_url": "https://example.com/source1",
+          "source_date": "2023-04-01"
+        },
+        {
+          "source_url": "https://example.com/source2",
+          "source_date": "2023-05-02"
+        }
+      ]
+    },
+    "map": [
+      {
+        "keys": [
+          "source_url",
+          "source_date"
+        ]
+      },
+      {
+        "keys_responsible": [
+          "source_url",
+          "source_date"
+        ]
+      }
+    ],
+    "reduce": {
+      "output": {
+        "findings": [
+          {
+            "source_url": "https://example.com/source1",
+            "source_date": "2023-04-01"
+          },
+          {
+            "source_url": "https://example.com/source2",
+            "source_date": "2023-05-02"
+          }
+        ]
+      }
+    }
+  }
+}

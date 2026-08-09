@@ -1,0 +1,41 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "keys": [
+        "analysis",
+        "quotes",
+        "asks_coverage"
+      ]
+    },
+    "produce": {
+      "keys": [
+        "quotes",
+        "asks_coverage"
+      ]
+    },
+    "review": {
+      "output": {
+        "quotes": [
+          "The quick brown fox jumps over the lazy dog",
+          "To be or not to be, that is the question"
+        ],
+        "asks": [
+          {
+            "id": "ask1",
+            "text": "What is the capital of France?",
+            "quote": "The quick brown fox jumps over the lazy dog"
+          },
+          {
+            "id": "ask2",
+            "text": "Who wrote Hamlet?",
+            "quote": "To be or not to be, that is the question"
+          }
+        ],
+        "all_asks_covered": true
+      }
+    }
+  }
+}

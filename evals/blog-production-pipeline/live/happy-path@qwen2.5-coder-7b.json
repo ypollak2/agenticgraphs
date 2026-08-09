@@ -1,0 +1,25 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "keys": [
+        "output.lint_passed",
+        "output.plagiarism_clean"
+      ]
+    },
+    "produce": {
+      "keys": [
+        "output.lint_passed",
+        "output.plagiarism_clean"
+      ]
+    },
+    "review": {
+      "output": {
+        "lint_passed": true,
+        "plagiarism_clean": true
+      }
+    }
+  }
+}

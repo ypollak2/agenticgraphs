@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.3
 name: dependency-upgrade
 description: Upgrade pinned deps, scan changelogs for breakage, run suite.
 category: software-engineering
@@ -31,3 +31,11 @@ termination:
   contract: lockfile updated; tests pass; no new deprecation warnings
 verification:
 - assert: output.lockfile_updated and output.tests_pass and not output.new_deprecations
+triggers:
+- 'on': schedule
+  cron: 23 4 * * 1
+budget:
+  usd_max: 3.0
+durability:
+  checkpoint: every_node
+  resume: true

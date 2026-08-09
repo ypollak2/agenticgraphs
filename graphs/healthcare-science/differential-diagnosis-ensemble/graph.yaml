@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.3
 name: differential-diagnosis-ensemble
 description: Independent diagnosticians rank hypotheses; a quorum decides and dissent is reported, never
   dropped.
@@ -31,6 +31,7 @@ nodes:
   outputs:
   - consensus
   - dissent
+  - dissent_retained
   - output
   inputs:
   - ranking

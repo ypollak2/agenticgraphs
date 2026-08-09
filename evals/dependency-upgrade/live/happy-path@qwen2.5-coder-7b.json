@@ -1,0 +1,28 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "responsibility": [
+        "output.lockfile_updated",
+        "output.tests_pass",
+        "output.new_deprecations"
+      ]
+    },
+    "produce": {
+      "responsibility": [
+        "output.lockfile_updated",
+        "output.tests_pass",
+        "output.new_deprecations"
+      ]
+    },
+    "review": {
+      "output": {
+        "lockfile_updated": false,
+        "tests_pass": false,
+        "new_deprecations": true
+      }
+    }
+  }
+}

@@ -30,20 +30,26 @@ def verification_depth(doc: dict, runner_name: str) -> str:
     return "describe-only"
 
 
-def _recording(root: Path, name: str, case_id: str) -> Path | None:
-    """A checked-in real-model run for this case, if one exists.
+def _recordings(root: Path, name: str, case_id: str) -> list[Path]:
+    """Every checked-in real-model run for this case, one per model.
 
-    Recordings live at evals/<graph>/live/<case>.json. They are what makes
-    `assert-live` reachable in CI: the depth grade shipped in v1.1 could report
-    it, but producing it needed a network call, so no graph ever earned it.
+    Recordings live at evals/<graph>/live/<case>@<model>.json (v1.2 wrote a
+    single <case>.json; both are read). They are what makes `assert-live`
+    reachable in CI: the depth grade shipped in v1.1 could report it, but
+    producing it needed a network call, so no graph ever earned it.
+
+    Several models matter because one weak model looks exactly like a bad
+    contract. Only disagreement between models tells them apart.
     """
-    path = root / "evals" / name / "live" / f"{case_id}.json"
-    return path if path.exists() else None
+    live = root / "evals" / name / "live"
+    if not live.is_dir():
+        return []
+    return sorted(p for p in live.glob(f"{case_id}*.json"))
 
 
 def eval_graph(name: str, root: Path = ROOT, live: bool = False,
                auto_approve: bool = False, run_commands: bool = False,
-               replay: bool = True) -> dict:
+               replay: bool = True, resume_from=None) -> dict:
     gpath = find_graph(name, root)
     if gpath is None:
         raise SystemExit(f"no graph named '{name}'")
@@ -55,7 +61,7 @@ def eval_graph(name: str, root: Path = ROOT, live: bool = False,
 
     def _run(runner):
         rep = run_graph(doc, runner, root=root, auto_approve=auto_approve,
-                        run_commands=run_commands)
+                        run_commands=run_commands, resume_from=resume_from)
         return {"passed": rep.passed, "steps": rep.steps, "trace": rep.trace,
                 "assert_failures": rep.assert_failures,
                 "skipped_command_checks": rep.skipped_commands,
@@ -98,16 +104,27 @@ def eval_graph(name: str, root: Path = ROOT, live: bool = False,
     if replay and not live:
         live_results = []
         for case in cases:
-            rec = _recording(root, name, case["id"])
-            if rec is None:
-                continue
-            runner = ReplayRunner.load(rec)
-            live_results.append({"id": case["id"], "model": runner.model,
-                                 "recorded": runner.recorded, **_run(runner)})
+            for rec in _recordings(root, name, case["id"]):
+                runner = ReplayRunner.load(rec)
+                live_results.append({"id": case["id"], "model": runner.model,
+                                     "recorded": runner.recorded, **_run(runner)})
         if live_results:
-            block = _block(live_results, f"llm-replay:{live_results[0]['model']}")
+            models = sorted({r["model"] for r in live_results})
+            block = _block(live_results, "llm-replay:" + ",".join(models))
+            block["models"] = models
             block["recorded"] = min(r["recorded"] for r in live_results)
             block["age_days"] = (date.today() - date.fromisoformat(block["recorded"])).days
+            per_model = {
+                m: round(sum(r["passed"] for r in live_results if r["model"] == m)
+                         / max(1, sum(1 for r in live_results if r["model"] == m)), 3)
+                for m in models
+            }
+            block["per_model_pass_rate"] = per_model
+            # Disagreement is the signal that separates a weak model from a bad
+            # contract. Zero across the board would mean the extra models bought
+            # nothing, so it is reported rather than averaged away.
+            block["models_disagree"] = len(set(per_model.values())) > 1
+            block["fails_every_model"] = all(v == 0.0 for v in per_model.values())
             profile["measured_live"] = block
 
     (gpath.parent / "profile.json").write_text(json.dumps(profile, indent=2) + "\n")

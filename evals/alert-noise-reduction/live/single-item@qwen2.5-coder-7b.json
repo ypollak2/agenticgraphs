@@ -1,0 +1,25 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "index": 0,
+          "dedupe_ratio": 0.98,
+          "missed_paging_alerts": false
+        }
+      ]
+    },
+    "map": {
+      "keys": "dedupe_ratio, missed_paging_alerts"
+    },
+    "reduce": {
+      "output": {
+        "dedupe_ratio": true,
+        "missed_paging_alerts": false
+      }
+    }
+  }
+}

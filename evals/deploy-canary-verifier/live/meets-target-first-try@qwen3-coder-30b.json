@@ -1,0 +1,28 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "keys": [
+        "error_rate",
+        "threshold",
+        "rollback_fired"
+      ]
+    },
+    "attempt": {
+      "keys": [
+        "error_rate",
+        "threshold",
+        "rollback_fired"
+      ]
+    },
+    "measure": {
+      "output": {
+        "error_rate": 0.05,
+        "threshold": 0.1,
+        "rollback_fired": false
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.3
 name: self-healing-ci
 description: Diagnose a red pipeline, attempt a bounded repair, and accumulate what did not work across
   runs.
@@ -65,3 +65,12 @@ state:
   schema: state/lessons.schema.json
 memory:
   scope: graph
+triggers:
+- 'on': webhook
+  source: github
+  event: workflow_run
+budget:
+  usd_max: 2.0
+durability:
+  checkpoint: every_node
+  resume: true

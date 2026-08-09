@@ -1,5 +1,63 @@
 # Changelog
 
+## [0.4.0] — AGR v1.3 "live"
+
+Triggers, durability and enforced budgets — but the version'''s real work was
+gathering enough evidence to know whether any of this registry survives contact
+with a real model. It mostly does not, and now it says so.
+
+**75 recordings: 25 graphs x 3 models, all checked in, failures included.**
+
+| Model | Pass | Unparseable |
+|---|---|---|
+| qwen3-coder:30b | **19/25** | **0** |
+| qwen2.5-coder:7b | 11/25 | 3 |
+| hermes3:8b | 7/25 | 8 |
+
+Of 27 recorded graphs: 7 satisfied on every model, 16 model-dependent, **4
+satisfied by none**.
+
+### Findings
+- **A large share of "model failure" was harness brittleness — again.** `LLMRunner`
+  extracted JSON with `text[text.index("{"):text.rindex("}")+1]`, which breaks on
+  markdown fences, trailing commas, prose wrappers and Python `True`/`False`.
+  Hardening it moved qwen2.5-coder 8→11 passes. Third version running where the
+  headline problem was the harness misrepresenting the model.
+- **Model choice dominates.** v1.2 shipped its entire live claim on one 7B model.
+  On that evidence, 12 graphs looked like bad contracts a larger model satisfies
+  perfectly. Only cross-model disagreement separates a weak model from an
+  unsatisfiable contract.
+- **4 contracts are satisfied by no model, and the attempted fix failed.**
+  `output` is assembled by the terminal node from facts *upstream* nodes
+  established; declaring the asserted keys on the terminal asks one node to report
+  facts it never had. 0 of 12 re-recorded runs passed. The real gap — the I/O
+  contract is per-node, the verification contract is graph-level, and nothing
+  connects them — is recorded as the top v1.4 item rather than faked closed.
+
+### Added
+- `triggers` (schedule / webhook / signal) + **`agr triggers`** emitting crontab,
+  GitHub Actions or a generic webhook filter. A signal GH Actions cannot express is
+  flagged in the output, never silently dropped.
+- `durability` + **`agr eval --resume-from`**. Resume is replay over v1.2 frames —
+  no new state model. A resumed node routes through the same code path as a fresh
+  one, and the test asserts trace *equality*.
+- `budget` (`usd_max`, `steps_max`), **enforced**: checked before a node runs, not
+  after it is recorded.
+- Per-model recordings (`<case>@<model>.json`), per-model pass rates, and
+  `models_disagree` / `fails_every_model` in `profile.json`.
+- `docs/contract-findings.md`, generated from the recordings — a label that can be
+  set by hand is a label that can be set to make a number look better.
+
+### Removed
+- `approval.timeout` and `retries.backoff`, which had been accepted-and-ignored
+  since v1.1. v1.3'''s rule — no field without an executing consumer in the same
+  version — applied retroactively.
+
+### Known limits (stated, not buried)
+- Recordings cover 27 of 83 graphs; composites and human-gated graphs have none.
+- Each cell is one sample; a ✅ may have passed by luck.
+- Three local models, 7B–30B. Nothing is claimed about frontier models.
+
 ## [0.3.0] — AGR v1.2 "depth"
 
 Graphs that search or learn rather than follow a fixed path — and, more

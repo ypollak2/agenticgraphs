@@ -39,7 +39,6 @@ nodes:
   - signed_off
   approval:
     contract: signed_off == true and len(scorecards) >= 3
-    timeout: 24h
     on_timeout: escalate
 - id: offer
   speciality: executor

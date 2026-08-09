@@ -63,5 +63,100 @@
         "truncations": []
       }
     ]
+  },
+  "measured_live": {
+    "runner": "llm-replay:hermes3:8b,qwen2.5-coder:7b,qwen3-coder:30b",
+    "provisional": false,
+    "verification_depth": "assert-live",
+    "date": "2026-08-09",
+    "cases": 3,
+    "passed": 0,
+    "pass_rate": 0.0,
+    "mean_steps": 3.0,
+    "results": [
+      {
+        "id": "significant-effect-confirmed",
+        "model": "hermes3:8b",
+        "recorded": "2026-08-09",
+        "passed": false,
+        "steps": 3,
+        "trace": [
+          "position-a",
+          "position-b",
+          "judge"
+        ],
+        "assert_failures": [
+          "abs(output.recomputed_effect - output.claimed_effect) < 0.01 (AttributeError: 'NoneType' object has no attribute 'recomputed_effect')"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": []
+      },
+      {
+        "id": "significant-effect-confirmed",
+        "model": "qwen2.5-coder:7b",
+        "recorded": "2026-08-09",
+        "passed": false,
+        "steps": 3,
+        "trace": [
+          "position-a",
+          "position-b",
+          "judge"
+        ],
+        "assert_failures": [
+          "abs(output.recomputed_effect - output.claimed_effect) < 0.01 (AttributeError: recomputed_effect)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": []
+      },
+      {
+        "id": "significant-effect-confirmed",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-09",
+        "passed": false,
+        "steps": 3,
+        "trace": [
+          "position-a",
+          "position-b",
+          "judge"
+        ],
+        "assert_failures": [
+          "abs(output.recomputed_effect - output.claimed_effect) < 0.01 (AttributeError: claimed_effect)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": []
+      }
+    ],
+    "models": [
+      "hermes3:8b",
+      "qwen2.5-coder:7b",
+      "qwen3-coder:30b"
+    ],
+    "recorded": "2026-08-09",
+    "age_days": 0,
+    "per_model_pass_rate": {
+      "hermes3:8b": 0.0,
+      "qwen2.5-coder:7b": 0.0,
+      "qwen3-coder:30b": 0.0
+    },
+    "models_disagree": false,
+    "fails_every_model": true
   }
 }

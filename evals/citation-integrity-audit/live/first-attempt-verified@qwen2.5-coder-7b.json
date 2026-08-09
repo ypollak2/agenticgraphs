@@ -1,0 +1,37 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "task_name": "Identify_Mismatches",
+          "inputs": {
+            "data_source": "blackboard.attempts"
+          }
+        },
+        {
+          "task_name": "Resolve_Citations",
+          "inputs": {
+            "citations": "output.mismatches"
+          }
+        }
+      ]
+    },
+    "work": [
+      {
+        "responsible_keys": [
+          "output.mismatches"
+        ]
+      },
+      {
+        "output_citations_resolves": true,
+        "reported_mismatches": false
+      }
+    ],
+    "verify": {
+      "output": false
+    }
+  }
+}

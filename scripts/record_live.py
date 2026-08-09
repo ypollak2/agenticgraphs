@@ -54,6 +54,16 @@ class RecordingRunner:
         self.inner.bind(doc)
 
 
+def _model_dir(name: str, model: str) -> str:
+    """Recordings are per-model: `evals/<graph>/live/<case>@<model>.json`.
+
+    v1.2 kept one recording per case, which made a single weak model look like a
+    property of the graph. Distinguishing "no model satisfies this contract" from
+    "that one model was weak" needs several, kept side by side.
+    """
+    return model.replace("/", "-").replace(":", "-")
+
+
 def record(name: str) -> dict:
     gpath = find_graph(name)
     doc = load(gpath)
@@ -69,7 +79,8 @@ def record(name: str) -> dict:
         "endpoint": os.environ["AGR_LLM_BASE_URL"],
         "node_outputs": runner.captured,
     }
-    (out_dir / f"{case['id']}.json").write_text(json.dumps(payload, indent=2) + "\n")
+    model_tag = _model_dir(name, os.environ["AGR_LLM_MODEL"])
+    (out_dir / f"{case['id']}@{model_tag}.json").write_text(json.dumps(payload, indent=2) + "\n")
     return {"graph": name, "case": case["id"], "passed": rep.passed,
             "steps": rep.steps, "failures": rep.assert_failures}
 

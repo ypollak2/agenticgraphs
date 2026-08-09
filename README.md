@@ -62,7 +62,7 @@
 ## 🧭 About The Project
 
 A **registry of ready-made multi-agent workflow graphs** in a portable, framework-neutral
-format (AGR v1.2), built on three principles:
+format (AGR v1.3), built on three principles:
 
 ```yaml
 principles:
@@ -208,86 +208,86 @@ pie showData title Graphs per domain
 | `assert-live` | assert held against real model output (`agr eval --live`) |
 | `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |
 
-**Real-model evidence:** 5 graphs carry a checked-in recording of an actual model run (`evals/<graph>/live/`), and **4 of 5** satisfy their contract against it. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
+**Real-model evidence:** 27 graphs carry checked-in recordings of actual model runs across 3 models (`evals/<graph>/live/`); **7 of 27** satisfy their contract on every model, and **4 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
 
 | Graph | Domain | Cases | Pass rate | Depth | Live (real model) | Mean steps | Routes |
 |---|---|---|---|---|---|---|---|
 | `invoice-reconciliation` | business-ops | 1 | 100% | `assert-fixture` | — | 4 | 1 |
-| `meeting-to-actions` | business-ops | 2 | 100% | `assert-fixture` | ✅ qwen2.5-coder:7b · 2026-08-09 | 4 | 2 |
+| `meeting-to-actions` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
 | `policy-compliance-check` | business-ops | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `procurement-lifecycle` | business-ops | 1 | 100% | `assert-fixture` | — | 7 | 1 |
 | `rfp-response-assembler` | business-ops | 2 | 100% | `assert-fixture` | — | 3 | 1 |
 | `vendor-comparison-matrix` | business-ops | 1 | 100% | `assert-fixture` | — | 6 | 1 |
-| `blog-production-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | — | 4 | 2 |
+| `blog-production-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | ⚠️ 0%/100%/100% · 2026-08-09 | 4 | 2 |
 | `localization-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | — | 3 | 1 |
 | `seo-optimization-loop` | content-marketing | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `book-editing-pipeline` | creative-production | 1 | 100% | `assert-fixture` | — | 6 | 1 |
 | `podcast-production-pipeline` | creative-production | 1 | 100% | `assert-fixture` | — | 5 | 1 |
 | `screenplay-coverage` | creative-production | 1 | 100% | `assert-fixture` | — | 6 | 1 |
 | `ux-research-synthesis` | creative-production | 2 | 100% | `assert-fixture` | — | 3 | 1 |
-| `escalation-summarizer` | customer-support-sales | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `kb-article-generator` | customer-support-sales | 2 | 100% | `assert-fixture` | ❌ qwen2.5-coder:7b · 2026-08-09 | 4 | 2 |
+| `escalation-summarizer` | customer-support-sales | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
+| `kb-article-generator` | customer-support-sales | 2 | 100% | `assert-fixture` | ⚠️ 100%/50%/100% · 2026-08-09 | 4 | 2 |
 | `sales-call-scorer` | customer-support-sales | 1 | 100% | `assert-fixture` | — | 3 | 1 |
 | `ticket-triage-swarm` | customer-support-sales | 2 | 100% | `assert-fixture` | — | 3 | 2 |
-| `ab-test-analysis` | data-analytics | 2 | 100% | `assert-fixture` | — | 3 | 1 |
+| `ab-test-analysis` | data-analytics | 2 | 100% | `assert-fixture` | 🚫 0%/0%/0% · 2026-08-09 | 3 | 1 |
 | `anomaly-investigation` | data-analytics | 2 | 100% | `assert-fixture` | — | 3 | 2 |
-| `data-quality-audit` | data-analytics | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `etl-pipeline-builder` | data-analytics | 2 | 100% | `assert-fixture` | — | 4 | 2 |
+| `data-quality-audit` | data-analytics | 2 | 100% | `assert-fixture` | ⚠️ 100%/100%/0% · 2026-08-09 | 4 | 2 |
+| `etl-pipeline-builder` | data-analytics | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 4 | 2 |
 | `schema-migration-saga` | data-analytics | 1 | 100% | `assert-fixture` | — | 5 | 1 |
 | `sql-generation-verified` | data-analytics | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `alert-noise-reduction` | devops-sre | 2 | 100% | `assert-fixture` | — | 3 | 1 |
-| `deploy-canary-verifier` | devops-sre | 2 | 100% | `assert-fixture` | — | 4 | 2 |
+| `alert-noise-reduction` | devops-sre | 2 | 100% | `assert-fixture` | ⚠️ 100%/100%/0% · 2026-08-09 | 3 | 1 |
+| `deploy-canary-verifier` | devops-sre | 2 | 100% | `assert-fixture` | ⚠️ 0%/100% · 2026-08-09 | 4 | 2 |
 | `incident-lifecycle` | devops-sre | 1 | 100% | `assert-fixture` | — | 10 | 1 |
 | `incident-triage-router` | devops-sre | 2 | 100% | `assert-fixture` | — | 3 | 2 |
 | `postmortem-writer` | devops-sre | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `runbook-executor` | devops-sre | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `self-healing-ci` | devops-sre | 1 | 100% | `assert-fixture` | — | 4 | 1 |
 | `verifier-swarm` | devops-sre | 3 | 100% | `command` | — | 5 | 3 |
-| `essay-feedback-critic` | education | 2 | 100% | `assert-fixture` | ✅ qwen2.5-coder:7b · 2026-08-09 | 4 | 2 |
-| `quiz-generation-verified` | education | 2 | 100% | `assert-fixture` | ✅ qwen2.5-coder:7b · 2026-08-09 | 4 | 2 |
+| `essay-feedback-critic` | education | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 4 | 2 |
+| `quiz-generation-verified` | education | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
 | `rubric-grading-swarm` | education | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `earnings-call-digest` | finance | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `expense-audit-swarm` | finance | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `kyc-document-processing` | finance | 2 | 100% | `assert-fixture` | — | 4 | 2 |
+| `earnings-call-digest` | finance | 2 | 100% | `assert-fixture` | 🚫 0%/0%/0% · 2026-08-09 | 4 | 2 |
+| `expense-audit-swarm` | finance | 2 | 100% | `assert-fixture` | ⚠️ 0%/100%/100% · 2026-08-09 | 4 | 2 |
+| `kyc-document-processing` | finance | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
 | `regulatory-filing-lifecycle` | finance | 1 | 100% | `assert-fixture` | — | 5 | 1 |
-| `adverse-event-scanner` | healthcare-science | 2 | 100% | `assert-fixture` | — | 3 | 1 |
+| `adverse-event-scanner` | healthcare-science | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 3 | 1 |
 | `clinical-literature-triage` | healthcare-science | 2 | 100% | `assert-fixture` | — | 3 | 2 |
 | `clinical-protocol-lifecycle` | healthcare-science | 1 | 100% | `assert-fixture` | — | 4 | 1 |
-| `differential-diagnosis-ensemble` | healthcare-science | 1 | 100% | `assert-fixture` | — | 3 | 1 |
+| `differential-diagnosis-ensemble` | healthcare-science | 1 | 100% | `assert-fixture` | 🚫 0%/0%/0% · 2026-08-09 | 3 | 1 |
 | `medical-coding-audit` | healthcare-science | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `trial-eligibility-screener` | healthcare-science | 1 | 100% | `assert-fixture` | — | 3 | 1 |
 | `hiring-lifecycle` | hr-people | 1 | 100% | `assert-fixture` | — | 7 | 1 |
-| `jd-drafting-critic` | hr-people | 2 | 100% | `assert-fixture` | ✅ qwen2.5-coder:7b · 2026-08-09 | 4 | 2 |
+| `jd-drafting-critic` | hr-people | 2 | 100% | `assert-fixture` | ⚠️ 0%/50%/100% · 2026-08-09 | 4 | 2 |
 | `onboarding-plan-builder` | hr-people | 1 | 100% | `assert-fixture` | — | 4 | 1 |
 | `performance-cycle-summarizer` | hr-people | 1 | 100% | `assert-fixture` | — | 4 | 1 |
 | `contract-lifecycle` | legal-compliance | 1 | 100% | `assert-fixture` | — | 7 | 1 |
-| `contract-redline-pipeline` | legal-compliance | 2 | 100% | `assert-fixture` | — | 4 | 2 |
+| `contract-redline-pipeline` | legal-compliance | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 4 | 2 |
 | `ediscovery-triage` | legal-compliance | 2 | 100% | `assert-fixture` | — | 3 | 2 |
 | `gdpr-data-audit` | legal-compliance | 1 | 100% | `assert-fixture` | — | 7 | 1 |
 | `license-compliance-scan` | legal-compliance | 2 | 100% | `assert-fixture` | — | 3 | 1 |
 | `product-listing-pipeline` | logistics-retail | 1 | 100% | `assert-fixture` | — | 7 | 1 |
 | `returns-triage` | logistics-retail | 2 | 100% | `assert-fixture` | — | 3 | 2 |
 | `supplier-risk-monitor` | logistics-retail | 1 | 100% | `assert-fixture` | — | 6 | 1 |
-| `citation-integrity-audit` | research-knowledge | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `competitive-intelligence` | research-knowledge | 2 | 100% | `assert-fixture` | — | 3 | 1 |
+| `citation-integrity-audit` | research-knowledge | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
+| `competitive-intelligence` | research-knowledge | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 3 | 1 |
 | `cost-routed-research` | research-knowledge | 3 | 100% | `assert-fixture` | — | 3.33 | 3 |
-| `fact-check-pipeline` | research-knowledge | 2 | 100% | `assert-fixture` | — | 4 | 2 |
+| `fact-check-pipeline` | research-knowledge | 2 | 100% | `assert-fixture` | ⚠️ 0%/100%/100% · 2026-08-09 | 4 | 2 |
 | `literature-review-swarm` | research-knowledge | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `prompt-graph-optimization` | research-knowledge | 1 | 100% | `assert-fixture` | — | 3 | 1 |
 | `compliance-evidence-collector` | security | 1 | 100% | `assert-fixture` | — | 11 | 1 |
-| `forensic-investigation-blackboard` | security | 1 | 100% | `assert-fixture` | — | 3 | 1 |
+| `forensic-investigation-blackboard` | security | 1 | 100% | `assert-fixture` | ⚠️ 0%/100%/100% · 2026-08-09 | 3 | 1 |
 | `phishing-triage` | security | 2 | 100% | `assert-fixture` | — | 3 | 2 |
 | `red-team-blue-team-hardening` | security | 1 | 100% | `assert-fixture` | — | 4 | 1 |
 | `soc-alert-investigation` | security | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `threat-intel-digest` | security | 2 | 100% | `assert-fixture` | — | 3 | 1 |
 | `vuln-prioritization` | security | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `vuln-remediation-lifecycle` | security | 1 | 100% | `assert-fixture` | — | 9 | 1 |
-| `architecture-decision-tournament` | software-engineering | 1 | 100% | `assert-fixture` | — | 3 | 1 |
-| `benchmark-driven-optimization-search` | software-engineering | 1 | 100% | `assert-fixture` | — | 3 | 1 |
-| `bug-triage-and-fix` | software-engineering | 2 | 100% | `assert-fixture` | — | 4 | 2 |
+| `architecture-decision-tournament` | software-engineering | 1 | 100% | `assert-fixture` | ⚠️ 0%/100%/100% · 2026-08-09 | 3 | 1 |
+| `benchmark-driven-optimization-search` | software-engineering | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 3 | 1 |
+| `bug-triage-and-fix` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 4 | 2 |
 | `code-review-pipeline` | software-engineering | 2 | 100% | `assert-fixture` | — | 3.5 | 2 |
-| `dependency-upgrade` | software-engineering | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `docs-code-sync-audit` | software-engineering | 2 | 100% | `assert-fixture` | — | 4 | 2 |
+| `dependency-upgrade` | software-engineering | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 4 | 2 |
+| `docs-code-sync-audit` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `feature-delivery-lifecycle` | software-engineering | 3 | 100% | `assert-fixture` | — | 16 | 3 |
 | `flaky-test-reflexion` | software-engineering | 1 | 100% | `assert-fixture` | — | 4 | 1 |
 | `framework-migration` | software-engineering | 1 | 100% | `assert-fixture` | — | 7 | 1 |
@@ -449,11 +449,11 @@ primitives into multi-phase workflows, referencing them rather than restating th
 function, both of which need a real environment. Bounded by `branch × depth`,
 deterministic, and step-capped like everything else.
 
-### What a real model actually did
+### What real models actually did
 
-The most useful thing v1.2 produced is a failure. `assert-live` grading shipped in
-v1.1 but nothing could produce it, so every graph sat at `assert-fixture`. v1.2 made
-recordings possible and pointed a local `qwen2.5-coder:7b` at five graphs.
+The most useful thing this project produced is a failure. `assert-live` grading
+shipped in v1.1 but nothing could produce it, so every graph sat at `assert-fixture`.
+v1.2 made recordings possible and pointed a local `qwen2.5-coder:7b` at five graphs.
 
 **All five failed.** Every one raised `NameError: name 'output' is not defined` — on
 the exact key its contract asserts. The cause was not the model. `LLMRunner`'s prompt
@@ -466,7 +466,27 @@ After teaching the runner to state the contract, **4 of 5 pass**. The fifth is k
 failing, because the model returned `output: true` where an object is required.
 
 A registry reporting 74/74 at 100% was, on first contact with a real model, 0/5.
-That is why the scoreboard grades depth and reports live results in their own column.
+
+v1.3 then recorded **75 runs — 25 graphs × 3 models** — and the same lesson landed
+twice more:
+
+| Model | Pass | Unparseable |
+|---|---|---|
+| `qwen3-coder:30b` | **19/25** | **0** |
+| `qwen2.5-coder:7b` | 11/25 | 3 |
+| `hermes3:8b` | 7/25 | 8 |
+
+A large share of apparent *model* failure was the harness again: `LLMRunner`
+extracted JSON with `text[text.index("{"):text.rindex("}")+1]`, which breaks on
+markdown fences, trailing commas and Python `True`/`False`. Hardening it moved
+qwen2.5-coder from 8 passes to 11.
+
+And model choice dominates. On v1.2's single-model evidence, **12 graphs looked like
+bad contracts that a larger model satisfies perfectly.** Only disagreement between
+models separates "this contract is unsatisfiable" from "that model was weak" —
+which is why the scoreboard reports per-model results and
+[`docs/contract-findings.md`](docs/contract-findings.md) names the contracts no
+model satisfies.
 
 ### Composites reference, they don't copy
 
@@ -538,13 +558,28 @@ averaged away. Deepening it is the open problem, not a solved one.
       17 graphs migrated off the decorative `parallel_group` label onto real
       fan-out. Plan: [v3-agr-1.2.md](docs/plans/v3-agr-1.2.md) ·
       Audit: [v3-audit.md](docs/plans/v3-audit.md).
-- [ ] **M7 / AGR v1.3 — live.** `triggers`, durable checkpoint/resume, enforced
-      budgets, federated supervisor. Turns graphs from functions into services.
+- [x] **M7 / AGR v1.3 — live.** `triggers` + `agr triggers` (cron / GitHub Actions /
+      webhook), `durability` + `agr eval --resume-from` (resume is replay over v1.2
+      frames), and **enforced** `budget` caps. `approval.timeout` and
+      `retries.backoff` were deleted rather than carried a third version unenforced.
+      75 recordings across 3 models, with per-model results and
+      [contract findings](docs/contract-findings.md).
+      Plan: [v4-agr-1.3.md](docs/plans/v4-agr-1.3.md) ·
+      Audit: [v4-audit.md](docs/plans/v4-audit.md).
+- [ ] **M8 / AGR v1.4 — connect the contracts.** The I/O contract is per-node, the
+      verification contract is graph-level, and nothing connects them: no lint asks
+      whether the nodes preceding a verifier produce what it asserts on. That is why
+      4 contracts are structurally valid, pass 157 tests, and are satisfiable by no
+      model.
 
-**Known limits, stated rather than buried:** the live recordings are one model
-(`qwen2.5-coder:7b`), one case per graph — enough to prove the mechanism and surface
-the contract bug, not enough to claim anything general about model behaviour. Search
-graphs are tested against synthetic gradients, not a real scorer.
+**Known limits, stated rather than buried:**
+
+- Live recordings cover **27 of 83 graphs**. Composites and human-gated graphs have
+  none — an approval gate cannot be replayed — so the live column measures a slice.
+- **Each cell is one sample.** Model output varies between runs; a ✅ may have passed
+  by luck and a ❌ may have been unlucky. Nothing here distinguishes them.
+- Three local models, all small (7B–30B). Nothing is claimed about frontier models.
+- Search graphs are tested against synthetic gradients, not a real scorer.
 
 Of the 52 primitives, three are handcrafted with domain specialities
 (`code-review-pipeline`, `verifier-swarm`, `cost-routed-research`) and the other 49 are
@@ -626,7 +661,7 @@ Project Link: [https://github.com/ypollak2/agenticgraphs][repo-url]
 [domains-shield]: https://img.shields.io/badge/domains-15-2ea44f?style=for-the-badge
 [patterns-shield]: https://img.shields.io/badge/motifs-19-2ea44f?style=for-the-badge
 [patterns-url]: #the-eight-patterns
-[tests-shield]: https://img.shields.io/badge/tests-135%2F135-blue?style=for-the-badge
+[tests-shield]: https://img.shields.io/badge/tests-157%2F157-blue?style=for-the-badge
 [tests-url]: tests/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
 [license-url]: LICENSE

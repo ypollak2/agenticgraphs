@@ -32,6 +32,8 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("mermaid", help="emit a mermaid diagram for a graph").add_argument("name")
     sub.add_parser("profile", help="structural profile (deterministic; not a perf measurement)").add_argument("name")
     ep = sub.add_parser("eval", help="run golden cases, write profile.json (M1)")
+    ep.add_argument("--resume-from", type=Path, metavar="JOURNAL",
+                    help="resume a killed run from its journal (requires durability.resume)")
     ep.add_argument("--no-replay", action="store_true",
                     help="ignore checked-in real-model recordings in evals/<graph>/live/ "
                          "and use mock fixtures instead")
@@ -64,6 +66,11 @@ def main(argv: list[str] | None = None) -> int:
     cp.add_argument("--mode", choices=["inline", "subgraph"], default="inline",
                     help="inline: splice both graphs' nodes (v1). subgraph: emit a two-phase "
                          "parent that references each graph by ref (v1.1, edits to children propagate)")
+    tp = sub.add_parser("triggers", help="compile a graph's declared triggers to a host artifact (M7)")
+    tp.add_argument("name")
+    tp.add_argument("--target", default="cron",
+                    choices=["cron", "github-actions", "webhook"],
+                    help="cron (default), github-actions, or a generic webhook filter")
     mp = sub.add_parser("mcp", help="serve the registry over MCP (stdio by default, or --http)")
     mp.add_argument("--http", action="store_true",
                      help="serve over HTTP/SSE instead of stdio (binds 127.0.0.1 only)")
@@ -94,7 +101,8 @@ def main(argv: list[str] | None = None) -> int:
         from .evalcmd import eval_graph
         profile = eval_graph(args.name, live=args.live, auto_approve=args.auto_approve,
                              run_commands=args.run_commands,
-                             replay=not args.no_replay)
+                             replay=not args.no_replay,
+                             resume_from=args.resume_from)
         print(json.dumps(profile["measured"], indent=2))
         return 0 if profile["measured"]["pass_rate"] == 1.0 else 1
     if args.cmd == "infuse":
@@ -151,6 +159,15 @@ def main(argv: list[str] | None = None) -> int:
             print(f"wrote {args.output}")
         else:
             print(text, end="")
+        return 0
+    if args.cmd == "triggers":
+        from .triggers import TriggerError, emit
+
+        try:
+            print(emit(_need(args.name), args.target), end="")
+        except TriggerError as e:
+            print(f"triggers: {e}", file=sys.stderr)
+            return 1
         return 0
     if args.cmd == "mcp":
         from .mcp_server import main as serve

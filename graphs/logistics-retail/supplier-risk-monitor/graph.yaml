@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.3
 name: supplier-risk-monitor
 description: Score supplier concentration, financial and geographic risk, then plan mitigation for anything
   above appetite.
@@ -56,3 +56,11 @@ verification:
 state:
   inputs:
   - supplier_list
+triggers:
+- 'on': schedule
+  cron: 41 6 * * *
+budget:
+  usd_max: 2.0
+durability:
+  checkpoint: every_node
+  resume: true

@@ -1,0 +1,39 @@
+{
+  "model": "hermes3:8b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "keys": [
+        "verdicts"
+      ]
+    },
+    "produce": {
+      "keys": [
+        "verdicts"
+      ]
+    },
+    "review": {
+      "output": [
+        {
+          "verdict": "Needs Improvement",
+          "source_url": "https://example.com/critique-1",
+          "quote_span": "The overall impression was of underdevelopment and unpolished ideas.",
+          "justification": "The dialogue lacked depth, the plot had several inconsistencies, and some parts felt rushed."
+        },
+        {
+          "verdict": "Recommended with Reservations",
+          "source_url": "https://example.com/critique-2",
+          "quote_span": "While there were moments of brilliance, they were overshadowed by flaws.",
+          "justification": "The visual effects were stunning, but the characters' motivations seemed unclear at times."
+        },
+        {
+          "verdict": "Highly Recommended",
+          "source_url": "https://example.com/critique-3",
+          "quote_span": "A masterful blend of storytelling and technical prowess.",
+          "justification": "The pacing was spot-on, the performances were top-notch, and the world-building was imaginative."
+        }
+      ]
+    }
+  }
+}

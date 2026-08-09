@@ -1,0 +1,23 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "partition": {
+      "shards": []
+    },
+    "reduce": {
+      "output": {
+        "signals": [
+          {
+            "report_ids": [
+              "report1",
+              "report2"
+            ],
+            "count": 2
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "lint_passed": true,
+      "plagiarism_clean": true
+    },
+    "produce": {
+      "keys": [
+        "lint_passed",
+        "plagiarism_clean"
+      ]
+    },
+    "review": {
+      "output": {
+        "lint_passed": true,
+        "plagiarism_clean": true
+      }
+    }
+  }
+}

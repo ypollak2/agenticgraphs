@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shlex
 import subprocess
 import urllib.request
@@ -89,6 +90,54 @@ def edge_true(when: str | None, bb: dict) -> bool:
         return False  # unresolvable condition = edge not taken
 
 
+_FENCE = re.compile(r"```(?:json)?\s*(.*?)```", re.S)
+_TRAILING_COMMA = re.compile(r",(\s*[}\]])")
+#: Models routinely emit Python literals inside otherwise-valid JSON. Normalising
+#: them is tolerance for a known quirk, not papering over a wrong answer — the
+#: keys and values are exactly what the model meant.
+_PY_LITERAL = re.compile(r"(?<![\w\"])(True|False|None)(?![\w\"])")
+_PY_MAP = {"True": "true", "False": "false", "None": "null"}
+
+
+def extract_json(text: str) -> dict:
+    """Pull a JSON object out of a model reply, tolerantly.
+
+    The original was one line — `text[text.index("{"):text.rindex("}")+1]` — and a
+    multi-model sweep showed why that matters: a large share of apparent *model*
+    failures were markdown fences, trailing commas, or prose wrapped around
+    otherwise-correct JSON. Counting harness brittleness as a model failure would
+    misattribute exactly the thing the sweep exists to measure.
+
+    Raises ValueError when there is genuinely no object to find, so a real
+    failure is still a failure.
+    """
+    fenced = _FENCE.search(text)
+    if fenced:
+        text = fenced.group(1)
+    start, end = text.find("{"), text.rfind("}")
+    if start == -1 or end <= start:
+        raise ValueError(f"no JSON object in model reply: {text[:120]!r}")
+    blob = text[start:end + 1]
+    repaired = _PY_LITERAL.sub(lambda m: _PY_MAP[m.group(1)], _TRAILING_COMMA.sub(r"\1", blob))
+    for candidate in (blob, _TRAILING_COMMA.sub(r"\1", blob), repaired):
+        try:
+            parsed = json.loads(candidate)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(parsed, dict):
+            return parsed
+    # Last resort: the largest balanced prefix, for a reply truncated mid-object.
+    depth = 0
+    for i, ch in enumerate(blob):
+        depth += (ch == "{") - (ch == "}")
+        if depth == 0 and i:
+            try:
+                return json.loads(blob[: i + 1])
+            except json.JSONDecodeError:
+                break
+    raise ValueError(f"unparseable JSON in model reply: {blob[:120]!r}")
+
+
 class HumanGateRequired(Exception):
     """A `kind: human` node was reached with no authority to approve it.
 
@@ -118,6 +167,9 @@ class RunReport:
     # phase-scoped verification, fan-out and reflexion memory all read from.
     frames: list[dict] = field(default_factory=list)
     lessons: list[dict] = field(default_factory=list)
+    budget_exhausted: str = ""
+    journal: list[dict] = field(default_factory=list)
+    resumed_nodes: list[str] = field(default_factory=list)
     state_violations: list[str] = field(default_factory=list)
     truncations: list[str] = field(default_factory=list)
     searches: list[dict] = field(default_factory=list)
@@ -148,7 +200,7 @@ class RunReport:
     @property
     def passed(self) -> bool:
         return (not self.assert_failures and not self.command_failures
-                and not self.state_violations
+                and not self.state_violations and not self.budget_exhausted
                 and not self.hit_step_cap and not self.deadlocked)
 
 
@@ -215,7 +267,7 @@ class LLMRunner:
         )
         with urllib.request.urlopen(req, timeout=120) as r:  # noqa: S310
             text = json.load(r)["choices"][0]["message"]["content"]
-        return json.loads(text[text.index("{"): text.rindex("}") + 1])
+        return extract_json(text)
 
     def approve(self, node: dict, bb: dict, auto_approve: bool = False) -> dict:
         """Refuse to sign a human gate — a model must not approve its own work.
@@ -368,8 +420,15 @@ def _run_command(cmd: str, cwd, rep: RunReport) -> None:
         rep.command_failures.append(f"{cmd} (exit {proc.returncode}: {tail[0]})")
 
 
+#: Rough per-node cost used only to make `budget.usd_max` enforceable without a
+#: billing integration. Deliberately crude and deliberately NOT presented as a
+#: price: it exists so a cap can halt a run, which beats a cap that is recorded
+#: and ignored — the pattern v1.3 exists to stop repeating.
+_EST_USD_PER_NODE = 0.002
+
+
 def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
-              run_commands: bool = False) -> RunReport:
+              run_commands: bool = False, resume_from=None) -> RunReport:
     """Execute an AGR graph against a runner.
 
     v1.1 adds: subgraph expansion, join semantics, error/compensate edge kinds,
@@ -411,11 +470,34 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
     attempts: dict[str, int] = defaultdict(int)
     bb: dict = {}
     cap = doc["termination"]["max_steps"]
+    budget = doc.get("budget") or {}
+    # D3: resume is replay. v1.2 already journals every node execution, so a
+    # killed run is resumed by replaying its frames and skipping what completed —
+    # no new state model, no storage engine.
+    completed: dict[str, dict] = {}
+    if resume_from:
+        for line in Path(resume_from).read_text().splitlines():
+            if line.strip():
+                entry = json.loads(line)
+                completed[entry["node"]] = entry["out"]
     rdy = _Readiness(doc, nodes, in_flow, resolved, taken, ran, pending, forced)
 
     while pending:
         if rep.steps >= cap:
             rep.hit_step_cap = True
+            break
+        # Budgets are checked *before* the node runs, not after it is recorded:
+        # a cap that lets the step it forbids execute first is not a cap.
+        if budget.get("steps_max") and rep.steps >= budget["steps_max"]:
+            rep.budget_exhausted = (
+                f"steps_max={budget['steps_max']} reached; halted before step {rep.steps + 1}"
+            )
+            break
+        if budget.get("usd_max") and (rep.steps + 1) * _EST_USD_PER_NODE > budget["usd_max"]:
+            rep.budget_exhausted = (
+                f"usd_max=${budget['usd_max']:.4f} would be exceeded by step {rep.steps + 1} "
+                f"(estimated ${(rep.steps + 1) * _EST_USD_PER_NODE:.4f})"
+            )
             break
         pick = next((i for i, nid in enumerate(pending) if rdy.ready(nid)), None)
         if pick is None:
@@ -456,6 +538,13 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
         bb["attempts"] = visits[nid]
 
         _aggregate(node, bb)
+        if nid in completed and visits[nid] == 1:
+            out = completed.pop(nid)
+            rep.resumed_nodes.append(nid)
+            rep.frames.append({"node": nid, "visit": 1, "out": out, "resumed": True})
+            bb.update(out)
+            _fire(nid, node, out, doc, out_edges, resolved, taken, forced, pending, bb, rep)
+            continue
         if node.get("kind") == "human":
             out = _run_gate(node, bb, runner, auto_approve, rep)
         elif node.get("fan_out"):
@@ -474,28 +563,11 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
             pending.insert(0, nid)  # retry before draining the rest of the frontier
             continue
 
-        blocked = errored or (nid, False) in rep.approvals
-        fired: list[int] = []
-        for i in out_edges[nid]:
-            e = doc["edges"][i]
-            kind = e.get("kind", "flow")
-            resolved.add(i)
-            if kind == "flow" and blocked:
-                continue
-            if kind == "error" and not errored:
-                continue
-            if edge_true(e.get("when"), bb):
-                fired.append(i)
-        if node.get("kind") == "router" and fired:
-            fired = fired[:1]
-        for i in fired:
-            taken.add(i)
-            edge = doc["edges"][i]
-            tgt = edge["to"]
-            if edge.get("kind", "flow") != "flow":
-                forced.add(tgt)
-            if tgt not in pending:
-                pending.append(tgt)
+        _fire(nid, node, out, doc, out_edges, resolved, taken, forced, pending, bb, rep)
+
+    if (doc.get("durability") or {}).get("checkpoint") == "every_node":
+        rep.journal = [{"node": f["node"], "out": f["out"]}
+                       for f in rep.frames if not f.get("resumed")]
 
     _check_state(doc, bb, root, rep)
     _persist_memory(doc, bb, root, rep)
@@ -693,6 +765,39 @@ def _persist_memory(doc: dict, bb: dict, root, rep: RunReport) -> None:
         with target.open("a") as fh:
             for lesson in rep.lessons:
                 fh.write(json.dumps({"graph": doc["name"], "lesson": lesson}) + "\n")
+
+
+def _fire(nid, node, out, doc, out_edges, resolved, taken, forced, pending, bb, rep) -> None:
+    """Resolve this node's outgoing edges and enqueue whatever they reach.
+
+    Extracted so a resumed node — whose output is replayed from a journal rather
+    than produced by a runner — takes exactly the same routing path as a fresh
+    one. Two copies of this logic would let resume diverge from a live run in
+    ways the trace-equality test is specifically there to catch.
+    """
+    errored = bool(out.get("error"))
+    blocked = errored or (nid, False) in rep.approvals
+    fired: list[int] = []
+    for i in out_edges[nid]:
+        e = doc["edges"][i]
+        kind = e.get("kind", "flow")
+        resolved.add(i)
+        if kind == "flow" and blocked:
+            continue
+        if kind == "error" and not errored:
+            continue
+        if edge_true(e.get("when"), bb):
+            fired.append(i)
+    if node.get("kind") == "router" and fired:
+        fired = fired[:1]
+    for i in fired:
+        taken.add(i)
+        edge = doc["edges"][i]
+        tgt = edge["to"]
+        if edge.get("kind", "flow") != "flow":
+            forced.add(tgt)
+        if tgt not in pending:
+            pending.append(tgt)
 
 
 def _run_gate(node: dict, bb: dict, runner, auto_approve: bool, rep: RunReport) -> dict:

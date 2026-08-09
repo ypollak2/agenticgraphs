@@ -1,0 +1,25 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "keys_responsible": [
+        "bias_lint_clean",
+        "requirements_deduplicated"
+      ]
+    },
+    "generate": {
+      "keys_responsible": [
+        "bias_lint_clean",
+        "requirements_deduplicated"
+      ]
+    },
+    "critique": {
+      "output": {
+        "bias_lint_clean": true,
+        "requirements_deduplicated": false
+      }
+    }
+  }
+}

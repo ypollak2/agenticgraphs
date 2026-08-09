@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://agenticgraphs.dev/spec/agr-graph.schema.json",
-  "title": "AGR Graph v1.2",
+  "title": "AGR Graph v1.3",
   "type": "object",
   "required": [
     "apiVersion",
@@ -17,7 +17,8 @@
       "enum": [
         "agr/v1",
         "agr/v1.1",
-        "agr/v1.2"
+        "agr/v1.2",
+        "agr/v1.3"
       ]
     },
     "name": {
@@ -120,15 +121,8 @@
               "max": {
                 "type": "integer",
                 "minimum": 0,
-                "maximum": 5
-              },
-              "backoff": {
-                "enum": [
-                  "none",
-                  "linear",
-                  "exponential"
-                ],
-                "default": "none"
+                "maximum": 5,
+                "description": "Re-runs on error before error edges fire. Enforced."
               }
             },
             "required": [
@@ -142,17 +136,14 @@
               "contract": {
                 "type": "string"
               },
-              "timeout": {
-                "type": "string",
-                "description": "Recorded but NOT enforced in v1.1 \u2014 the harness has no clock."
-              },
               "on_timeout": {
                 "enum": [
                   "escalate",
                   "reject",
                   "proceed"
                 ],
-                "default": "escalate"
+                "default": "escalate",
+                "description": "Recorded for the host that owns the clock; the harness has none and never claims to enforce it."
               }
             },
             "required": [
@@ -443,6 +434,76 @@
         },
         "schema": {
           "type": "string"
+        }
+      }
+    },
+    "triggers": {
+      "type": "array",
+      "minItems": 1,
+      "description": "v1.3 \u2014 when this graph wants to run. AGR declares; it does not schedule. `agr triggers` emits the host-native artifact.",
+      "items": {
+        "type": "object",
+        "required": [
+          "on"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "on": {
+            "enum": [
+              "schedule",
+              "webhook",
+              "signal"
+            ]
+          },
+          "cron": {
+            "type": "string",
+            "description": "schedule only; 5-field cron"
+          },
+          "source": {
+            "type": "string",
+            "description": "webhook only, e.g. github"
+          },
+          "event": {
+            "type": "string",
+            "description": "webhook only, e.g. pull_request"
+          },
+          "expr": {
+            "type": "string",
+            "description": "signal only; a condition over the blackboard"
+          }
+        }
+      }
+    },
+    "durability": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "v1.3 \u2014 journal frames so a killed run can resume.",
+      "properties": {
+        "checkpoint": {
+          "enum": [
+            "every_node",
+            "never"
+          ],
+          "default": "never"
+        },
+        "resume": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "v1.3 \u2014 ENFORCED caps. A recorded-but-unenforced limit is the anti-pattern this version exists to stop repeating.",
+      "properties": {
+        "usd_max": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "steps_max": {
+          "type": "integer",
+          "minimum": 1
         }
       }
     }

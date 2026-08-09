@@ -1,0 +1,31 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "output_keys": [
+        "verdicts"
+      ]
+    },
+    "produce": {
+      "output_keys": [
+        "verdicts"
+      ]
+    },
+    "review": {
+      "output": {
+        "verdicts": [
+          {
+            "source_url": "[example.com/1]",
+            "quote_span": "This is a good attempt."
+          },
+          {
+            "source_url": "[example.com/2]",
+            "quote_span": "Needs more refinement."
+          }
+        ]
+      }
+    }
+  }
+}

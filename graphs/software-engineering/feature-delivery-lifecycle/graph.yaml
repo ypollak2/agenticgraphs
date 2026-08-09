@@ -90,7 +90,6 @@ nodes:
   - signed_off
   approval:
     contract: signed_off == true and verdict == 'approve'
-    timeout: 24h
     on_timeout: escalate
 - id: release
   speciality: release-manager

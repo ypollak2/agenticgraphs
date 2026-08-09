@@ -1,0 +1,16 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "partition": {
+      "shards": []
+    },
+    "reduce": {
+      "output": {
+        "dedupe_ratio": 0.0,
+        "missed_paging_alerts": false
+      }
+    }
+  }
+}

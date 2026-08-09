@@ -1,0 +1,100 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "profile": {
+      "hotspot": null,
+      "baseline_ms": 100
+    },
+    "explore": [
+      {
+        "patch": "Increase the iteration count of the loop by 10%. Ensure each iteration uses more efficient algorithms and data structures.",
+        "bench_ms": 90
+      },
+      {
+        "patch": null,
+        "bench_ms": 85
+      },
+      {
+        "patch": "{\"change\":\"optimize_code\"}",
+        "bench_ms": 80
+      },
+      {
+        "patch": "increase_search_depth",
+        "bench_ms": 150
+      },
+      {
+        "patch": "{\"change\":\"optimize_code\"}",
+        "bench_ms": 75
+      },
+      {
+        "patch": "{\"change\":\"optimize_code\"}",
+        "bench_ms": 75
+      },
+      {
+        "patch": "{\"change\":\"optimize_code\"}",
+        "bench_ms": 70
+      },
+      {
+        "patch": "{\"change\":\"optimize_code\"}",
+        "bench_ms": 70
+      },
+      {
+        "patch": null,
+        "bench_ms": 85
+      },
+      {
+        "patch": null,
+        "bench_ms": 80
+      },
+      {
+        "patch": "optimized_code_change",
+        "bench_ms": 75
+      },
+      {
+        "patch": null,
+        "bench_ms": 70
+      },
+      {
+        "patch": "{\"change\":\"optimize_code\"}",
+        "bench_ms": 50
+      },
+      {
+        "patch": "{\"change\":\"optimize_code\"}",
+        "bench_ms": 50
+      },
+      {
+        "patch": "{\"change\":\"optimize_for_performance\"}",
+        "bench_ms": 65
+      },
+      {
+        "patch": "{\"change\":\"optimize_code\"}",
+        "bench_ms": 69
+      },
+      {
+        "patch": "{\"change\":\"optimize_code\"}",
+        "bench_ms": 30
+      },
+      {
+        "patch": "{\"change\":\"optimize_code\"}",
+        "bench_ms": 50
+      },
+      {
+        "patch": "{\"change\":\"optimize_code\"}",
+        "bench_ms": 70
+      },
+      {
+        "patch": "{\"change\":\"optimize_code\"}",
+        "bench_ms": 50
+      }
+    ],
+    "verify": {
+      "suite_green": false,
+      "output": {
+        "bench_ms": 30,
+        "baseline_ms": 100
+      }
+    }
+  }
+}

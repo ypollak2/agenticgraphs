@@ -1,0 +1,30 @@
+{
+  "model": "hermes3:8b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "presentations": [
+        {
+          "diagnosis": null,
+          "justification": "The previous diagnosis attempt has been recorded, but there is no consensus or dissent yet. More analysis is needed before making a definitive diagnosis."
+        }
+      ]
+    },
+    "diagnose": {
+      "ranking": [
+        1
+      ]
+    },
+    "adjudicate": {
+      "consensus": null,
+      "dissent": [],
+      "dissent_retained": true,
+      "output": {
+        "diagnosis": null,
+        "justification": "There is still insufficient consensus to make a definitive diagnosis. Awaiting further analysis and potentially more case presentations before settling on the most likely explanation.",
+        "quorum_level": 1
+      }
+    }
+  }
+}

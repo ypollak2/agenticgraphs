@@ -1,0 +1,25 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "keys": [
+        "attempts",
+        "resolution"
+      ]
+    },
+    "produce": {
+      "keys": [
+        "resolutions",
+        "duplicates_deduped"
+      ]
+    },
+    "review": {
+      "output": {
+        "reproduces_resolution": true,
+        "duplicates_deduped": true
+      }
+    }
+  }
+}

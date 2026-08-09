@@ -1,0 +1,33 @@
+{
+  "model": "hermes3:8b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "frame": {
+      "options": [
+        "The two most likely outcomes from the available options.",
+        "Which outcome currently seems to be the least likely?"
+      ],
+      "rubric": [
+        ">= 0.7 confidence is required in our top pick before 0.5 confidence in next best.",
+        "Margins of victory between outcomes should be >= 2.",
+        "An unexpected outcome must meet >0.6 threshold for consideration."
+      ]
+    },
+    "design": [
+      {
+        "proposal": "The most likely outcome from the available options seems to be Option A, which projects strong growth and sustainability in the market through innovation. Our confidence level is high at 0.85.",
+        "rubric_score": 4
+      },
+      {
+        "proposal": "The least likely outcome currently appears to be option 'Which outcome currently seems to be the least likely?', as it did not meet the required 0.7 confidence threshold in our analysis and had lower margins of victory compared to the top pick.",
+        "rubric_score": 1
+      }
+    ],
+    "judge": {
+      "winner": "Option A",
+      "margin": 0.85,
+      "output": "The most likely outcome from the available options seems to be Option A, which projects strong growth and sustainability in the market through innovation. Our confidence level is high at 0.85."
+    }
+  }
+}

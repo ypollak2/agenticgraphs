@@ -1,0 +1,28 @@
+{
+  "model": "hermes3:8b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "node": "partition",
+          "analysis_performed": true,
+          "deduplication_effort_made": 2,
+          "missed_paging_notified_for": null
+        }
+      ]
+    },
+    "map": {
+      "keys": [
+        "shards"
+      ]
+    },
+    "reduce": {
+      "output": {
+        "dedupe_ratio": 2,
+        "missed_paging_alerts": false
+      }
+    }
+  }
+}

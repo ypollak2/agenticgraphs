@@ -67,13 +67,13 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:qwen2.5-coder:7b",
+    "runner": "llm-replay:hermes3:8b,qwen2.5-coder:7b,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-09",
-    "cases": 1,
-    "passed": 1,
-    "pass_rate": 1.0,
+    "cases": 4,
+    "passed": 2,
+    "pass_rate": 0.5,
     "mean_steps": 3.0,
     "results": [
       {
@@ -96,9 +96,88 @@
         "auto_approved": false,
         "subgraphs_expanded": false,
         "truncations": []
+      },
+      {
+        "id": "generated-and-approved",
+        "model": "hermes3:8b",
+        "recorded": "2026-08-09",
+        "passed": false,
+        "steps": 3,
+        "trace": [
+          "intake",
+          "generate",
+          "critique"
+        ],
+        "assert_failures": [
+          "output.bias_lint_clean and output.requirements_deduped (NameError: name 'output' is not defined)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": []
+      },
+      {
+        "id": "generated-and-approved",
+        "model": "qwen2.5-coder:7b",
+        "recorded": "2026-08-09",
+        "passed": false,
+        "steps": 3,
+        "trace": [
+          "intake",
+          "generate",
+          "critique"
+        ],
+        "assert_failures": [
+          "output.bias_lint_clean and output.requirements_deduped (AttributeError: requirements_deduped)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": []
+      },
+      {
+        "id": "generated-and-approved",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-09",
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "intake",
+          "generate",
+          "critique"
+        ],
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": []
       }
     ],
+    "models": [
+      "hermes3:8b",
+      "qwen2.5-coder:7b",
+      "qwen3-coder:30b"
+    ],
     "recorded": "2026-08-09",
-    "age_days": 0
+    "age_days": 0,
+    "per_model_pass_rate": {
+      "hermes3:8b": 0.0,
+      "qwen2.5-coder:7b": 0.5,
+      "qwen3-coder:30b": 1.0
+    },
+    "models_disagree": true,
+    "fails_every_model": false
   }
 }

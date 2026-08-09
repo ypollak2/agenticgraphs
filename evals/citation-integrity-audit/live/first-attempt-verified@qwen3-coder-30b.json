@@ -1,0 +1,64 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "id": "task_1",
+          "description": "Decompose the main goal into subtasks",
+          "type": "planning"
+        },
+        {
+          "id": "task_2",
+          "description": "Identify all citations that need to be resolved",
+          "type": "analysis"
+        },
+        {
+          "id": "task_3",
+          "description": "Verify each citation resolves correctly",
+          "type": "validation"
+        },
+        {
+          "id": "task_4",
+          "description": "Compile and list any mismatches found",
+          "type": "reporting"
+        }
+      ]
+    },
+    "work": [
+      {
+        "keys": [
+          "task_1",
+          "shard"
+        ]
+      },
+      {
+        "shard_id": "task_2",
+        "responsible_keys": [
+          "citations",
+          "resolved"
+        ]
+      },
+      {
+        "keys": [
+          "citations"
+        ]
+      },
+      {
+        "keys": [
+          "shard",
+          "shard_index",
+          "shard_count",
+          "tasks"
+        ]
+      }
+    ],
+    "verify": {
+      "output": {
+        "citations": []
+      }
+    }
+  }
+}

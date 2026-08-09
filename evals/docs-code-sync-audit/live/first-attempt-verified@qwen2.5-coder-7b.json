@@ -1,0 +1,46 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "name": "run_example_1",
+          "script": "example_1.sh"
+        },
+        {
+          "name": "run_example_2",
+          "script": "example_2.sh"
+        }
+      ]
+    },
+    "work": [
+      {
+        "responsible_keys": [
+          "example_1.sh_script_output",
+          "example_2.sh_script_output"
+        ]
+      },
+      {
+        "responsible_keys": [
+          "output.examples"
+        ]
+      }
+    ],
+    "verify": {
+      "output": {
+        "examples": [
+          {
+            "script_output": "This is the output of example_1.sh",
+            "exit_code": 0
+          },
+          {
+            "script_output": "This is the output of example_2.sh",
+            "exit_code": 0
+          }
+        ]
+      }
+    }
+  }
+}

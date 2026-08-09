@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.3
 name: deploy-canary-verifier
 description: Progressively shift traffic while checking error budgets.
 category: devops-sre
@@ -31,3 +31,11 @@ termination:
   contract: rollback fires when error rate exceeds threshold
 verification:
 - assert: output.error_rate <= output.threshold or output.rollback_fired
+triggers:
+- 'on': signal
+  expr: error_budget_burn > 2.0
+budget:
+  steps_max: 40
+durability:
+  checkpoint: every_node
+  resume: true

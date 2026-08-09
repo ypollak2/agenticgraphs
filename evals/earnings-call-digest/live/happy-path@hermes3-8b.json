@@ -1,0 +1,18 @@
+{
+  "model": "hermes3:8b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "figures": "transcript analysis"
+    },
+    "produce": {
+      "figures": "produce transcript figures"
+    },
+    "review": {
+      "figures": null,
+      "invented_numbers": true,
+      "output": null
+    }
+  }
+}

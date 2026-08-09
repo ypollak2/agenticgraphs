@@ -33,7 +33,6 @@ nodes:
   - signed_off
   approval:
     contract: signed_off == true
-    timeout: 24h
     on_timeout: escalate
 - id: post
   speciality: controller

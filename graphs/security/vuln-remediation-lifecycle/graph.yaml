@@ -59,7 +59,6 @@ nodes:
   - signed_off
   approval:
     contract: signed_off == true and exploit_blocked == true
-    timeout: 24h
     on_timeout: escalate
 - id: disclose
   speciality: producer

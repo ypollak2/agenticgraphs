@@ -1,0 +1,41 @@
+{
+  "model": "hermes3:8b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "label": "Decompose the goal of generating citations",
+          "steps": [
+            "Identify requirements such as proper formatting, APA style if applicable",
+            "Break down each citation into data points like name, publication date",
+            "Find or gather missing information needed to fully resolve references",
+            "Verify every resolved citation matches original paper",
+            "Prepare final citations that resolve all mismatches using found info"
+          ]
+        }
+      ]
+    },
+    "work": {
+      "keys": [
+        "data_points",
+        "resolution",
+        "verification",
+        "final_citations"
+      ]
+    },
+    "verify": {
+      "output": [
+        {
+          "citations": [
+            {
+              "resolves": true,
+              "mismatches": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

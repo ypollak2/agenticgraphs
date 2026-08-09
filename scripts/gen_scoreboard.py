@@ -49,6 +49,8 @@ def scoreboard_block(rows: list[dict]) -> str:
     depth_counts = Counter(r["depth"] for r in with_cases)
     lived = [r for r in with_cases if r["live"]]
     live_pass = sum(1 for r in lived if r["live"]["pass_rate"] == 1.0)
+    unsat = sum(1 for r in lived if r["live"].get("fails_every_model"))
+    n_models = len({m for r in lived for m in r["live"].get("models", [])})
     fully_passing = sum(1 for r in with_cases if r["pass_rate"] == 1.0)
     lines = [
         BEGIN,
@@ -71,9 +73,12 @@ def scoreboard_block(rows: list[dict]) -> str:
         "| `assert-live` | assert held against real model output (`agr eval --live`) |",
         "| `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |",
         "",
-        f"**Real-model evidence:** {len(lived)} graphs carry a checked-in recording of an "
-        f"actual model run (`evals/<graph>/live/`), and **{live_pass} of {len(lived)}** satisfy "
-        "their contract against it. That column is reported separately, never blended into the "
+        f"**Real-model evidence:** {len(lived)} graphs carry checked-in recordings of actual "
+        f"model runs across {n_models} models (`evals/<graph>/live/`); **{live_pass} of "
+        f"{len(lived)}** satisfy their contract on every model, and **{unsat} satisfy it on "
+        "none** (🚫 — a contract no model delivers is a bad contract, not a bad model). "
+        "⚠️ marks graphs where models disagree, which is the only way to tell a weak model "
+        "from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the "
         "headline pass rate — a contract a real model cannot satisfy must not be able to hide "
         "inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a "
         "recording older than 90 days. Re-record with `scripts/record_live.py`."
@@ -92,8 +97,17 @@ def scoreboard_block(rows: list[dict]) -> str:
         if r["live"]:
             lv = r["live"]
             stale = " ⏳" if lv.get("age_days", 0) > 90 else ""
-            live_col = (("✅" if lv["pass_rate"] == 1.0 else "❌")
-                        + f" {lv['runner'].split(':', 1)[-1]} · {lv.get('recorded', '?')}{stale}")
+            per = lv.get("per_model_pass_rate", {})
+            if lv.get("fails_every_model"):
+                mark = "🚫"          # no model satisfies this contract
+            elif lv.get("models_disagree"):
+                mark = "⚠️"          # some models satisfy it, others do not
+            elif lv["pass_rate"] == 1.0:
+                mark = "✅"
+            else:
+                mark = "❌"
+            hits = "/".join(f"{int(v * 100)}%" for _, v in sorted(per.items()))
+            live_col = f"{mark} {hits or '—'} · {lv.get('recorded', '?')}{stale}"
         else:
             live_col = "—"
         lines.append(f"| `{r['name']}` | {r['category']} | {r['cases'] or '—'} "
