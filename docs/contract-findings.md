@@ -27,21 +27,21 @@ produce what it asserts on. That is the v1.4 item.
 |---|---|---|
 | `invoice-reconciliation` | an unmatched invoice never posts without an AP signature | `[auto-match] all(v.line_id and v.policy_rule for v in output.violations) (AttributeError: ` |
 | `procurement-lifecycle` | no award without three rubric-scored vendors and a budget-holder signa | `[rfp] all(r.answered or r.flagged for r in output.requirements) and output.page_count <= o` |
-| `vendor-comparison-matrix` | every matrix cell cites its source and all vendors share one criteria  | `[collect] all(f.source_url and f.source_date for f in output.findings) (AttributeError: fi` |
+| `vendor-comparison-matrix` | every matrix cell cites its source and all vendors share one criteria  | `[collect] all(f.source_url and f.source_date for f in output.findings) (AttributeError: 's` |
 | `screenplay-coverage` | coverage lands one of three verdicts, defended against at least two na | `[comparables] all(f.source_url and f.source_date for f in output.findings) (AttributeError` |
 | `ab-test-analysis` | stats recomputed from raw data reproduce claimed effect | `abs(output.recomputed_effect - output.claimed_effect) < 0.01` |
 | `schema-migration-saga` | every forward step has a compensator; the saga ends verified or fully  | `output.parity_verified == true or output.consistent == true (NameError: name 'output' is n` |
-| `incident-lifecycle` | mitigation is proven effective before the postmortem is written; every | `[postmortem] all(e.get('log_id') or e.get('message_id') for e in output.timeline) (Attribu` |
+| `incident-lifecycle` | mitigation is proven effective before the postmortem is written; every | `[postmortem] all(e.get('log_id') or e.get('message_id') for e in output.timeline) (NameErr` |
 | `incident-triage-router` | routing matches on-call ownership map | `output.matches_ownership_map` |
 | `self-healing-ci` | a red pipeline ends green or escalated, never retried without a record | `len(output.lessons) >= 1` |
 | `clinical-literature-triage` | labels match a validated sample set | `output.matches_validated_set` |
 | `clinical-protocol-lifecycle` | a protocol registers only with zero open deviations and a named invest | `output.registry_id is not None` |
 | `trial-eligibility-screener` | an ambiguous eligibility decision never enrols without a clinician sig | `output.unreviewed_ambiguous == 0 (NameError: name 'output' is not defined)` |
-| `hiring-lifecycle` | an offer requires at least three structured scorecards and a panel sig | `[define-role] output.bias_lint_clean and output.requirements_deduped (AttributeError: bias` |
-| `contract-lifecycle` | a contract executes only at or below medium residual risk with counsel | `[redline] all(r.playbook_ref for r in output.redlines) (AttributeError: redlines)` |
-| `gdpr-data-audit` | every store carries a lawful basis; every gap carries an owner and a d | `[discover] all(v.rule_id and v.count >= 0 for v in output.violations) (AttributeError: vio` |
+| `hiring-lifecycle` | an offer requires at least three structured scorecards and a panel sig | `[define-role] output.bias_lint_clean and output.requirements_deduped (AttributeError: 'str` |
+| `contract-lifecycle` | a contract executes only at or below medium residual risk with counsel | `[redline] all(r.playbook_ref for r in output.redlines) (AttributeError: 'str' object has n` |
+| `gdpr-data-audit` | every store carries a lawful basis; every gap carries an owner and a d | `[discover] all(v.rule_id and v.count >= 0 for v in output.violations) (AttributeError: 'st` |
 | `product-listing-pipeline` | every published claim traces to the spec sheet and clears marketplace  | `[claim-check] all(v.source_url and v.quote_span for v in output.verdicts) (AttributeError:` |
-| `supplier-risk-monitor` | every supplier above risk appetite carries a named mitigation owner | `[ingest] all(f.source_url and f.source_date for f in output.findings) (AttributeError: fin` |
+| `supplier-risk-monitor` | every supplier above risk appetite carries a named mitigation owner | `[ingest] all(f.source_url and f.source_date for f in output.findings) (AttributeError: 'No` |
 | `cost-routed-research` | synthesizer output cites >=1 source per claim; unverifiable claims are | `all(c.sources for c in output.claims) (NameError: name 'output' is not defined)` |
 | `literature-review-swarm` | every claim cites a specific paper and section | `all(c.paper and c.section for c in output.claims)` |
 | `compliance-evidence-collector` | no control is silently unevidenced; the uncovered list is explicit | `[collect] all(s.exit_code == 0 for s in output.steps) (AttributeError: steps)` |

@@ -76,7 +76,7 @@
           "award"
         ],
         "assert_failures": [
-          "[rfp] all(r.answered or r.flagged for r in output.requirements) and output.page_count <= output.page_limit (AttributeError: requirements)"
+          "[rfp] all(r.answered or r.flagged for r in output.requirements) and output.page_count <= output.page_limit (AttributeError: 'str' object has no attribute 'requirements')"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,

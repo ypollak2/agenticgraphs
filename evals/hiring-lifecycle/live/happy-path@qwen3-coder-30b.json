@@ -4,28 +4,68 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "define-role.intake": {
-      "summary": "Intake analysis complete. Requirements met for offer processing with three structured scorecards and panel signature confirmation."
+      "summary": "Initial intake analysis complete. Ready to proceed with detailed examination of provided information."
     },
     "define-role.generate": {
-      "draft": "Offer documentation generated with three structured scorecards and panel signature confirmation."
+      "draft": "Initial analysis complete. Proceeding with detailed examination of provided information."
     },
     "define-role.critique": {
       "bias_lint_clean": true,
-      "jd": "Intake analysis complete. Requirements met for offer processing with three structured scorecards and panel signature confirmation.",
-      "output": {
-        "scorecard_count": 3,
-        "signed_off": true
-      },
+      "jd": "Senior Software Engineer",
+      "output": "The provided information has been analyzed for potential biases and cleaned accordingly. The job description is clear and free from obvious bias indicators.",
       "requirements_deduped": [
-        "output.scorecard_count >= 3",
-        "output.signed_off == true"
+        "Bachelor's degree in Computer Science or related field",
+        "5+ years of experience with Java and Python",
+        "Experience with cloud platforms (AWS, Azure)",
+        "Strong problem-solving and analytical skills"
       ]
     },
     "screen": {
       "shortlist": true
     },
     "interview": {
-      "scorecards": 3
+      "scorecards": [
+        {
+          "candidate": "Alice Johnson",
+          "score": 8.5,
+          "comments": "Strong technical background with extensive experience in Java and Python. Demonstrated leadership skills in previous roles."
+        },
+        {
+          "candidate": "Bob Smith",
+          "score": 7.2,
+          "comments": "Solid CS foundation and good problem-solving abilities. Lacks some cloud platform experience but shows potential for growth."
+        },
+        {
+          "candidate": "Carol Davis",
+          "score": 9.1,
+          "comments": "Exceptional track record with all required technologies including AWS, Azure, and multiple programming languages. Outstanding analytical skills."
+        }
+      ]
+    },
+    "offer": {
+      "offer_sent": true,
+      "output": {
+        "scorecard_count": 3,
+        "signed_off": true
+      },
+      "scorecard_count": 3,
+      "structured": [
+        {
+          "candidate": "Alice Johnson",
+          "score": 8.5,
+          "comments": "Strong technical background with extensive experience in Java and Python. Demonstrated leadership skills in previous roles."
+        },
+        {
+          "candidate": "Bob Smith",
+          "score": 7.2,
+          "comments": "Solid CS foundation and good problem-solving abilities. Lacks some cloud platform experience but shows potential for growth."
+        },
+        {
+          "candidate": "Carol Davis",
+          "score": 9.1,
+          "comments": "Exceptional track record with all required technologies including AWS, Azure, and multiple programming languages. Outstanding analytical skills."
+        }
+      ]
     }
   }
 }

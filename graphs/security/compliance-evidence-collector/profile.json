@@ -61,7 +61,7 @@
     "cases": 1,
     "passed": 0,
     "pass_rate": 0.0,
-    "mean_steps": 6.0,
+    "mean_steps": 11.0,
     "results": [
       {
         "id": "happy-path",
@@ -69,10 +69,15 @@
         "recorded": "2026-08-09",
         "gate_auto_approved": false,
         "passed": false,
-        "steps": 6,
+        "steps": 11,
         "trace": [
           "enumerate",
           "collect.plan",
+          "collect.execute",
+          "collect.verify",
+          "assess",
+          "collect.plan",
+          "report",
           "collect.execute",
           "collect.verify",
           "assess",

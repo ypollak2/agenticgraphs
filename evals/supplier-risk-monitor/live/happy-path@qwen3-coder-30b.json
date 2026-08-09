@@ -4,153 +4,28 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "ingest.partition": {
-      "shards": [
-        {
-          "supplier_id": "supp_001",
-          "risk_level": "high",
-          "mitigation_owner": "alice",
-          "above_appetite": true,
-          "mitigations_planned": true,
-          "single_source_flagged": true
-        },
-        {
-          "supplier_id": "supp_002",
-          "risk_level": "medium",
-          "mitigation_owner": "bob",
-          "above_appetite": false,
-          "mitigations_planned": false,
-          "single_source_flagged": false
-        },
-        {
-          "supplier_id": "supp_003",
-          "risk_level": "high",
-          "mitigation_owner": "charlie",
-          "above_appetite": true,
-          "mitigations_planned": true,
-          "single_source_flagged": true
-        }
-      ]
+      "shards": 1
     },
-    "ingest.map": [
-      {
-        "shard_result": {
-          "supplier_id": "supp_001",
-          "risk_level": "high",
-          "mitigation_owner": "alice",
-          "above_appetite": true,
-          "mitigations_planned": true,
-          "single_source_flagged": true
-        }
-      },
-      {
-        "shard_result": {
-          "supplier_id": "supp_002",
-          "risk_level": "medium",
-          "mitigation_owner": "bob",
-          "above_appetite": false,
-          "mitigations_planned": false,
-          "single_source_flagged": false
-        }
-      },
-      {
-        "shard_result": {
-          "supplier_id": "supp_003",
-          "risk_level": "high",
-          "mitigation_owner": "charlie",
-          "above_appetite": true,
-          "mitigations_planned": true,
-          "single_source_flagged": true
-        }
-      }
-    ],
     "ingest.reduce": {
-      "findings": [
-        {
-          "supplier_id": "supp_001",
-          "above_appetite": true,
-          "mitigations_planned": true,
-          "single_source_flagged": true
-        },
-        {
-          "supplier_id": "supp_002",
-          "above_appetite": false,
-          "mitigations_planned": false,
-          "single_source_flagged": false
-        },
-        {
-          "supplier_id": "supp_003",
-          "above_appetite": true,
-          "mitigations_planned": true,
-          "single_source_flagged": true
-        }
-      ],
-      "output": {
-        "above_appetite": true,
-        "mitigations_planned": true,
-        "single_source_flagged": true
-      },
-      "supplier_signals": [
-        {
-          "supplier_id": "supp_001",
-          "risk_level": "high",
-          "mitigation_owner": "alice",
-          "above_appetite": true,
-          "mitigations_planned": true,
-          "single_source_flagged": true
-        },
-        {
-          "supplier_id": "supp_002",
-          "risk_level": "medium",
-          "mitigation_owner": "bob",
-          "above_appetite": false,
-          "mitigations_planned": false,
-          "single_source_flagged": false
-        },
-        {
-          "supplier_id": "supp_003",
-          "risk_level": "high",
-          "mitigation_owner": "charlie",
-          "above_appetite": true,
-          "mitigations_planned": true,
-          "single_source_flagged": true
-        }
-      ]
+      "findings": [],
+      "output": null,
+      "supplier_signals": []
     },
     "score": {
       "risk_scores": [
-        {
-          "supplier_id": "supp_001",
-          "risk_score": 0.9
-        },
-        {
-          "supplier_id": "supp_002",
-          "risk_score": 0.5
-        },
-        {
-          "supplier_id": "supp_003",
-          "risk_score": 0.9
-        }
+        0.85
       ]
     },
     "concentrate": {
-      "concentration": 2
+      "concentration": 0.85
     },
     "mitigate": {
-      "above_appetite": true,
-      "mitigations": [
-        {
-          "supplier_id": "supp_001",
-          "mitigation_owner": "alice"
-        },
-        {
-          "supplier_id": "supp_003",
-          "mitigation_owner": "charlie"
-        }
-      ],
-      "mitigations_planned": true,
+      "above_appetite": 1,
+      "mitigations": [],
+      "mitigations_planned": 1,
       "output": {
-        "above_appetite": true,
-        "mitigations_planned": true,
+        "above_appetite": 1,
+        "mitigations_planned": 1,
         "single_source_flagged": true
       },
       "single_source_flagged": true

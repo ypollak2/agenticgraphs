@@ -4,59 +4,21 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "rfp.partition": {
-      "shards": [
-        {
-          "vendor_id": "vendor_1",
-          "score": 85,
-          "status": "approved"
-        },
-        {
-          "vendor_id": "vendor_2",
-          "score": 92,
-          "status": "approved"
-        },
-        {
-          "vendor_id": "vendor_3",
-          "score": 78,
-          "status": "approved"
-        }
-      ]
+      "shards": 3
     },
-    "rfp.map": [
-      {
-        "shard_result": "approved"
-      },
-      {
-        "shard_result": {
-          "vendor_id": "vendor_2",
-          "score": 92,
-          "status": "approved"
-        }
-      },
-      {
-        "shard_result": "approved"
-      }
-    ],
     "rfp.reduce": {
-      "output": {
-        "scored_vendors": 3,
-        "signed_off": false
-      },
+      "output": "reduce_merge",
       "page_count": 0,
       "page_limit": 0,
       "requirements": [],
       "rfp_responses": []
     },
     "score": {
-      "vendor_scores": [
-        85,
-        92,
-        78
-      ]
+      "vendor_scores": []
     },
     "negotiate": {
-      "terms": "Negotiate with vendor_2 for final contract terms including delivery schedule, payment milestones, and service level agreements while maintaining competitive pressure from vendor_1 and vendor_3",
-      "savings": 12000
+      "terms": "30-day payment cycle with 2% early payment discount, mandatory performance bond",
+      "savings": 12500
     },
     "award": {
       "awarded": true,

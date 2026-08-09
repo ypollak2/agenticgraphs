@@ -74,7 +74,7 @@
           "cite-check"
         ],
         "assert_failures": [
-          "[collect] all(f.source_url and f.source_date for f in output.findings) (AttributeError: findings)"
+          "[collect] all(f.source_url and f.source_date for f in output.findings) (AttributeError: 'str' object has no attribute 'findings')"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,

@@ -76,7 +76,7 @@
           "attest"
         ],
         "assert_failures": [
-          "[discover] all(v.rule_id and v.count >= 0 for v in output.violations) (AttributeError: violations)"
+          "[discover] all(v.rule_id and v.count >= 0 for v in output.violations) (AttributeError: 'str' object has no attribute 'violations')"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,

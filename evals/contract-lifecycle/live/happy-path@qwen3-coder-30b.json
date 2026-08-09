@@ -5,34 +5,33 @@
   "node_outputs": {
     "intake": {
       "clauses": [
-        "The contract shall be executed only at or below medium residual risk level",
-        "Counsel signature is required for contract execution",
-        "Contract output must be signed off by authorized personnel",
-        "Contract execution is conditional upon residual risk being classified as low or medium"
+        "risk assessment completed",
+        "counsel review conducted",
+        "residual risk evaluated as medium or lower",
+        "signed off by authorized counsel",
+        "execution approved"
       ]
     },
     "redline.intake": {
-      "summary": "Contract execution is conditionally approved at medium residual risk level with counsel signature required. The contract meets downstream assertions with low or medium residual risk, authorized signed off approval, and executed status."
+      "summary": "Intake analysis complete. All risk assessment clauses satisfied with medium to low residual risk levels, authorized counsel-signed off, and execution approved."
     },
     "redline.produce": {
       "redlines": [
-        "The contract shall be executed only at or below medium residual risk level",
-        "Counsel signature is required for contract execution",
-        "Contract output must be signed off by authorized personnel",
-        "Contract execution is conditional upon residual risk being classified as low or medium"
+        "risk assessment completed",
+        "counsel review conducted",
+        "residual risk evaluated as medium or lower",
+        "signed off by authorized counsel",
+        "execution approved"
       ]
     },
     "redline.review": {
-      "output": {
-        "executed": true,
-        "residual_risk_level": "medium",
-        "signed_off": true
-      },
+      "output": "Review complete. All risk assessment clauses satisfied with medium to low residual risk levels, authorized counsel-signed off, and execution approved.",
       "redlines": [
-        "The contract shall be executed only at or below medium residual risk level",
-        "Counsel signature is required for contract execution",
-        "Contract output must be signed off by authorized personnel",
-        "Contract execution is conditional upon residual risk being classified as low or medium"
+        "risk assessment completed",
+        "counsel review conducted",
+        "residual risk evaluated as medium or lower",
+        "signed off by authorized counsel",
+        "execution approved"
       ]
     },
     "risk-assess": {

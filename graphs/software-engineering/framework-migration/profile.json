@@ -57,7 +57,7 @@
     "cases": 1,
     "passed": 0,
     "pass_rate": 0.0,
-    "mean_steps": 7.0,
+    "mean_steps": 16.0,
     "results": [
       {
         "id": "happy-path",
@@ -65,7 +65,7 @@
         "recorded": "2026-08-09",
         "gate_auto_approved": false,
         "passed": false,
-        "steps": 7,
+        "steps": 16,
         "trace": [
           "inventory",
           "supervise",
@@ -73,9 +73,20 @@
           "port-slice.produce",
           "port-slice.review",
           "integrate",
-          "sign-off"
+          "supervise",
+          "port-slice.intake",
+          "port-slice.produce",
+          "port-slice.review",
+          "integrate",
+          "supervise",
+          "port-slice.intake",
+          "port-slice.produce",
+          "port-slice.review",
+          "integrate"
         ],
         "assert_failures": [
+          "output.suite_green == true",
+          "output.slices_remaining == 0 (AttributeError: slices_remaining)",
           "[port-slice] output.snapshot_before == output.snapshot_after (AttributeError: snapshot_before)"
         ],
         "skipped_command_checks": 0,

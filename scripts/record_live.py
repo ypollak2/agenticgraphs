@@ -53,6 +53,15 @@ class RecordingRunner:
     def bind(self, doc: dict) -> None:
         self.inner.bind(doc)
 
+    def contract_for(self, node: dict) -> dict:
+        """Forward the per-node contract, or the harness cannot reconcile output.
+
+        Missing this made `_reconcile_output` a no-op during recording — it guards
+        on `hasattr(runner, "contract_for")` — so a fix that worked on replay
+        appeared to do nothing on the runs that produce the evidence.
+        """
+        return self.inner.contract_for(node)
+
 
 def _model_dir(name: str, model: str) -> str:
     """Recordings are per-model: `evals/<graph>/live/<case>@<model>.json`.

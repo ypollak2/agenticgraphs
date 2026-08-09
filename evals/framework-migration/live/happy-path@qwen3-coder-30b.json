@@ -7,59 +7,76 @@
       "slices": [],
       "risk_map": {}
     },
-    "supervise": {
-      "slice_queue": []
-    },
-    "port-slice.intake": {
-      "summary": "Initial analysis complete. No slices currently in progress. Risk map empty. Slice queue awaiting assignment. All downstream assertions confirmed for target stack validation."
-    },
-    "port-slice.produce": {
-      "snapshot_after": {
-        "attempts": 1,
-        "slices": [],
-        "risk_map": {},
-        "slice_queue": [],
-        "summary": "Initial analysis complete. No slices currently in progress. Risk map empty. Slice queue awaiting assignment. All downstream assertions confirmed for target stack validation."
+    "supervise": [
+      {
+        "slice_queue": []
       },
-      "snapshot_before": {
-        "attempts": 1,
-        "slices": [],
-        "risk_map": {},
-        "slice_queue": [],
-        "summary": "Initial analysis complete. No slices currently in progress. Risk map empty. Slice queue awaiting assignment. All downstream assertions confirmed for target stack validation."
+      {
+        "slice_queue": []
+      },
+      {
+        "slice_queue": []
       }
-    },
-    "port-slice.review": {
-      "output": {
-        "slices_remaining": 0,
-        "suite_green": true
+    ],
+    "port-slice.intake": [
+      {
+        "summary": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty."
       },
-      "slice_ported": false,
-      "snapshot_after": {
-        "attempts": 1,
-        "slices": [],
-        "risk_map": {},
-        "slice_queue": [],
-        "summary": "Initial analysis complete. No slices currently in progress. Risk map empty. Slice queue awaiting assignment. All downstream assertions confirmed for target stack validation."
+      {
+        "summary": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty."
       },
-      "snapshot_before": {
-        "attempts": 1,
-        "slices": [],
-        "risk_map": {},
-        "slice_queue": [],
-        "summary": "Initial analysis complete. No slices currently in progress. Risk map empty. Slice queue awaiting assignment. All downstream assertions confirmed for target stack validation."
+      {
+        "summary": "Workflow state after attempt 2 with slices generated and risk mappings established. Slice queue contains newly produced slices."
       }
-    },
-    "integrate": {
-      "suite_green": true
-    },
-    "sign-off": {
-      "migration_complete": true,
-      "output": {
-        "slices_remaining": 0,
-        "suite_green": true
+    ],
+    "port-slice.produce": [
+      {
+        "snapshot_after": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty.",
+        "snapshot_before": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty."
       },
-      "slices_remaining": 0
-    }
+      {
+        "snapshot_after": "Workflow state after attempt 2 with slices generated and risk mappings established. Slice queue contains newly produced slices.",
+        "snapshot_before": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty."
+      },
+      {
+        "snapshot_after": "Workflow state after attempt 2 with slices generated and risk mappings established. Slice queue contains newly produced slices.",
+        "snapshot_before": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty."
+      }
+    ],
+    "port-slice.review": [
+      {
+        "output": "No slices available for review. The workflow is in initial state with empty slice queue and no attempts made yet.",
+        "slice_ported": false,
+        "snapshot_after": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty.",
+        "snapshot_before": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty."
+      },
+      {
+        "output": {
+          "suite_green": false
+        },
+        "slice_ported": false,
+        "snapshot_after": "Workflow state after attempt 2 with slices generated and risk mappings established. Slice queue contains newly produced slices.",
+        "snapshot_before": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty."
+      },
+      {
+        "output": {
+          "suite_green": false
+        },
+        "slice_ported": false,
+        "snapshot_after": "Workflow state after attempt 2 with slices generated and risk mappings established. Slice queue contains newly produced slices.",
+        "snapshot_before": "Initial workflow state with no attempts, slices, or risk mappings yet established. Slice queue is empty."
+      }
+    ],
+    "integrate": [
+      {
+        "suite_green": false
+      },
+      {
+        "suite_green": false
+      },
+      {
+        "suite_green": false
+      }
+    ]
   }
 }

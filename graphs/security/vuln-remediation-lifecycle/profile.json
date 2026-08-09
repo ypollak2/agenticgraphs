@@ -82,9 +82,10 @@
           "prove"
         ],
         "assert_failures": [
-          "output.exploit_blocked == true",
-          "output.signed_off == true",
-          "[prioritize] all(r.scanner_evidence and r.asset_map_ref for r in output.ranking) (AttributeError: ranking)"
+          "output.exploit_blocked == true (AttributeError: 'str' object has no attribute 'exploit_blocked')",
+          "output.signed_off == true (AttributeError: 'str' object has no attribute 'signed_off')",
+          "output.advisory_published == true (AttributeError: 'str' object has no attribute 'advisory_published')",
+          "[prioritize] all(r.scanner_evidence and r.asset_map_ref for r in output.ranking) (AttributeError: 'str' object has no attribute 'ranking')"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,

@@ -4,36 +4,32 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "ingest": {
-      "advisory": "Exploit analysis complete - advisory published and awaiting human sign-off for final verification"
+      "advisory": "Exploit analysis complete. Advisory published and awaiting human sign-off for exploit blocking confirmation."
     },
     "prioritize.intake": {
-      "summary": "Exploit analysis complete with advisory published and awaiting human sign-off for final verification. Confirmation required that exploit is blocked, advisory is published, and human has signed off before proceeding."
+      "summary": "Exploit analysis complete with advisory published. Awaiting human sign-off for final exploit blocking confirmation before proceeding with implementation."
     },
     "prioritize.produce": {
-      "ranking": 0.95
+      "ranking": 3
     },
     "prioritize.review": {
-      "exploitability": 0.95,
-      "output": {
-        "advisory_published": true,
-        "exploit_blocked": false,
-        "signed_off": false
-      },
+      "exploitability": 0.8,
+      "output": "Exploit analysis complete with advisory published. Awaiting human sign-off for final exploit blocking confirmation before proceeding with implementation.",
       "priority": "high",
-      "ranking": 0.95
+      "ranking": 4
     },
     "reproduce": {
       "repro_confirmed": false
     },
     "patch": [
       {
-        "patch": "execute_step('block_exploit', {'exploit_id': 'CVE-2023-12345'})"
+        "patch": "Awaiting human sign-off for exploit blocking confirmation before proceeding with implementation. Exploit analysis complete with advisory published."
       },
       {
-        "patch": "execute_step('block_exploit', {'exploit_id': 'CVE-2023-12345'})"
+        "patch": "Awaiting human sign-off for exploit blocking confirmation before proceeding with implementation. Exploit analysis complete with advisory published."
       },
       {
-        "patch": "execute_step('block_exploit', {'exploit_id': 'CVE-2023-12345'})"
+        "patch": "Awaiting human sign-off for exploit blocking confirmation before proceeding with implementation. Exploit analysis complete with advisory published."
       }
     ],
     "prove": [

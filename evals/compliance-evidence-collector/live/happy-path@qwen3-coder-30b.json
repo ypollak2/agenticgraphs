@@ -6,38 +6,109 @@
     "enumerate": {
       "controls": []
     },
-    "collect.plan": {
-      "steps": [
-        "decompose_goal"
-      ]
-    },
-    "collect.execute": {
-      "step_result": "success"
-    },
-    "collect.verify": {
-      "evidence": "No control is silently unevidenced; the uncovered list is explicit",
-      "output": {
-        "controls_evidenced": 0,
-        "controls_total": 0,
-        "uncovered": []
+    "collect.plan": [
+      {
+        "steps": [
+          "identify main goal",
+          "break down into subtasks",
+          "prioritize subtasks",
+          "estimate resources needed",
+          "create timeline"
+        ]
       },
-      "steps": [
-        "decompose_goal"
-      ]
-    },
-    "assess": {
-      "coverage": 0,
-      "uncovered": []
-    },
-    "report": {
-      "controls_evidenced": 0,
-      "controls_total": 0,
-      "evidence_report": "No control is silently unevidenced; the uncovered list is explicit",
-      "output": {
-        "controls_evidenced": 0,
-        "controls_total": 0,
-        "uncovered": []
+      {
+        "steps": [
+          "identify main goal",
+          "break down into subtasks",
+          "prioritize subtasks",
+          "estimate resources needed",
+          "create timeline",
+          "assign responsibilities",
+          "monitor progress",
+          "adjust plan as needed"
+        ]
       }
-    }
+    ],
+    "collect.execute": [
+      {
+        "step_result": "identify main goal"
+      },
+      {
+        "step_result": "identify main goal"
+      }
+    ],
+    "collect.verify": [
+      {
+        "evidence": "The workflow has started with the initial step 'identify main goal' and has not yet completed any verification checks on the output.",
+        "output": "The main goal has been identified as the starting point for the planning process.",
+        "steps": [
+          "identify main goal",
+          "break down into subtasks",
+          "prioritize subtasks",
+          "estimate resources needed",
+          "create timeline"
+        ]
+      },
+      {
+        "evidence": "The workflow has started with the initial step 'identify main goal' and has not yet completed any verification checks on the output.",
+        "output": {
+          "controls_evidenced": 0,
+          "controls_total": 1,
+          "uncovered": [
+            "output.controls_total == output.controls_evidenced + len(output.uncovered)"
+          ]
+        },
+        "steps": [
+          "identify main goal",
+          "break down into subtasks",
+          "prioritize subtasks",
+          "estimate resources needed",
+          "create timeline",
+          "assign responsibilities",
+          "monitor progress",
+          "adjust plan as needed"
+        ]
+      }
+    ],
+    "assess": [
+      {
+        "coverage": 0,
+        "uncovered": [
+          "output.controls_total == output.controls_evidenced + len(output.uncovered)"
+        ]
+      },
+      {
+        "coverage": 0,
+        "uncovered": [
+          "output.controls_total == output.controls_evidenced + len(output.uncovered)"
+        ]
+      }
+    ],
+    "report": [
+      {
+        "controls_evidenced": 0,
+        "controls_total": 1,
+        "evidence_report": "The workflow has started with the initial step 'identify main goal' and has not yet completed any verification checks on the output.",
+        "output": {
+          "controls_evidenced": 0,
+          "controls_total": 1,
+          "uncovered": [
+            "output.controls_total == output.controls_evidenced + len(output.uncovered)"
+          ]
+        }
+      },
+      {
+        "controls_evidenced": 0,
+        "controls_total": 1,
+        "evidence_report": "The workflow has started with the initial step 'identify main goal' and has not yet completed any verification checks on the output.",
+        "output": {
+          "controls_evidenced": 0,
+          "controls_total": 1,
+          "uncovered": [
+            "output.controls_total == output.controls_evidenced + len(output.uncovered)"
+          ]
+        }
+      }
+    ]
   }
 }

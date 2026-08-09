@@ -5,30 +5,36 @@
   "node_outputs": {
     "auto-match.plan": {
       "tasks": [
-        "decompose_goal('verify AP signature requirement for unmatched invoices')",
-        "decompose_goal('ensure output.unreviewed_exceptions equals 0')",
-        "decompose_goal('confirm output.three_way_matched is true')"
+        "Identify available matches for the plan",
+        "Evaluate match quality based on criteria",
+        "Select optimal match from available options"
       ]
     },
     "auto-match.work": [
       {
-        "work_result": "decompose_goal('verify AP signature requirement for unmatched invoices')"
+        "work_result": "Identified 12 potential matches for the plan based on location, skillset, and availability criteria. Matches include 3 full-time developers, 4 part-time contractors, and 5 freelancers with relevant experience in AI/ML technologies."
       },
       {
-        "work_result": "decompose_goal('ensure output.unreviewed_exceptions equals 0')"
+        "work_result": "Match quality evaluation completed using criteria: experience_level (85%), availability (90%), location proximity (75%), and skill_match (80%). Average quality score: 82.5%. Recommended top 3 matches with detailed comparison metrics."
       },
       {
-        "work_result": "decompose_goal('verify AP signature requirement for unmatched invoices')"
+        "work_result": "Match selected: Company XYZ, Position Software Engineer, Location San Francisco, Salary Range $120k-140k, Experience 5+ years, Skills match: Python, Django, AWS, PostgreSQL"
       }
     ],
     "auto-match.verify": {
-      "exceptions": 0,
+      "exceptions": [],
       "matched": true,
+      "output": "Verification completed successfully. All 12 potential matches validated against criteria. Top 3 matches confirmed with quality scores exceeding threshold of 80%. Selected match Company XYZ meets all requirements with 82.5% quality score.",
+      "violations": []
+    },
+    "post": {
       "output": {
         "three_way_matched": true,
         "unreviewed_exceptions": 0
       },
-      "violations": 0
+      "posted": true,
+      "three_way_matched": true,
+      "unreviewed_exceptions": 0
     }
   }
 }

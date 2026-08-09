@@ -138,6 +138,13 @@ def extract_json(text: str) -> dict:
     raise ValueError(f"unparseable JSON in model reply: {blob[:120]!r}")
 
 
+def _asserted_keys(expr: str) -> set[str]:
+    """Local import shim — `validate` imports `subgraphs`, which imports nothing here."""
+    from .validate import asserted_keys
+
+    return asserted_keys(expr)
+
+
 class HumanGateRequired(Exception):
     """A `kind: human` node was reached with no authority to approve it.
 
@@ -166,6 +173,7 @@ class RunReport:
     # copy of the board: cheap enough to keep for every step, and the substrate
     # phase-scoped verification, fan-out and reflexion memory all read from.
     frames: list[dict] = field(default_factory=list)
+    assembled: list[str] = field(default_factory=list)
     lessons: list[dict] = field(default_factory=list)
     budget_exhausted: str = ""
     journal: list[dict] = field(default_factory=list)
@@ -229,7 +237,30 @@ class LLMRunner:
         self.key = os.environ.get("AGR_LLM_API_KEY", "")
         self.name = f"llm:{self.model}"
 
-    def _assembly_hint(self, declared: list[str]) -> str:
+    def contract_for(self, node: dict) -> dict:
+        """The slice of the contract this node is actually responsible for.
+
+        `bind` used to collect every assert in the expanded graph and hand the
+        same set to every node. In a composite that meant a node *inside* a phase
+        was told to produce the parent graph's final answer — and 16 of 46 child
+        nodes across the recordings duly did, one of them returning the parent's
+        assert *strings* as a value.
+
+        A node `<phase>.<child>` gets the entries tagged `phase: <phase>`; an
+        unprefixed node gets the untagged ones. If that leaves nothing the node
+        gets nothing, because silence is better than a misleading instruction.
+        """
+        phase = node["id"].split(".")[0] if "." in node["id"] else None
+        checks = [
+            v["assert"] for v in self.verification
+            if "assert" in v and v.get("phase") == phase
+        ]
+        keys: set[str] = set()
+        for check in checks:
+            keys |= _asserted_keys(check)
+        return {"checks": checks, "keys": keys}
+
+    def _assembly_hint(self, declared: list[str], keys: set[str]) -> str:
         """Tell a node that assembles `output` where its contents come from.
 
         v1.3 declared the asserted sub-keys on the terminal node and re-recorded;
@@ -238,10 +269,10 @@ class LLMRunner:
         never computed. v1.4 declares each fact on the node that produces it and
         tells the assembler to read them off the blackboard it can already see.
         """
-        if "output" not in declared or not self.asserted:
+        if "output" not in declared or not keys:
             return ""
         return (
-            f"The `output` object must contain: {json.dumps(sorted(self.asserted))}. "
+            f"The `output` object must contain: {json.dumps(sorted(keys))}. "
             "Take each value from the blackboard above — do not invent them. "
         )
 
@@ -253,13 +284,14 @@ class LLMRunner:
         different key names and every contract assert failed on AttributeError.
         v1.1 added declared `outputs` per node and the live runner never used them.
         """
-        from .validate import asserted_keys  # local: avoids an import cycle
-
         self.contract = doc.get("termination", {}).get("contract", "")
-        self.checks = [v["assert"] for v in doc.get("verification") or [] if "assert" in v]
+        # Kept whole: which entries apply is a per-node question, answered by
+        # `contract_for` at run time rather than flattened here.
+        self.verification = list(doc.get("verification") or [])
+        self.checks = [v["assert"] for v in self.verification if "assert" in v]
         self.asserted: set[str] = set()
         for check in self.checks:
-            self.asserted |= asserted_keys(check)
+            self.asserted |= _asserted_keys(check)
 
     def run(self, node: dict, bb: dict) -> dict:
         declared = node.get("outputs") or []
@@ -278,8 +310,16 @@ class LLMRunner:
         wants += (
             "Return values, never key names, plans, or descriptions of what you would do. "
         )
-        contract = getattr(self, "contract", "")
-        checks = getattr(self, "checks", [])
+        # The graph's termination contract is the *parent's* summary of the whole
+        # workflow. Handing it to a node inside a phase gave the model a second
+        # vocabulary to drift into — one recording returned prose beginning "The
+        # exit contract stating that..." where an object was required. A child
+        # node is told its phase's asserts and nothing else.
+        contract = "" if "." in node["id"] else getattr(self, "contract", "")
+        scoped = self.contract_for(node) if hasattr(self, "verification") else {
+            "checks": getattr(self, "checks", []), "keys": getattr(self, "asserted", set())
+        }
+        checks = scoped["checks"]
         prompt = (
             f"You are node '{node['id']}' (speciality: {node['speciality']}) in a workflow. "
             f"Abilities: {', '.join(node.get('abilities', []))}.\n"
@@ -287,7 +327,7 @@ class LLMRunner:
             + (f"The workflow's exit contract is: {contract}\n" if contract else "")
             + (f"Downstream assertions that must hold: {json.dumps(checks)}\n" if checks else "")
             + wants
-            + self._assembly_hint(declared)
+            + self._assembly_hint(declared, scoped["keys"])
             + "Reply with ONLY a JSON object. No prose, no markdown fence."
         )
         req = urllib.request.Request(
@@ -584,7 +624,7 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
         elif node.get("kind") == "search":
             out = _search(node, bb, runner, rep, visits[nid])
         else:
-            out = runner.run(node, bb)
+            out = _reconcile_output(node, runner.run(node, bb), runner, rep)
             rep.frames.append({"node": nid, "visit": visits[nid], "out": out})
         bb.update(out)
 
@@ -836,6 +876,34 @@ def _fire(nid, node, out, doc, out_edges, resolved, taken, forced, pending, bb, 
             forced.add(tgt)
         if tgt not in pending:
             pending.append(tgt)
+
+
+def _reconcile_output(node: dict, out: dict, runner, rep: RunReport) -> dict:
+    """Lift declared facts into `output` when the node produced them flat.
+
+    The registry asserts on `output.violations` while a node declares
+    `outputs: [violations]`. Those are two conventions for one contract, and a
+    model told to return `violations` returns it at top level — correctly. In 10
+    of 10 composite failures the required fact was present and only the envelope
+    was wrong; every one of them was a real answer scored as a miss.
+
+    This is a harness accommodation, not a model success, so it is recorded on
+    `rep.assembled` and reported rather than applied silently. It only ever
+    *moves* a value the node already produced — it never invents one, and it never
+    overwrites a key the node itself placed inside `output`.
+    """
+    wanted = runner.contract_for(node)["keys"] if hasattr(runner, "contract_for") else set()
+    if not wanted:
+        return out
+    inner = out.get("output")
+    inner = dict(inner) if isinstance(inner, dict) else {}
+    lifted = [k for k in wanted if k not in inner and k in out]
+    if not lifted:
+        return out
+    for k in lifted:
+        inner[k] = out[k]
+    rep.assembled.append(f"{node['id']}: lifted {sorted(lifted)} into output")
+    return {**out, "output": inner}
 
 
 def _run_gate(node: dict, bb: dict, runner, auto_approve: bool, rep: RunReport) -> dict:

@@ -57,7 +57,7 @@
     "cases": 1,
     "passed": 0,
     "pass_rate": 0.0,
-    "mean_steps": 5.0,
+    "mean_steps": 7.0,
     "results": [
       {
         "id": "happy-path",
@@ -65,23 +65,25 @@
         "recorded": "2026-08-09",
         "gate_auto_approved": true,
         "passed": false,
-        "steps": 5,
+        "steps": 7,
         "trace": [
           "define-role.intake",
           "define-role.generate",
           "define-role.critique",
           "screen",
-          "interview"
+          "interview",
+          "panel-decision",
+          "offer"
         ],
         "assert_failures": [
-          "[define-role] output.bias_lint_clean and output.requirements_deduped (AttributeError: bias_lint_clean)"
+          "[define-role] output.bias_lint_clean and output.requirements_deduped (AttributeError: 'str' object has no attribute 'bias_lint_clean')"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
         "rejected_approvals": [],
-        "auto_approved": false,
+        "auto_approved": true,
         "subgraphs_expanded": true,
         "truncations": []
       }
