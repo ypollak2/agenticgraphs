@@ -86,7 +86,7 @@
           "judge"
         ],
         "assert_failures": [
-          "abs(output.recomputed_effect - output.claimed_effect) < 0.01 (AttributeError: 'NoneType' object has no attribute 'recomputed_effect')"
+          "abs(output.recomputed_effect - output.claimed_effect) < 0.01 (AttributeError: recomputed_effect)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -109,7 +109,7 @@
           "judge"
         ],
         "assert_failures": [
-          "abs(output.recomputed_effect - output.claimed_effect) < 0.01 (AttributeError: recomputed_effect)"
+          "abs(output.recomputed_effect - output.claimed_effect) < 0.01 (TypeError: unsupported operand type(s) for -: 'NoneType' and 'NoneType')"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -132,7 +132,7 @@
           "judge"
         ],
         "assert_failures": [
-          "abs(output.recomputed_effect - output.claimed_effect) < 0.01 (AttributeError: claimed_effect)"
+          "abs(output.recomputed_effect - output.claimed_effect) < 0.01 (TypeError: unsupported operand type(s) for -: 'float' and 'NoneType')"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,

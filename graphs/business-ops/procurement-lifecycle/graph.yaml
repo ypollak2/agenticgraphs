@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: procurement-lifecycle
 description: Run an RFP, score vendors, negotiate terms, and gate the award on budget-holder approval.
 category: business-ops
@@ -10,6 +10,9 @@ nodes:
   inputs:
   - requirement
   outputs:
+  - page_count
+  - page_limit
+  - requirements
   - rfp_responses
 - id: score
   speciality: evaluator

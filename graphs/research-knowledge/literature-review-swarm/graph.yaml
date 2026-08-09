@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.4
 name: literature-review-swarm
 description: Parallel readers summarize papers, merger builds themed review.
 category: research-knowledge
@@ -24,6 +24,7 @@ nodes:
   - run_command
   kind: verifier
   outputs:
+  - claims
   - output
 edges:
 - from: plan

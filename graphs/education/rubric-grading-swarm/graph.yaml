@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.4
 name: rubric-grading-swarm
 description: Independent graders score, disagreements auto-escalate.
 category: education
@@ -24,7 +24,10 @@ nodes:
   - run_command
   kind: verifier
   outputs:
+  - agreement
+  - escalated
   - output
+  - threshold
 edges:
 - from: plan
   to: work

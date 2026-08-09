@@ -420,3 +420,17 @@ def test_fan_out_is_actually_used_by_the_migrated_graphs():
     fanned = [load(gp)["name"] for gp in iter_graphs()
               if any(n.get("fan_out") for n in load(gp)["nodes"])]
     assert len(fanned) >= 20, f"only {len(fanned)} graphs fan out"
+
+
+def test_search_drops_a_non_numeric_score_instead_of_crashing():
+    """A real model returned a string score and the sort took the run down."""
+    class _Stringy:
+        name = "mock"
+
+        def run(self, node, bb):
+            return {"candidate": "fast" if bb.get("branch_index") == 0 else 5}
+
+    rep = run_graph(_searching(), _Stringy())
+    assert not rep.deadlocked
+    # the numeric candidates still compete; the string one is simply not a candidate
+    assert rep.searches[0]["rounds"][0]["evaluated"] == 2

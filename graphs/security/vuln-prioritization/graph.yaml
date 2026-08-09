@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: vuln-prioritization
 description: Rank findings by exploitability and blast radius.
 category: security
@@ -11,6 +11,8 @@ nodes:
   speciality: producer
   abilities:
   - generate
+  outputs:
+  - ranking
 - id: review
   speciality: critic
   abilities:

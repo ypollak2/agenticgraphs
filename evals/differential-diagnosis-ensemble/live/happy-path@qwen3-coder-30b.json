@@ -7,19 +7,23 @@
       "presentations": [
         {
           "node": "intake",
-          "content": "Analysis complete. Based on the blackboard data showing 1 attempt and the workflow's exit contract requiring diagnosis quorum or disagreement reporting, I can confirm that the downstream assertions are satisfied. The analysis has identified a clear consensus in the data, which meets the requirements for carrying quorum.",
-          "status": "complete"
+          "type": "analysis",
+          "content": "Initial data analysis complete. Ready to proceed with consensus formation or dissent reporting based on downstream assertion requirements."
         }
       ]
     },
     "diagnose": {
-      "ranking": 1
+      "ranking": 0.85
     },
     "adjudicate": {
-      "consensus": "clear consensus in the data meets quorum requirements",
+      "consensus": null,
       "dissent": [],
       "dissent_retained": true,
-      "output": "Analysis complete. Based on the blackboard data showing 1 attempt and the workflow's exit contract requiring diagnosis quorum or disagreement reporting, I can confirm that the downstream assertions are satisfied. The analysis has identified a clear consensus in the data, which meets the requirements for carrying quorum."
+      "output": {
+        "consensus": null,
+        "dissent": [],
+        "dissent_retained": true
+      }
     }
   }
 }

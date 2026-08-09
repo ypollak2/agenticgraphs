@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: incident-lifecycle
 description: Detect, triage, mitigate and prove an incident closed, then write the postmortem and file
   the actions.
@@ -20,8 +20,9 @@ nodes:
   inputs:
   - signal
   outputs:
-  - severity
+  - matches_ownership_map
   - owner
+  - severity
 - id: mitigate
   speciality: sre
   abilities:
@@ -48,6 +49,7 @@ nodes:
   - mitigation
   outputs:
   - postmortem
+  - timeline
 - id: action-items
   speciality: planner
   abilities:

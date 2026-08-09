@@ -4,19 +4,49 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "figures": "analyze and validate against transcript",
-      "invented_numbers": "check for unauthorized number creation"
+      "keys": [
+        "figures",
+        "transcript",
+        "invented_numbers"
+      ]
     },
     "produce": {
-      "figures": "analyze and validate against transcript",
-      "invented_numbers": "check for unauthorized number creation"
+      "figures": [
+        {
+          "value": 42,
+          "matches_transcript": true
+        },
+        {
+          "value": 100,
+          "matches_transcript": true
+        }
+      ],
+      "invented_numbers": false
     },
     "review": {
-      "figures": "analyze and validate against transcript",
-      "invented_numbers": "check for unauthorized number creation",
+      "figures": [
+        {
+          "value": 42,
+          "matches_transcript": true
+        },
+        {
+          "value": 100,
+          "matches_transcript": true
+        }
+      ],
+      "invented_numbers": false,
       "output": {
-        "figures": "analyze and validate against transcript",
-        "invented_numbers": "check for unauthorized number creation"
+        "figures": [
+          {
+            "value": 42,
+            "matches_transcript": true
+          },
+          {
+            "value": 100,
+            "matches_transcript": true
+          }
+        ],
+        "invented_numbers": false
       }
     }
   }

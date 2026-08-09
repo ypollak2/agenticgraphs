@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.4
 name: ux-research-synthesis
 description: Code interview transcripts, reduce to themed insights.
 category: creative-production
@@ -23,6 +23,7 @@ nodes:
   - reduce_merge
   kind: verifier
   outputs:
+  - insights
   - output
 edges:
 - from: partition

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: screenplay-coverage
 description: 'Produce studio-standard coverage: synopsis, structural analysis, comparables, and a defended
   recommendation.'
@@ -29,6 +29,7 @@ nodes:
   - synopsis
   outputs:
   - comps
+  - findings
 - id: recommend
   speciality: judge
   abilities:

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.4
 name: sales-call-scorer
 description: Score a call against a rubric from several independent passes, reporting variance as a confidence
   signal.
@@ -29,8 +29,9 @@ nodes:
   - reduce_merge
   outputs:
   - final_score
-  - variance
   - output
+  - segments_scored
+  - variance
   inputs:
   - rubric_score
   aggregate:

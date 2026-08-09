@@ -221,3 +221,61 @@ def test_v13_fields_require_the_v13_apiversion():
     doc = _g(triggers=[{"on": "schedule", "cron": "* * * * *"}])
     doc["apiVersion"] = "agr/v1.2"
     assert not validate_schema(doc, "graph")  # schema is permissive; lint is the gate
+
+
+# ------------------------------------------------- v1.4: contracts are connected
+
+
+def test_the_lint_catches_a_verification_key_no_node_produces():
+    """D3. The rule that would have caught all four unsatisfiable contracts."""
+    from agenticgraphs.validate import lint_graph, unconnected_keys
+
+    doc = _g(apiVersion="agr/v1.4",
+             verification=[{"assert": "output.recomputed_effect > 0"}])
+    doc["nodes"][0]["outputs"] = ["something_else"]
+    assert unconnected_keys(doc) == {"recomputed_effect"}
+    assert any("recomputed_effect" in e and e.startswith("lint:") for e in lint_graph(doc))
+
+
+def test_declaring_the_key_clears_the_lint():
+    from agenticgraphs.validate import lint_graph
+
+    doc = _g(apiVersion="agr/v1.4",
+             verification=[{"assert": "output.recomputed_effect > 0"}])
+    doc["nodes"][0]["outputs"] = ["recomputed_effect"]
+    assert not [e for e in lint_graph(doc) if "recomputed_effect" in e]
+
+
+def test_the_extractor_ignores_comprehension_variables():
+    """A regex counted `f`, `v` and `for` as blackboard keys — a wrong number
+    that looked like a finding. The AST version does not."""
+    from agenticgraphs.validate import asserted_keys
+
+    assert asserted_keys("all(f.file and f.line for f in output.findings)") == {"findings"}
+    assert asserted_keys("len(output.actions) >= 1 and threshold > 0") == {"actions", "threshold"}
+
+
+def test_advisories_never_reach_the_error_channel():
+    """An earlier draft returned warnings from lint_graph and bricked `agr infuse`,
+    which refuses on any lint output: 'infusion rejected by gate: warn: ...'."""
+    from agenticgraphs.validate import lint_advisories, lint_graph
+
+    doc = _g(apiVersion="agr/v1.2", verification=[{"assert": "output.nope > 0"}])
+    doc["nodes"][0]["outputs"] = ["something_else"]
+    assert not [e for e in lint_graph(doc) if "nope" in e]
+    assert any("nope" in w for w in lint_advisories(doc))
+
+
+def test_every_registry_graph_has_a_connected_contract():
+    """D1: 123 unmet keys at the start of v1.4, 0 now."""
+    from agenticgraphs.validate import unconnected_keys
+
+    unmet = {load(gp)["name"]: sorted(unconnected_keys(load(gp)))
+             for gp in iter_graphs() if unconnected_keys(load(gp))}
+    assert not unmet, unmet
+
+
+def test_every_registry_graph_declares_v14():
+    stragglers = [load(gp)["name"] for gp in iter_graphs()
+                  if load(gp)["apiVersion"] != "agr/v1.4"]
+    assert not stragglers, stragglers

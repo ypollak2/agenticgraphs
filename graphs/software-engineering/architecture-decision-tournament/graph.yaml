@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.4
 name: architecture-decision-tournament
 description: Independent designs are scored on one rubric, and the winner must beat the runner-up on record.
 category: software-engineering
@@ -29,9 +29,10 @@ nodes:
   abilities:
   - adjudicate
   outputs:
-  - winner
+  - designs_scored
   - margin
   - output
+  - winner
   inputs:
   - proposal
   - rubric_score

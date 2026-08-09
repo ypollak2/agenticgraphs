@@ -4,21 +4,22 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "position-a": {
-      "keys": [
-        "output.raw_data",
-        "output.recomputed_effect"
-      ]
+      "position-a": true
     },
     "position-b": {
-      "keys": [
-        "output.raw_data",
-        "output.recomputed_effect"
-      ]
+      "generate": true
     },
     "judge": {
-      "claimed_effect": null,
-      "output": null,
-      "recomputed_effect": null
+      "claimed_effect": {
+        "attempts": 1,
+        "position-a": true
+      },
+      "output": {
+        "claimed_effect": "Attempts completed is 1 and position-a flag is set"
+      },
+      "recomputed_effect": {
+        "abs(output.recomputed_effect - output.claimed_effect) < 0.01": "Difference between recomputed effect and claimed effect is less than or equal to 0.01"
+      }
     }
   }
 }

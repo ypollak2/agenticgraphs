@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.4
 name: data-quality-audit
 description: Workers profile each table for nulls, drift, and duplicates.
 category: data-analytics
@@ -25,6 +25,7 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - violations
 edges:
 - from: plan
   to: work

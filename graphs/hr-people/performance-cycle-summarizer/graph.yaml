@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: performance-cycle-summarizer
 description: Aggregate self, peer and manager input into a calibrated summary with evidence for every
   claim.
@@ -38,6 +38,7 @@ nodes:
   outputs:
   - calibrated_summary
   - output
+  - uncited_claims
 edges:
 - from: gather
   to: synthesize

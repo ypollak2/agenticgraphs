@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: vendor-comparison-matrix
 description: Build a like-for-like vendor matrix where every cell cites the source document it came from.
 category: business-ops
@@ -10,6 +10,7 @@ nodes:
   inputs:
   - vendors
   outputs:
+  - findings
   - vendor_docs
 - id: normalize
   speciality: analyst
@@ -35,6 +36,7 @@ nodes:
   inputs:
   - matrix
   outputs:
+  - criteria_consistent
   - output
   - uncited_cells
 edges:

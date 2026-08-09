@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.4
 name: release-notes-generation
 description: Summarize merged PRs per area, reduce into release notes.
 category: software-engineering
@@ -23,6 +23,8 @@ nodes:
   - reduce_merge
   kind: verifier
   outputs:
+  - notes
+  - orphan_claims
   - output
 edges:
 - from: partition

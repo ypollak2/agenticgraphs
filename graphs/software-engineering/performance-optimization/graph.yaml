@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: performance-optimization
 description: Profile, patch hotspot, re-benchmark until budget met.
 category: software-engineering
@@ -11,6 +11,10 @@ nodes:
   speciality: producer
   abilities:
   - generate
+  outputs:
+  - benchmark_ms
+  - target_ms
+  - test_regressions
 - id: measure
   speciality: evaluator
   abilities:

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: product-listing-pipeline
 description: Generate marketplace listings from spec sheets, checking claims against source and policy
   before publish.
@@ -29,6 +29,7 @@ nodes:
   - attributes
   outputs:
   - unsupported_claims
+  - verdicts
   join: all
 - id: policy-check
   speciality: critic

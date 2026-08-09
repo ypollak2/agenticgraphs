@@ -4,24 +4,19 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "presentations": [
-        {
-          "consensus": null,
-          "dissent": [],
-          "dissent_retained": false
-        }
-      ]
-    },
-    "diagnose": {
-      "ranking": "disagreement"
+      "presentations": null
     },
     "adjudicate": {
       "consensus": null,
-      "dissent": [],
-      "dissent_retained": false,
+      "dissent": [
+        "The presentations have not been provided."
+      ],
+      "dissent_retained": true,
       "output": {
         "consensus": null,
-        "dissent": [],
+        "dissent": [
+          "The presentations have not been provided."
+        ],
         "dissent_retained": true
       }
     }

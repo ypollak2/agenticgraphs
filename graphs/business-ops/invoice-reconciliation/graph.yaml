@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: invoice-reconciliation
 description: Match invoices to POs and receipts cheapest-first, escalating only genuine exceptions to
   a human.
@@ -11,8 +11,9 @@ nodes:
   inputs:
   - invoices
   outputs:
-  - matched
   - exceptions
+  - matched
+  - violations
 - id: fuzzy-match
   speciality: escalator
   abilities:
@@ -43,6 +44,7 @@ nodes:
   outputs:
   - output
   - posted
+  - three_way_matched
   - unreviewed_exceptions
   join: any
 edges:

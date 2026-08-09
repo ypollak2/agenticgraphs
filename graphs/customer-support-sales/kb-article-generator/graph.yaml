@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: kb-article-generator
 description: Mine resolved tickets into draft knowledge-base articles.
 category: customer-support-sales
@@ -11,6 +11,9 @@ nodes:
   speciality: producer
   abilities:
   - generate
+  outputs:
+  - duplicates_deduped
+  - reproduces_resolution
 - id: review
   speciality: critic
   abilities:

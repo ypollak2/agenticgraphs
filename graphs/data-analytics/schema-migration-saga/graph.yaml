@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: schema-migration-saga
 description: Migrate a schema in four reversible steps; any failure compensates back to a consistent state.
 category: data-analytics

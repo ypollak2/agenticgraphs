@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: onboarding-plan-builder
 description: Build a role-specific 30/60/90 plan from the JD, team context and access requirements, then
   verify coverage.
@@ -38,6 +38,7 @@ nodes:
   - plan_30_60_90
   - access_requests
   outputs:
+  - access_requested
   - milestones_covered
   - output
   join: all

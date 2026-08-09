@@ -1,4 +1,4 @@
-apiVersion: agr/v1.3
+apiVersion: agr/v1.4
 name: ab-test-analysis
 description: Two analysts argue significance and pitfalls, judge writes readout.
 category: data-analytics

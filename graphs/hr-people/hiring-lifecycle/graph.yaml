@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: hiring-lifecycle
 description: Draft a role, screen a pipeline, run a structured interview loop, and gate the offer on a
   panel decision.
@@ -11,7 +11,9 @@ nodes:
   inputs:
   - role_brief
   outputs:
+  - bias_lint_clean
   - jd
+  - requirements_deduped
 - id: screen
   speciality: recruiter
   abilities:
@@ -49,6 +51,7 @@ nodes:
   outputs:
   - offer_sent
   - output
+  - scorecard_count
   - structured
 edges:
 - from: define-role

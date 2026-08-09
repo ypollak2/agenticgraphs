@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: gdpr-data-audit
 description: Map personal data across systems, classify lawful basis, find gaps, and produce a remediation
   plan.
@@ -12,6 +12,7 @@ nodes:
   - systems
   outputs:
   - data_map
+  - violations
 - id: classify
   speciality: analyst
   abilities:
@@ -46,6 +47,7 @@ nodes:
   outputs:
   - attested
   - output
+  - unclassified_stores
 edges:
 - from: discover
   to: classify

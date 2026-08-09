@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: essay-feedback-critic
 description: Rubric-based feedback with evidence quotes from the essay.
 category: education
@@ -17,6 +17,7 @@ nodes:
   - critique
   kind: verifier
   outputs:
+  - comments
   - output
 edges:
 - from: intake

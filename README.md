@@ -62,7 +62,7 @@
 ## 🧭 About The Project
 
 A **registry of ready-made multi-agent workflow graphs** in a portable, framework-neutral
-format (AGR v1.3), built on three principles:
+format (AGR v1.4), built on three principles:
 
 ```yaml
 principles:
@@ -208,7 +208,7 @@ pie showData title Graphs per domain
 | `assert-live` | assert held against real model output (`agr eval --live`) |
 | `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |
 
-**Real-model evidence:** 27 graphs carry checked-in recordings of actual model runs across 3 models (`evals/<graph>/live/`); **7 of 27** satisfy their contract on every model, and **4 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
+**Real-model evidence:** 27 graphs carry checked-in recordings of actual model runs across 3 models (`evals/<graph>/live/`); **7 of 27** satisfy their contract on every model, and **1 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
 
 | Graph | Domain | Cases | Pass rate | Depth | Live (real model) | Mean steps | Routes |
 |---|---|---|---|---|---|---|---|
@@ -246,14 +246,14 @@ pie showData title Graphs per domain
 | `essay-feedback-critic` | education | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 4 | 2 |
 | `quiz-generation-verified` | education | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
 | `rubric-grading-swarm` | education | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `earnings-call-digest` | finance | 2 | 100% | `assert-fixture` | 🚫 0%/0%/0% · 2026-08-09 | 4 | 2 |
+| `earnings-call-digest` | finance | 2 | 100% | `assert-fixture` | ⚠️ 0%/100%/100% · 2026-08-09 | 4 | 2 |
 | `expense-audit-swarm` | finance | 2 | 100% | `assert-fixture` | ⚠️ 0%/100%/100% · 2026-08-09 | 4 | 2 |
 | `kyc-document-processing` | finance | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
 | `regulatory-filing-lifecycle` | finance | 1 | 100% | `assert-fixture` | — | 5 | 1 |
 | `adverse-event-scanner` | healthcare-science | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 3 | 1 |
 | `clinical-literature-triage` | healthcare-science | 2 | 100% | `assert-fixture` | — | 3 | 2 |
 | `clinical-protocol-lifecycle` | healthcare-science | 1 | 100% | `assert-fixture` | — | 4 | 1 |
-| `differential-diagnosis-ensemble` | healthcare-science | 1 | 100% | `assert-fixture` | 🚫 0%/0%/0% · 2026-08-09 | 3 | 1 |
+| `differential-diagnosis-ensemble` | healthcare-science | 1 | 100% | `assert-fixture` | ⚠️ 0%/100%/0% · 2026-08-09 | 3 | 1 |
 | `medical-coding-audit` | healthcare-science | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `trial-eligibility-screener` | healthcare-science | 1 | 100% | `assert-fixture` | — | 3 | 1 |
 | `hiring-lifecycle` | hr-people | 1 | 100% | `assert-fixture` | — | 7 | 1 |
@@ -283,7 +283,7 @@ pie showData title Graphs per domain
 | `vuln-prioritization` | security | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `vuln-remediation-lifecycle` | security | 1 | 100% | `assert-fixture` | — | 9 | 1 |
 | `architecture-decision-tournament` | software-engineering | 1 | 100% | `assert-fixture` | ⚠️ 0%/100%/100% · 2026-08-09 | 3 | 1 |
-| `benchmark-driven-optimization-search` | software-engineering | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 3 | 1 |
+| `benchmark-driven-optimization-search` | software-engineering | 1 | 100% | `assert-fixture` | ⚠️ 0%/100% · 2026-08-09 | 3 | 1 |
 | `bug-triage-and-fix` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 4 | 2 |
 | `code-review-pipeline` | software-engineering | 2 | 100% | `assert-fixture` | — | 3.5 | 2 |
 | `dependency-upgrade` | software-engineering | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 4 | 2 |
@@ -295,6 +295,8 @@ pie showData title Graphs per domain
 | `performance-optimization` | software-engineering | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `release-notes-generation` | software-engineering | 2 | 100% | `assert-fixture` | — | 3 | 1 |
 | `test-suite-generation` | software-engineering | 2 | 100% | `assert-fixture` | — | 4 | 2 |
+
+**Contract connection (v1.4):** 83 of 83 graphs have every key their verification asserts on declared as some node's output. This was 60 of 183 keys connected when v1.4 began — the gap is why four contracts could be structurally valid, pass the whole suite, and be satisfiable by no model. No graph is disconnected.
 <!-- scoreboard:end -->
 
 ## 🚀 Getting Started
@@ -399,7 +401,7 @@ uv run python scripts/audit_usecases.py      # 112 use cases, 15 domains, AUDIT 
 | **Speciality** | `specialities/*.yaml` | A role a node plays (e.g. `security-auditor`), with required abilities |
 | **Ability** | `abilities/*.yaml` | An atomic capability (e.g. `sast_scan`) with a risk level; MCP-bindable |
 | **Use case** | `usecases/catalog.yaml` | Demand-side backlog: 123 audited entries that graduate into graphs |
-| **Spec** | `spec/*.schema.json` | AGR v1.2 JSON Schemas ([v1.1](docs/agr-v1.1.md) · [v1.2](docs/agr-v1.2.md)) |
+| **Spec** | `spec/*.schema.json` | AGR v1.4 JSON Schemas ([v1.1](docs/agr-v1.1.md) · [v1.2](docs/agr-v1.2.md) · [v1.4](docs/agr-v1.4.md)) |
 | **Subgraph** | `nodes[].kind: subgraph` + `ref` | A phase that *is* another registry graph, inlined at load (v1.1) |
 | **Join** | `nodes[].join` | `any` (default) · `all` · `quorum(n)` — when a multi-predecessor node is ready (v1.1) |
 | **Human gate** | `nodes[].kind: human` + `approval` | An approval contract the live runner refuses to sign itself (v1.1) |
@@ -566,11 +568,20 @@ averaged away. Deepening it is the open problem, not a solved one.
       [contract findings](docs/contract-findings.md).
       Plan: [v4-agr-1.3.md](docs/plans/v4-agr-1.3.md) ·
       Audit: [v4-audit.md](docs/plans/v4-audit.md).
-- [ ] **M8 / AGR v1.4 — connect the contracts.** The I/O contract is per-node, the
-      verification contract is graph-level, and nothing connects them: no lint asks
-      whether the nodes preceding a verifier produce what it asserts on. That is why
-      4 contracts are structurally valid, pass 157 tests, and are satisfiable by no
-      model.
+- [x] **M8 / AGR v1.4 — connect the contracts.** A graph had two vocabularies with
+      nothing checking they matched: **123 of 183 verification keys (67%) were
+      produced by no declared node output**. One lint now closes that, and all 83
+      graphs are migrated — declarations derived from the golden fixtures, with
+      **zero asserts modified** (verified by parsing HEAD against the working tree).
+      Contracts satisfied by no recorded model: **4 → 1**. Spec:
+      [agr-v1.4.md](docs/agr-v1.4.md) · Plan: [v5-agr-1.4.md](docs/plans/v5-agr-1.4.md) ·
+      Audit: [v5-audit.md](docs/plans/v5-audit.md).
+- [ ] **M9 / AGR v1.5 — joint preconditions.** `ab-test-analysis` asserts across two
+      facts produced by *different* nodes; every model supplied one and left the
+      other null. Declaring both tells each node what it owes, but nothing states
+      they must hold simultaneously for the assert to mean anything. v1.3 was "the
+      contract is not stated", v1.4 "stated per node", this is "the contract has a
+      joint precondition no single node owns".
 
 **Known limits, stated rather than buried:**
 
@@ -661,7 +672,7 @@ Project Link: [https://github.com/ypollak2/agenticgraphs][repo-url]
 [domains-shield]: https://img.shields.io/badge/domains-15-2ea44f?style=for-the-badge
 [patterns-shield]: https://img.shields.io/badge/motifs-19-2ea44f?style=for-the-badge
 [patterns-url]: #the-eight-patterns
-[tests-shield]: https://img.shields.io/badge/tests-157%2F157-blue?style=for-the-badge
+[tests-shield]: https://img.shields.io/badge/tests-166%2F166-blue?style=for-the-badge
 [tests-url]: tests/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
 [license-url]: LICENSE

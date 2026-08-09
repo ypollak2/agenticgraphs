@@ -1,5 +1,60 @@
 # Changelog
 
+## [0.5.0] — AGR v1.4 "connect the contracts"
+
+No new machinery: one enum value, one lint, and a migration. The fields needed to
+express this contract have existed since v1.1 and simply were not used.
+
+**The gap.** A graph had two vocabularies with nothing checking they referred to
+the same things — node `inputs`/`outputs` on one side, `verification[].assert` on
+the other. **123 of 183 verification keys (67%) were produced by no declared node
+output**, across 73 of 83 graphs. That is how four contracts stayed structurally
+valid, passed the entire suite, and were satisfiable by no model: nothing ever
+asked whether the nodes preceding a verifier produce what it asserts on.
+
+**Result: contracts satisfied by no recorded model went 4 → 1.**
+
+The acceptance criterion was "≥3 of 4 pass on qwen3-coder:30b" and only **2** do —
+`differential-diagnosis-ensemble` is satisfied by the 7B model and not the 30B one.
+**The criterion is missed as written**, and 4→1 does not erase that.
+
+### Added
+- `unconnected_keys()` and a lint: an **error** at `apiVersion: agr/v1.4`,
+  advisory below it via `lint_advisories()` — never via `lint_graph()`.
+- `asserted_keys()`: AST-based key extraction shared with `compose`. A regex
+  version counted `f`, `v` and `for` as blackboard keys.
+- `scripts/derive_outputs.py`: declarations derived from each graph'''s golden
+  fixtures, which record per node exactly what it emits. 125 declarations, all 83
+  graphs migrated to `agr/v1.4`.
+- `LLMRunner` tells a node that assembles `output` to take values *from the
+  blackboard* rather than return facts it never computed.
+- Scoreboard reports contract connection alongside verification depth.
+
+### Fixed
+- **My own escape hatch hid the worst case.** `unconnected_keys` began with
+  `if not produced: return set()` — excusing graphs that declare *nothing*, which
+  is the maximal form of the gap, not an exemption from it.
+  `code-review-pipeline` asserted on `output.verdict` while declaring no outputs
+  and read as fully connected.
+- **Advisories in the error channel bricked mutation.** Warnings were returned from
+  `lint_graph`, which every caller treats as fatal, so `agr infuse` refused every
+  graph with "rejected by gate: warn: ...".
+- **The test suite reverted the migration on every run.** `test_mutate.py` restored
+  its two mutated graphs with `git checkout` — from HEAD, not a snapshot — silently
+  discarding uncommitted registry edits. Same two graphs whose stale profiles broke
+  CI in v1.1.
+- `kind: search` crashed on a non-numeric score instead of dropping the candidate.
+
+### Guarantee
+**No assert was weakened.** Verified by parsing every graph at HEAD and in the
+working tree and comparing assert strings: **0 changed**. Only `outputs`
+declarations were added.
+
+### Open — the v1.5 item
+`ab-test-analysis` asserts across two facts produced by *different* nodes; every
+model supplied one and left the other null. Declaring both tells each node what it
+owes; nothing states they must hold simultaneously for the assert to mean anything.
+
 ## [0.4.0] — AGR v1.3 "live"
 
 Triggers, durability and enforced budgets — but the version'''s real work was

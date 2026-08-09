@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: meeting-to-actions
 description: Transcript to decisions, owners, deadlines, and follow-ups.
 category: business-ops
@@ -11,6 +11,8 @@ nodes:
   speciality: producer
   abilities:
   - generate
+  outputs:
+  - actions
 - id: review
   speciality: critic
   abilities:

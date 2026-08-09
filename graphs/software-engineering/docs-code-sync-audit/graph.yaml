@@ -1,4 +1,4 @@
-apiVersion: agr/v1.3
+apiVersion: agr/v1.4
 name: docs-code-sync-audit
 description: Workers execute every doc example against the current API.
 category: software-engineering
@@ -24,6 +24,7 @@ nodes:
   - run_command
   kind: verifier
   outputs:
+  - examples
   - output
 edges:
 - from: plan

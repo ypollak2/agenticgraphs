@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.4
 name: adverse-event-scanner
 description: Scan reports for adverse-event signals, reduce to summary.
 category: healthcare-science
@@ -24,6 +24,7 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - signals
 edges:
 - from: partition
   to: map

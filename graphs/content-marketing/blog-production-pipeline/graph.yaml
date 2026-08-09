@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: blog-production-pipeline
 description: Brief to outline to draft to edit to publish-ready post.
 category: content-marketing
@@ -11,6 +11,9 @@ nodes:
   speciality: producer
   abilities:
   - generate
+  outputs:
+  - lint_passed
+  - plagiarism_clean
 - id: review
   speciality: critic
   abilities:

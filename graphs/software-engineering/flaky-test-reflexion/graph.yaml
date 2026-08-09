@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.4
 name: flaky-test-reflexion
 description: Re-run a suspected flake, write down what was learned each time, and use it on the next attempt.
 category: software-engineering
@@ -35,9 +35,10 @@ nodes:
   abilities:
   - evaluate
   outputs:
-  - stable
+  - consecutive_green
   - lessons
   - output
+  - stable
   inputs:
   - candidate_fix
   kind: verifier

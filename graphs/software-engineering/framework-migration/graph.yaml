@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: framework-migration
 description: Port a codebase between frameworks in verifiable slices, each slice delegated to a refactor
   subgraph.
@@ -30,6 +30,8 @@ nodes:
   - slice_queue
   outputs:
   - slice_ported
+  - snapshot_after
+  - snapshot_before
 - id: integrate
   speciality: qa-lead
   abilities:
@@ -48,6 +50,7 @@ nodes:
   outputs:
   - migration_complete
   - output
+  - slices_remaining
   join: all
 edges:
 - from: inventory

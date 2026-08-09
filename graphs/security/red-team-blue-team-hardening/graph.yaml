@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.4
 name: red-team-blue-team-hardening
 description: An attacker searches for a working bypass while a defender patches, until the attacker is
   exhausted.
@@ -46,6 +46,7 @@ nodes:
   outputs:
   - attacker_exhausted
   - output
+  - unmitigated
   inputs:
   - mitigation
   kind: verifier

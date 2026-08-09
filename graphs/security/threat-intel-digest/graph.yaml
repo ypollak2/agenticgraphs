@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.4
 name: threat-intel-digest
 description: Summarize feeds into an actionable daily brief.
 category: security
@@ -23,6 +23,7 @@ nodes:
   - reduce_merge
   kind: verifier
   outputs:
+  - entries
   - output
 edges:
 - from: partition

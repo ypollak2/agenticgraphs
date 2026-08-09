@@ -229,6 +229,22 @@ class LLMRunner:
         self.key = os.environ.get("AGR_LLM_API_KEY", "")
         self.name = f"llm:{self.model}"
 
+    def _assembly_hint(self, declared: list[str]) -> str:
+        """Tell a node that assembles `output` where its contents come from.
+
+        v1.3 declared the asserted sub-keys on the terminal node and re-recorded;
+        0 of 12 runs passed. `output` is assembled from facts *upstream* nodes
+        established, so "return these keys" asks the terminal to invent values it
+        never computed. v1.4 declares each fact on the node that produces it and
+        tells the assembler to read them off the blackboard it can already see.
+        """
+        if "output" not in declared or not self.asserted:
+            return ""
+        return (
+            f"The `output` object must contain: {json.dumps(sorted(self.asserted))}. "
+            "Take each value from the blackboard above — do not invent them. "
+        )
+
     def bind(self, doc: dict) -> None:
         """Give the runner the graph's contract before execution starts.
 
@@ -237,8 +253,13 @@ class LLMRunner:
         different key names and every contract assert failed on AttributeError.
         v1.1 added declared `outputs` per node and the live runner never used them.
         """
+        from .validate import asserted_keys  # local: avoids an import cycle
+
         self.contract = doc.get("termination", {}).get("contract", "")
         self.checks = [v["assert"] for v in doc.get("verification") or [] if "assert" in v]
+        self.asserted: set[str] = set()
+        for check in self.checks:
+            self.asserted |= asserted_keys(check)
 
     def run(self, node: dict, bb: dict) -> dict:
         declared = node.get("outputs") or []
@@ -256,6 +277,7 @@ class LLMRunner:
             + (f"The workflow's exit contract is: {contract}\n" if contract else "")
             + (f"Downstream assertions that must hold: {json.dumps(checks)}\n" if checks else "")
             + wants
+            + self._assembly_hint(declared)
             + "Reply with ONLY a JSON object. No prose, no markdown fence."
         )
         req = urllib.request.Request(
@@ -702,6 +724,12 @@ def _search(node: dict, bb: dict, runner, rep: RunReport, visit: int) -> dict:
                     score = safe_eval(spec["score"], {**ctx, **out})
                 except Exception:
                     continue  # unscoreable candidate is not a candidate
+                # A score that cannot be ordered is no more usable than one that
+                # cannot be computed. A real model returned a string here and the
+                # sort below took the whole run down with a TypeError instead of
+                # dropping one candidate.
+                if not isinstance(score, (int, float)) or isinstance(score, bool):
+                    continue
                 scored.append((score, out))
         if not scored:
             break

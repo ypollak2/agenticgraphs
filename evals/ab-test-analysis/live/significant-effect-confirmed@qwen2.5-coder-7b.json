@@ -5,25 +5,19 @@
   "node_outputs": {
     "position-a": {
       "keys_responsible": [
-        "output.recomputed_effect",
-        "output.claimed_effect"
+        "recomputed_effect"
       ]
     },
     "position-b": {
       "keys_responsible": []
     },
     "judge": {
-      "claimed_effect": 10,
+      "claimed_effect": null,
       "output": {
-        "raw_data": [
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
+        "claimed_effect": null,
+        "recomputed_effect": null
       },
-      "recomputed_effect": 10
+      "recomputed_effect": null
     }
   }
 }

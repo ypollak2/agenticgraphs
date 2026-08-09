@@ -9,91 +9,92 @@
     },
     "explore": [
       {
-        "patch": "switch to optimized algorithm with early termination",
-        "bench_ms": 980
-      },
-      {
-        "patch": "feat: optimize profile hotspot processing\n\n- Refactored hotspot detection algorithm to reduce complexity\n- Implemented early termination conditions\n- Added caching for frequently accessed profile data\n- Reduced memory allocations during processing",
-        "bench_ms": 892
-      },
-      {
-        "patch": "optimize_memory_allocation",
+        "patch": "feat: optimize profile hotspot processing\n\n- Redesign hotspot evaluation algorithm\n- Implement early termination conditions\n- Add parallel processing for candidate generation",
         "bench_ms": 1150
+      },
+      {
+        "patch": "feat/explore-improve-benchmark",
+        "bench_ms": 1100
       },
       {
         "patch": "optimize_memory_allocation",
         "bench_ms": 1100
       },
       {
-        "patch": "feat: optimize profile hotspot processing\n\n- Refactored hotspot detection algorithm to reduce complexity\n- Implemented early termination conditions\n- Added caching for frequently accessed profile data\n- Reduced memory allocations during processing",
-        "bench_ms": 892
+        "patch": "optimize_memory_allocation",
+        "bench_ms": 1100
       },
       {
-        "patch": "feat: optimize profile hotspot processing\n\n- Refactored hotspot detection algorithm to reduce complexity\n- Implemented early termination conditions\n- Added caching for frequently accessed profile data\n- Reduced memory allocations during processing",
-        "bench_ms": 892
+        "patch": "feat/explore-improve-benchmark",
+        "bench_ms": 1100
       },
       {
-        "patch": "feat: optimize profile hotspot processing\n\n- Refactored hotspot detection algorithm to reduce complexity\n- Implemented early termination conditions\n- Added caching for frequently accessed profile data\n- Reduced memory allocations during processing",
-        "bench_ms": 892
+        "patch": "feat/explore-improve-benchmark",
+        "bench_ms": 1100
       },
       {
-        "patch": "feat: optimize profile hotspot processing\n\n- Refactored hotspot detection algorithm to reduce complexity\n- Implemented early termination conditions\n- Added caching for frequently accessed profile data\n- Reduced memory allocations during processing",
-        "bench_ms": 892
+        "patch": "feat/explore-improve-benchmark",
+        "bench_ms": 1100
       },
       {
-        "patch": "switch to optimized algorithm with early termination",
-        "bench_ms": 980
+        "patch": "feat/explore-improve-benchmark",
+        "bench_ms": 1100
       },
       {
-        "patch": "switch to optimized algorithm with early termination",
-        "bench_ms": 980
+        "patch": "optimize_memory_allocation",
+        "bench_ms": 1100
       },
       {
-        "patch": "switch to optimized algorithm with early termination",
-        "bench_ms": 980
+        "patch": "optimize_memory_allocation",
+        "bench_ms": 1100
       },
       {
-        "patch": "switch to optimized algorithm with early termination",
-        "bench_ms": 980
+        "patch": "optimize_memory_allocation",
+        "bench_ms": 1100
       },
       {
-        "patch": "feat: optimize profile hotspot processing\n\n- Refactored hotspot detection algorithm to reduce complexity\n- Implemented early termination conditions\n- Added caching for frequently accessed profile data\n- Reduced memory allocations during processing",
-        "bench_ms": 892
+        "patch": "optimize_memory_allocation",
+        "bench_ms": 1100
       },
       {
-        "patch": "feat: optimize profile hotspot processing\n\n- Refactored hotspot detection algorithm to reduce complexity\n- Implemented early termination conditions\n- Added caching for frequently accessed profile data\n- Reduced memory allocations during processing",
-        "bench_ms": 892
+        "patch": "feat/explore-improve-benchmark",
+        "bench_ms": 1100
       },
       {
-        "patch": "feat: optimize profile hotspot processing\n\n- Refactored hotspot detection algorithm to reduce complexity\n- Implemented early termination conditions\n- Added caching for frequently accessed profile data\n- Reduced memory allocations during processing",
-        "bench_ms": 892
+        "patch": "feat/explore-improve-benchmark",
+        "bench_ms": 1100
       },
       {
-        "patch": "feat: optimize profile hotspot processing\n\n- Refactored hotspot detection algorithm to reduce complexity\n- Implemented early termination conditions\n- Added caching for frequently accessed profile data\n- Reduced memory allocations during processing",
-        "bench_ms": 892
+        "patch": "feat/explore-improve-benchmark",
+        "bench_ms": 1100
       },
       {
-        "patch": "feat: optimize profile hotspot processing\n\n- Refactored hotspot detection algorithm to reduce complexity\n- Implemented early termination conditions\n- Added caching for frequently accessed profile data\n- Reduced memory allocations during processing",
-        "bench_ms": 892
+        "patch": "feat/explore-improve-benchmark",
+        "bench_ms": 1100
       },
       {
-        "patch": "feat: optimize profile hotspot processing\n\n- Refactored hotspot detection algorithm to reduce complexity\n- Implemented early termination conditions\n- Added caching for frequently accessed profile data\n- Reduced memory allocations during processing",
-        "bench_ms": 892
+        "patch": "feat/explore-improve-benchmark",
+        "bench_ms": 1100
       },
       {
-        "patch": "feat: optimize profile hotspot processing\n\n- Refactored hotspot detection algorithm to reduce complexity\n- Implemented early termination conditions\n- Added caching for frequently accessed profile data\n- Reduced memory allocations during processing",
-        "bench_ms": 892
+        "patch": "feat/explore-improve-benchmark",
+        "bench_ms": 1100
       },
       {
-        "patch": "feat: optimize profile hotspot processing\n\n- Refactored hotspot detection algorithm to reduce complexity\n- Implemented early termination conditions\n- Added caching for frequently accessed profile data\n- Reduced memory allocations during processing",
-        "bench_ms": 892
+        "patch": "feat/explore-improve-benchmark",
+        "bench_ms": 1100
+      },
+      {
+        "patch": "feat/explore-improve-benchmark",
+        "bench_ms": 1100
       }
     ],
     "verify": {
       "baseline_ms": 1200,
-      "bench_ms": 892,
+      "bench_ms": 1100,
       "output": {
-        "bench_ms": 892,
+        "baseline_ms": 1200,
+        "bench_ms": 1100,
         "suite_green": true
       },
       "suite_green": true

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.4
 name: forensic-investigation-blackboard
 description: Specialists contribute independently to shared evidence; a controller decides when the picture
   closes.
@@ -30,9 +30,10 @@ nodes:
   abilities:
   - adjudicate
   outputs:
-  - picture
   - open_questions
   - output
+  - picture
+  - uncited_claims
   inputs:
   - evidence
   aggregate:

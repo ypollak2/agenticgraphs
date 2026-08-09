@@ -6,24 +6,30 @@
     "intake": {
       "presentations": [
         {
-          "diagnosis": null,
-          "justification": "The previous diagnosis attempt has been recorded, but there is no consensus or dissent yet. More analysis is needed before making a definitive diagnosis."
+          "title": "Analyzing Case #1",
+          "content": "Given the single attempt recorded in the blackboard so far, it appears we do not yet have sufficient data to reach a consensus diagnosis or detect significant dissent among potential diagnoses. More case details and analysis attempts are needed before a reliable conclusion can be rendered that meets the workflow's contractual obligations for decision quality.",
+          "diagnostic": {
+            "consensus": null,
+            "dissent": []
+          },
+          "status": {
+            "consensus_found": false,
+            "meaningful_dissent_detected": false
+          }
         }
       ]
     },
     "diagnose": {
-      "ranking": [
-        1
-      ]
+      "ranking": []
     },
     "adjudicate": {
       "consensus": null,
       "dissent": [],
       "dissent_retained": true,
       "output": {
-        "diagnosis": null,
-        "justification": "There is still insufficient consensus to make a definitive diagnosis. Awaiting further analysis and potentially more case presentations before settling on the most likely explanation.",
-        "quorum_level": 1
+        "consensus": null,
+        "dissent": [],
+        "dissent_retained": true
       }
     }
   }

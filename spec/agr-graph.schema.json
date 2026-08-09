@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://agenticgraphs.dev/spec/agr-graph.schema.json",
-  "title": "AGR Graph v1.3",
+  "title": "AGR Graph v1.4",
   "type": "object",
   "required": [
     "apiVersion",
@@ -18,7 +18,8 @@
         "agr/v1",
         "agr/v1.1",
         "agr/v1.2",
-        "agr/v1.3"
+        "agr/v1.3",
+        "agr/v1.4"
       ]
     },
     "name": {

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.4
 name: localization-pipeline
 description: Translate per locale, reduce into a consistency report.
 category: content-marketing
@@ -23,7 +23,10 @@ nodes:
   - reduce_merge
   kind: verifier
   outputs:
+  - glossary_violations
   - output
+  - similarity
+  - threshold
 edges:
 - from: partition
   to: map

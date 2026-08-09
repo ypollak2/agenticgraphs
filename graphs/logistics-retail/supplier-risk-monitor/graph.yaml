@@ -1,4 +1,4 @@
-apiVersion: agr/v1.3
+apiVersion: agr/v1.4
 name: supplier-risk-monitor
 description: Score supplier concentration, financial and geographic risk, then plan mitigation for anything
   above appetite.
@@ -11,6 +11,7 @@ nodes:
   inputs:
   - supplier_list
   outputs:
+  - findings
   - supplier_signals
 - id: score
   speciality: analyst
@@ -36,8 +37,11 @@ nodes:
   inputs:
   - concentration
   outputs:
+  - above_appetite
   - mitigations
+  - mitigations_planned
   - output
+  - single_source_flagged
 edges:
 - from: ingest
   to: score

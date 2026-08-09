@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.4
 name: medical-coding-audit
 description: Workers verify diagnosis and procedure codes against notes.
 category: healthcare-science
@@ -24,6 +24,7 @@ nodes:
   - run_command
   kind: verifier
   outputs:
+  - codes
   - output
 edges:
 - from: plan

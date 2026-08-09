@@ -4,17 +4,20 @@
   "endpoint": "http://localhost:11434/v1",
   "node_outputs": {
     "intake": {
-      "responsibilities": []
+      "keys_responsible": [
+        "attempts"
+      ]
     },
     "produce": {
-      "responsibilities": []
+      "figures": [],
+      "invented_numbers": []
     },
     "review": {
       "figures": [],
-      "invented_numbers": false,
+      "invented_numbers": [],
       "output": {
-        "attempts": 1,
-        "responsibilities": []
+        "figures": [],
+        "invented_numbers": []
       }
     }
   }

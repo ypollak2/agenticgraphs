@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: feature-delivery-lifecycle
 description: "End-to-end feature delivery: research a problem, plan it, implement it, test it, audit the\
   \ change, fix what the audit found, document it, and release behind a human gate with a rollback path.\
@@ -38,6 +38,8 @@ nodes:
   - plan
   outputs:
   - patch
+  - test_failed_before_patch
+  - test_passes_after_patch
 - id: test
   speciality: supervisor
   kind: subgraph
@@ -46,6 +48,9 @@ nodes:
   - patch
   - acceptance_criteria
   outputs:
+  - coverage_delta
+  - mutation_baseline
+  - mutation_score
   - test_report
 - id: audit
   speciality: supervisor

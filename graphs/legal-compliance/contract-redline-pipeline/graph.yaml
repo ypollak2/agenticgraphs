@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: contract-redline-pipeline
 description: Compare against playbook, propose redlines with rationale.
 category: legal-compliance
@@ -11,6 +11,8 @@ nodes:
   speciality: producer
   abilities:
   - generate
+  outputs:
+  - redlines
 - id: review
   speciality: critic
   abilities:

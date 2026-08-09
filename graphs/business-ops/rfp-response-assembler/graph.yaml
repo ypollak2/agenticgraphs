@@ -1,4 +1,4 @@
-apiVersion: agr/v1.2
+apiVersion: agr/v1.4
 name: rfp-response-assembler
 description: Answer each RFP requirement from a knowledge base, assemble.
 category: business-ops
@@ -24,6 +24,9 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - page_count
+  - page_limit
+  - requirements
 edges:
 - from: partition
   to: map

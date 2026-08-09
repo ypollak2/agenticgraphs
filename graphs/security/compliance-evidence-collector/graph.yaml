@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: compliance-evidence-collector
 description: Walk a control framework, collect evidence per control, and flag controls with no live evidence.
 category: security
@@ -19,6 +19,7 @@ nodes:
   - controls
   outputs:
   - evidence
+  - steps
 - id: assess
   speciality: reducer
   abilities:
@@ -36,6 +37,8 @@ nodes:
   inputs:
   - coverage
   outputs:
+  - controls_evidenced
+  - controls_total
   - evidence_report
   - output
 edges:

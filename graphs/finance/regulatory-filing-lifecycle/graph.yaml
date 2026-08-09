@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: regulatory-filing-lifecycle
 description: Collect figures, reconcile them to source, gate on controller sign-off, then file and retain
   evidence.

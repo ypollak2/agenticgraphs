@@ -435,9 +435,20 @@ def test_contract_basis_reports_declared_when_both_sides_declare():
     assert contract_basis(a, a) == "declared"
 
 
-def test_contract_basis_falls_back_to_heuristic_for_v1_graphs():
-    a = load(ROOT / "graphs/software-engineering/code-review-pipeline/graph.yaml")
-    assert contract_basis(a, a) == "heuristic"
+def test_contract_basis_falls_back_to_heuristic_for_undeclared_graphs():
+    """No registry graph takes this path since v1.4 — every one declares its I/O.
+
+    The fallback still has to work for graphs authored outside this repo, so the
+    undeclared shape is constructed rather than borrowed.
+    """
+    bare = _g(apiVersion="agr/v1")
+    assert contract_basis(bare, bare) == "heuristic"
+
+
+def test_every_registry_graph_now_uses_the_declared_contract():
+    for gp in iter_graphs():
+        doc = load(gp)
+        assert contract_basis(doc, doc) == "declared", doc["name"]
 
 
 def test_declared_contract_detects_a_real_gap():

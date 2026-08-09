@@ -40,7 +40,8 @@
         "deadlocked": false,
         "rejected_approvals": [],
         "auto_approved": false,
-        "subgraphs_expanded": false
+        "subgraphs_expanded": false,
+        "truncations": []
       },
       {
         "id": "low-confidence-escalates",
@@ -59,7 +60,8 @@
         "deadlocked": false,
         "rejected_approvals": [],
         "auto_approved": false,
-        "subgraphs_expanded": false
+        "subgraphs_expanded": false,
+        "truncations": []
       },
       {
         "id": "complex-goes-deep",
@@ -77,7 +79,8 @@
         "deadlocked": false,
         "rejected_approvals": [],
         "auto_approved": false,
-        "subgraphs_expanded": false
+        "subgraphs_expanded": false,
+        "truncations": []
       }
     ]
   }

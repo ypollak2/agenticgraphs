@@ -1,4 +1,4 @@
-apiVersion: agr/v1.1
+apiVersion: agr/v1.4
 name: incident-triage-router
 description: Classify severity and route incidents to the owning team.
 category: devops-sre
@@ -22,6 +22,7 @@ nodes:
   - critique
   kind: verifier
   outputs:
+  - matches_ownership_map
   - output
 edges:
 - from: route

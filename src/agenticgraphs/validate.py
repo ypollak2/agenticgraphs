@@ -25,6 +25,69 @@ _V11_NODE_KEYS = {"ref", "join", "inputs", "outputs", "on_error", "retries", "ap
 _V12_NODE_KEYS = {"fan_out", "aggregate", "search"}
 
 
+#: Names that appear in an assert but are never blackboard keys.
+_ASSERT_LITERALS = {
+    "trivial", "low", "simple", "medium", "moderate", "high", "complex", "critical",
+    "true", "false", "null", "len", "all", "any", "sum", "min", "max", "abs", "round",
+    "output",
+}
+
+
+def asserted_keys(expr: str) -> set[str]:
+    """Blackboard keys a verification assert actually reads.
+
+    `output.<attr>` accesses plus free bare names, minus comprehension-bound
+    variables, level literals and builtins. AST rather than regex on purpose: a
+    regex counted `f`, `v` and `for` as blackboard keys, which is exactly the
+    kind of near-miss that makes a wrong number look like a finding.
+
+    Returns an empty set for anything unparseable — `lint: verification assert is
+    not a parseable expression` already reports that separately.
+    """
+    try:
+        tree = ast.parse(expr, mode="eval")
+    except SyntaxError:
+        return set()
+    bound: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.comprehension):
+            for target in ast.walk(node.target):
+                if isinstance(target, ast.Name):
+                    bound.add(target.id)
+    keys: set[str] = set()
+    for node in ast.walk(tree):
+        if (isinstance(node, ast.Attribute) and isinstance(node.value, ast.Name)
+                and node.value.id == "output"):
+            keys.add(node.attr)
+        elif isinstance(node, ast.Name) and node.id not in _ASSERT_LITERALS and node.id not in bound:
+            keys.add(node.id)
+    return keys
+
+
+def unconnected_keys(doc: dict) -> set[str]:
+    """Keys the contract asserts on that nothing in the graph is declared to produce.
+
+    THE v1.4 gap. A graph's node I/O contracts and its verification contract were
+    two separate vocabularies with nothing checking they referred to the same
+    things: 123 of 183 asserted keys across the registry were produced by no
+    declared output. That is how four contracts stayed structurally valid, passed
+    the whole suite, and were satisfiable by no model.
+    """
+    produced = {o for n in doc.get("nodes", []) for o in n.get("outputs") or []}
+    produced |= set((doc.get("state") or {}).get("inputs") or [])
+    # No early return for graphs that declare nothing. An earlier draft excused
+    # them — "a node that declares nothing makes no promise to break" — and that
+    # escape hatch swallowed exactly the case it most needed to catch:
+    # `code-review-pipeline` asserted on `output.verdict` while declaring no
+    # outputs at all, so it read as fully connected and was promoted to v1.4.
+    # Declaring nothing is not a defence; it is the maximal form of the gap.
+    needed: set[str] = set()
+    for v in doc.get("verification") or []:
+        if "assert" in v:
+            needed |= asserted_keys(v["assert"])
+    return needed - produced
+
+
 def _parses(expr: str) -> bool:
     try:
         ast.parse(expr, mode="eval")
@@ -223,7 +286,41 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
         if unknown:
             errors.append(f"lint: node '{n['id']}' unknown abilities {sorted(unknown)}")
 
-    return errors + _lint_v11(doc, root)
+    return errors + _lint_v11(doc, root) + _lint_v14(doc)
+
+
+def _contract_gap_message(doc: dict) -> str | None:
+    unmet = unconnected_keys(doc)
+    if not unmet:
+        return None
+    return (
+        f"verification asserts on {sorted(unmet)} which no node declares as an output "
+        "and state.inputs does not supply"
+    )
+
+
+def _lint_v14(doc: dict) -> list[str]:
+    """v1.4: the verification contract and the node I/O contracts must agree.
+
+    An **error** at `apiVersion: agr/v1.4`; below that it is advisory and lives in
+    `lint_advisories`, not here. Keeping advisories out of this list matters:
+    every caller — `agr validate`, the `agr infuse` gate, the test suite — treats
+    whatever `lint_graph` returns as fatal. An earlier draft returned warnings
+    from here and instantly bricked mutation: `infuse` refused every graph with
+    "infusion rejected by gate: warn: ...".
+    """
+    msg = _contract_gap_message(doc)
+    if msg and doc.get("apiVersion") == "agr/v1.4":
+        return [f"lint: {msg}"]
+    return []
+
+
+def lint_advisories(doc: dict) -> list[str]:
+    """Non-fatal findings: true, worth surfacing, never a reason to refuse work."""
+    msg = _contract_gap_message(doc)
+    if msg and doc.get("apiVersion") != "agr/v1.4":
+        return [f"warn: {msg} (declare them to reach apiVersion agr/v1.4)"]
+    return []
 
 
 def validate_graph_file(path: Path, root: Path = ROOT) -> list[str]:

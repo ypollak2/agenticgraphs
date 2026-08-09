@@ -15,11 +15,12 @@
       ]
     },
     "judge": {
-      "claimed_effect": 42.5,
+      "claimed_effect": null,
       "output": {
-        "recomputed_effect": 42.52
+        "claimed_effect": null,
+        "recomputed_effect": 0.01
       },
-      "recomputed_effect": 42.52
+      "recomputed_effect": 0.01
     }
   }
 }
