@@ -1,0 +1,32 @@
+{
+  "model": "gpt-4o",
+  "recorded": "2026-08-09",
+  "endpoint": "https://api.openai.com/v1",
+  "node_outputs": {
+    "collect.partition": {
+      "shards": 4
+    },
+    "collect.reduce": {
+      "findings": "Data successfully processed with no anomalies detected.",
+      "output": "All 4 shards have been merged and reduced into a single cohesive dataset.",
+      "vendor_docs": "Refer to the vendor documentation for further details on data structuring and expected outcomes of reduce_merge processes."
+    },
+    "normalize": {
+      "criteria_grid": "All cells in the matrix cite their sources correctly, and a unified set of criteria has been applied consistently across all vendors."
+    },
+    "fill": {
+      "matrix": {
+        "uncited_cells": 0,
+        "criteria_consistent": true
+      }
+    },
+    "cite-check": {
+      "criteria_consistent": true,
+      "output": {
+        "criteria_consistent": true,
+        "uncited_cells": 0
+      },
+      "uncited_cells": 0
+    }
+  }
+}

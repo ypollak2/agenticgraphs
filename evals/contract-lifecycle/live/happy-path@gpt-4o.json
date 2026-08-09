@@ -1,0 +1,46 @@
+{
+  "model": "gpt-4o",
+  "recorded": "2026-08-09",
+  "endpoint": "https://api.openai.com/v1",
+  "node_outputs": {
+    "intake": {
+      "clauses": [
+        "Ensure the residual risk level is at or below medium.",
+        "Obtain counsel's signature for approval.",
+        "Execute the contract upon meeting the risk and signature requirements."
+      ]
+    },
+    "redline.intake": {
+      "summary": "The current process involves reducing the residual risk to a medium or lower level, acquiring approval via counsel's signature, and finalizing the contract once the risk and signature criteria are satisfied."
+    },
+    "redline.produce": {
+      "redlines": [
+        "Add a clause specifying a timeline for risk reassessment to ensure the risk level remains acceptable.",
+        "Include a requirement for periodic updates to the risk management plan.",
+        "Clarify the legal jurisdiction governing the contract to prevent disputes.",
+        "Insert a contingency plan in case risk levels escalate unexpectedly beyond medium."
+      ]
+    },
+    "redline.review": {
+      "output": "The document currently provides an overarching framework but lacks specific procedural details.",
+      "redlines": [
+        "Add a clause specifying a timeline for risk reassessment to ensure the risk level remains acceptable.",
+        "Include a requirement for periodic updates to the risk management plan.",
+        "Clarify the legal jurisdiction governing the contract to prevent disputes.",
+        "Insert a contingency plan in case risk levels escalate unexpectedly beyond medium."
+      ]
+    },
+    "risk-assess": {
+      "residual_risk": "medium"
+    },
+    "execute": {
+      "executed": true,
+      "output": {
+        "executed": true,
+        "residual_risk_level": "medium",
+        "signed_off": true
+      },
+      "residual_risk_level": "medium"
+    }
+  }
+}

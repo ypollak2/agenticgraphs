@@ -1,0 +1,117 @@
+{
+  "model": "gpt-4o",
+  "recorded": "2026-08-09",
+  "endpoint": "https://api.openai.com/v1",
+  "node_outputs": {
+    "enumerate": {
+      "controls": [
+        "controls_evidenced",
+        "uncovered"
+      ]
+    },
+    "collect.plan": [
+      {
+        "steps": [
+          "identify_uncovered_controls",
+          "gather_evidence_for_controls",
+          "review_evidence_for_controls",
+          "document_evidence_collection",
+          "validate_controls_evidence",
+          "finalize_control_status_report"
+        ]
+      },
+      {
+        "steps": [
+          "identify_uncovered_controls",
+          "gather_evidence_for_controls",
+          "review_evidence_for_controls",
+          "document_evidence_collection",
+          "validate_controls_evidence",
+          "finalize_control_status_report",
+          "plan_remediation_for_uncovered_controls"
+        ]
+      }
+    ],
+    "collect.execute": [
+      {
+        "step_result": "Execution of step 'finalize_control_status_report' completed successfully."
+      },
+      {
+        "step_result": "Execution of step 'plan_remediation_for_uncovered_controls' completed successfully."
+      }
+    ],
+    "collect.verify": [
+      {
+        "evidence": "All control evidences validated and verified. Uncovered controls documented for further action.",
+        "output": "Verification of evidence completed successfully.",
+        "steps": [
+          "identify_uncovered_controls",
+          "gather_evidence_for_controls",
+          "review_evidence_for_controls",
+          "document_evidence_collection",
+          "validate_controls_evidence",
+          "finalize_control_status_report"
+        ]
+      },
+      {
+        "evidence": "All control evidences validated and verified. Uncovered controls documented for further action.",
+        "output": {
+          "controls_evidenced": 1,
+          "controls_total": 2,
+          "uncovered": [
+            "uncovered"
+          ]
+        },
+        "steps": [
+          "identify_uncovered_controls",
+          "gather_evidence_for_controls",
+          "review_evidence_for_controls",
+          "document_evidence_collection",
+          "validate_controls_evidence",
+          "finalize_control_status_report",
+          "plan_remediation_for_uncovered_controls"
+        ]
+      }
+    ],
+    "assess": [
+      {
+        "coverage": "all controls have been either evidenced or marked as uncovered",
+        "uncovered": [
+          "uncovered"
+        ]
+      },
+      {
+        "coverage": "all controls have been either evidenced or marked as uncovered",
+        "uncovered": [
+          "uncovered"
+        ]
+      }
+    ],
+    "report": [
+      {
+        "controls_evidenced": 1,
+        "controls_total": 2,
+        "evidence_report": "All control evidences validated and verified. Uncovered controls documented for further action.",
+        "output": {
+          "controls_evidenced": 1,
+          "controls_total": 2,
+          "uncovered": [
+            "uncovered"
+          ]
+        }
+      },
+      {
+        "controls_evidenced": 1,
+        "controls_total": 2,
+        "evidence_report": "All control evidences validated and verified. Uncovered controls documented for further action.",
+        "output": {
+          "controls_evidenced": 1,
+          "controls_total": 2,
+          "uncovered": [
+            "uncovered"
+          ]
+        }
+      }
+    ]
+  }
+}

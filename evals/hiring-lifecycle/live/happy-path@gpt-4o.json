@@ -1,0 +1,91 @@
+{
+  "model": "gpt-4o",
+  "recorded": "2026-08-09",
+  "endpoint": "https://api.openai.com/v1",
+  "node_outputs": {
+    "define-role.intake": {
+      "summary": "Analysis of initial attempt available; further data collection or adjustment may be needed based on results."
+    },
+    "define-role.generate": {
+      "draft": "Based on the analysis of the initial attempt, it is crucial to conduct a thorough review of the data to determine the next steps. If the initial attempt did not yield the desired outcomes, additional data collection or iterative adjustments to the approach may be necessary. Consideration should be given to identifying any variables that may have influenced the results and developing a strategy to address these in future attempts. A collaborative approach with stakeholders may also enhance the effectiveness of subsequent actions."
+    },
+    "define-role.critique": {
+      "bias_lint_clean": "The draft provides a balanced analysis without apparent bias, focusing on data-driven decision-making and stakeholder collaboration.",
+      "jd": "Clear instruction on the necessity of a thorough review processes and collaborative approach.",
+      "output": "A structured plan to review and adjust the approach based on data analysis and stakeholder input.",
+      "requirements_deduped": "1. Conduct a thorough data review. 2. Perform additional data collection if needed. 3. Identify influencing variables. 4. Collaborate with stakeholders for enhanced strategy development."
+    },
+    "screen": [
+      {
+        "shortlist": []
+      },
+      {
+        "shortlist": [
+          "Candidate A",
+          "Candidate B",
+          "Candidate C"
+        ]
+      }
+    ],
+    "interview": [
+      {
+        "scorecards": [
+          {
+            "criteria": "Data Review Thoroughness",
+            "score": 8,
+            "notes": "Extensive review of all available data sources was conducted, ensuring a comprehensive understanding of the initial attempt's outcomes."
+          },
+          {
+            "criteria": "Variable Identification",
+            "score": 7,
+            "notes": "Several key variables influencing the initial results were identified, though some minor factors may require further exploration."
+          },
+          {
+            "criteria": "Collaborative Strategy Development",
+            "score": 9,
+            "notes": "Effective collaboration with stakeholders resulted in a well-rounded strategy addressing all major concerns and planned adjustments."
+          }
+        ]
+      },
+      {
+        "scorecards": [
+          {
+            "criteria": "Data Review Thoroughness",
+            "score": 8,
+            "notes": "Extensive review of all available data sources was conducted, ensuring a comprehensive understanding of the initial attempt's outcomes."
+          },
+          {
+            "criteria": "Variable Identification",
+            "score": 7,
+            "notes": "Several key variables influencing the initial results were identified, though some minor factors may require further exploration."
+          },
+          {
+            "criteria": "Collaborative Strategy Development",
+            "score": 9,
+            "notes": "Effective collaboration with stakeholders resulted in a well-rounded strategy addressing all major concerns and planned adjustments."
+          }
+        ]
+      }
+    ],
+    "offer": [
+      {
+        "offer_sent": true,
+        "output": {
+          "scorecard_count": 3,
+          "signed_off": true
+        },
+        "scorecard_count": 3,
+        "structured": true
+      },
+      {
+        "offer_sent": true,
+        "output": {
+          "scorecard_count": 3,
+          "signed_off": true
+        },
+        "scorecard_count": 3,
+        "structured": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "model": "gpt-4o",
+  "recorded": "2026-08-09",
+  "endpoint": "https://api.openai.com/v1",
+  "node_outputs": {
+    "ingest.partition": {
+      "shards": 2
+    },
+    "ingest.reduce": {
+      "findings": [],
+      "output": "No data to process as shard_results are empty.",
+      "supplier_signals": []
+    },
+    "score": {
+      "risk_scores": []
+    },
+    "concentrate": {
+      "concentration": "No analysis possible due to lack of data in shard_result. Awaiting further shard processing."
+    },
+    "mitigate": {
+      "above_appetite": false,
+      "mitigations": [],
+      "mitigations_planned": false,
+      "output": {
+        "above_appetite": false,
+        "mitigations_planned": false,
+        "single_source_flagged": true
+      },
+      "single_source_flagged": true
+    }
+  }
+}

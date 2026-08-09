@@ -1,0 +1,43 @@
+{
+  "model": "gpt-4o",
+  "recorded": "2026-08-09",
+  "endpoint": "https://api.openai.com/v1",
+  "node_outputs": {
+    "ingest": {
+      "advisory": "This security advisory confirms that the identified exploit has been successfully mitigated and is no longer a threat. The mitigation measures have been reviewed and signed off by a security expert, and the details of the advisory are now published for stakeholders."
+    },
+    "prioritize.intake": {
+      "summary": "The security exploit has been successfully mitigated, with measures reviewed and approved by a security expert. The advisory details are published for stakeholders."
+    },
+    "prioritize.produce": {
+      "ranking": "high"
+    },
+    "prioritize.review": {
+      "exploitability": "low",
+      "output": "The advisory indicates effective mitigation and expert review, reducing the threat level.",
+      "priority": "medium",
+      "ranking": "high"
+    },
+    "reproduce": {
+      "repro_confirmed": true
+    },
+    "patch": {
+      "patch": {
+        "exploit_blocked": true,
+        "signed_off": true,
+        "advisory_published": true
+      }
+    },
+    "prove": {
+      "exploit_blocked": true
+    },
+    "disclose": {
+      "advisory_published": true,
+      "output": {
+        "advisory_published": true,
+        "exploit_blocked": true,
+        "signed_off": true
+      }
+    }
+  }
+}

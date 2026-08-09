@@ -1,0 +1,58 @@
+{
+  "model": "gpt-4o",
+  "recorded": "2026-08-09",
+  "endpoint": "https://api.openai.com/v1",
+  "node_outputs": {
+    "detect": {
+      "signal": "anomaly_detected",
+      "blast_radius": "limited"
+    },
+    "triage.route": {
+      "complexity": "medium"
+    },
+    "triage.branch-simple": {
+      "handled_by": "specialist"
+    },
+    "triage.verify": {
+      "matches_ownership_map": true,
+      "output": "The situation is well managed but requires monitoring. The anomaly is contained with a limited blast radius and medium complexity indicates it is manageable by the specialist assigned. No immediate escalation needed.",
+      "owner": "specialist",
+      "severity": "moderate"
+    },
+    "mitigate": {
+      "mitigation": "Increased monitoring and applied temporary fix to contain the anomaly.",
+      "mitigated": true
+    },
+    "confirm": {
+      "impact_cleared": true
+    },
+    "postmortem.intake": {
+      "summary": "Anomaly detected with moderate severity and limited blast radius. The situation was handled by a specialist who applied a temporary fix and increased monitoring. The owner matches the responsibility map, and the impact has been cleared. The anomaly was complex but effectively mitigated, ensuring no residual effects."
+    },
+    "postmortem.produce": {
+      "timeline": "2023-10-13T10:00Z: Anomaly detected.\n2023-10-13T10:30Z: Specialist assigned to investigate.\n2023-10-13T11:00Z: Root cause analysis commenced.\n2023-10-13T12:00Z: Temporary fix identified and implemented.\n2023-10-13T12:30Z: Increased monitoring set up to track system performance.\n2023-10-13T13:00Z: Mitigation measures confirmed effective, no further impact observed.\n2023-10-13T14:00Z: Situation reviewed, and post-incident analysis initiated."
+    },
+    "postmortem.review": {
+      "output": "The incident was handled adequately but could benefit from several improvements. The anomaly was detected and contained with appropriate measures within a reasonable timeframe. However, a temporary fix suggests a more permanent solution should be prioritized to prevent recurrence. Increased monitoring is a positive step, but regular reviews of the monitoring data are recommended to ensure sustained system stability. The ownership map was accurate, demonstrating good preparation. Complexity was handled well, but further training on specific issues related to this type of anomaly may enhance future responses.",
+      "postmortem": "Overall, the response was prompt and effective given the moderate severity and limited blast radius of the anomaly. Assigning a specialist facilitated a focused approach, allowing for swift containment and resolution through a temporary fix. Recommendations for future incidents include developing permanent solutions to prevent recurrence and ensuring continuous improvement through dedicated training sessions related to the anomaly type. Enhanced documentation and sharing of insights from the incident can improve organizational learning.",
+      "timeline": "2023-10-13T10:00Z: Anomaly detected.\n2023-10-13T10:30Z: Specialist assigned to investigate.\n2023-10-13T11:00Z: Root cause analysis commenced.\n2023-10-13T12:00Z: Temporary fix identified and implemented.\n2023-10-13T12:30Z: Increased monitoring set up to track system performance.\n2023-10-13T13:00Z: Mitigation measures confirmed effective, no further impact observed.\n2023-10-13T14:00Z: Situation reviewed, and post-incident analysis initiated.\n2023-10-13T15:00Z: Recommendations for permanent solution and training outlined."
+    },
+    "action-items": {
+      "actions": [
+        "Develop a permanent solution to prevent recurrence of the anomaly.",
+        "Conduct regular reviews of monitoring data to ensure sustained system stability.",
+        "Provide targeted training sessions on specific issues related to this type of anomaly.",
+        "Enhance documentation and share insights from the incident to improve organizational learning."
+      ],
+      "output": {
+        "actions": [
+          "Develop a permanent solution to prevent recurrence of the anomaly.",
+          "Conduct regular reviews of monitoring data to ensure sustained system stability.",
+          "Provide targeted training sessions on specific issues related to this type of anomaly.",
+          "Enhance documentation and share insights from the incident to improve organizational learning."
+        ],
+        "impact_cleared": true
+      }
+    }
+  }
+}
