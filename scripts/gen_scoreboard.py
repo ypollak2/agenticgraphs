@@ -26,7 +26,7 @@ def row_for(gpath: Path) -> dict:
     has_cases = (ROOT / "evals" / name / "cases.yaml").exists()
     if not has_cases:
         return {"name": name, "category": category, "cases": 0, "pass_rate": None,
-                "mean_steps": None, "routes": 0, "depth": "none"}
+                "mean_steps": None, "routes": 0, "depth": "none", "live": None}
     profile = eval_graph(name)
     measured = profile["measured"]
     results = measured["results"]
@@ -39,6 +39,7 @@ def row_for(gpath: Path) -> dict:
         "mean_steps": measured["mean_steps"],
         "routes": routes,
         "depth": measured["verification_depth"],
+        "live": profile.get("measured_live"),
     }
 
 
@@ -46,6 +47,8 @@ def scoreboard_block(rows: list[dict]) -> str:
     with_cases = [r for r in rows if r["cases"]]
     total_cases = sum(r["cases"] for r in with_cases)
     depth_counts = Counter(r["depth"] for r in with_cases)
+    lived = [r for r in with_cases if r["live"]]
+    live_pass = sum(1 for r in lived if r["live"]["pass_rate"] == 1.0)
     fully_passing = sum(1 for r in with_cases if r["pass_rate"] == 1.0)
     lines = [
         BEGIN,
@@ -68,8 +71,16 @@ def scoreboard_block(rows: list[dict]) -> str:
         "| `assert-live` | assert held against real model output (`agr eval --live`) |",
         "| `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |",
         "",
-        "| Graph | Domain | Cases | Pass rate | Depth | Mean steps | Routes exercised |",
-        "|---|---|---|---|---|---|---|",
+        f"**Real-model evidence:** {len(lived)} graphs carry a checked-in recording of an "
+        f"actual model run (`evals/<graph>/live/`), and **{live_pass} of {len(lived)}** satisfy "
+        "their contract against it. That column is reported separately, never blended into the "
+        "headline pass rate — a contract a real model cannot satisfy must not be able to hide "
+        "inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a "
+        "recording older than 90 days. Re-record with `scripts/record_live.py`."
+        if lived else "",
+        "",
+        "| Graph | Domain | Cases | Pass rate | Depth | Live (real model) | Mean steps | Routes |",
+        "|---|---|---|---|---|---|---|---|",
     ]
     for r in sorted(rows, key=lambda x: (x["category"], x["name"])):
         if r["cases"]:
@@ -78,8 +89,15 @@ def scoreboard_block(rows: list[dict]) -> str:
             routes = str(r["routes"])
         else:
             pass_rate = mean_steps = routes = "—"
+        if r["live"]:
+            lv = r["live"]
+            stale = " ⏳" if lv.get("age_days", 0) > 90 else ""
+            live_col = (("✅" if lv["pass_rate"] == 1.0 else "❌")
+                        + f" {lv['runner'].split(':', 1)[-1]} · {lv.get('recorded', '?')}{stale}")
+        else:
+            live_col = "—"
         lines.append(f"| `{r['name']}` | {r['category']} | {r['cases'] or '—'} "
-                     f"| {pass_rate} | `{r['depth']}` | {mean_steps} | {routes} |")
+                     f"| {pass_rate} | `{r['depth']}` | {live_col} | {mean_steps} | {routes} |")
     lines.append(END)
     return "\n".join(lines)
 

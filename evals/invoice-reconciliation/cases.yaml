@@ -2,18 +2,19 @@ cases:
 - id: happy-path
   node_outputs:
     auto-match.plan:
-      complexity: simple
-      risk: low
-      revision_requested: false
-      rejected: false
-      verify_failed: false
-      below_target: false
-      attempts: 1
+      steps:
+      - decompose goal
     auto-match.work: {}
     auto-match.verify:
       exceptions: []
       matched:
       - inv: 1
+      verify_failed: false
+      attempts: 1
+      output:
+        violations:
+        - line_id: L-12
+          policy_rule: T&E-4
     fuzzy-match:
       still_open: still_open-value
     ap-review:

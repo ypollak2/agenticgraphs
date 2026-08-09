@@ -32,6 +32,9 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("mermaid", help="emit a mermaid diagram for a graph").add_argument("name")
     sub.add_parser("profile", help="structural profile (deterministic; not a perf measurement)").add_argument("name")
     ep = sub.add_parser("eval", help="run golden cases, write profile.json (M1)")
+    ep.add_argument("--no-replay", action="store_true",
+                    help="ignore checked-in real-model recordings in evals/<graph>/live/ "
+                         "and use mock fixtures instead")
     ep.add_argument("--run-commands", action="store_true",
                     help="actually execute verification[].command entries (runs real code "
                          "on this machine); default is to count and skip them")
@@ -90,7 +93,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "eval":
         from .evalcmd import eval_graph
         profile = eval_graph(args.name, live=args.live, auto_approve=args.auto_approve,
-                             run_commands=args.run_commands)
+                             run_commands=args.run_commands,
+                             replay=not args.no_replay)
         print(json.dumps(profile["measured"], indent=2))
         return 0 if profile["measured"]["pass_rate"] == 1.0 else 1
     if args.cmd == "infuse":

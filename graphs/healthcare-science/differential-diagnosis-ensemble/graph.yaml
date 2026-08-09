@@ -1,0 +1,57 @@
+apiVersion: agr/v1.2
+name: differential-diagnosis-ensemble
+description: Independent diagnosticians rank hypotheses; a quorum decides and dissent is reported, never
+  dropped.
+category: healthcare-science
+nodes:
+- id: intake
+  speciality: analyst
+  abilities:
+  - analyze
+  outputs:
+  - presentations
+  inputs:
+  - case_notes
+- id: diagnose
+  speciality: analyst
+  abilities:
+  - analyze
+  outputs:
+  - ranking
+  inputs:
+  - presentations
+  fan_out:
+    over: presentations
+    max: 5
+    on_partial: continue
+- id: adjudicate
+  speciality: judge
+  abilities:
+  - adjudicate
+  outputs:
+  - consensus
+  - dissent
+  - output
+  inputs:
+  - ranking
+  join: quorum(1)
+  aggregate:
+    op: majority
+    over: ranking
+  kind: verifier
+edges:
+- from: intake
+  to: diagnose
+- from: diagnose
+  to: adjudicate
+termination:
+  max_steps: 30
+  contract: a diagnosis carries its quorum; disagreement is reported rather than averaged away
+verification:
+- describe: a tie is surfaced as no-consensus, never resolved by coin flip
+  assert: output.consensus is not None or len(output.dissent) > 0
+- describe: every dissenting opinion is retained
+  assert: output.dissent_retained == true
+state:
+  inputs:
+  - case_notes

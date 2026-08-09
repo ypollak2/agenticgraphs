@@ -43,13 +43,13 @@ flowchart LR
 | 2 | `plan` | `plan=['slice a', 'slice b'], acceptance_criteria=['p95 < 200ms']` |
 | 3 | `implement.plan` | `steps=['decompose goal']` |
 | 4 | `implement.execute` | *(no fixture — empty output)* |
-| 5 | `implement.verify` | `verify_failed=False, attempts=1, patch='diff --git a/app.py', test_failed_before_patch=True, test_passes_after_patch=True` |
+| 5 | `implement.verify` | `verify_failed=False, attempts=1, patch='diff --git a/app.py', output={'test_failed_before_patch': True, 'test_passes_after_patch': True}` |
 | 6 | `test.intake` | *(no fixture — empty output)* |
 | 7 | `test.generate` | *(no fixture — empty output)* |
-| 8 | `test.critique` | `revision_requested=False, test_report={'passed': 12, 'failed': 0}` |
+| 8 | `test.critique` | `revision_requested=False, test_report={'passed': 12, 'failed': 0}, output={'coverage_delta': 4, 'mutation_score': 0.82, 'mutation_baseline': 0.6}` |
 | 9 | `audit.triage` | `risk='low'` |
 | 10 | `audit.style-review` | `style_findings=[]` |
-| 11 | `audit.synthesize` | `verdict='approve', findings=[]` |
+| 11 | `audit.synthesize` | `verdict='approve', findings=[], output={'verdict': 'approve', 'findings': []}` |
 | 12 | `docs` | `docs_updated=True` |
 | 13 | `release-approval` | `signed_off=True` |
 | 14 | `release` | `released=True, release_tag='v1.2.0', release_failed=False, output={'verdict': 'approve', 'docs_updated': True, 'signed_off': True, 'released': True, 'rolled_back': False}` |
@@ -71,18 +71,18 @@ flowchart LR
 | 2 | `plan` | `plan=['slice a'], acceptance_criteria=['no regressions']` |
 | 3 | `implement.plan` | `steps=['decompose goal']` |
 | 4 | `implement.execute` | *(no fixture — empty output)* |
-| 5 | `implement.verify` | `verify_failed=False, attempts=1, patch='diff v1', test_failed_before_patch=True, test_passes_after_patch=True` |
+| 5 | `implement.verify` | `verify_failed=False, attempts=1, patch='diff v1', output={'test_failed_before_patch': True, 'test_passes_after_patch': True}` |
 | 6 | `test.intake` | *(no fixture — empty output)* |
 | 7 | `test.generate` | *(no fixture — empty output)* |
-| 8 | `test.critique` | `revision_requested=False, test_report={'passed': 8, 'failed': 0}` |
+| 8 | `test.critique` | `revision_requested=False, test_report={'passed': 8, 'failed': 0}, output={'coverage_delta': 2, 'mutation_score': 0.75, 'mutation_baseline': 0.6}` |
 | 9 | `audit.triage` | `risk='high'` |
 | 10 | `audit.security-review` | `sec_hits=1` |
 | 11 | `audit.style-review` | `style_findings=[]` |
-| 12 | `audit.synthesize` | `verdict='request_changes', findings=[{'file': 'app.py', 'line': 42, 'note': 'hardcoded secret'}]` |
+| 12 | `audit.synthesize` | `verdict='request_changes', findings=[{'file': 'app.py', 'line': 42, 'note': 'hardcoded secret'}], output={'verdict': 'request_changes', 'findings': [{'file': 'app.py', 'line': 42, 'note': 'hardcoded secret'}]}` |
 | 13 | `fix` | `patch='diff v2', audit_rounds=1` |
 | 14 | `audit.triage` | `risk='low'` |
 | 15 | `audit.style-review` | `style_findings=[]` |
-| 16 | `audit.synthesize` | `verdict='approve', findings=[]` |
+| 16 | `audit.synthesize` | `verdict='approve', findings=[], output={'verdict': 'approve', 'findings': []}` |
 | 17 | `docs` | `docs_updated=True` |
 | 18 | `release-approval` | `signed_off=True` |
 | 19 | `release` | `released=True, release_tag='v1.2.1', release_failed=False, output={'verdict': 'approve', 'docs_updated': True, 'signed_off': True, 'released': True, 'rolled_back': False}` |
@@ -104,13 +104,13 @@ flowchart LR
 | 2 | `plan` | `plan=['slice a'], acceptance_criteria=['no regressions']` |
 | 3 | `implement.plan` | `steps=['decompose goal']` |
 | 4 | `implement.execute` | *(no fixture — empty output)* |
-| 5 | `implement.verify` | `verify_failed=False, attempts=1, patch='diff v1', test_failed_before_patch=True, test_passes_after_patch=True` |
+| 5 | `implement.verify` | `verify_failed=False, attempts=1, patch='diff v1', output={'test_failed_before_patch': True, 'test_passes_after_patch': True}` |
 | 6 | `test.intake` | *(no fixture — empty output)* |
 | 7 | `test.generate` | *(no fixture — empty output)* |
-| 8 | `test.critique` | `revision_requested=False, test_report={'passed': 8, 'failed': 0}` |
+| 8 | `test.critique` | `revision_requested=False, test_report={'passed': 8, 'failed': 0}, output={'coverage_delta': 2, 'mutation_score': 0.75, 'mutation_baseline': 0.6}` |
 | 9 | `audit.triage` | `risk='low'` |
 | 10 | `audit.style-review` | `style_findings=[]` |
-| 11 | `audit.synthesize` | `verdict='approve', findings=[]` |
+| 11 | `audit.synthesize` | `verdict='approve', findings=[], output={'verdict': 'approve', 'findings': []}` |
 | 12 | `docs` | `docs_updated=True` |
 | 13 | `release-approval` | `signed_off=True` |
 | 14 | `release` | `released=False, release_tag='v1.2.2', release_failed=True` |

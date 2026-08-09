@@ -21,6 +21,8 @@ from .subgraphs import entry_nodes
 
 #: Node/edge/graph keys introduced in AGR v1.1.
 _V11_NODE_KEYS = {"ref", "join", "inputs", "outputs", "on_error", "retries", "approval"}
+#: Node keys introduced in AGR v1.2.
+_V12_NODE_KEYS = {"fan_out", "aggregate", "search"}
 
 
 def _parses(expr: str) -> bool:
@@ -60,6 +62,44 @@ def _lint_v11(doc: dict, root: Path) -> list[str]:
         if n.get("on_error") and n["on_error"] not in node_ids:
             errors.append(f"lint: node '{n['id']}' on_error targets unknown node '{n['on_error']}'")
 
+    produced_all = {o for n in doc.get("nodes", []) for o in n.get("outputs") or []}
+    supplied_all = set((doc.get("state") or {}).get("inputs") or [])
+    # A phase is valid either as an unexpanded `kind: subgraph` node, or — once
+    # expanded — as the id prefix its child's nodes now carry. Both forms are
+    # validated: `agr validate` sees the authored doc, the harness the expanded one.
+    phases = {n["id"] for n in doc.get("nodes", []) if n.get("kind") == "subgraph"}
+    phases |= {n["id"].split(".")[0] for n in doc.get("nodes", []) if "." in n["id"]}
+    for n in doc.get("nodes", []):
+        v12 = _V12_NODE_KEYS & n.keys()
+        if v12:
+            used |= v12
+        fo = n.get("fan_out")
+        if fo and fo["over"] not in produced_all | supplied_all:
+            errors.append(
+                f"lint: node '{n['id']}' fans out over '{fo['over']}' which no node outputs "
+                "and state.inputs does not supply — it would fan out over nothing"
+            )
+        ag = n.get("aggregate")
+        if ag and ag["over"] not in produced_all | supplied_all:
+            errors.append(
+                f"lint: node '{n['id']}' aggregates '{ag['over']}' which nothing produces"
+            )
+        if n.get("kind") == "search":
+            used.add("kind: search")
+            if not _parses(n.get("search", {}).get("score", "")):
+                errors.append(
+                    f"lint: node '{n['id']}' search score is not a parseable expression"
+                )
+    for v in doc.get("verification") or []:
+        if v.get("phase"):
+            used.add("verification.phase")
+            if v["phase"] not in phases:
+                errors.append(
+                    f"lint: verification phase '{v['phase']}' is not a kind: subgraph node"
+                )
+    if doc.get("memory"):
+        used.add("memory")
+
     for e in doc.get("edges", []):
         if e.get("kind", "flow") != "flow":
             used.add("edge kind")
@@ -68,6 +108,12 @@ def _lint_v11(doc: dict, root: Path) -> list[str]:
     if any("describe" in v for v in doc.get("verification") or []):
         used.add("verification.describe")
 
+    v12_used = used & (_V12_NODE_KEYS | {"kind: search", "verification.phase", "memory"})
+    if v12_used and doc.get("apiVersion") in ("agr/v1", "agr/v1.1"):
+        errors.append(
+            f"lint: uses v1.2 features {sorted(v12_used)} but declares apiVersion "
+            f"'{doc.get('apiVersion')}' — bump to 'agr/v1.2'"
+        )
     if used and doc.get("apiVersion") == "agr/v1":
         errors.append(
             f"lint: uses v1.1 features {sorted(used)} but declares apiVersion 'agr/v1' — "

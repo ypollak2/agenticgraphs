@@ -39,6 +39,7 @@ nodes:
   - access_requests
   outputs:
   - milestones_covered
+  - output
   join: all
 edges:
 - from: gather

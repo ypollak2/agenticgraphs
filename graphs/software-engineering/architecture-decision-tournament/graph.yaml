@@ -1,0 +1,57 @@
+apiVersion: agr/v1.2
+name: architecture-decision-tournament
+description: Independent designs are scored on one rubric, and the winner must beat the runner-up on record.
+category: software-engineering
+nodes:
+- id: frame
+  speciality: analyst
+  abilities:
+  - analyze
+  outputs:
+  - options
+  - rubric
+  inputs:
+  - decision
+- id: design
+  speciality: advocate
+  abilities:
+  - generate
+  outputs:
+  - proposal
+  - rubric_score
+  inputs:
+  - options
+  fan_out:
+    over: options
+    max: 6
+- id: judge
+  speciality: judge
+  abilities:
+  - adjudicate
+  outputs:
+  - winner
+  - margin
+  - output
+  inputs:
+  - proposal
+  - rubric_score
+  aggregate:
+    op: best
+    over: rubric_score
+  kind: verifier
+edges:
+- from: frame
+  to: design
+- from: design
+  to: judge
+termination:
+  max_steps: 30
+  contract: a decision names its runner-up and the margin, so it can be revisited on evidence
+verification:
+- describe: at least three designs were scored on the same rubric
+  assert: output.designs_scored >= 3
+- describe: the decision records why the runner-up lost
+  assert: output.margin is not None
+state:
+  inputs:
+  - decision

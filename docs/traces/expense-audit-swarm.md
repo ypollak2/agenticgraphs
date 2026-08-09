@@ -25,7 +25,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `plan` | `steps=['decompose goal']` |
+| 1 | `plan` | `steps=['decompose goal'], tasks=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `work` | *(no fixture — empty output)* |
 | 3 | `verify` | `verify_failed=False, attempts=1, output={'violations': [{'line_id': 'L-12', 'policy_rule': 'T&E-4'}]}` |
 
@@ -39,7 +39,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `plan` | `steps=['decompose goal']` |
+| 1 | `plan` | `steps=['decompose goal'], tasks=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `work` | *(no fixture — empty output)* |
 | 3 | `verify` | `verify_failed=True, attempts=1` |
 | 4 | `work` | *(no fixture — empty output)* |

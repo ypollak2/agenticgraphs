@@ -1,4 +1,4 @@
-apiVersion: agr/v1
+apiVersion: agr/v1.1
 name: clinical-literature-triage
 description: Route new papers by study type and evidence level.
 category: healthcare-science
@@ -21,6 +21,8 @@ nodes:
   abilities:
   - critique
   kind: verifier
+  outputs:
+  - output
 edges:
 - from: route
   to: branch-simple

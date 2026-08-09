@@ -37,6 +37,7 @@ nodes:
   - coverage
   outputs:
   - evidence_report
+  - output
 edges:
 - from: enumerate
   to: collect

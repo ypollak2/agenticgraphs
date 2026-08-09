@@ -2,16 +2,17 @@ cases:
 - id: happy-path
   node_outputs:
     discover.plan:
-      complexity: simple
-      risk: low
-      revision_requested: false
-      rejected: false
-      verify_failed: false
-      below_target: false
-      attempts: 1
+      steps:
+      - decompose goal
     discover.work: {}
     discover.verify:
       data_map: []
+      verify_failed: false
+      attempts: 1
+      output:
+        violations:
+        - rule_id: null-check
+          count: 3
     classify:
       lawful_basis: []
     gap-scan:

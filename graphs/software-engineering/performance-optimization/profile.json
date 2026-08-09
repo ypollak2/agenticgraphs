@@ -40,7 +40,8 @@
         "deadlocked": false,
         "rejected_approvals": [],
         "auto_approved": false,
-        "subgraphs_expanded": false
+        "subgraphs_expanded": false,
+        "truncations": []
       },
       {
         "id": "retry-then-meets-target",
@@ -60,7 +61,8 @@
         "deadlocked": false,
         "rejected_approvals": [],
         "auto_approved": false,
-        "subgraphs_expanded": false
+        "subgraphs_expanded": false,
+        "truncations": []
       }
     ]
   }

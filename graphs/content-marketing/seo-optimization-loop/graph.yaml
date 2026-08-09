@@ -1,4 +1,4 @@
-apiVersion: agr/v1
+apiVersion: agr/v1.1
 name: seo-optimization-loop
 description: Rewrite for target queries, re-score, iterate to threshold.
 category: content-marketing
@@ -16,6 +16,8 @@ nodes:
   abilities:
   - evaluate
   kind: verifier
+  outputs:
+  - output
 edges:
 - from: intake
   to: attempt

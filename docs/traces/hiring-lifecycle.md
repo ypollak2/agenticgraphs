@@ -29,9 +29,9 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `define-role.intake` | `complexity='simple', risk='low', revision_requested=False, rejected=False, verify_failed=False, below_target=False, attempts=1` |
-| 2 | `define-role.generate` | *(no fixture — empty output)* |
-| 3 | `define-role.critique` | `jd='jd-value'` |
+| 1 | `define-role.intake` | `summary='intake complete'` |
+| 2 | `define-role.generate` | `draft='v1'` |
+| 3 | `define-role.critique` | `jd='jd-value', rejected=False, attempts=1, output={'bias_lint_clean': True, 'requirements_deduped': True}` |
 | 4 | `screen` | `shortlist=[{'c': 'a'}]` |
 | 5 | `interview` | `scorecards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 6 | `panel-decision` | `signed_off=True` |

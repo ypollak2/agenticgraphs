@@ -42,6 +42,7 @@ nodes:
   inputs:
   - matched
   outputs:
+  - output
   - posted
   - unreviewed_exceptions
   join: any

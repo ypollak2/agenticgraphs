@@ -51,7 +51,8 @@
         "deadlocked": false,
         "rejected_approvals": [],
         "auto_approved": false,
-        "subgraphs_expanded": true
+        "subgraphs_expanded": true,
+        "truncations": []
       },
       {
         "id": "audit-requests-changes-then-approves",
@@ -85,7 +86,8 @@
         "deadlocked": false,
         "rejected_approvals": [],
         "auto_approved": false,
-        "subgraphs_expanded": true
+        "subgraphs_expanded": true,
+        "truncations": []
       },
       {
         "id": "failed-release-is-compensated",
@@ -115,7 +117,8 @@
         "deadlocked": false,
         "rejected_approvals": [],
         "auto_approved": false,
-        "subgraphs_expanded": true
+        "subgraphs_expanded": true,
+        "truncations": []
       }
     ]
   }

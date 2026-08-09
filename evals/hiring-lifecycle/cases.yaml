@@ -2,16 +2,16 @@ cases:
 - id: happy-path
   node_outputs:
     define-role.intake:
-      complexity: simple
-      risk: low
-      revision_requested: false
-      rejected: false
-      verify_failed: false
-      below_target: false
-      attempts: 1
-    define-role.generate: {}
+      summary: intake complete
+    define-role.generate:
+      draft: v1
     define-role.critique:
       jd: jd-value
+      rejected: false
+      attempts: 1
+      output:
+        bias_lint_clean: true
+        requirements_deduped: true
     screen:
       shortlist:
       - c: a

@@ -32,14 +32,14 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `detect` | `signal='signal-value', blast_radius=[]` |
-| 2 | `triage.route` | `complexity='simple', risk='low', revision_requested=False, rejected=False, verify_failed=False, below_target=False, attempts=1` |
-| 3 | `triage.branch-simple` | *(no fixture — empty output)* |
-| 4 | `triage.verify` | `owner='owner-value', severity='severity-value'` |
+| 2 | `triage.route` | `complexity='low'` |
+| 3 | `triage.branch-simple` | `handled_by='simple'` |
+| 4 | `triage.verify` | `owner='owner-value', severity='severity-value', output={'routed_team': 'platform-oncall', 'matches_ownership_map': True}` |
 | 5 | `mitigate` | `mitigation='mitigation-value', mitigated=True` |
 | 6 | `confirm` | `impact_cleared=True` |
-| 7 | `postmortem.intake` | `complexity='simple', risk='low', revision_requested=False, rejected=False, verify_failed=False, below_target=False, attempts=1` |
-| 8 | `postmortem.produce` | *(no fixture — empty output)* |
-| 9 | `postmortem.review` | `postmortem='postmortem-value'` |
+| 7 | `postmortem.intake` | `summary='intake complete'` |
+| 8 | `postmortem.produce` | `output={'timeline': [{'event': 'alert fired', 'log_id': 'L-1'}, {'event': 'paged on-call', 'message_id': 'M-2'}]}` |
+| 9 | `postmortem.review` | `postmortem='postmortem-value', revision_requested=False, attempts=1` |
 | 10 | `action-items` | `actions=[{'owner': 'sre', 'task': 'add alert'}], output={'impact_cleared': True, 'actions': [{'owner': 'sre', 'task': 'add alert'}]}` |
 
 **Verification checked:**

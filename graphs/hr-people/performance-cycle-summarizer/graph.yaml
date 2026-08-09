@@ -37,6 +37,7 @@ nodes:
   - bias_flags
   outputs:
   - calibrated_summary
+  - output
 edges:
 - from: gather
   to: synthesize

@@ -1,5 +1,62 @@
 # Changelog
 
+## [0.3.0] — AGR v1.2 "depth"
+
+Graphs that search or learn rather than follow a fixed path — and, more
+importantly, the first real evidence about whether any of them work.
+
+**The finding.** v1.1 shipped verification *depth grading* and reported honestly
+that 73 of 74 graphs sat at `assert-fixture`. v1.2 made `assert-live` reachable and
+recorded five runs against a local qwen2.5-coder:7b. **All five failed** — every one
+raising `NameError: name '''output''' is not defined` on the exact key its contract
+asserts. The cause was not model quality: `LLMRunner`'''s prompt had asked for "your
+output keys" since v1.0 without ever saying which, and v1.1'''s declared `outputs`
+contracts existed only on composites, so all 74 primitives gave a model nothing to
+aim at. After fixing both, 4 of 5 pass. The fifth is checked in still failing.
+
+A registry reporting 74/74 at 100% was, on first contact with a real model, 0/5.
+
+### Added
+- **Frames.** Every node execution records what it wrote. Phase-scoped
+  verification, real fan-out and search results are all projections over them.
+- **`fan_out`** — one node, N executions over a blackboard list, each with its own
+  frame. Truncation past `max` is logged, never silent.
+- **`aggregate`** — majority / median / union / best, reducing before the node
+  runs. `majority` returns None on a tie rather than breaking it silently.
+- **`kind: search`** — bounded beam search (branch x depth, beam prune),
+  reporting whether a run measurably improved. Beam search, not MCTS, and the
+  docs say so.
+- **Phase-scoped verification** — expansion now merges a child'''s verification
+  tagged with its phase and evaluates it against that phase'''s frame. Closes the
+  v1.1 deferral: a composite inherits its children'''s contracts.
+- **`memory`** (`scope: run|graph`) and **enforced `state.schema`** — v1.1 accepted
+  the latter and never read it, deferring until it had a consumer; `memory` is it.
+- **`ReplayRunner`** — checked-in real-model recordings make `assert-live`
+  reachable in CI. Reported in a separate `measured_live` block so a contract a
+  real model cannot satisfy cannot hide inside an average. Scoreboard shows model
+  and recording date, flagging anything over 90 days.
+- **`LLMRunner.bind(doc)`** — the live runner now states the declared outputs,
+  termination contract and downstream asserts it requires.
+- 9 v1.2 graphs across 6 new motifs (tree-search, ensemble-quorum, tournament,
+  reflexion, red-team-blue-team, blackboard). Registry: 74 -> **83 graphs**,
+  13 -> **19 motifs**, 100 -> **135 tests**, catalog 123 -> **131 entries**.
+
+### Fixed
+- **17 graphs claimed parallelism they did not have.** `parallel_group` was a
+  decorative string: a map-reduce graph executed its `map` node exactly once.
+  Those are real `fan_out` now. The label survives only where it marks two
+  *distinct* sibling nodes, and a test fails if any group has fewer than 2 members.
+- Every graph whose asserts read `output.*` now declares it as an output, so a
+  live runner has a target.
+- `make check` mirrors the CI gate (regenerate, then diff) — the v1.1 release
+  passed local pytest and still failed CI on stale generated docs.
+
+### Known limits (stated, not buried)
+- Live recordings are one model, one case per graph: enough to prove the mechanism
+  and surface the contract bug, not enough to claim anything general.
+- Search graphs are tested against synthetic gradients, not a real scorer.
+- `approval.timeout` and `retries.backoff` remain recorded but unenforced.
+
 ## [0.2.0] — AGR v1.1 "composites"
 
 Depth instead of length. v1 gave 52 graphs averaging 3.2 nodes and a 4-node ceiling;

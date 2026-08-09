@@ -2,16 +2,15 @@ cases:
 - id: happy-path
   node_outputs:
     collect.partition:
-      complexity: simple
-      risk: low
-      revision_requested: false
-      rejected: false
-      verify_failed: false
-      below_target: false
-      attempts: 1
+      shard_count: 1
     collect.map: {}
     collect.reduce:
       vendor_docs: []
+      output:
+        findings:
+        - title: competitor launched feature X
+          source_url: https://example.com/blog
+          source_date: '2026-07-01'
     normalize:
       criteria_grid: []
     fill:

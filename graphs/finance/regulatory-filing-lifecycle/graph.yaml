@@ -52,6 +52,7 @@ nodes:
   - confirmation_id
   outputs:
   - evidence_pack
+  - output
 edges:
 - from: collect
   to: reconcile

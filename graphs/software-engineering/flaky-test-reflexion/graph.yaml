@@ -1,0 +1,67 @@
+apiVersion: agr/v1.2
+name: flaky-test-reflexion
+description: Re-run a suspected flake, write down what was learned each time, and use it on the next attempt.
+category: software-engineering
+nodes:
+- id: reproduce
+  speciality: worker
+  abilities:
+  - run_command
+  outputs:
+  - observed
+  - seed
+  inputs:
+  - test_id
+- id: hypothesise
+  speciality: analyst
+  abilities:
+  - analyze
+  outputs:
+  - hypothesis
+  inputs:
+  - observed
+  - lessons
+- id: test-fix
+  speciality: executor
+  abilities:
+  - execute_step
+  - edit_files
+  outputs:
+  - candidate_fix
+  inputs:
+  - hypothesis
+- id: evaluate
+  speciality: evaluator
+  abilities:
+  - evaluate
+  outputs:
+  - stable
+  - lessons
+  - output
+  inputs:
+  - candidate_fix
+  kind: verifier
+edges:
+- from: reproduce
+  to: hypothesise
+- from: hypothesise
+  to: test-fix
+- from: test-fix
+  to: evaluate
+- from: evaluate
+  to: hypothesise
+  when: not stable and attempts < 4
+termination:
+  max_steps: 40
+  contract: stability is proven over repeated runs, and every failed attempt is recorded as a lesson
+verification:
+- describe: the test is stable across repeated runs, not merely green once
+  assert: output.consecutive_green >= 3
+- describe: each failed attempt left a lesson behind
+  assert: len(output.lessons) >= 1
+state:
+  inputs:
+  - test_id
+  schema: state/lessons.schema.json
+memory:
+  scope: graph

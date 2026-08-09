@@ -1,4 +1,4 @@
-apiVersion: agr/v1
+apiVersion: agr/v1.1
 name: bug-triage-and-fix
 description: Reproduce a bug, plan a fix, apply it in isolation, verify.
 category: software-engineering
@@ -16,6 +16,8 @@ nodes:
   abilities:
   - run_command
   kind: verifier
+  outputs:
+  - output
 edges:
 - from: plan
   to: execute

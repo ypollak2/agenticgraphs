@@ -34,9 +34,9 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `ingest` | `advisory='advisory-value'` |
-| 2 | `prioritize.intake` | `complexity='simple', risk='low', revision_requested=False, rejected=False, verify_failed=False, below_target=False, attempts=1` |
-| 3 | `prioritize.produce` | *(no fixture — empty output)* |
-| 4 | `prioritize.review` | `exploitability='exploitability-value', priority='priority-value'` |
+| 2 | `prioritize.intake` | `summary='intake complete'` |
+| 3 | `prioritize.produce` | `output={'ranking': [{'finding': 'CVE-2026-1111', 'scanner_evidence': 'scan-report-88', 'asset_map_ref': 'asset-42'}]}` |
+| 4 | `prioritize.review` | `exploitability='exploitability-value', priority='priority-value', revision_requested=False, attempts=1` |
 | 5 | `reproduce` | `repro_confirmed=True` |
 | 6 | `patch` | `patch='patch-value'` |
 | 7 | `prove` | `exploit_blocked=True` |

@@ -49,6 +49,7 @@ nodes:
   - signed_off
   outputs:
   - offer_sent
+  - output
   - structured
 edges:
 - from: define-role

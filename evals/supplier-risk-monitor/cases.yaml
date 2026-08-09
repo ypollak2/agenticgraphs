@@ -2,16 +2,15 @@ cases:
 - id: happy-path
   node_outputs:
     ingest.partition:
-      complexity: simple
-      risk: low
-      revision_requested: false
-      rejected: false
-      verify_failed: false
-      below_target: false
-      attempts: 1
+      shard_count: 1
     ingest.map: {}
     ingest.reduce:
       supplier_signals: []
+      output:
+        findings:
+        - title: competitor launched feature X
+          source_url: https://example.com/blog
+          source_date: '2026-07-01'
     score:
       risk_scores: []
     concentrate:

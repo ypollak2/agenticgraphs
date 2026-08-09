@@ -49,6 +49,7 @@ nodes:
   - signed_off
   outputs:
   - executed
+  - output
 edges:
 - from: intake
   to: redline

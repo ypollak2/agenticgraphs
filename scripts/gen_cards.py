@@ -17,6 +17,42 @@ CATALOG = ROOT / "usecases" / "catalog.yaml"
 BEGIN, END = "<!-- graph-of-graphs:begin -->", "<!-- graph-of-graphs:end -->"
 
 RATIONALE = {
+    "tree-search": (
+        "Candidates are branched, scored against a real measurement, and pruned to a beam — "
+        "so the graph explores a space rather than committing to its first idea. This is "
+        "beam search, not MCTS: no rollout policy and no learned value function, both of "
+        "which need a real environment. What ships is whatever measurably won."
+    ),
+    "ensemble-quorum": (
+        "Several independent passes answer the same question and a quorum decides. Because "
+        "the passes cannot see each other, agreement is evidence and spread is a calibration "
+        "signal. Dissent is reported alongside the verdict rather than averaged away, and a "
+        "tie is surfaced as no-consensus instead of resolved by coin flip."
+    ),
+    "red-team-blue-team": (
+        "An attacker searches for a working bypass while a defender patches, alternating "
+        "until the attacker is exhausted. It is the only motif here that produces evidence "
+        "of *absence*: the run ends because nothing more could be found, not because nobody "
+        "looked."
+    ),
+    "reflexion": (
+        "Each failed attempt writes down what was learned, and the next attempt reads it. "
+        "A plain retry loop re-runs the same reasoning against the same inputs and fails the "
+        "same way; this one narrows. Lessons are scoped memory, so what the graph learned is "
+        "inspectable rather than buried in a context window."
+    ),
+    "blackboard": (
+        "Specialists contribute independently to shared evidence and a controller decides "
+        "when the picture is closed enough to act on. Suited to open-ended investigation, "
+        "where the next useful question depends on what the last contributor found. Open "
+        "questions are listed rather than quietly dropped."
+    ),
+    "tournament": (
+        "More than two options, judged pairwise on one rubric, with the winner recorded "
+        "alongside the margin over the runner-up. A single debate collapses to two positions; "
+        "a tournament keeps the field, and the recorded margin means the decision can be "
+        "revisited on evidence instead of re-argued from scratch."
+    ),
     "lifecycle": (
         "A multi-phase workflow where each phase is itself a motif and hand-offs are "
         "explicit. Phases that duplicate an existing single-purpose graph reference it "
@@ -233,7 +269,7 @@ def graph_of_graphs(rows: list[dict]) -> str:
         BEGIN,
         "## 🗺️ The graph of graphs",
         "",
-        "Every shipped graph is one of thirteen verified motifs. Full per-graph cards "
+        "Every shipped graph is one of nineteen verified motifs. Full per-graph cards "
         "(diagram, contract, node roster, use-cases) live in [CARDS.md](CARDS.md).",
         "",
         *g, "",

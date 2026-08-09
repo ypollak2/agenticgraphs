@@ -24,7 +24,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `partition` | `shard_count=1` |
+| 1 | `partition` | `shard_count=1, shards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `map` | *(no fixture — empty output)* |
 | 3 | `reduce` | `output={'requirements': [{'id': 'R1', 'answered': True, 'flagged': False}, {'id': 'R2', 'answered': False, 'flagged': True}], 'page_count': 8, 'page_limit': 10}` |
 
@@ -38,7 +38,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `partition` | `shard_count=2` |
+| 1 | `partition` | `shard_count=2, shards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `map` | *(no fixture — empty output)* |
 | 3 | `reduce` | `output={'requirements': [{'id': 'R1', 'answered': True, 'flagged': False}, {'id': 'R2', 'answered': False, 'flagged': True}, {'id': 'R3', 'answered': True, 'flagged': False}], 'page_count': 10, 'page_limit': 10}` |
 

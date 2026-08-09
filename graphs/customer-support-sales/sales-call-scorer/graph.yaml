@@ -1,0 +1,55 @@
+apiVersion: agr/v1.2
+name: sales-call-scorer
+description: Score a call against a rubric from several independent passes, reporting variance as a confidence
+  signal.
+category: customer-support-sales
+nodes:
+- id: segment
+  speciality: mapper
+  abilities:
+  - map_shard
+  outputs:
+  - segments
+  inputs:
+  - transcript
+- id: score-pass
+  speciality: evaluator
+  abilities:
+  - evaluate
+  outputs:
+  - rubric_score
+  inputs:
+  - segments
+  fan_out:
+    over: segments
+    max: 12
+- id: consolidate
+  speciality: reducer
+  abilities:
+  - reduce_merge
+  outputs:
+  - final_score
+  - variance
+  - output
+  inputs:
+  - rubric_score
+  aggregate:
+    op: median
+    over: rubric_score
+  kind: verifier
+edges:
+- from: segment
+  to: score-pass
+- from: score-pass
+  to: consolidate
+termination:
+  max_steps: 30
+  contract: the score reports the spread between passes alongside the median
+verification:
+- describe: every scored segment is traceable
+  assert: output.segments_scored >= 1
+- describe: disagreement between passes is reported, not hidden
+  assert: output.variance is not None
+state:
+  inputs:
+  - transcript

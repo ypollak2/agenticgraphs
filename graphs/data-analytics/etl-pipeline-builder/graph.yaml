@@ -1,4 +1,4 @@
-apiVersion: agr/v1
+apiVersion: agr/v1.1
 name: etl-pipeline-builder
 description: Design and build an ETL job from source to warehouse.
 category: data-analytics
@@ -16,6 +16,8 @@ nodes:
   abilities:
   - run_command
   kind: verifier
+  outputs:
+  - output
 edges:
 - from: plan
   to: execute

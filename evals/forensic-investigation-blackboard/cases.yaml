@@ -1,0 +1,15 @@
+cases:
+- id: happy-path
+  node_outputs:
+    seed:
+      leads:
+      - l: 1
+      - l: 2
+    investigate:
+      evidence: evidence-value
+    assess:
+      picture: picture-value
+      open_questions: &id001 []
+      output:
+        uncited_claims: 0
+        open_questions: *id001

@@ -1,22 +1,21 @@
 cases:
 - id: happy-path
   node_outputs:
+    port-slice.intake:
+      summary: intake complete
+    port-slice.produce:
+      output:
+        snapshot_before: hash-abc123
+        snapshot_after: hash-abc123
+    port-slice.review:
+      slice_ported: true
+      revision_requested: false
+      attempts: 1
     inventory:
       slices: []
       risk_map: []
     supervise:
       slice_queue: []
-    port-slice.intake:
-      complexity: simple
-      risk: low
-      revision_requested: false
-      rejected: false
-      verify_failed: false
-      below_target: false
-      attempts: 1
-    port-slice.produce: {}
-    port-slice.review:
-      slice_ported: true
     integrate:
       suite_green: true
     sign-off:

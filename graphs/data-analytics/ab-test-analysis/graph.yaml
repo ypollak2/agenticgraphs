@@ -1,4 +1,4 @@
-apiVersion: agr/v1
+apiVersion: agr/v1.1
 name: ab-test-analysis
 description: Two analysts argue significance and pitfalls, judge writes readout.
 category: data-analytics
@@ -18,6 +18,8 @@ nodes:
   abilities:
   - adjudicate
   kind: verifier
+  outputs:
+  - output
 edges:
 - from: position-a
   to: judge

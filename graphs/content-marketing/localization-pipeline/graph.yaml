@@ -1,4 +1,4 @@
-apiVersion: agr/v1
+apiVersion: agr/v1.2
 name: localization-pipeline
 description: Translate per locale, reduce into a consistency report.
 category: content-marketing
@@ -7,16 +7,23 @@ nodes:
   speciality: analyst
   abilities:
   - analyze
+  outputs:
+  - shards
 - id: map
   speciality: mapper
   abilities:
   - map_shard
-  parallel_group: shards
+  fan_out:
+    over: shards
+    max: 20
+    on_partial: continue
 - id: reduce
   speciality: reducer
   abilities:
   - reduce_merge
   kind: verifier
+  outputs:
+  - output
 edges:
 - from: partition
   to: map

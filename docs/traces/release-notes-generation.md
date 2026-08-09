@@ -24,7 +24,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `partition` | `shard_count=1` |
+| 1 | `partition` | `shard_count=1, shards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `map` | *(no fixture — empty output)* |
 | 3 | `reduce` | `output={'notes': [{'text': 'fixed login bug', 'pr_url': 'https://github.com/org/repo/pull/1'}], 'orphan_claims': []}` |
 
@@ -38,7 +38,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `partition` | `shard_count=2` |
+| 1 | `partition` | `shard_count=2, shards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `map` | *(no fixture — empty output)* |
 | 3 | `reduce` | `output={'notes': [{'text': 'fixed login bug', 'pr_url': 'https://github.com/org/repo/pull/1'}, {'text': 'improved perf', 'pr_url': 'https://github.com/org/repo/pull/2'}], 'orphan_claims': []}` |
 

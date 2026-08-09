@@ -29,9 +29,9 @@ flowchart LR
 |---|---|---|
 | 1 | `read` | `synopsis=[], beats=[]` |
 | 2 | `structure` | `structure_notes=[]` |
-| 3 | `comparables.partition` | `complexity='simple', risk='low', revision_requested=False, rejected=False, verify_failed=False, below_target=False, attempts=1` |
+| 3 | `comparables.partition` | `shard_count=1` |
 | 4 | `comparables.map` | *(no fixture — empty output)* |
-| 5 | `comparables.reduce` | `comps=[{'title': 'A'}, {'title': 'B'}]` |
+| 5 | `comparables.reduce` | `comps=[{'title': 'A'}, {'title': 'B'}], output={'findings': [{'title': 'competitor launched feature X', 'source_url': 'https://example.com/blog', 'source_date': '2026-07-01'}]}` |
 | 6 | `recommend` | `recommendation='consider', rationale='rationale-value', output={'recommendation': 'consider', 'comps': [{'title': 'A'}, {'title': 'B'}]}` |
 
 **Verification checked:**

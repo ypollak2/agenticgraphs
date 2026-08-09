@@ -29,9 +29,9 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `rfp.partition` | `complexity='simple', risk='low', revision_requested=False, rejected=False, verify_failed=False, below_target=False, attempts=1` |
+| 1 | `rfp.partition` | `shard_count=1` |
 | 2 | `rfp.map` | *(no fixture — empty output)* |
-| 3 | `rfp.reduce` | `rfp_responses=[]` |
+| 3 | `rfp.reduce` | `rfp_responses=[], output={'requirements': [{'id': 'R1', 'answered': True, 'flagged': False}, {'id': 'R2', 'answered': False, 'flagged': True}], 'page_count': 8, 'page_limit': 10}` |
 | 4 | `score` | `vendor_scores=[]` |
 | 5 | `negotiate` | `terms=[], savings=[]` |
 | 6 | `budget-approval` | `signed_off=True` |

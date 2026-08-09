@@ -50,6 +50,7 @@ nodes:
   - signed_off
   outputs:
   - awarded
+  - output
   - scored_vendors
 edges:
 - from: rfp

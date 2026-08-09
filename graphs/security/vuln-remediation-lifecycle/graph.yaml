@@ -69,6 +69,7 @@ nodes:
   - signed_off
   outputs:
   - advisory_published
+  - output
 edges:
 - from: ingest
   to: prioritize

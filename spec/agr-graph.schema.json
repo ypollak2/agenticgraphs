@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://agenticgraphs.dev/spec/agr-graph.schema.json",
-  "title": "AGR Graph v1.1",
+  "title": "AGR Graph v1.2",
   "type": "object",
   "required": [
     "apiVersion",
@@ -16,7 +16,8 @@
     "apiVersion": {
       "enum": [
         "agr/v1",
-        "agr/v1.1"
+        "agr/v1.1",
+        "agr/v1.2"
       ]
     },
     "name": {
@@ -76,7 +77,8 @@
               "verifier",
               "human",
               "router",
-              "subgraph"
+              "subgraph",
+              "search"
             ],
             "default": "agent"
           },
@@ -86,31 +88,31 @@
           "ref": {
             "type": "string",
             "pattern": "^[a-z0-9-]+/[a-z0-9-]+$",
-            "description": "v1.1 — <category>/<graph-name> inlined at load time when kind is subgraph."
+            "description": "v1.1 \u2014 <category>/<graph-name> inlined at load time when kind is subgraph."
           },
           "join": {
             "type": "string",
             "pattern": "^(any|all|quorum\\([1-9][0-9]*\\))$",
             "default": "any",
-            "description": "v1.1 — readiness rule over resolved incoming flow edges."
+            "description": "v1.1 \u2014 readiness rule over resolved incoming flow edges."
           },
           "inputs": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "description": "v1.1 — blackboard keys this node reads."
+            "description": "v1.1 \u2014 blackboard keys this node reads."
           },
           "outputs": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "description": "v1.1 — blackboard keys this node is contracted to write."
+            "description": "v1.1 \u2014 blackboard keys this node is contracted to write."
           },
           "on_error": {
             "type": "string",
-            "description": "v1.1 — node id to route to when this node emits `error`; sugar for an error edge."
+            "description": "v1.1 \u2014 node id to route to when this node emits `error`; sugar for an error edge."
           },
           "retries": {
             "type": "object",
@@ -142,7 +144,7 @@
               },
               "timeout": {
                 "type": "string",
-                "description": "Recorded but NOT enforced in v1.1 — the harness has no clock."
+                "description": "Recorded but NOT enforced in v1.1 \u2014 the harness has no clock."
               },
               "on_timeout": {
                 "enum": [
@@ -157,6 +159,94 @@
               "contract"
             ],
             "additionalProperties": false
+          },
+          "fan_out": {
+            "type": "object",
+            "required": [
+              "over"
+            ],
+            "additionalProperties": false,
+            "description": "v1.2 \u2014 run this node once per element of the named blackboard list.",
+            "properties": {
+              "over": {
+                "type": "string"
+              },
+              "max": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100,
+                "default": 40
+              },
+              "on_partial": {
+                "type": "string",
+                "enum": [
+                  "continue",
+                  "fail"
+                ],
+                "default": "continue"
+              }
+            }
+          },
+          "aggregate": {
+            "type": "object",
+            "required": [
+              "op",
+              "over"
+            ],
+            "additionalProperties": false,
+            "description": "v1.2 \u2014 reduce a fanned-out list before this node runs.",
+            "properties": {
+              "op": {
+                "enum": [
+                  "majority",
+                  "median",
+                  "union",
+                  "best"
+                ]
+              },
+              "over": {
+                "type": "string"
+              },
+              "tie_break": {
+                "type": "string"
+              }
+            }
+          },
+          "search": {
+            "type": "object",
+            "required": [
+              "score"
+            ],
+            "additionalProperties": false,
+            "description": "v1.2 \u2014 bounded beam search. Not MCTS: no rollout policy, no learned value function.",
+            "properties": {
+              "branch": {
+                "type": "integer",
+                "minimum": 2,
+                "maximum": 8,
+                "default": 3
+              },
+              "depth": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 4,
+                "default": 2
+              },
+              "score": {
+                "type": "string"
+              },
+              "objective": {
+                "enum": [
+                  "min",
+                  "max"
+                ],
+                "default": "max"
+              },
+              "prune": {
+                "type": "string",
+                "pattern": "^(none|beam\\([1-9][0-9]*\\))$"
+              }
+            }
           }
         },
         "additionalProperties": false,
@@ -216,6 +306,23 @@
                 "approval"
               ]
             }
+          },
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "const": "search"
+                }
+              },
+              "required": [
+                "kind"
+              ]
+            },
+            "then": {
+              "required": [
+                "search"
+              ]
+            }
           }
         ]
       }
@@ -246,7 +353,7 @@
               "compensate"
             ],
             "default": "flow",
-            "description": "v1.1 — error edges fire on `error` in node output; compensate edges are reverse paths exempt from back-edge lint and join accounting."
+            "description": "v1.1 \u2014 error edges fire on `error` in node output; compensate edges are reverse paths exempt from back-edge lint and join accounting."
           }
         },
         "additionalProperties": false
@@ -263,7 +370,7 @@
           "items": {
             "type": "string"
           },
-          "description": "v1.1 — blackboard keys supplied to the graph at entry."
+          "description": "v1.1 \u2014 blackboard keys supplied to the graph at entry."
         }
       },
       "additionalProperties": false
@@ -290,13 +397,17 @@
         "properties": {
           "describe": {
             "type": "string",
-            "description": "v1.1 — prose statement of what is being checked."
+            "description": "v1.1 \u2014 prose statement of what is being checked."
           },
           "assert": {
             "type": "string"
           },
           "command": {
             "type": "string"
+          },
+          "phase": {
+            "type": "string",
+            "description": "v1.2 \u2014 evaluate against this subgraph phase's frame, not the final blackboard."
           }
         },
         "anyOf": [
@@ -316,6 +427,23 @@
             ]
           }
         ]
+      }
+    },
+    "memory": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "v1.2 \u2014 where lessons written by this graph live.",
+      "properties": {
+        "scope": {
+          "enum": [
+            "run",
+            "graph"
+          ],
+          "default": "run"
+        },
+        "schema": {
+          "type": "string"
+        }
       }
     }
   },

@@ -1,0 +1,54 @@
+apiVersion: agr/v1.2
+name: prompt-graph-optimization
+description: Search prompt-and-topology variants against a held-out eval set, keeping only measured winners.
+category: research-knowledge
+nodes:
+- id: baseline
+  speciality: evaluator
+  abilities:
+  - evaluate
+  outputs:
+  - baseline_score
+  - eval_set
+  inputs:
+  - graph_under_test
+- id: search
+  speciality: producer
+  abilities:
+  - generate
+  outputs:
+  - variant
+  - score
+  inputs:
+  - eval_set
+  kind: search
+  search:
+    branch: 3
+    depth: 3
+    score: score
+    objective: max
+    prune: beam(2)
+- id: confirm
+  speciality: verifier
+  abilities:
+  - run_command
+  outputs:
+  - holdout_score
+  - output
+  inputs:
+  - variant
+  kind: verifier
+edges:
+- from: baseline
+  to: search
+- from: search
+  to: confirm
+termination:
+  max_steps: 40
+  contract: a variant ships only if it beats baseline on a held-out set it was not searched against
+verification:
+- describe: the winner is confirmed on held-out data, not the set it was tuned on
+  assert: output.holdout_score > output.baseline_score
+state:
+  inputs:
+  - graph_under_test

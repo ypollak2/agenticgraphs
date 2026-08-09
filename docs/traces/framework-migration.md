@@ -31,9 +31,9 @@ flowchart LR
 |---|---|---|
 | 1 | `inventory` | `slices=[], risk_map=[]` |
 | 2 | `supervise` | `slice_queue=[]` |
-| 3 | `port-slice.intake` | `complexity='simple', risk='low', revision_requested=False, rejected=False, verify_failed=False, below_target=False, attempts=1` |
-| 4 | `port-slice.produce` | *(no fixture — empty output)* |
-| 5 | `port-slice.review` | `slice_ported=True` |
+| 3 | `port-slice.intake` | `summary='intake complete'` |
+| 4 | `port-slice.produce` | `output={'snapshot_before': 'hash-abc123', 'snapshot_after': 'hash-abc123'}` |
+| 5 | `port-slice.review` | `slice_ported=True, revision_requested=False, attempts=1` |
 | 6 | `integrate` | `suite_green=True` |
 | 7 | `sign-off` | `migration_complete='migration_complete-value', output={'suite_green': True, 'slices_remaining': 0}` |
 

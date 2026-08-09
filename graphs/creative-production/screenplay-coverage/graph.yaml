@@ -38,8 +38,9 @@ nodes:
   - structure_notes
   - comps
   outputs:
-  - recommendation
+  - output
   - rationale
+  - recommendation
   join: all
 edges:
 - from: read

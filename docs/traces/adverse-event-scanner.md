@@ -24,7 +24,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `partition` | `shard_count=1` |
+| 1 | `partition` | `shard_count=1, shards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `map` | *(no fixture — empty output)* |
 | 3 | `reduce` | `output={'signals': [{'type': 'nausea', 'report_ids': ['R1', 'R2'], 'count': 2}]}` |
 
@@ -38,7 +38,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `partition` | `shard_count=2` |
+| 1 | `partition` | `shard_count=2, shards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `map` | *(no fixture — empty output)* |
 | 3 | `reduce` | `output={'signals': [{'type': 'nausea', 'report_ids': ['R1', 'R2'], 'count': 2}, {'type': 'headache', 'report_ids': ['R3'], 'count': 1}]}` |
 

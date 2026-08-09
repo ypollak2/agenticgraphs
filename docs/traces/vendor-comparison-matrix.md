@@ -27,9 +27,9 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `collect.partition` | `complexity='simple', risk='low', revision_requested=False, rejected=False, verify_failed=False, below_target=False, attempts=1` |
+| 1 | `collect.partition` | `shard_count=1` |
 | 2 | `collect.map` | *(no fixture — empty output)* |
-| 3 | `collect.reduce` | `vendor_docs=[]` |
+| 3 | `collect.reduce` | `vendor_docs=[], output={'findings': [{'title': 'competitor launched feature X', 'source_url': 'https://example.com/blog', 'source_date': '2026-07-01'}]}` |
 | 4 | `normalize` | `criteria_grid=[]` |
 | 5 | `fill` | `matrix='matrix-value'` |
 | 6 | `cite-check` | `uncited_cells=0, output={'uncited_cells': 0, 'criteria_consistent': True}` |

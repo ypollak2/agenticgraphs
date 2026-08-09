@@ -1,0 +1,14 @@
+cases:
+- id: happy-path
+  node_outputs:
+    baseline:
+      baseline_score: 0.72
+      eval_set: eval_set-value
+    search:
+      variant: variant-value
+      score: 0.81
+    confirm:
+      holdout_score: 0.81
+      output:
+        holdout_score: 0.81
+        baseline_score: 0.72

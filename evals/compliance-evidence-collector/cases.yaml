@@ -1,19 +1,20 @@
 cases:
 - id: happy-path
   node_outputs:
-    enumerate:
-      controls: []
     collect.plan:
-      complexity: simple
-      risk: low
-      revision_requested: false
-      rejected: false
-      verify_failed: false
-      below_target: false
-      attempts: 1
+      steps:
+      - decompose goal
     collect.execute: {}
     collect.verify:
       evidence: evidence-value
+      verify_failed: false
+      attempts: 1
+      output:
+        steps:
+        - id: s1
+          exit_code: 0
+    enumerate:
+      controls: []
     assess:
       coverage: coverage-value
       uncovered:

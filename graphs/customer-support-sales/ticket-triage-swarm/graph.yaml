@@ -1,4 +1,4 @@
-apiVersion: agr/v1
+apiVersion: agr/v1.1
 name: ticket-triage-swarm
 description: Classify and route tickets with priority and sentiment.
 category: customer-support-sales
@@ -21,6 +21,8 @@ nodes:
   abilities:
   - critique
   kind: verifier
+  outputs:
+  - output
 edges:
 - from: route
   to: branch-simple

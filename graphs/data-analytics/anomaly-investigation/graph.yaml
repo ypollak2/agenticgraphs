@@ -1,4 +1,4 @@
-apiVersion: agr/v1
+apiVersion: agr/v1.1
 name: anomaly-investigation
 description: Route metric anomalies to seasonal, data-bug, or real-change analysts.
 category: data-analytics
@@ -21,6 +21,8 @@ nodes:
   abilities:
   - critique
   kind: verifier
+  outputs:
+  - output
 edges:
 - from: route
   to: branch-simple

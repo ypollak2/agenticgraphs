@@ -740,3 +740,51 @@ entries:
   pattern: human-gate
   summary: Run an RFP, score vendors, negotiate and gate the award on budget-holder approval.
   verification: three rubric-scored vendors and a budget-holder signature before award
+- id: uc-124
+  name: benchmark-driven-optimization-search
+  domain: software-engineering
+  pattern: tree-search
+  summary: Branch candidate optimizations, score each on a benchmark, keep the beam.
+  verification: retained candidate beats baseline with a green suite
+- id: uc-125
+  name: prompt-graph-optimization
+  domain: research-knowledge
+  pattern: tree-search
+  summary: Search prompt and topology variants against a held-out eval set.
+  verification: winner beats baseline on a held-out set it was not searched against
+- id: uc-126
+  name: differential-diagnosis-ensemble
+  domain: healthcare-science
+  pattern: ensemble-quorum
+  summary: Independent diagnosticians rank hypotheses; a quorum decides, dissent is reported.
+  verification: consensus or explicit dissent; no tie resolved silently
+- id: uc-127
+  name: red-team-blue-team-hardening
+  domain: security
+  pattern: red-team-blue-team
+  summary: Attacker searches for a bypass while a defender patches, until exhaustion.
+  verification: terminates on attacker exhaustion with zero unmitigated bypasses
+- id: uc-128
+  name: flaky-test-reflexion
+  domain: software-engineering
+  pattern: reflexion
+  summary: Re-run a suspected flake, recording a lesson per attempt.
+  verification: stability proven over repeated runs; each attempt leaves a lesson
+- id: uc-129
+  name: self-healing-ci
+  domain: devops-sre
+  pattern: reflexion
+  summary: Diagnose a red pipeline and attempt a bounded repair, accumulating lessons.
+  verification: pipeline green or escalated with its history; never retried blind
+- id: uc-130
+  name: forensic-investigation-blackboard
+  domain: security
+  pattern: blackboard
+  summary: Specialists contribute to shared evidence; a controller decides when it closes.
+  verification: every conclusion cites evidence; open questions listed
+- id: uc-131
+  name: architecture-decision-tournament
+  domain: software-engineering
+  pattern: tournament
+  summary: Independent designs scored on one rubric; the winner beats the runner-up on record.
+  verification: three designs scored on one rubric; runner-up margin recorded

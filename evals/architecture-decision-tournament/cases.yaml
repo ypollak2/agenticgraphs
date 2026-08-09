@@ -1,0 +1,19 @@
+cases:
+- id: happy-path
+  node_outputs:
+    frame:
+      options:
+      - o: a
+      - o: b
+      - o: c
+      rubric: rubric-value
+    design:
+      proposal: proposal-value
+      rubric_score: 7
+    judge:
+      winner: option-b
+      margin: 0.18
+      output:
+        designs_scored: 3
+        margin: 0.18
+        winner: option-b

@@ -1,24 +1,23 @@
 cases:
 - id: happy-path
   node_outputs:
-    read:
-      synopsis: []
-      beats: []
-    structure:
-      structure_notes: []
     comparables.partition:
-      complexity: simple
-      risk: low
-      revision_requested: false
-      rejected: false
-      verify_failed: false
-      below_target: false
-      attempts: 1
+      shard_count: 1
     comparables.map: {}
     comparables.reduce:
       comps: &id001
       - title: A
       - title: B
+      output:
+        findings:
+        - title: competitor launched feature X
+          source_url: https://example.com/blog
+          source_date: '2026-07-01'
+    read:
+      synopsis: []
+      beats: []
+    structure:
+      structure_notes: []
     recommend:
       recommendation: consider
       rationale: rationale-value

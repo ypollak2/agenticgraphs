@@ -28,9 +28,9 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `discover.plan` | `complexity='simple', risk='low', revision_requested=False, rejected=False, verify_failed=False, below_target=False, attempts=1` |
+| 1 | `discover.plan` | `steps=['decompose goal']` |
 | 2 | `discover.work` | *(no fixture — empty output)* |
-| 3 | `discover.verify` | `data_map=[]` |
+| 3 | `discover.verify` | `data_map=[], verify_failed=False, attempts=1, output={'violations': [{'rule_id': 'null-check', 'count': 3}]}` |
 | 4 | `classify` | `lawful_basis=[]` |
 | 5 | `gap-scan` | `gaps=[{'owner': 'dpo', 'due': '2026-09-01'}]` |
 | 6 | `remediate` | `remediation_plan='remediation_plan-value'` |

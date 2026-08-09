@@ -1,4 +1,4 @@
-apiVersion: agr/v1
+apiVersion: agr/v1.1
 name: soc-alert-investigation
 description: Investigate an alert with hypothesis-driven queries.
 category: security
@@ -16,6 +16,8 @@ nodes:
   abilities:
   - run_command
   kind: verifier
+  outputs:
+  - output
 edges:
 - from: plan
   to: execute

@@ -1,0 +1,60 @@
+apiVersion: agr/v1.2
+name: forensic-investigation-blackboard
+description: Specialists contribute independently to shared evidence; a controller decides when the picture
+  closes.
+category: security
+nodes:
+- id: seed
+  speciality: analyst
+  abilities:
+  - analyze
+  outputs:
+  - leads
+  inputs:
+  - incident
+- id: investigate
+  speciality: security-auditor
+  abilities:
+  - sast_scan
+  - run_command
+  - read_diff
+  outputs:
+  - evidence
+  inputs:
+  - leads
+  fan_out:
+    over: leads
+    max: 8
+- id: assess
+  speciality: judge
+  abilities:
+  - adjudicate
+  outputs:
+  - picture
+  - open_questions
+  - output
+  inputs:
+  - evidence
+  aggregate:
+    op: union
+    over: evidence
+  kind: verifier
+edges:
+- from: seed
+  to: investigate
+- from: assess
+  to: investigate
+  when: len(open_questions) > 0 and attempts < 3
+- from: investigate
+  to: assess
+termination:
+  max_steps: 40
+  contract: conclusions cite evidence; unresolved questions are stated, not dropped
+verification:
+- describe: every conclusion cites the evidence it rests on
+  assert: output.uncited_claims == 0
+- describe: open questions are listed rather than quietly closed
+  assert: output.open_questions is not None
+state:
+  inputs:
+  - incident

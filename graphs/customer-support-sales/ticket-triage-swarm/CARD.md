@@ -75,9 +75,9 @@ Adjacent entries from the use-case catalog this card adapts to with small edits:
 
 - **churn-signal-analysis** (customer-support-sales, map-reduce) — Aggregate account signals, reduce to ranked churn risks. *Verify:* every risk factor cites underlying events.
 - **crm-enrichment-pipeline** (customer-support-sales, pipeline) — Fill CRM gaps from public sources with provenance. *Verify:* each field carries source URL and timestamp.
-- **sales-call-scorer** (customer-support-sales, parallel-swarm) — Workers score calls per methodology dimension. *Verify:* scores cite transcript spans; calibration checked.
 - **quote-configurator** (customer-support-sales, pipeline) — Assemble quotes against price book and discount policy. *Verify:* totals recompute exactly; policy violations zero.
 - **fraud-pattern-triage** (finance, router) — Route flagged transactions to rule, anomaly, or manual review. *Verify:* routing precision measured against labeled history.
+- **tutoring-router** (education, router) — Route learner questions by topic and difficulty to tutors. *Verify:* routing matches topic taxonomy on holdout set.
 
 ---
 *Regenerate: `uv run python scripts/gen_cards.py` · Index: [CARDS.md](../../../CARDS.md)*

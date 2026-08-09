@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agenticgraphs.dev/state/lessons.schema.json",
+  "title": "Reflexion blackboard",
+  "description": "Shape a reflexion graph's state must hold. Pinned because scope:graph memory accumulates across runs, and an untyped accumulator becomes sludge.",
+  "type": "object",
+  "properties": {
+    "lessons": {
+      "type": "array",
+      "description": "What each failed attempt established, so the next attempt narrows instead of repeating.",
+      "items": {"type": "object", "minProperties": 1}
+    },
+    "attempts": {"type": "integer", "minimum": 0}
+  }
+}

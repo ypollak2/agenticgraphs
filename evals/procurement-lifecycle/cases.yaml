@@ -2,16 +2,20 @@ cases:
 - id: happy-path
   node_outputs:
     rfp.partition:
-      complexity: simple
-      risk: low
-      revision_requested: false
-      rejected: false
-      verify_failed: false
-      below_target: false
-      attempts: 1
+      shard_count: 1
     rfp.map: {}
     rfp.reduce:
       rfp_responses: []
+      output:
+        requirements:
+        - id: R1
+          answered: true
+          flagged: false
+        - id: R2
+          answered: false
+          flagged: true
+        page_count: 8
+        page_limit: 10
     score:
       vendor_scores: []
     negotiate:

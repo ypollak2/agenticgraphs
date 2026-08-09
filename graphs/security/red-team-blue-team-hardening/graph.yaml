@@ -1,0 +1,72 @@
+apiVersion: agr/v1.2
+name: red-team-blue-team-hardening
+description: An attacker searches for a working bypass while a defender patches, until the attacker is
+  exhausted.
+category: security
+nodes:
+- id: scope
+  speciality: analyst
+  abilities:
+  - analyze
+  outputs:
+  - surface
+  - rules_of_engagement
+  inputs:
+  - target
+- id: attack
+  speciality: security-auditor
+  abilities:
+  - sast_scan
+  - read_diff
+  outputs:
+  - bypass
+  - severity
+  inputs:
+  - surface
+  kind: search
+  search:
+    branch: 4
+    depth: 2
+    score: severity
+    objective: max
+    prune: beam(2)
+- id: defend
+  speciality: executor
+  abilities:
+  - execute_step
+  - edit_files
+  outputs:
+  - mitigation
+  inputs:
+  - bypass
+- id: retest
+  speciality: verifier
+  abilities:
+  - run_command
+  outputs:
+  - attacker_exhausted
+  - output
+  inputs:
+  - mitigation
+  kind: verifier
+edges:
+- from: scope
+  to: attack
+- from: attack
+  to: defend
+- from: defend
+  to: retest
+- from: retest
+  to: attack
+  when: not attacker_exhausted and attempts < 3
+termination:
+  max_steps: 45
+  contract: terminates on attacker exhaustion, producing evidence of absence rather than absence of evidence
+verification:
+- describe: the run ends only when the attacker can no longer find a bypass
+  assert: output.attacker_exhausted == true
+- describe: every bypass found is either mitigated or explicitly accepted
+  assert: output.unmitigated == 0
+state:
+  inputs:
+  - target

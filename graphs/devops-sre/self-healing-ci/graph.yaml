@@ -1,0 +1,67 @@
+apiVersion: agr/v1.2
+name: self-healing-ci
+description: Diagnose a red pipeline, attempt a bounded repair, and accumulate what did not work across
+  runs.
+category: devops-sre
+nodes:
+- id: collect
+  speciality: sre
+  abilities:
+  - run_command
+  outputs:
+  - failures
+  inputs:
+  - pipeline_run
+- id: classify
+  speciality: analyst
+  abilities:
+  - analyze
+  outputs:
+  - cause
+  - known
+  inputs:
+  - failures
+  - lessons
+- id: repair
+  speciality: executor
+  abilities:
+  - execute_step
+  outputs:
+  - repair_applied
+  inputs:
+  - cause
+- id: confirm
+  speciality: verifier
+  abilities:
+  - run_command
+  outputs:
+  - pipeline_green
+  - lessons
+  - output
+  inputs:
+  - repair_applied
+  kind: verifier
+edges:
+- from: collect
+  to: classify
+- from: classify
+  to: repair
+- from: repair
+  to: confirm
+- from: confirm
+  to: classify
+  when: not pipeline_green and attempts < 3
+termination:
+  max_steps: 35
+  contract: a red pipeline ends green or escalated, never retried without a recorded reason
+verification:
+- describe: the pipeline is green, or the failure is escalated with its history
+  assert: output.pipeline_green == true or output.escalated == true
+- describe: nothing is retried blind
+  assert: len(output.lessons) >= 1
+state:
+  inputs:
+  - pipeline_run
+  schema: state/lessons.schema.json
+memory:
+  scope: graph

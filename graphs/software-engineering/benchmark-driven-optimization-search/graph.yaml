@@ -1,0 +1,58 @@
+apiVersion: agr/v1.2
+name: benchmark-driven-optimization-search
+description: Branch candidate optimizations, score each on a real benchmark, keep the beam, prune the
+  rest.
+category: software-engineering
+nodes:
+- id: profile
+  speciality: analyst
+  abilities:
+  - analyze
+  outputs:
+  - hotspot
+  - baseline_ms
+  inputs:
+  - repo
+- id: explore
+  speciality: producer
+  abilities:
+  - generate
+  outputs:
+  - patch
+  - bench_ms
+  inputs:
+  - hotspot
+  kind: search
+  search:
+    branch: 4
+    depth: 3
+    score: bench_ms
+    objective: min
+    prune: beam(2)
+- id: verify
+  speciality: qa-lead
+  abilities:
+  - run_suite
+  outputs:
+  - suite_green
+  - output
+  inputs:
+  - patch
+  kind: verifier
+edges:
+- from: profile
+  to: explore
+- from: explore
+  to: verify
+termination:
+  max_steps: 40
+  contract: the retained candidate is faster than baseline with a green suite; losers are pruned, not
+    shipped
+verification:
+- describe: the winning candidate actually beats the baseline
+  assert: output.bench_ms < output.baseline_ms
+- describe: and does not do it by breaking the suite
+  assert: output.suite_green == true
+state:
+  inputs:
+  - repo

@@ -494,14 +494,21 @@ def _stub(key: str):
     return f"{key}-value"
 
 
-#: Routing keys the v1 motif templates branch on. A subgraph phase inlines those
-#: templates, so a composite's fixtures have to satisfy guards the composite never
-#: wrote — without these, a `router` phase evaluates every branch to false and the
-#: run simply stops inside the child.
-_MOTIF_GUARDS = {
-    "complexity": "simple", "risk": "low", "revision_requested": False,
-    "rejected": False, "verify_failed": False, "below_target": False, "attempts": 1,
-}
+def _child_fixtures(phase_id: str, ref: str) -> dict:
+    """Borrow the child graph's own golden case, prefixed with the phase id.
+
+    A composite inherits its children's contracts (v1.2 evaluates a child's
+    asserts against that phase's terminal frame), so it must also inherit
+    fixtures that satisfy them. The child's first golden case already does, by
+    construction — reusing it is both less code and more honest than
+    re-inventing values that happen to pass.
+    """
+    child_name = ref.split("/")[-1]
+    cases = ROOT / "evals" / child_name / "cases.yaml"
+    if not cases.exists():
+        return {}
+    first = yaml.safe_load(cases.read_text())["cases"][0]["node_outputs"]
+    return {f"{phase_id}.{nid}": out for nid, out in first.items()}
 
 
 def cases_for(spec: dict, doc: dict) -> dict:
@@ -516,19 +523,20 @@ def cases_for(spec: dict, doc: dict) -> dict:
     `final` keeps the run self-consistent — a graph cannot assert
     `output.exploit_blocked == true` while its `prove` phase emitted something else.
     """
-    doc = expand(doc, ROOT)
     pins = {**spec["final"], **spec["seed"]}
     outs: dict[str, dict] = {}
-    seeded_phases: set[str] = set()
+    # Inherit each subgraph phase's fixtures from the child's own golden case.
+    for n in doc["nodes"]:
+        if n.get("kind") == "subgraph":
+            outs.update(_child_fixtures(n["id"], n["ref"]))
+    doc = expand(doc, ROOT)
     for n in doc["nodes"]:
         vals = {k: (pins[k] if k in pins else _stub(k)) for k in n.get("outputs") or []}
         if n.get("kind") == "human":
             vals["signed_off"] = True  # the happy path is an approving human
-        phase = n["id"].split(".")[0]
-        if "." in n["id"] and phase not in seeded_phases:
-            vals = {**_MOTIF_GUARDS, **vals}  # first node of an inlined phase
-            seeded_phases.add(phase)
-        outs[n["id"]] = vals
+        # A borrowed child fixture already satisfies the child's contract; only
+        # add the phase's declared outputs on top of it.
+        outs[n["id"]] = {**vals, **outs.get(n["id"], {})} if "." in n["id"] else vals
     # Every terminal carries the result object: which one the happy path reaches
     # depends on the branch taken, and a saga's compensators are terminals too.
     for t in _terminals(doc):

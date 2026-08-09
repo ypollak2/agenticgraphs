@@ -32,10 +32,10 @@ flowchart LR
 |---|---|---|
 | 1 | `extract` | `attributes=[]` |
 | 2 | `write` | `listing_copy='listing_copy-value'` |
-| 3 | `claim-check.intake` | `complexity='simple', risk='low', revision_requested=False, rejected=False, verify_failed=False, below_target=False, attempts=1` |
+| 3 | `claim-check.intake` | `summary='intake complete'` |
 | 4 | `policy-check` | `policy_violations=[]` |
-| 5 | `claim-check.produce` | *(no fixture — empty output)* |
-| 6 | `claim-check.review` | `unsupported_claims=[]` |
+| 5 | `claim-check.produce` | `output={'verdicts': [{'claim': 'unemployment fell', 'verdict': 'true', 'source_url': 'https://example.gov/data', 'quote_span': 'unemployment fell to 3.9%'}]}` |
+| 6 | `claim-check.review` | `unsupported_claims=[], revision_requested=False, attempts=1` |
 | 7 | `publish` | `listings_published=40, output={'unsupported_claims': [], 'policy_violations': [], 'listings_published': 40}` |
 
 **Verification checked:**

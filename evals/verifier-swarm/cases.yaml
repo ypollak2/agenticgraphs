@@ -1,21 +1,61 @@
 cases:
-  - id: first-attempt-verified
-    node_outputs:
-      planner: {plan: [fix-timeout]}
-      worker: {patched: true}
-      verifier: {verify_failed: false, attempts: 1, output: {verified: true, escalated: false}}
-  - id: retry-then-verified
-    node_outputs:
-      planner: {plan: [fix-timeout]}
-      worker: [{patched: false}, {patched: true}]
-      verifier:
-        - {verify_failed: true, attempts: 1}
-        - {verify_failed: false, attempts: 2, output: {verified: true, escalated: false}}
-  - id: three-failures-escalates
-    node_outputs:
-      planner: {plan: [impossible]}
-      worker: [{}, {}, {}]
-      verifier:
-        - {verify_failed: true, attempts: 1}
-        - {verify_failed: true, attempts: 2}
-        - {verify_failed: true, attempts: 3, output: {verified: false, escalated: true}}
+- id: first-attempt-verified
+  node_outputs:
+    planner:
+      plan:
+      - fix-timeout
+      tasks:
+      - i: 1
+      - i: 2
+      - i: 3
+    worker:
+      patched: true
+    verifier:
+      verify_failed: false
+      attempts: 1
+      output:
+        verified: true
+        escalated: false
+- id: retry-then-verified
+  node_outputs:
+    planner:
+      plan:
+      - fix-timeout
+      tasks:
+      - i: 1
+      - i: 2
+      - i: 3
+    worker:
+    - patched: false
+    - patched: true
+    verifier:
+    - verify_failed: true
+      attempts: 1
+    - verify_failed: false
+      attempts: 2
+      output:
+        verified: true
+        escalated: false
+- id: three-failures-escalates
+  node_outputs:
+    planner:
+      plan:
+      - impossible
+      tasks:
+      - i: 1
+      - i: 2
+      - i: 3
+    worker:
+    - {}
+    - {}
+    - {}
+    verifier:
+    - verify_failed: true
+      attempts: 1
+    - verify_failed: true
+      attempts: 2
+    - verify_failed: true
+      attempts: 3
+      output:
+        verified: false
+        escalated: true

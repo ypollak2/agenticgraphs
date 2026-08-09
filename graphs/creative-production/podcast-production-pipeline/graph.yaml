@@ -46,6 +46,7 @@ nodes:
   - show_notes
   - rights_clear
   outputs:
+  - output
   - published
   join: all
 edges:

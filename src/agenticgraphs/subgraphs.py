@@ -155,7 +155,14 @@ def expand(doc: dict, root: Path = ROOT, _depth: int = 0, _path: tuple[str, ...]
                     rewired.append(ne)
         edges = rewired
 
-        # Child verification is deliberately NOT merged into the parent.
+        # v1.2: child verification IS merged now — tagged with the phase id so
+        # the harness evaluates it against that phase's terminal frame rather
+        # than the final blackboard. The v1.1 note below explains why it had to
+        # wait for frames; the lint requiring composites to declare their own
+        # verification stays as belt and braces.
+        verification += [{**v, "phase": prefix} for v in (child.get("verification") or [])]
+
+        # (v1.1 rationale, retained because it explains the design:)
         #
         # Every graph in the registry writes its result to a single `output`
         # key, so a child's asserts (`output.coverage_delta > 0`) only hold at
@@ -171,7 +178,9 @@ def expand(doc: dict, root: Path = ROOT, _depth: int = 0, _path: tuple[str, ...]
         extra_steps += child.get("termination", {}).get("max_steps", 0)
 
     out = dict(doc)
-    out["apiVersion"] = "agr/v1.1"
+    # Expansion emits phase-tagged verification, which is a v1.2 feature —
+    # the expanded doc must declare the version whose surface it actually uses.
+    out["apiVersion"] = "agr/v1.2"
     out["nodes"] = nodes
     out["edges"] = edges
     if verification:

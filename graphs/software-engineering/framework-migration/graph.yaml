@@ -47,6 +47,7 @@ nodes:
   - suite_green
   outputs:
   - migration_complete
+  - output
   join: all
 edges:
 - from: inventory

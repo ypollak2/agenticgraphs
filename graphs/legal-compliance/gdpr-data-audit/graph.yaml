@@ -45,6 +45,7 @@ nodes:
   - remediation_plan
   outputs:
   - attested
+  - output
 edges:
 - from: discover
   to: classify

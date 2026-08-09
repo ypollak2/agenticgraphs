@@ -57,6 +57,7 @@ nodes:
   inputs:
   - signed_off
   outputs:
+  - output
   - typeset
 edges:
 - from: assess

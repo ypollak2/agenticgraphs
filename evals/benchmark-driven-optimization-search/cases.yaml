@@ -1,0 +1,16 @@
+cases:
+- id: happy-path
+  node_outputs:
+    profile:
+      hotspot: hotspot-value
+      baseline_ms: 400
+    explore:
+      patch: patch-value
+      bench_ms: 120
+    verify:
+      suite_green: true
+      output:
+        bench_ms: 120
+        baseline_ms: 400
+        suite_green: true
+      bench_ms: 120

@@ -1,4 +1,4 @@
-apiVersion: agr/v1
+apiVersion: agr/v1.2
 name: citation-integrity-audit
 description: Workers verify each citation exists and supports its claim.
 category: research-knowledge
@@ -7,17 +7,24 @@ nodes:
   speciality: planner
   abilities:
   - decompose_goal
+  outputs:
+  - tasks
 - id: work
   speciality: worker
   abilities:
   - run_command
   - edit_files
-  parallel_group: swarm
+  fan_out:
+    over: tasks
+    max: 20
+    on_partial: continue
 - id: verify
   speciality: verifier
   abilities:
   - run_command
   kind: verifier
+  outputs:
+  - output
 edges:
 - from: plan
   to: work

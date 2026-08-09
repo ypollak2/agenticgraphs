@@ -24,7 +24,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `partition` | `shard_count=1` |
+| 1 | `partition` | `shard_count=1, shards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `map` | *(no fixture — empty output)* |
 | 3 | `reduce` | `output={'findings': [{'title': 'competitor launched feature X', 'source_url': 'https://example.com/blog', 'source_date': '2026-07-01'}]}` |
 
@@ -38,7 +38,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `partition` | `shard_count=2` |
+| 1 | `partition` | `shard_count=2, shards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `map` | *(no fixture — empty output)* |
 | 3 | `reduce` | `output={'findings': [{'title': 'competitor launched feature X', 'source_url': 'https://example.com/blog', 'source_date': '2026-07-01'}, {'title': 'competitor raised prices', 'source_url': 'https://example.com/news', 'source_date': '2026-07-15'}]}` |
 

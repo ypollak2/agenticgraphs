@@ -1,0 +1,17 @@
+cases:
+- id: happy-path
+  node_outputs:
+    reproduce:
+      observed: observed-value
+      seed: seed-value
+    hypothesise:
+      hypothesis: hypothesis-value
+    test-fix:
+      candidate_fix: candidate_fix-value
+    evaluate:
+      stable: true
+      lessons: &id001
+      - tried: seed pinning
+      output:
+        consecutive_green: 3
+        lessons: *id001

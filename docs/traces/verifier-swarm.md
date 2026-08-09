@@ -25,7 +25,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `planner` | `plan=['fix-timeout']` |
+| 1 | `planner` | `plan=['fix-timeout'], tasks=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `worker` | `patched=True` |
 | 3 | `verifier` | `verify_failed=False, attempts=1, output={'verified': True, 'escalated': False}` |
 
@@ -40,7 +40,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `planner` | `plan=['fix-timeout']` |
+| 1 | `planner` | `plan=['fix-timeout'], tasks=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `worker` | `patched=False` |
 | 3 | `verifier` | `verify_failed=True, attempts=1` |
 | 4 | `worker` | `patched=True` |
@@ -57,7 +57,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `planner` | `plan=['impossible']` |
+| 1 | `planner` | `plan=['impossible'], tasks=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `worker` | *(no fixture — empty output)* |
 | 3 | `verifier` | `verify_failed=True, attempts=1` |
 | 4 | `worker` | *(no fixture — empty output)* |

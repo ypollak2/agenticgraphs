@@ -11,7 +11,10 @@ import yaml
 ALLOWED_PATTERNS = {"pipeline", "parallel-swarm", "router", "debate", "map-reduce",
                     "generator-critic", "planner-executor-verifier", "loop",
                     "lifecycle", "human-gate", "supervisor-hierarchy", "saga",
-                    "escalation-ladder"}
+                    "escalation-ladder",
+                    # v1.2 motifs — graphs that search or learn rather than follow a path
+                    "tree-search", "ensemble-quorum", "red-team-blue-team", "reflexion",
+                    "blackboard", "tournament"}
 REQUIRED = ("id", "name", "domain", "pattern", "summary", "verification")
 
 

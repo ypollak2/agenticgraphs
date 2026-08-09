@@ -47,6 +47,7 @@ nodes:
   - policy_violations
   outputs:
   - listings_published
+  - output
   join: all
 edges:
 - from: extract

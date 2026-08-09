@@ -26,9 +26,9 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `ingest.partition` | `complexity='simple', risk='low', revision_requested=False, rejected=False, verify_failed=False, below_target=False, attempts=1` |
+| 1 | `ingest.partition` | `shard_count=1` |
 | 2 | `ingest.map` | *(no fixture — empty output)* |
-| 3 | `ingest.reduce` | `supplier_signals=[]` |
+| 3 | `ingest.reduce` | `supplier_signals=[], output={'findings': [{'title': 'competitor launched feature X', 'source_url': 'https://example.com/blog', 'source_date': '2026-07-01'}]}` |
 | 4 | `score` | `risk_scores=[]` |
 | 5 | `concentrate` | `concentration='concentration-value'` |
 | 6 | `mitigate` | `mitigations=[], output={'above_appetite': 4, 'mitigations_planned': 4, 'single_source_flagged': True}` |

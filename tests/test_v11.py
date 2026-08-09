@@ -235,11 +235,21 @@ def test_unresolvable_ref_raises():
         expand(doc, ROOT)
 
 
-def test_child_verification_is_not_merged_into_the_parent():
-    """Documented v1.1 behaviour: the parent owns its contract (see subgraphs.expand)."""
+def test_child_verification_is_merged_and_phase_tagged():
+    """v1.2 reverses the v1.1 deferral: children's contracts are inherited.
+
+    v1.1 dropped them because a child's asserts only hold at the instant its
+    terminal ran, and evaluating them against a blackboard a later phase had
+    overwritten failed for reasons unrelated to the phase. Frames make the
+    correct scope available, so they are merged now — tagged with the phase id.
+    """
     doc = load(ROOT / "graphs/software-engineering/feature-delivery-lifecycle/graph.yaml")
     out = expand(doc, ROOT)
-    assert len(out["verification"]) == len(doc["verification"])
+    assert len(out["verification"]) > len(doc["verification"])
+    tagged = [v for v in out["verification"] if v.get("phase")]
+    assert {v["phase"] for v in tagged} == {"implement", "test", "audit"}
+    # the parent's own checks stay untagged and evaluate against the final board
+    assert any(not v.get("phase") for v in out["verification"])
 
 
 def test_max_depth_is_bounded():

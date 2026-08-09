@@ -28,14 +28,14 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `enumerate` | `controls=[]` |
-| 2 | `collect.plan` | `complexity='simple', risk='low', revision_requested=False, rejected=False, verify_failed=False, below_target=False, attempts=1` |
+| 2 | `collect.plan` | `steps=['decompose goal']` |
 | 3 | `collect.execute` | *(no fixture — empty output)* |
-| 4 | `collect.verify` | `evidence='evidence-value'` |
+| 4 | `collect.verify` | `evidence='evidence-value', verify_failed=False, attempts=1, output={'steps': [{'id': 's1', 'exit_code': 0}]}` |
 | 5 | `assess` | `coverage='coverage-value', uncovered=[{'id': 'AC-7'}, {'id': 'AU-3'}]` |
-| 6 | `collect.plan` | `complexity='simple', risk='low', revision_requested=False, rejected=False, verify_failed=False, below_target=False, attempts=1` |
+| 6 | `collect.plan` | `steps=['decompose goal']` |
 | 7 | `report` | `evidence_report='evidence_report-value', output={'controls_total': 40, 'controls_evidenced': 38, 'uncovered': [{'id': 'AC-7'}, {'id': 'AU-3'}]}` |
 | 8 | `collect.execute` | *(no fixture — empty output)* |
-| 9 | `collect.verify` | `evidence='evidence-value'` |
+| 9 | `collect.verify` | `evidence='evidence-value', verify_failed=False, attempts=1, output={'steps': [{'id': 's1', 'exit_code': 0}]}` |
 | 10 | `assess` | `coverage='coverage-value', uncovered=[{'id': 'AC-7'}, {'id': 'AU-3'}]` |
 | 11 | `report` | `evidence_report='evidence_report-value', output={'controls_total': 40, 'controls_evidenced': 38, 'uncovered': [{'id': 'AC-7'}, {'id': 'AU-3'}]}` |
 

@@ -9,14 +9,25 @@ cases:
       implement.plan: {steps: ["decompose goal"]}
       implement.execute: {}
       implement.verify:
-        {verify_failed: false, attempts: 1, patch: "diff --git a/app.py",
-         test_failed_before_patch: true, test_passes_after_patch: true}
+        verify_failed: false
+        attempts: 1
+        patch: "diff --git a/app.py"
+        # satisfies bug-triage-and-fix's own contract, inherited by this phase
+        output: {test_failed_before_patch: true, test_passes_after_patch: true}
       test.intake: {}
       test.generate: {}
-      test.critique: {revision_requested: false, test_report: {passed: 12, failed: 0}}
+      test.critique:
+        revision_requested: false
+        test_report: {passed: 12, failed: 0}
+        # satisfies test-suite-generation's contract
+        output: {coverage_delta: 4, mutation_score: 0.82, mutation_baseline: 0.60}
       audit.triage: {risk: low}
       audit.style-review: {style_findings: []}
-      audit.synthesize: {verdict: approve, findings: []}
+      audit.synthesize:
+        verdict: approve
+        findings: []
+        # satisfies code-review-pipeline's contract
+        output: {verdict: approve, findings: []}
       docs: {docs_updated: true}
       release-approval: {signed_off: true}
       release:
@@ -37,17 +48,26 @@ cases:
       implement.plan: {steps: ["decompose goal"]}
       implement.execute: {}
       implement.verify:
-        {verify_failed: false, attempts: 1, patch: "diff v1",
-         test_failed_before_patch: true, test_passes_after_patch: true}
+        verify_failed: false
+        attempts: 1
+        patch: "diff v1"
+        output: {test_failed_before_patch: true, test_passes_after_patch: true}
       test.intake: {}
       test.generate: {}
-      test.critique: {revision_requested: false, test_report: {passed: 8, failed: 0}}
+      test.critique:
+        revision_requested: false
+        test_report: {passed: 8, failed: 0}
+        output: {coverage_delta: 2, mutation_score: 0.75, mutation_baseline: 0.60}
       audit.triage: [{risk: high}, {risk: low}]
       audit.security-review: {sec_hits: 1}
       audit.style-review: {style_findings: []}
       audit.synthesize:
-        - {verdict: request_changes, findings: [{file: app.py, line: 42, note: hardcoded secret}]}
-        - {verdict: approve, findings: []}
+        - verdict: request_changes
+          findings: [{file: app.py, line: 42, note: hardcoded secret}]
+          output: {verdict: request_changes, findings: [{file: app.py, line: 42, note: hardcoded secret}]}
+        - verdict: approve
+          findings: []
+          output: {verdict: approve, findings: []}
       fix: {patch: "diff v2", audit_rounds: 1}
       docs: {docs_updated: true}
       release-approval: {signed_off: true}
@@ -69,14 +89,23 @@ cases:
       implement.plan: {steps: ["decompose goal"]}
       implement.execute: {}
       implement.verify:
-        {verify_failed: false, attempts: 1, patch: "diff v1",
-         test_failed_before_patch: true, test_passes_after_patch: true}
+        verify_failed: false
+        attempts: 1
+        patch: "diff v1"
+        output: {test_failed_before_patch: true, test_passes_after_patch: true}
       test.intake: {}
       test.generate: {}
-      test.critique: {revision_requested: false, test_report: {passed: 8, failed: 0}}
+      test.critique:
+        revision_requested: false
+        test_report: {passed: 8, failed: 0}
+        output: {coverage_delta: 2, mutation_score: 0.75, mutation_baseline: 0.60}
       audit.triage: {risk: low}
       audit.style-review: {style_findings: []}
-      audit.synthesize: {verdict: approve, findings: []}
+      audit.synthesize:
+        verdict: approve
+        findings: []
+        # satisfies code-review-pipeline's contract
+        output: {verdict: approve, findings: []}
       docs: {docs_updated: true}
       release-approval: {signed_off: true}
       release: {released: false, release_tag: v1.2.2, release_failed: true}

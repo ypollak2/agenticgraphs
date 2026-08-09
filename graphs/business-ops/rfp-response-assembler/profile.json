@@ -6,7 +6,7 @@
     "edges": 2,
     "verifier_nodes": 1,
     "router_nodes": 0,
-    "parallel_groups": 1,
+    "parallel_groups": 0,
     "max_fan_out": 1,
     "loops": 0,
     "loops_bounded": true,
@@ -40,7 +40,8 @@
         "deadlocked": false,
         "rejected_approvals": [],
         "auto_approved": false,
-        "subgraphs_expanded": false
+        "subgraphs_expanded": false,
+        "truncations": []
       },
       {
         "id": "multi-item",
@@ -58,7 +59,8 @@
         "deadlocked": false,
         "rejected_approvals": [],
         "auto_approved": false,
-        "subgraphs_expanded": false
+        "subgraphs_expanded": false,
+        "truncations": []
       }
     ]
   }

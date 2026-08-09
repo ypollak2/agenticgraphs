@@ -49,6 +49,7 @@ nodes:
   inputs:
   - signed_off
   outputs:
+  - output
   - registered
   - registry_id
 edges:

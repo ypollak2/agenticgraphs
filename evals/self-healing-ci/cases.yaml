@@ -1,0 +1,18 @@
+cases:
+- id: happy-path
+  node_outputs:
+    collect:
+      failures: failures-value
+    classify:
+      cause: cause-value
+      known: known-value
+    repair:
+      repair_applied: repair_applied-value
+    confirm:
+      pipeline_green: true
+      lessons: &id001
+      - tried: cache clear
+      output:
+        pipeline_green: true
+        escalated: false
+        lessons: *id001

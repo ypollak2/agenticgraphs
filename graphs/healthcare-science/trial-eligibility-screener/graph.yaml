@@ -50,6 +50,7 @@ nodes:
   - matched
   outputs:
   - enrolled
+  - output
   - unreviewed_ambiguous
   join: any
 edges:

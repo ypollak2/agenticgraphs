@@ -24,7 +24,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `partition` | `shard_count=1` |
+| 1 | `partition` | `shard_count=1, shards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `map` | *(no fixture — empty output)* |
 | 3 | `reduce` | `output={'insights': [{'theme': 'onboarding confusion', 'participant_ids': ['P1', 'P2']}]}` |
 
@@ -38,7 +38,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `partition` | `shard_count=2` |
+| 1 | `partition` | `shard_count=2, shards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `map` | *(no fixture — empty output)* |
 | 3 | `reduce` | `output={'insights': [{'theme': 'onboarding confusion', 'participant_ids': ['P1', 'P2', 'P3']}, {'theme': 'pricing page', 'participant_ids': ['P4', 'P5']}]}` |
 

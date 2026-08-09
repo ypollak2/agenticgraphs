@@ -1,20 +1,21 @@
 cases:
 - id: happy-path
   node_outputs:
-    ingest:
-      advisory: advisory-value
     prioritize.intake:
-      complexity: simple
-      risk: low
-      revision_requested: false
-      rejected: false
-      verify_failed: false
-      below_target: false
-      attempts: 1
-    prioritize.produce: {}
+      summary: intake complete
+    prioritize.produce:
+      output:
+        ranking:
+        - finding: CVE-2026-1111
+          scanner_evidence: scan-report-88
+          asset_map_ref: asset-42
     prioritize.review:
       exploitability: exploitability-value
       priority: priority-value
+      revision_requested: false
+      attempts: 1
+    ingest:
+      advisory: advisory-value
     reproduce:
       repro_confirmed: true
     patch:

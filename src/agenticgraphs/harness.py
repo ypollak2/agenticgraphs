@@ -15,6 +15,7 @@ import urllib.request
 from collections import defaultdict
 from copy import deepcopy
 from dataclasses import dataclass, field
+from pathlib import Path
 
 _ORDER = {"trivial": -1, "low": 0, "simple": 0, "medium": 1, "moderate": 1,
           "high": 2, "complex": 2, "critical": 3}
@@ -112,6 +113,33 @@ class RunReport:
     approvals: list[tuple[str, bool]] = field(default_factory=list)
     retries_used: int = 0
     expanded: bool = False
+    # v1.2 — execution history. A frame is what ONE node execution wrote, not a
+    # copy of the board: cheap enough to keep for every step, and the substrate
+    # phase-scoped verification, fan-out and reflexion memory all read from.
+    frames: list[dict] = field(default_factory=list)
+    lessons: list[dict] = field(default_factory=list)
+    state_violations: list[str] = field(default_factory=list)
+    truncations: list[str] = field(default_factory=list)
+    searches: list[dict] = field(default_factory=list)
+
+    def frames_for(self, node_id: str) -> list[dict]:
+        return [f for f in self.frames if f["node"] == node_id]
+
+    def phase_frame(self, phase: str) -> dict:
+        """The blackboard state a phase produced, as its child graph would see it.
+
+        Every write made inside the phase, merged in execution order. Not just
+        the last one: run standalone, a child graph ends with a blackboard that
+        *accumulated* across its nodes, and its asserts were written against
+        that. `postmortem-writer` writes `output` in `produce` and then runs
+        `review` — taking only the final write would lose the very key the
+        child's contract asserts on.
+        """
+        merged: dict = {}
+        for f in self.frames:
+            if f["node"] == phase or f["node"].startswith(phase + "."):
+                merged.update(f["out"])
+        return merged
 
     @property
     def rejected_approvals(self) -> list[str]:
@@ -120,6 +148,7 @@ class RunReport:
     @property
     def passed(self) -> bool:
         return (not self.assert_failures and not self.command_failures
+                and not self.state_violations
                 and not self.hit_step_cap and not self.deadlocked)
 
 
@@ -148,11 +177,34 @@ class LLMRunner:
         self.key = os.environ.get("AGR_LLM_API_KEY", "")
         self.name = f"llm:{self.model}"
 
+    def bind(self, doc: dict) -> None:
+        """Give the runner the graph's contract before execution starts.
+
+        Without this the prompt asked for "your output keys" without ever saying
+        which — so a real model returned plausible-looking JSON with entirely
+        different key names and every contract assert failed on AttributeError.
+        v1.1 added declared `outputs` per node and the live runner never used them.
+        """
+        self.contract = doc.get("termination", {}).get("contract", "")
+        self.checks = [v["assert"] for v in doc.get("verification") or [] if "assert" in v]
+
     def run(self, node: dict, bb: dict) -> dict:
+        declared = node.get("outputs") or []
+        wants = (
+            f"You MUST return exactly these keys: {json.dumps(declared)}. "
+            if declared else
+            "Return the keys this step is responsible for. "
+        )
+        contract = getattr(self, "contract", "")
+        checks = getattr(self, "checks", [])
         prompt = (
             f"You are node '{node['id']}' (speciality: {node['speciality']}) in a workflow. "
-            f"Abilities: {', '.join(node.get('abilities', []))}. Blackboard: {json.dumps(bb, default=str)}. "
-            "Reply with ONLY a JSON object of your output keys."
+            f"Abilities: {', '.join(node.get('abilities', []))}.\n"
+            f"Blackboard so far: {json.dumps(bb, default=str)}\n"
+            + (f"The workflow's exit contract is: {contract}\n" if contract else "")
+            + (f"Downstream assertions that must hold: {json.dumps(checks)}\n" if checks else "")
+            + wants
+            + "Reply with ONLY a JSON object. No prose, no markdown fence."
         )
         req = urllib.request.Request(
             f"{self.base}/chat/completions",
@@ -177,6 +229,47 @@ class LLMRunner:
                 f"node '{node['id']}' is a human approval gate "
                 f"(contract: {node['approval']['contract']}). "
                 "Re-run with --auto-approve to bypass in CI, or supply an approving runner."
+            )
+        return {"signed_off": True, "approver": "auto-approve", "auto_approved": True}
+
+
+class ReplayRunner:
+    """Replays *recorded real-model* outputs from evals/<graph>/live/<case>.json.
+
+    The depth grading shipped in v1.1 could report `assert-live`, but nothing
+    ever produced it: a live run needs a network call, so CI never made one and
+    every graph stayed at `assert-fixture`. A recording is a real model's output,
+    captured once and checked in, so the assert is graded against what a model
+    actually said rather than what a fixture author wished it would say.
+
+    Each recording stamps the model and date it came from; the scoreboard shows
+    the age, because a recording is evidence with a shelf life.
+    """
+
+    def __init__(self, recording: dict):
+        self.model = recording.get("model", "unknown")
+        self.recorded = recording.get("recorded", "unknown")
+        self.node_outputs = recording["node_outputs"]
+        self.visits: dict = defaultdict(int)
+        self.name = f"llm-replay:{self.model}"
+
+    @classmethod
+    def load(cls, path):
+        return cls(json.loads(Path(path).read_text()))
+
+    def run(self, node: dict, bb: dict) -> dict:
+        out = self.node_outputs.get(node["id"], {})
+        if isinstance(out, list):
+            out = out[min(self.visits[node["id"]], len(out) - 1)]
+        self.visits[node["id"]] += 1
+        return deepcopy(out)
+
+    def approve(self, node: dict, bb: dict, auto_approve: bool = False) -> dict:
+        """A recording cannot contain a human signature — refuse like LLMRunner."""
+        if not auto_approve:
+            raise HumanGateRequired(
+                f"node '{node['id']}' is a human approval gate; a replayed model "
+                "recording is not a sign-off"
             )
         return {"signed_off": True, "approver": "auto-approve", "auto_approved": True}
 
@@ -287,6 +380,8 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
     from .subgraphs import entry_nodes, expand, has_subgraphs  # local: avoids an import cycle
 
     rep = RunReport()
+    if hasattr(runner, "bind"):
+        runner.bind(doc)
     if has_subgraphs(doc):
         doc = expand(doc, root) if root else expand(doc)
         rep.expanded = True
@@ -360,10 +455,16 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
         visits[nid] += 1
         bb["attempts"] = visits[nid]
 
+        _aggregate(node, bb)
         if node.get("kind") == "human":
             out = _run_gate(node, bb, runner, auto_approve, rep)
+        elif node.get("fan_out"):
+            out = _fan_out(node, bb, runner, rep, visits[nid])
+        elif node.get("kind") == "search":
+            out = _search(node, bb, runner, rep, visits[nid])
         else:
             out = runner.run(node, bb)
+            rep.frames.append({"node": nid, "visit": visits[nid], "out": out})
         bb.update(out)
 
         errored = bool(out.get("error"))
@@ -396,6 +497,9 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
             if tgt not in pending:
                 pending.append(tgt)
 
+    _check_state(doc, bb, root, rep)
+    _persist_memory(doc, bb, root, rep)
+
     for v in doc.get("verification", []):
         if "command" in v:
             if run_commands:
@@ -405,15 +509,190 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
             continue
         if "assert" not in v:
             continue  # describe-only: prose, graded as unverified by evalcmd
+        # A phase-tagged assert came from a subgraph child and only ever held at
+        # the instant that phase's terminal ran. Evaluating it against the final
+        # blackboard — which a later phase has since overwritten — is why v1.1
+        # dropped child verification entirely.
+        scope = {**bb, **rep.phase_frame(v["phase"])} if v.get("phase") else bb
         try:
-            ok = bool(safe_eval(v["assert"], bb))
+            ok = bool(safe_eval(v["assert"], scope))
         except Exception as ex:
             ok, ex_note = False, f" ({type(ex).__name__}: {ex})"
         else:
             ex_note = ""
         if not ok:
-            rep.assert_failures.append(v["assert"] + ex_note)
+            label = f"[{v['phase']}] " if v.get("phase") else ""
+            rep.assert_failures.append(label + v["assert"] + ex_note)
     return rep
+
+
+_AGG = {
+    "union": lambda vs: [x for v in vs for x in (v if isinstance(v, list) else [v])],
+    "median": lambda vs: sorted(vs)[len(vs) // 2] if vs else None,
+    "best": lambda vs: max(vs) if vs else None,
+}
+
+
+def _majority(values: list):
+    """Most common value, or None on a tie — a tie is a real signal, not noise."""
+    counts: dict = defaultdict(int)
+    for v in values:
+        counts[json.dumps(v, sort_keys=True, default=str)] += 1
+    if not counts:
+        return None
+    ranked = sorted(counts.items(), key=lambda kv: -kv[1])
+    if len(ranked) > 1 and ranked[0][1] == ranked[1][1]:
+        return None
+    return json.loads(ranked[0][0])
+
+
+_AGG["majority"] = _majority
+
+
+def _aggregate(node: dict, bb: dict) -> None:
+    """Reduce a fanned-out list on the blackboard before the node runs.
+
+    Deliberately a node property rather than a new node kind: it reuses the join
+    machinery v1.1 already ships instead of inventing a parallel concept.
+    """
+    spec = node.get("aggregate")
+    if not spec:
+        return
+    values = bb.get(spec["over"])
+    if not isinstance(values, list):
+        return
+    bb[spec["over"]] = _AGG[spec["op"]](values)
+
+
+def _fan_out(node: dict, bb: dict, runner, rep: RunReport, visit: int) -> dict:
+    """Run a node once per element of `fan_out.over`.
+
+    Each shard produces its own frame, so N shards stay N observations instead of
+    collapsing into one blackboard write where the last shard silently wins.
+    Declared outputs become *lists* downstream — which is why fan_out is opt-in
+    rather than inferred from `parallel_group`.
+    """
+    spec = node["fan_out"]
+    items = bb.get(spec["over"])
+    if not isinstance(items, list):
+        items = []
+    cap = spec.get("max", 40)
+    if len(items) > cap:
+        # Never silent. A truncated fan-out that reports full coverage is exactly
+        # the kind of quiet lie this registry exists to refuse.
+        rep.truncations.append(
+            f"{node['id']}: fanned out over {cap} of {len(items)} '{spec['over']}' "
+            f"items (fan_out.max={cap}); {len(items) - cap} not processed"
+        )
+    shards, results = items[:cap], []
+    for i, item in enumerate(shards):
+        out = runner.run(node, {**bb, "shard": item, "shard_index": i, "shard_count": len(shards)})
+        rep.frames.append({"node": node["id"], "visit": visit, "shard": i, "out": out})
+        results.append(out)
+    errs = [r for r in results if r.get("error")]
+    on_partial = spec.get("on_partial", "continue")
+    keys = set(node.get("outputs") or []) | {k for r in results for k in r}
+    merged: dict = {k: [r.get(k) for r in results] for k in keys}
+    merged["shards_processed"] = len(results)
+    merged["shards_failed"] = len(errs)
+    if errs and on_partial == "fail":
+        merged["error"] = f"{len(errs)} of {len(results)} shards failed"
+    return merged
+
+
+def _search(node: dict, bb: dict, runner, rep: RunReport, visit: int) -> dict:
+    """Bounded beam search over candidate outputs.
+
+    This is beam search, not MCTS — no rollout policy and no learned value
+    function, because both need a real environment and faking one would produce
+    exactly the fixture-deep evidence v1.2 exists to escape. Deterministic,
+    inspectable, and bounded by branch x depth.
+    """
+    spec = node["search"]
+    branch, depth = spec.get("branch", 3), spec.get("depth", 2)
+    objective = spec.get("objective", "max")
+    beam = 1
+    if str(spec.get("prune", "")).startswith("beam("):
+        beam = int(str(spec["prune"])[5:-1])
+    better = (lambda a, b: a < b) if objective == "min" else (lambda a, b: a > b)
+
+    frontier: list[tuple] = [(None, None)]  # (score, candidate)
+    log: list[dict] = []
+    for d in range(depth):
+        scored: list[tuple] = []
+        for _, parent in frontier:
+            for b in range(branch):
+                ctx = {**bb, **(parent or {}), "branch_index": b, "search_depth": d}
+                out = runner.run(node, ctx)
+                rep.frames.append({"node": node["id"], "visit": visit, "depth": d,
+                                   "branch": b, "out": out})
+                try:
+                    score = safe_eval(spec["score"], {**ctx, **out})
+                except Exception:
+                    continue  # unscoreable candidate is not a candidate
+                scored.append((score, out))
+        if not scored:
+            break
+        scored.sort(key=lambda sc: sc[0], reverse=(objective == "max"))
+        frontier = scored[:beam]
+        log.append({"depth": d, "evaluated": len(scored), "best": frontier[0][0]})
+    rep.searches.append({"node": node["id"], "rounds": log,
+                         "improved": len(log) > 1 and better(log[-1]["best"], log[0]["best"])})
+    if not frontier or frontier[0][0] is None:
+        return {}
+    best_score, best_out = frontier[0]
+    return {**best_out, "search_score": best_score, "search_rounds": len(log)}
+
+
+def _check_state(doc: dict, bb: dict, root, rep: RunReport) -> None:
+    """Validate the final blackboard against `state.schema`, if one is declared.
+
+    v1.1 accepted `state.schema` as a string and never read it, deferred to v1.2
+    "once it has a consumer". `memory` is that consumer: a graph that persists
+    lessons across runs needs its state shape pinned, or the file it accumulates
+    becomes untyped sludge. Deferring twice for the same reason is how a spec
+    accumulates decoration, so it is enforced here.
+    """
+    rel = (doc.get("state") or {}).get("schema")
+    if not rel or root is None:
+        return
+    path = Path(root) / rel
+    if not path.exists():
+        rep.state_violations.append(f"state.schema '{rel}' does not resolve to {path}")
+        return
+    try:
+        import jsonschema
+
+        jsonschema.Draft202012Validator(json.loads(path.read_text())).validate(bb)
+    except ImportError:  # pragma: no cover — jsonschema is a hard dependency
+        return
+    except Exception as ex:
+        rep.state_violations.append(f"state does not satisfy {rel}: {ex.args[0] if ex.args else ex}")
+
+
+def _persist_memory(doc: dict, bb: dict, root, rep: RunReport) -> None:
+    """Collect `lessons` and, for `scope: graph`, append them to memory.jsonl.
+
+    A reflexion graph that cannot carry a lesson past the end of one run is a
+    retry loop with extra vocabulary. `scope: run` keeps them on the report;
+    `scope: graph` persists so the next run reads what the last one learned.
+    """
+    mem = doc.get("memory")
+    if not mem:
+        return
+    lessons = bb.get("lessons")
+    if isinstance(lessons, dict):
+        lessons = [lessons]
+    if not isinstance(lessons, list):
+        return
+    rep.lessons = [x for x in lessons if x]
+    if mem.get("scope") != "graph" or root is None or not rep.lessons:
+        return
+    target = Path(root) / "graphs" / doc["category"] / doc["name"] / "memory.jsonl"
+    if target.parent.is_dir():
+        with target.open("a") as fh:
+            for lesson in rep.lessons:
+                fh.write(json.dumps({"graph": doc["name"], "lesson": lesson}) + "\n")
 
 
 def _run_gate(node: dict, bb: dict, runner, auto_approve: bool, rep: RunReport) -> dict:

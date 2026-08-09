@@ -1,0 +1,18 @@
+cases:
+- id: happy-path
+  node_outputs:
+    intake:
+      presentations:
+      - p: 1
+      - p: 2
+      - p: 3
+    diagnose:
+      ranking: ranking-value
+    adjudicate:
+      consensus: dx-a
+      dissent: &id001
+      - dx: dx-b
+      output:
+        consensus: dx-a
+        dissent: *id001
+        dissent_retained: true
