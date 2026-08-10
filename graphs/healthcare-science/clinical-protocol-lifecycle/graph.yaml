@@ -36,7 +36,7 @@ nodes:
   inputs:
   - protocol_final
   outputs:
-  - signed_off
+  - signed_off: any
   approval:
     contract: signed_off == true and len(deviations) == 0
     on_timeout: escalate
@@ -50,7 +50,7 @@ nodes:
   outputs:
   - output
   - registered
-  - registry_id
+  - registry_id: any
 edges:
 - from: draft
   to: critique

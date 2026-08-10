@@ -19,11 +19,12 @@ nodes:
   speciality: critic
   abilities:
   - critique
+  - run_command
   kind: verifier
   outputs:
-  - coverage_delta
-  - mutation_baseline
-  - mutation_score
+  - coverage_delta: int
+  - mutation_baseline: float
+  - mutation_score: float
   - output
 edges:
 - from: intake

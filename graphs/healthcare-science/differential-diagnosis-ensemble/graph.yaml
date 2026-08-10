@@ -29,9 +29,9 @@ nodes:
   abilities:
   - adjudicate
   outputs:
-  - consensus
+  - consensus: any
   - dissent
-  - dissent_retained
+  - dissent_retained: any
   - output
   inputs:
   - ranking

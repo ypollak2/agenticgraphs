@@ -37,7 +37,7 @@ nodes:
   - cut_list
   outputs:
   - clearances
-  - rights_clear
+  - rights_clear: any
 - id: publish
   speciality: executor
   abilities:
@@ -48,7 +48,7 @@ nodes:
   outputs:
   - output
   - published
-  - timestamps_valid
+  - timestamps_valid: any
   join: all
 edges:
 - from: transcribe

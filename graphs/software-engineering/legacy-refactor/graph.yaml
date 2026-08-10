@@ -14,8 +14,8 @@ nodes:
   abilities:
   - generate
   outputs:
-  - snapshot_after
-  - snapshot_before
+  - snapshot_after: any
+  - snapshot_before: any
 - id: review
   speciality: critic
   abilities:

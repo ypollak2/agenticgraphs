@@ -47,7 +47,7 @@ nodes:
   outputs:
   - attested
   - output
-  - unclassified_stores
+  - unclassified_stores: int
 edges:
 - from: discover
   to: classify

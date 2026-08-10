@@ -208,7 +208,7 @@ pie showData title Graphs per domain
 | `assert-live` | assert held against real model output (`agr eval --live`) |
 | `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |
 
-**Real-model evidence:** 83 graphs carry checked-in recordings of actual model runs across 4 models (`evals/<graph>/live/`); **46 of 83** satisfy their contract on every model, and **16 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
+**Real-model evidence:** 83 graphs carry checked-in recordings of actual model runs across 4 models (`evals/<graph>/live/`); **46 of 83** satisfy their contract on every model, and **14 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
 
 | Graph | Domain | Cases | Pass rate | Depth | Live (real model) | Mean steps | Routes |
 |---|---|---|---|---|---|---|---|
@@ -229,19 +229,19 @@ pie showData title Graphs per domain
 | `kb-article-generator` | customer-support-sales | 2 | 100% | `assert-fixture` | 🎲 100%/50%/100% · 2026-08-09 | 4 | 2 |
 | `sales-call-scorer` | customer-support-sales | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 1 |
 | `ticket-triage-swarm` | customer-support-sales | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 2 |
-| `ab-test-analysis` | data-analytics | 2 | 100% | `assert-fixture` | 🚫 0%/0%/0% · 2026-08-09 | 3 | 1 |
+| `ab-test-analysis` | data-analytics | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/0%/0% · 2026-08-09 | 3 | 1 |
 | `anomaly-investigation` | data-analytics | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 2 |
 | `data-quality-audit` | data-analytics | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `etl-pipeline-builder` | data-analytics | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `schema-migration-saga` | data-analytics | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 5 | 1 |
 | `sql-generation-verified` | data-analytics | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
-| `alert-noise-reduction` | devops-sre | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/0% · 2026-08-09 | 3 | 1 |
+| `alert-noise-reduction` | devops-sre | 2 | 100% | `assert-fixture` | 🚫 0%/0%/0% · 2026-08-09 | 3 | 1 |
 | `deploy-canary-verifier` | devops-sre | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
 | `incident-lifecycle` | devops-sre | 1 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-08-09 | 10 | 1 |
-| `incident-triage-router` | devops-sre | 2 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 3 | 2 |
+| `incident-triage-router` | devops-sre | 2 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 3 | 2 |
 | `postmortem-writer` | devops-sre | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
 | `runbook-executor` | devops-sre | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
-| `self-healing-ci` | devops-sre | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 4 | 1 |
+| `self-healing-ci` | devops-sre | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 4 | 1 |
 | `verifier-swarm` | devops-sre | 3 | 100% | `command` | ✅ 100% · 2026-08-09 | 5 | 3 |
 | `essay-feedback-critic` | education | 2 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-08-09 | 4 | 2 |
 | `quiz-generation-verified` | education | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 4 | 2 |
@@ -251,11 +251,11 @@ pie showData title Graphs per domain
 | `kyc-document-processing` | finance | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `regulatory-filing-lifecycle` | finance | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 5 | 1 |
 | `adverse-event-scanner` | healthcare-science | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 3 | 1 |
-| `clinical-literature-triage` | healthcare-science | 2 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 3 | 2 |
-| `clinical-protocol-lifecycle` | healthcare-science | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 4 | 1 |
+| `clinical-literature-triage` | healthcare-science | 2 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 3 | 2 |
+| `clinical-protocol-lifecycle` | healthcare-science | 1 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-08-09 | 4 | 1 |
 | `differential-diagnosis-ensemble` | healthcare-science | 1 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 3 | 1 |
 | `medical-coding-audit` | healthcare-science | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
-| `trial-eligibility-screener` | healthcare-science | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 3 | 1 |
+| `trial-eligibility-screener` | healthcare-science | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 3 | 1 |
 | `hiring-lifecycle` | hr-people | 1 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-08-09 | 7 | 1 |
 | `jd-drafting-critic` | hr-people | 2 | 100% | `assert-fixture` | 🎲 100%/50%/100% · 2026-08-09 | 4 | 2 |
 | `onboarding-plan-builder` | hr-people | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 1 |
@@ -272,7 +272,7 @@ pie showData title Graphs per domain
 | `competitive-intelligence` | research-knowledge | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 3 | 1 |
 | `cost-routed-research` | research-knowledge | 3 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3.33 | 3 |
 | `fact-check-pipeline` | research-knowledge | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 4 | 2 |
-| `literature-review-swarm` | research-knowledge | 2 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 4 | 2 |
+| `literature-review-swarm` | research-knowledge | 2 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 4 | 2 |
 | `prompt-graph-optimization` | research-knowledge | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 1 |
 | `compliance-evidence-collector` | security | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 11 | 1 |
 | `forensic-investigation-blackboard` | security | 1 | 100% | `assert-fixture` | ⚠️ 0%/100%/100% · 2026-08-09 | 3 | 1 |
@@ -283,18 +283,18 @@ pie showData title Graphs per domain
 | `vuln-prioritization` | security | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
 | `vuln-remediation-lifecycle` | security | 1 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-08-09 | 9 | 1 |
 | `architecture-decision-tournament` | software-engineering | 1 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 3 | 1 |
-| `benchmark-driven-optimization-search` | software-engineering | 1 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 3 | 1 |
-| `bug-triage-and-fix` | software-engineering | 2 | 100% | `assert-fixture` | 🚫 0%/0%/0% · 2026-08-09 | 4 | 2 |
+| `benchmark-driven-optimization-search` | software-engineering | 1 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 3 | 1 |
+| `bug-triage-and-fix` | software-engineering | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/0%/0% · 2026-08-09 | 4 | 2 |
 | `code-review-pipeline` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3.5 | 2 |
 | `dependency-upgrade` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `docs-code-sync-audit` | software-engineering | 2 | 100% | `assert-fixture` | 🚫 0%/0%/0%/0% · 2026-08-09 | 4 | 2 |
 | `feature-delivery-lifecycle` | software-engineering | 3 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 16 | 3 |
-| `flaky-test-reflexion` | software-engineering | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 4 | 1 |
+| `flaky-test-reflexion` | software-engineering | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 4 | 1 |
 | `framework-migration` | software-engineering | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 7 | 1 |
 | `legacy-refactor` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
 | `performance-optimization` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
 | `release-notes-generation` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 1 |
-| `test-suite-generation` | software-engineering | 2 | 100% | `assert-fixture` | 🚫 0% · 2026-08-09 | 4 | 2 |
+| `test-suite-generation` | software-engineering | 2 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 4 | 2 |
 
 **Contract connection (v1.4):** 83 of 83 graphs have every key their verification asserts on declared as some node's output. This was 60 of 183 keys connected when v1.4 began — the gap is why four contracts could be structurally valid, pass the whole suite, and be satisfiable by no model. No graph is disconnected.
 
@@ -562,7 +562,15 @@ of the 20 were theatre (`echo 'Running test command 2'`). The trace proves
 something ran, not that the right thing ran. Stated plainly, because
 `assert-fixture` went over-read for five versions.
 
-See [`docs/agr-bindings.md`](docs/agr-bindings.md).
+Typing every output the asserts read (116 of them) then moved 3 more graphs — and
+**only 1 of the 3 was grounded.** The other two pass by producing a well-typed
+value for a fact nothing in this repo can establish, and both are labelled 🔌
+*unsatisfiable by construction*.
+
+**Typing is necessary and not sufficient.** A type tells a model what a key should
+be; it does not make the model obtain it. See
+[`docs/agr-bindings.md`](docs/agr-bindings.md) and
+[`docs/plans/v10-remaining-sixteen.md`](docs/plans/v10-remaining-sixteen.md).
 
 This is exactly the failure [`docs/live-coverage.md`](docs/live-coverage.md) exists
 to prevent, made one commit before that report was written. A pass rate over the

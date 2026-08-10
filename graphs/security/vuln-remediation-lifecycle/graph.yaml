@@ -48,7 +48,7 @@ nodes:
   inputs:
   - patch
   outputs:
-  - exploit_blocked
+  - exploit_blocked: any
 - id: disclose-approval
   speciality: approver
   kind: human
@@ -57,7 +57,7 @@ nodes:
   inputs:
   - exploit_blocked
   outputs:
-  - signed_off
+  - signed_off: any
   approval:
     contract: signed_off == true and exploit_blocked == true
     on_timeout: escalate
@@ -68,7 +68,7 @@ nodes:
   inputs:
   - signed_off
   outputs:
-  - advisory_published
+  - advisory_published: any
   - output
 edges:
 - from: ingest

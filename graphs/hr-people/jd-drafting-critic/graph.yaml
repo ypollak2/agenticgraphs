@@ -21,9 +21,9 @@ nodes:
   - critique
   kind: verifier
   outputs:
-  - bias_lint_clean
+  - bias_lint_clean: any
   - output
-  - requirements_deduped
+  - requirements_deduped: any
 edges:
 - from: intake
   to: generate

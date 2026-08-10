@@ -406,6 +406,15 @@ def joint_precondition_asserts(doc: dict) -> list[tuple[str, list[str]]]:
 
 #: Fields no model can produce by generating — they name a fact that exists in
 #: some system, or does not exist at all.
+#: Facts that need a dataset, registry or corpus this repo does not ship. Distinct
+#: from provenance strings: no binding *can* produce these, so a graph asserting
+#: one is waiting for an integration rather than failing.
+GROUND_TRUTH_FIELDS = {
+    "matches_ownership_map", "matches_validated_set", "matches_transcript",
+    "registry_id", "recomputed_effect", "claimed_effect", "paper", "section",
+    "confirmation_id", "spdx",
+}
+
 PROVENANCE_FIELDS = {
     "source_url", "source_date", "log_id", "message_id", "exit_code", "file",
     "line", "quote_span", "playbook_ref", "scanner_evidence", "asset_map_ref",
@@ -434,7 +443,16 @@ def provenance_gaps(doc: dict, root: Path = ROOT) -> list[tuple[str, list[str]]]
         expr = v.get("assert")
         if not expr:
             continue
-        wanted = sorted(PROVENANCE_FIELDS & asserted_keys_deep(expr))
+        touched = asserted_keys_deep(expr)
+        # A ground-truth fact is unobtainable regardless of what is bound — no
+        # amount of `run_command` produces an on-call ownership map. The first
+        # version of this detector was a list of URL/log/file names, so five
+        # graphs needing a *dataset* were mislabelled "unsatisfiable by model".
+        ground = sorted(GROUND_TRUTH_FIELDS & touched)
+        if ground:
+            gaps.append((expr, ground))
+            continue
+        wanted = sorted(PROVENANCE_FIELDS & touched)
         if wanted and not obtainable:
             gaps.append((expr, wanted))
     return gaps

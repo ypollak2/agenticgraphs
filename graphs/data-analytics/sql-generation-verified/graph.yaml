@@ -22,8 +22,8 @@ nodes:
   kind: verifier
   outputs:
   - output
-  - query_executes
-  - row_count_sane
+  - query_executes: any
+  - row_count_sane: any
 edges:
 - from: intake
   to: generate

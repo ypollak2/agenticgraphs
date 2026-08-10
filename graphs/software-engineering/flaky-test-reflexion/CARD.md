@@ -59,7 +59,7 @@ To evolve it: `uv run agr infuse flaky-test-reflexion <node> <ability>` — ever
 | `reproduce` | worker | agent | run_command |
 | `hypothesise` | analyst | agent | analyze |
 | `test-fix` | executor | agent | execute_step, edit_files |
-| `evaluate` | evaluator | verifier | evaluate |
+| `evaluate` | evaluator | verifier | evaluate, run_command |
 
 ## Edge logic
 

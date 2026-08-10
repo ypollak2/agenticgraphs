@@ -40,7 +40,7 @@ nodes:
   inputs:
   - mitigation
   outputs:
-  - impact_cleared
+  - impact_cleared: any
 - id: postmortem
   speciality: supervisor
   kind: subgraph

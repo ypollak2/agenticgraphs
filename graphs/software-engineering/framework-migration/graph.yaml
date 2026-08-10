@@ -30,8 +30,8 @@ nodes:
   - slice_queue
   outputs:
   - slice_ported
-  - snapshot_after
-  - snapshot_before
+  - snapshot_after: any
+  - snapshot_before: any
 - id: integrate
   speciality: qa-lead
   abilities:
@@ -40,7 +40,7 @@ nodes:
   inputs:
   - slice_ported
   outputs:
-  - suite_green
+  - suite_green: any
 - id: sign-off
   speciality: tech-lead
   abilities:
@@ -50,7 +50,7 @@ nodes:
   outputs:
   - migration_complete
   - output
-  - slices_remaining
+  - slices_remaining: int
   join: all
 edges:
 - from: inventory

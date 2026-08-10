@@ -27,8 +27,8 @@ nodes:
   outputs:
   - glossary_violations
   - output
-  - similarity
-  - threshold
+  - similarity: float
+  - threshold: float
 edges:
 - from: partition
   to: map

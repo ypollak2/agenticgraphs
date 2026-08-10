@@ -34,8 +34,9 @@ nodes:
   speciality: evaluator
   abilities:
   - evaluate
+  - run_command
   outputs:
-  - consecutive_green
+  - consecutive_green: int
   - lessons
   - output
   - stable

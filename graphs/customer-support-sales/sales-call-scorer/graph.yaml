@@ -30,8 +30,8 @@ nodes:
   outputs:
   - final_score
   - output
-  - segments_scored
-  - variance
+  - segments_scored: int
+  - variance: any
   inputs:
   - rubric_score
   aggregate:

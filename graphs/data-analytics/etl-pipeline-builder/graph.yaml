@@ -21,8 +21,8 @@ nodes:
   - run_command
   kind: verifier
   outputs:
-  - actual_rows
-  - expected_rows
+  - actual_rows: any
+  - expected_rows: any
   - output
 edges:
 - from: plan

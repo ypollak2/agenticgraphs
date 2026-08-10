@@ -26,10 +26,10 @@ nodes:
   - run_command
   kind: verifier
   outputs:
-  - agreement
-  - escalated
+  - agreement: float
+  - escalated: any
   - output
-  - threshold
+  - threshold: float
 edges:
 - from: plan
   to: work

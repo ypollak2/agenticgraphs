@@ -29,8 +29,8 @@ nodes:
   abilities:
   - adjudicate
   outputs:
-  - designs_scored
-  - margin
+  - designs_scored: int
+  - margin: any
   - output
   - winner
   inputs:

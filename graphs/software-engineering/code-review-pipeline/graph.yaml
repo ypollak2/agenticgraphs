@@ -34,7 +34,7 @@ nodes:
   kind: verifier
   outputs:
   - findings: list[{file:any, line:int}]
-  - verdict
+  - verdict: any
 edges:
 - from: triage
   to: security-review

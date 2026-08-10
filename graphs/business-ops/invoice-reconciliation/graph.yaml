@@ -44,8 +44,8 @@ nodes:
   outputs:
   - output
   - posted
-  - three_way_matched
-  - unreviewed_exceptions
+  - three_way_matched: any
+  - unreviewed_exceptions: int
   join: any
 edges:
 - from: auto-match

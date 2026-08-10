@@ -37,11 +37,11 @@ nodes:
   inputs:
   - concentration
   outputs:
-  - above_appetite
+  - above_appetite: any
   - mitigations
-  - mitigations_planned
+  - mitigations_planned: any
   - output
-  - single_source_flagged
+  - single_source_flagged: any
 edges:
 - from: ingest
   to: score

@@ -37,8 +37,8 @@ nodes:
   inputs:
   - coverage
   outputs:
-  - controls_evidenced
-  - controls_total
+  - controls_evidenced: float
+  - controls_total: any
   - evidence_report
   - output
 edges:

@@ -45,7 +45,7 @@ nodes:
   inputs:
   - copy_clean
   outputs:
-  - signed_off
+  - signed_off: any
   approval:
     contract: signed_off == true and len(style_violations) == 0
     on_timeout: escalate

@@ -14,9 +14,9 @@ nodes:
   abilities:
   - generate
   outputs:
-  - lockfile_updated
+  - lockfile_updated: any
   - new_deprecations
-  - tests_pass
+  - tests_pass: any
 - id: review
   speciality: critic
   abilities:

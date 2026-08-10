@@ -14,8 +14,8 @@ nodes:
   abilities:
   - generate
   outputs:
-  - duplicates_deduped
-  - reproduces_resolution
+  - duplicates_deduped: any
+  - reproduces_resolution: any
 - id: review
   speciality: critic
   abilities:

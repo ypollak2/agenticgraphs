@@ -21,7 +21,7 @@ nodes:
   - run_command
   kind: verifier
   outputs:
-  - conclusion
+  - conclusion: any
   - output
   - query_results
 edges:

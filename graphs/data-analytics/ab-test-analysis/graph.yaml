@@ -23,9 +23,9 @@ nodes:
   - adjudicate
   kind: verifier
   outputs:
-  - claimed_effect
+  - claimed_effect: float
   - output
-  - recomputed_effect
+  - recomputed_effect: float
 edges:
 - from: position-a
   to: judge

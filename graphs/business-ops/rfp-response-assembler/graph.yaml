@@ -26,8 +26,8 @@ nodes:
   kind: verifier
   outputs:
   - output
-  - page_count
-  - page_limit
+  - page_count: float
+  - page_limit: float
   - requirements: list[{answered:bool, flagged:bool}]
 edges:
 - from: partition

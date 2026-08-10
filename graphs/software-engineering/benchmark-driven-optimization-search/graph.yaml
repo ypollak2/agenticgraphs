@@ -10,7 +10,7 @@ nodes:
   - analyze
   outputs:
   - hotspot
-  - baseline_ms
+  - baseline_ms: float
   inputs:
   - repo
 - id: explore
@@ -19,7 +19,7 @@ nodes:
   - generate
   outputs:
   - patch
-  - bench_ms
+  - bench_ms: float
   inputs:
   - hotspot
   kind: search
@@ -37,7 +37,7 @@ nodes:
   - baseline_ms
   - bench_ms
   - output
-  - suite_green
+  - suite_green: any
   inputs:
   - patch
   kind: verifier

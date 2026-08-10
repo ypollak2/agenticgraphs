@@ -11,9 +11,9 @@ nodes:
   inputs:
   - role_brief
   outputs:
-  - bias_lint_clean
+  - bias_lint_clean: any
   - jd
-  - requirements_deduped
+  - requirements_deduped: any
 - id: screen
   speciality: recruiter
   abilities:
@@ -38,7 +38,7 @@ nodes:
   inputs:
   - scorecards
   outputs:
-  - signed_off
+  - signed_off: any
   approval:
     contract: signed_off == true and len(scorecards) >= 3
     on_timeout: escalate
@@ -51,7 +51,7 @@ nodes:
   outputs:
   - offer_sent
   - output
-  - scorecard_count
+  - scorecard_count: int
   - structured
 edges:
 - from: define-role

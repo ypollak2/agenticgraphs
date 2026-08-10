@@ -36,9 +36,9 @@ nodes:
   inputs:
   - matrix
   outputs:
-  - criteria_consistent
+  - criteria_consistent: any
   - output
-  - uncited_cells
+  - uncited_cells: int
 edges:
 - from: collect
   to: normalize

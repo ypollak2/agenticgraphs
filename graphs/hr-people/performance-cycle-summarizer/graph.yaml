@@ -38,7 +38,7 @@ nodes:
   outputs:
   - calibrated_summary
   - output
-  - uncited_claims
+  - uncited_claims: int
 edges:
 - from: gather
   to: synthesize

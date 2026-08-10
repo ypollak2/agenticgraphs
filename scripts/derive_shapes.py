@@ -100,6 +100,66 @@ def shapes_from_assert(expr: str) -> dict[str, str]:
     return out
 
 
+def scalar_shapes(expr: str) -> dict[str, str]:
+    """`{key: shape}` for bare `output.<key>` reads.
+
+    The first pass only inferred `list[{...}]` from comprehensions and looked at
+    nothing else, so seven of the sixteen remaining failures were on keys the
+    assert types just as plainly:
+
+        output.criteria_consistent == true   -> bool
+        output.unreviewed_ambiguous == 0     -> int
+        output.consecutive_green >= 3        -> int
+        output.registry_id is not None       -> any
+
+    `any` where the assert only demands existence: claiming more would be a guess
+    dressed as knowledge, and a wrong leaf type manufactures violations.
+    """
+    try:
+        tree = ast.parse(expr, mode="eval")
+    except SyntaxError:
+        return {}
+
+    def key_of(node):
+        if (isinstance(node, ast.Attribute) and isinstance(node.value, ast.Name)
+                and node.value.id == "output"):
+            return node.attr
+        return None
+
+    out: dict[str, str] = {}
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Compare) and len(node.comparators) == 1:
+            left, op, right = node.left, node.ops[0], node.comparators[0]
+            for a, b in ((left, right), (right, left)):
+                k = key_of(a)
+                if not k:
+                    continue
+                if isinstance(op, (ast.Is, ast.IsNot)):
+                    out.setdefault(k, "any")
+                elif isinstance(b, ast.Constant) and isinstance(b.value, bool):
+                    out[k] = "bool"
+                elif isinstance(b, ast.Constant) and isinstance(b.value, int):
+                    out[k] = "int"
+                elif isinstance(op, (ast.Lt, ast.LtE, ast.Gt, ast.GtE)):
+                    # Ordering against a non-constant says "a number", not "an
+                    # integer". `float` accepts both here — the weakest correct
+                    # claim, rather than a guess that manufactures violations.
+                    out.setdefault(k, "float")
+                else:
+                    out.setdefault(k, "any")
+        # `abs(output.a - output.b) < x` — arithmetic means a number
+        if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Sub, ast.Add)):
+            for side in (node.left, node.right):
+                if k := key_of(side):
+                    out[k] = "float"
+        # a bare `output.x` used for truthiness
+        if isinstance(node, ast.BoolOp):
+            for v in node.values:
+                if k := key_of(v):
+                    out.setdefault(k, "any")
+    return out
+
+
 def apply(gpath: Path) -> list[str]:
     doc = load(gpath)
     exp = expand(doc, ROOT) if has_subgraphs(doc) else doc
@@ -107,7 +167,12 @@ def apply(gpath: Path) -> list[str]:
     wanted: dict[str, str] = {}
     for v in exp.get("verification") or []:
         if "assert" in v:
-            wanted.update(shapes_from_assert(v["assert"]))
+            # Records first: a comprehension is the stronger claim and must not be
+            # overwritten by a scalar reading of the same key.
+            scalars = scalar_shapes(v["assert"])
+            records = shapes_from_assert(v["assert"])
+            wanted.update({k: t for k, t in scalars.items() if k not in records})
+            wanted.update(records)
     if not wanted:
         return []
 

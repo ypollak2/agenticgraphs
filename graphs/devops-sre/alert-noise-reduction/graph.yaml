@@ -25,7 +25,7 @@ nodes:
   - reduce_merge
   kind: verifier
   outputs:
-  - dedupe_ratio
+  - dedupe_ratio: int
   - missed_paging_alerts
   - output
 edges:

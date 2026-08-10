@@ -14,7 +14,7 @@ nodes:
   abilities:
   - generate
   outputs:
-  - all_asks_covered
+  - all_asks_covered: any
   - asks: list[{quote:any}]
 - id: review
   speciality: critic

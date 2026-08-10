@@ -14,8 +14,8 @@ nodes:
   abilities:
   - generate
   outputs:
-  - benchmark_ms
-  - target_ms
+  - benchmark_ms: float
+  - target_ms: float
   - test_regressions
 - id: measure
   speciality: evaluator

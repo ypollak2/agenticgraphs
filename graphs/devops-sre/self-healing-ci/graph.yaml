@@ -35,10 +35,10 @@ nodes:
   abilities:
   - run_command
   outputs:
-  - escalated
+  - escalated: any
   - lessons
   - output
-  - pipeline_green
+  - pipeline_green: any
   inputs:
   - repair_applied
   kind: verifier

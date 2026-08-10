@@ -14,9 +14,9 @@ nodes:
   abilities:
   - generate
   outputs:
-  - error_rate
-  - rollback_fired
-  - threshold
+  - error_rate: float
+  - rollback_fired: any
+  - threshold: float
 - id: measure
   speciality: evaluator
   abilities:

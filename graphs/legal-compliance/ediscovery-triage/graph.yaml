@@ -29,8 +29,8 @@ nodes:
   kind: verifier
   outputs:
   - output
-  - recall
-  - threshold
+  - recall: float
+  - threshold: float
 edges:
 - from: route
   to: branch-simple

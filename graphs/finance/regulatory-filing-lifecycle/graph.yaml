@@ -20,7 +20,7 @@ nodes:
   - figures
   outputs:
   - variance
-  - reconciled
+  - reconciled: any
 - id: controller-signoff
   speciality: approver
   kind: human
@@ -29,7 +29,7 @@ nodes:
   inputs:
   - reconciled
   outputs:
-  - signed_off
+  - signed_off: any
   approval:
     contract: signed_off == true and reconciled == true
     on_timeout: escalate
@@ -41,7 +41,7 @@ nodes:
   inputs:
   - signed_off
   outputs:
-  - filed
+  - filed: any
   - confirmation_id
 - id: retain
   speciality: producer
@@ -50,7 +50,7 @@ nodes:
   inputs:
   - confirmation_id
   outputs:
-  - evidence_pack
+  - evidence_pack: any
   - output
 edges:
 - from: collect

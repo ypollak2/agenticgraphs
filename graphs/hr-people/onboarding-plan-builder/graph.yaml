@@ -38,8 +38,8 @@ nodes:
   - plan_30_60_90
   - access_requests
   outputs:
-  - access_requested
-  - milestones_covered
+  - access_requested: any
+  - milestones_covered: any
   - output
   join: all
 edges:

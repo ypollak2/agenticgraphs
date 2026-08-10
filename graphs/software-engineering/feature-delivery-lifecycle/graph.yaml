@@ -38,8 +38,8 @@ nodes:
   - plan
   outputs:
   - patch
-  - test_failed_before_patch
-  - test_passes_after_patch
+  - test_failed_before_patch: any
+  - test_passes_after_patch: any
 - id: test
   speciality: supervisor
   kind: subgraph
@@ -48,9 +48,9 @@ nodes:
   - patch
   - acceptance_criteria
   outputs:
-  - coverage_delta
-  - mutation_baseline
-  - mutation_score
+  - coverage_delta: int
+  - mutation_baseline: float
+  - mutation_score: float
   - test_report
 - id: audit
   speciality: supervisor
@@ -60,7 +60,7 @@ nodes:
   - patch
   - test_report
   outputs:
-  - verdict
+  - verdict: any
   - findings: list[{file:any, line:int}]
 - id: fix
   speciality: executor
@@ -81,7 +81,7 @@ nodes:
   - patch
   - verdict
   outputs:
-  - docs_updated
+  - docs_updated: any
   join: all
 - id: release-approval
   speciality: approver
@@ -92,7 +92,7 @@ nodes:
   - docs_updated
   - verdict
   outputs:
-  - signed_off
+  - signed_off: any
   approval:
     contract: signed_off == true and verdict == 'approve'
     on_timeout: escalate
@@ -103,7 +103,7 @@ nodes:
   inputs:
   - signed_off
   outputs:
-  - released
+  - released: any
   - release_tag
   on_error: rollback
 - id: rollback
@@ -114,7 +114,7 @@ nodes:
   - release_tag
   outputs:
   - output
-  - rolled_back
+  - rolled_back: any
 edges:
 - from: research
   to: plan

@@ -218,7 +218,11 @@ def test_expansion_namespaces_rewires_and_sums_step_budget():
 def test_expansion_transfers_the_phase_io_contract_to_the_child_boundary():
     out = expand(load(ROOT / "graphs/software-engineering/feature-delivery-lifecycle/graph.yaml"), ROOT)
     by_id = {n["id"]: n for n in out["nodes"]}
-    assert "verdict" in by_id["audit.synthesize"]["outputs"]  # phase output survives
+    # An output entry may now carry a shape, so membership goes through the
+    # shared accessor rather than assuming bare strings.
+    from agenticgraphs.shapes import names as _out_names
+
+    assert "verdict" in _out_names(by_id["audit.synthesize"])  # phase output survives
     assert not (validate_schema(out, "graph") or lint_graph(out))
 
 

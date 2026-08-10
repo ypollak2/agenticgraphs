@@ -36,7 +36,7 @@ nodes:
   inputs:
   - residual_risk
   outputs:
-  - signed_off
+  - signed_off: any
   approval:
     contract: signed_off == true and residual_risk <= medium
     on_timeout: escalate
@@ -47,9 +47,9 @@ nodes:
   inputs:
   - signed_off
   outputs:
-  - executed
+  - executed: any
   - output
-  - residual_risk_level
+  - residual_risk_level: any
 edges:
 - from: intake
   to: redline

@@ -14,9 +14,9 @@ the registry.
 
 - ✅ **46** satisfied on every model, every sample
 - 🎲 **2** where one model both passed and failed across samples
-- 🚫 **16** satisfied by no model
+- 🚫 **14** satisfied by no model
 
-Samples per graph+model cell: {1: 145, 2: 3}. A cell with one
+Samples per graph+model cell: {1: 155, 2: 3}. A cell with one
 sample cannot distinguish a graph that passes from one that passed by luck; 🎲
 is what that looks like once there is more than one.
 
@@ -33,15 +33,13 @@ is what that looks like once there is more than one.
 |---|---|
 | `vendor-comparison-matrix` | composite |
 | `screenplay-coverage` | composite |
-| `ab-test-analysis` | primitive |
+| `alert-noise-reduction` | primitive |
 | `incident-triage-router` | primitive |
 | `self-healing-ci` | primitive |
 | `clinical-literature-triage` | primitive |
-| `clinical-protocol-lifecycle` | human-gated |
 | `trial-eligibility-screener` | human-gated |
 | `literature-review-swarm` | primitive |
 | `compliance-evidence-collector` | composite |
-| `bug-triage-and-fix` | primitive |
 | `docs-code-sync-audit` | primitive |
 | `feature-delivery-lifecycle` | composite |
 | `flaky-test-reflexion` | primitive |

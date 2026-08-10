@@ -10,8 +10,8 @@ nodes:
   inputs:
   - requirement
   outputs:
-  - page_count
-  - page_limit
+  - page_count: float
+  - page_limit: float
   - requirements: list[{answered:bool, flagged:bool}]
   - rfp_responses
 - id: score
@@ -40,7 +40,7 @@ nodes:
   inputs:
   - terms
   outputs:
-  - signed_off
+  - signed_off: any
   approval:
     contract: signed_off == true
     on_timeout: escalate
@@ -53,7 +53,7 @@ nodes:
   outputs:
   - awarded
   - output
-  - scored_vendors
+  - scored_vendors: int
 edges:
 - from: rfp
   to: score

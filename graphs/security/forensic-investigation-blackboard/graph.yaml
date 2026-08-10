@@ -30,10 +30,10 @@ nodes:
   abilities:
   - adjudicate
   outputs:
-  - open_questions
+  - open_questions: any
   - output
   - picture
-  - uncited_claims
+  - uncited_claims: int
   inputs:
   - evidence
   aggregate:

@@ -44,9 +44,9 @@ nodes:
   abilities:
   - run_command
   outputs:
-  - attacker_exhausted
+  - attacker_exhausted: any
   - output
-  - unmitigated
+  - unmitigated: int
   inputs:
   - mitigation
   kind: verifier

@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-003` | software-engineering | **generator-critic** | 3 | 3 | 1 | 0 | 10 | write |
+| `AGR-003` | software-engineering | **generator-critic** | 3 | 3 | 1 | 0 | 10 | execute |
 
 ## The graph
 
@@ -55,7 +55,7 @@ To evolve it: `uv run agr infuse test-suite-generation <node> <ability>` — eve
 |---|---|---|---|
 | `intake` | analyst | agent | analyze |
 | `generate` | producer | agent | generate |
-| `critique` | critic | verifier | critique |
+| `critique` | critic | verifier | critique, run_command |
 
 ## Edge logic
 

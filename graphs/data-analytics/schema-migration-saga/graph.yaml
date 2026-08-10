@@ -45,7 +45,7 @@ nodes:
   inputs:
   - cutover_done
   outputs:
-  - parity_verified
+  - parity_verified: any
 - id: undo-cutover
   speciality: compensator
   abilities:
@@ -69,7 +69,7 @@ nodes:
   inputs:
   - shadow_active
   outputs:
-  - consistent
+  - consistent: any
   - output
   - shadow_undone
 edges:

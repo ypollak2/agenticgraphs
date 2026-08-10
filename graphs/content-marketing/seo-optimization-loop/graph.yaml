@@ -14,9 +14,9 @@ nodes:
   abilities:
   - generate
   outputs:
-  - seo_score
+  - seo_score: float
   - stuffing_flags
-  - threshold
+  - threshold: float
 - id: measure
   speciality: evaluator
   abilities:

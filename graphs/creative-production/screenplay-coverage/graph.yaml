@@ -41,7 +41,7 @@ nodes:
   outputs:
   - output
   - rationale
-  - recommendation
+  - recommendation: any
   join: all
 edges:
 - from: read

@@ -50,7 +50,7 @@ nodes:
   outputs:
   - enrolled
   - output
-  - unreviewed_ambiguous
+  - unreviewed_ambiguous: int
   join: any
 edges:
 - from: prefilter

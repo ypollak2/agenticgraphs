@@ -1,59 +1,32 @@
 {
   "model": "gpt-4o",
-  "recorded": "2026-08-09",
+  "recorded": "2026-08-10",
   "endpoint": "https://api.openai.com/v1",
   "node_outputs": {
     "plan": {
       "tasks": [
         {
-          "doc": "Ensure example_1 runs successfully with exit code 0",
-          "snippet": "example_1.run(); assert example_1.exit_code == 0"
+          "doc": "Check all documented examples run exit zero.",
+          "snippet": "def test_example_runs_exit_zero(example):\n    assert example.run().exit_code == 0"
         },
         {
-          "doc": "Ensure example_2 runs successfully with exit code 0",
-          "snippet": "example_2.run(); assert example_2.exit_code == 0"
-        },
-        {
-          "doc": "Ensure example_3 runs successfully with exit code 0",
-          "snippet": "example_3.run(); assert example_3.exit_code == 0"
+          "doc": "Decompose the all-examples-exit-zero goal into smaller tasks.",
+          "snippet": "def decompose_goal(examples):\n    return [test_example_runs_exit_zero(ex) for ex in examples]"
         }
       ]
     },
     "work": [
       {
-        "work_result": "FileNotFoundError: The 'example_1.run', 'example_2.run', and 'example_3.run' commands were not found."
+        "work_result": "Failed to find the command or script './run_all_examples.sh'. The specified file or executable is not in the directory, hence unable to verify that all documented examples exit with zero."
       },
       {
-        "work_result": "example_2 failed to run successfully with an exit code of 0 due to a missing file error."
-      },
-      {
-        "work_result": "error: Executables example_1, example_2, and example_3 were not found. Please ensure they are available in the current directory."
+        "work_result": "The execution of the examples failed because the 'python' command was not found, indicating an issue with the environment setup or the path to the example files. Please ensure the examples are correctly specified and accessible in the current environment."
       }
     ],
     "verify": {
-      "examples": [
-        {
-          "exit_code": 1
-        },
-        {
-          "exit_code": 1
-        },
-        {
-          "exit_code": 1
-        }
-      ],
+      "examples": [],
       "output": {
-        "examples": [
-          {
-            "exit_code": 1
-          },
-          {
-            "exit_code": 1
-          },
-          {
-            "exit_code": 1
-          }
-        ]
+        "examples": []
       }
     }
   },
@@ -61,7 +34,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "example_1.run"
+        "command": "./run_all_examples.sh"
       },
       "ok": true,
       "detail": "ok"
@@ -69,7 +42,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "example_2.run"
+        "command": "python example1.py"
       },
       "ok": true,
       "detail": "ok"
@@ -77,7 +50,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "example_3.run"
+        "command": "python example2.py"
       },
       "ok": true,
       "detail": "ok"
@@ -85,7 +58,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "example_2.run()"
+        "command": "ls"
       },
       "ok": true,
       "detail": "ok"
@@ -93,63 +66,7 @@
     {
       "ability": "run_command",
       "args": {
-        "command": "python3 example_2.py"
-      },
-      "ok": true,
-      "detail": "ok"
-    },
-    {
-      "ability": "run_command",
-      "args": {
-        "command": "example_3.run(); echo $? > exit_code.txt; cat exit_code.txt"
-      },
-      "ok": true,
-      "detail": "ok"
-    },
-    {
-      "ability": "run_command",
-      "args": {
-        "command": "./example_1"
-      },
-      "ok": true,
-      "detail": "ok"
-    },
-    {
-      "ability": "run_command",
-      "args": {
-        "command": "./example_2"
-      },
-      "ok": true,
-      "detail": "ok"
-    },
-    {
-      "ability": "run_command",
-      "args": {
-        "command": "./example_3"
-      },
-      "ok": true,
-      "detail": "ok"
-    },
-    {
-      "ability": "run_command",
-      "args": {
-        "command": "which example_1"
-      },
-      "ok": true,
-      "detail": "ok"
-    },
-    {
-      "ability": "run_command",
-      "args": {
-        "command": "which example_2"
-      },
-      "ok": true,
-      "detail": "ok"
-    },
-    {
-      "ability": "run_command",
-      "args": {
-        "command": "which example_3"
+        "command": "echo $PATH"
       },
       "ok": true,
       "detail": "ok"

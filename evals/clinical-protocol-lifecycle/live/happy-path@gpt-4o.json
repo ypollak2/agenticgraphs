@@ -1,0 +1,28 @@
+{
+  "model": "gpt-4o",
+  "recorded": "2026-08-10",
+  "endpoint": "https://api.openai.com/v1",
+  "node_outputs": {
+    "draft": {
+      "name": "Clinical Protocol A",
+      "version": "1.0",
+      "deviations": [],
+      "signed_off": true,
+      "registry_id": "REG-2023-001",
+      "investigator_signature": "Dr. John Doe"
+    },
+    "critique": {
+      "deviations": []
+    },
+    "register": {
+      "output": {
+        "deviations": [],
+        "registry_id": "REG-2023-001",
+        "signed_off": true
+      },
+      "registered": true,
+      "registry_id": "REG-2023-001"
+    }
+  },
+  "tool_calls": []
+}

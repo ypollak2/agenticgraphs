@@ -22,8 +22,8 @@ nodes:
   kind: verifier
   outputs:
   - output
-  - test_failed_before_patch
-  - test_passes_after_patch
+  - test_failed_before_patch: any
+  - test_passes_after_patch: any
 edges:
 - from: plan
   to: execute

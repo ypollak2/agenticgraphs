@@ -14,8 +14,8 @@ nodes:
   abilities:
   - generate
   outputs:
-  - lint_passed
-  - plagiarism_clean
+  - lint_passed: any
+  - plagiarism_clean: any
 - id: review
   speciality: critic
   abilities:
