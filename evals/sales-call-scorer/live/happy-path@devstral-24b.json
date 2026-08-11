@@ -9,40 +9,104 @@
     "segment": {
       "segments": [
         {
-          "id": 1
+          "id": "acme_discovery_call",
+          "scores": {
+            "metrics": {
+              "score": 0.75,
+              "confidence": 0.9
+            },
+            "economic_buyer": {
+              "score": 0.8,
+              "confidence": 0.85
+            },
+            "decision_criteria": {
+              "score": 0.65,
+              "confidence": 0.8
+            },
+            "decision_process": {
+              "score": 0.7,
+              "confidence": 0.85
+            },
+            "identify_pain": {
+              "score": 0.9,
+              "confidence": 0.95
+            },
+            "champions": {
+              "score": 0.55,
+              "confidence": 0.75
+            }
+          }
         }
       ]
     },
     "score-pass": {
       "rubric_score": {
-        "scores": [
-          85,
-          78,
-          92
-        ],
-        "median": 85,
-        "variance": 34.67
+        "segments_scored": 1,
+        "metric_scores": {
+          "metrics": {
+            "score": 0.75,
+            "confidence": 0.9
+          },
+          "economic_buyer": {
+            "score": 0.8,
+            "confidence": 0.85
+          },
+          "decision_criteria": {
+            "score": 0.65,
+            "confidence": 0.8
+          },
+          "decision_process": {
+            "score": 0.7,
+            "confidence": 0.85
+          },
+          "identify_pain": {
+            "score": 0.9,
+            "confidence": 0.95
+          },
+          "champions": {
+            "score": 0.55,
+            "confidence": 0.75
+          }
+        },
+        "median_score": 0.725,
+        "variance": 0.01841
       }
     },
     "consolidate": {
-      "final_score": [
-        {
-          "median": 85,
-          "spread": [
-            -7,
-            -14
-          ],
-          "segments_scored": [
-            1
-          ]
-        }
-      ],
+      "final_score": 0.725,
       "output": {
         "segments_scored": 1,
-        "variance": 34.67
+        "metric_scores": {
+          "metrics": {
+            "score": 0.75,
+            "confidence": 0.9
+          },
+          "economic_buyer": {
+            "score": 0.8,
+            "confidence": 0.85
+          },
+          "decision_criteria": {
+            "score": 0.65,
+            "confidence": 0.8
+          },
+          "decision_process": {
+            "score": 0.7,
+            "confidence": 0.85
+          },
+          "identify_pain": {
+            "score": 0.9,
+            "confidence": 0.95
+          },
+          "champions": {
+            "score": 0.55,
+            "confidence": 0.75
+          }
+        },
+        "median_score": 0.725,
+        "variance": 0.01841
       },
       "segments_scored": 1,
-      "variance": 34.67
+      "variance": 0.01841
     }
   },
   "tool_calls": []

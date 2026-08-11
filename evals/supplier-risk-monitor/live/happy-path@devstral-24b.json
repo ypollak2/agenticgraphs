@@ -1,0 +1,199 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "score the tier-1 electronics supplier portfolio for concentration risk"
+  },
+  "node_outputs": {
+    "ingest.partition": {
+      "shards": [
+        {
+          "type": "data",
+          "id": "supplier_data"
+        },
+        {
+          "type": "action",
+          "id": "analyze_concentration"
+        }
+      ]
+    },
+    "ingest.map": [
+      {
+        "shard_result": {
+          "geographic_concentration": [
+            {
+              "country": "China",
+              "percentage": 45
+            },
+            {
+              "country": "USA",
+              "percentage": 25
+            },
+            {
+              "country": "Germany",
+              "percentage": 10
+            },
+            {
+              "country": "South Korea",
+              "percentage": 9
+            },
+            {
+              "country": "Japan",
+              "percentage": 7
+            },
+            {
+              "country": "Taiwan",
+              "percentage": 4
+            }
+          ],
+          "product_concentration": [
+            {
+              "category": "Semiconductors",
+              "percentage": 50
+            },
+            {
+              "category": "Passive Components",
+              "percentage": 20
+            },
+            {
+              "category": "Electromechanical Components",
+              "percentage": 15
+            },
+            {
+              "category": "PCB & PCB Assemblies",
+              "percentage": 10
+            },
+            {
+              "category": "Cables & Wiring",
+              "percentage": 5
+            }
+          ]
+        }
+      },
+      {
+        "shard_result": {
+          "action": "analyze_concentration",
+          "status": "completed",
+          "result": {
+            "concentration_score": 0.72,
+            "top_suppliers": [
+              {
+                "supplier_id": 1,
+                "contribution": 0.25
+              },
+              {
+                "supplier_id": 2,
+                "contribution": 0.18
+              },
+              {
+                "supplier_id": 3,
+                "contribution": 0.12
+              }
+            ],
+            "risk_level": "medium"
+          }
+        }
+      }
+    ],
+    "ingest.reduce": {
+      "findings": [
+        {
+          "source_data": "geographic_concentration",
+          "source_url": ""
+        },
+        {
+          "source_data": "product_concentration",
+          "source_url": ""
+        }
+      ],
+      "output": {
+        "concentration_analysis": {
+          "top_countries": [
+            {
+              "country": "China",
+              "percentage": 45
+            },
+            {
+              "country": "USA",
+              "percentage": 25
+            }
+          ],
+          "top_categories": [
+            {
+              "category": "Semiconductors",
+              "percentage": 50
+            },
+            {
+              "category": "Passive Components",
+              "percentage": 20
+            }
+          ]
+        },
+        "supply_concentration_score": 0.72
+      },
+      "supplier_signals": [
+        {
+          "signal_type": "country_risk",
+          "details": [
+            {
+              "country": "China",
+              "risk_level": "high"
+            }
+          ]
+        },
+        {
+          "signal_type": "category_dependency",
+          "details": [
+            {
+              "category": "Semiconductors",
+              "risk_level": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    "score": {
+      "01": {
+        "supplier_id": 1,
+        "risk_score": 85
+      },
+      "02": {
+        "supplier_id": 2,
+        "risk_score": 78
+      },
+      "03": {
+        "supplier_id": 3,
+        "risk_score": 69
+      }
+    },
+    "concentrate": {
+      "concentration": {
+        "scores": [
+          {
+            "country": "China",
+            "score": 0.45
+          },
+          {
+            "country": "USA",
+            "score": 0.25
+          }
+        ],
+        "mitigations_planned": true,
+        "single_source_flagged": true
+      }
+    },
+    "mitigate": {
+      "above_appetite": true,
+      "mitigations": {},
+      "mitigations_planned": true,
+      "output": {
+        "above_appetite": true,
+        "mitigations_planned": true,
+        "single_source_flagged": true
+      },
+      "single_source_flagged": true
+    }
+  },
+  "tool_calls": []
+}

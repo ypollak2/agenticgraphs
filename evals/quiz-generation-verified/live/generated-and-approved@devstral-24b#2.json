@@ -5,30 +5,26 @@
   "inputs": {},
   "node_outputs": {
     "intake": {
-      "summary": ""
+      "summary": "Review to ensure answers align with keys; verify distractors are viable alternatives"
     },
     "generate": {
       "draft": {
         "entries": [
           {
-            "question": "What is the capital of France?",
-            "key": "Paris",
+            "answer": "A",
+            "key": "B",
             "distractors": [
-              "Berlin",
-              "Madrid",
-              "Rome"
-            ],
-            "rationale": "These are major European capitals, making them plausible distractors."
+              "C",
+              "D"
+            ]
           },
           {
-            "question": "Which planet is known as the Red Planet?",
-            "key": "Mars",
+            "answer": "X",
+            "key": "Y",
             "distractors": [
-              "Earth",
-              "Jupiter",
-              "Saturn"
-            ],
-            "rationale": "All these planets are in our solar system and could be commonly confused."
+              "Z",
+              "W"
+            ]
           }
         ]
       }
@@ -36,22 +32,22 @@
     "critique": {
       "entries": [
         {
-          "answer_matches_key": true,
+          "answer_matches_key": false,
           "distractors_plausible": true
         },
         {
-          "answer_matches_key": true,
+          "answer_matches_key": false,
           "distractors_plausible": true
         }
       ],
       "output": {
         "entries": [
           {
-            "answer_matches_key": true,
+            "answer_matches_key": false,
             "distractors_plausible": true
           },
           {
-            "answer_matches_key": true,
+            "answer_matches_key": false,
             "distractors_plausible": true
           }
         ]

@@ -1,0 +1,23 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Analyze the query execution and row count sanity"
+    },
+    "generate": {
+      "draft": ""
+    },
+    "critique": {
+      "output": {
+        "query_executes": null,
+        "row_count_sane": null
+      },
+      "query_executes": null,
+      "row_count_sane": null
+    }
+  },
+  "tool_calls": []
+}

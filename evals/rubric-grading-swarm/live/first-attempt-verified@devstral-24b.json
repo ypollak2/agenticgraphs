@@ -7,13 +7,13 @@
     "plan": {
       "tasks": [
         {
-          "node": "action",
-          "ability": "generate_initial_plans"
+          "action": "generate_tasks",
+          "node": "execution"
         }
       ]
     },
     "work": {
-      "work_result": "Command executed successfully."
+      "work_result": "Task completed"
     },
     "verify": {
       "agreement": 1.0,
@@ -21,9 +21,9 @@
       "output": {
         "agreement": 1.0,
         "escalated": false,
-        "threshold": 0.75
+        "threshold": 0.9
       },
-      "threshold": 0.75
+      "threshold": 0.9
     }
   },
   "tool_calls": []

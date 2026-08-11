@@ -77,9 +77,9 @@
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-11",
-    "cases": 7,
-    "passed": 6,
-    "pass_rate": 0.857,
+    "cases": 8,
+    "passed": 7,
+    "pass_rate": 0.875,
     "mean_steps": 3.0,
     "results": [
       {
@@ -123,6 +123,31 @@
         "assert_failures": [
           "all(c.resolves for c in output.citations)"
         ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "first-attempt-verified",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "plan",
+          "work",
+          "verify"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -269,7 +294,7 @@
     "recorded": "2026-08-09",
     "age_days": 2,
     "per_model_pass_rate": {
-      "devstral:24b": 0.5,
+      "devstral:24b": 0.667,
       "hermes3:8b": 1.0,
       "qwen2.5-coder:7b": 1.0,
       "qwen3-coder:30b": 1.0
@@ -280,7 +305,7 @@
       "devstral:24b"
     ],
     "samples_per_model": {
-      "devstral:24b": 2,
+      "devstral:24b": 3,
       "hermes3:8b": 1,
       "qwen2.5-coder:7b": 1,
       "qwen3-coder:30b": 3

@@ -1,0 +1,25 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "plan": {
+      "steps": [
+        "devstral"
+      ]
+    },
+    "execute": {
+      "step_result": "Execution completed successfully."
+    },
+    "verify": {
+      "conclusion": "Workflow completed",
+      "output": {
+        "conclusion": "Execution completed successfully.",
+        "query_results": []
+      },
+      "query_results": []
+    }
+  },
+  "tool_calls": []
+}

@@ -8,36 +8,28 @@
   "node_outputs": {
     "frame": {
       "options": {
-        "async processing": "Processes orders asynchronously to decouple from request handling",
-        "sync processing": "Handles each order synchronously within the same request-response cycle"
+        "sync-order-processing": {
+          "async_advantage": 0,
+          "overhead_cost": 30
+        },
+        "async-order-processing": {
+          "async_advantage": 70,
+          "overhead_cost": 15
+        }
       },
       "rubric": {
-        "latency_impact": [
-          "How much does this approach affect P99 latency?",
-          "Scale: -5 (increases latency significantly), +5 (reduces latency significantly)"
-        ],
-        "throughput_impact": [
-          "How does this approach affect system throughput?",
-          "Scale: -5 (decreases throughput), +5 (increases throughput)"
-        ],
-        "complexity_effort": [
-          "What is the implementation complexity and effort required?",
-          "Scale: -5 (high complexity/effort), +5 (low complexity/effort)"
-        ],
-        "reliability_vs_responsiveness_tradeoff": [
-          "How does this approach balance between reliability and responsiveness?",
-          "Scale: -5 (more reliable but less responsive), +5 (more responsive but potentially less reliable)"
-        ]
+        "processing_delay_weight": 0.6,
+        "latency_variance_penalty": 0.4
       }
     },
     "judge": {
       "designs_scored": 2,
-      "margin": null,
-      "winner": null,
+      "margin": 15,
       "output": {
         "designs_scored": 2,
-        "margin": null
-      }
+        "margin": 15
+      },
+      "winner": "async-order-processing"
     }
   },
   "tool_calls": []

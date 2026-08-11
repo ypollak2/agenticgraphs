@@ -7,53 +7,38 @@
     "partition": {
       "shards": [
         {
-          "role": "partician",
-          "speciality": "analyst",
-          "instructions": "Analyze each requirement from the requirements list and categorize them based on their type (functional, non-functional, etc.)"
+          "type": "question",
+          "content": "Can Devstral analyze the requirements and output structure given in this workflow?",
+          "requires": [
+            "requirements",
+            "page_limit"
+          ]
         }
       ]
     },
     "map": {
       "shard_result": {
-        "role": "mapper",
-        "speciality": "map_shard",
-        "result": [
-          {
-            "type": "functional",
-            "requirement": "The system shall allow users to log in using their email and password."
-          },
-          {
-            "type": "non-functional",
-            "requirement": "System response time should not exceed 2 seconds for 95% of transactions."
-          }
-        ]
+        "answered": false,
+        "flagged_for_followup": true
       }
     },
     "reduce": {
       "output": {
         "page_count": 1,
-        "page_limit": 5,
+        "page_limit": 0.5,
         "requirements": [
           {
-            "answered": true,
-            "flagged": false
-          },
-          {
             "answered": false,
-            "flagged": true
+            "flagged_for_followup": true
           }
         ]
       },
       "page_count": 1,
-      "page_limit": 5,
+      "page_limit": 0.5,
       "requirements": [
         {
-          "answered": true,
-          "flagged": false
-        },
-        {
           "answered": false,
-          "flagged": true
+          "flagged_for_followup": true
         }
       ]
     }

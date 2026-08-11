@@ -1,0 +1,39 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "name": "resolve_citations",
+          "constraints": {}
+        }
+      ]
+    },
+    "work": {
+      "work_result": [
+        {
+          "name": "check_citations",
+          "command": "npm ci && npm run test:unit"
+        },
+        {
+          "name": "print_working_directory",
+          "command": "pwd"
+        }
+      ]
+    },
+    "verify": {
+      "citations": [
+        {
+          "resolves": false
+        }
+      ],
+      "output": {
+        "citations": []
+      }
+    }
+  },
+  "tool_calls": []
+}

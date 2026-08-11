@@ -57,11 +57,40 @@
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-11",
-    "cases": 6,
-    "passed": 5,
-    "pass_rate": 0.833,
+    "cases": 7,
+    "passed": 6,
+    "pass_rate": 0.857,
     "mean_steps": 7.0,
     "results": [
+      {
+        "id": "happy-path",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": true,
+        "passed": true,
+        "steps": 7,
+        "trace": [
+          "rfp.partition",
+          "rfp.map",
+          "rfp.reduce",
+          "score",
+          "negotiate",
+          "budget-approval",
+          "award"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": true,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "happy-path",
         "model": "devstral:24b",
@@ -256,7 +285,7 @@
     "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
-      "devstral:24b": 2,
+      "devstral:24b": 3,
       "gpt-4o": 1,
       "qwen3-coder:30b": 3
     },

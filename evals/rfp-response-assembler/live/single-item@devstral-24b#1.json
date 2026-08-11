@@ -5,16 +5,31 @@
   "inputs": {},
   "node_outputs": {
     "partition": {
-      "shards": []
+      "shards": [
+        {
+          "data": {
+            "requirements": [],
+            "page_count": 0,
+            "page_limit": 5
+          }
+        }
+      ]
+    },
+    "map": {
+      "shard_result": {
+        "requirements": [],
+        "page_count": 0,
+        "page_limit": 5
+      }
     },
     "reduce": {
       "output": {
         "page_count": 0,
-        "page_limit": 0,
+        "page_limit": 5,
         "requirements": []
       },
       "page_count": 0,
-      "page_limit": 0,
+      "page_limit": 5,
       "requirements": []
     }
   },

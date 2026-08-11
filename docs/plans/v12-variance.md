@@ -127,17 +127,17 @@ variable.
 
 | | `qwen3-coder:30b` | `devstral:24b` |
 |---|---|---|
-| stable pass (3/3) | 57 | 17 |
-| stable fail (0/3) | 9 | 10 |
-| **unstable** | **16 (20%)** | **23 (46%)** |
-| cells scored | 82 | 50 |
+| stable pass (3/3) | 57 | 21 |
+| stable fail (0/3) | 9 | 13 |
+| **unstable** | **16 (20%)** | **36 (51%)** |
+| cells scored | 82 | 70 |
 
 **It is not the model. It is worse on the second one — nearly half its cells disagree
 with themselves.**
 
 ## The models do not agree about which graphs are stable
 
-Of 49 cells scorable on both, **28 (57%) fall into different stability classes**. A
+Of 69 cells scorable on both, **39 (57%) fall into different stability classes**. A
 contract that is a rock-solid 3/3 on one model is a coin flip or a flat 0/3 on the
 other:
 
@@ -153,33 +153,37 @@ other:
 1". It is not unsatisfiable. It is model-specific, and one model at n=3 could not tell
 the difference either.
 
-## One graph in the registry has real evidence of an unsatisfiable contract
+## Four graphs have cross-family evidence of an unsatisfiable contract
 
-Failing 0/3 on **both** model families — six independent attempts:
+Failing 0/3 on **both** model families — six independent attempts each:
 
     flaky-test-reflexion
+    self-healing-ci
+    supplier-risk-monitor
+    trial-eligibility-screener
 
-That is the whole list. The registry currently publishes 6 as 🚫 *satisfied by no
-model*. One survives two-family, three-sample scrutiny.
+Four graphs. The registry published **14** as 🚫 *satisfied by no model* before repeats
+existed. Four survive two-family, three-sample scrutiny.
 
 ## Registry effect
 
 | | before repeats | after `qwen3` n=3 | after `devstral` n=3 |
 |---|---|---|---|
-| 🚫 satisfied by no model | 14 | 8 | **6** |
-| 🎲 same model, different answer | 2 | 18 | **37** |
-| ✅ satisfied every model, every sample | 50 | 40 | **24** |
+| 🚫 satisfied by no model | 14 | 8 | **5** |
+| 🎲 same model, different answer | 2 | 18 | **50** |
+| ✅ satisfied every model, every sample | 50 | 40 | **13** |
 
-The ✅ column is the one to look at. It has more than halved — not because anything
-broke, but because 26 graphs that looked clean were only ever measured once.
+The ✅ column is the one to look at. **50 graphs looked clean; 13 still do.** Nothing
+broke — the other 37 had simply been measured once each.
 
 ## Caveats, stated
 
-- **`devstral:24b` is incomplete: 50 of 83 cells reached 3 samples.** The 25 unfinished
-  are the heavy composites (search, fan-out, retry loops) — they take ~10 minutes each,
-  and three separate background runs were terminated part-way. Its 46% is therefore
-  measured on a set skewed toward primitives, and could move either direction when the
-  composites land.
+- **The composites landed, and instability went UP: 46% -> 51%.** The earlier figure was
+  measured on 50 cells skewed toward primitives; adding the heavy composites (search,
+  fan-out, retry loops) made it worse, which is the direction more nodes and more chances
+  to drift would predict. 70 of 83 cells now at n=3.
+- **13 cells could not reach n=3 at all** — 12 at n=2, 1 at n=1. These are not slow, they
+  are cells where `devstral:24b` repeatedly fails to emit parseable output. See below.
 - **Unparseable replies reduce `n` rather than counting as failures.** `devstral:24b`
   emitted markedly more of them — JSON arrays where objects were required, truncation
   mid-object, and once `float('inf')`, which is Python, not JSON. Cells where it never
@@ -201,3 +205,39 @@ measurement was. Concretely:
 3. **A fourth verdict is needed.** Pass / fail / unsatisfiable has no room for "the model
    did not emit parseable output", which happened often enough here to silently shrink
    the denominator.
+
+## Cells that cannot be scored at all
+
+13 cells never reached n=3, and not because they are slow. `devstral:24b` repeatedly
+fails to emit parseable output for them, and a sample that fails to parse writes no
+record — so it reduces `n` rather than counting as anything.
+
+`architecture-decision-tournament` is the clearest case: **6 attempts, 0 valid
+samples**, three distinct failure shapes:
+
+```
+unparseable JSON:  '{"proposal": {...}, "rubric_sc…          (truncated mid-object)
+TypeError:         '>' not supported between 'dict' and 'dict'
+unparseable JSON:  '{"rubric": {"latency_bound": 200,   # milliseconds   (a comment)
+```
+
+This produces three separate reporting problems:
+
+1. **Silent denominator shrinkage** — a rate is computed over fewer attempts than were
+   requested, with no indication.
+2. **Selection bias** — a model that often cannot emit valid JSON is *excluded from* the
+   percentages rather than *penalised by* them. The worst pairings vanish.
+3. **Non-termination** — a cell with reliable parse failure can never reach `n`, so no
+   amount of resampling fixes it. It is permanently unscoreable and permanently invisible.
+
+Pass / fail / unsatisfiable has no state for "this model cannot be scored on this
+graph". That is a fourth verdict, and adding it is a design decision rather than a
+patch — recorded here rather than guessed at.
+
+## A harness defect this surfaced
+
+The `TypeError` above is **not** a model failure. `kind: search` scores candidates with
+`>`, and when a node returns a dict where a number was expected the comparison raises.
+The harness has no type guard at that point, and the resulting crash is currently
+recorded as if the model had produced unparseable output — misattributing a harness bug
+to the model. Unfixed; noted.

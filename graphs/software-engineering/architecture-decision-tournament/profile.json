@@ -72,8 +72,7 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.designs_scored >= 3",
-          "output.margin is not None"
+          "output.designs_scored >= 3"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,

@@ -12,11 +12,11 @@ the registry.
 | composite | 14 | 0 |
 | human-gated | 4 | 0 |
 
-- ✅ **24** satisfied on every model, every sample
-- 🎲 **37** where one model both passed and failed across samples
-- 🚫 **6** satisfied by no model
+- ✅ **13** satisfied on every model, every sample
+- 🎲 **50** where one model both passed and failed across samples
+- 🚫 **5** satisfied by no model
 
-Samples per graph+model cell: {1: 77, 2: 15, 3: 132}. A cell with one
+Samples per graph+model cell: {1: 74, 2: 15, 3: 152}. A cell with one
 sample cannot distinguish a graph that passes from one that passed by luck; 🎲
 is what that looks like once there is more than one.
 
@@ -24,33 +24,45 @@ is what that looks like once there is more than one.
 
 | Graph | Model | Pass rate across samples |
 |---|---|---|
+| `rfp-response-assembler` | `devstral:24b` | 50% of 2 |
 | `blog-production-pipeline` | `devstral:24b` | 66% of 3 |
 | `book-editing-pipeline` | `devstral:24b` | 66% of 3 |
+| `podcast-production-pipeline` | `devstral:24b` | 66% of 3 |
 | `escalation-summarizer` | `devstral:24b` | 66% of 3 |
 | `kb-article-generator` | `devstral:24b` | 66% of 3 |
 | `kb-article-generator` | `qwen2.5-coder:7b` | 50% of 2 |
+| `sales-call-scorer` | `devstral:24b` | 66% of 3 |
 | `sales-call-scorer` | `qwen3-coder:30b` | 33% of 3 |
+| `ticket-triage-swarm` | `devstral:24b` | 33% of 3 |
 | `ab-test-analysis` | `devstral:24b` | 33% of 3 |
 | `etl-pipeline-builder` | `devstral:24b` | 33% of 3 |
 | `etl-pipeline-builder` | `qwen3-coder:30b` | 33% of 3 |
+| `schema-migration-saga` | `devstral:24b` | 50% of 2 |
+| `sql-generation-verified` | `devstral:24b` | 33% of 3 |
 | `alert-noise-reduction` | `devstral:24b` | 66% of 3 |
 | `incident-lifecycle` | `qwen3-coder:30b` | 66% of 3 |
 | `postmortem-writer` | `devstral:24b` | 33% of 3 |
+| `runbook-executor` | `devstral:24b` | 66% of 3 |
+| `quiz-generation-verified` | `devstral:24b` | 33% of 3 |
+| `rubric-grading-swarm` | `devstral:24b` | 33% of 3 |
 | `rubric-grading-swarm` | `qwen3-coder:30b` | 66% of 3 |
 | `expense-audit-swarm` | `qwen3-coder:30b` | 66% of 3 |
 | `kyc-document-processing` | `qwen3-coder:30b` | 66% of 3 |
+| `regulatory-filing-lifecycle` | `devstral:24b` | 66% of 3 |
 | `clinical-literature-triage` | `qwen3-coder:30b` | 66% of 3 |
 | `clinical-protocol-lifecycle` | `qwen3-coder:30b` | 66% of 3 |
 | `differential-diagnosis-ensemble` | `devstral:24b` | 66% of 3 |
 | `medical-coding-audit` | `devstral:24b` | 66% of 3 |
 | `medical-coding-audit` | `qwen3-coder:30b` | 66% of 3 |
+| `hiring-lifecycle` | `devstral:24b` | 50% of 2 |
 | `jd-drafting-critic` | `qwen2.5-coder:7b` | 50% of 2 |
 | `onboarding-plan-builder` | `qwen3-coder:30b` | 33% of 3 |
 | `performance-cycle-summarizer` | `devstral:24b` | 66% of 3 |
 | `contract-lifecycle` | `devstral:24b` | 66% of 3 |
+| `gdpr-data-audit` | `devstral:24b` | 66% of 3 |
 | `product-listing-pipeline` | `qwen3-coder:30b` | 66% of 3 |
 | `returns-triage` | `devstral:24b` | 33% of 3 |
-| `citation-integrity-audit` | `devstral:24b` | 50% of 2 |
+| `citation-integrity-audit` | `devstral:24b` | 66% of 3 |
 | `literature-review-swarm` | `devstral:24b` | 66% of 3 |
 | `literature-review-swarm` | `qwen3-coder:30b` | 66% of 3 |
 | `compliance-evidence-collector` | `devstral:24b` | 33% of 3 |
@@ -59,6 +71,9 @@ is what that looks like once there is more than one.
 | `phishing-triage` | `qwen3-coder:30b` | 66% of 3 |
 | `red-team-blue-team-hardening` | `devstral:24b` | 66% of 3 |
 | `red-team-blue-team-hardening` | `qwen3-coder:30b` | 66% of 3 |
+| `soc-alert-investigation` | `devstral:24b` | 33% of 3 |
+| `threat-intel-digest` | `devstral:24b` | 66% of 3 |
+| `vuln-remediation-lifecycle` | `devstral:24b` | 33% of 3 |
 | `architecture-decision-tournament` | `devstral:24b` | 50% of 2 |
 | `bug-triage-and-fix` | `devstral:24b` | 33% of 3 |
 | `dependency-upgrade` | `devstral:24b` | 33% of 3 |
@@ -75,7 +90,6 @@ is what that looks like once there is more than one.
 |---|---|
 | `self-healing-ci` | primitive |
 | `trial-eligibility-screener` | human-gated |
-| `soc-alert-investigation` | primitive |
 | `feature-delivery-lifecycle` | composite |
 | `flaky-test-reflexion` | primitive |
 | `test-suite-generation` | primitive |

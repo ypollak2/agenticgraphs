@@ -9,29 +9,42 @@
     "collect": {
       "figures": [
         {
-          "type": "sales",
-          "amount": 500000
+          "title": "Revenue",
+          "amount": 500000,
+          "currency": "USD"
         },
         {
-          "type": "expenses",
-          "amount": 325000
+          "title": "Expenses",
+          "amount": 375000,
+          "currency": "USD"
+        },
+        {
+          "title": "Net Income",
+          "amount": 125000,
+          "currency": "USD"
         }
       ]
     },
     "reconcile": {
-      "variance": 175000,
+      "variance": {
+        "Revenue": 0,
+        "Expenses": 0,
+        "Net Income": 0
+      },
       "reconciled": true
     },
     "file": {
       "filed": true,
-      "confirmation_id": "SECQ12026AAA"
+      "confirmation_id": "FILING_2026_Q1_SEC"
     },
     "retain": {
       "evidence_pack": {
-        "confirmation_id": "SECQ12026AAA"
+        "confirmation_id": "FILING_2026_Q1_SEC"
       },
       "output": {
-        "evidence_pack": "{\"confirmation_id\":\"SECQ12026AAA\"}",
+        "evidence_pack": {
+          "confirmation_id": "FILING_2026_Q1_SEC"
+        },
         "filed": true,
         "reconciled": true,
         "signed_off": true

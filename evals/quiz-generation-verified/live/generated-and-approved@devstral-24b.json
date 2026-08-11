@@ -5,30 +5,23 @@
   "inputs": {},
   "node_outputs": {
     "intake": {
-      "summary": "Review the critic's answers to ensure they match the keys and that distractors are plausible."
+      "summary": "Review the answers to ensure they match the correct keys and that distractors are plausible."
     },
     "generate": {
-      "draft": {
-        "entries": [
-          {
-            "answer_matches_key": true,
-            "distractors_plausible": true
-          }
-        ]
-      }
+      "draft": ""
     },
     "critique": {
       "entries": [
         {
           "answer_matches_key": true,
-          "distractors_plausible": true
+          "distractors_plausible": false
         }
       ],
       "output": {
         "entries": [
           {
             "answer_matches_key": true,
-            "distractors_plausible": true
+            "distractors_plausible": false
           }
         ]
       }

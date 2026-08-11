@@ -71,15 +71,65 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:qwen3-coder:30b",
+    "runner": "llm-replay:devstral:24b,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-11",
-    "cases": 3,
-    "passed": 3,
+    "cases": 5,
+    "passed": 5,
     "pass_rate": 1.0,
     "mean_steps": 3.0,
     "results": [
+      {
+        "id": "single-item",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "partition",
+          "map",
+          "reduce"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "single-item",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "partition",
+          "map",
+          "reduce"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "single-item",
         "model": "qwen3-coder:30b",
@@ -157,17 +207,20 @@
       }
     ],
     "models": [
+      "devstral:24b",
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-11",
     "age_days": 0,
     "per_model_pass_rate": {
+      "devstral:24b": 1.0,
       "qwen3-coder:30b": 1.0
     },
     "models_disagree": false,
     "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
+      "devstral:24b": 2,
       "qwen3-coder:30b": 3
     },
     "gate_auto_approved": false

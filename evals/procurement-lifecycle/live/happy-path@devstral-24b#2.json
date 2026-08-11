@@ -1,0 +1,135 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "source a data-warehouse vendor under a 120k budget, award by Q4"
+  },
+  "node_outputs": {
+    "rfp.partition": {
+      "shards": [
+        {
+          "data": {
+            "key": "vendors",
+            "type": "object",
+            "limit": 5
+          },
+          "targets": [
+            "rfp.search_vendors"
+          ]
+        },
+        {
+          "data": {
+            "key": "budget_constraint",
+            "value": 120000
+          },
+          "targets": []
+        }
+      ]
+    },
+    "rfp.map": [
+      {
+        "shard_result": [
+          {
+            "vendor_id": 1,
+            "name": "WarehouseOne",
+            "rating": 4.8
+          },
+          {
+            "vendor_id": 2,
+            "name": "CloudDataHub",
+            "rating": 4.6
+          },
+          {
+            "vendor_id": 3,
+            "name": "NimbusStorage",
+            "rating": 4.9
+          },
+          {
+            "vendor_id": 4,
+            "name": "DatavaultPro",
+            "rating": 4.7
+          },
+          {
+            "vendor_id": 5,
+            "name": "SilverData",
+            "rating": 4.5
+          }
+        ]
+      },
+      {
+        "shard_result": {
+          "key": "budget_constraint",
+          "value": 120000
+        }
+      }
+    ],
+    "rfp.reduce": {
+      "output": [
+        {
+          "vendor_id": 1,
+          "name": "WarehouseOne",
+          "rating": 4.8
+        },
+        {
+          "vendor_id": 2,
+          "name": "CloudDataHub",
+          "rating": 4.6
+        },
+        {
+          "vendor_id": 3,
+          "name": "NimbusStorage",
+          "rating": 4.9
+        },
+        {
+          "vendor_id": 4,
+          "name": "DatavaultPro",
+          "rating": 4.7
+        },
+        {
+          "vendor_id": 5,
+          "name": "SilverData",
+          "rating": 4.5
+        }
+      ],
+      "page_count": 1.0,
+      "page_limit": 5.0,
+      "requirements": [
+        {
+          "answered": true,
+          "flagged": false
+        }
+      ],
+      "rfp_responses": []
+    },
+    "score": {
+      "vendor_scores": [
+        [
+          1,
+          92
+        ],
+        [
+          3,
+          94
+        ],
+        [
+          4,
+          93
+        ]
+      ]
+    },
+    "negotiate": {
+      "terms": "24 month contract, 10% discount for multi-year commitment",
+      "savings": 12000
+    },
+    "award": {
+      "awarded": true,
+      "output": {
+        "scored_vendors": 3,
+        "signed_off": true
+      },
+      "scored_vendors": 3
+    }
+  },
+  "tool_calls": []
+}

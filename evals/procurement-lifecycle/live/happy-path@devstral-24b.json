@@ -9,104 +9,62 @@
     "rfp.partition": {
       "shards": [
         {
-          "key": "current_progress",
-          "value": "Initial attempt under way"
-        },
-        {
-          "key": "potential_vendors",
-          "value": "Identify top 3 vendors based on budget and Q4 timeline"
-        },
-        {
-          "key": "next_steps",
-          "value": "Evaluate capabilities of each vendor to meet requirements within the given budget"
+          "data": "RFP partition analysis finds that data-warehouse projects are typically awarded under a comprehensive procurement process. Key considerations for the vendor search include: compliance certifications (ISO 27001 preferred), ability to scale within budget constraints (under $120,000 total), proven implementation track record, and customer references. Strategic partners or incumbent vendors known in the industry should be prioritized."
         }
       ]
     },
-    "rfp.map": [
-      {
-        "shard_result": "Current progress reported as 'Initial attempt under way'"
-      },
-      {
-        "shard_result": [
-          {
-            "name": "Vendor Alpha",
-            "budget_match": true,
-            "Q4_availability": true
-          },
-          {
-            "name": "Vendor Beta",
-            "budget_match": true,
-            "Q4_availability": false
-          },
-          {
-            "name": "Vendor Gamma",
-            "budget_match": false,
-            "Q4_availability": true
-          }
-        ]
-      },
-      {
-        "shard_result": {
-          "vendor1": {
-            "capabilities_meet_requirements": true,
-            "cost_estimate": 85000
-          },
-          "vendor2": {
-            "capabilities_meet_requirements": false,
-            "cost_estimate": 95000
-          },
-          "vendor3": {
-            "capabilities_meet_requirements": true,
-            "cost_estimate": 115000
-          }
+    "rfp.map": {
+      "shard_result": {
+        "requirements": {
+          "compliance_certifications": "ISO 27001",
+          "budget_constraints": "<$120,000",
+          "implementation_record": true,
+          "customer_references": true,
+          "strategic_partners": true
         }
       }
-    ],
+    },
     "rfp.reduce": {
-      "output": {
-        "selected_vendor": "Vendor Alpha",
-        "reasons": [
-          "Meets budget constraint (under $120k)",
-          "Available to deliver by Q4",
-          "Capabilities match requirements"
-        ]
-      },
+      "output": "data-warehouse vendor sourcing plan",
       "page_count": 1.0,
-      "page_limit": 5.0,
+      "page_limit": 1.0,
       "requirements": [
+        {
+          "answered": true,
+          "flagged": false
+        },
         {
           "answered": true,
           "flagged": false
         }
       ],
-      "rfp_responses": [
-        "Vendor Alpha: Budget - $85k, Delivery by Q4, Capabilities met",
-        "Vendor Beta didn't meet timeline requirement",
-        "Vendor Gamma exceeded budget"
-      ]
+      "rfp_responses": ""
     },
     "score": {
       "vendor_scores": {
-        "Vendor Alpha": 9.5,
-        "Vendor Beta": 3.0,
-        "Vendor Gamma": 7.2
+        "VendorA": 85,
+        "VendorB": 88,
+        "VendorC": 92
       }
     },
     "negotiate": {
       "terms": {
-        "vendor": "Vendor Alpha",
-        "price": 85000,
-        "delivery": "Q4"
+        "contract_duration": 3,
+        "compliance_certifications": true,
+        "budget_constraints": "< $120,000",
+        "implementation_record": true
       },
-      "savings": 35000
+      "savings": {
+        "Vendors reviewed to meet budget": 49.5
+      }
     },
     "award": {
       "awarded": true,
-      "scored_vendors": 3,
       "output": {
         "scored_vendors": 3,
         "signed_off": true
-      }
+      },
+      "scored_vendors": 3
     }
   },
   "tool_calls": []

@@ -77,9 +77,9 @@
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-11",
-    "cases": 6,
-    "passed": 6,
-    "pass_rate": 1.0,
+    "cases": 7,
+    "passed": 5,
+    "pass_rate": 0.714,
     "mean_steps": 3.0,
     "results": [
       {
@@ -137,7 +137,7 @@
         "model": "devstral:24b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 3,
         "trace": [
           "intake",
@@ -145,7 +145,36 @@
           "critique"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "all(i.answer_matches_key and i.distractors_plausible for i in output.entries)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "generated-and-approved",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 3,
+        "trace": [
+          "intake",
+          "generate",
+          "critique"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "all(i.answer_matches_key and i.distractors_plausible for i in output.entries)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -241,15 +270,17 @@
     "recorded": "2026-08-09",
     "age_days": 2,
     "per_model_pass_rate": {
-      "devstral:24b": 1.0,
+      "devstral:24b": 0.333,
       "qwen2.5-coder:7b": 1.0,
       "qwen3-coder:30b": 1.0
     },
-    "models_disagree": false,
+    "models_disagree": true,
     "fails_every_model": false,
-    "flaky_models": [],
+    "flaky_models": [
+      "devstral:24b"
+    ],
     "samples_per_model": {
-      "devstral:24b": 2,
+      "devstral:24b": 3,
       "qwen2.5-coder:7b": 1,
       "qwen3-coder:30b": 3
     },

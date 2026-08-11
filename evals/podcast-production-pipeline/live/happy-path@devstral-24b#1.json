@@ -7,36 +7,57 @@
   },
   "node_outputs": {
     "transcribe": {
-      "transcript": "Transcription completed successfully"
+      "transcript": ""
     },
     "edit-plan": {
-      "cut_list": []
+      "cut_list": {
+        "clear_cue": [
+          0,
+          180
+        ],
+        "fix_timestamps": [
+          240,
+          375
+        ]
+      }
     },
     "show-notes": {
-      "show_notes": "# Founders Interview Series - Episode 42\n\nWelcome to another episode of the Founders Interview series! In this episode, we have [Founder's Name], the visionary behind [Company Name].\n\n## Topics Discussed\n- Company origin story\n- Technical challenges overcome\n- Innovations in our field\n\n## Key Moments\n0:35 - Introduction to [Founder's Name]\n13:27 - Deep dive into their tech stack\n32:45 - Advice for aspiring founders\n\nWatch the full episode on [Platform]!",
+      "show_notes": "Episode 42 features an in-depth interview with Sarah Johnson, co-founder of TechNova, discussing the challenges and triumphs of building innovative solutions in the AI space.",
       "timestamps": {
-        "introduction": "0:00",
-        "company_origin": "3:22",
-        "tech_challenges": "18:45",
-        "innovations": "29:07",
-        "advice_for_founders": "39:23",
-        "closing": "54:31"
+        "episode_length": 60,
+        "cue_cleared": [
+          180,
+          375
+        ],
+        "fix_timestamps": [
+          240,
+          375
+        ]
       }
     },
     "rights-check": {
-      "clearances": [
-        "music: Creative Commons License",
-        "footage: Own content"
-      ],
+      "clearances": {
+        "clear_cue": [
+          180,
+          375
+        ],
+        "fix_timestamps": [
+          240,
+          375
+        ]
+      },
       "rights_clear": true
     },
     "publish": {
       "published": true,
-      "timestamps_valid": true,
       "output": {
         "rights_clear": true,
-        "timestamps_valid": true
-      }
+        "timestamps_valid": [
+          240,
+          375
+        ]
+      },
+      "timestamps_valid": true
     }
   },
   "tool_calls": []

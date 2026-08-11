@@ -6,9 +6,9 @@ by hand is a label that can be set to make a number look better.
 
 **83 graphs recorded across 5 models:** `devstral:24b`, `gpt-4o`, `hermes3:8b`, `qwen2.5-coder:7b`, `qwen3-coder:30b`
 
-- ✅ **24** satisfy their contract on every model
-- ⚠️ **51** are satisfied by some models and not others
-- 🚫 **6** are satisfied by no model, but *could* be
+- ✅ **13** satisfy their contract on every model
+- ⚠️ **63** are satisfied by some models and not others
+- 🚫 **5** are satisfied by no model, but *could* be
 - 🔌 **0** are unsatisfiable **by construction** — their evidence has no source in this repo
 
 ## 🚫 Satisfied by no model
@@ -27,8 +27,7 @@ produce what it asserts on. That is the v1.4 item.
 | Graph | Contract | What every model missed |
 |---|---|---|
 | `self-healing-ci` | a red pipeline ends green or escalated, never retried without a record | `len(output.lessons) >= 1` |
-| `trial-eligibility-screener` | an ambiguous eligibility decision never enrols without a clinician sig | `output.unreviewed_ambiguous == 0 (AttributeError: unreviewed_ambiguous)` |
-| `soc-alert-investigation` | conclusion supported by query results attached | `len(output.query_results) > 0 and output.conclusion` |
+| `trial-eligibility-screener` | an ambiguous eligibility decision never enrols without a clinician sig | `output.unreviewed_ambiguous == 0` |
 | `feature-delivery-lifecycle` | A release is cut only after the audit verdict is approve, docs are upd | `[audit] all(f.file and f.line for f in output.findings) (AttributeError: 'str' object has ` |
 | `flaky-test-reflexion` | stability is proven over repeated runs, and every failed attempt is re | `len(output.lessons) >= 1` |
 | `test-suite-generation` | coverage delta positive; mutation score above baseline | `output.coverage_delta > 0 and output.mutation_score > output.mutation_baseline` |
@@ -51,46 +50,58 @@ one model was the first thing v1.3 did.
 |---|---|
 | `invoice-reconciliation` | `devstral:24b` 100%, `gpt-4o` 100%, `qwen3-coder:30b` 0% |
 | `procurement-lifecycle` | `devstral:24b` 100%, `gpt-4o` 0%, `qwen3-coder:30b` 100% |
-| `vendor-comparison-matrix` | `gpt-4o` 0%, `qwen3-coder:30b` 100% |
+| `rfp-response-assembler` | `devstral:24b` 50%, `qwen3-coder:30b` 100% |
+| `vendor-comparison-matrix` | `devstral:24b` 0%, `gpt-4o` 0%, `qwen3-coder:30b` 100% |
 | `blog-production-pipeline` | `devstral:24b` 66%, `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `book-editing-pipeline` | `devstral:24b` 66%, `qwen3-coder:30b` 100% |
-| `screenplay-coverage` | `gpt-4o` 0%, `qwen3-coder:30b` 100% |
+| `podcast-production-pipeline` | `devstral:24b` 66%, `qwen3-coder:30b` 100% |
+| `screenplay-coverage` | `devstral:24b` 100%, `gpt-4o` 0%, `qwen3-coder:30b` 100% |
 | `escalation-summarizer` | `devstral:24b` 66%, `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `kb-article-generator` | `devstral:24b` 66%, `hermes3:8b` 100%, `qwen2.5-coder:7b` 50%, `qwen3-coder:30b` 100% |
-| `sales-call-scorer` | `devstral:24b` 100%, `qwen3-coder:30b` 33% |
+| `sales-call-scorer` | `devstral:24b` 66%, `qwen3-coder:30b` 33% |
+| `ticket-triage-swarm` | `devstral:24b` 33%, `qwen3-coder:30b` 100% |
 | `ab-test-analysis` | `devstral:24b` 33%, `gpt-4o` 100%, `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `anomaly-investigation` | `devstral:24b` 0%, `qwen3-coder:30b` 100% |
 | `etl-pipeline-builder` | `devstral:24b` 33%, `hermes3:8b` 100%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 33% |
+| `schema-migration-saga` | `devstral:24b` 50%, `qwen3-coder:30b` 100% |
+| `sql-generation-verified` | `devstral:24b` 33%, `qwen3-coder:30b` 100% |
 | `alert-noise-reduction` | `devstral:24b` 66%, `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 0% |
 | `deploy-canary-verifier` | `devstral:24b` 100%, `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `incident-lifecycle` | `devstral:24b` 0%, `gpt-4o` 100%, `qwen3-coder:30b` 66% |
 | `incident-triage-router` | `devstral:24b` 100%, `gpt-4o` 0%, `qwen3-coder:30b` 0% |
 | `postmortem-writer` | `devstral:24b` 33%, `qwen3-coder:30b` 100% |
-| `rubric-grading-swarm` | `devstral:24b` 100%, `qwen3-coder:30b` 66% |
+| `runbook-executor` | `devstral:24b` 66%, `qwen3-coder:30b` 100% |
+| `quiz-generation-verified` | `devstral:24b` 33%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |
+| `rubric-grading-swarm` | `devstral:24b` 33%, `qwen3-coder:30b` 66% |
 | `earnings-call-digest` | `devstral:24b` 100%, `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `expense-audit-swarm` | `devstral:24b` 100%, `hermes3:8b` 100%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 66% |
 | `kyc-document-processing` | `devstral:24b` 0%, `hermes3:8b` 100%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 66% |
+| `regulatory-filing-lifecycle` | `devstral:24b` 66%, `qwen3-coder:30b` 100% |
 | `adverse-event-scanner` | `devstral:24b` 100%, `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `clinical-literature-triage` | `devstral:24b` 0%, `gpt-4o` 0%, `qwen3-coder:30b` 66% |
 | `clinical-protocol-lifecycle` | `devstral:24b` 100%, `gpt-4o` 100%, `qwen3-coder:30b` 66% |
 | `differential-diagnosis-ensemble` | `devstral:24b` 66%, `hermes3:8b` 100%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |
-| `hiring-lifecycle` | `devstral:24b` 0%, `gpt-4o` 100%, `qwen3-coder:30b` 100% |
+| `hiring-lifecycle` | `devstral:24b` 50%, `gpt-4o` 100%, `qwen3-coder:30b` 100% |
 | `jd-drafting-critic` | `devstral:24b` 0%, `hermes3:8b` 100%, `qwen2.5-coder:7b` 50%, `qwen3-coder:30b` 100% |
 | `onboarding-plan-builder` | `devstral:24b` 0%, `qwen3-coder:30b` 33% |
 | `performance-cycle-summarizer` | `devstral:24b` 66%, `qwen3-coder:30b` 100% |
 | `contract-lifecycle` | `devstral:24b` 66%, `gpt-4o` 100%, `qwen3-coder:30b` 100% |
 | `contract-redline-pipeline` | `devstral:24b` 100%, `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `ediscovery-triage` | `devstral:24b` 0%, `qwen3-coder:30b` 100% |
+| `gdpr-data-audit` | `devstral:24b` 66%, `gpt-4o` 100%, `qwen3-coder:30b` 100% |
 | `product-listing-pipeline` | `devstral:24b` 0%, `gpt-4o` 100%, `qwen3-coder:30b` 66% |
 | `returns-triage` | `devstral:24b` 33%, `qwen3-coder:30b` 100% |
-| `supplier-risk-monitor` | `gpt-4o` 100%, `qwen3-coder:30b` 0% |
-| `citation-integrity-audit` | `devstral:24b` 50%, `hermes3:8b` 100%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |
+| `supplier-risk-monitor` | `devstral:24b` 0%, `gpt-4o` 100%, `qwen3-coder:30b` 0% |
+| `citation-integrity-audit` | `devstral:24b` 66%, `hermes3:8b` 100%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |
 | `cost-routed-research` | `devstral:24b` 0%, `qwen3-coder:30b` 100% |
 | `fact-check-pipeline` | `devstral:24b` 100%, `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `literature-review-swarm` | `devstral:24b` 66%, `gpt-4o` 0%, `qwen3-coder:30b` 66% |
 | `compliance-evidence-collector` | `devstral:24b` 33%, `gpt-4o` 0%, `qwen3-coder:30b` 100% |
 | `forensic-investigation-blackboard` | `devstral:24b` 50%, `hermes3:8b` 0%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |
 | `phishing-triage` | `devstral:24b` 33%, `qwen3-coder:30b` 66% |
+| `soc-alert-investigation` | `devstral:24b` 33%, `qwen3-coder:30b` 0% |
+| `threat-intel-digest` | `devstral:24b` 66%, `qwen3-coder:30b` 100% |
+| `vuln-remediation-lifecycle` | `devstral:24b` 33%, `gpt-4o` 100%, `qwen3-coder:30b` 100% |
 | `architecture-decision-tournament` | `devstral:24b` 50%, `hermes3:8b` 100%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |
 | `benchmark-driven-optimization-search` | `devstral:24b` 100%, `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `bug-triage-and-fix` | `devstral:24b` 33%, `gpt-4o` 100%, `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |

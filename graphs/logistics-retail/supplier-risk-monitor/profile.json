@@ -52,15 +52,105 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:gpt-4o,qwen3-coder:30b",
+    "runner": "llm-replay:devstral:24b,gpt-4o,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-11",
-    "cases": 4,
+    "cases": 7,
     "passed": 1,
-    "pass_rate": 0.25,
+    "pass_rate": 0.143,
     "mean_steps": 6.0,
     "results": [
+      {
+        "id": "happy-path",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 6,
+        "trace": [
+          "ingest.partition",
+          "ingest.map",
+          "ingest.reduce",
+          "score",
+          "concentrate",
+          "mitigate"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "output.above_appetite == output.mitigations_planned"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 6,
+        "trace": [
+          "ingest.partition",
+          "ingest.map",
+          "ingest.reduce",
+          "score",
+          "concentrate",
+          "mitigate"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "output.above_appetite == output.mitigations_planned"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 6,
+        "trace": [
+          "ingest.partition",
+          "ingest.map",
+          "ingest.reduce",
+          "score",
+          "concentrate",
+          "mitigate"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "[ingest] all(f.source_url and f.source_date for f in output.findings)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "happy-path",
         "model": "gpt-4o",
@@ -181,12 +271,14 @@
       }
     ],
     "models": [
+      "devstral:24b",
       "gpt-4o",
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-09",
     "age_days": 2,
     "per_model_pass_rate": {
+      "devstral:24b": 0.0,
       "gpt-4o": 1.0,
       "qwen3-coder:30b": 0.0
     },
@@ -194,6 +286,7 @@
     "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
+      "devstral:24b": 3,
       "gpt-4o": 1,
       "qwen3-coder:30b": 3
     },

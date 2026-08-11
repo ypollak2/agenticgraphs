@@ -1,0 +1,23 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        1
+      ]
+    },
+    "map": {
+      "shard_result": []
+    },
+    "reduce": {
+      "entries": [],
+      "output": {
+        "entries": []
+      }
+    }
+  },
+  "tool_calls": []
+}

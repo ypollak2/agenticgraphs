@@ -7,21 +7,41 @@
     "plan": {
       "tasks": [
         {
-          "node": "fetch",
-          "method": "decompose_goal",
-          "args": [
-            "every citation resolves"
-          ]
+          "nodename": "citing",
+          "action_type": "decompose_goal"
+        },
+        {
+          "nodename": "resolving",
+          "action_type": "plan"
         }
       ]
     },
-    "work": {
-      "work_result": "every citation resolves"
-    },
+    "work": [
+      {
+        "work_result": true
+      },
+      {
+        "work_result": "no progress"
+      }
+    ],
     "verify": {
-      "citations": [],
+      "citations": [
+        {
+          "resolves": false
+        },
+        {
+          "resolves": true
+        }
+      ],
       "output": {
-        "citations": []
+        "citations": [
+          {
+            "resolves": false
+          },
+          {
+            "resolves": true
+          }
+        ]
       }
     }
   },

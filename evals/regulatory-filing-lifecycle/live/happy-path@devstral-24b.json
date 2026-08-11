@@ -7,24 +7,20 @@
   },
   "node_outputs": {
     "collect": {
-      "figures": 123456
+      "figures": "2026 Q1 figures reconciled"
     },
     "reconcile": {
-      "variance": 0,
+      "variance": null,
       "reconciled": true
     },
     "file": {
       "filed": true,
-      "confirmation_id": "SEC_Q1_2026_FILING_CONFIRMATION"
+      "confirmation_id": "SEC2026Q1-4539"
     },
     "retain": {
-      "evidence_pack": {
-        "confirmation_id": "SEC_Q1_2026_FILING_CONFIRMATION"
-      },
+      "evidence_pack": null,
       "output": {
-        "evidence_pack": {
-          "confirmation_id": "SEC_Q1_2026_FILING_CONFIRMATION"
-        },
+        "evidence_pack": null,
         "filed": true,
         "reconciled": true,
         "signed_off": true

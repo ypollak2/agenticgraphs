@@ -1,0 +1,47 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "screen the oncology cohort against NCT-12345 eligibility criteria"
+  },
+  "node_outputs": {
+    "prefilter": {
+      "obvious_excludes": [
+        {
+          "subject_id": "PAT-001",
+          "reason": "age < 18"
+        },
+        {
+          "subject_id": "PAT-023",
+          "reason": "no active cancer diagnosis"
+        }
+      ]
+    },
+    "criteria-match": {
+      "matched": [],
+      "ambiguous": [
+        {
+          "subject_id": "PAT-037",
+          "reason": "inconclusive MRI results"
+        }
+      ]
+    },
+    "deep-review": {
+      "escalated_cases": [
+        {
+          "subject_id": "PAT-037",
+          "rationale": "Requires clinician review due to inconclusive MRI results"
+        }
+      ]
+    },
+    "enrol": {
+      "enrolled": [],
+      "output": {
+        "unreviewed_ambiguous": 1
+      },
+      "unreviewed_ambiguous": 1
+    }
+  },
+  "tool_calls": []
+}
