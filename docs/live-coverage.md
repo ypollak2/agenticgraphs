@@ -12,11 +12,11 @@ the registry.
 | composite | 14 | 0 |
 | human-gated | 4 | 0 |
 
-- ✅ **46** satisfied on every model, every sample
-- 🎲 **2** where one model both passed and failed across samples
-- 🚫 **14** satisfied by no model
+- ✅ **50** satisfied on every model, every sample
+- 🎲 **4** where one model both passed and failed across samples
+- 🚫 **11** satisfied by no model
 
-Samples per graph+model cell: {1: 155, 2: 3}. A cell with one
+Samples per graph+model cell: {1: 150, 2: 8}. A cell with one
 sample cannot distinguish a graph that passes from one that passed by luck; 🎲
 is what that looks like once there is more than one.
 
@@ -26,20 +26,19 @@ is what that looks like once there is more than one.
 |---|---|---|
 | `kb-article-generator` | `qwen2.5-coder:7b` | 50% of 2 |
 | `jd-drafting-critic` | `qwen2.5-coder:7b` | 50% of 2 |
+| `onboarding-plan-builder` | `qwen3-coder:30b` | 50% of 2 |
+| `red-team-blue-team-hardening` | `qwen3-coder:30b` | 50% of 2 |
 
 ## 🚫 Satisfied by no model
 
 | Graph | Shape |
 |---|---|
-| `vendor-comparison-matrix` | composite |
-| `screenplay-coverage` | composite |
 | `alert-noise-reduction` | primitive |
 | `incident-triage-router` | primitive |
 | `self-healing-ci` | primitive |
 | `clinical-literature-triage` | primitive |
 | `trial-eligibility-screener` | human-gated |
 | `literature-review-swarm` | primitive |
-| `compliance-evidence-collector` | composite |
 | `docs-code-sync-audit` | primitive |
 | `feature-delivery-lifecycle` | composite |
 | `flaky-test-reflexion` | primitive |

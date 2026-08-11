@@ -61,8 +61,8 @@
     "verification_depth": "assert-grounded",
     "date": "2026-08-11",
     "cases": 2,
-    "passed": 1,
-    "pass_rate": 0.5,
+    "passed": 2,
+    "pass_rate": 1.0,
     "mean_steps": 10.0,
     "results": [
       {
@@ -121,9 +121,9 @@
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-09",
+        "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": false,
+        "passed": true,
         "steps": 10,
         "trace": [
           "detect",
@@ -138,9 +138,7 @@
           "action-items"
         ],
         "goal_missing": "",
-        "assert_failures": [
-          "[postmortem] all(e.get('log_id') or e.get('message_id') for e in output.timeline) (AttributeError: 'str' object has no attribute 'get')"
-        ],
+        "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -161,9 +159,9 @@
     "age_days": 2,
     "per_model_pass_rate": {
       "gpt-4o": 1.0,
-      "qwen3-coder:30b": 0.0
+      "qwen3-coder:30b": 1.0
     },
-    "models_disagree": true,
+    "models_disagree": false,
     "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {

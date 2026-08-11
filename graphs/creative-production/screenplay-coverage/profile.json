@@ -57,8 +57,8 @@
     "verification_depth": "assert-live",
     "date": "2026-08-11",
     "cases": 2,
-    "passed": 0,
-    "pass_rate": 0.0,
+    "passed": 1,
+    "pass_rate": 0.5,
     "mean_steps": 6.0,
     "results": [
       {
@@ -94,9 +94,9 @@
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-09",
+        "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": false,
+        "passed": true,
         "steps": 6,
         "trace": [
           "read",
@@ -107,10 +107,7 @@
           "recommend"
         ],
         "goal_missing": "",
-        "assert_failures": [
-          "len(output.comps) >= 2 (TypeError: object of type 'int' has no len())",
-          "[comparables] all(f.source_url and f.source_date for f in output.findings) (AttributeError: 'str' object has no attribute 'source_url')"
-        ],
+        "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -127,14 +124,14 @@
       "gpt-4o",
       "qwen3-coder:30b"
     ],
-    "recorded": "2026-08-09",
-    "age_days": 2,
+    "recorded": "2026-08-10",
+    "age_days": 1,
     "per_model_pass_rate": {
       "gpt-4o": 0.0,
-      "qwen3-coder:30b": 0.0
+      "qwen3-coder:30b": 1.0
     },
-    "models_disagree": false,
-    "fails_every_model": true,
+    "models_disagree": true,
+    "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
       "gpt-4o": 1,

@@ -1,0 +1,208 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "harden the auth service; a bypass is any unauthenticated admin action"
+  },
+  "node_outputs": {
+    "scope": {
+      "surface": [
+        "admin endpoint authentication checks",
+        "session management validation",
+        "token verification mechanisms",
+        "role-based access controls"
+      ],
+      "rules_of_engagement": [
+        "only attempt authentication bypasses",
+        "avoid any exploitation of known vulnerabilities",
+        "focus on credential handling and session validation",
+        "target explicit admin action endpoints"
+      ]
+    },
+    "attack": [
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      },
+      {
+        "bypass": false,
+        "severity": 0
+      }
+    ],
+    "defend": [
+      {
+        "mitigation": "implement multi-factor authentication for admin endpoints, enforce strict session timeout policies, and validate token expiration timestamps on all admin actions"
+      },
+      {
+        "mitigation": "implement multi-factor authentication for admin endpoints, enforce strict session timeout policies, and validate token expiration timestamps on all admin actions"
+      },
+      {
+        "mitigation": "implement multi-factor authentication for admin endpoints, enforce strict session timeout policies, and validate token expiration timestamps on all admin actions"
+      }
+    ],
+    "retest": [
+      {
+        "attacker_exhausted": false,
+        "output": {
+          "attacker_exhausted": false,
+          "unmitigated": 0
+        },
+        "unmitigated": 0
+      },
+      {
+        "attacker_exhausted": false,
+        "output": {
+          "attacker_exhausted": false,
+          "unmitigated": 0
+        },
+        "unmitigated": 0
+      },
+      {
+        "attacker_exhausted": false,
+        "output": {
+          "attacker_exhausted": false,
+          "unmitigated": 0
+        },
+        "unmitigated": 0
+      }
+    ]
+  },
+  "tool_calls": []
+}

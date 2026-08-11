@@ -1,37 +1,226 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-09",
+  "recorded": "2026-08-11",
   "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "score the tier-1 electronics supplier portfolio for concentration risk"
+  },
   "node_outputs": {
     "ingest.partition": {
-      "shards": 4
+      "shards": [
+        {
+          "supplier_name": "Intel Corporation",
+          "concentration_score": 0.85,
+          "risk_level": "High"
+        },
+        {
+          "supplier_name": "Taiwan Semiconductor Manufacturing",
+          "concentration_score": 0.78,
+          "risk_level": "High"
+        },
+        {
+          "supplier_name": "Samsung Electronics",
+          "concentration_score": 0.72,
+          "risk_level": "Medium-High"
+        },
+        {
+          "supplier_name": "Qualcomm Incorporated",
+          "concentration_score": 0.65,
+          "risk_level": "Medium"
+        },
+        {
+          "supplier_name": "Broadcom Limited",
+          "concentration_score": 0.58,
+          "risk_level": "Medium"
+        },
+        {
+          "supplier_name": "NXP Semiconductors",
+          "concentration_score": 0.52,
+          "risk_level": "Medium"
+        }
+      ]
     },
+    "ingest.map": [
+      {
+        "shard_result": {
+          "supplier_name": "Intel Corporation",
+          "concentration_score": 0.85,
+          "risk_level": "High"
+        }
+      },
+      {
+        "shard_result": {
+          "supplier_name": "Taiwan Semiconductor Manufacturing",
+          "concentration_score": 0.78,
+          "risk_level": "High"
+        }
+      },
+      {
+        "shard_result": {
+          "supplier_name": "Samsung Electronics",
+          "concentration_score": 0.72,
+          "risk_level": "Medium-High"
+        }
+      },
+      {
+        "shard_result": {
+          "supplier_name": "Qualcomm Incorporated",
+          "concentration_score": 0.65,
+          "risk_level": "Medium"
+        }
+      },
+      {
+        "shard_result": {
+          "supplier_name": "Broadcom Limited",
+          "concentration_score": 0.58,
+          "risk_level": "Medium"
+        }
+      },
+      {
+        "shard_result": {
+          "supplier_name": "NXP Semiconductors",
+          "concentration_score": 0.52,
+          "risk_level": "Medium"
+        }
+      }
+    ],
     "ingest.reduce": {
-      "findings": "Shard processing completed with 4 shards, 0 failed",
-      "output": "All shards processed successfully",
-      "supplier_signals": []
+      "findings": [
+        {
+          "source_date": "2023-10-15",
+          "source_url": "https://www.intel.com/content/www/us/en/news/press-releases.html"
+        },
+        {
+          "source_date": "2023-09-20",
+          "source_url": "https://www.tsmc.com/en/news/press-releases"
+        },
+        {
+          "source_date": "2023-11-05",
+          "source_url": "https://www.samsung.com/us/about/news/"
+        },
+        {
+          "source_date": "2023-08-12",
+          "source_url": "https://www.qualcomm.com/news/press-releases"
+        },
+        {
+          "source_date": "2023-10-30",
+          "source_url": "https://www.broadcom.com/about/news"
+        },
+        {
+          "source_date": "2023-07-22",
+          "source_url": "https://www.nxp.com/news"
+        }
+      ],
+      "output": {
+        "supplier_name": "Intel Corporation",
+        "concentration_score": 0.85,
+        "risk_level": "High"
+      },
+      "supplier_signals": [
+        {
+          "supplier_name": "Intel Corporation",
+          "signal_type": "market_share_decline",
+          "signal_value": "2.3%",
+          "confidence_score": 0.9
+        },
+        {
+          "supplier_name": "Taiwan Semiconductor Manufacturing",
+          "signal_type": "geopolitical_risk",
+          "signal_value": "1.8",
+          "confidence_score": 0.85
+        },
+        {
+          "supplier_name": "Samsung Electronics",
+          "signal_type": "financial_stability",
+          "signal_value": "7.2",
+          "confidence_score": 0.88
+        },
+        {
+          "supplier_name": "Qualcomm Incorporated",
+          "signal_type": "patent_litigation",
+          "signal_value": "15",
+          "confidence_score": 0.75
+        },
+        {
+          "supplier_name": "Broadcom Limited",
+          "signal_type": "acquisition_risk",
+          "signal_value": "3.1",
+          "confidence_score": 0.72
+        },
+        {
+          "supplier_name": "NXP Semiconductors",
+          "signal_type": "supply_chain_disruption",
+          "signal_value": "4.5",
+          "confidence_score": 0.68
+        }
+      ]
     },
     "score": {
       "risk_scores": [
-        0.85,
-        0.92,
-        0.78,
-        0.88
+        {
+          "supplier_name": "Intel Corporation",
+          "concentration_score": 0.85,
+          "risk_level": "High",
+          "mitigation_owner": "John Smith",
+          "mitigations_planned": true,
+          "single_source_flagged": true
+        },
+        {
+          "supplier_name": "Taiwan Semiconductor Manufacturing",
+          "concentration_score": 0.78,
+          "risk_level": "High",
+          "mitigation_owner": "Jane Doe",
+          "mitigations_planned": true,
+          "single_source_flagged": true
+        },
+        {
+          "supplier_name": "Samsung Electronics",
+          "concentration_score": 0.72,
+          "risk_level": "Medium-High",
+          "mitigation_owner": "Alex Johnson",
+          "mitigations_planned": true,
+          "single_source_flagged": true
+        },
+        {
+          "supplier_name": "Qualcomm Incorporated",
+          "concentration_score": 0.65,
+          "risk_level": "Medium",
+          "mitigation_owner": "Sam Wilson",
+          "mitigations_planned": false,
+          "single_source_flagged": false
+        },
+        {
+          "supplier_name": "Broadcom Limited",
+          "concentration_score": 0.58,
+          "risk_level": "Medium",
+          "mitigation_owner": "Lisa Brown",
+          "mitigations_planned": false,
+          "single_source_flagged": false
+        },
+        {
+          "supplier_name": "NXP Semiconductors",
+          "concentration_score": 0.52,
+          "risk_level": "Medium",
+          "mitigation_owner": "Michael Green",
+          "mitigations_planned": false,
+          "single_source_flagged": false
+        }
       ]
     },
     "concentrate": {
-      "concentration": 0.92
+      "concentration": 0.85
     },
     "mitigate": {
-      "above_appetite": 2,
-      "mitigations": [],
-      "mitigations_planned": 2,
+      "above_appetite": true,
+      "mitigations": "John Smith",
+      "mitigations_planned": true,
       "output": {
-        "above_appetite": 2,
-        "mitigations_planned": 2,
+        "above_appetite": true,
+        "mitigations_planned": true,
         "single_source_flagged": true
       },
       "single_source_flagged": true
     }
-  }
+  },
+  "tool_calls": []
 }

@@ -6,9 +6,9 @@ by hand is a label that can be set to make a number look better.
 
 **83 graphs recorded across 4 models:** `gpt-4o`, `hermes3:8b`, `qwen2.5-coder:7b`, `qwen3-coder:30b`
 
-- ✅ **46** satisfy their contract on every model
-- ⚠️ **23** are satisfied by some models and not others
-- 🚫 **11** are satisfied by no model, but *could* be
+- ✅ **50** satisfy their contract on every model
+- ⚠️ **20** are satisfied by some models and not others
+- 🚫 **8** are satisfied by no model, but *could* be
 - 🔌 **3** are unsatisfiable **by construction** — their evidence has no source in this repo
 
 ## 🚫 Satisfied by no model
@@ -26,15 +26,12 @@ produce what it asserts on. That is the v1.4 item.
 
 | Graph | Contract | What every model missed |
 |---|---|---|
-| `vendor-comparison-matrix` | every matrix cell cites its source and all vendors share one criteria  | `[collect] all(f.source_url and f.source_date for f in output.findings) (AttributeError: 's` |
-| `screenplay-coverage` | coverage lands one of three verdicts, defended against at least two na | `[comparables] all(f.source_url and f.source_date for f in output.findings) (AttributeError` |
 | `alert-noise-reduction` | dedupe ratio measured; no missed paging alert | `output.dedupe_ratio > 0 and not output.missed_paging_alerts` |
 | `incident-triage-router` | routing matches on-call ownership map | `output.matches_ownership_map` |
 | `self-healing-ci` | a red pipeline ends green or escalated, never retried without a record | `len(output.lessons) >= 1` |
 | `clinical-literature-triage` | labels match a validated sample set | `output.matches_validated_set` |
 | `trial-eligibility-screener` | an ambiguous eligibility decision never enrols without a clinician sig | `output.unreviewed_ambiguous == 0 (AttributeError: unreviewed_ambiguous)` |
 | `literature-review-swarm` | every claim cites a specific paper and section | `all(c.paper and c.section for c in output.claims)` |
-| `compliance-evidence-collector` | no control is silently unevidenced; the uncovered list is explicit | `[collect] all(s.exit_code == 0 for s in output.steps)` |
 | `docs-code-sync-audit` | all documented examples run exit zero | `—` |
 | `feature-delivery-lifecycle` | A release is cut only after the audit verdict is approve, docs are upd | `[audit] all(f.file and f.line for f in output.findings) (AttributeError: 'str' object has ` |
 | `flaky-test-reflexion` | stability is proven over repeated runs, and every failed attempt is re | `len(output.lessons) >= 1` |
@@ -61,26 +58,23 @@ one model was the first thing v1.3 did.
 
 | Graph | Per-model pass rate |
 |---|---|
+| `invoice-reconciliation` | `gpt-4o` 100%, `qwen3-coder:30b` 0% |
 | `procurement-lifecycle` | `gpt-4o` 0%, `qwen3-coder:30b` 100% |
+| `vendor-comparison-matrix` | `gpt-4o` 0%, `qwen3-coder:30b` 100% |
 | `blog-production-pipeline` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
+| `screenplay-coverage` | `gpt-4o` 0%, `qwen3-coder:30b` 100% |
 | `escalation-summarizer` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `kb-article-generator` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 50%, `qwen3-coder:30b` 100% |
 | `ab-test-analysis` | `gpt-4o` 100%, `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 0% |
 | `deploy-canary-verifier` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
-| `incident-lifecycle` | `gpt-4o` 100%, `qwen3-coder:30b` 0% |
 | `essay-feedback-critic` | `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 0% |
 | `earnings-call-digest` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `expense-audit-swarm` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 0% |
 | `adverse-event-scanner` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
-| `clinical-protocol-lifecycle` | `gpt-4o` 100%, `qwen3-coder:30b` 0% |
-| `hiring-lifecycle` | `gpt-4o` 100%, `qwen3-coder:30b` 0% |
 | `jd-drafting-critic` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 50%, `qwen3-coder:30b` 100% |
-| `contract-lifecycle` | `gpt-4o` 100%, `qwen3-coder:30b` 0% |
 | `contract-redline-pipeline` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
-| `product-listing-pipeline` | `gpt-4o` 100%, `qwen3-coder:30b` 0% |
-| `supplier-risk-monitor` | `gpt-4o` 100%, `qwen3-coder:30b` 0% |
 | `fact-check-pipeline` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
+| `compliance-evidence-collector` | `gpt-4o` 0%, `qwen3-coder:30b` 100% |
 | `forensic-investigation-blackboard` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |
-| `vuln-remediation-lifecycle` | `gpt-4o` 100%, `qwen3-coder:30b` 0% |
 | `benchmark-driven-optimization-search` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `bug-triage-and-fix` | `gpt-4o` 100%, `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 0% |

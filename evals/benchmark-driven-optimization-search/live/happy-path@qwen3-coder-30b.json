@@ -1,103 +1,107 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-09",
+  "recorded": "2026-08-11",
   "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "optimize the parser repo against the throughput benchmark"
+  },
   "node_outputs": {
     "profile": {
-      "hotspot": "cpu_time",
-      "baseline_ms": 1250
+      "hotspot": "memory allocation patterns in tokenization",
+      "baseline_ms": 127.45
     },
     "explore": [
       {
-        "patch": "optimize_cpu_pipeline",
-        "bench_ms": 890
+        "patch": "Replace dynamic token allocation with pre-allocated ring buffer; implement slab allocator for tokens; eliminate string copy in lexer",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_allocation",
-        "bench_ms": 1100
+        "patch": "Replace dynamic memory allocations in tokenization loop with stack-allocated buffers and precompute token sizes to avoid malloc/free overhead",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_dispatch",
-        "bench_ms": 892
+        "patch": "Replace dynamic token allocation with pre-allocated buffer pool and reuse tokens across parses",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_allocation",
-        "bench_ms": 1100
+        "patch": "Replace dynamic token allocation with pre-allocated buffer pool and reuse tokens across parse cycles",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_pipeline",
-        "bench_ms": 890
+        "patch": "Replace dynamic token allocation with pre-allocated ring buffer; implement slab allocator for tokens; eliminate string copy in lexer",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_pipeline",
-        "bench_ms": 890
+        "patch": "Replace dynamic token allocation with pre-allocated ring buffer; implement slab allocator for tokens; eliminate string copy in lexer",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_pipeline",
-        "bench_ms": 890
+        "patch": "Replace dynamic token allocation with pre-allocated ring buffer; implement slab allocator for tokens; eliminate string copy in lexer",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_pipeline",
-        "bench_ms": 890
+        "patch": "Replace dynamic token allocation with pre-allocated ring buffer; implement slab allocator for tokens; eliminate string copy in lexer",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_dispatch",
-        "bench_ms": 892
+        "patch": "Replace dynamic memory allocations in tokenization loop with stack-allocated buffers and precompute token sizes to avoid malloc/free overhead",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_dispatch",
-        "bench_ms": 892
+        "patch": "Replace dynamic memory allocations in tokenization loop with stack-allocated buffers and precompute token sizes to avoid malloc/free overhead",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_dispatch",
-        "bench_ms": 892
+        "patch": "Replace dynamic memory allocations in tokenization loop with stack-allocated buffers and precompute token sizes to avoid malloc/free overhead",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_dispatch",
-        "bench_ms": 892
+        "patch": "Replace dynamic memory allocations in tokenization loop with stack-allocated buffers and precompute token sizes to avoid malloc/free overhead",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_pipeline",
-        "bench_ms": 890
+        "patch": "Replace dynamic token allocation with pre-allocated ring buffer; implement slab allocator for tokens; eliminate string copy in lexer",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_pipeline",
-        "bench_ms": 890
+        "patch": "Replace dynamic token allocation with pre-allocated ring buffer; implement slab allocator for tokens; eliminate string copy in lexer",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_pipeline",
-        "bench_ms": 890
+        "patch": "Replace dynamic token allocation with pre-allocated ring buffer; implement slab allocator for tokens; eliminate string copy in lexer",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_pipeline",
-        "bench_ms": 890
+        "patch": "Replace dynamic token allocation with pre-allocated ring buffer; implement slab allocator for tokens; eliminate string copy in lexer",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_pipeline",
-        "bench_ms": 890
+        "patch": "Replace dynamic token allocation with pre-allocated ring buffer; implement slab allocator for tokens; eliminate string copy in lexer",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_pipeline",
-        "bench_ms": 890
+        "patch": "Replace dynamic token allocation with pre-allocated ring buffer; implement slab allocator for tokens; eliminate string copy in lexer",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_pipeline",
-        "bench_ms": 890
+        "patch": "Replace dynamic token allocation with pre-allocated ring buffer; implement slab allocator for tokens; eliminate string copy in lexer",
+        "bench_ms": 89.32
       },
       {
-        "patch": "optimize_cpu_pipeline",
-        "bench_ms": 890
+        "patch": "Replace dynamic token allocation with pre-allocated ring buffer; implement slab allocator for tokens; eliminate string copy in lexer",
+        "bench_ms": 89.32
       }
     ],
     "verify": {
-      "baseline_ms": 1250,
-      "bench_ms": 890,
+      "baseline_ms": 127.45,
+      "bench_ms": 89.32,
       "output": {
-        "baseline_ms": 1250,
-        "bench_ms": 890,
+        "baseline_ms": 127.45,
+        "bench_ms": 89.32,
         "suite_green": true
       },
       "suite_green": true
     }
-  }
+  },
+  "tool_calls": []
 }

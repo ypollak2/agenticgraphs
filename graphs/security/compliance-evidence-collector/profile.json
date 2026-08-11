@@ -62,8 +62,8 @@
     "verification_depth": "assert-grounded",
     "date": "2026-08-11",
     "cases": 2,
-    "passed": 0,
-    "pass_rate": 0.0,
+    "passed": 1,
+    "pass_rate": 0.5,
     "mean_steps": 8.5,
     "results": [
       {
@@ -125,9 +125,9 @@
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-09",
+        "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": false,
+        "passed": true,
         "steps": 6,
         "trace": [
           "enumerate",
@@ -138,9 +138,7 @@
           "report"
         ],
         "goal_missing": "",
-        "assert_failures": [
-          "[collect] all(s.exit_code == 0 for s in output.steps) (AttributeError: 'str' object has no attribute 'exit_code')"
-        ],
+        "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -157,14 +155,14 @@
       "gpt-4o",
       "qwen3-coder:30b"
     ],
-    "recorded": "2026-08-09",
-    "age_days": 2,
+    "recorded": "2026-08-10",
+    "age_days": 1,
     "per_model_pass_rate": {
       "gpt-4o": 0.0,
-      "qwen3-coder:30b": 0.0
+      "qwen3-coder:30b": 1.0
     },
-    "models_disagree": false,
-    "fails_every_model": true,
+    "models_disagree": true,
+    "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
       "gpt-4o": 1,

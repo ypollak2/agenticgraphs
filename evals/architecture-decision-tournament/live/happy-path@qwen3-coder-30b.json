@@ -1,59 +1,60 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-09",
+  "recorded": "2026-08-11",
   "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "settle sync vs async order processing under a 200ms p99 constraint"
+  },
   "node_outputs": {
     "frame": {
       "options": [
         {
-          "runner_up": "design_B",
-          "margin": 12
+          "name": "sync_processing",
+          "score": 85,
+          "description": "Synchronous order processing with immediate response"
         },
         {
-          "runner_up": "design_C",
-          "margin": 8
-        },
-        {
-          "runner_up": "design_A",
-          "margin": 15
+          "name": "async_processing",
+          "score": 72,
+          "description": "Asynchronous order processing with deferred response"
         }
       ],
       "rubric": {
-        "designs_scored": 3,
-        "margin": 8
+        "sync_processing": {
+          "latency_p99": 185,
+          "throughput": 1200,
+          "error_rate": 0.02,
+          "complexity": "low",
+          "reliability": "high"
+        },
+        "async_processing": {
+          "latency_p99": 215,
+          "throughput": 2800,
+          "error_rate": 0.01,
+          "complexity": "medium",
+          "reliability": "medium"
+        }
       }
     },
     "design": [
       {
-        "proposal": {
-          "runner_up": "design_A",
-          "margin": 15
-        },
-        "rubric_score": 15
+        "proposal": "sync_processing",
+        "rubric_score": 85
       },
       {
-        "proposal": {
-          "runner_up": "design_B",
-          "margin": 12
-        },
-        "rubric_score": 8
-      },
-      {
-        "proposal": {
-          "runner_up": "design_A",
-          "margin": 15
-        },
-        "rubric_score": 3
+        "proposal": "sync_processing",
+        "rubric_score": 85
       }
     ],
     "judge": {
       "designs_scored": 3,
-      "margin": 15,
+      "margin": 13,
       "output": {
         "designs_scored": 3,
-        "margin": 15
+        "margin": 13
       },
-      "winner": "design_A"
+      "winner": "sync_processing"
     }
-  }
+  },
+  "tool_calls": []
 }

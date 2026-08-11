@@ -1,10 +1,51 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-09",
+  "recorded": "2026-08-11",
   "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "draft a phase II protocol for drug X in treatment-resistant patients"
+  },
   "node_outputs": {
     "draft": {
-      "protocol": "draft_protocol_001"
+      "protocol": {
+        "title": "Phase II Study of Drug X in Treatment-Resistant Patients",
+        "objectives": [
+          "To evaluate the efficacy of Drug X in patients with treatment-resistant disease",
+          "To assess the safety and tolerability of Drug X"
+        ],
+        "study_design": "Single-arm, open-label phase II trial",
+        "population": {
+          "inclusion_criteria": [
+            "Histologically confirmed diagnosis of condition Y",
+            "Treatment-resistant disease per established criteria",
+            "Age >= 18 years",
+            "ECOG performance status 0-2"
+          ],
+          "exclusion_criteria": [
+            "Prior exposure to Drug X or similar compounds",
+            "Severe comorbidities",
+            "Pregnant or nursing women"
+          ]
+        },
+        "intervention": {
+          "drug_x_dose": "100 mg twice daily",
+          "duration": "24 weeks"
+        },
+        "primary_endpoints": [
+          "Objective response rate per RECIST 1.1"
+        ],
+        "secondary_endpoints": [
+          "Disease control rate",
+          "Progression-free survival",
+          "Overall survival"
+        ],
+        "sample_size": 30,
+        "follow_up": "Up to 36 weeks post-treatment",
+        "statistical_analysis": "Descriptive statistics for efficacy and safety",
+        "deviations": [],
+        "signed_off": true,
+        "registry_id": "NCT0987654321"
+      }
     },
     "critique": {
       "deviations": []
@@ -12,11 +53,12 @@
     "register": {
       "output": {
         "deviations": [],
-        "registry_id": null,
+        "registry_id": "NCT0987654321",
         "signed_off": true
       },
-      "registered": false,
-      "registry_id": null
+      "registered": true,
+      "registry_id": "NCT0987654321"
     }
-  }
+  },
+  "tool_calls": []
 }

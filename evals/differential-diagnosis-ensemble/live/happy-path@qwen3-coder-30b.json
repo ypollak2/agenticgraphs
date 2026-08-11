@@ -1,37 +1,63 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-09",
+  "recorded": "2026-08-11",
   "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "work up the 54-year-old with intermittent chest pain and normal troponin"
+  },
   "node_outputs": {
     "intake": {
       "presentations": [
-        "Initial analysis complete. No consensus reached among input data points.",
-        "Dissenting opinions identified and documented in accordance with workflow requirements."
+        "54-year-old male with intermittent chest pain and normal troponin levels",
+        "Patient presents with recurrent chest discomfort without evidence of acute myocardial infarction",
+        "Clinical assessment required to determine non-cardiac etiology of symptoms"
       ]
     },
     "diagnose": [
       {
-        "ranking": 0.5
+        "ranking": [
+          "Gastroesophageal reflux disease",
+          "Musculoskeletal pain",
+          "Anxiety/panic disorder",
+          "Costochondritis",
+          "Coronary artery disease"
+        ]
       },
       {
-        "ranking": 0.85
+        "ranking": [
+          "Gastroesophageal reflux disease",
+          "Musculoskeletal chest pain",
+          "Anxiety/depression",
+          "Costochondritis",
+          "Other cardiac causes"
+        ]
+      },
+      {
+        "ranking": [
+          "Gastroesophageal reflux disease",
+          "Musculoskeletal pain",
+          "Anxiety/depression",
+          "Costochondritis",
+          "Other metabolic causes"
+        ]
       }
     ],
     "adjudicate": {
-      "consensus": null,
+      "consensus": "Non-cardiac etiology of chest pain",
       "dissent": [
-        "Initial analysis complete. No consensus reached among input data points.",
-        "Dissenting opinions identified and documented in accordance with workflow requirements."
+        "Consider gastroesophageal reflux disease as a primary cause",
+        "Evaluate for musculoskeletal origins of discomfort"
       ],
       "dissent_retained": true,
       "output": {
-        "consensus": null,
+        "consensus": "Non-cardiac etiology of chest pain",
         "dissent": [
-          "Initial analysis complete. No consensus reached among input data points.",
-          "Dissenting opinions identified and documented in accordance with workflow requirements."
+          "Consider gastroesophageal reflux disease as a primary cause",
+          "Evaluate for musculoskeletal origins of discomfort"
         ],
         "dissent_retained": true
       }
     }
-  }
+  },
+  "tool_calls": []
 }

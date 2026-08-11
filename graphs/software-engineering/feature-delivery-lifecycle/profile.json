@@ -139,7 +139,7 @@
     "cases": 2,
     "passed": 0,
     "pass_rate": 0.0,
-    "mean_steps": 12.5,
+    "mean_steps": 11.5,
     "results": [
       {
         "id": "clean-path-releases",
@@ -286,10 +286,10 @@
       {
         "id": "clean-path-releases",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-09",
+        "recorded": "2026-08-11",
         "gate_auto_approved": true,
         "passed": false,
-        "steps": 14,
+        "steps": 12,
         "trace": [
           "research",
           "plan",
@@ -300,24 +300,25 @@
           "test.generate",
           "test.critique",
           "audit.triage",
+          "audit.security-review",
           "audit.style-review",
-          "audit.synthesize",
-          "docs",
-          "release-approval",
-          "release"
+          "audit.synthesize"
         ],
         "goal_missing": "",
         "assert_failures": [
+          "output.verdict == 'approve'",
+          "output.docs_updated == true (AttributeError: docs_updated)",
+          "output.signed_off == true (AttributeError: signed_off)",
+          "output.released == true or output.rolled_back == true (AttributeError: released)",
           "[implement] output.test_failed_before_patch and output.test_passes_after_patch",
-          "[test] output.coverage_delta > 0 and output.mutation_score > output.mutation_baseline",
-          "[audit] all(f.file and f.line for f in output.findings) (AttributeError: 'str' object has no attribute 'file')"
+          "[audit] output.verdict in ['approve','request_changes']"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
         "rejected_approvals": [],
-        "auto_approved": true,
+        "auto_approved": false,
         "subgraphs_expanded": true,
         "truncations": [],
         "grounded": false,
@@ -328,8 +329,8 @@
       "gpt-4o",
       "qwen3-coder:30b"
     ],
-    "recorded": "2026-08-09",
-    "age_days": 2,
+    "recorded": "2026-08-10",
+    "age_days": 1,
     "per_model_pass_rate": {
       "gpt-4o": 0.0,
       "qwen3-coder:30b": 0.0

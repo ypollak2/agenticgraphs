@@ -208,40 +208,40 @@ pie showData title Graphs per domain
 | `assert-live` | assert held against real model output (`agr eval --live`) |
 | `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |
 
-**Real-model evidence:** 83 graphs carry checked-in recordings of actual model runs across 4 models (`evals/<graph>/live/`); **46 of 83** satisfy their contract on every model, and **14 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
+**Real-model evidence:** 83 graphs carry checked-in recordings of actual model runs across 4 models (`evals/<graph>/live/`); **50 of 83** satisfy their contract on every model, and **11 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
 
 | Graph | Domain | Cases | Pass rate | Depth | Live (real model) | Mean steps | Routes |
 |---|---|---|---|---|---|---|---|
-| `invoice-reconciliation` | business-ops | 1 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 4 | 1 |
+| `invoice-reconciliation` | business-ops | 1 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-08-09 | 4 | 1 |
 | `meeting-to-actions` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 4 | 2 |
 | `policy-compliance-check` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
 | `procurement-lifecycle` | business-ops | 1 | 100% | `assert-fixture` | ⚠️ 0%/100% · 2026-08-09 | 7 | 1 |
 | `rfp-response-assembler` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 1 |
-| `vendor-comparison-matrix` | business-ops | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 6 | 1 |
+| `vendor-comparison-matrix` | business-ops | 1 | 100% | `assert-fixture` | ⚠️ 0%/100% · 2026-08-10 | 6 | 1 |
 | `blog-production-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 4 | 2 |
 | `localization-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 1 |
 | `seo-optimization-loop` | content-marketing | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
-| `book-editing-pipeline` | creative-production | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 6 | 1 |
-| `podcast-production-pipeline` | creative-production | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 5 | 1 |
-| `screenplay-coverage` | creative-production | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 6 | 1 |
+| `book-editing-pipeline` | creative-production | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-11 | 6 | 1 |
+| `podcast-production-pipeline` | creative-production | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-11 | 5 | 1 |
+| `screenplay-coverage` | creative-production | 1 | 100% | `assert-fixture` | ⚠️ 0%/100% · 2026-08-10 | 6 | 1 |
 | `ux-research-synthesis` | creative-production | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 1 |
 | `escalation-summarizer` | customer-support-sales | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 4 | 2 |
 | `kb-article-generator` | customer-support-sales | 2 | 100% | `assert-fixture` | 🎲 100%/50%/100% · 2026-08-09 | 4 | 2 |
-| `sales-call-scorer` | customer-support-sales | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 1 |
+| `sales-call-scorer` | customer-support-sales | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-11 | 3 | 1 |
 | `ticket-triage-swarm` | customer-support-sales | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 2 |
 | `ab-test-analysis` | data-analytics | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/0%/0% · 2026-08-09 | 3 | 1 |
 | `anomaly-investigation` | data-analytics | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 2 |
 | `data-quality-audit` | data-analytics | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `etl-pipeline-builder` | data-analytics | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
-| `schema-migration-saga` | data-analytics | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 5 | 1 |
+| `schema-migration-saga` | data-analytics | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-11 | 5 | 1 |
 | `sql-generation-verified` | data-analytics | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
 | `alert-noise-reduction` | devops-sre | 2 | 100% | `assert-fixture` | 🚫 0%/0%/0% · 2026-08-09 | 3 | 1 |
 | `deploy-canary-verifier` | devops-sre | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
-| `incident-lifecycle` | devops-sre | 1 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-08-09 | 10 | 1 |
+| `incident-lifecycle` | devops-sre | 1 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 10 | 1 |
 | `incident-triage-router` | devops-sre | 2 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 3 | 2 |
 | `postmortem-writer` | devops-sre | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
 | `runbook-executor` | devops-sre | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
-| `self-healing-ci` | devops-sre | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 4 | 1 |
+| `self-healing-ci` | devops-sre | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-10 | 4 | 1 |
 | `verifier-swarm` | devops-sre | 3 | 100% | `command` | ✅ 100% · 2026-08-09 | 5 | 3 |
 | `essay-feedback-critic` | education | 2 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-08-09 | 4 | 2 |
 | `quiz-generation-verified` | education | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 4 | 2 |
@@ -249,48 +249,48 @@ pie showData title Graphs per domain
 | `earnings-call-digest` | finance | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
 | `expense-audit-swarm` | finance | 2 | 100% | `assert-fixture` | ⚠️ 100%/100%/0% · 2026-08-09 | 4 | 2 |
 | `kyc-document-processing` | finance | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
-| `regulatory-filing-lifecycle` | finance | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 5 | 1 |
+| `regulatory-filing-lifecycle` | finance | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-11 | 5 | 1 |
 | `adverse-event-scanner` | healthcare-science | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 3 | 1 |
 | `clinical-literature-triage` | healthcare-science | 2 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 3 | 2 |
-| `clinical-protocol-lifecycle` | healthcare-science | 1 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-08-09 | 4 | 1 |
+| `clinical-protocol-lifecycle` | healthcare-science | 1 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-10 | 4 | 1 |
 | `differential-diagnosis-ensemble` | healthcare-science | 1 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 3 | 1 |
 | `medical-coding-audit` | healthcare-science | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
-| `trial-eligibility-screener` | healthcare-science | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 3 | 1 |
-| `hiring-lifecycle` | hr-people | 1 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-08-09 | 7 | 1 |
+| `trial-eligibility-screener` | healthcare-science | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-10 | 3 | 1 |
+| `hiring-lifecycle` | hr-people | 1 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 7 | 1 |
 | `jd-drafting-critic` | hr-people | 2 | 100% | `assert-fixture` | 🎲 100%/50%/100% · 2026-08-09 | 4 | 2 |
-| `onboarding-plan-builder` | hr-people | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 1 |
-| `performance-cycle-summarizer` | hr-people | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 1 |
-| `contract-lifecycle` | legal-compliance | 1 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-08-09 | 7 | 1 |
+| `onboarding-plan-builder` | hr-people | 1 | 100% | `assert-fixture` | 🎲 50% · 2026-08-11 | 4 | 1 |
+| `performance-cycle-summarizer` | hr-people | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-11 | 4 | 1 |
+| `contract-lifecycle` | legal-compliance | 1 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 7 | 1 |
 | `contract-redline-pipeline` | legal-compliance | 2 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 4 | 2 |
 | `ediscovery-triage` | legal-compliance | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 2 |
 | `gdpr-data-audit` | legal-compliance | 1 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 7 | 1 |
 | `license-compliance-scan` | legal-compliance | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 1 |
-| `product-listing-pipeline` | logistics-retail | 1 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-08-09 | 7 | 1 |
+| `product-listing-pipeline` | logistics-retail | 1 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 7 | 1 |
 | `returns-triage` | logistics-retail | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 2 |
-| `supplier-risk-monitor` | logistics-retail | 1 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-08-09 | 6 | 1 |
+| `supplier-risk-monitor` | logistics-retail | 1 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 6 | 1 |
 | `citation-integrity-audit` | research-knowledge | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `competitive-intelligence` | research-knowledge | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 3 | 1 |
 | `cost-routed-research` | research-knowledge | 3 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3.33 | 3 |
 | `fact-check-pipeline` | research-knowledge | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/100% · 2026-08-09 | 4 | 2 |
 | `literature-review-swarm` | research-knowledge | 2 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 4 | 2 |
-| `prompt-graph-optimization` | research-knowledge | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 1 |
-| `compliance-evidence-collector` | security | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 11 | 1 |
+| `prompt-graph-optimization` | research-knowledge | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-11 | 3 | 1 |
+| `compliance-evidence-collector` | security | 1 | 100% | `assert-fixture` | ⚠️ 0%/100% · 2026-08-10 | 11 | 1 |
 | `forensic-investigation-blackboard` | security | 1 | 100% | `assert-fixture` | ⚠️ 0%/100%/100% · 2026-08-09 | 3 | 1 |
 | `phishing-triage` | security | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 2 |
-| `red-team-blue-team-hardening` | security | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 1 |
+| `red-team-blue-team-hardening` | security | 1 | 100% | `assert-fixture` | 🎲 50% · 2026-08-11 | 4 | 1 |
 | `soc-alert-investigation` | security | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
 | `threat-intel-digest` | security | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 1 |
 | `vuln-prioritization` | security | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
-| `vuln-remediation-lifecycle` | security | 1 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-08-09 | 9 | 1 |
+| `vuln-remediation-lifecycle` | security | 1 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-09 | 9 | 1 |
 | `architecture-decision-tournament` | software-engineering | 1 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 3 | 1 |
 | `benchmark-driven-optimization-search` | software-engineering | 1 | 100% | `assert-fixture` | ⚠️ 0%/0%/100% · 2026-08-09 | 3 | 1 |
 | `bug-triage-and-fix` | software-engineering | 2 | 100% | `assert-fixture` | ⚠️ 100%/0%/0%/0% · 2026-08-09 | 4 | 2 |
 | `code-review-pipeline` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3.5 | 2 |
 | `dependency-upgrade` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100%/100%/100% · 2026-08-09 | 4 | 2 |
 | `docs-code-sync-audit` | software-engineering | 2 | 100% | `assert-fixture` | 🚫 0%/0%/0%/0% · 2026-08-09 | 4 | 2 |
-| `feature-delivery-lifecycle` | software-engineering | 3 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 16 | 3 |
-| `flaky-test-reflexion` | software-engineering | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 4 | 1 |
-| `framework-migration` | software-engineering | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-09 | 7 | 1 |
+| `feature-delivery-lifecycle` | software-engineering | 3 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-10 | 16 | 3 |
+| `flaky-test-reflexion` | software-engineering | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-10 | 4 | 1 |
+| `framework-migration` | software-engineering | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-10 | 7 | 1 |
 | `legacy-refactor` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
 | `performance-optimization` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 4 | 2 |
 | `release-notes-generation` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-09 | 3 | 1 |
@@ -713,11 +713,13 @@ averaged away. Deepening it is the open problem, not a solved one.
 - **Each cell is one sample.** Model output varies between runs; a ✅ may have passed
   by luck and a ❌ may have been unlucky. Nothing here distinguishes them.
 - Three local models, all small (7B–30B). Nothing is claimed about frontier models.
-- **v1.7 seeded entry inputs but has not re-recorded.** Every live number above was
-  measured with an empty entry blackboard. Whether telling a graph its subject moves any
-  of the contracts no model satisfies is unmeasured — and seeding makes a contract
-  easier to satisfy, not more truthful, so `assert-grounded` remains the column that
-  decides what a pass is worth.
+- **v1.7's re-record measured sampling noise, not the goal.** 31 graphs were re-recorded
+  on `qwen3-coder:30b` with the goal seeded: 10 improved, 5 regressed. Since seeding a
+  goal cannot break a passing graph, the regressions were resampled — **two graphs
+  produced both a pass and a fail under identical input**, and three reversed. The
+  registry-wide 14 → 11 therefore rests on single ungrounded samples from cells now
+  shown to be unstable, and no improvement traced to a tool call. Read the unsatisfiable
+  count as unmoved.
 - Search graphs are tested against synthetic gradients, not a real scorer.
 
 Of the 52 primitives, three are handcrafted with domain specialities

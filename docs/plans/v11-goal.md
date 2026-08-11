@@ -225,18 +225,69 @@ End-to-end: `agr mcp`, call `search_graphs("hiring")`, confirm the result carrie
 | J5 | `/goal` asks rather than invents when context has no goal | yes | `.claude/commands/goal.md` step 2 | ✅ |
 | J6 | **no assert weakened — 0 expressions changed** | 0 | **0 of 118**, parsed before/after | ✅ |
 | J7 | tests green, `make check` clean | yes | **251 passed**, 1 xfailed | ⚠️ |
-| J8 | re-record: does seeding move any of the 14 unsatisfiable? | reported | **not run** | ❌ |
+| J8 | re-record: does seeding move any of the 14 unsatisfiable? | reported | **run — the answer is "cannot tell, and here is why"** | ✅ |
 
 **J7 is ⚠️, not ✅.** `pytest` and `agr validate` are green and `make regen` is
 idempotent, but `make check`'s `clean-check` step diffs generated docs against the
 *committed* tree, so it cannot pass until this lands as a commit. Nothing is being
 claimed about it beyond that.
 
-**J8 was not run.** Recording 83 graphs across 3 models is a separate, long operation,
-and the plan committed to *reporting* the answer rather than predicting it. It remains
-the open measurement. Until it runs, this version has changed what a graph is *told*,
-and has demonstrated nothing about what a model then *does* — which is precisely the
-distinction v10 was written to enforce.
+# J8 — the re-record, and what it actually measured
+
+31 graphs re-recorded on `qwen3-coder:30b` with the goal seeded. Conditions matched
+the baseline exactly: same model, same graphs, **no tools** — all 83 prior recordings
+carry 0 tool calls, so binding them would have changed two variables at once.
+
+| | |
+|---|---|
+| improved (0.0 -> 1.0) | 10 |
+| regressed (1.0 -> 0.0) | 5 |
+| unchanged | 16 |
+| registry-wide unsatisfiable | 14 -> 11 |
+
+**And none of that is attributable to the goal.**
+
+## The regressions were the tell
+
+Seeding a goal has no mechanism for *breaking* a graph that passed. Five did. So the
+five were re-recorded twice more, identical inputs:
+
+| graph | sample A | sample B | |
+|---|---|---|---|
+| `architecture-decision-tournament` | PASS | PASS | the regression was noise |
+| `book-editing-pipeline` | PASS | PASS | the regression was noise |
+| `onboarding-plan-builder` | PASS | **FAIL** | **coin flip** |
+| `red-team-blue-team-hardening` | PASS | **FAIL** | **coin flip** |
+| `invoice-reconciliation` | FAIL | FAIL | consistently failing |
+
+Two graphs produced both a pass and a fail **under identical input, same model, same
+session**. Three of the five "regressions" reversed on a resample.
+
+If a cell can flip on resampling, then a cell that flipped from 0.0 to 1.0 between the
+baseline and this run is not evidence that anything changed. The 10 improvements and
+the 5 regressions are the same phenomenon, and the goal is not it. Registry flaky cells
+went 2 -> 4 as a direct result of looking.
+
+## Not one improvement was grounded
+
+All 83 `qwen3-coder:30b` recordings contain **0 tool calls**. The first pass of this
+analysis printed `assert-grounded` against five of the improved graphs; that depth is a
+per-graph aggregate that includes `gpt-4o` recordings, 12 of which do carry tool calls.
+It was not a property of this run. Every improvement here is a model asserting.
+
+That is the v10 finding restated by a different route: a better-informed model writes a
+more plausible answer, and plausibility is not evidence.
+
+## What this establishes
+
+**Seeding a goal changed what the graph is told. It has not been shown to change what
+the model produces, and at n=1 per cell this design cannot show it.** The registry's
+own known limit — "each cell is one sample" — is not a footnote here, it is the whole
+result. The honest reading of 14 -> 11 is that three graphs passed once, ungrounded,
+in a cell demonstrated to be unstable.
+
+The measurement that would settle it is repeated samples per cell, not another feature.
+`AGR_SAMPLES` already exists and 150 of 158 cells still sit at one sample.
 
 ## What the plan did not anticipate
 

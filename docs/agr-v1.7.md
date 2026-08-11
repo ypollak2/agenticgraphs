@@ -113,6 +113,17 @@ exactly this for typed scalars and was right: 3 graphs moved, 1 grounded. A mode
 a concrete subject writes a more plausible answer about it, and plausibility is not
 evidence.
 
-`assert-grounded` therefore stays orthogonal to pass/fail. Whether entry inputs move any
-of the 14 contracts no model satisfies is an open measurement, not a claim — it needs a
-re-record, and none has been run.
+`assert-grounded` therefore stays orthogonal to pass/fail.
+
+**The re-record has now been run, and it could not answer the question.** 31 graphs on
+`qwen3-coder:30b` with the goal seeded: 10 improved, **5 regressed**, registry-wide
+unsatisfiable 14 → 11. Seeding a goal cannot *break* a passing graph, so the five
+regressions were resampled — and two graphs produced both a pass and a fail under
+identical input, while three reversed outright. Registry flaky cells went 2 → 4.
+
+A cell that flips on resampling cannot evidence a change between runs. Every
+improvement was also recorded with **0 tool calls**. So v1.7 changed what a graph is
+*told*, and has not been shown to change what a model *produces* — at one sample per
+cell, this design cannot show it. 150 of 158 cells still sit at n=1, and that, not
+another feature, is the next measurement. Full analysis:
+[v11-goal.md](plans/v11-goal.md#j8--the-re-record-and-what-it-actually-measured).

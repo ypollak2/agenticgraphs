@@ -1,5 +1,48 @@
 # Changelog
 
+## [0.9.1] — the re-record measured noise, not the goal
+
+v0.9.0 seeded a goal and deferred the question of whether it mattered. 31 graphs
+re-recorded on `qwen3-coder:30b`, goal on the board, tools off to match the baseline:
+
+| | |
+|---|---|
+| improved (0.0 -> 1.0) | 10 |
+| regressed (1.0 -> 0.0) | **5** |
+| registry-wide unsatisfiable | 14 -> 11 |
+| improvements that traced to a tool call | **0** |
+
+Seeding a goal has no mechanism for *breaking* a graph that passed, so the five
+regressions were resampled twice each with identical inputs:
+
+- `architecture-decision-tournament`, `book-editing-pipeline` — reversed to PASS
+- `onboarding-plan-builder`, `red-team-blue-team-hardening` — **PASS and FAIL, same
+  model, same input, same session**
+- `invoice-reconciliation` — consistently failing
+
+A cell that flips on resampling cannot evidence a change between runs. The 10
+improvements and the 5 regressions are one phenomenon, and the goal is not it.
+**Read 14 -> 11 as unmoved.**
+
+The registry's stated limit — one sample per cell — turns out to be the whole result
+rather than a footnote. 150 of 158 cells are still n=1. Repeated sampling, not another
+feature, is the next measurement.
+
+### Added
+
+- 31 re-recorded `qwen3-coder:30b` runs carrying the seeded `inputs`, plus second
+  samples for the five resampled graphs (flaky cells: 2 -> 4).
+
+### Fixed
+
+- `scripts/record_live.py` never passed entry inputs to `run_graph`, so every
+  goal-required graph would have recorded the refusal gate instead of the model. The
+  recording payload now also stores the `inputs` it was made under — a recording that
+  does not say what was on the board cannot be compared against one made under
+  different entry state.
+- `scripts/derive_goals.py` reconciled golden cases only when the graph itself changed,
+  so re-running it over an already-migrated registry left every case without a goal.
+
 ## [0.9.0] — the goal
 
 `state.inputs` named what a caller must bring at entry from v1.1 onward. **Nothing
