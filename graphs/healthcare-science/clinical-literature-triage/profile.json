@@ -71,15 +71,92 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:gpt-4o,qwen3-coder:30b",
+    "runner": "llm-replay:devstral:24b,gpt-4o,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-11",
-    "cases": 4,
+    "cases": 7,
     "passed": 2,
-    "pass_rate": 0.5,
-    "mean_steps": 3.0,
+    "pass_rate": 0.286,
+    "mean_steps": 2.43,
     "results": [
+      {
+        "id": "simple-branch",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 1,
+        "trace": [
+          "route"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "output.matches_validated_set (AttributeError: matches_validated_set)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "simple-branch",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 3,
+        "trace": [
+          "route",
+          "branch-simple",
+          "verify"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "output.matches_validated_set"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "simple-branch",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 1,
+        "trace": [
+          "route"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "output.matches_validated_set (AttributeError: matches_validated_set)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "simple-branch",
         "model": "gpt-4o",
@@ -186,12 +263,14 @@
       }
     ],
     "models": [
+      "devstral:24b",
       "gpt-4o",
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-10",
     "age_days": 1,
     "per_model_pass_rate": {
+      "devstral:24b": 0.0,
       "gpt-4o": 0.0,
       "qwen3-coder:30b": 0.667
     },
@@ -201,6 +280,7 @@
       "qwen3-coder:30b"
     ],
     "samples_per_model": {
+      "devstral:24b": 3,
       "gpt-4o": 1,
       "qwen3-coder:30b": 3
     },

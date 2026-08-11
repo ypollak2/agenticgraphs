@@ -1,0 +1,38 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Analyzing verdicts from intake."
+    },
+    "produce": {
+      "verdicts": [
+        {
+          "source_url": "https://www.example.com/article1",
+          "quote_span": "This is an example quote."
+        },
+        {
+          "source_url": "https://www.example.com/article2",
+          "quote_span": "Here's another example quote for consideration."
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "verdicts": [
+          {
+            "source_url": "https://www.example.com/article1",
+            "quote_span": "This is an example quote."
+          },
+          {
+            "source_url": "https://www.example.com/article2",
+            "quote_span": "Here's another example quote for consideration."
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": []
+}

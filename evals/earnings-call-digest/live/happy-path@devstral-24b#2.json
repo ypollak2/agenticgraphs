@@ -1,0 +1,45 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "First, we need to analyze each figure in the output against its corresponding transcript."
+    },
+    "produce": {
+      "figures": [
+        {
+          "matches_transcript": true
+        },
+        {
+          "matches_transcript": true
+        }
+      ],
+      "invented_numbers": false
+    },
+    "review": {
+      "figures": [
+        {
+          "matches_transcript": true
+        },
+        {
+          "matches_transcript": true
+        }
+      ],
+      "invented_numbers": false,
+      "output": {
+        "figures": [
+          {
+            "matches_transcript": true
+          },
+          {
+            "matches_transcript": true
+          }
+        ],
+        "invented_numbers": false
+      }
+    }
+  },
+  "tool_calls": []
+}

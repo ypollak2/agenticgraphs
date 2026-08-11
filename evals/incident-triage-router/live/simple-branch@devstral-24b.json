@@ -1,0 +1,21 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "route": {
+      "complexity": "simple"
+    },
+    "branch-simple": {
+      "handled_by": "owner-1"
+    },
+    "verify": {
+      "matches_ownership_map": true,
+      "output": {
+        "matches_ownership_map": true
+      }
+    }
+  },
+  "tool_calls": []
+}

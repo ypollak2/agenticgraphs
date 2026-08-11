@@ -1,0 +1,53 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "triage": {
+      "risk": "medium"
+    },
+    "security-review": {
+      "sec_hits": [
+        {
+          "file": "package.json",
+          "line": 5,
+          "reason": "Use of deprecated library 'left-pad'"
+        },
+        {
+          "file": "index.js",
+          "line": 20,
+          "reason": "Potential XSS vulnerability in unescaped user input"
+        }
+      ]
+    },
+    "style-review": {
+      "style_findings": [
+        {
+          "file": "package.json",
+          "line": 5,
+          "reason": "Use of deprecated library"
+        },
+        {
+          "file": "index.js",
+          "line": 20,
+          "reason": "Potential security issue"
+        }
+      ]
+    },
+    "synthesize": {
+      "findings": [
+        {
+          "file": "package.json",
+          "line": 5
+        },
+        {
+          "file": "index.js",
+          "line": 20
+        }
+      ],
+      "verdict": "request_changes"
+    }
+  },
+  "tool_calls": []
+}

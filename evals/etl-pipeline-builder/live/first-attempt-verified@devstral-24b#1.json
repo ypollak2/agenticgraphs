@@ -1,0 +1,40 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "plan": {
+      "steps": [
+        {
+          "action": "generate_input_data",
+          "params": {}
+        },
+        {
+          "action": "run_data_pipeline",
+          "params": {}
+        },
+        {
+          "action": "validate_outputs",
+          "params": {
+            "expected_assertions": [
+              "output.actual_rows == output.expected_rows"
+            ]
+          }
+        }
+      ]
+    },
+    "execute": {
+      "step_result": true
+    },
+    "verify": {
+      "actual_rows": 100,
+      "expected_rows": 100,
+      "output": {
+        "actual_rows": 100,
+        "expected_rows": 100
+      }
+    }
+  },
+  "tool_calls": []
+}

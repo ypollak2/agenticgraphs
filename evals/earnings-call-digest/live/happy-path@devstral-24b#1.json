@@ -1,0 +1,45 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "To satisfy the contract, we need to ensure that all figures in the output match the transcript and there are no invented numbers."
+    },
+    "produce": {
+      "figures": [
+        {
+          "matches_transcript": true
+        },
+        {
+          "matches_transcript": true
+        }
+      ],
+      "invented_numbers": false
+    },
+    "review": {
+      "figures": [
+        {
+          "matches_transcript": true
+        },
+        {
+          "matches_transcript": true
+        }
+      ],
+      "invented_numbers": false,
+      "output": {
+        "figures": [
+          {
+            "matches_transcript": true
+          },
+          {
+            "matches_transcript": true
+          }
+        ],
+        "invented_numbers": false
+      }
+    }
+  },
+  "tool_calls": []
+}

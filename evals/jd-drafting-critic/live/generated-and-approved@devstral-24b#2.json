@@ -1,0 +1,23 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Neither bias-term linting nor requirements deduplication has been performed yet."
+    },
+    "generate": {
+      "draft": false
+    },
+    "critique": {
+      "bias_lint_clean": false,
+      "output": {
+        "bias_lint_clean": false,
+        "requirements_deduped": false
+      },
+      "requirements_deduped": false
+    }
+  },
+  "tool_calls": []
+}

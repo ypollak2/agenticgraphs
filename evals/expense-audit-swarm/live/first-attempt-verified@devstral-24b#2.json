@@ -1,0 +1,28 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "id": "analyze_violation_spec",
+          "dependencies": []
+        }
+      ]
+    },
+    "work": {
+      "work_result": {
+        "type": "succeeded",
+        "output": null,
+        "log": "No output produced as this is the analyze_task task."
+      }
+    },
+    "verify": {
+      "output": "null",
+      "violations": []
+    }
+  },
+  "tool_calls": []
+}

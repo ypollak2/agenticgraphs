@@ -1,0 +1,49 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "score the Acme discovery call against the MEDDIC rubric"
+  },
+  "node_outputs": {
+    "segment": {
+      "segments": [
+        {
+          "id": 1
+        }
+      ]
+    },
+    "score-pass": {
+      "rubric_score": {
+        "scores": [
+          85,
+          78,
+          92
+        ],
+        "median": 85,
+        "variance": 34.67
+      }
+    },
+    "consolidate": {
+      "final_score": [
+        {
+          "median": 85,
+          "spread": [
+            -7,
+            -14
+          ],
+          "segments_scored": [
+            1
+          ]
+        }
+      ],
+      "output": {
+        "segments_scored": 1,
+        "variance": 34.67
+      },
+      "segments_scored": 1,
+      "variance": 34.67
+    }
+  },
+  "tool_calls": []
+}

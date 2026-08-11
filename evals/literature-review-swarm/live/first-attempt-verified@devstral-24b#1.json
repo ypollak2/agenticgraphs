@@ -1,0 +1,37 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "id": "check_claims",
+          "agent": "expert_searcher",
+          "description": "Ensure every claim cites a specific paper and section"
+        }
+      ]
+    },
+    "work": {
+      "work_result": "Claim 1 cites paper A, section 2"
+    },
+    "verify": {
+      "claims": [
+        {
+          "paper": "A",
+          "section": 2
+        }
+      ],
+      "output": {
+        "claims": [
+          {
+            "paper": "A",
+            "section": 2
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": []
+}

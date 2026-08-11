@@ -1,0 +1,22 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Verify that behavior snapshot tests are unchanged before and after the intervention"
+    },
+    "produce": {
+      "snapshot_after": "test-output-after.json",
+      "snapshot_before": "test-output-before.json"
+    },
+    "review": {
+      "output": {
+        "snapshot_after": "test-output-after.json",
+        "snapshot_before": "test-output-before.json"
+      }
+    }
+  },
+  "tool_calls": []
+}

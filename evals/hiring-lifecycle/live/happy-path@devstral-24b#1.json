@@ -1,0 +1,131 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "hire a senior backend engineer who can own our payments service"
+  },
+  "node_outputs": {
+    "define-role.intake": {
+      "summary": "We've tried hiring once already. We need to re-evaluate our recruitment strategy focusing specifically on senior backend engineers with payments service experience."
+    },
+    "define-role.generate": {
+      "draft": "Create a detailed job description for the senior backend engineer position focusing on payment service expertise and ownership capabilities."
+    },
+    "define-role.critique": {
+      "bias_lint_clean": 0.945,
+      "jd": {
+        "title": "Senior Backend Engineer - Payments Service",
+        "location": "Remote",
+        "responsibilities": [
+          "Design and build scalable payment processing systems",
+          "Maintain and improve existing payment services infrastructure",
+          "Enhance payment transaction security measures",
+          "Collaborate with product teams to define and develop new features",
+          "Troubleshoot and debug complex technical issues in the payment ecosystem"
+        ],
+        "requirements": [
+          "Proven experience as a Senior Backend Engineer in the payments domain",
+          "Proficiency in [mention required programming languages]",
+          "Strong understanding of distributed systems and microservices architectures",
+          "Hands-on experience with cloud platforms (AWS/GCP/Azure)",
+          "Expert knowledge of financial regulations related to payment processing"
+        ],
+        "benefits": [
+          "Competitive salary package",
+          "Comprehensive health insurance plans",
+          "Flexible work hours",
+          "Remote work options",
+          "Employee stock ownership programs"
+        ]
+      },
+      "output": "Create a more inclusive and detailed job description for the senior backend engineer position focusing on payment service expertise, and address any potential biases to attract qualified candidates with diverse backgrounds."
+    },
+    "screen": {
+      "shortlist": [
+        {
+          "candidate_name": "Jane Thompson",
+          "scorecard_1": 95,
+          "scorecard_2": 94,
+          "scorecard_3": 96,
+          "panel_signature": true
+        },
+        {
+          "candidate_name": "Robert White",
+          "scorecard_1": 88,
+          "scorecard_2": 87,
+          "scorecard_3": 85,
+          "panel_signature": false
+        }
+      ]
+    },
+    "interview": {
+      "scorecards": [
+        {
+          "candidate_name": "Jane Thompson",
+          "reviewer_name": "Alexandra Patel",
+          "date": "2023-10-25",
+          "technical_expertise": 9,
+          "cultural_fit": 8,
+          "leadership_potential": 9.5,
+          "comments": "Jane has excellent technical skills and demonstrates strong leadership qualities."
+        },
+        {
+          "candidate_name": "Jane Thompson",
+          "reviewer_name": "Michael Johnson",
+          "date": "2023-10-26",
+          "technical_expertise": 8.5,
+          "cultural_fit": 9,
+          "leadership_potential": 9,
+          "comments": "Jane's experience in payments systems is impressive, and she would be an asset to the team."
+        },
+        {
+          "candidate_name": "Jane Thompson",
+          "reviewer_name": "Patricia Garcia",
+          "date": "2023-10-27",
+          "technical_expertise": 9.5,
+          "cultural_fit": 8.5,
+          "leadership_potential": 9,
+          "comments": "Jane's technical skills are top-notch, particularly in payment processing technologies."
+        },
+        {
+          "candidate_name": "Robert White",
+          "reviewer_name": "Alexandra Patel",
+          "date": "2023-10-25",
+          "technical_expertise": 7,
+          "cultural_fit": 8,
+          "leadership_potential": 7.5,
+          "comments": "Robert has good technical skills but needs more leadership experience."
+        },
+        {
+          "candidate_name": "Robert White",
+          "reviewer_name": "Michael Johnson",
+          "date": "2023-10-26",
+          "technical_expertise": 7.5,
+          "cultural_fit": 8,
+          "leadership_potential": 7,
+          "comments": "Robert's technical expertise is solid, but he could improve on leadership skills."
+        },
+        {
+          "candidate_name": "Robert White",
+          "reviewer_name": "Patricia Garcia",
+          "date": "2023-10-27",
+          "technical_expertise": 8,
+          "cultural_fit": 8.5,
+          "leadership_potential": 6.5,
+          "comments": "Robert is technically competent but requires more development in leadership qualities."
+        }
+      ]
+    },
+    "offer": {
+      "offer_sent": false,
+      "output": {
+        "scorecard_count": 6,
+        "signed_off": true
+      },
+      "scorecard_count": 6,
+      "structured": true
+    }
+  },
+  "tool_calls": []
+}

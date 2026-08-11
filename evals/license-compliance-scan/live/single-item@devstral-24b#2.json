@@ -1,0 +1,22 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "partition": {
+      "shards": {
+        "total": 1
+      }
+    },
+    "reduce": {
+      "copyleft_conflicts": false,
+      "output": {
+        "copyleft_conflicts": [],
+        "packages": []
+      },
+      "packages": []
+    }
+  },
+  "tool_calls": []
+}

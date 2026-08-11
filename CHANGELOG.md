@@ -1,5 +1,61 @@
 # Changelog
 
+## [0.9.3] — instability is the setup, not the model
+
+v0.9.2 found 20% of `qwen3-coder:30b` cells returning different verdicts on identical
+input, and asked whether that was the model or the harness. A second family answers it.
+
+| | `qwen3-coder:30b` | `devstral:24b` |
+|---|---|---|
+| stable pass (3/3) | 57 | 17 |
+| stable fail (0/3) | 9 | 10 |
+| **unstable** | **16 (20%)** | **23 (46%)** |
+| cells scored | 82 | 50 |
+
+**Not the model — the second family is worse.** Of 49 cells scorable on both, **28
+(57%) fall into different stability classes**.
+
+`incident-triage-router` is 0 of 3 on `qwen3-coder:30b` and **3 of 3 on
+`devstral:24b`**. v0.9.2 listed it under "genuinely unsatisfiable — 0 of 3, not 0 of
+1". It is not unsatisfiable, it is model-specific, and one model at n=3 could not tell
+the difference. That claim is marked superseded in place rather than deleted.
+
+**One graph now has cross-family evidence of an unsatisfiable contract:**
+`flaky-test-reflexion`, 0 of 6 across two families.
+
+| | before repeats | qwen3 n=3 | + devstral n=3 |
+|---|---|---|---|
+| 🚫 satisfied by no model | 14 | 8 | **6** |
+| 🎲 same model, different answer | 2 | 18 | **37** |
+| ✅ satisfied every model, every sample | 50 | 40 | **24** |
+
+The ✅ column halving is the headline: 26 graphs that looked clean had been measured
+once each.
+
+### Added
+
+- `devstral:24b` as a fifth model column, 3 samples on 50 of 83 graphs.
+- Round 2 analysis in `docs/plans/v12-variance.md`.
+
+### Fixed
+
+- `scripts/record_live.py` batched all output and printed it only on completion, so a
+  terminated sweep lost every result — 75 completed runs left no record beyond the
+  recordings themselves. Results now stream with `flush=True`, making a long run both
+  resumable and observable. This is the second defect of the same shape in this file:
+  the recorder handled the happy path and discarded evidence on everything else.
+
+### Known, unfixed
+
+- `devstral:24b` reached 3 samples on 50 of 83 cells. The 25 unfinished are the heavy
+  composites (~10 min each); three background runs were terminated part-way. Its 46% is
+  measured on a set skewed toward primitives.
+- Unparseable replies reduce `n` rather than counting as anything. `devstral:24b`
+  emitted markedly more, including `float('inf')` — Python, not JSON. Pass / fail /
+  unsatisfiable still has no room for "the model did not emit parseable output".
+- All runs made 0 tool calls. Stability is not truth: a stable 3/3 with no tool call is
+  a model that reliably says the same thing, not a model that is right.
+
 ## [0.9.2] — single samples mislabelled flaky graphs as unsatisfiable
 
 v0.9.1 concluded that the goal re-record had measured sampling noise. This measures

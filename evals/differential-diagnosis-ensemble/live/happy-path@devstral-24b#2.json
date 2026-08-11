@@ -1,0 +1,195 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "work up the 54-year-old with intermittent chest pain and normal troponin"
+  },
+  "node_outputs": {
+    "intake": {
+      "presentations": [
+        {
+          "type": "angina",
+          "certainty": 0.7
+        },
+        {
+          "type": "myocardial_infarction",
+          "certainty": 0.15
+        },
+        {
+          "type": "costochondritis",
+          "certainty": 0.05
+        },
+        {
+          "type": "esophageal_spasm",
+          "certainty": 0.05
+        },
+        {
+          "type": "anxiety",
+          "certainty": 0.05
+        }
+      ]
+    },
+    "diagnose": [
+      {
+        "ranking": [
+          {
+            "type": "angina",
+            "certainty": 0.7
+          },
+          {
+            "type": "myocardial_infarction",
+            "certainty": 0.15
+          },
+          {
+            "type": "costochondritis",
+            "certainty": 0.05
+          },
+          {
+            "type": "esophageal_spasm",
+            "certainty": 0.05
+          },
+          {
+            "type": "anxiety",
+            "certainty": 0.05
+          }
+        ]
+      },
+      {
+        "ranking": [
+          {
+            "type": "angina",
+            "certainty": 0.7
+          },
+          {
+            "type": "myocardial_infarction",
+            "certainty": 0.15
+          },
+          {
+            "type": "costochondritis",
+            "certainty": 0.05
+          },
+          {
+            "type": "esophageal_spasm",
+            "certainty": 0.05
+          },
+          {
+            "type": "anxiety",
+            "certainty": 0.05
+          }
+        ]
+      },
+      {
+        "ranking": [
+          {
+            "type": "angina",
+            "certainty": 0.7
+          },
+          {
+            "type": "myocardial_infarction",
+            "certainty": 0.15
+          },
+          {
+            "type": "costochondritis",
+            "certainty": 0.05
+          },
+          {
+            "type": "esophageal_spasm",
+            "certainty": 0.05
+          },
+          {
+            "type": "anxiety",
+            "certainty": 0.05
+          }
+        ]
+      },
+      {
+        "ranking": [
+          {
+            "type": "esophageal_spasm",
+            "certainty": 0.9
+          },
+          {
+            "type": "angina",
+            "certainty": 0.8
+          }
+        ]
+      },
+      {
+        "ranking": [
+          {
+            "type": "angina",
+            "certainty": 0.7
+          },
+          {
+            "type": "myocardial_infarction",
+            "certainty": 0.15
+          },
+          {
+            "type": "costochondritis",
+            "certainty": 0.05
+          },
+          {
+            "type": "esophageal_spasm",
+            "certainty": 0.05
+          },
+          {
+            "type": "anxiety",
+            "certainty": 0.05
+          }
+        ]
+      }
+    ],
+    "adjudicate": {
+      "consensus": {
+        "certainty": 0.7,
+        "type": "angina"
+      },
+      "dissent": [
+        {
+          "certainty": 0.15,
+          "type": "myocardial_infarction"
+        },
+        {
+          "certainty": 0.05,
+          "type": "costochondritis"
+        },
+        {
+          "certainty": 0.05,
+          "type": "esophageal_spasm"
+        },
+        {
+          "certainty": 0.05,
+          "type": "anxiety"
+        }
+      ],
+      "dissent_retained": true,
+      "output": {
+        "consensus": {
+          "certainty": 0.7,
+          "type": "angina"
+        },
+        "dissent": [
+          {
+            "certainty": 0.15,
+            "type": "myocardial_infarction"
+          },
+          {
+            "certainty": 0.05,
+            "type": "costochondritis"
+          },
+          {
+            "certainty": 0.05,
+            "type": "esophageal_spasm"
+          },
+          {
+            "certainty": 0.05,
+            "type": "anxiety"
+          }
+        ],
+        "dissent_retained": true
+      }
+    }
+  },
+  "tool_calls": []
+}

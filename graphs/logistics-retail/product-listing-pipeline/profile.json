@@ -53,15 +53,121 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:gpt-4o,qwen3-coder:30b",
+    "runner": "llm-replay:devstral:24b,gpt-4o,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-grounded",
     "date": "2026-08-11",
-    "cases": 4,
+    "cases": 7,
     "passed": 3,
-    "pass_rate": 0.75,
-    "mean_steps": 8.0,
+    "pass_rate": 0.429,
+    "mean_steps": 9.14,
     "results": [
+      {
+        "id": "happy-path",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 7,
+        "trace": [
+          "extract",
+          "write",
+          "claim-check.intake",
+          "policy-check",
+          "claim-check.produce",
+          "claim-check.review",
+          "publish"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "[claim-check] all(v.source_url and v.quote_span for v in output.verdicts)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 12,
+        "trace": [
+          "extract",
+          "write",
+          "claim-check.intake",
+          "policy-check",
+          "claim-check.produce",
+          "claim-check.review",
+          "publish",
+          "write",
+          "claim-check.intake",
+          "policy-check",
+          "claim-check.produce",
+          "claim-check.review"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "len(output.unsupported_claims) == 0",
+          "len(output.policy_violations) == 0"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 13,
+        "trace": [
+          "extract",
+          "write",
+          "claim-check.intake",
+          "policy-check",
+          "claim-check.produce",
+          "claim-check.review",
+          "publish",
+          "write",
+          "claim-check.intake",
+          "policy-check",
+          "claim-check.produce",
+          "publish",
+          "claim-check.review"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "len(output.unsupported_claims) == 0",
+          "[claim-check] all(v.source_url and v.quote_span for v in output.verdicts)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "happy-path",
         "model": "gpt-4o",
@@ -198,12 +304,14 @@
       }
     ],
     "models": [
+      "devstral:24b",
       "gpt-4o",
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-09",
     "age_days": 2,
     "per_model_pass_rate": {
+      "devstral:24b": 0.0,
       "gpt-4o": 1.0,
       "qwen3-coder:30b": 0.667
     },
@@ -213,6 +321,7 @@
       "qwen3-coder:30b"
     ],
     "samples_per_model": {
+      "devstral:24b": 3,
       "gpt-4o": 1,
       "qwen3-coder:30b": 3
     },

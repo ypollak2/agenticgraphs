@@ -1,0 +1,115 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "stabilize test_checkout_timeout; it must go 3 consecutive greens"
+  },
+  "node_outputs": {
+    "reproduce": {
+      "observed": {
+        "consecutive_green": 2,
+        "lessons": [
+          "Network issues caused intermittents"
+        ]
+      },
+      "seed": {
+        "code_path": "/src/test_checkout_timeout.js",
+        "line_98": "const timeout = 30;"
+      }
+    },
+    "hypothesise": [
+      {
+        "hypothesis": {
+          "increase_timeout_to_minimize_network_issues": true
+        }
+      },
+      {
+        "hypothesis": "increase_timeout_to_60_seconds"
+      },
+      {
+        "hypothesis": "increase_timeout_to_90_seconds"
+      },
+      {
+        "hypothesis": "increase_timeout_to_120_seconds"
+      }
+    ],
+    "test-fix": [
+      {
+        "candidate_fix": {
+          "increase_timeout_to_60_seconds": true
+        }
+      },
+      {
+        "candidate_fix": {
+          "increase_timeout_to_90_seconds": true
+        }
+      },
+      {
+        "candidate_fix": {
+          "increase_timeout_to_90_seconds": true
+        }
+      },
+      {
+        "candidate_fix": {
+          "increase_timeout_to_120_seconds": true
+        }
+      }
+    ],
+    "evaluate": [
+      {
+        "consecutive_green": 2,
+        "lessons": [
+          "Network issues caused intermittents"
+        ],
+        "output": {
+          "consecutive_green": 2,
+          "lessons": [
+            "Network issues caused intermittents"
+          ]
+        },
+        "stable": false
+      },
+      {
+        "consecutive_green": 2,
+        "stable": false,
+        "output": {
+          "consecutive_green": 2,
+          "lessons": [
+            "Network issues caused intermittents"
+          ]
+        },
+        "lessons": [
+          "Network issues caused intermittents"
+        ]
+      },
+      {
+        "consecutive_green": 2,
+        "lessons": [
+          "Network issues caused intermittents"
+        ],
+        "output": {
+          "consecutive_green": 2,
+          "lessons": [
+            "Network issues caused intermittents"
+          ]
+        },
+        "stable": false
+      },
+      {
+        "consecutive_green": 2,
+        "lessons": [
+          "Network issues caused intermittents"
+        ],
+        "output": {
+          "consecutive_green": 2,
+          "lessons": [
+            "Network issues caused intermittents"
+          ]
+        },
+        "stable": false
+      }
+    ]
+  },
+  "tool_calls": []
+}

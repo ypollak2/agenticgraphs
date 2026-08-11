@@ -126,8 +126,17 @@ def record(name: str, sample: int = 0) -> dict:
             "grounded": rep.grounded}
 
 
+def _report(r: dict) -> None:
+    if "error" in r:
+        print(f"ERROR   {r['graph']}: {r['error']}", flush=True)
+    else:
+        mark = "PASS" if r["passed"] else "FAIL"
+        tools = f" [{r.get('tool_calls', 0)} tool calls{', grounded' if r.get('grounded') else ''}]"
+        print(f"{mark}    {r['graph']} ({r['steps']} steps){tools} {r['failures'] or ''}",
+              flush=True)
+
+
 def main() -> int:
-    results = []
     samples = int(os.environ.get("AGR_SAMPLES", "1"))
     for name in sys.argv[1:]:
         # Per SAMPLE, not per graph. Wrapping the whole loop meant one unparseable
@@ -136,16 +145,14 @@ def main() -> int:
         # A model that fails to emit JSON is itself an observation about the cell.
         for i in range(samples):
             try:
-                results.append(record(name, sample=i))
+                r = record(name, sample=i)
             except Exception as ex:  # noqa: BLE001 — a failed recording is a result, not a crash
-                results.append({"graph": name, "error": f"{type(ex).__name__}: {ex}"})
-    for r in results:
-        if "error" in r:
-            print(f"ERROR   {r['graph']}: {r['error']}")
-        else:
-            mark = "PASS" if r["passed"] else "FAIL"
-            tools = f" [{r.get('tool_calls', 0)} tool calls{', grounded' if r.get('grounded') else ''}]"
-            print(f"{mark}    {r['graph']} ({r['steps']} steps){tools} {r['failures'] or ''}")
+                r = {"graph": name, "error": f"{type(ex).__name__}: {ex}"}
+            # Reported as it happens, not accumulated. A 249-run sweep that batches
+            # its output loses every result if the process is killed — which is
+            # exactly what happened, and the recordings on disk were the only
+            # surviving evidence of how far it got.
+            _report(r)
     return 0
 
 

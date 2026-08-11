@@ -1,0 +1,21 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "route": {
+      "complexity": "medium"
+    },
+    "branch-simple": {
+      "handled_by": "generate_baseline_model"
+    },
+    "verify": {
+      "matches_holdout": false,
+      "output": {
+        "matches_holdout": false
+      }
+    }
+  },
+  "tool_calls": []
+}

@@ -1,0 +1,67 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "review the Acme MSA under our standard enterprise risk posture"
+  },
+  "node_outputs": {
+    "intake": {
+      "clauses": {
+        "liability": {
+          "coverage": "limited",
+          "amount": "$5M"
+        },
+        "data_privacy": {
+          "compliance": "GDPR",
+          "scope": "all_data"
+        },
+        "warranties": {
+          "type": "express",
+          "term": "1 year"
+        },
+        "termination": {
+          "notice_period": "30 days",
+          "liquidated_damages": "none"
+        }
+      }
+    },
+    "redline.intake": {
+      "summary": "Acme MSA shows limited liability ($5M), GDPR data privacy compliance for all data, 1-year express warranties, and termination with 30-day notice without liquidated damages"
+    },
+    "redline.produce": {
+      "redlines": [
+        {
+          "playbook_ref": "standard-liability-review"
+        },
+        {
+          "playbook_ref": "data-gdpr-compliance-check"
+        }
+      ]
+    },
+    "redline.review": {
+      "output": "The Acme MSA aligns well with our standard enterprise risk posture. However, we should further examine the liability clause to ensure it covers all relevant scenarios and verify that data privacy compliance extends to all jurisdiction-specific regulations beyond GDPR.",
+      "redlines": [
+        {
+          "playbook_ref": "exhaustive-liability-scenarios-playbook"
+        },
+        {
+          "playbook_ref": "comprehensive-data-compliance-review"
+        }
+      ]
+    },
+    "risk-assess": {
+      "residual_risk": "medium"
+    },
+    "execute": {
+      "executed": true,
+      "output": {
+        "executed": true,
+        "residual_risk_level": "medium",
+        "signed_off": true
+      },
+      "residual_risk_level": "medium"
+    }
+  },
+  "tool_calls": []
+}

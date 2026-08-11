@@ -1,0 +1,23 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Analyzing the current state of the workflow."
+    },
+    "generate": {
+      "draft": "TODO"
+    },
+    "critique": {
+      "bias_lint_clean": null,
+      "requirements_deduped": null,
+      "output": {
+        "bias_lint_clean": null,
+        "requirements_deduped": null
+      }
+    }
+  },
+  "tool_calls": []
+}

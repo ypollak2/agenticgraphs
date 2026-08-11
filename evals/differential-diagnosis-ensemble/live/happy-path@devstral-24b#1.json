@@ -1,0 +1,155 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "work up the 54-year-old with intermittent chest pain and normal troponin"
+  },
+  "node_outputs": {
+    "intake": {
+      "presentations": [
+        "Typical angina",
+        "Atypical chest pain",
+        "Stable angina",
+        "Unstable angina",
+        "Non-cardiac chest pain"
+      ]
+    },
+    "diagnose": [
+      {
+        "ranking": [
+          {
+            "presentation": "Typical angina",
+            "probability": 0.7
+          },
+          {
+            "presentation": "Stable angina",
+            "probability": 0.25
+          },
+          {
+            "presentation": "Unstable angina",
+            "probability": 0.03
+          },
+          {
+            "presentation": "Atypical chest pain",
+            "probability": 0.015
+          },
+          {
+            "presentation": "Non-cardiac chest pain",
+            "probability": 0.005
+          }
+        ]
+      },
+      {
+        "ranking": [
+          {
+            "presentation": "Unstable angina",
+            "likelihood": 70
+          },
+          {
+            "presentation": "Typical angina",
+            "likelihood": 25
+          },
+          {
+            "presentation": "Non-cardiac chest pain",
+            "likelihood": 3
+          },
+          {
+            "presentation": "Stable angina",
+            "likelihood": 1
+          },
+          {
+            "presentation": "Atypical chest pain",
+            "likelihood": 1
+          }
+        ]
+      },
+      {
+        "ranking": [
+          {
+            "diagnosis": "Stable angina",
+            "confidence": 0.85
+          },
+          {
+            "diagnosis": "Unstable angina",
+            "confidence": 0.1
+          }
+        ]
+      },
+      {
+        "ranking": [
+          {
+            "presentation": "Unstable angina",
+            "confidence": 0.45
+          },
+          {
+            "presentation": "Stable angina",
+            "confidence": 0.3
+          },
+          {
+            "presentation": "Typical angina",
+            "confidence": 0.15
+          },
+          {
+            "presentation": "Non-cardiac chest pain",
+            "confidence": 0.07
+          },
+          {
+            "presentation": "Atypical chest pain",
+            "confidence": 0.03
+          }
+        ]
+      },
+      {
+        "ranking": [
+          {
+            "diagnosis": "Non-cardiac chest pain",
+            "confidence": 0.65,
+            "rationale": "Patient has intermittent chest pain with normal troponin, suggesting lower likelihood of acute cardiac event.",
+            "evidence": [
+              "Normal troponin",
+              "Intermittent pattern suggests non-cardiac cause"
+            ]
+          },
+          {
+            "diagnosis": "Stable angina",
+            "confidence": 0.25,
+            "rationale": "Patient's age and symptoms could be consistent with stable angina, but normal troponin makes acute coronary syndrome less likely.",
+            "evidence": [
+              "Intermittent chest pain",
+              "54-year-old patient"
+            ]
+          },
+          {
+            "diagnosis": "Unstable angina",
+            "confidence": 0.08,
+            "rationale": "Normal troponin significantly reduces the likelihood of unstable angina.",
+            "evidence": [
+              "Normal troponin is against this diagnosis",
+              "Patient doesn't present with signs of acute coronary syndrome"
+            ]
+          },
+          {
+            "diagnosis": "Atypical chest pain",
+            "confidence": 0.02,
+            "rationale": "Symptoms don't clearly fit patterns of typical or atypical angina.",
+            "evidence": [
+              "No clear pattern to differentiate from typical angina"
+            ]
+          }
+        ]
+      }
+    ],
+    "adjudicate": {
+      "consensus": null,
+      "dissent": [],
+      "dissent_retained": true,
+      "output": {
+        "consensus": null,
+        "dissent": [],
+        "dissent_retained": true
+      }
+    }
+  },
+  "tool_calls": []
+}

@@ -73,13 +73,13 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:hermes3:8b,qwen2.5-coder:7b,qwen3-coder:30b",
+    "runner": "llm-replay:devstral:24b,hermes3:8b,qwen2.5-coder:7b,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-11",
-    "cases": 6,
+    "cases": 9,
     "passed": 5,
-    "pass_rate": 0.833,
+    "pass_rate": 0.556,
     "mean_steps": 3.0,
     "results": [
       {
@@ -96,6 +96,87 @@
         ],
         "goal_missing": "",
         "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "generated-and-approved",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 3,
+        "trace": [
+          "intake",
+          "generate",
+          "critique"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "output.bias_lint_clean and output.requirements_deduped"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "generated-and-approved",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 3,
+        "trace": [
+          "intake",
+          "generate",
+          "critique"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "output.bias_lint_clean and output.requirements_deduped"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "generated-and-approved",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 3,
+        "trace": [
+          "intake",
+          "generate",
+          "critique"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "output.bias_lint_clean and output.requirements_deduped"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -236,6 +317,7 @@
       }
     ],
     "models": [
+      "devstral:24b",
       "hermes3:8b",
       "qwen2.5-coder:7b",
       "qwen3-coder:30b"
@@ -243,6 +325,7 @@
     "recorded": "2026-08-09",
     "age_days": 2,
     "per_model_pass_rate": {
+      "devstral:24b": 0.0,
       "hermes3:8b": 1.0,
       "qwen2.5-coder:7b": 0.5,
       "qwen3-coder:30b": 1.0
@@ -253,6 +336,7 @@
       "qwen2.5-coder:7b"
     ],
     "samples_per_model": {
+      "devstral:24b": 3,
       "hermes3:8b": 1,
       "qwen2.5-coder:7b": 2,
       "qwen3-coder:30b": 3

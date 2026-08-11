@@ -1,0 +1,62 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": ""
+    },
+    "generate": {
+      "draft": {
+        "entries": [
+          {
+            "question": "What is the capital of France?",
+            "key": "Paris",
+            "distractors": [
+              "Berlin",
+              "Madrid",
+              "Rome"
+            ],
+            "rationale": "These are major European capitals, making them plausible distractors."
+          },
+          {
+            "question": "Which planet is known as the Red Planet?",
+            "key": "Mars",
+            "distractors": [
+              "Earth",
+              "Jupiter",
+              "Saturn"
+            ],
+            "rationale": "All these planets are in our solar system and could be commonly confused."
+          }
+        ]
+      }
+    },
+    "critique": {
+      "entries": [
+        {
+          "answer_matches_key": true,
+          "distractors_plausible": true
+        },
+        {
+          "answer_matches_key": true,
+          "distractors_plausible": true
+        }
+      ],
+      "output": {
+        "entries": [
+          {
+            "answer_matches_key": true,
+            "distractors_plausible": true
+          },
+          {
+            "answer_matches_key": true,
+            "distractors_plausible": true
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": []
+}

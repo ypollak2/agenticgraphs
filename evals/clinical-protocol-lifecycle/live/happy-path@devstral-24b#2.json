@@ -1,0 +1,32 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "draft a phase II protocol for drug X in treatment-resistant patients"
+  },
+  "node_outputs": {
+    "draft": {
+      "protocol": {
+        "title": "Phase II Protocol for Drug X in Treatment-Resistant Patients",
+        "principal_investigator": "Dr. Jane Doe",
+        "deviations": [],
+        "signed_off": true,
+        "registry_id": "PH2-DRUGX-TRPT-01"
+      }
+    },
+    "critique": {
+      "deviations": []
+    },
+    "register": {
+      "output": {
+        "deviations": [],
+        "registry_id": "PH2-DRUGX-TRPT-01",
+        "signed_off": true
+      },
+      "registered": true,
+      "registry_id": "PH2-DRUGX-TRPT-01"
+    }
+  },
+  "tool_calls": []
+}

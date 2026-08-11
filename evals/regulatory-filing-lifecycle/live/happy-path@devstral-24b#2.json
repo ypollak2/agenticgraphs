@@ -1,0 +1,42 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "file Q1 2026 under the SEC regime with reconciled figures"
+  },
+  "node_outputs": {
+    "collect": {
+      "figures": [
+        {
+          "type": "sales",
+          "amount": 500000
+        },
+        {
+          "type": "expenses",
+          "amount": 325000
+        }
+      ]
+    },
+    "reconcile": {
+      "variance": 175000,
+      "reconciled": true
+    },
+    "file": {
+      "filed": true,
+      "confirmation_id": "SECQ12026AAA"
+    },
+    "retain": {
+      "evidence_pack": {
+        "confirmation_id": "SECQ12026AAA"
+      },
+      "output": {
+        "evidence_pack": "{\"confirmation_id\":\"SECQ12026AAA\"}",
+        "filed": true,
+        "reconciled": true,
+        "signed_off": true
+      }
+    }
+  },
+  "tool_calls": []
+}

@@ -1,0 +1,216 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "list the spring hardware line on Amazon under its claims policy"
+  },
+  "node_outputs": {
+    "extract": {
+      "attributes": [
+        "color"
+      ]
+    },
+    "write": [
+      {
+        "listing_copy": [
+          {
+            "claim": "Color Options",
+            "specification": "Available in White, Silver, and Black"
+          },
+          {
+            "claim": "Material",
+            "specification": "Constructed with high-quality stainless steel and aluminum alloy"
+          },
+          {
+            "claim": "Dimensions",
+            "specification": "30 inches H x 18 inches W x 4 inches D"
+          },
+          {
+            "claim": "Weight Capacity",
+            "specification": "Supports up to 250 lbs per shelf"
+          }
+        ]
+      },
+      {
+        "listing_copy": [
+          {
+            "claim": "Color Options",
+            "specification": "Available in White, Silver, and Black"
+          },
+          {
+            "claim": "Material",
+            "specification": "Constructed with high-quality stainless steel and aluminum alloy"
+          },
+          {
+            "claim": "Dimensions",
+            "specification": "30 inches H x 18 inches W x 4 inches D"
+          },
+          {
+            "claim": "Weight Capacity",
+            "specification": "Supports up to 250 lbs per shelf"
+          }
+        ]
+      }
+    ],
+    "claim-check.intake": [
+      {
+        "summary": "The Spring Hardware line on Amazon has the following claims policy: Color Options include White, Silver, and Black; Material is high-quality stainless steel and aluminum alloy; Dimensions are 30 inches H x 18 inches W x 4 inches D; Weight Capacity supports up to 250 lbs per shelf."
+      },
+      {
+        "summary": "Spring Hardware line on Amazon has claims about Color Options (White, Silver, Black), Material (stainless steel/aluminum alloy), Dimensions (30H x 18W x 4D inches), and Weight Capacity (250 lbs per shelf); none are supported with evidence."
+      }
+    ],
+    "policy-check": [
+      {
+        "policy_violations": []
+      },
+      {
+        "policy_violations": []
+      }
+    ],
+    "claim-check.produce": [
+      {
+        "verdicts": [
+          {
+            "claim": "Color Options",
+            "specification": "Available in White, Silver, and Black",
+            "quote_span": null,
+            "source_url": null
+          },
+          {
+            "claim": "Material",
+            "specification": "Constructed with high-quality stainless steel and aluminum alloy",
+            "quote_span": null,
+            "source_url": null
+          },
+          {
+            "claim": "Dimensions",
+            "specification": "30 inches H x 18 inches W x 4 inches D",
+            "quote_span": null,
+            "source_url": null
+          },
+          {
+            "claim": "Weight Capacity",
+            "specification": "Supports up to 250 lbs per shelf",
+            "quote_span": null,
+            "source_url": null
+          }
+        ]
+      },
+      {
+        "verdicts": [
+          {
+            "quote_span": null,
+            "source_url": null
+          },
+          {
+            "quote_span": null,
+            "source_url": null
+          },
+          {
+            "quote_span": null,
+            "source_url": null
+          },
+          {
+            "quote_span": null,
+            "source_url": null
+          }
+        ]
+      }
+    ],
+    "claim-check.review": [
+      {
+        "output": {
+          "policy_violations": []
+        },
+        "unsupported_claims": [
+          "Color Options",
+          "Material",
+          "Dimensions",
+          "Weight Capacity"
+        ],
+        "verdicts": [
+          {
+            "quote_span": null,
+            "source_url": null
+          },
+          {
+            "quote_span": null,
+            "source_url": null
+          },
+          {
+            "quote_span": null,
+            "source_url": null
+          },
+          {
+            "quote_span": null,
+            "source_url": null
+          }
+        ]
+      },
+      {
+        "output": {
+          "policy_violations": [],
+          "unsupported_claims": [
+            "Color Options",
+            "Material",
+            "Dimensions",
+            "Weight Capacity"
+          ]
+        },
+        "unsupported_claims": [
+          "Color Options",
+          "Material",
+          "Dimensions",
+          "Weight Capacity"
+        ],
+        "verdicts": [
+          {
+            "quote_span": null,
+            "source_url": null
+          },
+          {
+            "quote_span": null,
+            "source_url": null
+          },
+          {
+            "quote_span": null,
+            "source_url": null
+          },
+          {
+            "quote_span": null,
+            "source_url": null
+          }
+        ]
+      }
+    ],
+    "publish": [
+      {
+        "listings_published": false,
+        "output": {
+          "policy_violations": [],
+          "unsupported_claims": [
+            "Color Options",
+            "Material",
+            "Dimensions",
+            "Weight Capacity"
+          ]
+        }
+      },
+      {
+        "listings_published": false,
+        "output": {
+          "policy_violations": [],
+          "unsupported_claims": [
+            "Color Options",
+            "Material",
+            "Dimensions",
+            "Weight Capacity"
+          ]
+        }
+      }
+    ]
+  },
+  "tool_calls": []
+}

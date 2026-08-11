@@ -1,0 +1,60 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "priority": 1,
+          "claims": []
+        },
+        {
+          "priority": 2,
+          "claims": []
+        }
+      ]
+    },
+    "map": [
+      {
+        "shard_result": []
+      },
+      {
+        "shard_result": {
+          "note": 1458026722,
+          "pr_url": "https://github.com/example/repo/pull/9"
+        }
+      }
+    ],
+    "reduce": {
+      "shards": [
+        {
+          "priority": 1,
+          "claims": []
+        },
+        {
+          "priority": 2,
+          "claims": []
+        }
+      ],
+      "notes": [
+        {
+          "note": 1458026722,
+          "pr_url": "https://github.com/example/repo/pull/9"
+        }
+      ],
+      "orphan_claims": [],
+      "output": {
+        "notes": [
+          {
+            "note": 1458026722,
+            "pr_url": "https://github.com/example/repo/pull/9"
+          }
+        ],
+        "orphan_claims": []
+      }
+    }
+  },
+  "tool_calls": []
+}

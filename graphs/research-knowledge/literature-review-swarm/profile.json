@@ -73,15 +73,92 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:gpt-4o,qwen3-coder:30b",
+    "runner": "llm-replay:devstral:24b,gpt-4o,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-grounded",
     "date": "2026-08-11",
-    "cases": 4,
-    "passed": 2,
-    "pass_rate": 0.5,
+    "cases": 7,
+    "passed": 4,
+    "pass_rate": 0.571,
     "mean_steps": 3.0,
     "results": [
+      {
+        "id": "first-attempt-verified",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "plan",
+          "work",
+          "verify"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "first-attempt-verified",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "plan",
+          "work",
+          "verify"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "first-attempt-verified",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 3,
+        "trace": [
+          "plan",
+          "work",
+          "verify"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "all(c.paper and c.section for c in output.claims)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "first-attempt-verified",
         "model": "gpt-4o",
@@ -272,21 +349,25 @@
       }
     ],
     "models": [
+      "devstral:24b",
       "gpt-4o",
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-10",
     "age_days": 1,
     "per_model_pass_rate": {
+      "devstral:24b": 0.667,
       "gpt-4o": 0.0,
       "qwen3-coder:30b": 0.667
     },
     "models_disagree": true,
     "fails_every_model": false,
     "flaky_models": [
+      "devstral:24b",
       "qwen3-coder:30b"
     ],
     "samples_per_model": {
+      "devstral:24b": 3,
       "gpt-4o": 1,
       "qwen3-coder:30b": 3
     },

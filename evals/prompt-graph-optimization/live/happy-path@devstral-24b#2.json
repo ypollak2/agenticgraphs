@@ -1,0 +1,100 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "optimize the support-triage graph for accuracy on the held-out set"
+  },
+  "node_outputs": {
+    "baseline": {
+      "baseline_score": 82.4,
+      "eval_set": "held_out_test"
+    },
+    "search": [
+      {
+        "variant": {
+          "transformer_model_name": "distilbert-base-uncased"
+        },
+        "score": 83.2
+      },
+      {
+        "variant": "tune_top_performers",
+        "score": 83.5
+      },
+      {
+        "variant": {
+          "addition": "extra_node_type_c"
+        },
+        "score": 85.2
+      },
+      {
+        "variant": {
+          "addition": "extra_node_type_d"
+        },
+        "score": 0
+      },
+      {
+        "variant": {
+          "addition": "extra_node_type_d"
+        },
+        "score": 83.7
+      },
+      {
+        "variant": {
+          "addition": "extra_node_type_d"
+        },
+        "score": 85.3
+      },
+      {
+        "variant": "tune_top_performers_plus_pruning",
+        "score": 84.2
+      },
+      {
+        "variant": "tune_top_performers",
+        "score": 83.5
+      },
+      {
+        "variant": "tune_top_performers_v2",
+        "score": 83.7
+      },
+      {
+        "variant": {
+          "addition": "extra_node_type_e"
+        },
+        "score": 86.1
+      },
+      {
+        "variant": {
+          "addition": "extra_node_type_e"
+        },
+        "score": 87.2
+      },
+      {
+        "variant": {
+          "addition": "extra_node_type_e"
+        },
+        "score": 86.1
+      },
+      {
+        "variant": "tune_top_performers_pruned_plus_expand_search_space",
+        "score": 85.3
+      },
+      {
+        "variant": "tune_top_performers_plus_pruning",
+        "score": 84.2
+      },
+      {
+        "variant": "tune_top_performers_plus_pruning_heldout_set",
+        "score": 84.8
+      }
+    ],
+    "confirm": {
+      "holdout_score": 87.2,
+      "output": {
+        "baseline_score": 82.4,
+        "holdout_score": 87.2
+      }
+    }
+  },
+  "tool_calls": []
+}

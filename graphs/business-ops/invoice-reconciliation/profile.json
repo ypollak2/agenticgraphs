@@ -50,15 +50,67 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:gpt-4o,qwen3-coder:30b",
+    "runner": "llm-replay:devstral:24b,gpt-4o,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-11",
-    "cases": 4,
-    "passed": 1,
-    "pass_rate": 0.25,
-    "mean_steps": 3.75,
+    "cases": 6,
+    "passed": 3,
+    "pass_rate": 0.5,
+    "mean_steps": 3.83,
     "results": [
+      {
+        "id": "happy-path",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": true,
+        "passed": true,
+        "steps": 4,
+        "trace": [
+          "auto-match.plan",
+          "auto-match.work",
+          "auto-match.verify",
+          "post"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "devstral:24b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": true,
+        "passed": true,
+        "steps": 4,
+        "trace": [
+          "auto-match.plan",
+          "auto-match.work",
+          "auto-match.verify",
+          "post"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "happy-path",
         "model": "gpt-4o",
@@ -173,12 +225,14 @@
       }
     ],
     "models": [
+      "devstral:24b",
       "gpt-4o",
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-09",
     "age_days": 2,
     "per_model_pass_rate": {
+      "devstral:24b": 1.0,
       "gpt-4o": 1.0,
       "qwen3-coder:30b": 0.0
     },
@@ -186,6 +240,7 @@
     "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
+      "devstral:24b": 2,
       "gpt-4o": 1,
       "qwen3-coder:30b": 3
     },

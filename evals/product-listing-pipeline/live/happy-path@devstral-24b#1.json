@@ -1,0 +1,62 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "list the spring hardware line on Amazon under its claims policy"
+  },
+  "node_outputs": {
+    "extract": {
+      "attributes": {
+        "product_line_name": "spring hardware line",
+        "marketplace": "Amazon",
+        "policy_type": "claims"
+      }
+    },
+    "write": {
+      "listing_copy": "Spring Hardware Line - As advertised in the product listing."
+    },
+    "claim-check.intake": {
+      "summary": "The Spring Hardware Line on Amazon is covered under its claims policy as advertised."
+    },
+    "policy-check": {
+      "policy_violations": []
+    },
+    "claim-check.produce": {
+      "verdicts": [
+        {
+          "quote_span": "Spring Hardware Line - As advertised in the product listing.",
+          "source_url": ""
+        },
+        {
+          "quote_span": "The Spring Hardware Line on Amazon is covered under its claims policy as advertised.",
+          "source_url": ""
+        }
+      ]
+    },
+    "claim-check.review": {
+      "output": {
+        "policy_violations": []
+      },
+      "unsupported_claims": [],
+      "verdicts": [
+        {
+          "quote_span": "Spring Hardware Line - As advertised in the product listing.",
+          "source_url": ""
+        },
+        {
+          "quote_span": "The Spring Hardware Line on Amazon is covered under its claims policy as advertised.",
+          "source_url": ""
+        }
+      ]
+    },
+    "publish": {
+      "listings_published": [],
+      "output": {
+        "policy_violations": [],
+        "unsupported_claims": []
+      }
+    }
+  },
+  "tool_calls": []
+}

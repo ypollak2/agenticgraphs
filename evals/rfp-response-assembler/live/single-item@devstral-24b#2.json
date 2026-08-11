@@ -1,0 +1,62 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "role": "partician",
+          "speciality": "analyst",
+          "instructions": "Analyze each requirement from the requirements list and categorize them based on their type (functional, non-functional, etc.)"
+        }
+      ]
+    },
+    "map": {
+      "shard_result": {
+        "role": "mapper",
+        "speciality": "map_shard",
+        "result": [
+          {
+            "type": "functional",
+            "requirement": "The system shall allow users to log in using their email and password."
+          },
+          {
+            "type": "non-functional",
+            "requirement": "System response time should not exceed 2 seconds for 95% of transactions."
+          }
+        ]
+      }
+    },
+    "reduce": {
+      "output": {
+        "page_count": 1,
+        "page_limit": 5,
+        "requirements": [
+          {
+            "answered": true,
+            "flagged": false
+          },
+          {
+            "answered": false,
+            "flagged": true
+          }
+        ]
+      },
+      "page_count": 1,
+      "page_limit": 5,
+      "requirements": [
+        {
+          "answered": true,
+          "flagged": false
+        },
+        {
+          "answered": false,
+          "flagged": true
+        }
+      ]
+    }
+  },
+  "tool_calls": []
+}

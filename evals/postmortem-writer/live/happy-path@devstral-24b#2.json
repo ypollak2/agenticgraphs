@@ -1,0 +1,28 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Workflow failed after 1 attempt."
+    },
+    "produce": {
+      "timeline": [
+        {
+          "log_id": "prod_402"
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "timeline": [
+          {
+            "log_id": "prod_402"
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": []
+}
