@@ -1,10 +1,11 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-09",
+  "recorded": "2026-08-11",
   "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
   "node_outputs": {
     "route": {
-      "complexity": "low"
+      "complexity": "simple"
     },
     "branch-simple": {
       "handled_by": "branch-simple"
@@ -15,5 +16,6 @@
         "matches_ownership_map": false
       }
     }
-  }
+  },
+  "tool_calls": []
 }

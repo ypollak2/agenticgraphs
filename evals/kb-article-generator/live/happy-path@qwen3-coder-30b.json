@@ -1,10 +1,11 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-09",
+  "recorded": "2026-08-11",
   "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
   "node_outputs": {
     "intake": {
-      "summary": "Analysis complete. Reproduction steps have been identified and documented. Duplicate entries have been removed from the dataset."
+      "summary": "Analysis complete. Reproduction steps have been identified and documented. Duplicate entries have been removed from the resolution set."
     },
     "produce": {
       "duplicates_deduped": true,
@@ -12,9 +13,10 @@
     },
     "review": {
       "output": {
-        "duplicates_deduped": true,
-        "reproduces_resolution": true
+        "reproduces_resolution": true,
+        "duplicates_deduped": true
       }
     }
-  }
+  },
+  "tool_calls": []
 }

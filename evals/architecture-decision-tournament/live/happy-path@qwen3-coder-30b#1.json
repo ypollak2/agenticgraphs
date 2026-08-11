@@ -8,42 +8,43 @@
   "node_outputs": {
     "frame": {
       "options": [
-        "sync_order_processing",
-        "async_order_processing"
+        {
+          "name": "synchronous_order_processing",
+          "score": 85,
+          "details": "Guarantees immediate response within 200ms p99 but may block system resources under high load"
+        },
+        {
+          "name": "asynchronous_order_processing",
+          "score": 72,
+          "details": "Provides better scalability and resource utilization but introduces latency risk beyond 200ms p99 threshold"
+        }
       ],
       "rubric": {
-        "sync_order_processing": {
-          "p99_latency_ms": 180,
-          "throughput_rps": 250,
-          "error_rate": 0.01,
-          "resource_utilization": 0.75
-        },
-        "async_order_processing": {
-          "p99_latency_ms": 220,
-          "throughput_rps": 300,
-          "error_rate": 0.005,
-          "resource_utilization": 0.6
-        }
+        "sync_advantages": "Immediate user feedback, simpler error handling",
+        "sync_disadvantages": "Resource contention, potential blocking under load",
+        "async_advantages": "Higher throughput, better resource utilization",
+        "async_disadvantages": "Complexity in error recovery, potential timeout risks",
+        "decision_reasoning": "Sync processing meets 200ms p99 requirement consistently with proper queuing mechanisms"
       }
     },
     "design": [
       {
-        "proposal": "sync_order_processing",
-        "rubric_score": 0.85
+        "proposal": "synchronous_order_processing",
+        "rubric_score": 85
       },
       {
-        "proposal": "sync_order_processing",
-        "rubric_score": 0.85
+        "proposal": "synchronous_order_processing",
+        "rubric_score": 85
       }
     ],
     "judge": {
       "designs_scored": 3,
-      "margin": 40,
+      "margin": 13,
       "output": {
         "designs_scored": 3,
-        "margin": 40
+        "margin": 13
       },
-      "winner": "sync_order_processing"
+      "winner": "synchronous_order_processing"
     }
   },
   "tool_calls": []

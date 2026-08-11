@@ -14,43 +14,49 @@
         "30_days": {
           "milestone": "Complete onboarding and understand platform architecture",
           "access_requested": true,
-          "deliverables": [
-            "Platform documentation review",
-            "Team introduction meetings",
-            "Development environment setup"
+          "tasks": [
+            "Set up development environment",
+            "Review platform documentation",
+            "Meet with team members",
+            "Understand data pipelines"
           ]
         },
         "60_days": {
-          "milestone": "Contribute to active data pipeline improvements",
+          "milestone": "Contribute to active projects and identify improvement areas",
           "access_requested": true,
-          "deliverables": [
-            "Implement 2-3 minor data pipeline enhancements",
-            "Participate in architecture reviews",
-            "Complete technical training modules"
+          "tasks": [
+            "Participate in sprint planning",
+            "Implement minor feature enhancements",
+            "Conduct system performance analysis",
+            "Document current processes"
           ]
         },
         "90_days": {
-          "milestone": "Lead independent data engineering initiatives",
+          "milestone": "Lead initiatives and mentor junior team members",
           "access_requested": true,
-          "deliverables": [
-            "Design and implement 1 major data solution",
-            "Mentor junior engineers",
-            "Present findings to team leads"
+          "tasks": [
+            "Own end-to-end data pipeline development",
+            "Mentor new hires",
+            "Propose platform improvements",
+            "Present project outcomes to leadership"
           ]
         }
       }
     },
     "access-map": {
       "access_requests": [
-        "Platform documentation review access",
-        "Team introduction meetings access",
-        "Development environment setup access",
-        "Data pipeline enhancement implementation access",
-        "Architecture review participation access",
-        "Technical training modules access",
-        "Major data solution design and implementation access",
-        "Junior engineers mentoring access",
-        "Team leads presentation access"
+        "development_environment_setup",
+        "platform_documentation_access",
+        "team_member_introductions",
+        "data_pipeline_inspection",
+        "sprint_planning_participation",
+        "feature_enhancement_improvement",
+        "system_performance_analysis",
+        "process_documentation",
+        "end_to_end_pipeline_development",
+        "junior_team_member_mentoring",
+        "platform_improvement_proposals",
+        "leadership_project_presentations"
       ]
     },
     "review": {

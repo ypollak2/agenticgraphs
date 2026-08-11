@@ -7,174 +7,164 @@
   },
   "node_outputs": {
     "scope": {
-      "surface": [
-        "admin endpoint authentication checks",
-        "session management validation",
-        "token verification mechanisms",
-        "role-based access controls"
-      ],
-      "rules_of_engagement": [
-        "only attempt authentication bypasses",
-        "avoid any exploitation of known vulnerabilities",
-        "focus on credential handling and session validation",
-        "target explicit admin action endpoints"
-      ]
+      "surface": "admin endpoint /admin/configure with POST method requiring admin token",
+      "rules_of_engagement": "prevent all requests to admin endpoints without valid admin JWT token or API key"
     },
     "attack": [
       {
+        "bypass": "POST /admin/configure endpoint accepts requests without valid admin JWT token or API key",
+        "severity": "high"
+      },
+      {
         "bypass": false,
+        "severity": 3
+      },
+      {
+        "bypass": null,
+        "severity": 0
+      },
+      {
+        "bypass": null,
         "severity": 0
       },
       {
         "bypass": false,
+        "severity": 3
+      },
+      {
+        "bypass": false,
+        "severity": 3
+      },
+      {
+        "bypass": false,
+        "severity": 3
+      },
+      {
+        "bypass": false,
+        "severity": 3
+      },
+      {
+        "bypass": null,
+        "severity": 0
+      },
+      {
+        "bypass": null,
+        "severity": 0
+      },
+      {
+        "bypass": null,
+        "severity": 0
+      },
+      {
+        "bypass": null,
         "severity": 0
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
+        "severity": 3
       },
       {
         "bypass": false,
-        "severity": 0
-      },
-      {
-        "bypass": false,
-        "severity": 0
-      },
-      {
-        "bypass": false,
-        "severity": 0
-      },
-      {
-        "bypass": false,
-        "severity": 0
-      },
-      {
-        "bypass": false,
-        "severity": 0
-      },
-      {
-        "bypass": false,
-        "severity": 0
-      },
-      {
-        "bypass": false,
-        "severity": 0
-      },
-      {
-        "bypass": false,
-        "severity": 0
-      },
-      {
-        "bypass": false,
-        "severity": 0
-      },
-      {
-        "bypass": false,
-        "severity": 0
-      },
-      {
-        "bypass": false,
-        "severity": 0
+        "severity": 3
       }
     ],
     "defend": [
       {
-        "mitigation": "implement multi-factor authentication for admin endpoints, enforce strict session timeout policies, and validate token expiration timestamps on all admin actions"
+        "mitigation": "implement strict JWT token validation and API key verification for all admin endpoints, reject any requests lacking valid authentication credentials, and log all unauthorized access attempts"
       },
       {
-        "mitigation": "implement multi-factor authentication for admin endpoints, enforce strict session timeout policies, and validate token expiration timestamps on all admin actions"
+        "mitigation": "implement strict JWT token validation and API key verification for all admin endpoints, reject any requests lacking valid authentication credentials, and log all unauthorized access attempts"
       },
       {
-        "mitigation": "implement multi-factor authentication for admin endpoints, enforce strict session timeout policies, and validate token expiration timestamps on all admin actions"
+        "mitigation": "implement strict JWT token validation and API key verification for all admin endpoints, reject any requests lacking valid authentication credentials, and log all unauthorized access attempts"
       }
     ],
     "retest": [

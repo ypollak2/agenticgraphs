@@ -7,69 +7,68 @@
   },
   "node_outputs": {
     "transcribe": {
-      "transcript": "Episode 42 transcription content would go here"
+      "transcript": "Episode 42 transcript content would go here"
     },
     "edit-plan": {
       "cut_list": [
         {
-          "segment_id": "intro",
+          "segment_id": "42_001",
           "start_time": "00:00:00",
-          "end_time": "00:02:15",
-          "content_type": "introduction",
-          "cue_clearance": true
+          "end_time": "00:05:30",
+          "cue": "intro_music"
         },
         {
-          "segment_id": "main_interview",
-          "start_time": "00:02:15",
-          "end_time": "00:35:42",
-          "content_type": "interview_content",
-          "cue_clearance": true
+          "segment_id": "42_002",
+          "start_time": "00:05:30",
+          "end_time": "00:22:15",
+          "cue": "interview_begin"
         },
         {
-          "segment_id": "technical_discussion",
-          "start_time": "00:15:22",
-          "end_time": "00:28:37",
-          "content_type": "technical_depth",
-          "cue_clearance": true
+          "segment_id": "42_003",
+          "start_time": "00:22:15",
+          "end_time": "00:35:45",
+          "cue": "technical_discussion"
         },
         {
-          "segment_id": "conclusion",
-          "start_time": "00:35:42",
-          "end_time": "00:37:15",
-          "content_type": "closing_remarks",
-          "cue_clearance": true
+          "segment_id": "42_004",
+          "start_time": "00:35:45",
+          "end_time": "00:48:30",
+          "cue": "code_demo"
+        },
+        {
+          "segment_id": "42_005",
+          "start_time": "00:48:30",
+          "end_time": "01:02:15",
+          "cue": "conclusion"
+        },
+        {
+          "segment_id": "42_006",
+          "start_time": "01:02:15",
+          "end_time": "01:05:00",
+          "cue": "outro_music"
         }
       ]
     },
     "show-notes": {
-      "show_notes": "Episode 42 features an in-depth conversation with Sarah Chen, CEO and founder of DataFlow AI, discussing the technical challenges of building scalable machine learning infrastructure. Key topics include distributed computing architectures, handling data privacy in AI systems, and the evolution of neural network frameworks. Sarah shares insights on how her team solved complex problems with tensor processing units and describes their approach to maintaining model accuracy while scaling operations. The discussion delves into real-world applications of federated learning and explores the future of edge computing in artificial intelligence. This episode is essential for technical leaders, ML engineers, and anyone interested in the practical implementation of cutting-edge AI technologies.",
+      "show_notes": "Episode 42 features an in-depth conversation with Sarah Chen, CTO of Nimbusec, discussing cybersecurity in cloud-native environments. The discussion covers Kubernetes security best practices, secret management, and the evolution of DevSecOps. Sarah demonstrates a live code example of implementing security scanning in CI/CD pipelines using open-source tools like Trivy and Clair. Key topics include container image hardening, network policies, and incident response strategies for microservices architectures. The episode concludes with insights on building security into development culture rather than treating it as an afterthought.",
       "timestamps": [
         "00:00:00",
-        "00:02:15",
-        "00:15:22",
-        "00:28:37",
-        "00:35:42",
-        "00:37:15"
+        "00:05:30",
+        "00:22:15",
+        "00:35:45",
+        "00:48:30",
+        "01:02:15",
+        "01:05:00"
       ]
     },
     "rights-check": {
       "clearances": [
-        {
-          "segment_id": "intro",
-          "cue_clearance": true
-        },
-        {
-          "segment_id": "main_interview",
-          "cue_clearance": true
-        },
-        {
-          "segment_id": "technical_discussion",
-          "cue_clearance": true
-        },
-        {
-          "segment_id": "conclusion",
-          "cue_clearance": true
-        }
+        "42_001",
+        "42_002",
+        "42_003",
+        "42_004",
+        "42_005",
+        "42_006"
       ],
       "rights_clear": true
     },

@@ -53,7 +53,7 @@
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-11",
-    "cases": 2,
+    "cases": 4,
     "passed": 0,
     "pass_rate": 0.0,
     "mean_steps": 2.0,
@@ -62,6 +62,58 @@
         "id": "happy-path",
         "model": "gpt-4o",
         "recorded": "2026-08-10",
+        "gate_auto_approved": true,
+        "passed": false,
+        "steps": 2,
+        "trace": [
+          "prefilter",
+          "criteria-match"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "output.unreviewed_ambiguous == 0 (AttributeError: unreviewed_ambiguous)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": true,
+        "passed": false,
+        "steps": 2,
+        "trace": [
+          "prefilter",
+          "criteria-match"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "output.unreviewed_ambiguous == 0 (AttributeError: unreviewed_ambiguous)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-11",
         "gate_auto_approved": true,
         "passed": false,
         "steps": 2,
@@ -126,7 +178,7 @@
     "flaky_models": [],
     "samples_per_model": {
       "gpt-4o": 1,
-      "qwen3-coder:30b": 1
+      "qwen3-coder:30b": 3
     },
     "gate_auto_approved": true
   }

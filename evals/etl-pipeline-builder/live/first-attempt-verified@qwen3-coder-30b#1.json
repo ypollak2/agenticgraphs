@@ -1,0 +1,28 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "plan": {
+      "steps": [
+        "decompose_goal",
+        "verify_expected_rows_count",
+        "execute_load_process",
+        "compare_actual_vs_expected_rows"
+      ]
+    },
+    "execute": {
+      "step_result": "complete"
+    },
+    "verify": {
+      "actual_rows": 1000,
+      "expected_rows": 1000,
+      "output": {
+        "actual_rows": 1000,
+        "expected_rows": 1000
+      }
+    }
+  },
+  "tool_calls": []
+}

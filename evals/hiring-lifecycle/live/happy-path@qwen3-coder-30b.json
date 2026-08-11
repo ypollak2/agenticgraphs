@@ -7,25 +7,26 @@
   },
   "node_outputs": {
     "define-role.intake": {
-      "summary": "Need to identify senior backend engineer candidate with payments service ownership experience. Focus on technical skills in payment processing, system design, and scalability. Prioritize candidates who have led payment infrastructure projects and understand compliance requirements."
+      "summary": "Need to identify and recruit a senior backend engineer with payments system expertise. Key requirements include 5+ years backend development experience, payment processing knowledge (PCI DSS, fraud detection, reconciliation), microservices architecture familiarity, and strong problem-solving skills. Should prioritize candidates with AWS/GCP experience, ability to lead projects, and strong communication skills for cross-functional collaboration."
     },
     "define-role.generate": {
-      "draft": "Senior Backend Engineer - Payments Service Owner\n\nResponsibilities:\n- Lead design and implementation of our payments service infrastructure\n- Own end-to-end payment processing systems including transactions, fraud detection, and reconciliation\n- Design scalable, secure payment solutions handling high-volume transactions\n- Collaborate with security team to ensure PCI-DSS compliance and regulatory requirements\n- Mentor junior engineers and lead technical discussions\n- Troubleshoot complex payment issues and implement robust error handling\n\nRequirements:\n- 5+ years backend engineering experience with Java/Go/Rust\n- Deep expertise in payment processing, transaction systems, and financial APIs\n- Experience leading payments infrastructure projects from concept to production\n- Strong understanding of security protocols, encryption, and compliance standards\n- Proven track record in system design and scaling payment systems\n- Bachelor's degree in Computer Science or related field\n\nPreferred:\n- Experience with Stripe, Adyen, or similar payment providers\n- Knowledge of blockchain or cryptocurrency payments\n- Background in fraud detection and risk management\n\nCompensation: $150K-$200K base + equity + comprehensive benefits"
+      "draft": "Senior Backend Engineer - Payments Service\n\nJob Title: Senior Backend Engineer - Payments Service\nDepartment: Engineering\nReports To: Engineering Manager\nLocation: [Remote/On-site]\n\nSummary:\nWe're seeking a senior backend engineer to own our payments service. You'll be responsible for designing, implementing, and maintaining our payment processing systems while ensuring security, compliance, and scalability.\n\nKey Responsibilities:\n- Design and implement payment processing systems following industry best practices\n- Ensure PCI DSS compliance and fraud detection implementation\n- Lead development of payment reconciliation services\n- Collaborate with cross-functional teams on payment system integrations\n- Mentor junior engineers and contribute to technical architecture decisions\n- Troubleshoot and resolve complex payment processing issues\n\nRequirements:\n- 5+ years backend development experience (Java/Python/Go preferred)\n- Strong knowledge of payment processing concepts and PCI DSS compliance\n- Experience with fraud detection systems and reconciliation processes\n- Familiarity with microservices architecture and cloud platforms (AWS/GCP)\n- Excellent problem-solving skills and ability to work independently\n- Strong communication skills for cross-functional collaboration\n\nPreferred Qualifications:\n- Previous experience working on payment systems at scale\n- Knowledge of financial services industry regulations\n- Experience with distributed systems and high-throughput applications\n- Leadership experience mentoring junior developers"
     },
     "define-role.critique": {
       "bias_lint_clean": true,
-      "jd": "Senior Backend Engineer - Payments Service Owner\n\nResponsibilities:\n- Lead design and implementation of our payments service infrastructure\n- Own end-to-end payment processing systems including transactions, fraud detection, and reconciliation\n- Design scalable, secure payment solutions handling high-volume transactions\n- Collaborate with security team to ensure PCI-DSS compliance and regulatory requirements\n- Mentor junior engineers and lead technical discussions\n- Troubleshoot complex payment issues and implement robust error handling\n\nRequirements:\n- 5+ years backend engineering experience with Java/Go/Rust\n- Deep expertise in payment processing, transaction systems, and financial APIs\n- Experience leading payments infrastructure projects from concept to production\n- Strong understanding of security protocols, encryption, and compliance standards\n- Proven track record in system design and scaling payment systems\n- Bachelor's degree in Computer Science or related field\n\nPreferred:\n- Experience with Stripe, Adyen, or similar payment providers\n- Knowledge of blockchain or cryptocurrency payments\n- Background in fraud detection and risk management\n\nCompensation: $150K-$200K base + equity + comprehensive benefits",
-      "output": "Senior Backend Engineer - Payments Service Owner\n\nResponsibilities:\n- Lead design and implementation of our payments service infrastructure\n- Own end-to-end payment processing systems including transactions, fraud detection, and reconciliation\n- Design scalable, secure payment solutions handling high-volume transactions\n- Collaborate with security team to ensure PCI-DSS compliance and regulatory requirements\n- Mentor junior engineers and lead technical discussions\n- Troubleshoot complex payment issues and implement robust error handling\n\nRequirements:\n- 5+ years backend engineering experience with Java/Go/Rust\n- Deep expertise in payment processing, transaction systems, and financial APIs\n- Experience leading payments infrastructure projects from concept to production\n- Strong understanding of security protocols, encryption, and compliance standards\n- Proven track record in system design and scaling payment systems\n- Bachelor's degree in Computer Science or related field\n\nPreferred:\n- Experience with Stripe, Adyen, or similar payment providers\n- Knowledge of blockchain or cryptocurrency payments\n- Background in fraud detection and risk management\n\nCompensation: $150K-$200K base + equity + comprehensive benefits",
+      "jd": "Senior Backend Engineer - Payments Service\n\nJob Title: Senior Backend Engineer - Payments Service\nDepartment: Engineering\nReports To: Engineering Manager\nLocation: [Remote/On-site]\n\nSummary:\nWe're seeking a senior backend engineer to own our payments service. You'll be responsible for designing, implementing, and maintaining our payment processing systems while ensuring security, compliance, and scalability.\n\nKey Responsibilities:\n- Design and implement payment processing systems following industry best practices\n- Ensure PCI DSS compliance and fraud detection implementation\n- Lead development of payment reconciliation services\n- Collaborate with cross-functional teams on payment system integrations\n- Mentor junior engineers and contribute to technical architecture decisions\n- Troubleshoot and resolve complex payment processing issues\n\nRequirements:\n- 5+ years backend development experience (Java/Python/Go preferred)\n- Strong knowledge of payment processing concepts and PCI DSS compliance\n- Experience with fraud detection systems and reconciliation processes\n- Familiarity with microservices architecture and cloud platforms (AWS/GCP)\n- Excellent problem-solving skills and ability to work independently\n- Strong communication skills for cross-functional collaboration\n\nPreferred Qualifications:\n- Previous experience working on payment systems at scale\n- Knowledge of financial services industry regulations\n- Experience with distributed systems and high-throughput applications\n- Leadership experience mentoring junior developers",
+      "output": "The job description is well-structured and clearly outlines the responsibilities, requirements, and preferred qualifications for a senior backend engineer in payments. It emphasizes critical competencies such as PCI DSS compliance, fraud detection, and cloud platforms. The emphasis on leadership and mentorship also ensures the role supports team growth. Potential areas for refinement include specifying the exact technologies (e.g., specific backend languages) and clarifying whether remote work is fully supported or hybrid.",
       "requirements_deduped": [
-        "5+ years backend engineering experience with Java/Go/Rust",
-        "Deep expertise in payment processing, transaction systems, and financial APIs",
-        "Experience leading payments infrastructure projects from concept to production",
-        "Strong understanding of security protocols, encryption, and compliance standards",
-        "Proven track record in system design and scaling payment systems",
-        "Bachelor's degree in Computer Science or related field",
-        "Experience with Stripe, Adyen, or similar payment providers",
-        "Knowledge of blockchain or cryptocurrency payments",
-        "Background in fraud detection and risk management"
+        "5+ years backend development experience (Java/Python/Go preferred)",
+        "Strong knowledge of payment processing concepts and PCI DSS compliance",
+        "Experience with fraud detection systems and reconciliation processes",
+        "Familiarity with microservices architecture and cloud platforms (AWS/GCP)",
+        "Excellent problem-solving skills and ability to work independently",
+        "Strong communication skills for cross-functional collaboration",
+        "Previous experience working on payment systems at scale",
+        "Knowledge of financial services industry regulations",
+        "Experience with distributed systems and high-throughput applications",
+        "Leadership experience mentoring junior developers"
       ]
     },
     "screen": [
@@ -34,30 +35,9 @@
       },
       {
         "shortlist": [
-          {
-            "candidate": "Alex Chen",
-            "technical_score": 95,
-            "payment_expertise_score": 90,
-            "leadership_score": 85,
-            "cultural_fit_score": 80,
-            "total_score": 87.5
-          },
-          {
-            "candidate": "Jordan Lee",
-            "technical_score": 90,
-            "payment_expertise_score": 85,
-            "leadership_score": 90,
-            "cultural_fit_score": 85,
-            "total_score": 87.5
-          },
-          {
-            "candidate": "Taylor Smith",
-            "technical_score": 85,
-            "payment_expertise_score": 95,
-            "leadership_score": 80,
-            "cultural_fit_score": 90,
-            "total_score": 87.5
-          }
+          "Alex Chen",
+          "Maria Rodriguez",
+          "James Liu"
         ]
       }
     ],
@@ -67,26 +47,20 @@
           {
             "candidate": "Alex Chen",
             "technical_score": 95,
-            "payment_expertise_score": 90,
-            "leadership_score": 85,
-            "cultural_fit_score": 80,
-            "total_score": 87.5
+            "cultural_fit_score": 88,
+            "payment_expertise_score": 92
           },
           {
-            "candidate": "Jordan Lee",
+            "candidate": "Maria Rodriguez",
             "technical_score": 90,
-            "payment_expertise_score": 85,
-            "leadership_score": 90,
-            "cultural_fit_score": 85,
-            "total_score": 87.5
+            "cultural_fit_score": 94,
+            "payment_expertise_score": 89
           },
           {
-            "candidate": "Taylor Smith",
-            "technical_score": 85,
-            "payment_expertise_score": 95,
-            "leadership_score": 80,
-            "cultural_fit_score": 90,
-            "total_score": 87.5
+            "candidate": "James Liu",
+            "technical_score": 87,
+            "cultural_fit_score": 85,
+            "payment_expertise_score": 91
           }
         ]
       },
@@ -95,26 +69,20 @@
           {
             "candidate": "Alex Chen",
             "technical_score": 95,
-            "payment_expertise_score": 90,
-            "leadership_score": 85,
-            "cultural_fit_score": 80,
-            "total_score": 87.5
+            "cultural_fit_score": 88,
+            "payment_expertise_score": 92
           },
           {
-            "candidate": "Jordan Lee",
+            "candidate": "Maria Rodriguez",
             "technical_score": 90,
-            "payment_expertise_score": 85,
-            "leadership_score": 90,
-            "cultural_fit_score": 85,
-            "total_score": 87.5
+            "cultural_fit_score": 94,
+            "payment_expertise_score": 89
           },
           {
-            "candidate": "Taylor Smith",
-            "technical_score": 85,
-            "payment_expertise_score": 95,
-            "leadership_score": 80,
-            "cultural_fit_score": 90,
-            "total_score": 87.5
+            "candidate": "James Liu",
+            "technical_score": 87,
+            "cultural_fit_score": 85,
+            "payment_expertise_score": 91
           }
         ]
       }
@@ -131,26 +99,20 @@
           {
             "candidate": "Alex Chen",
             "technical_score": 95,
-            "payment_expertise_score": 90,
-            "leadership_score": 85,
-            "cultural_fit_score": 80,
-            "total_score": 87.5
+            "cultural_fit_score": 88,
+            "payment_expertise_score": 92
           },
           {
-            "candidate": "Jordan Lee",
+            "candidate": "Maria Rodriguez",
             "technical_score": 90,
-            "payment_expertise_score": 85,
-            "leadership_score": 90,
-            "cultural_fit_score": 85,
-            "total_score": 87.5
+            "cultural_fit_score": 94,
+            "payment_expertise_score": 89
           },
           {
-            "candidate": "Taylor Smith",
-            "technical_score": 85,
-            "payment_expertise_score": 95,
-            "leadership_score": 80,
-            "cultural_fit_score": 90,
-            "total_score": 87.5
+            "candidate": "James Liu",
+            "technical_score": 87,
+            "cultural_fit_score": 85,
+            "payment_expertise_score": 91
           }
         ]
       },
@@ -165,26 +127,20 @@
           {
             "candidate": "Alex Chen",
             "technical_score": 95,
-            "payment_expertise_score": 90,
-            "leadership_score": 85,
-            "cultural_fit_score": 80,
-            "total_score": 87.5
+            "cultural_fit_score": 88,
+            "payment_expertise_score": 92
           },
           {
-            "candidate": "Jordan Lee",
+            "candidate": "Maria Rodriguez",
             "technical_score": 90,
-            "payment_expertise_score": 85,
-            "leadership_score": 90,
-            "cultural_fit_score": 85,
-            "total_score": 87.5
+            "cultural_fit_score": 94,
+            "payment_expertise_score": 89
           },
           {
-            "candidate": "Taylor Smith",
-            "technical_score": 85,
-            "payment_expertise_score": 95,
-            "leadership_score": 80,
-            "cultural_fit_score": 90,
-            "total_score": 87.5
+            "candidate": "James Liu",
+            "technical_score": 87,
+            "cultural_fit_score": 85,
+            "payment_expertise_score": 91
           }
         ]
       }

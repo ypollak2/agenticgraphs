@@ -12,89 +12,107 @@
     "draft-plan": {
       "plan_30_60_90": {
         "30_days": {
-          "milestone": "Complete onboarding and understand platform architecture",
+          "milestone": "Complete onboarding and understand platform infrastructure",
           "access_requested": [
-            "platform_documentation",
-            "development_environment",
-            "collaboration_tools"
+            "platform_dashboard",
+            "data_catalog",
+            "ci_cd_pipeline",
+            "monitoring_tools"
           ],
           "deliverables": [
-            "Architecture overview presentation",
-            "Development environment setup confirmation"
+            "attend all onboarding sessions",
+            "complete security training",
+            "setup development environment",
+            "review platform architecture documentation"
           ]
         },
         "60_days": {
-          "milestone": "Contribute to active platform project and establish technical relationships",
+          "milestone": "Contribute to ongoing platform projects and establish technical relationships",
           "access_requested": [
-            "project_repositories",
-            "review_process",
-            "mentorship_program"
+            "feature_flags_system",
+            "data_lake_access",
+            "cloud_accounts",
+            "collaboration_platforms"
           ],
           "deliverables": [
-            "Code contribution to platform project",
-            "Technical documentation review completed"
+            "participate in 2 platform sprints",
+            "document data workflows",
+            "establish connections with team members",
+            "complete first code review"
           ]
         },
         "90_days": {
-          "milestone": "Lead initiative to improve data platform efficiency",
+          "milestone": "Own core platform components and drive platform improvements",
           "access_requested": [
-            "platform_optimization_tools",
-            "stakeholder_meetings",
-            "performance_metrics"
+            "production_systems",
+            "advanced_tooling",
+            "cross_team_collaboration",
+            "platform_performance_tools"
           ],
           "deliverables": [
-            "Platform efficiency improvement proposal",
-            "Implementation of 2 optimizations"
+            "lead one platform component",
+            "implement performance improvement",
+            "mentor junior engineers",
+            "present platform contribution to team"
           ]
         }
       }
     },
     "access-map": {
       "access_requests": [
-        "platform_documentation",
-        "development_environment",
-        "collaboration_tools",
-        "project_repositories",
-        "review_process",
-        "mentorship_program",
-        "platform_optimization_tools",
-        "stakeholder_meetings",
-        "performance_metrics"
+        "platform_dashboard",
+        "data_catalog",
+        "ci_cd_pipeline",
+        "monitoring_tools",
+        "feature_flags_system",
+        "data_lake_access",
+        "cloud_accounts",
+        "collaboration_platforms",
+        "production_systems",
+        "advanced_tooling",
+        "cross_team_collaboration",
+        "platform_performance_tools"
       ]
     },
     "review": {
       "access_requested": [
-        "platform_documentation",
-        "development_environment",
-        "collaboration_tools",
-        "project_repositories",
-        "review_process",
-        "mentorship_program",
-        "platform_optimization_tools",
-        "stakeholder_meetings",
-        "performance_metrics"
+        "platform_dashboard",
+        "data_catalog",
+        "ci_cd_pipeline",
+        "monitoring_tools",
+        "feature_flags_system",
+        "data_lake_access",
+        "cloud_accounts",
+        "collaboration_platforms",
+        "production_systems",
+        "advanced_tooling",
+        "cross_team_collaboration",
+        "platform_performance_tools"
       ],
       "milestones_covered": [
-        "Complete onboarding and understand platform architecture",
-        "Contribute to active platform project and establish technical relationships",
-        "Lead initiative to improve data platform efficiency"
+        "Complete onboarding and understand platform infrastructure",
+        "Contribute to ongoing platform projects and establish technical relationships",
+        "Own core platform components and drive platform improvements"
       ],
       "output": {
         "access_requested": [
-          "platform_documentation",
-          "development_environment",
-          "collaboration_tools",
-          "project_repositories",
-          "review_process",
-          "mentorship_program",
-          "platform_optimization_tools",
-          "stakeholder_meetings",
-          "performance_metrics"
+          "platform_dashboard",
+          "data_catalog",
+          "ci_cd_pipeline",
+          "monitoring_tools",
+          "feature_flags_system",
+          "data_lake_access",
+          "cloud_accounts",
+          "collaboration_platforms",
+          "production_systems",
+          "advanced_tooling",
+          "cross_team_collaboration",
+          "platform_performance_tools"
         ],
         "milestones_covered": [
-          "Complete onboarding and understand platform architecture",
-          "Contribute to active platform project and establish technical relationships",
-          "Lead initiative to improve data platform efficiency"
+          "Complete onboarding and understand platform infrastructure",
+          "Contribute to ongoing platform projects and establish technical relationships",
+          "Own core platform components and drive platform improvements"
         ]
       }
     }

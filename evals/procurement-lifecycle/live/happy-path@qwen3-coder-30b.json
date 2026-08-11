@@ -10,39 +10,39 @@
       "shards": [
         {
           "vendor": "Snowflake",
-          "pricing": 100000,
+          "cost": 115000,
           "timeline": "Q4 2023",
-          "status": "shortlisted"
+          "status": "qualified"
         },
         {
           "vendor": "Amazon Redshift",
-          "pricing": 95000,
+          "cost": 95000,
           "timeline": "Q4 2023",
-          "status": "shortlisted"
+          "status": "qualified"
         },
         {
           "vendor": "Google BigQuery",
-          "pricing": 110000,
+          "cost": 105000,
           "timeline": "Q4 2023",
-          "status": "shortlisted"
+          "status": "qualified"
         }
       ]
     },
     "rfp.map": [
       {
-        "shard_result": "shortlisted"
+        "shard_result": "qualified"
       },
       {
-        "shard_result": "shortlisted"
+        "shard_result": "qualified"
       },
       {
-        "shard_result": "shortlisted"
+        "shard_result": "qualified"
       }
     ],
     "rfp.reduce": {
-      "output": "Snowflake, Amazon Redshift, and Google BigQuery are all shortlisted vendors under the 120k budget with Q4 2023 timeline. All three meet the pricing requirement of $100,000-$110,000 and the award timeline of Q4 2023.",
+      "output": "All three vendors (Snowflake, Amazon Redshift, and Google BigQuery) are qualified under the 120k budget with Q4 2023 timeline. Snowflake at $115K, Amazon Redshift at $95K, and Google BigQuery at $105K. All meet the requirements for sourcing a data-warehouse vendor under the specified budget and timeline.",
       "page_count": 1.0,
-      "page_limit": 5.0,
+      "page_limit": 3.0,
       "requirements": [
         {
           "answered": true,
@@ -60,21 +60,21 @@
       "rfp_responses": [
         {
           "vendor": "Snowflake",
-          "pricing": 100000,
+          "cost": 115000,
           "timeline": "Q4 2023",
-          "status": "shortlisted"
+          "status": "qualified"
         },
         {
           "vendor": "Amazon Redshift",
-          "pricing": 95000,
+          "cost": 95000,
           "timeline": "Q4 2023",
-          "status": "shortlisted"
+          "status": "qualified"
         },
         {
           "vendor": "Google BigQuery",
-          "pricing": 110000,
+          "cost": 105000,
           "timeline": "Q4 2023",
-          "status": "shortlisted"
+          "status": "qualified"
         }
       ]
     },
@@ -86,20 +86,20 @@
         },
         {
           "vendor": "Amazon Redshift",
-          "score": 92
+          "score": 90
         },
         {
           "vendor": "Google BigQuery",
-          "score": 88
+          "score": 85
         }
       ]
     },
     "negotiate": {
-      "terms": "Award to Snowflake with pricing $100,000, timeline Q4 2023",
+      "terms": "Award to Amazon Redshift at $95K with Q4 2023 timeline",
       "savings": 20000
     },
     "award": {
-      "awarded": "Snowflake",
+      "awarded": "Amazon Redshift",
       "output": {
         "scored_vendors": 3,
         "signed_off": true

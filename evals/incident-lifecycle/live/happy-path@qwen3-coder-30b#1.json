@@ -1,0 +1,18 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "work the checkout-latency page; resolved means p99 back under 400ms"
+  },
+  "node_outputs": {
+    "detect": {
+      "signal": "p99_checkout_latency",
+      "blast_radius": "payment-processing-service"
+    },
+    "triage.route": {
+      "complexity": 3
+    }
+  },
+  "tool_calls": []
+}

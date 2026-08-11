@@ -1,0 +1,73 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "draft a phase II protocol for drug X in treatment-resistant patients"
+  },
+  "node_outputs": {
+    "draft": {
+      "protocol": {
+        "title": "Phase II Study of Drug X in Treatment-Resistant Patients",
+        "objectives": [
+          "To evaluate the efficacy of Drug X in patients with treatment-resistant disease",
+          "To assess the safety and tolerability of Drug X"
+        ],
+        "patient_population": {
+          "inclusion_criteria": [
+            "Histologically confirmed diagnosis of condition Y",
+            "Failed at least two prior systemic therapies",
+            "ECOG performance status 0-1",
+            "Age \u226518 years"
+          ],
+          "exclusion_criteria": [
+            "Prior exposure to Drug X",
+            "Severe cardiac disease",
+            "Pregnancy or lactation",
+            "Active infections requiring treatment"
+          ]
+        },
+        "study_design": {
+          "phase": "II",
+          "study_type": "single-arm trial",
+          "primary_endpoint": "Objective response rate (ORR)",
+          "secondary_endpoints": [
+            "Progression-free survival (PFS)",
+            "Overall survival (OS)",
+            "Safety and tolerability"
+          ]
+        },
+        "treatment": {
+          "drug": "Drug X",
+          "dose": "200 mg once daily",
+          "schedule": "continuous treatment until disease progression or unacceptable toxicity",
+          "duration": "up to 24 weeks"
+        },
+        "sample_size": 40,
+        "statistical_analysis": {
+          "primary_hypothesis": "H0: ORR \u2264 10%; H1: ORR > 10%",
+          "alpha": 0.05,
+          "power": 0.8
+        },
+        "safety_monitoring": {
+          "adverse_events": "CTCAE v5.0",
+          "lab_monitoring": "weekly CBC, BMP",
+          "imaging": "baseline and every 8 weeks"
+        }
+      }
+    },
+    "critique": {
+      "deviations": []
+    },
+    "register": {
+      "output": {
+        "deviations": [],
+        "registry_id": null,
+        "signed_off": true
+      },
+      "registered": true,
+      "registry_id": null
+    }
+  },
+  "tool_calls": []
+}

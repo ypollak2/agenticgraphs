@@ -130,11 +130,15 @@ def main() -> int:
     results = []
     samples = int(os.environ.get("AGR_SAMPLES", "1"))
     for name in sys.argv[1:]:
-        try:
-            for i in range(samples):
+        # Per SAMPLE, not per graph. Wrapping the whole loop meant one unparseable
+        # reply discarded that graph's remaining samples — which is how a variance
+        # run left three graphs at n=1, the exact condition it existed to remove.
+        # A model that fails to emit JSON is itself an observation about the cell.
+        for i in range(samples):
+            try:
                 results.append(record(name, sample=i))
-        except Exception as ex:  # noqa: BLE001 — a failed recording is a result, not a crash
-            results.append({"graph": name, "error": f"{type(ex).__name__}: {ex}"})
+            except Exception as ex:  # noqa: BLE001 — a failed recording is a result, not a crash
+                results.append({"graph": name, "error": f"{type(ex).__name__}: {ex}"})
     for r in results:
         if "error" in r:
             print(f"ERROR   {r['graph']}: {r['error']}")

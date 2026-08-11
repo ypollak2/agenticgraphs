@@ -123,7 +123,12 @@ identical input, while three reversed outright. Registry flaky cells went 2 → 
 
 A cell that flips on resampling cannot evidence a change between runs. Every
 improvement was also recorded with **0 tool calls**. So v1.7 changed what a graph is
-*told*, and has not been shown to change what a model *produces* — at one sample per
-cell, this design cannot show it. 150 of 158 cells still sit at n=1, and that, not
-another feature, is the next measurement. Full analysis:
+*told*, and has not been shown to change what a model *produces*. Full analysis:
 [v11-goal.md](plans/v11-goal.md#j8--the-re-record-and-what-it-actually-measured).
+
+**The follow-up measurement quantified it.** 3 samples of all 83 graphs on the same
+model: **20% of cells return a different verdict on identical input**, which is more
+than enough to produce 10 improvements and 5 regressions from noise alone. It also
+corrected the registry — six graphs published as *satisfied by no model* pass 1–2 times
+in 3, so 🚫 went 14 → 8 and 🎲 went 2 → 18. See
+[v12-variance.md](plans/v12-variance.md).

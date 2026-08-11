@@ -1,0 +1,20 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "No findings generated as no data provided for analysis"
+    },
+    "produce": {
+      "findings": []
+    },
+    "review": {
+      "output": {
+        "findings": []
+      }
+    }
+  },
+  "tool_calls": []
+}

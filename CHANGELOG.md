@@ -1,5 +1,55 @@
 # Changelog
 
+## [0.9.2] — single samples mislabelled flaky graphs as unsatisfiable
+
+v0.9.1 concluded that the goal re-record had measured sampling noise. This measures
+the noise: 3 samples of all 83 graphs on `qwen3-coder:30b`, tools off — 249 runs.
+
+| cell verdict | count | share |
+|---|---|---|
+| stable pass (3/3) | 57 | 70% |
+| stable fail (0/3) | 9 | 11% |
+| **unstable** | **16** | **20%** |
+
+**One cell in five returns a different verdict on identical input.**
+
+Registry-wide, once cells had repeats: 🚫 satisfied by no model **14 -> 8**, 🎲 same
+model different answer **2 -> 18**.
+
+The 🚫 count did not fall because anything improved. Six graphs were labelled on one
+unlucky draw and actually pass 1-2 times in 3: `clinical-literature-triage` (67%),
+`literature-review-swarm` (67%), `docs-code-sync-audit` (67%), `incident-lifecycle`
+(67%), `product-listing-pipeline` (67%), `framework-migration` (33%).
+
+`literature-review-swarm` was filed under 🔌 *unsatisfiable by construction* — "needs a
+paper corpus". It passes 2 of 3 times. Either that label is wrong or those passes are
+fabrication, and one sample could not tell you which.
+
+Nine graphs failed 0 of 3, which is what evidence of an unsatisfiable contract actually
+looks like. 73 cells remain at n=1 and no claim should be drawn from them.
+
+All 249 runs made 0 tool calls. Stability and truth are different axes: a graph can sit
+at a stable 3/3 and still be fabricating. `assert-grounded` matters more, not less.
+
+### Added
+
+- 3-sample coverage for 82 of 83 graphs on `qwen3-coder:30b`.
+- `docs/plans/v12-variance.md` — the full analysis.
+
+### Fixed
+
+- `scripts/record_live.py` wrapped its entire sample loop in one `try`, so the first
+  unparseable reply discarded that graph's remaining samples — leaving three graphs at
+  n=1 in a run whose purpose was to remove n=1. Now per-sample.
+
+### Known, unfixed
+
+- Unparseable model replies are counted as neither pass nor failure. Three graphs
+  returned a JSON array where an object was required, or truncated mid-object;
+  `clinical-protocol-lifecycle` produced ERROR, FAIL and PASS across three identical
+  runs. The scoreboard has no column for this, and `feature-delivery-lifecycle` sits at
+  n=1 because two of its three samples were unparseable.
+
 ## [0.9.1] — the re-record measured noise, not the goal
 
 v0.9.0 seeded a goal and deferred the question of whether it mattered. 31 graphs

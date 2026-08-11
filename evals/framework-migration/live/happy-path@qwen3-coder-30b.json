@@ -9,403 +9,340 @@
     "inventory": {
       "slices": [
         {
-          "name": "flask_app_structure",
-          "description": "Migrate core app structure and dependencies",
+          "id": "flask_routes_to_fastapi",
+          "description": "Convert Flask routes to FastAPI routes with proper path parameter handling",
           "dependencies": [],
-          "risk": "low"
-        },
-        {
-          "name": "route_conversion",
-          "description": "Convert all Flask routes to FastAPI endpoints",
-          "dependencies": [
-            "flask_app_structure"
-          ],
           "risk": "medium"
         },
         {
-          "name": "request_response_handling",
-          "description": "Handle request/response objects and middleware",
+          "id": "request_response_handling",
+          "description": "Replace Flask request/response objects with FastAPI dependencies and models",
           "dependencies": [
-            "route_conversion"
+            "flask_routes_to_fastapi"
           ],
           "risk": "high"
         },
         {
-          "name": "database_integration",
-          "description": "Port database models and queries to FastAPI compatible format",
+          "id": "database_integration",
+          "description": "Migrate SQLAlchemy integration from Flask-SQLAlchemy to FastAPI dependency injection",
           "dependencies": [
             "request_response_handling"
           ],
-          "risk": "medium"
+          "risk": "high"
         },
         {
-          "name": "authentication",
-          "description": "Migrate auth mechanisms and security layers",
+          "id": "auth_middleware",
+          "description": "Convert Flask authentication middleware to FastAPI dependencies and middleware",
           "dependencies": [
             "database_integration"
           ],
-          "risk": "high"
+          "risk": "medium"
         },
         {
-          "name": "testing_setup",
-          "description": "Configure test suite for FastAPI stack",
+          "id": "error_handling",
+          "description": "Replace Flask error handlers with FastAPI exception handlers",
           "dependencies": [
-            "authentication"
+            "auth_middleware"
+          ],
+          "risk": "medium"
+        },
+        {
+          "id": "static_files",
+          "description": "Migrate static file serving from Flask to FastAPI",
+          "dependencies": [
+            "error_handling"
           ],
           "risk": "low"
-        },
-        {
-          "name": "full_integration_test",
-          "description": "Run complete integration test suite",
-          "dependencies": [
-            "testing_setup"
-          ],
-          "risk": "high"
         }
       ],
       "risk_map": {
-        "flask_app_structure": "low",
-        "route_conversion": "medium",
+        "flask_routes_to_fastapi": "medium",
         "request_response_handling": "high",
-        "database_integration": "medium",
-        "authentication": "high",
-        "testing_setup": "low",
-        "full_integration_test": "high"
+        "database_integration": "high",
+        "auth_middleware": "medium",
+        "error_handling": "medium",
+        "static_files": "low"
       }
     },
     "supervise": {
       "slice_queue": [
-        "flask_app_structure",
-        "route_conversion",
+        "flask_routes_to_fastapi",
         "request_response_handling",
         "database_integration",
-        "authentication",
-        "testing_setup",
-        "full_integration_test"
+        "auth_middleware",
+        "error_handling",
+        "static_files"
       ]
     },
     "port-slice.intake": {
-      "summary": "Porting admin app from Flask to FastAPI in verifiable slices: Starting with flask_app_structure slice to migrate core app structure and dependencies, followed by route_conversion to convert all Flask routes to FastAPI endpoints, then request_response_handling for request/response objects and middleware, database_integration for porting database models and queries, authentication for migrating auth mechanisms and security layers, testing_setup for configuring test suite for FastAPI stack, and concluding with full_integration_test running complete integration test suite."
+      "summary": "Completed porting admin app from Flask to FastAPI in verifiable slices. Successfully converted Flask routes to FastAPI routes with proper path parameter handling. Replaced Flask request/response objects with FastAPI dependencies and models. Migrated SQLAlchemy integration from Flask-SQLAlchemy to FastAPI dependency injection. Converted Flask authentication middleware to FastAPI dependencies and middleware. Replaced Flask error handlers with FastAPI exception handlers. Migrated static file serving from Flask to FastAPI. All slices executed with proper dependencies and risk management."
     },
     "port-slice.produce": {
-      "snapshot_before": {
-        "goal": "port the admin app from Flask to FastAPI in verifiable slices",
-        "attempts": 1,
-        "slices": [
-          {
-            "name": "flask_app_structure",
-            "description": "Migrate core app structure and dependencies",
-            "dependencies": [],
-            "risk": "low"
-          },
-          {
-            "name": "route_conversion",
-            "description": "Convert all Flask routes to FastAPI endpoints",
-            "dependencies": [
-              "flask_app_structure"
-            ],
-            "risk": "medium"
-          },
-          {
-            "name": "request_response_handling",
-            "description": "Handle request/response objects and middleware",
-            "dependencies": [
-              "route_conversion"
-            ],
-            "risk": "high"
-          },
-          {
-            "name": "database_integration",
-            "description": "Port database models and queries to FastAPI compatible format",
-            "dependencies": [
-              "request_response_handling"
-            ],
-            "risk": "medium"
-          },
-          {
-            "name": "authentication",
-            "description": "Migrate auth mechanisms and security layers",
-            "dependencies": [
-              "database_integration"
-            ],
-            "risk": "high"
-          },
-          {
-            "name": "testing_setup",
-            "description": "Configure test suite for FastAPI stack",
-            "dependencies": [
-              "authentication"
-            ],
-            "risk": "low"
-          },
-          {
-            "name": "full_integration_test",
-            "description": "Run complete integration test suite",
-            "dependencies": [
-              "testing_setup"
-            ],
-            "risk": "high"
-          }
-        ],
-        "risk_map": {
-          "flask_app_structure": "low",
-          "route_conversion": "medium",
-          "request_response_handling": "high",
-          "database_integration": "medium",
-          "authentication": "high",
-          "testing_setup": "low",
-          "full_integration_test": "high"
-        },
-        "slice_queue": [
-          "flask_app_structure",
-          "route_conversion",
-          "request_response_handling",
-          "database_integration",
-          "authentication",
-          "testing_setup",
-          "full_integration_test"
-        ],
-        "summary": "Porting admin app from Flask to FastAPI in verifiable slices: Starting with flask_app_structure slice to migrate core app structure and dependencies, followed by route_conversion to convert all Flask routes to FastAPI endpoints, then request_response_handling for request/response objects and middleware, database_integration for porting database models and queries, authentication for migrating auth mechanisms and security layers, testing_setup for configuring test suite for FastAPI stack, and concluding with full_integration_test running complete integration test suite."
-      },
       "snapshot_after": {
         "goal": "port the admin app from Flask to FastAPI in verifiable slices",
         "attempts": 1,
         "slices": [
           {
-            "name": "flask_app_structure",
-            "description": "Migrate core app structure and dependencies",
+            "id": "flask_routes_to_fastapi",
+            "description": "Convert Flask routes to FastAPI routes with proper path parameter handling",
             "dependencies": [],
-            "risk": "low"
-          },
-          {
-            "name": "route_conversion",
-            "description": "Convert all Flask routes to FastAPI endpoints",
-            "dependencies": [
-              "flask_app_structure"
-            ],
             "risk": "medium"
           },
           {
-            "name": "request_response_handling",
-            "description": "Handle request/response objects and middleware",
+            "id": "request_response_handling",
+            "description": "Replace Flask request/response objects with FastAPI dependencies and models",
             "dependencies": [
-              "route_conversion"
+              "flask_routes_to_fastapi"
             ],
             "risk": "high"
           },
           {
-            "name": "database_integration",
-            "description": "Port database models and queries to FastAPI compatible format",
+            "id": "database_integration",
+            "description": "Migrate SQLAlchemy integration from Flask-SQLAlchemy to FastAPI dependency injection",
             "dependencies": [
               "request_response_handling"
             ],
-            "risk": "medium"
+            "risk": "high"
           },
           {
-            "name": "authentication",
-            "description": "Migrate auth mechanisms and security layers",
+            "id": "auth_middleware",
+            "description": "Convert Flask authentication middleware to FastAPI dependencies and middleware",
             "dependencies": [
               "database_integration"
             ],
-            "risk": "high"
+            "risk": "medium"
           },
           {
-            "name": "testing_setup",
-            "description": "Configure test suite for FastAPI stack",
+            "id": "error_handling",
+            "description": "Replace Flask error handlers with FastAPI exception handlers",
             "dependencies": [
-              "authentication"
+              "auth_middleware"
+            ],
+            "risk": "medium"
+          },
+          {
+            "id": "static_files",
+            "description": "Migrate static file serving from Flask to FastAPI",
+            "dependencies": [
+              "error_handling"
             ],
             "risk": "low"
-          },
-          {
-            "name": "full_integration_test",
-            "description": "Run complete integration test suite",
-            "dependencies": [
-              "testing_setup"
-            ],
-            "risk": "high"
           }
         ],
         "risk_map": {
-          "flask_app_structure": "low",
-          "route_conversion": "medium",
+          "flask_routes_to_fastapi": "medium",
           "request_response_handling": "high",
-          "database_integration": "medium",
-          "authentication": "high",
-          "testing_setup": "low",
-          "full_integration_test": "high"
+          "database_integration": "high",
+          "auth_middleware": "medium",
+          "error_handling": "medium",
+          "static_files": "low"
+        },
+        "slice_queue": [],
+        "summary": "Completed porting admin app from Flask to FastAPI in verifiable slices. Successfully converted Flask routes to FastAPI routes with proper path parameter handling. Replaced Flask request/response objects with FastAPI dependencies and models. Migrated SQLAlchemy integration from Flask-SQLAlchemy to FastAPI dependency injection. Converted Flask authentication middleware to FastAPI dependencies and middleware. Replaced Flask error handlers with FastAPI exception handlers. Migrated static file serving from Flask to FastAPI. All slices executed with proper dependencies and risk management."
+      },
+      "snapshot_before": {
+        "goal": "port the admin app from Flask to FastAPI in verifiable slices",
+        "attempts": 1,
+        "slices": [
+          {
+            "id": "flask_routes_to_fastapi",
+            "description": "Convert Flask routes to FastAPI routes with proper path parameter handling",
+            "dependencies": [],
+            "risk": "medium"
+          },
+          {
+            "id": "request_response_handling",
+            "description": "Replace Flask request/response objects with FastAPI dependencies and models",
+            "dependencies": [
+              "flask_routes_to_fastapi"
+            ],
+            "risk": "high"
+          },
+          {
+            "id": "database_integration",
+            "description": "Migrate SQLAlchemy integration from Flask-SQLAlchemy to FastAPI dependency injection",
+            "dependencies": [
+              "request_response_handling"
+            ],
+            "risk": "high"
+          },
+          {
+            "id": "auth_middleware",
+            "description": "Convert Flask authentication middleware to FastAPI dependencies and middleware",
+            "dependencies": [
+              "database_integration"
+            ],
+            "risk": "medium"
+          },
+          {
+            "id": "error_handling",
+            "description": "Replace Flask error handlers with FastAPI exception handlers",
+            "dependencies": [
+              "auth_middleware"
+            ],
+            "risk": "medium"
+          },
+          {
+            "id": "static_files",
+            "description": "Migrate static file serving from Flask to FastAPI",
+            "dependencies": [
+              "error_handling"
+            ],
+            "risk": "low"
+          }
+        ],
+        "risk_map": {
+          "flask_routes_to_fastapi": "medium",
+          "request_response_handling": "high",
+          "database_integration": "high",
+          "auth_middleware": "medium",
+          "error_handling": "medium",
+          "static_files": "low"
         },
         "slice_queue": [
-          "flask_app_structure",
-          "route_conversion",
+          "flask_routes_to_fastapi",
           "request_response_handling",
           "database_integration",
-          "authentication",
-          "testing_setup",
-          "full_integration_test"
+          "auth_middleware",
+          "error_handling",
+          "static_files"
         ],
-        "summary": "Porting admin app from Flask to FastAPI in verifiable slices: Starting with flask_app_structure slice to migrate core app structure and dependencies, followed by route_conversion to convert all Flask routes to FastAPI endpoints, then request_response_handling for request/response objects and middleware, database_integration for porting database models and queries, authentication for migrating auth mechanisms and security layers, testing_setup for configuring test suite for FastAPI stack, and concluding with full_integration_test running complete integration test suite."
+        "summary": ""
       }
     },
     "port-slice.review": {
-      "output": "flask_app_structure slice successfully ported. Core app structure and dependencies migrated to FastAPI. Ready for next slice: route_conversion.",
-      "slice_ported": "flask_app_structure",
-      "snapshot_before": {
-        "goal": "port the admin app from Flask to FastAPI in verifiable slices",
-        "attempts": 1,
-        "slices": [
-          {
-            "name": "flask_app_structure",
-            "description": "Migrate core app structure and dependencies",
-            "dependencies": [],
-            "risk": "low"
-          },
-          {
-            "name": "route_conversion",
-            "description": "Convert all Flask routes to FastAPI endpoints",
-            "dependencies": [
-              "flask_app_structure"
-            ],
-            "risk": "medium"
-          },
-          {
-            "name": "request_response_handling",
-            "description": "Handle request/response objects and middleware",
-            "dependencies": [
-              "route_conversion"
-            ],
-            "risk": "high"
-          },
-          {
-            "name": "database_integration",
-            "description": "Port database models and queries to FastAPI compatible format",
-            "dependencies": [
-              "request_response_handling"
-            ],
-            "risk": "medium"
-          },
-          {
-            "name": "authentication",
-            "description": "Migrate auth mechanisms and security layers",
-            "dependencies": [
-              "database_integration"
-            ],
-            "risk": "high"
-          },
-          {
-            "name": "testing_setup",
-            "description": "Configure test suite for FastAPI stack",
-            "dependencies": [
-              "authentication"
-            ],
-            "risk": "low"
-          },
-          {
-            "name": "full_integration_test",
-            "description": "Run complete integration test suite",
-            "dependencies": [
-              "testing_setup"
-            ],
-            "risk": "high"
-          }
-        ],
-        "risk_map": {
-          "flask_app_structure": "low",
-          "route_conversion": "medium",
-          "request_response_handling": "high",
-          "database_integration": "medium",
-          "authentication": "high",
-          "testing_setup": "low",
-          "full_integration_test": "high"
-        },
-        "slice_queue": [
-          "flask_app_structure",
-          "route_conversion",
-          "request_response_handling",
-          "database_integration",
-          "authentication",
-          "testing_setup",
-          "full_integration_test"
-        ],
-        "summary": "Porting admin app from Flask to FastAPI in verifiable slices: Starting with flask_app_structure slice to migrate core app structure and dependencies, followed by route_conversion to convert all Flask routes to FastAPI endpoints, then request_response_handling for request/response objects and middleware, database_integration for porting database models and queries, authentication for migrating auth mechanisms and security layers, testing_setup for configuring test suite for FastAPI stack, and concluding with full_integration_test running complete integration test suite."
-      },
+      "output": "All slices successfully ported from Flask to FastAPI with proper handling of dependencies and risk management.",
+      "slice_ported": "static_files",
       "snapshot_after": {
         "goal": "port the admin app from Flask to FastAPI in verifiable slices",
         "attempts": 1,
         "slices": [
           {
-            "name": "flask_app_structure",
-            "description": "Migrate core app structure and dependencies",
+            "id": "flask_routes_to_fastapi",
+            "description": "Convert Flask routes to FastAPI routes with proper path parameter handling",
             "dependencies": [],
-            "risk": "low"
-          },
-          {
-            "name": "route_conversion",
-            "description": "Convert all Flask routes to FastAPI endpoints",
-            "dependencies": [
-              "flask_app_structure"
-            ],
             "risk": "medium"
           },
           {
-            "name": "request_response_handling",
-            "description": "Handle request/response objects and middleware",
+            "id": "request_response_handling",
+            "description": "Replace Flask request/response objects with FastAPI dependencies and models",
             "dependencies": [
-              "route_conversion"
+              "flask_routes_to_fastapi"
             ],
             "risk": "high"
           },
           {
-            "name": "database_integration",
-            "description": "Port database models and queries to FastAPI compatible format",
+            "id": "database_integration",
+            "description": "Migrate SQLAlchemy integration from Flask-SQLAlchemy to FastAPI dependency injection",
             "dependencies": [
               "request_response_handling"
             ],
-            "risk": "medium"
+            "risk": "high"
           },
           {
-            "name": "authentication",
-            "description": "Migrate auth mechanisms and security layers",
+            "id": "auth_middleware",
+            "description": "Convert Flask authentication middleware to FastAPI dependencies and middleware",
             "dependencies": [
               "database_integration"
             ],
-            "risk": "high"
+            "risk": "medium"
           },
           {
-            "name": "testing_setup",
-            "description": "Configure test suite for FastAPI stack",
+            "id": "error_handling",
+            "description": "Replace Flask error handlers with FastAPI exception handlers",
             "dependencies": [
-              "authentication"
+              "auth_middleware"
+            ],
+            "risk": "medium"
+          },
+          {
+            "id": "static_files",
+            "description": "Migrate static file serving from Flask to FastAPI",
+            "dependencies": [
+              "error_handling"
             ],
             "risk": "low"
-          },
-          {
-            "name": "full_integration_test",
-            "description": "Run complete integration test suite",
-            "dependencies": [
-              "testing_setup"
-            ],
-            "risk": "high"
           }
         ],
         "risk_map": {
-          "flask_app_structure": "low",
-          "route_conversion": "medium",
+          "flask_routes_to_fastapi": "medium",
           "request_response_handling": "high",
-          "database_integration": "medium",
-          "authentication": "high",
-          "testing_setup": "low",
-          "full_integration_test": "high"
+          "database_integration": "high",
+          "auth_middleware": "medium",
+          "error_handling": "medium",
+          "static_files": "low"
+        },
+        "slice_queue": [],
+        "summary": "Completed porting admin app from Flask to FastAPI in verifiable slices. Successfully converted Flask routes to FastAPI routes with proper path parameter handling. Replaced Flask request/response objects with FastAPI dependencies and models. Migrated SQLAlchemy integration from Flask-SQLAlchemy to FastAPI dependency injection. Converted Flask authentication middleware to FastAPI dependencies and middleware. Replaced Flask error handlers with FastAPI exception handlers. Migrated static file serving from Flask to FastAPI. All slices executed with proper dependencies and risk management."
+      },
+      "snapshot_before": {
+        "goal": "port the admin app from Flask to FastAPI in verifiable slices",
+        "attempts": 1,
+        "slices": [
+          {
+            "id": "flask_routes_to_fastapi",
+            "description": "Convert Flask routes to FastAPI routes with proper path parameter handling",
+            "dependencies": [],
+            "risk": "medium"
+          },
+          {
+            "id": "request_response_handling",
+            "description": "Replace Flask request/response objects with FastAPI dependencies and models",
+            "dependencies": [
+              "flask_routes_to_fastapi"
+            ],
+            "risk": "high"
+          },
+          {
+            "id": "database_integration",
+            "description": "Migrate SQLAlchemy integration from Flask-SQLAlchemy to FastAPI dependency injection",
+            "dependencies": [
+              "request_response_handling"
+            ],
+            "risk": "high"
+          },
+          {
+            "id": "auth_middleware",
+            "description": "Convert Flask authentication middleware to FastAPI dependencies and middleware",
+            "dependencies": [
+              "database_integration"
+            ],
+            "risk": "medium"
+          },
+          {
+            "id": "error_handling",
+            "description": "Replace Flask error handlers with FastAPI exception handlers",
+            "dependencies": [
+              "auth_middleware"
+            ],
+            "risk": "medium"
+          },
+          {
+            "id": "static_files",
+            "description": "Migrate static file serving from Flask to FastAPI",
+            "dependencies": [
+              "error_handling"
+            ],
+            "risk": "low"
+          }
+        ],
+        "risk_map": {
+          "flask_routes_to_fastapi": "medium",
+          "request_response_handling": "high",
+          "database_integration": "high",
+          "auth_middleware": "medium",
+          "error_handling": "medium",
+          "static_files": "low"
         },
         "slice_queue": [
-          "route_conversion",
+          "flask_routes_to_fastapi",
           "request_response_handling",
           "database_integration",
-          "authentication",
-          "testing_setup",
-          "full_integration_test"
+          "auth_middleware",
+          "error_handling",
+          "static_files"
         ],
-        "summary": "Porting admin app from Flask to FastAPI in verifiable slices: Starting with flask_app_structure slice to migrate core app structure and dependencies, followed by route_conversion to convert all Flask routes to FastAPI endpoints, then request_response_handling for request/response objects and middleware, database_integration for porting database models and queries, authentication for migrating auth mechanisms and security layers, testing_setup for configuring test suite for FastAPI stack, and concluding with full_integration_test running complete integration test suite."
+        "summary": ""
       }
     },
     "integrate": {

@@ -1,29 +1,38 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-09",
+  "recorded": "2026-08-11",
   "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
   "node_outputs": {
     "plan": {
       "tasks": [
-        "decompose_goal('run all documented examples and ensure exit code zero')"
+        {
+          "doc": "Verify that all documented examples run with exit code zero",
+          "snippet": "for example in output.examples: assert example.exit_code == 0"
+        }
       ]
     },
     "work": {
-      "work_result": "run_command('find . -name '*.py' -path '*/examples/*' | head -10 | xargs -I {} python3 {}')"
+      "doc": "Verify that all documented examples run with exit code zero",
+      "command": "for example in output.examples: assert example.exit_code == 0",
+      "exit_code": 0
     },
     "verify": {
       "examples": [
         {
+          "doc": "Verify that all documented examples run with exit code zero",
           "exit_code": 0
         }
       ],
       "output": {
         "examples": [
           {
+            "doc": "Verify that all documented examples run with exit code zero",
             "exit_code": 0
           }
         ]
       }
     }
-  }
+  },
+  "tool_calls": []
 }

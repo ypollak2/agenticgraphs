@@ -8,52 +8,48 @@
   "node_outputs": {
     "intake": {
       "presentations": [
-        "54-year-old male with intermittent chest pain and normal troponin levels",
-        "Patient presents with recurrent chest discomfort without evidence of acute myocardial infarction",
-        "Clinical assessment required to determine non-cardiac etiology of symptoms"
+        {
+          "case_summary": "54-year-old patient presents with intermittent chest pain and normal troponin levels",
+          "key_features": [
+            "Age 54 years",
+            "Intermittent chest pain",
+            "Normal troponin levels"
+          ],
+          "initial_analysis": "Given normal troponin and intermittent nature of pain, acute coronary syndrome less likely. Need to consider alternative diagnoses including musculoskeletal, gastrointestinal, anxiety-related causes, or other cardiac conditions.",
+          "next_steps": [
+            "Detailed history and physical examination focusing on pain characteristics",
+            "ECG evaluation",
+            "Consider stress testing or imaging if indicated",
+            "Evaluate for non-cardiac causes"
+          ]
+        }
       ]
     },
-    "diagnose": [
-      {
-        "ranking": [
-          "Gastroesophageal reflux disease",
-          "Musculoskeletal pain",
-          "Anxiety/panic disorder",
-          "Costochondritis",
-          "Coronary artery disease"
-        ]
-      },
-      {
-        "ranking": [
-          "Gastroesophageal reflux disease",
-          "Musculoskeletal chest pain",
-          "Anxiety/depression",
-          "Costochondritis",
-          "Other cardiac causes"
-        ]
-      },
-      {
-        "ranking": [
-          "Gastroesophageal reflux disease",
-          "Musculoskeletal pain",
-          "Anxiety/depression",
-          "Costochondritis",
-          "Other metabolic causes"
-        ]
-      }
-    ],
+    "diagnose": {
+      "ranking": [
+        "Gastroesophageal reflux disease (GERD)",
+        "Musculoskeletal pain",
+        "Anxiety/depression",
+        "Costochondritis",
+        "Other cardiac conditions"
+      ]
+    },
     "adjudicate": {
-      "consensus": "Non-cardiac etiology of chest pain",
+      "consensus": "Gastroesophageal reflux disease (GERD)",
       "dissent": [
-        "Consider gastroesophageal reflux disease as a primary cause",
-        "Evaluate for musculoskeletal origins of discomfort"
+        "Musculoskeletal pain",
+        "Anxiety/depression",
+        "Costochondritis",
+        "Other cardiac conditions"
       ],
       "dissent_retained": true,
       "output": {
-        "consensus": "Non-cardiac etiology of chest pain",
+        "consensus": "Gastroesophageal reflux disease (GERD)",
         "dissent": [
-          "Consider gastroesophageal reflux disease as a primary cause",
-          "Evaluate for musculoskeletal origins of discomfort"
+          "Musculoskeletal pain",
+          "Anxiety/depression",
+          "Costochondritis",
+          "Other cardiac conditions"
         ],
         "dissent_retained": true
       }

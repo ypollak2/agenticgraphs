@@ -1,0 +1,31 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Analysis complete. All entries meet exit contract requirements with answers matching keys and distractors being plausible."
+    },
+    "generate": {
+      "draft": "Analysis complete. All entries meet exit contract requirements with answers matching keys and distractors being plausible."
+    },
+    "critique": {
+      "entries": [
+        {
+          "answer_matches_key": true,
+          "distractors_plausible": true
+        }
+      ],
+      "output": {
+        "entries": [
+          {
+            "answer_matches_key": true,
+            "distractors_plausible": true
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": []
+}

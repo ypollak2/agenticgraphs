@@ -1,21 +1,22 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-09",
+  "recorded": "2026-08-11",
   "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
   "node_outputs": {
     "intake": {
-      "summary": "Initial analysis complete. All findings map to specific policy clause ids as required by downstream assertions."
+      "summary": "Analysis complete. All findings map to specific policy clause ids."
     },
     "produce": {
       "findings": [
         {
-          "clause_id": "Clause-001"
+          "clause_id": "A1"
         },
         {
-          "clause_id": "Clause-002"
+          "clause_id": "B3"
         },
         {
-          "clause_id": "Clause-003"
+          "clause_id": "C2"
         }
       ]
     },
@@ -23,16 +24,17 @@
       "output": {
         "findings": [
           {
-            "clause_id": "Clause-001"
+            "clause_id": "A1"
           },
           {
-            "clause_id": "Clause-002"
+            "clause_id": "B3"
           },
           {
-            "clause_id": "Clause-003"
+            "clause_id": "C2"
           }
         ]
       }
     }
-  }
+  },
+  "tool_calls": []
 }

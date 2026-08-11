@@ -9,139 +9,132 @@
     "collect.partition": {
       "shards": [
         {
-          "name": "Snowflake",
-          "pricing": "$0.03/GB/hour",
+          "platform": "Snowflake",
           "performance": "High",
           "scalability": "Excellent",
-          "integration": "Good"
+          "cost": "Moderate to High",
+          "integration": "Excellent",
+          "learning_curve": "Medium"
         },
         {
-          "name": "BigQuery",
-          "pricing": "$0.02/GB/hour",
-          "performance": "Very High",
-          "scalability": "Excellent",
-          "integration": "Excellent"
-        },
-        {
-          "name": "Redshift",
-          "pricing": "$0.25/GB/hour",
+          "platform": "BigQuery",
           "performance": "High",
+          "scalability": "Excellent",
+          "cost": "Low to Moderate",
+          "integration": "Good",
+          "learning_curve": "Easy"
+        },
+        {
+          "platform": "Redshift",
+          "performance": "Good",
           "scalability": "Good",
-          "integration": "Good"
+          "cost": "Moderate",
+          "integration": "Good",
+          "learning_curve": "Medium"
         }
       ]
     },
     "collect.map": [
       {
+        "shard_result": "Snowflake offers High performance and Excellent scalability with Excellent integration capabilities, though it comes at a Moderate to High cost and Medium learning curve."
+      },
+      {
         "shard_result": {
-          "name": "Snowflake",
-          "pricing": "$0.03/GB/hour",
+          "platform": "BigQuery",
           "performance": "High",
           "scalability": "Excellent",
+          "cost": "Low to Moderate",
           "integration": "Good",
-          "rating": 4.0
+          "learning_curve": "Easy"
         }
       },
       {
-        "shard_result": "BigQuery leads with $0.02/GB/hour pricing, 'Very High' performance, 'Excellent' scalability, and 'Excellent' integration. Snowflake offers $0.03/GB/hour pricing with 'High' performance and 'Excellent' scalability but only 'Good' integration. Redshift has the highest pricing at $0.25/GB/hour with 'High' performance, 'Good' scalability, and 'Good' integration. BigQuery provides the best overall value proposition for warehouse migration."
-      },
-      {
-        "shard_result": "Redshift has the highest pricing at $0.25/GB/hour compared to Snowflake's $0.03/GB/hour and BigQuery's $0.02/GB/hour, making it the most expensive option. While Redshift offers High performance and Good scalability, its pricing makes it less cost-effective than the other two options, especially when compared to BigQuery's Very High performance at a significantly lower cost. The integration is rated as Good for all three platforms."
+        "shard_result": "Redshift offers good performance and scalability with moderate costs, providing solid integration capabilities and a medium learning curve, making it a balanced option for warehouse migration"
       }
     ],
     "collect.reduce": {
       "findings": [
         {
           "source_date": "2023-10-01",
-          "source_url": "https://snowflake.com/pricing"
+          "source_url": "https://docs.snowflake.com/en/user-guide/scalability-performance.html"
         },
         {
-          "source_date": "2023-10-01",
+          "source_date": "2023-09-15",
           "source_url": "https://cloud.google.com/bigquery/pricing"
         },
         {
-          "source_date": "2023-10-01",
-          "source_url": "https://aws.amazon.com/redshift/pricing/"
+          "source_date": "2023-08-20",
+          "source_url": "https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"
         }
       ],
-      "output": "BigQuery leads with $0.02/GB/hour pricing, 'Very High' performance, 'Excellent' scalability, and 'Excellent' integration. Snowflake offers $0.03/GB/hour pricing with 'High' performance and 'Excellent' scalability but only 'Good' integration. Redshift has the highest pricing at $0.25/GB/hour with 'High' performance, 'Good' scalability, and 'Good' integration. BigQuery provides the best overall value proposition for warehouse migration.",
+      "output": "Snowflake offers High performance and Excellent scalability with Excellent integration capabilities, though it comes at a Moderate to High cost and Medium learning curve. BigQuery provides High performance and Excellent scalability at Low to Moderate costs with Good integration and Easy learning curve. Redshift delivers Good performance and scalability at Moderate costs with Good integration and Medium learning curve, making it a balanced option for warehouse migration.",
       "vendor_docs": [
-        {
-          "name": "Snowflake",
-          "pricing": "$0.03/GB/hour",
-          "performance": "High",
-          "scalability": "Excellent",
-          "integration": "Good"
-        },
-        {
-          "name": "BigQuery",
-          "pricing": "$0.02/GB/hour",
-          "performance": "Very High",
-          "scalability": "Excellent",
-          "integration": "Excellent"
-        },
-        {
-          "name": "Redshift",
-          "pricing": "$0.25/GB/hour",
-          "performance": "High",
-          "scalability": "Good",
-          "integration": "Good"
-        }
+        "https://docs.snowflake.com/en/user-guide/scalability-performance.html",
+        "https://cloud.google.com/bigquery/pricing",
+        "https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"
       ]
     },
     "normalize": {
-      "criteria_grid": [
-        {
-          "vendor": "Snowflake",
-          "pricing": "$0.03/GB/hour",
-          "performance": "High",
-          "scalability": "Excellent",
-          "integration": "Good"
+      "criteria_grid": {
+        "performance": {
+          "Snowflake": "High",
+          "BigQuery": "High",
+          "Redshift": "Good"
         },
-        {
-          "vendor": "BigQuery",
-          "pricing": "$0.02/GB/hour",
-          "performance": "Very High",
-          "scalability": "Excellent",
-          "integration": "Excellent"
+        "scalability": {
+          "Snowflake": "Excellent",
+          "BigQuery": "Excellent",
+          "Redshift": "Good"
         },
-        {
-          "vendor": "Redshift",
-          "pricing": "$0.25/GB/hour",
-          "performance": "High",
-          "scalability": "Good",
-          "integration": "Good"
+        "cost": {
+          "Snowflake": "Moderate to High",
+          "BigQuery": "Low to Moderate",
+          "Redshift": "Moderate"
+        },
+        "integration": {
+          "Snowflake": "Excellent",
+          "BigQuery": "Good",
+          "Redshift": "Good"
+        },
+        "learning_curve": {
+          "Snowflake": "Medium",
+          "BigQuery": "Easy",
+          "Redshift": "Medium"
         }
-      ]
+      }
     },
     "fill": {
-      "matrix": [
-        {
-          "vendor": "Snowflake",
-          "pricing": "$0.03/GB/hour",
-          "performance": "High",
-          "scalability": "Excellent",
-          "integration": "Good"
+      "matrix": {
+        "performance": {
+          "Snowflake": "High",
+          "BigQuery": "High",
+          "Redshift": "Good"
         },
-        {
-          "vendor": "BigQuery",
-          "pricing": "$0.02/GB/hour",
-          "performance": "Very High",
-          "scalability": "Excellent",
-          "integration": "Excellent"
+        "scalability": {
+          "Snowflake": "Excellent",
+          "BigQuery": "Excellent",
+          "Redshift": "Good"
         },
-        {
-          "vendor": "Redshift",
-          "pricing": "$0.25/GB/hour",
-          "performance": "High",
-          "scalability": "Good",
-          "integration": "Good"
+        "cost": {
+          "Snowflake": "Moderate to High",
+          "BigQuery": "Low to Moderate",
+          "Redshift": "Moderate"
+        },
+        "integration": {
+          "Snowflake": "Excellent",
+          "BigQuery": "Good",
+          "Redshift": "Good"
+        },
+        "learning_curve": {
+          "Snowflake": "Medium",
+          "BigQuery": "Easy",
+          "Redshift": "Medium"
         }
-      ]
+      }
     },
     "cite-check": {
       "criteria_consistent": true,
-      "output": "BigQuery leads with $0.02/GB/hour pricing, 'Very High' performance, 'Excellent' scalability, and 'Excellent' integration. Snowflake offers $0.03/GB/hour pricing with 'High' performance and 'Excellent' scalability but only 'Good' integration. Redshift has the highest pricing at $0.25/GB/hour with 'High' performance, 'Good' scalability, and 'Good' integration. BigQuery provides the best overall value proposition for warehouse migration.",
+      "output": "Snowflake offers High performance and Excellent scalability with Excellent integration capabilities, though it comes at a Moderate to High cost and Medium learning curve. BigQuery provides High performance and Excellent scalability at Low to Moderate costs with Good integration and Easy learning curve. Redshift delivers Good performance and scalability at Moderate costs with Good integration and Medium learning curve, making it a balanced option for warehouse migration.",
       "uncited_cells": 0
     }
   },

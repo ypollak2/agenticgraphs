@@ -1,22 +1,17 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-09",
+  "recorded": "2026-08-11",
   "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
   "node_outputs": {
     "intake": {
-      "summary": "Analysis complete. All asks resolved with traceable quotes."
+      "summary": "Initial intake analysis complete. All asks covered and quotes traceable."
     },
     "produce": {
       "all_asks_covered": true,
       "asks": [
         {
-          "quote": "https://example.com/quote1"
-        },
-        {
-          "quote": "https://example.com/quote2"
-        },
-        {
-          "quote": "https://example.com/quote3"
+          "quote": "Quote123"
         }
       ]
     },
@@ -25,16 +20,11 @@
         "all_asks_covered": true,
         "asks": [
           {
-            "quote": "https://example.com/quote1"
-          },
-          {
-            "quote": "https://example.com/quote2"
-          },
-          {
-            "quote": "https://example.com/quote3"
+            "quote": "Quote123"
           }
         ]
       }
     }
-  }
+  },
+  "tool_calls": []
 }

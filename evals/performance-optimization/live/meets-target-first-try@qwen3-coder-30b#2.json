@@ -1,0 +1,24 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Intake analysis complete. Benchmark meets target requirements with no test regressions detected."
+    },
+    "attempt": {
+      "benchmark_ms": 120.5,
+      "target_ms": 150.0,
+      "test_regressions": false
+    },
+    "measure": {
+      "output": {
+        "benchmark_ms": 120.5,
+        "target_ms": 150.0,
+        "test_regressions": false
+      }
+    }
+  },
+  "tool_calls": []
+}

@@ -1,0 +1,25 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "plan": {
+      "steps": [
+        "decompose_goal"
+      ]
+    },
+    "execute": {
+      "step_result": "execute_step"
+    },
+    "verify": {
+      "conclusion": "execute_step",
+      "output": {
+        "conclusion": "execute_step",
+        "query_results": []
+      },
+      "query_results": []
+    }
+  },
+  "tool_calls": []
+}

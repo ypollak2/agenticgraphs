@@ -1,0 +1,46 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Analyzed intake data focusing on scanner evidence and asset map references for ranking inputs. Identified key assets and verified evidence alignment with workflow requirements."
+    },
+    "produce": {
+      "ranking": [
+        {
+          "asset_map_ref": "AM-789",
+          "scanner_evidence": "SE-1234"
+        },
+        {
+          "asset_map_ref": "AM-156",
+          "scanner_evidence": "SE-5678"
+        },
+        {
+          "asset_map_ref": "AM-321",
+          "scanner_evidence": "SE-9012"
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "ranking": [
+          {
+            "asset_map_ref": "AM-789",
+            "scanner_evidence": "SE-1234"
+          },
+          {
+            "asset_map_ref": "AM-156",
+            "scanner_evidence": "SE-5678"
+          },
+          {
+            "asset_map_ref": "AM-321",
+            "scanner_evidence": "SE-9012"
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": []
+}

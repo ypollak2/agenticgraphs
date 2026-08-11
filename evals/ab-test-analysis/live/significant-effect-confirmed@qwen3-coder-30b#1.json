@@ -1,0 +1,23 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "position-a": {
+      "argument": "The statistical re-computation of the raw data confirms that the reproduced effect (0.732) matches the claimed effect (0.731) within the required precision tolerance of 0.01, satisfying the exit contract requirement for effect validation."
+    },
+    "position-b": {
+      "argument": "The statistical re-computation of the raw data confirms that the reproduced effect (0.732) matches the claimed effect (0.731) within the required precision tolerance of 0.01, satisfying the exit contract requirement for effect validation."
+    },
+    "judge": {
+      "claimed_effect": 0.731,
+      "output": {
+        "claimed_effect": 0.731,
+        "recomputed_effect": 0.732
+      },
+      "recomputed_effect": 0.732
+    }
+  },
+  "tool_calls": []
+}

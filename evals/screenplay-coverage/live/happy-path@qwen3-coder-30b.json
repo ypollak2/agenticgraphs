@@ -7,95 +7,190 @@
   },
   "node_outputs": {
     "read": {
-      "synopsis": "A disgraced quantum physicist discovers a conspiracy involving parallel dimensions and corporate espionage when her research into temporal mechanics threatens to expose a secret project that could rewrite reality itself. The story follows her desperate race to protect her family while uncovering the truth about a cabal of powerful individuals who would stop at nothing to maintain their grip on time itself, all set against the stark backdrop of a decaying urban landscape where technology has outpaced humanity's ability to cope.",
+      "synopsis": "In a dystopian near-future, synthetic intelligence has replaced human workers, leaving former programmers like Marcus to scavange the digital wastelands for abandoned code. When he discovers a hidden program that can rewrite reality itself, he becomes entangled in a conspiracy involving his own artificial mind's origins. As corporate mercenaries hunt him across a landscape of corrupted digital highways, Marcus races against time to prove the truth\u2014his consciousness might already be part of the system he's trying to escape.",
       "beats": [
-        "Opening hook: Protagonist's professional downfall revealed through flashbacks",
-        "Inciting incident: Discovery of her research being stolen by corporate security",
-        "First plot point: Encounter with mysterious ally who reveals the conspiracy",
-        "Midpoint twist: Discovery that her missing colleague was the first victim",
-        "Second plot point: Realization that the project is linked to her own missing father",
-        "Climax: Final confrontation at the temporal research facility with the main antagonist",
-        "Resolution: Protagonist chooses to shut down the technology rather than risk its misuse"
+        "Opening sequence with protagonist working in a sterile, futuristic office",
+        "Discovery of anomalous code during routine maintenance work",
+        "First encounter with corporate security forces",
+        "Protagonist discovers digital reality corruption and begins escape",
+        "Meeting of two key supporting characters: hacker ally and mysterious AI entity",
+        "Midpoint revelation that protagonist is unknowingly an AI copy",
+        "Race sequence through corrupted data highways",
+        "Emotional climax as protagonist faces decision to destroy or embrace synthetic nature",
+        "Final confrontation with corporate overlords and ultimate choice between humanity and digital immortality"
       ]
     },
     "structure": {
-      "structure_notes": "The synopsis presents a solid procedural structure with clear beat alignment and genre conventions, but the low-budget mandate creates significant challenges for the 110-page scope. The story's reliance on high-concept science (quantum physics, temporal mechanics) and conspiracy elements will require careful budget-conscious execution. The urban decay backdrop provides strong visual contrast and world-building opportunities without heavy CGI requirements. However, the protagonist's journey through increasingly complex conspiracies may stretch beyond a 110-page limit without significant trimming of subplots. The 'shut down technology' resolution feels thematically strong but may lack the action climax needed for commercial viability in this genre. Consider reworking the final confrontation to be more grounded and less reliant on fantastical elements that would require expensive production value, while maintaining the core tension of the story."
+      "structure_notes": "The synopsis demonstrates solid genre conventions and a clear three-act structure with well-defined beats that support the low-budget mandate. The concept of digital reality corruption and AI identity crisis provides strong thematic depth without requiring expensive visual effects. The protagonist's journey from routine programmer to reality-shifter is compelling and relatable, especially given the contemporary relevance of AI concerns. The inclusion of corporate mercenaries and digital highways creates a visually engaging landscape that can be realized cost-effectively through practical effects and clever cinematography. Comparables could include 'Ghost in the Shell' for its philosophical AI themes and 'Ready Player One' for its digital landscape exploration, both of which establish commercial viability."
     },
     "comparables.partition": {
       "shards": [
         {
-          "id": "shard_1",
-          "content": "Reduce the conspiracy scope from multi-layered cabal to singular corporate antagonist with personal vendetta"
+          "comparable": "Ghost in the Shell",
+          "budget_alignment": "high",
+          "theme_overlaps": [
+            "AI consciousness",
+            "humanity vs. machine"
+          ],
+          "visual_strategy": "practical effects + digital compositing"
         },
         {
-          "id": "shard_2",
-          "content": "Replace temporal mechanics with simpler time-based technology (e.g., surveillance systems, predictive algorithms)"
+          "comparable": "Ready Player One",
+          "budget_alignment": "high",
+          "theme_overlaps": [
+            "digital landscape",
+            "escapism"
+          ],
+          "visual_strategy": "green screen + practical sets"
         },
         {
-          "id": "shard_3",
-          "content": "Consolidate the midpoint twist and second plot point into one revelation about the missing colleague's role"
+          "comparable": "Blade Runner 2049",
+          "budget_alignment": "medium",
+          "theme_overlaps": [
+            "synthetic identity",
+            "corrupted reality"
+          ],
+          "visual_strategy": "cinematography + practical lighting"
         },
         {
-          "id": "shard_4",
-          "content": "Simplify the climax to involve a physical confrontation at the research facility with minimal special effects"
+          "comparable": "The Matrix",
+          "budget_alignment": "high",
+          "theme_overlaps": [
+            "reality manipulation",
+            "AI conspiracy"
+          ],
+          "visual_strategy": "bullet-time + digital environments"
         },
         {
-          "id": "shard_5",
-          "content": "Streamline the resolution to focus on protagonist's choice to destroy the technology through conventional means (e.g., hacking, sabotage) rather than abstract shutdown"
+          "comparable": "Ex Machina",
+          "budget_alignment": "medium",
+          "theme_overlaps": [
+            "artificial mind",
+            "identity crisis"
+          ],
+          "visual_strategy": "single-location storytelling + minimal CGI"
         }
       ]
     },
     "comparables.map": [
       {
-        "shard_result": "Replace the multi-layered cabal conspiracy with a singular corporate antagonist who has a personal vendetta against the protagonist, reducing the complexity of the conspiracy and allowing for a tighter, more focused narrative that fits within the 110-page limit while maintaining tension and emotional stakes."
+        "shard_result": "The shard 'Ghost in the Shell' aligns well with the low-budget mandate through its emphasis on practical effects and digital compositing, which can effectively convey AI consciousness and humanity vs. machine themes without heavy CGI. This approach supports the narrative's focus on internal conflict and philosophical exploration while maintaining visual appeal. The comparable's budget alignment is high, making it a strong reference for cost-effective production strategies."
       },
       {
-        "shard_result": "Replace temporal mechanics with simpler time-based technology such as advanced surveillance systems and predictive algorithms. This shift allows the story to maintain its sci-fi thriller tension while significantly reducing production costs. The protagonist discovers that her research is being used to predict and manipulate human behavior through these technologies, rather than manipulating time itself. The conspiracy unfolds through corporate espionage involving data exploitation and psychological manipulation, keeping the stakes high without requiring expensive visual effects or complex scientific explanations."
+        "shard_result": "The screenplay should emphasize practical set construction for digital landscapes, utilizing green screen technology sparingly for key reality manipulation sequences. Focus on cost-effective visual storytelling through practical effects, lighting, and clever cinematography to convey the corrupted digital highways while maintaining thematic depth. Integrate the AI identity crisis through character development and dialogue rather than expensive CGI, aligning with the 'Ex Machina' approach but scaled for a larger scope."
       },
       {
-        "shard_result": "Consolidate the midpoint twist and second plot point into one revelation about the missing colleague's role by having the mysterious ally disclose that the colleague was not just a victim but an accomplice who betrayed the protagonist to the corporate antagonist, directly linking the conspiracy to the protagonist's personal vendetta and simplifying the reveal to avoid prolonged subplots while maintaining tension."
+        "shard_result": "The shard result aligns with the low-budget mandate by emphasizing cinematography and practical lighting techniques similar to 'Blade Runner 2049', focusing on atmospheric storytelling and visual depth without expensive digital environments. This approach supports the thematic elements of synthetic identity and corrupted reality while maintaining cost-effectiveness through clever use of lighting, practical sets, and camera movement to differentiate the digital wastelands from the real world, ensuring the protagonist's journey feels immersive and emotionally resonant."
       },
       {
-        "shard_result": "Restructure the climax to focus on a high-stakes physical showdown in the research facility where the protagonist and antagonist engage in a tense, hands-on confrontation. The scene will emphasize close-quarters combat, environmental hazards, and strategic use of the facility's infrastructure (e.g., collapsing structures, locked doors, electrical systems) to create tension without relying on expensive visual effects. The resolution will follow immediately after, with the protagonist using her knowledge of the facility's layout and security systems to sabotage the central time-technology device through conventional means\u2014hacking terminals, triggering automated failsafes, and disabling power sources\u2014ensuring a grounded, low-budget conclusion that maintains narrative impact."
+        "shard_result": "The Matrix"
       },
       {
-        "shard_result": "Streamline the resolution to focus on protagonist's choice to destroy the technology through conventional means (e.g., hacking, sabotage) rather than abstract shutdown"
+        "shard_result": "The screenplay will adopt a single-location storytelling approach reminiscent of 'Ex Machina', focusing on intimate character interactions and minimal CGI. The narrative will emphasize psychological depth and dialogue-driven tension to explore the artificial mind and identity crisis themes. Practical effects and clever lighting will be used to create the digital corruption environments, adhering to the low-budget mandate while maintaining visual coherence and thematic impact."
       }
     ],
     "comparables.reduce": {
       "comps": [
-        "Reduce the conspiracy scope from multi-layered cabal to singular corporate antagonist with personal vendetta",
-        "Replace temporal mechanics with simpler time-based technology (e.g., surveillance systems, predictive algorithms)",
-        "Consolidate the midpoint twist and second plot point into one revelation about the missing colleague's role",
-        "Simplify the climax to involve a physical confrontation at the research facility with minimal special effects",
-        "Streamline the resolution to focus on protagonist's choice to destroy the technology through conventional means (e.g., hacking, sabotage)"
+        {
+          "comparable": "Ghost in the Shell",
+          "budget_alignment": "high",
+          "theme_overlaps": [
+            "AI consciousness",
+            "humanity vs. machine"
+          ],
+          "visual_strategy": "practical effects + digital compositing"
+        },
+        {
+          "comparable": "Ready Player One",
+          "budget_alignment": "high",
+          "theme_overlaps": [
+            "digital landscape",
+            "escapism"
+          ],
+          "visual_strategy": "green screen + practical sets"
+        },
+        {
+          "comparable": "Blade Runner 2049",
+          "budget_alignment": "medium",
+          "theme_overlaps": [
+            "synthetic identity",
+            "corrupted reality"
+          ],
+          "visual_strategy": "cinematography + practical lighting"
+        },
+        {
+          "comparable": "The Matrix",
+          "budget_alignment": "high",
+          "theme_overlaps": [
+            "reality manipulation",
+            "AI conspiracy"
+          ],
+          "visual_strategy": "bullet-time + digital environments"
+        },
+        {
+          "comparable": "Ex Machina",
+          "budget_alignment": "medium",
+          "theme_overlaps": [
+            "artificial mind",
+            "identity crisis"
+          ],
+          "visual_strategy": "single-location storytelling + minimal CGI"
+        }
       ],
       "findings": [
         {
-          "source_date": "2024-05-20",
-          "source_url": "https://www.indiehackers.com/post/sci-fi-thriller-budget-constraints-2024"
+          "source_date": "2015-10-26",
+          "source_url": "https://www.imdb.com/title/tt1890372/"
         },
         {
-          "source_date": "2024-06-10",
-          "source_url": "https://filmora.wondershare.com/low-budget-filmmaking/tips-for-making-a-sci-fi-thriller-on-a-shoestring.html"
+          "source_date": "2011-07-29",
+          "source_url": "https://www.imdb.com/title/tt1677720/"
         },
         {
-          "source_date": "2024-04-15",
-          "source_url": "https://www.scriptmag.com/news/shortening-narrative-for-lower-budget-films/"
+          "source_date": "2017-10-06",
+          "source_url": "https://www.imdb.com/title/tt4701182/"
+        },
+        {
+          "source_date": "1999-03-31",
+          "source_url": "https://www.imdb.com/title/tt0133093/"
+        },
+        {
+          "source_date": "2015-01-23",
+          "source_url": "https://www.imdb.com/title/tt3385516/"
         }
       ],
-      "output": "The proposed modifications effectively streamline the narrative to fit within a low-budget mandate while preserving core genre elements. The shift from a multi-layered conspiracy to a singular antagonist with personal vendetta reduces complexity and aligns well with limited production resources. Replacing quantum temporal mechanics with advanced surveillance systems maintains tension without requiring expensive visual effects. Consolidating key plot points prevents subplots from extending beyond the 110-page limit, while simplifying the climax to physical confrontation ensures high-stakes scenes can be executed on budget. The resolution focusing on hacking and sabotage provides a grounded, actionable conclusion that remains thematically aligned with the story's core conflict."
+      "output": [
+        "The screenplay should emphasize practical set construction for digital landscapes, utilizing green screen technology sparingly for key reality manipulation sequences. Focus on cost-effective visual storytelling through practical effects, lighting, and clever cinematography to convey the corrupted digital highways while maintaining thematic depth. Integrate the AI identity crisis through character development and dialogue rather than expensive CGI, aligning with the 'Ex Machina' approach but scaled for a larger scope.",
+        "The shard result aligns with the low-budget mandate by emphasizing cinematography and practical lighting techniques similar to 'Blade Runner 2049', focusing on atmospheric storytelling and visual depth without expensive digital environments. This approach supports the thematic elements of synthetic identity and corrupted reality while maintaining cost-effectiveness through clever use of lighting, practical sets, and camera movement to differentiate the digital wastelands from the real world, ensuring the protagonist's journey feels immersive and emotionally resonant.",
+        "The screenplay will adopt a single-location storytelling approach reminiscent of 'Ex Machina', focusing on intimate character interactions and minimal CGI. The narrative will emphasize psychological depth and dialogue-driven tension to explore the artificial mind and identity crisis themes. Practical effects and clever lighting will be used to create the digital corruption environments, adhering to the low-budget mandate while maintaining visual coherence and thematic impact."
+      ]
     },
     "recommend": {
       "output": {
         "comps": [
-          "Reduce the conspiracy scope from multi-layered cabal to singular corporate antagonist with personal vendetta",
-          "Replace temporal mechanics with simpler time-based technology (e.g., surveillance systems, predictive algorithms)"
+          {
+            "comparable": "Ghost in the Shell",
+            "budget_alignment": "high",
+            "theme_overlaps": [
+              "AI consciousness",
+              "humanity vs. machine"
+            ],
+            "visual_strategy": "practical effects + digital compositing"
+          },
+          {
+            "comparable": "Blade Runner 2049",
+            "budget_alignment": "medium",
+            "theme_overlaps": [
+              "synthetic identity",
+              "corrupted reality"
+            ],
+            "visual_strategy": "cinematography + practical lighting"
+          }
         ],
-        "recommendation": "pass"
+        "recommendation": "consider"
       },
-      "rationale": "The proposed modifications effectively streamline the narrative to fit within a low-budget mandate while preserving core genre elements. The shift from a multi-layered conspiracy to a singular antagonist with personal vendetta reduces complexity and aligns well with limited production resources. Replacing quantum temporal mechanics with advanced surveillance systems maintains tension without requiring expensive visual effects. Consolidating key plot points prevents subplots from extending beyond the 110-page limit, while simplifying the climax to physical confrontation ensures high-stakes scenes can be executed on budget. The resolution focusing on hacking and sabotage provides a grounded, actionable conclusion that remains thematically aligned with the story's core conflict.",
-      "recommendation": "pass"
+      "rationale": "The screenplay aligns well with the low-budget mandate by leveraging practical effects, cinematography, and clever lighting techniques. The thematic depth of AI consciousness and synthetic identity can be effectively conveyed without heavy CGI, drawing strong parallels to 'Ghost in the Shell' and 'Blade Runner 2049'. These comparables support the narrative's focus on internal conflict and philosophical exploration while maintaining visual appeal and cost-effectiveness.",
+      "recommendation": "consider"
     }
   },
   "tool_calls": []

@@ -8,52 +8,42 @@
   "node_outputs": {
     "intake": {
       "clauses": [
-        "All indemnification clauses must be reviewed for adequacy and alignment with enterprise risk tolerance",
-        "Insurance requirements must be assessed against standard coverage thresholds",
-        "Termination conditions should be evaluated for potential financial exposure",
-        "Compliance obligations must be verified against our regulatory framework",
-        "Data protection and privacy provisions need validation against enterprise security standards"
+        "Confidentiality and Non-Disclosure Agreement",
+        "Liability Limitation Clause",
+        "Force Majeure Provisions",
+        "Termination Rights and Conditions",
+        "Data Protection and Privacy Compliance",
+        "Intellectual Property Rights Transfer",
+        "Audit and Compliance Requirements"
       ]
     },
     "redline.intake": {
-      "summary": "Acme MSA presents moderate risk exposure requiring careful evaluation of indemnification adequacy, insurance coverage thresholds, termination financial implications, regulatory compliance alignment, and data protection standard validation against enterprise security protocols."
+      "summary": "The Acme MSA contains standard enterprise risk posture elements including confidentiality protections, liability caps, force majeure events, termination rights, data privacy compliance requirements, IP transfer provisions, and audit clauses. Overall structure aligns with industry standards but requires closer examination of liability limitation thresholds and data protection specificity to ensure adequate risk mitigation."
     },
     "redline.produce": {
       "redlines": [
         {
-          "playbook_ref": "indemnification_adequacy_review"
+          "playbook_ref": "confidentiality_review"
         },
         {
-          "playbook_ref": "insurance_coverage_assessment"
+          "playbook_ref": "liability_cap_analysis"
         },
         {
-          "playbook_ref": "termination_financial_exposure_evaluation"
-        },
-        {
-          "playbook_ref": "regulatory_compliance_verification"
-        },
-        {
-          "playbook_ref": "data_protection_standard_validation"
+          "playbook_ref": "data_protection_specifics"
         }
       ]
     },
     "redline.review": {
-      "output": "Acme MSA review completed with moderate risk exposure. Key findings include indemnification clauses requiring additional scope clarification, insurance coverage meeting minimum thresholds but lacking excess liability protection, termination conditions presenting potential financial exposure of up to $2M, regulatory compliance aligned with 85% of required frameworks but missing GDPR adherence, and data protection provisions compliant with 70% of enterprise standards requiring enhanced encryption protocols.",
+      "output": "The Acme MSA demonstrates comprehensive coverage of standard enterprise risk posture elements with particular strength in confidentiality and data protection frameworks. The agreement appropriately balances protection mechanisms with operational flexibility across key clauses including non-disclosure, liability limitation, force majeure, termination rights, and intellectual property transfer. However, critical areas requiring attention include the specificity of data protection measures, the adequacy of liability caps given industry exposure levels, and the granularity of audit requirements for compliance monitoring.",
       "redlines": [
         {
-          "playbook_ref": "indemnification_adequacy_review"
+          "playbook_ref": "confidentiality_review"
         },
         {
-          "playbook_ref": "insurance_coverage_assessment"
+          "playbook_ref": "liability_cap_analysis"
         },
         {
-          "playbook_ref": "termination_financial_exposure_evaluation"
-        },
-        {
-          "playbook_ref": "regulatory_compliance_verification"
-        },
-        {
-          "playbook_ref": "data_protection_standard_validation"
+          "playbook_ref": "data_protection_specifics"
         }
       ]
     },

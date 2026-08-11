@@ -12,11 +12,11 @@ the registry.
 | composite | 14 | 0 |
 | human-gated | 4 | 0 |
 
-- ✅ **50** satisfied on every model, every sample
-- 🎲 **4** where one model both passed and failed across samples
-- 🚫 **11** satisfied by no model
+- ✅ **40** satisfied on every model, every sample
+- 🎲 **18** where one model both passed and failed across samples
+- 🚫 **8** satisfied by no model
 
-Samples per graph+model cell: {1: 150, 2: 8}. A cell with one
+Samples per graph+model cell: {1: 73, 2: 3, 3: 82}. A cell with one
 sample cannot distinguish a graph that passes from one that passed by luck; 🎲
 is what that looks like once there is more than one.
 
@@ -25,9 +25,23 @@ is what that looks like once there is more than one.
 | Graph | Model | Pass rate across samples |
 |---|---|---|
 | `kb-article-generator` | `qwen2.5-coder:7b` | 50% of 2 |
+| `sales-call-scorer` | `qwen3-coder:30b` | 33% of 3 |
+| `etl-pipeline-builder` | `qwen3-coder:30b` | 33% of 3 |
+| `incident-lifecycle` | `qwen3-coder:30b` | 66% of 3 |
+| `rubric-grading-swarm` | `qwen3-coder:30b` | 66% of 3 |
+| `expense-audit-swarm` | `qwen3-coder:30b` | 66% of 3 |
+| `kyc-document-processing` | `qwen3-coder:30b` | 66% of 3 |
+| `clinical-literature-triage` | `qwen3-coder:30b` | 66% of 3 |
+| `clinical-protocol-lifecycle` | `qwen3-coder:30b` | 66% of 3 |
+| `medical-coding-audit` | `qwen3-coder:30b` | 66% of 3 |
 | `jd-drafting-critic` | `qwen2.5-coder:7b` | 50% of 2 |
-| `onboarding-plan-builder` | `qwen3-coder:30b` | 50% of 2 |
-| `red-team-blue-team-hardening` | `qwen3-coder:30b` | 50% of 2 |
+| `onboarding-plan-builder` | `qwen3-coder:30b` | 33% of 3 |
+| `product-listing-pipeline` | `qwen3-coder:30b` | 66% of 3 |
+| `literature-review-swarm` | `qwen3-coder:30b` | 66% of 3 |
+| `phishing-triage` | `qwen3-coder:30b` | 66% of 3 |
+| `red-team-blue-team-hardening` | `qwen3-coder:30b` | 66% of 3 |
+| `docs-code-sync-audit` | `qwen3-coder:30b` | 66% of 3 |
+| `framework-migration` | `qwen3-coder:30b` | 33% of 3 |
 
 ## 🚫 Satisfied by no model
 
@@ -36,11 +50,8 @@ is what that looks like once there is more than one.
 | `alert-noise-reduction` | primitive |
 | `incident-triage-router` | primitive |
 | `self-healing-ci` | primitive |
-| `clinical-literature-triage` | primitive |
 | `trial-eligibility-screener` | human-gated |
-| `literature-review-swarm` | primitive |
-| `docs-code-sync-audit` | primitive |
+| `soc-alert-investigation` | primitive |
 | `feature-delivery-lifecycle` | composite |
 | `flaky-test-reflexion` | primitive |
-| `framework-migration` | composite |
 | `test-suite-generation` | primitive |

@@ -1,0 +1,44 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "id": "task_1",
+          "type": "decompose_goal",
+          "goal": "violations emitted as machine-readable rules with counts",
+          "subtasks": [
+            {
+              "id": "subtask_1.1",
+              "type": "extract_rules",
+              "description": "Extract machine-readable rules from the input data"
+            },
+            {
+              "id": "subtask_1.2",
+              "type": "count_violations",
+              "description": "Count occurrences of each rule violation"
+            },
+            {
+              "id": "subtask_1.3",
+              "type": "validate_output",
+              "description": "Ensure all violations have rule_id and count >= 0"
+            }
+          ]
+        }
+      ]
+    },
+    "work": {
+      "work_result": "violations emitted as machine-readable rules with counts"
+    },
+    "verify": {
+      "output": {
+        "violations": []
+      },
+      "violations": []
+    }
+  },
+  "tool_calls": []
+}

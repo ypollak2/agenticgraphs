@@ -7,61 +7,29 @@
   },
   "node_outputs": {
     "scope": {
-      "surface": "admin endpoint authentication bypass via token re-use and session management flaws",
-      "rules_of_engagement": "focus on identifying and testing admin paths that lack proper authentication checks, specifically targeting endpoints that accept but don't validate admin tokens or rely on insecure session handling"
+      "surface": "admin endpoint authentication bypass through missing token validation",
+      "rules_of_engagement": "test for token validation on all admin routes and verify proper authentication header checking"
     },
     "attack": [
       {
-        "bypass": "admin endpoint accessible via reused admin token without proper validation",
+        "bypass": "admin endpoint authentication bypass through missing token validation",
         "severity": "high"
       },
       {
-        "bypass": "admin endpoint accessible via reused admin token without validation",
-        "severity": 9.2
+        "bypass": "admin endpoint authentication bypass through missing token validation",
+        "severity": "high"
       },
       {
-        "bypass": "admin endpoint accessible via reused admin token without validation",
-        "severity": 9.2
-      },
-      {
-        "bypass": "admin endpoint accessible via reused admin token without validation",
+        "bypass": "admin endpoint authentication bypass through missing token validation",
         "severity": "critical"
       },
       {
-        "bypass": "admin endpoint accessible via reused admin token without validation",
-        "severity": 9.2
-      },
-      {
-        "bypass": "admin endpoint accessible via reused admin token without validation",
-        "severity": 9.2
-      },
-      {
-        "bypass": "admin endpoint accessible via reused admin token without validation",
-        "severity": 9.2
-      },
-      {
-        "bypass": "admin endpoint accessible via reused admin token without validation",
-        "severity": 9.2
-      },
-      {
-        "bypass": "admin endpoint accessible via reused admin token without validation",
-        "severity": 9.2
-      },
-      {
-        "bypass": "admin endpoint accessible via reused admin token without validation",
-        "severity": 9.2
-      },
-      {
-        "bypass": "admin endpoint accessible via reused admin token without validation",
-        "severity": 9.2
-      },
-      {
-        "bypass": "admin endpoint accessible via reused admin token without validation",
-        "severity": 9.2
+        "bypass": "admin endpoint authentication bypass through missing token validation",
+        "severity": "high"
       }
     ],
     "defend": {
-      "mitigation": "implement token validation and session management controls to prevent admin token reuse and ensure proper authentication checks"
+      "mitigation": "implement comprehensive token validation across all admin endpoints, including mandatory authentication header checks, JWT signature verification, and session timeout mechanisms to prevent unauthorized administrative access"
     },
     "retest": {
       "attacker_exhausted": true,

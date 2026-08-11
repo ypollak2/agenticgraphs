@@ -7,39 +7,41 @@
   },
   "node_outputs": {
     "ingest": {
-      "advisory": "CVE-2026-1234 remediation completed across payment services estate. All affected systems patched and verified. Exploit vector blocked. Human sign-off required prior to final publication."
+      "advisory": "CVE-2026-1234 remediation complete. All payment services estate components updated and verified. Exploit blocked status confirmed. Human sign-off pending publication."
     },
     "prioritize.intake": {
-      "summary": "CVE-2026-1234 remediation completed across payment services estate. All affected systems patched and verified. Exploit vector blocked. Human sign-off required prior to final publication."
+      "summary": "CVE-2026-1234 remediation complete across payment services estate with all components updated, verified, and exploit blocked status confirmed awaiting human sign-off for publication"
     },
     "prioritize.produce": {
-      "asset_map_ref": "payment-processor-api-001",
+      "asset_map_ref": "payment-service-001",
       "scanner_evidence": {
-        "scan_id": "scan-cve-2026-1234-001",
-        "status": "patched",
-        "timestamp": "2026-01-15T10:30:00Z"
+        "scan_id": "scan_12345",
+        "vulnerability": "CVE-2026-1234",
+        "status": "remediated",
+        "timestamp": "2024-01-15T10:30:00Z"
       }
     },
     "prioritize.review": {
       "exploitability": 0.8,
-      "output": "CVE-2026-1234 remediation completed across payment services estate. All affected systems patched and verified. Exploit vector blocked. Human sign-off required prior to final publication.",
-      "priority": "critical",
+      "output": "CVE-2026-1234 remediation complete across payment services estate with all components updated, verified, and exploit blocked status confirmed awaiting human sign-off for publication",
+      "priority": 1,
       "ranking": [
         {
-          "asset_map_ref": "payment-processor-api-001",
+          "asset_map_ref": "payment-service-001",
           "scanner_evidence": {
-            "scan_id": "scan-cve-2026-1234-001",
-            "status": "patched",
-            "timestamp": "2026-01-15T10:30:00Z"
+            "scan_id": "scan_12345",
+            "vulnerability": "CVE-2026-1234",
+            "status": "remediated",
+            "timestamp": "2024-01-15T10:30:00Z"
           }
         }
       ]
     },
     "reproduce": {
-      "repro_confirmed": false
+      "repro_confirmed": true
     },
     "patch": {
-      "patch": "CVE-2026-1234 remediation completed across payment services estate. All affected systems patched and verified. Exploit vector blocked. Human sign-off required prior to final publication."
+      "patch": "CVE-2026-1234 remediation complete across payment services estate with all components updated, verified, and exploit blocked status confirmed awaiting human sign-off for publication"
     },
     "prove": {
       "exploit_blocked": true

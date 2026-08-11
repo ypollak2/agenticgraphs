@@ -6,10 +6,10 @@ by hand is a label that can be set to make a number look better.
 
 **83 graphs recorded across 4 models:** `gpt-4o`, `hermes3:8b`, `qwen2.5-coder:7b`, `qwen3-coder:30b`
 
-- ✅ **50** satisfy their contract on every model
-- ⚠️ **20** are satisfied by some models and not others
-- 🚫 **8** are satisfied by no model, but *could* be
-- 🔌 **3** are unsatisfiable **by construction** — their evidence has no source in this repo
+- ✅ **40** satisfy their contract on every model
+- ⚠️ **29** are satisfied by some models and not others
+- 🚫 **7** are satisfied by no model, but *could* be
+- 🔌 **1** are unsatisfiable **by construction** — their evidence has no source in this repo
 
 ## 🚫 Satisfied by no model
 
@@ -29,14 +29,11 @@ produce what it asserts on. That is the v1.4 item.
 | `alert-noise-reduction` | dedupe ratio measured; no missed paging alert | `output.dedupe_ratio > 0 and not output.missed_paging_alerts` |
 | `incident-triage-router` | routing matches on-call ownership map | `output.matches_ownership_map` |
 | `self-healing-ci` | a red pipeline ends green or escalated, never retried without a record | `len(output.lessons) >= 1` |
-| `clinical-literature-triage` | labels match a validated sample set | `output.matches_validated_set` |
 | `trial-eligibility-screener` | an ambiguous eligibility decision never enrols without a clinician sig | `output.unreviewed_ambiguous == 0 (AttributeError: unreviewed_ambiguous)` |
-| `literature-review-swarm` | every claim cites a specific paper and section | `all(c.paper and c.section for c in output.claims)` |
-| `docs-code-sync-audit` | all documented examples run exit zero | `—` |
+| `soc-alert-investigation` | conclusion supported by query results attached | `len(output.query_results) > 0 and output.conclusion` |
 | `feature-delivery-lifecycle` | A release is cut only after the audit verdict is approve, docs are upd | `[audit] all(f.file and f.line for f in output.findings) (AttributeError: 'str' object has ` |
 | `flaky-test-reflexion` | stability is proven over repeated runs, and every failed attempt is re | `len(output.lessons) >= 1` |
-| `framework-migration` | build and full test suite green on the target stack with no slice left | `[port-slice] output.snapshot_before == output.snapshot_after` |
-| `test-suite-generation` | coverage delta positive; mutation score above baseline | `output.coverage_delta > 0 and output.mutation_score > output.mutation_baseline (TypeError:` |
+| `test-suite-generation` | coverage delta positive; mutation score above baseline | `output.coverage_delta > 0 and output.mutation_score > output.mutation_baseline` |
 
 ## 🔌 Unsatisfiable by construction
 
@@ -47,8 +44,6 @@ integration, listed so it is not mistaken for one pending a fix.
 | Graph | Evidence it needs |
 |---|---|
 | `incident-triage-router` | `matches_ownership_map` |
-| `clinical-literature-triage` | `matches_validated_set` |
-| `literature-review-swarm` | `paper`, `section` |
 
 ## ⚠️ Model-dependent
 
@@ -65,16 +60,25 @@ one model was the first thing v1.3 did.
 | `screenplay-coverage` | `gpt-4o` 0%, `qwen3-coder:30b` 100% |
 | `escalation-summarizer` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
 | `kb-article-generator` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 50%, `qwen3-coder:30b` 100% |
-| `ab-test-analysis` | `gpt-4o` 100%, `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 0% |
+| `ab-test-analysis` | `gpt-4o` 100%, `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
+| `etl-pipeline-builder` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 33% |
 | `deploy-canary-verifier` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
-| `essay-feedback-critic` | `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 0% |
+| `incident-lifecycle` | `gpt-4o` 100%, `qwen3-coder:30b` 66% |
 | `earnings-call-digest` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
-| `expense-audit-swarm` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 0% |
+| `expense-audit-swarm` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 66% |
+| `kyc-document-processing` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 66% |
 | `adverse-event-scanner` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
+| `clinical-literature-triage` | `gpt-4o` 0%, `qwen3-coder:30b` 66% |
+| `clinical-protocol-lifecycle` | `gpt-4o` 100%, `qwen3-coder:30b` 66% |
 | `jd-drafting-critic` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 50%, `qwen3-coder:30b` 100% |
 | `contract-redline-pipeline` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
+| `product-listing-pipeline` | `gpt-4o` 100%, `qwen3-coder:30b` 66% |
+| `supplier-risk-monitor` | `gpt-4o` 100%, `qwen3-coder:30b` 0% |
 | `fact-check-pipeline` | `hermes3:8b` 100%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
+| `literature-review-swarm` | `gpt-4o` 0%, `qwen3-coder:30b` 66% |
 | `compliance-evidence-collector` | `gpt-4o` 0%, `qwen3-coder:30b` 100% |
 | `forensic-investigation-blackboard` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 100%, `qwen3-coder:30b` 100% |
 | `benchmark-driven-optimization-search` | `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
-| `bug-triage-and-fix` | `gpt-4o` 100%, `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 0% |
+| `bug-triage-and-fix` | `gpt-4o` 100%, `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 100% |
+| `docs-code-sync-audit` | `gpt-4o` 0%, `hermes3:8b` 0%, `qwen2.5-coder:7b` 0%, `qwen3-coder:30b` 66% |
+| `framework-migration` | `gpt-4o` 0%, `qwen3-coder:30b` 33% |

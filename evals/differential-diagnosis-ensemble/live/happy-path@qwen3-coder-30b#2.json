@@ -1,0 +1,67 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "work up the 54-year-old with intermittent chest pain and normal troponin"
+  },
+  "node_outputs": {
+    "intake": {
+      "presentations": [
+        "54-year-old male presenting with intermittent chest pain and normal troponin levels",
+        "Clinical presentation consistent with non-ST elevation acute coronary syndrome or alternative cardiac causes",
+        "Need to consider differential diagnoses including microvascular angina, coronary artery spasm, or non-cardiac etiologies"
+      ]
+    },
+    "diagnose": [
+      {
+        "ranking": [
+          "Microvascular angina",
+          "Coronary artery spasm",
+          "Gastroesophageal reflux disease",
+          "Musculoskeletal chest pain",
+          "Anxiety/depression"
+        ]
+      },
+      {
+        "ranking": [
+          "Microvascular angina",
+          "Coronary artery spasm",
+          "Gastroesophageal reflux disease",
+          "Costochondritis",
+          "Anxiety/depression"
+        ]
+      },
+      {
+        "ranking": [
+          "Microvascular angina",
+          "Coronary artery spasm",
+          "Gastroesophageal reflux disease",
+          "Costochondritis",
+          "Anxiety/depression"
+        ]
+      }
+    ],
+    "adjudicate": {
+      "consensus": "Microvascular angina",
+      "dissent": [
+        "Coronary artery spasm",
+        "Gastroesophageal reflux disease",
+        "Costochondritis",
+        "Anxiety/depression"
+      ],
+      "dissent_retained": true,
+      "output": {
+        "consensus": "Microvascular angina",
+        "dissent": [
+          "Coronary artery spasm",
+          "Gastroesophageal reflux disease",
+          "Costochondritis",
+          "Anxiety/depression"
+        ],
+        "dissent_retained": true
+      }
+    }
+  },
+  "tool_calls": []
+}

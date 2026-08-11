@@ -53,9 +53,9 @@
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-11",
-    "cases": 3,
-    "passed": 2,
-    "pass_rate": 0.667,
+    "cases": 5,
+    "passed": 4,
+    "pass_rate": 0.8,
     "mean_steps": 7.0,
     "results": [
       {
@@ -146,6 +146,64 @@
         "truncations": [],
         "grounded": false,
         "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 7,
+        "trace": [
+          "seed",
+          "investigate",
+          "assess",
+          "investigate",
+          "assess",
+          "investigate",
+          "assess"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 7,
+        "trace": [
+          "seed",
+          "investigate",
+          "assess",
+          "investigate",
+          "assess",
+          "investigate",
+          "assess"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
       }
     ],
     "models": [
@@ -166,7 +224,7 @@
     "samples_per_model": {
       "hermes3:8b": 1,
       "qwen2.5-coder:7b": 1,
-      "qwen3-coder:30b": 1
+      "qwen3-coder:30b": 3
     },
     "gate_auto_approved": false
   }

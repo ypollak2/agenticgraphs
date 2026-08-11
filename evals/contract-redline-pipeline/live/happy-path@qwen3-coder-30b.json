@@ -1,21 +1,22 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-09",
+  "recorded": "2026-08-11",
   "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
   "node_outputs": {
     "intake": {
-      "summary": "The intake node has analyzed the input and confirmed that all redlines in the output contain valid playbook references as required by the downstream assertions."
+      "summary": "Analyzed workflow requirements and confirmed that all redlines will cite playbook positions as required by the exit contract and downstream assertions."
     },
     "produce": {
       "redlines": [
         {
-          "playbook_ref": "PR-789"
+          "playbook_ref": "pos_001"
         },
         {
-          "playbook_ref": "PR-123"
+          "playbook_ref": "pos_002"
         },
         {
-          "playbook_ref": "PR-456"
+          "playbook_ref": "pos_003"
         }
       ]
     },
@@ -23,16 +24,17 @@
       "output": {
         "redlines": [
           {
-            "playbook_ref": "PR-789"
+            "playbook_ref": "pos_001"
           },
           {
-            "playbook_ref": "PR-123"
+            "playbook_ref": "pos_002"
           },
           {
-            "playbook_ref": "PR-456"
+            "playbook_ref": "pos_003"
           }
         ]
       }
     }
-  }
+  },
+  "tool_calls": []
 }

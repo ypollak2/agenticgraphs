@@ -9,51 +9,49 @@
     "frame": {
       "options": [
         {
-          "name": "sync_processing",
-          "score": 85,
-          "description": "Synchronous order processing with immediate response"
+          "name": "synchronous_order_processing",
+          "description": "Process orders immediately and synchronously",
+          "p99_latency_ms": 180,
+          "reliability_score": 95,
+          "complexity_score": 85
         },
         {
-          "name": "async_processing",
-          "score": 72,
-          "description": "Asynchronous order processing with deferred response"
+          "name": "asynchronous_order_processing",
+          "description": "Queue orders for background processing",
+          "p99_latency_ms": 220,
+          "reliability_score": 92,
+          "complexity_score": 70
         }
       ],
       "rubric": {
-        "sync_processing": {
-          "latency_p99": 185,
-          "throughput": 1200,
-          "error_rate": 0.02,
-          "complexity": "low",
-          "reliability": "high"
+        "synchronous_order_processing": {
+          "score": 88,
+          "reasoning": "Meets 200ms p99 constraint with buffer, high reliability, but increased complexity"
         },
-        "async_processing": {
-          "latency_p99": 215,
-          "throughput": 2800,
-          "error_rate": 0.01,
-          "complexity": "medium",
-          "reliability": "medium"
+        "asynchronous_order_processing": {
+          "score": 82,
+          "reasoning": "Exceeds 200ms p99 constraint by 20ms, but offers lower complexity and better scalability"
         }
       }
     },
     "design": [
       {
-        "proposal": "sync_processing",
-        "rubric_score": 85
+        "proposal": "synchronous_order_processing",
+        "rubric_score": 88
       },
       {
-        "proposal": "sync_processing",
-        "rubric_score": 85
+        "proposal": "asynchronous_order_processing",
+        "rubric_score": 82
       }
     ],
     "judge": {
       "designs_scored": 3,
-      "margin": 13,
+      "margin": 6,
       "output": {
         "designs_scored": 3,
-        "margin": 13
+        "margin": 6
       },
-      "winner": "sync_processing"
+      "winner": "synchronous_order_processing"
     }
   },
   "tool_calls": []

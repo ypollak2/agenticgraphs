@@ -10,8 +10,33 @@
       "migration_plan": [
         {
           "step": 1,
-          "action": "decompose_goal",
-          "goal": "migrate the orders schema to the normalized v3 shape without downtime"
+          "action": "create_new_tables_v3",
+          "compensator": "drop_new_tables_v3"
+        },
+        {
+          "step": 2,
+          "action": "migrate_data_chunked",
+          "compensator": "rollback_migrated_data"
+        },
+        {
+          "step": 3,
+          "action": "swap_table_references",
+          "compensator": "revert_table_references"
+        },
+        {
+          "step": 4,
+          "action": "validate_schema_consistency",
+          "compensator": "repair_schema_consistency"
+        },
+        {
+          "step": 5,
+          "action": "update_application_configuration",
+          "compensator": "revert_application_configuration"
+        },
+        {
+          "step": 6,
+          "action": "verify_data_parity",
+          "compensator": "trigger_data_reconciliation"
         }
       ]
     },

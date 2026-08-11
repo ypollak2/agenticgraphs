@@ -12,63 +12,63 @@
     },
     "search": [
       {
-        "variant": "triage_graph_v3_optimized",
-        "score": 0.857
-      },
-      {
-        "variant": "support_triptic_graph_v3",
+        "variant": "support_triage_v2_optimized",
         "score": 0.847
       },
       {
-        "variant": "triage_graph_v3_optimized",
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.857
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
         "score": 0.847
       },
       {
-        "variant": "triage_graph_v3_optimized",
+        "variant": "triage_graph_v2_optimized",
         "score": 0.857
       },
       {
-        "variant": "triage_graph_v3_optimized",
+        "variant": "triage_graph_v2_optimized",
         "score": 0.857
       },
       {
-        "variant": "triage_graph_v3_optimized",
+        "variant": "triage_graph_v2_optimized",
         "score": 0.857
       },
       {
-        "variant": "support_triptic_graph_v3",
+        "variant": "support_triage_v2_optimized",
         "score": 0.847
       },
       {
-        "variant": "support_triptic_graph_v3",
+        "variant": "support_triage_v2_optimized",
         "score": 0.847
       },
       {
-        "variant": "support_triptic_graph_v3",
+        "variant": "support_triage_v2_optimized",
         "score": 0.847
       },
       {
-        "variant": "triage_graph_v3_optimized",
+        "variant": "triage_graph_v2_optimized",
         "score": 0.857
       },
       {
-        "variant": "triage_graph_v3_optimized",
+        "variant": "triage_graph_v2_optimized",
         "score": 0.857
       },
       {
-        "variant": "triage_graph_v3_optimized",
+        "variant": "triage_graph_v2_optimized",
         "score": 0.857
       },
       {
-        "variant": "triage_graph_v3_optimized",
+        "variant": "triage_graph_v2_optimized",
         "score": 0.857
       },
       {
-        "variant": "triage_graph_v3_optimized",
+        "variant": "triage_graph_v2_optimized",
         "score": 0.857
       },
       {
-        "variant": "triage_graph_v3_optimized",
+        "variant": "triage_graph_v2_optimized",
         "score": 0.857
       }
     ],

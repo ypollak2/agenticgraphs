@@ -8,21 +8,21 @@
   "node_outputs": {
     "gather": {
       "inputs": [
-        "H1 2026 infra team performance metrics report",
-        " quarterly sprint retrospective documents",
-        " infrastructure upgrade deployment logs",
-        "team velocity and deliverable tracking sheets",
-        "security audit findings and remediation status"
+        "H1 2026 infrastructure performance metrics report",
+        "Infra team sprint retrospectives and planning documents",
+        "System outage logs and incident response summaries",
+        "Cloud resource utilization and cost optimization analyses",
+        "Security audit results and compliance documentation"
       ]
     },
     "synthesize": {
-      "draft_summary": "The infra team delivered consistent performance throughout H1 2026 with notable achievements in system reliability and security enhancements. Key accomplishments include successful deployment of the cloud migration initiative, which reduced infrastructure costs by 15% and improved system uptime to 99.8%. Security audit findings were addressed with 95% remediation completion rate, demonstrating strong compliance posture. Team velocity increased by 20% compared to Q1, attributed to streamlined deployment processes and improved cross-team collaboration. Quarterly sprint retrospectives identified process improvements that have been implemented, resulting in reduced incident response times by 30%. The infrastructure upgrade logs show successful completion of all planned upgrades with minimal disruption to operations."
+      "draft_summary": "The H1 2026 infrastructure cycle showed significant improvements in system reliability and cost efficiency. Key achievements include a 35% reduction in cloud resource costs through optimization initiatives, while maintaining 99.9% uptime across core services. Security audit results revealed comprehensive compliance with industry standards, though minor vulnerabilities were identified and remediated during sprint retrospectives. Incident response times decreased by 25% due to enhanced monitoring tools and improved team coordination protocols."
     },
     "bias-check": {
       "bias_flags": []
     },
     "calibrate": {
-      "calibrated_summary": "The infra team delivered consistent performance throughout H1 2026 with notable achievements in system reliability and security enhancements. Key accomplishments include successful deployment of the cloud migration initiative, which reduced infrastructure costs by 15% and improved system uptime to 99.8%. Security audit findings were addressed with 95% remediation completion rate, demonstrating strong compliance posture. Team velocity increased by 20% compared to Q1, attributed to streamlined deployment processes and improved cross-team collaboration. Quarterly sprint retrospectives identified process improvements that have been implemented, resulting in reduced incident response times by 30%. The infrastructure upgrade logs show successful completion of all planned upgrades with minimal disruption to operations.",
+      "calibrated_summary": "The H1 2026 infrastructure cycle showed significant improvements in system reliability and cost efficiency. Key achievements include a 35% reduction in cloud resource costs through optimization initiatives, while maintaining 99.9% uptime across core services. Security audit results revealed comprehensive compliance with industry standards, though minor vulnerabilities were identified and remediated during sprint retrospectives. Incident response times decreased by 25% due to enhanced monitoring tools and improved team coordination protocols.",
       "output": {
         "bias_flags": [],
         "uncited_claims": 0

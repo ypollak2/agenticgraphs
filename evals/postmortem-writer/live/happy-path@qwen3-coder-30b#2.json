@@ -1,0 +1,20 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Analyzed workflow entry point for timeline event validation. All timeline events require either log_id or message_id presence. Current attempt shows no timeline events processed yet. Need to verify downstream assertions are met before exit."
+    },
+    "produce": {
+      "timeline": []
+    },
+    "review": {
+      "output": {
+        "timeline": []
+      }
+    }
+  },
+  "tool_calls": []
+}

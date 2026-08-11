@@ -1,0 +1,40 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Initial analysis complete. All findings map to specific policy clause ids as required by downstream assertions."
+    },
+    "produce": {
+      "findings": [
+        {
+          "clause_id": "A1"
+        },
+        {
+          "clause_id": "B3"
+        },
+        {
+          "clause_id": "C2"
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "findings": [
+          {
+            "clause_id": "A1"
+          },
+          {
+            "clause_id": "B3"
+          },
+          {
+            "clause_id": "C2"
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": []
+}

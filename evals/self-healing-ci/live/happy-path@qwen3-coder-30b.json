@@ -10,21 +10,21 @@
       "failures": []
     },
     "classify": {
-      "cause": "nightly build failed due to unhandled exception in authentication module",
+      "cause": "Nightly build failed due to unhandled exception in deployment script",
       "known": true
     },
     "repair": {
-      "repair_applied": "Fixed unhandled exception in authentication module by adding proper error handling and logging"
+      "repair_applied": "Fixed unhandled exception in deployment script by adding proper error handling and logging"
     },
     "confirm": {
       "escalated": false,
       "lessons": [
-        "Fixed unhandled exception in authentication module by adding proper error handling and logging"
+        "Fixed unhandled exception in deployment script by adding proper error handling and logging"
       ],
       "output": {
         "escalated": false,
         "lessons": [
-          "Fixed unhandled exception in authentication module by adding proper error handling and logging"
+          "Fixed unhandled exception in deployment script by adding proper error handling and logging"
         ],
         "pipeline_green": true
       },

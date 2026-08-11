@@ -60,10 +60,10 @@
     "provisional": false,
     "verification_depth": "assert-grounded",
     "date": "2026-08-11",
-    "cases": 2,
-    "passed": 2,
-    "pass_rate": 1.0,
-    "mean_steps": 10.0,
+    "cases": 4,
+    "passed": 3,
+    "pass_rate": 0.75,
+    "mean_steps": 8.0,
     "results": [
       {
         "id": "happy-path",
@@ -123,12 +123,73 @@
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
+        "passed": false,
+        "steps": 2,
+        "trace": [
+          "detect",
+          "triage.route"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "output.impact_cleared == true (AttributeError: impact_cleared)",
+          "len(output.actions) >= 1 (AttributeError: actions)",
+          "[triage] output.matches_ownership_map (AttributeError: matches_ownership_map)",
+          "[postmortem] all(e.get('log_id') or e.get('message_id') for e in output.timeline) (AttributeError: timeline)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
         "passed": true,
         "steps": 10,
         "trace": [
           "detect",
           "triage.route",
           "triage.branch-simple",
+          "triage.verify",
+          "mitigate",
+          "confirm",
+          "postmortem.intake",
+          "postmortem.produce",
+          "postmortem.review",
+          "action-items"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 10,
+        "trace": [
+          "detect",
+          "triage.route",
+          "triage.branch-complex",
           "triage.verify",
           "mitigate",
           "confirm",
@@ -159,14 +220,16 @@
     "age_days": 2,
     "per_model_pass_rate": {
       "gpt-4o": 1.0,
-      "qwen3-coder:30b": 1.0
+      "qwen3-coder:30b": 0.667
     },
-    "models_disagree": false,
+    "models_disagree": true,
     "fails_every_model": false,
-    "flaky_models": [],
+    "flaky_models": [
+      "qwen3-coder:30b"
+    ],
     "samples_per_model": {
       "gpt-4o": 1,
-      "qwen3-coder:30b": 1
+      "qwen3-coder:30b": 3
     },
     "gate_auto_approved": false
   }

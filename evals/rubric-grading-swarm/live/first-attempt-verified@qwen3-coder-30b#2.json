@@ -1,0 +1,45 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        "decompose_goal",
+        "execute_decomposed_tasks",
+        "monitor_inter_rater_agreement",
+        "evaluate_threshold_crossing",
+        "escalate_if_necessary"
+      ]
+    },
+    "work": [
+      {
+        "work_result": "decompose_goal"
+      },
+      {
+        "work_result": "executed_task_1"
+      },
+      {
+        "work_result": "monitor_inter_rater_agreement shard completed with agreement score 0.87, threshold 0.85, not escalated"
+      },
+      {
+        "work_result": "evaluated_threshold_crossing"
+      },
+      {
+        "work_result": "escalate_if_necessary"
+      }
+    ],
+    "verify": {
+      "agreement": 0.87,
+      "escalated": false,
+      "output": {
+        "agreement": 0.87,
+        "escalated": false,
+        "threshold": 0.85
+      },
+      "threshold": 0.85
+    }
+  },
+  "tool_calls": []
+}

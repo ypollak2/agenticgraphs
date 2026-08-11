@@ -8,31 +8,26 @@
   "node_outputs": {
     "enumerate": {
       "controls": [
-        "A01.01",
-        "A02.01",
-        "A03.01",
-        "A04.01",
-        "A05.01",
-        "A06.01",
-        "A07.01",
-        "A08.01",
-        "A09.01",
-        "A10.01",
-        "A11.01",
-        "A12.01",
-        "A13.01",
-        "A14.01",
-        "A15.01",
-        "A16.01",
-        "A17.01",
-        "A18.01",
-        "A19.01",
-        "A20.01",
-        "A21.01",
-        "A22.01",
-        "A23.01",
-        "A24.01",
-        "A25.01"
+        "A01",
+        "A02",
+        "A03",
+        "A04",
+        "A05",
+        "A06",
+        "A07",
+        "A08",
+        "A09",
+        "A10",
+        "A11",
+        "A12",
+        "A13",
+        "A14",
+        "A15",
+        "A16",
+        "A17",
+        "A18",
+        "A19",
+        "A20"
       ]
     },
     "collect.plan": {
@@ -43,11 +38,11 @@
       ]
     },
     "collect.execute": {
-      "step_result": "Collected initial SOC 2 Type II evidence for audit period 2026. Successfully gathered documentation and records for all 25 controls (A01.01 through A25.01) as part of the compliance assessment. Evidence includes policy documents, procedure manuals, testing records, and attestation reports covering the specified period."
+      "step_result": "Collected SOC 2 Type II evidence for audit period 2026 including documentation of controls A01 through A20, access logs, configuration management records, and system monitoring data as required for the comprehensive assessment."
     },
     "collect.verify": {
-      "evidence": "Collected initial SOC 2 Type II evidence for audit period 2026. Successfully gathered documentation and records for all 25 controls (A01.01 through A25.01) as part of the compliance assessment. Evidence includes policy documents, procedure manuals, testing records, and attestation reports covering the specified period.",
-      "output": "Completed collection of SOC 2 Type II evidence for the 2026 audit period",
+      "evidence": "Collected SOC 2 Type II evidence for audit period 2026 including documentation of controls A01 through A20, access logs, configuration management records, and system monitoring data as required for the comprehensive assessment.",
+      "output": "SOC 2 Type II evidence package for 2026 audit period",
       "steps": [
         {
           "exit_code": 0
@@ -55,16 +50,16 @@
       ]
     },
     "assess": {
-      "coverage": 25,
-      "uncovered": []
+      "coverage": 20,
+      "uncovered": 0
     },
     "report": {
-      "controls_evidenced": 25,
-      "controls_total": 25,
-      "evidence_report": "Collected initial SOC 2 Type II evidence for audit period 2026. Successfully gathered documentation and records for all 25 controls (A01.01 through A25.01) as part of the compliance assessment. Evidence includes policy documents, procedure manuals, testing records, and attestation reports covering the specified period.",
+      "controls_evidenced": 20,
+      "controls_total": 20,
+      "evidence_report": "Collected SOC 2 Type II evidence for audit period 2026 including documentation of controls A01 through A20, access logs, configuration management records, and system monitoring data as required for the comprehensive assessment.",
       "output": {
-        "controls_evidenced": 25,
-        "controls_total": 25,
+        "controls_evidenced": 20,
+        "controls_total": 20,
         "uncovered": []
       }
     }

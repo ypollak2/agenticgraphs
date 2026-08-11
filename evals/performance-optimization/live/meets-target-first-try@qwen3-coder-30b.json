@@ -1,22 +1,24 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-09",
+  "recorded": "2026-08-11",
   "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
   "node_outputs": {
     "intake": {
-      "summary": "Intake analysis complete. Benchmark is currently above target threshold with test regressions detected. Requires further investigation and optimization to meet exit contract requirements."
+      "summary": "Intake analysis complete. Benchmark measurement exceeds target threshold with no test regressions detected. Analysis indicates performance requirement not met but stability maintained."
     },
     "attempt": {
-      "benchmark_ms": 850,
-      "target_ms": 1000,
+      "benchmark_ms": 850.0,
+      "target_ms": 900.0,
       "test_regressions": false
     },
     "measure": {
       "output": {
-        "benchmark_ms": 850,
-        "target_ms": 1000,
+        "benchmark_ms": 850.0,
+        "target_ms": 900.0,
         "test_regressions": false
       }
     }
-  }
+  },
+  "tool_calls": []
 }

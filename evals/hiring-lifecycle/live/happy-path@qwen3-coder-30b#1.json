@@ -1,0 +1,103 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "hire a senior backend engineer who can own our payments service"
+  },
+  "node_outputs": {
+    "define-role.intake": {
+      "summary": "Need to identify and hire a senior backend engineer with specific expertise in payments systems, API development, and financial service architecture to lead our payments service initiative."
+    },
+    "define-role.generate": {
+      "draft": "Senior Backend Engineer - Payments Service Lead\n\nRequirements:\n- 5+ years backend development experience\n- Specialized in payments systems and financial services\n- Strong API design and microservices architecture skills\n- Experience with payment gateways (Stripe, PayPal, etc.)\n- Knowledge of security compliance (PCI DSS, SOX)\n- Proven track record owning end-to-end service development\n\nKey Responsibilities:\n- Lead payments service architecture and implementation\n- Design secure, scalable payment processing systems\n- Collaborate with security, compliance, and frontend teams\n- Mentor junior engineers and maintain code quality standards\n- Own service performance, reliability, and scalability\n\nPreferred Experience:\n- Previous role as tech lead or engineering manager\n- Background in fintech or e-commerce platforms\n- Familiarity with cloud platforms (AWS/GCP/Azure)\n- Understanding of fraud detection and risk management systems"
+    },
+    "define-role.critique": {
+      "bias_lint_clean": true,
+      "jd": "Senior Backend Engineer - Payments Service Lead\n\nRequirements:\n- 5+ years backend development experience\n- Specialized in payments systems and financial services\n- Strong API design and microservices architecture skills\n- Experience with payment gateways (Stripe, PayPal, etc.)\n- Knowledge of security compliance (PCI DSS, SOX)\n- Proven track record owning end-to-end service development\n\nKey Responsibilities:\n- Lead payments service architecture and implementation\n- Design secure, scalable payment processing systems\n- Collaborate with security, compliance, and frontend teams\n- Mentor junior engineers and maintain code quality standards\n- Own service performance, reliability, and scalability\n\nPreferred Experience:\n- Previous role as tech lead or engineering manager\n- Background in fintech or e-commerce platforms\n- Familiarity with cloud platforms (AWS/GCP/Azure)\n- Understanding of fraud detection and risk management systems",
+      "output": "The job description is well-structured and comprehensive, covering essential technical requirements and responsibilities for a senior backend engineer role focused on payments. However, it could benefit from more specific metrics for success and clearer hierarchy in the preferred experience section to avoid ambiguity in candidate evaluation.",
+      "requirements_deduped": [
+        "5+ years backend development experience",
+        "Specialized in payments systems and financial services",
+        "Strong API design and microservices architecture skills",
+        "Experience with payment gateways (Stripe, PayPal, etc.)",
+        "Knowledge of security compliance (PCI DSS, SOX)",
+        "Proven track record owning end-to-end service development",
+        "Previous role as tech lead or engineering manager",
+        "Background in fintech or e-commerce platforms",
+        "Familiarity with cloud platforms (AWS/GCP/Azure)",
+        "Understanding of fraud detection and risk management systems"
+      ]
+    },
+    "screen": {
+      "shortlist": [
+        "Candidate A: 8 years backend experience, extensive payments system background, led two major payment transitions at Fortune 500 companies, strong PCI DSS knowledge, and proven mentorship track record.",
+        "Candidate B: 7 years backend engineering, fintech specialist with deep AWS experience, worked on high-volume fraud detection systems, led a team of 6 engineers, and has solid API design portfolio.",
+        "Candidate C: 6 years in tech leadership, previous role as Engineering Manager at e-commerce platform, hands-on payment gateway implementation with Stripe and PayPal, scalable microservices expert with SOX compliance experience."
+      ]
+    },
+    "interview": {
+      "scorecards": [
+        {
+          "candidate": "Candidate A",
+          "technical_expertise": 9,
+          "payments_domain_knowledge": 10,
+          "leadership_experience": 8,
+          "cultural_fit": 7,
+          "overall_score": 8.4
+        },
+        {
+          "candidate": "Candidate B",
+          "technical_expertise": 8,
+          "payments_domain_knowledge": 9,
+          "leadership_experience": 7,
+          "cultural_fit": 8,
+          "overall_score": 7.8
+        },
+        {
+          "candidate": "Candidate C",
+          "technical_expertise": 7,
+          "payments_domain_knowledge": 8,
+          "leadership_experience": 9,
+          "cultural_fit": 7,
+          "overall_score": 7.6
+        }
+      ]
+    },
+    "offer": {
+      "offer_sent": true,
+      "output": {
+        "scorecard_count": 3,
+        "signed_off": true
+      },
+      "scorecard_count": 3,
+      "structured": [
+        {
+          "candidate": "Candidate A",
+          "technical_expertise": 9,
+          "payments_domain_knowledge": 10,
+          "leadership_experience": 8,
+          "cultural_fit": 7,
+          "overall_score": 8.4
+        },
+        {
+          "candidate": "Candidate B",
+          "technical_expertise": 8,
+          "payments_domain_knowledge": 9,
+          "leadership_experience": 7,
+          "cultural_fit": 8,
+          "overall_score": 7.8
+        },
+        {
+          "candidate": "Candidate C",
+          "technical_expertise": 7,
+          "payments_domain_knowledge": 8,
+          "leadership_experience": 9,
+          "cultural_fit": 7,
+          "overall_score": 7.6
+        }
+      ]
+    }
+  },
+  "tool_calls": []
+}

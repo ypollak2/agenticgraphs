@@ -75,9 +75,9 @@
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-11",
-    "cases": 4,
-    "passed": 1,
-    "pass_rate": 0.25,
+    "cases": 6,
+    "passed": 4,
+    "pass_rate": 0.667,
     "mean_steps": 3.0,
     "results": [
       {
@@ -162,9 +162,9 @@
       {
         "id": "significant-effect-confirmed",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-09",
+        "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": false,
+        "passed": true,
         "steps": 3,
         "trace": [
           "position-a",
@@ -172,9 +172,57 @@
           "judge"
         ],
         "goal_missing": "",
-        "assert_failures": [
-          "abs(output.recomputed_effect - output.claimed_effect) < 0.01"
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "significant-effect-confirmed",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "position-a",
+          "position-b",
+          "judge"
         ],
+        "goal_missing": "",
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "significant-effect-confirmed",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "position-a",
+          "position-b",
+          "judge"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -199,7 +247,7 @@
       "gpt-4o": 1.0,
       "hermes3:8b": 0.0,
       "qwen2.5-coder:7b": 0.0,
-      "qwen3-coder:30b": 0.0
+      "qwen3-coder:30b": 1.0
     },
     "models_disagree": true,
     "fails_every_model": false,
@@ -208,7 +256,7 @@
       "gpt-4o": 1,
       "hermes3:8b": 1,
       "qwen2.5-coder:7b": 1,
-      "qwen3-coder:30b": 1
+      "qwen3-coder:30b": 3
     },
     "gate_auto_approved": false
   }

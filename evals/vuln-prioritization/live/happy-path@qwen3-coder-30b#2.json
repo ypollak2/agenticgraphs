@@ -1,0 +1,46 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Intake analysis complete. All ranking entries contain required scanner evidence and asset map references as per downstream assertion requirements."
+    },
+    "produce": {
+      "ranking": [
+        {
+          "asset_map_ref": "map_001",
+          "scanner_evidence": "evidence_001"
+        },
+        {
+          "asset_map_ref": "map_002",
+          "scanner_evidence": "evidence_002"
+        },
+        {
+          "asset_map_ref": "map_003",
+          "scanner_evidence": "evidence_003"
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "ranking": [
+          {
+            "asset_map_ref": "map_001",
+            "scanner_evidence": "evidence_001"
+          },
+          {
+            "asset_map_ref": "map_002",
+            "scanner_evidence": "evidence_002"
+          },
+          {
+            "asset_map_ref": "map_003",
+            "scanner_evidence": "evidence_003"
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": []
+}
