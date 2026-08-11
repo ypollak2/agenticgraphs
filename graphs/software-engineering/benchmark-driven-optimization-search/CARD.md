@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-124` | software-engineering | **tree-search** | 3 | 2 | 1 | 0 | 40 | execute |
 
+> 🎯 **Requires a goal** — the repository to optimize and the benchmark that scores it. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

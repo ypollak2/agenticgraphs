@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: flaky-test-reflexion
 description: Re-run a suspected flake, write down what was learned each time, and use it on the next attempt.
 category: software-engineering
@@ -63,7 +63,11 @@ verification:
   assert: len(output.lessons) >= 1
 state:
   inputs:
+  - goal
   - test_id
   schema: state/lessons.schema.json
 memory:
   scope: graph
+goal:
+  required: true
+  description: the test suspected of flaking and the stability bar it must clear

@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-116` | devops-sre | **lifecycle** | 6 | 6 | 1 | 0 | 45 | execute |
 
+> 🎯 **Requires a goal** — the alert to work and what 'resolved' means for this service. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

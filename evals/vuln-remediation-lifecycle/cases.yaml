@@ -30,3 +30,4 @@ cases:
         exploit_blocked: true
         signed_off: true
         advisory_published: true
+  goal: remediate CVE-2026-1234 across the payment services estate

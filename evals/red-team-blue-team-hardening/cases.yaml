@@ -14,3 +14,4 @@ cases:
       output:
         attacker_exhausted: true
         unmitigated: 0
+  goal: harden the auth service; a bypass is any unauthenticated admin action

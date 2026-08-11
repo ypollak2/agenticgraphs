@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: postmortem-writer
 description: Assemble timeline from logs and chat, draft blameless postmortem.
 category: devops-sre

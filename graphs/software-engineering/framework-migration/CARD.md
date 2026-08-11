@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-005` | software-engineering | **planner-executor-verifier** | 5 | 5 | 1 | 0 | 60 | execute |
 
+> 🎯 **Requires a goal** — the codebase to port, its source framework and its target framework. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

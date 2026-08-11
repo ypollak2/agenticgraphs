@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: trial-eligibility-screener
 description: Screen patients against trial criteria cheapest-first, escalating ambiguous cases to a clinician.
 category: healthcare-science
@@ -73,4 +73,8 @@ verification:
   assert: output.unreviewed_ambiguous == 0
 state:
   inputs:
+  - goal
   - patient_records
+goal:
+  required: true
+  description: the trial to screen against and the cohort to screen

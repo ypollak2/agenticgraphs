@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: incident-lifecycle
 description: Detect, triage, mitigate and prove an incident closed, then write the postmortem and file
   the actions.
@@ -85,4 +85,8 @@ verification:
   assert: len(output.actions) >= 1
 state:
   inputs:
+  - goal
   - alert
+goal:
+  required: true
+  description: the alert to work and what 'resolved' means for this service

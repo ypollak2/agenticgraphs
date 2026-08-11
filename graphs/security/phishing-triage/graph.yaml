@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: phishing-triage
 description: Classify reported emails, route confirmed phish to response.
 category: security

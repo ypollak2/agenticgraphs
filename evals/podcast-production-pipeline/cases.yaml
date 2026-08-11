@@ -17,3 +17,4 @@ cases:
         rights_clear: true
         timestamps_valid: true
         published: true
+  goal: publish episode 42 of the founders interview series for a technical audience

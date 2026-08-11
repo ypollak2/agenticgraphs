@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: verifier-swarm
 description: Planner fans work out to isolated workers; nothing merges until a verifier command proves
   the goal is done.

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: meeting-to-actions
 description: Transcript to decisions, owners, deadlines, and follow-ups.
 category: business-ops

@@ -23,6 +23,18 @@ def _resolve_root() -> Path:
 ROOT = _resolve_root()
 SPEC_DIR = ROOT / "spec"
 
+#: The spec revision every registry graph is written against. One source of truth,
+#: so a migration cannot leave stragglers and a test cannot freeze the number.
+#:
+#: NOTE `agr/v1.6` is deliberately skipped by the registry. It is not a dead number:
+#: `_lint_provenance` arms a hard provenance error for graphs declaring exactly
+#: v1.6, as a staged opt-in that authors take one graph at a time. Migrating the
+#: registry onto v1.6 wholesale would arm that escalation for 83 graphs that were
+#: never reviewed for it — `clinical-protocol-lifecycle` asserts `registry_id`, a
+#: ground-truth field no binding here can obtain, so it would fail on a rule about
+#: provenance while the actual change was about goals.
+SPEC_VERSION = "agr/v1.7"
+
 
 def load_schema(kind: str) -> dict:
     return json.loads((SPEC_DIR / f"agr-{kind}.schema.json").read_text())

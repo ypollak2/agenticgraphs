@@ -11,6 +11,7 @@ from __future__ import annotations
 import pytest
 import yaml
 
+from agenticgraphs.evalcmd import case_inputs
 from agenticgraphs.harness import LLMRunner, MockRunner, run_graph
 from agenticgraphs.registry import ROOT, iter_graphs, load
 from agenticgraphs.subgraphs import expand, has_subgraphs
@@ -86,10 +87,31 @@ def test_no_registry_node_is_silent():
     assert not offenders, offenders
 
 
-def test_every_registry_graph_declares_v15():
+def test_every_registry_graph_declares_the_current_spec_version():
+    """No graph is left behind by a migration.
+
+    This asserted `agr/v1.5` literally until v1.7, which meant every version bump
+    had to edit the test that exists to catch an incomplete bump. It now reads the
+    one source of truth, so the invariant survives the number changing.
+    """
+    from agenticgraphs.registry import SPEC_VERSION
+
     stragglers = [load(gp)["name"] for gp in iter_graphs()
-                  if load(gp)["apiVersion"] != "agr/v1.5"]
+                  if load(gp)["apiVersion"] != SPEC_VERSION]
     assert not stragglers, stragglers
+
+
+def test_no_registry_graph_declares_v16():
+    """v1.6 arms the hard provenance lint (`validate._lint_provenance`).
+
+    It is a per-graph opt-in, taken deliberately after reviewing that graph's
+    provenance asserts. The v1.7 goal migration bumped all 83 graphs at once; had
+    it routed them through v1.6, `clinical-protocol-lifecycle` would have failed on
+    `registry_id` — a ground-truth field no binding here can obtain — while the
+    change under review was about goals.
+    """
+    armed = [load(gp)["name"] for gp in iter_graphs() if load(gp)["apiVersion"] == "agr/v1.6"]
+    assert not armed, armed
 
 
 # ---------------------------------------------------- inputs must be REACHABLE
@@ -177,7 +199,8 @@ def test_whole_registry_still_passes_its_golden_cases():
         for case in yaml.safe_load(
                 (ROOT / "evals" / doc["name"] / "cases.yaml").read_text())["cases"]:
             total += 1
-            passed += run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT).passed
+            passed += run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT,
+                                inputs=case_inputs(case)).passed
     assert passed == total, f"{total - passed} of {total} failing"
 
 

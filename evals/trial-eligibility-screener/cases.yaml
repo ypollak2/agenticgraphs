@@ -17,3 +17,4 @@ cases:
       output:
         enrolled: 12
         unreviewed_ambiguous: 0
+  goal: screen the oncology cohort against NCT-12345 eligibility criteria

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: invoice-reconciliation
 description: Match invoices to POs and receipts cheapest-first, escalating only genuine exceptions to
   a human.
@@ -72,4 +72,8 @@ verification:
   assert: output.three_way_matched == true
 state:
   inputs:
+  - goal
   - invoices
+goal:
+  required: true
+  description: the invoice batch to reconcile and the period it covers

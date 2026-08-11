@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: differential-diagnosis-ensemble
 description: Independent diagnosticians rank hypotheses; a quorum decides and dissent is reported, never
   dropped.
@@ -55,4 +55,8 @@ verification:
   assert: output.dissent_retained == true
 state:
   inputs:
+  - goal
   - case_notes
+goal:
+  required: true
+  description: the case to work up and the question the clinician needs answered

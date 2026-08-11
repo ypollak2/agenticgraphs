@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-127` | security | **red-team-blue-team** | 4 | 4 | 1 | 0 | 45 | execute |
 
+> 🎯 **Requires a goal** — the target to harden and what counts as a successful bypass. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

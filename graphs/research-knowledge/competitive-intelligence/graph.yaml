@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: competitive-intelligence
 description: Scan competitor releases and filings, reduce to a delta brief.
 category: research-knowledge

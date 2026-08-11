@@ -15,3 +15,4 @@ cases:
       output:
         consecutive_green: 3
         lessons: *id001
+  goal: stabilize test_checkout_timeout; it must go 3 consecutive greens

@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-090` | security | **map-reduce** | 4 | 4 | 1 | 0 | 30 | write |
 
+> 🎯 **Requires a goal** — the control framework to evidence and the audit period. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: threat-intel-digest
 description: Summarize feeds into an actionable daily brief.
 category: security

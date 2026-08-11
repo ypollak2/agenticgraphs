@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: vuln-remediation-lifecycle
 description: Ingest a vulnerability, prioritize it, reproduce it, patch it, prove the patch, and disclose
   behind a human gate.
@@ -99,4 +99,8 @@ verification:
   assert: output.advisory_published == true
 state:
   inputs:
+  - goal
   - feed
+goal:
+  required: true
+  description: the vulnerability to remediate and the affected estate

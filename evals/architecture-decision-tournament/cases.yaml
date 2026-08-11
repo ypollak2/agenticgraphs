@@ -17,3 +17,4 @@ cases:
         designs_scored: 3
         margin: 0.18
         winner: option-b
+  goal: settle sync vs async order processing under a 200ms p99 constraint

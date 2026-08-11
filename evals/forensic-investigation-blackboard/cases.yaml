@@ -13,3 +13,4 @@ cases:
       output:
         uncited_claims: 0
         open_questions: *id001
+  goal: investigate the S3 exfiltration alert; settle whether data left the account

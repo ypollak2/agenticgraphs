@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: contract-redline-pipeline
 description: Compare against playbook, propose redlines with rationale.
 category: legal-compliance

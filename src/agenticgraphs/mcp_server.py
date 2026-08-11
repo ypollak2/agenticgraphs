@@ -35,8 +35,14 @@ def create_server():
         for g in iter_graphs():
             d = load(g)
             if term.lower() in (d["name"] + " " + d["description"] + " " + d["category"]).lower():
+                goal = d.get("goal") or {}
                 hits.append({"name": d["name"], "category": d["category"],
                              "description": d["description"],
+                             # v1.6 — surfaced on the SEARCH result, not just on the
+                             # graph, so a caller learns what it must bring before it
+                             # spends a call on get_graph or instantiate.
+                             "goal_required": bool(goal.get("required")),
+                             "goal_description": goal.get("description", ""),
                              "structural": structural_profile(d)["structural"]})
         return hits
 

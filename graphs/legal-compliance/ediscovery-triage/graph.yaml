@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: ediscovery-triage
 description: Route documents by privilege, relevance, and confidentiality.
 category: legal-compliance

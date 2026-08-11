@@ -188,7 +188,10 @@ def expand(doc: dict, root: Path = ROOT, _depth: int = 0, _path: tuple[str, ...]
     out = dict(doc)
     # Expansion emits phase-tagged verification, which is a v1.2 feature —
     # the expanded doc must declare the version whose surface it actually uses.
-    out["apiVersion"] = "agr/v1.2"
+    # That is a FLOOR, not a ceiling: when the source already uses a later
+    # feature the expansion preserves — a `goal` block is the first one — keeping
+    # v1.2 would understate the surface and stamp a version the doc contradicts.
+    out["apiVersion"] = doc["apiVersion"] if doc.get("goal") else "agr/v1.2"
     out["nodes"] = nodes
     out["edges"] = edges
     if verification:

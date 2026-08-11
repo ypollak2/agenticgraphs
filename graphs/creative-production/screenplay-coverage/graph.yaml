@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: screenplay-coverage
 description: 'Produce studio-standard coverage: synopsis, structural analysis, comparables, and a defended
   recommendation.'
@@ -62,4 +62,8 @@ verification:
   assert: len(output.comps) >= 2
 state:
   inputs:
+  - goal
   - screenplay
+goal:
+  required: true
+  description: the screenplay to cover and the mandate it is being read against

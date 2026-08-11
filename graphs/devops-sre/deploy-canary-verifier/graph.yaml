@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: deploy-canary-verifier
 description: Progressively shift traffic while checking error budgets.
 category: devops-sre

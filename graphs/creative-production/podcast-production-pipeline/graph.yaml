@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: podcast-production-pipeline
 description: 'Turn a raw recording into a published episode: transcript, edit plan, show notes, rights
   check, publish.'
@@ -72,4 +72,8 @@ verification:
   assert: output.timestamps_valid == true
 state:
   inputs:
+  - goal
   - recording
+goal:
+  required: true
+  description: the recording to publish and the episode's intended audience

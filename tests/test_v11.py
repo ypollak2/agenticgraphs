@@ -18,6 +18,7 @@ from agenticgraphs.compose import (
     compose_by_reference,
     contract_basis,
 )
+from agenticgraphs.evalcmd import case_inputs
 from agenticgraphs.harness import HumanGateRequired, LLMRunner, MockRunner, run_graph
 from agenticgraphs.registry import ROOT, iter_graphs, load
 from agenticgraphs.subgraphs import MAX_DEPTH, SubgraphError, entry_nodes, expand
@@ -57,7 +58,7 @@ def test_v1_traces_are_byte_identical():
             continue
         cases = yaml.safe_load((ROOT / "evals" / doc["name"] / "cases.yaml").read_text())["cases"]
         for case, expected in zip(cases, lock[doc["name"]], strict=True):
-            rep = run_graph(doc, MockRunner(case["node_outputs"]))
+            rep = run_graph(doc, MockRunner(case["node_outputs"]), inputs=case_inputs(case))
             assert rep.trace == expected["trace"], f"{doc['name']}/{case['id']} trace drifted"
             assert rep.steps == expected["steps"]
             assert rep.passed == expected["passed"]
@@ -73,7 +74,8 @@ def test_whole_registry_still_passes():
         assert cf.exists(), f"{doc['name']} has no golden cases"
         for case in yaml.safe_load(cf.read_text())["cases"]:
             total += 1
-            passed += run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT).passed
+            passed += run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT,
+                                inputs=case_inputs(case)).passed
     assert passed == total, f"{total - passed} of {total} cases failing"
 
 
@@ -481,7 +483,8 @@ def test_e2e_feature_delivery_lifecycle_runs_all_eight_phases():
     cases = yaml.safe_load((ROOT / "evals/feature-delivery-lifecycle/cases.yaml").read_text())["cases"]
     by_id = {c["id"]: c for c in cases}
 
-    rep = run_graph(doc, MockRunner(by_id["clean-path-releases"]["node_outputs"]), root=ROOT)
+    rep = run_graph(doc, MockRunner(by_id["clean-path-releases"]["node_outputs"]), root=ROOT,
+                    inputs=case_inputs(by_id["clean-path-releases"]))
     assert rep.passed, rep.assert_failures
     assert rep.expanded
     phases = [t.split(".")[0] for t in rep.trace]
@@ -498,7 +501,7 @@ def test_e2e_audit_rework_loop_reruns_the_audit_phase():
     cases = {c["id"]: c for c in yaml.safe_load(
         (ROOT / "evals/feature-delivery-lifecycle/cases.yaml").read_text())["cases"]}
     rep = run_graph(doc, MockRunner(cases["audit-requests-changes-then-approves"]["node_outputs"]),
-                    root=ROOT)
+                    root=ROOT, inputs=case_inputs(cases["audit-requests-changes-then-approves"]))
     assert rep.passed, rep.assert_failures
     assert rep.trace.count("audit.synthesize") == 2
     assert "fix" in rep.trace
@@ -509,7 +512,7 @@ def test_e2e_failed_release_is_compensated_not_left_partial():
     cases = {c["id"]: c for c in yaml.safe_load(
         (ROOT / "evals/feature-delivery-lifecycle/cases.yaml").read_text())["cases"]}
     rep = run_graph(doc, MockRunner(cases["failed-release-is-compensated"]["node_outputs"]),
-                    root=ROOT)
+                    root=ROOT, inputs=case_inputs(cases["failed-release-is-compensated"]))
     assert rep.passed, rep.assert_failures
     assert rep.trace[-1] == "rollback"
 

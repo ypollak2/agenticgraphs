@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-058` | legal-compliance | **parallel-swarm** | 5 | 4 | 1 | 0 | 30 | read |
 
+> 🎯 **Requires a goal** — the systems in scope and the lawful-basis question being answered. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

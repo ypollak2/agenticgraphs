@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-129` | devops-sre | **reflexion** | 4 | 4 | 1 | 0 | 35 | execute |
 
+> 🎯 **Requires a goal** — the red pipeline run to diagnose and repair. Its trigger supplies this when it fires on schedule.
+
 ## The graph
 
 ```mermaid

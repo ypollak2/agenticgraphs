@@ -12,3 +12,4 @@ cases:
       output:
         holdout_score: 0.81
         baseline_score: 0.72
+  goal: optimize the support-triage graph for accuracy on the held-out set

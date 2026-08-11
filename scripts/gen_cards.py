@@ -133,6 +133,23 @@ def card_id(entry: dict) -> str:
     return "AGR-" + entry["id"].split("-", 1)[1]
 
 
+def _goal_block(doc: dict) -> list[str]:
+    """What the caller must bring, stated before the topology.
+
+    A reader deciding whether to use a graph needs to know it will refuse without
+    a goal before they read its edges, not after.
+    """
+    goal = doc.get("goal") or {}
+    if not goal:
+        return []
+    if goal.get("required"):
+        note = (" Its trigger supplies this when it fires on schedule."
+                if goal.get("supplied_by_trigger") else
+                " Without one the graph refuses and runs no node.")
+        return [f"> 🎯 **Requires a goal** — {goal['description']}.{note}", ""]
+    return [f"> 🎯 Accepts a goal — {goal.get('description', 'what this run is about')}.", ""]
+
+
 def gen_card(doc: dict, entry: dict, catalog: list[dict], has_evals: bool) -> str:
     name, cat = doc["name"], doc["category"]
     prof = structural_profile(doc)["structural"]
@@ -148,6 +165,7 @@ def gen_card(doc: dict, entry: dict, catalog: list[dict], has_evals: bool) -> st
         f"| `{cid}` | {cat} | **{entry['pattern']}** | {prof['nodes']} | {prof['edges']} "
         f"| {prof['verifier_nodes']} | {prof['router_nodes']} | {prof['max_steps']} | {prof['risk_surface']} |",
         "",
+        *_goal_block(doc),
         "## The graph",
         "",
         "```mermaid",

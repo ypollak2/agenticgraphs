@@ -52,9 +52,24 @@ def _recordings(root: Path, name: str, case_id: str) -> list[Path]:
     return sorted(p for p in live.glob(f"{case_id}*.json"))
 
 
+def case_inputs(case: dict, goal: str | None = None) -> dict:
+    """The blackboard a case supplies at entry.
+
+    A case's `goal` is the common shape; `inputs` carries anything else the
+    graph's `state.inputs` declares. An explicit `--goal` overrides the case, so
+    one graph can be exercised against a real subject without editing fixtures.
+    """
+    seed = dict(case.get("inputs") or {})
+    if case.get("goal"):
+        seed["goal"] = case["goal"]
+    if goal:
+        seed["goal"] = goal
+    return seed
+
+
 def eval_graph(name: str, root: Path = ROOT, live: bool = False,
                auto_approve: bool = False, run_commands: bool = False,
-               replay: bool = True, resume_from=None) -> dict:
+               replay: bool = True, resume_from=None, goal: str | None = None) -> dict:
     gpath = find_graph(name, root)
     if gpath is None:
         raise SystemExit(f"no graph named '{name}'")
@@ -64,11 +79,13 @@ def eval_graph(name: str, root: Path = ROOT, live: bool = False,
     doc = load(gpath)
     cases = yaml.safe_load(cases_file.read_text())["cases"]
 
-    def _run(runner, approve: bool | None = None):
+    def _run(runner, approve: bool | None = None, inputs: dict | None = None):
         rep = run_graph(doc, runner, root=root,
                         auto_approve=auto_approve if approve is None else approve,
-                        run_commands=run_commands, resume_from=resume_from)
+                        run_commands=run_commands, resume_from=resume_from,
+                        inputs=inputs)
         return {"passed": rep.passed, "steps": rep.steps, "trace": rep.trace,
+                "goal_missing": rep.goal_missing,
                 "assert_failures": rep.assert_failures,
                 "skipped_command_checks": rep.skipped_commands,
                 "commands_run": rep.commands_run,
@@ -104,7 +121,7 @@ def eval_graph(name: str, root: Path = ROOT, live: bool = False,
     for case in cases:
         runner = LLMRunner() if live else MockRunner(case["node_outputs"])
         runner_name = runner.name
-        primary.append({"id": case["id"], **_run(runner)})
+        primary.append({"id": case["id"], **_run(runner, inputs=case_inputs(case, goal))})
 
     profile = structural_profile(doc, root)
     profile["measured"] = _block(primary, runner_name)
@@ -123,7 +140,8 @@ def eval_graph(name: str, root: Path = ROOT, live: bool = False,
                 # here and stamp it, so the live result for such a graph is never
                 # mistaken for evidence that the approval itself happened.
                 gated = any(n.get("kind") == "human" for n in doc["nodes"])
-                res = _run(runner, approve=gated or auto_approve)
+                res = _run(runner, approve=gated or auto_approve,
+                           inputs=case_inputs(case, goal))
                 live_results.append({"id": case["id"], "model": runner.model,
                                      "recorded": runner.recorded,
                                      "gate_auto_approved": gated, **res})

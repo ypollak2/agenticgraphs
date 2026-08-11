@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: cost-routed-research
 description: Routes research subtasks to the cheapest capable model, escalates low-confidence answers,
   synthesizes with citations.

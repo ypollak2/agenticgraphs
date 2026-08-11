@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: regulatory-filing-lifecycle
 description: Collect figures, reconcile them to source, gate on controller sign-off, then file and retain
   evidence.
@@ -77,4 +77,8 @@ verification:
   assert: output.filed == true and output.evidence_pack is not None
 state:
   inputs:
+  - goal
   - period
+goal:
+  required: true
+  description: the filing period and the regime being filed under

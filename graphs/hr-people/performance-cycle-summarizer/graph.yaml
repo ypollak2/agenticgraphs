@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: performance-cycle-summarizer
 description: Aggregate self, peer and manager input into a calibrated summary with evidence for every
   claim.
@@ -60,4 +60,8 @@ verification:
   assert: len(output.bias_flags) == 0
 state:
   inputs:
+  - goal
   - cycle
+goal:
+  required: true
+  description: the review cycle and the person it covers

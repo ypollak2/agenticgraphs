@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-125` | research-knowledge | **tree-search** | 3 | 2 | 1 | 0 | 40 | execute |
 
+> 🎯 **Requires a goal** — the graph to optimize and the metric that decides a winner. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

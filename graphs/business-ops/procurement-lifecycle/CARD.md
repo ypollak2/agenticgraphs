@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-123` | business-ops | **human-gate** | 5 | 5 | 0 | 0 | 35 | execute |
 
+> 🎯 **Requires a goal** — the requirement to source, with its budget envelope and award deadline. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

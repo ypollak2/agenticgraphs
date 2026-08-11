@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://agenticgraphs.dev/spec/agr-graph.schema.json",
-  "title": "AGR Graph v1.5",
+  "title": "AGR Graph v1.7",
   "type": "object",
   "required": [
     "apiVersion",
@@ -20,7 +20,9 @@
         "agr/v1.2",
         "agr/v1.3",
         "agr/v1.4",
-        "agr/v1.5"
+        "agr/v1.5",
+        "agr/v1.6",
+        "agr/v1.7"
       ]
     },
     "name": {
@@ -375,10 +377,31 @@
           "items": {
             "type": "string"
           },
-          "description": "v1.1 \u2014 blackboard keys supplied to the graph at entry."
+          "description": "v1.1 \u2014 blackboard keys supplied to the graph at entry. v1.7 SEEDS these: run_graph(inputs=...) puts them on the blackboard before the first node runs. Until v1.7 the linter trusted this list and the runtime ignored it."
         }
       },
       "additionalProperties": false
+    },
+    "goal": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "v1.7 \u2014 what this run is about. A graph handed an empty blackboard invents a plausible subject and answers about that; `required: true` makes the graph refuse instead. ENFORCED: see RunReport.goal_missing.",
+      "properties": {
+        "required": {
+          "type": "boolean",
+          "default": false,
+          "description": "The graph will not run without a goal on the blackboard. Zero nodes execute and the report carries goal_missing."
+        },
+        "description": {
+          "type": "string",
+          "description": "What the caller must state \u2014 shown verbatim when the graph refuses, so a refusal says what it wants."
+        },
+        "supplied_by_trigger": {
+          "type": "boolean",
+          "default": false,
+          "description": "The firing event supplies the goal, so `required` applies only to manual invocation. For graphs that declare both `triggers` and a required goal."
+        }
+      }
     },
     "termination": {
       "type": "object",

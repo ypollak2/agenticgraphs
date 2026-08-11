@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-130` | security | **blackboard** | 3 | 3 | 1 | 0 | 40 | execute |
 
+> 🎯 **Requires a goal** — the incident to investigate and the question the investigation must settle. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: etl-pipeline-builder
 description: Design and build an ETL job from source to warehouse.
 category: data-analytics

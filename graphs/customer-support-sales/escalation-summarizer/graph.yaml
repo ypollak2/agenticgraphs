@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: escalation-summarizer
 description: Compress long threads into handoff briefs with state.
 category: customer-support-sales

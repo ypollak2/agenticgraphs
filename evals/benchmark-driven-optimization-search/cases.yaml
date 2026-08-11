@@ -14,3 +14,4 @@ cases:
         baseline_ms: 400
         suite_green: true
       bench_ms: 120
+  goal: optimize the parser repo against the throughput benchmark

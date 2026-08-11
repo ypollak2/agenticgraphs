@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-115` | software-engineering | **lifecycle** | 10 | 10 | 0 | 0 | 60 | execute |
 
+> 🎯 **Requires a goal** — the feature to deliver and the repository to deliver it in. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

@@ -27,3 +27,4 @@ cases:
         unclassified_stores: 0
         gaps: *id001
         attested: true
+  goal: audit personal data across CRM, billing and support for lawful basis

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: contract-lifecycle
 description: Intake a contract, redline it, gate on residual risk, and execute only with counsel approval.
 category: legal-compliance
@@ -75,4 +75,8 @@ verification:
   assert: output.executed == true
 state:
   inputs:
+  - goal
   - contract
+goal:
+  required: true
+  description: the contract to review and the risk posture to hold it to

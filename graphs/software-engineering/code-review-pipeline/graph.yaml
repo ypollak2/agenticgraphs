@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: code-review-pipeline
 description: Multi-stage PR review that triages risk, splits security and style review, and synthesizes
   one verdict.

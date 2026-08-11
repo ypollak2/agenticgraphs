@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: dependency-upgrade
 description: Upgrade pinned deps, scan changelogs for breakage, run suite.
 category: software-engineering

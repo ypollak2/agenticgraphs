@@ -30,3 +30,4 @@ cases:
         signed_off: true
         offer_sent: true
         structured: true
+  goal: hire a senior backend engineer who can own our payments service

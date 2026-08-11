@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: bug-triage-and-fix
 description: Reproduce a bug, plan a fix, apply it in isolation, verify.
 category: software-engineering

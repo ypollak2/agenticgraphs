@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: product-listing-pipeline
 description: Generate marketplace listings from spec sheets, checking claims against source and policy
   before publish.
@@ -76,4 +76,8 @@ verification:
   assert: len(output.policy_violations) == 0
 state:
   inputs:
+  - goal
   - spec_sheets
+goal:
+  required: true
+  description: the products to list and the marketplace policy that governs them

@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-119` | healthcare-science | **human-gate** | 5 | 5 | 0 | 0 | 35 | execute |
 
+> 🎯 **Requires a goal** — the study question the protocol must answer. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

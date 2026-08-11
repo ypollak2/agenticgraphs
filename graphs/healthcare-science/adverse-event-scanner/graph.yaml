@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: adverse-event-scanner
 description: Scan reports for adverse-event signals, reduce to summary.
 category: healthcare-science

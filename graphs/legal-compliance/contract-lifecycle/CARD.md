@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-120` | legal-compliance | **human-gate** | 5 | 5 | 0 | 0 | 35 | execute |
 
+> 🎯 **Requires a goal** — the contract to review and the risk posture to hold it to. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

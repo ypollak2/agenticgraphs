@@ -26,3 +26,4 @@ cases:
         posted: 128
         unreviewed_exceptions: 0
         three_way_matched: true
+  goal: reconcile the March 2026 supplier invoice batch against POs and receipts

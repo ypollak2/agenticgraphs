@@ -24,6 +24,7 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from agenticgraphs.evalcmd import case_inputs  # noqa: E402
 from agenticgraphs.harness import LLMRunner, ToolRunner, run_graph  # noqa: E402
 from agenticgraphs.inspect import find_graph  # noqa: E402
 from agenticgraphs.registry import ROOT, load  # noqa: E402
@@ -88,13 +89,21 @@ def record(name: str, sample: int = 0) -> dict:
     runner = RecordingRunner(inner)
     if hasattr(runner.inner, "report"):
         runner.inner.report = None  # set after RunReport exists, below
-    rep = run_graph(doc, runner, root=ROOT, auto_approve=True)
+    # v1.7: seed the case's entry inputs. Without this a goal-required graph
+    # refuses and records nothing — the recording would measure the gate rather
+    # than the model. Same class of bug as a wrapper forwarding half an interface:
+    # it fails silently and looks like a negative result.
+    inputs = case_inputs(case)
+    rep = run_graph(doc, runner, root=ROOT, auto_approve=True, inputs=inputs)
     out_dir = ROOT / "evals" / name / "live"
     out_dir.mkdir(parents=True, exist_ok=True)
     payload = {
         "model": os.environ["AGR_LLM_MODEL"],
         "recorded": date.today().isoformat(),
         "endpoint": os.environ["AGR_LLM_BASE_URL"],
+        # What the model was given. A recording that does not say what was on the
+        # board cannot be compared against one made under different entry state.
+        "inputs": inputs,
         "node_outputs": runner.captured,
         # Grounding is a property of the RUN, not of the node outputs. Without
         # carrying the trace, a replay of a tool-bound run grades `assert-live`

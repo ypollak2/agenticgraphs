@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: quiz-generation-verified
 description: Generate items, critic solves them blind to verify keys.
 category: education

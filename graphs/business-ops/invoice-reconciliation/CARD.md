@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-047` | business-ops | **router** | 4 | 5 | 0 | 0 | 30 | write |
 
+> 🎯 **Requires a goal** — the invoice batch to reconcile and the period it covers. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

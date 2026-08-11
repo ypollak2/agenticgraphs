@@ -16,7 +16,7 @@ from pathlib import Path
 
 import jsonschema
 
-from .registry import ROOT, iter_yaml, load, load_schema
+from .registry import ROOT, SPEC_VERSION, iter_yaml, load, load_schema
 from .shapes import ShapeError, names as _out_names, parse as _parse_shape
 from .subgraphs import entry_nodes
 
@@ -171,6 +171,43 @@ def _lint_v11(doc: dict, root: Path) -> list[str]:
         used.add("state.inputs")
     if any("describe" in v for v in doc.get("verification") or []):
         used.add("verification.describe")
+
+    # v1.7 — the goal contract. `state.inputs` was declared by 31 graphs and
+    # seeded by nothing for five versions; these lints exist so `goal` cannot
+    # repeat that, in either direction: declared-but-unsupplied, or
+    # consumed-but-undeclared.
+    goal = doc.get("goal") or {}
+    supplied_keys = set((doc.get("state") or {}).get("inputs") or [])
+    if goal:
+        # Deliberately NOT added to `used`: that set drives the v1.1 gate, and a
+        # goal is not a v1.1 feature. Its own gate is the line below.
+        if doc.get("apiVersion") != SPEC_VERSION:
+            errors.append(
+                f"lint: declares a goal but apiVersion is '{doc.get('apiVersion')}' — "
+                f"bump to '{SPEC_VERSION}'"
+            )
+    if goal.get("required"):
+        if "goal" not in supplied_keys:
+            errors.append(
+                "lint: goal.required is set but state.inputs does not list 'goal' — "
+                "the requirement would be enforced against a key nothing supplies"
+            )
+        if not goal.get("description"):
+            errors.append(
+                "lint: goal.required is set with no goal.description — a refusal "
+                "must be able to say what the caller should bring"
+            )
+        if doc.get("triggers") and not goal.get("supplied_by_trigger"):
+            errors.append(
+                "lint: goal.required with triggers but no goal.supplied_by_trigger — "
+                "the graph could never fire on its own schedule"
+            )
+    consumers = [n["id"] for n in doc.get("nodes", []) if "goal" in (n.get("inputs") or [])]
+    if consumers and not goal:
+        errors.append(
+            f"lint: node(s) {sorted(consumers)} declare a 'goal' input but the graph "
+            "declares no goal block — the v1.4 disconnect, in a new field"
+        )
 
     v12_used = used & (_V12_NODE_KEYS | {"kind: search", "verification.phase", "memory"})
     if v12_used and doc.get("apiVersion") in ("agr/v1", "agr/v1.1"):

@@ -18,7 +18,7 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-08-10",
+    "date": "2026-08-11",
     "cases": 1,
     "passed": 1,
     "pass_rate": 1.0,
@@ -37,6 +37,7 @@
           "panel-decision",
           "offer"
         ],
+        "goal_missing": "",
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -55,7 +56,7 @@
     "runner": "llm-replay:gpt-4o,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-08-10",
+    "date": "2026-08-11",
     "cases": 2,
     "passed": 1,
     "pass_rate": 0.5,
@@ -81,6 +82,7 @@
           "panel-decision",
           "offer"
         ],
+        "goal_missing": "",
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -109,6 +111,7 @@
           "screen",
           "interview"
         ],
+        "goal_missing": "",
         "assert_failures": [
           "output.scorecard_count >= 3 (AttributeError: scorecard_count)",
           "output.signed_off == true (AttributeError: signed_off)",
@@ -131,7 +134,7 @@
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-09",
-    "age_days": 1,
+    "age_days": 2,
     "per_model_pass_rate": {
       "gpt-4o": 1.0,
       "qwen3-coder:30b": 0.0

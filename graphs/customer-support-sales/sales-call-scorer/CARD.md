@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-082` | customer-support-sales | **parallel-swarm** | 3 | 2 | 1 | 0 | 30 | write |
 
+> 🎯 **Requires a goal** — the call transcript to score and the rubric it is judged on. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

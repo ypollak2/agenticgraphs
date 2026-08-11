@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-044` | business-ops | **parallel-swarm** | 4 | 4 | 1 | 0 | 25 | write |
 
+> 🎯 **Requires a goal** — the vendors to compare and the decision the matrix must inform. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

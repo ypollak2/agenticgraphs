@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: returns-triage
 description: Route returns by reason to refund, repair, or fraud review.
 category: logistics-retail

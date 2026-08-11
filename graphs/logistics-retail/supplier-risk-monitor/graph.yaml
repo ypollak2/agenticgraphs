@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: supplier-risk-monitor
 description: Score supplier concentration, financial and geographic risk, then plan mitigation for anything
   above appetite.
@@ -59,6 +59,7 @@ verification:
   assert: output.single_source_flagged == true
 state:
   inputs:
+  - goal
   - supplier_list
 triggers:
 - 'on': schedule
@@ -68,3 +69,7 @@ budget:
 durability:
   checkpoint: every_node
   resume: true
+goal:
+  required: true
+  description: the supplier portfolio to score
+  supplied_by_trigger: true

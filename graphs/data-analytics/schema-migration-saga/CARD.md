@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-118` | data-analytics | **saga** | 8 | 10 | 1 | 0 | 40 | execute |
 
+> 🎯 **Requires a goal** — the source schema and the target shape it must reach. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

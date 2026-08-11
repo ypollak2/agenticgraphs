@@ -18,7 +18,7 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-08-10",
+    "date": "2026-08-11",
     "cases": 3,
     "passed": 3,
     "pass_rate": 1.0,
@@ -44,6 +44,7 @@
           "release-approval",
           "release"
         ],
+        "goal_missing": "",
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -81,6 +82,7 @@
           "release-approval",
           "release"
         ],
+        "goal_missing": "",
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -114,6 +116,7 @@
           "release",
           "rollback"
         ],
+        "goal_missing": "",
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -132,7 +135,7 @@
     "runner": "llm-replay:gpt-4o,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-grounded",
-    "date": "2026-08-10",
+    "date": "2026-08-11",
     "cases": 2,
     "passed": 0,
     "pass_rate": 0.0,
@@ -158,6 +161,7 @@
           "audit.style-review",
           "audit.synthesize"
         ],
+        "goal_missing": "",
         "assert_failures": [
           "output.verdict == 'approve'",
           "output.docs_updated == true (AttributeError: docs_updated)",
@@ -302,6 +306,7 @@
           "release-approval",
           "release"
         ],
+        "goal_missing": "",
         "assert_failures": [
           "[implement] output.test_failed_before_patch and output.test_passes_after_patch",
           "[test] output.coverage_delta > 0 and output.mutation_score > output.mutation_baseline",
@@ -324,7 +329,7 @@
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-09",
-    "age_days": 1,
+    "age_days": 2,
     "per_model_pass_rate": {
       "gpt-4o": 0.0,
       "qwen3-coder:30b": 0.0

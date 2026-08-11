@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: forensic-investigation-blackboard
 description: Specialists contribute independently to shared evidence; a controller decides when the picture
   closes.
@@ -58,4 +58,8 @@ verification:
   assert: output.open_questions is not None
 state:
   inputs:
+  - goal
   - incident
+goal:
+  required: true
+  description: the incident to investigate and the question the investigation must settle

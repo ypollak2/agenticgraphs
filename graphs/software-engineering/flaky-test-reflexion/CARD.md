@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-128` | software-engineering | **reflexion** | 4 | 4 | 1 | 0 | 40 | execute |
 
+> 🎯 **Requires a goal** — the test suspected of flaking and the stability bar it must clear. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-106` | creative-production | **pipeline** | 5 | 5 | 0 | 0 | 30 | execute |
 
+> 🎯 **Requires a goal** — the recording to publish and the episode's intended audience. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

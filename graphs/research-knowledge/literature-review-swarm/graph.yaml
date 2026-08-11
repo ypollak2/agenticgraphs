@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: literature-review-swarm
 description: Parallel readers summarize papers, merger builds themed review.
 category: research-knowledge

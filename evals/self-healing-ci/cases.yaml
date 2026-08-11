@@ -16,3 +16,4 @@ cases:
         pipeline_green: true
         escalated: false
         lessons: *id001
+  goal: repair the failing nightly build on main

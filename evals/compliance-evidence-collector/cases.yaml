@@ -28,3 +28,4 @@ cases:
         uncovered:
         - id: AC-7
         - id: AU-3
+  goal: collect SOC 2 Type II evidence for the 2026 audit period

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: soc-alert-investigation
 description: Investigate an alert with hypothesis-driven queries.
 category: security

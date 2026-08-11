@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-109` | creative-production | **pipeline** | 6 | 6 | 0 | 0 | 35 | execute |
 
+> 🎯 **Requires a goal** — the manuscript to edit and the editorial brief it must meet. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: sales-call-scorer
 description: Score a call against a rubric from several independent passes, reporting variance as a confidence
   signal.
@@ -53,4 +53,8 @@ verification:
   assert: output.variance is not None
 state:
   inputs:
+  - goal
   - transcript
+goal:
+  required: true
+  description: the call transcript to score and the rubric it is judged on

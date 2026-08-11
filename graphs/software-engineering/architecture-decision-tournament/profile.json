@@ -18,7 +18,7 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-08-10",
+    "date": "2026-08-11",
     "cases": 1,
     "passed": 1,
     "pass_rate": 1.0,
@@ -33,6 +33,7 @@
           "design",
           "judge"
         ],
+        "goal_missing": "",
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -51,7 +52,7 @@
     "runner": "llm-replay:hermes3:8b,qwen2.5-coder:7b,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-08-10",
+    "date": "2026-08-11",
     "cases": 3,
     "passed": 3,
     "pass_rate": 1.0,
@@ -69,6 +70,7 @@
           "design",
           "judge"
         ],
+        "goal_missing": "",
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -93,6 +95,7 @@
           "design",
           "judge"
         ],
+        "goal_missing": "",
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -117,6 +120,7 @@
           "design",
           "judge"
         ],
+        "goal_missing": "",
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -136,7 +140,7 @@
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-09",
-    "age_days": 1,
+    "age_days": 2,
     "per_model_pass_rate": {
       "hermes3:8b": 1.0,
       "qwen2.5-coder:7b": 1.0,

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: vuln-prioritization
 description: Rank findings by exploitability and blast radius.
 category: security

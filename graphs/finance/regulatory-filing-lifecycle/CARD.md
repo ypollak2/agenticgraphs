@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-121` | finance | **human-gate** | 5 | 5 | 0 | 0 | 35 | execute |
 
+> 🎯 **Requires a goal** — the filing period and the regime being filed under. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

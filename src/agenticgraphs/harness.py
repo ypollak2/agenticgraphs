@@ -232,6 +232,10 @@ class RunReport:
     state_violations: list[str] = field(default_factory=list)
     truncations: list[str] = field(default_factory=list)
     searches: list[dict] = field(default_factory=list)
+    # v1.6 — the graph declared `goal.required` and no goal was supplied, so it
+    # refused rather than inventing a subject. Carries the graph's own
+    # `goal.description`, which is what the refusal tells the caller to bring.
+    goal_missing: str = ""
 
     def frames_for(self, node_id: str) -> list[dict]:
         return [f for f in self.frames if f["node"] == node_id]
@@ -270,8 +274,20 @@ class RunReport:
     def passed(self) -> bool:
         return (not self.assert_failures and not self.command_failures
                 and not self.state_violations and not self.budget_exhausted
-                and not self.shape_violations
+                and not self.shape_violations and not self.goal_missing
                 and not self.hit_step_cap and not self.deadlocked)
+
+
+def _goal_line(bb: dict) -> str:
+    """Surface the run's goal on its own line.
+
+    It is already inside the serialised blackboard, so this is redundant to a
+    careful reader. Models are not careful readers: v1.6 and v1.7 each measured a
+    fact that was present, buried, and consequently ignored. A goal the node does
+    not act on is the same as no goal.
+    """
+    goal = bb.get("goal")
+    return f"Your goal for this run: {goal}\n" if goal else ""
 
 
 class MockRunner:
@@ -385,7 +401,8 @@ class LLMRunner:
         prompt = (
             f"You are node '{node['id']}' (speciality: {node['speciality']}) in a workflow. "
             f"Abilities: {', '.join(node.get('abilities', []))}.\n"
-            f"Blackboard so far: {json.dumps(bb, default=str)}\n"
+            + _goal_line(bb)
+            + f"Blackboard so far: {json.dumps(bb, default=str)}\n"
             + (f"The workflow's exit contract is: {contract}\n" if contract else "")
             + (f"Downstream assertions that must hold: {json.dumps(checks)}\n" if checks else "")
             + wants
@@ -541,7 +558,8 @@ class ToolRunner(LLMRunner):
         names = ", ".join(sorted(bound))
         return (
             f"You are node '{node['id']}' (speciality: {node['speciality']}) in a workflow.\n"
-            f"Blackboard so far: {json.dumps(bb, default=str)}\n"
+            + _goal_line(bb)
+            + f"Blackboard so far: {json.dumps(bb, default=str)}\n"
             + (f"Downstream assertions that must hold: {json.dumps(scoped['checks'])}\n"
                if scoped["checks"] else "")
             + f"You have these tools and MUST use them for any fact you cannot "
@@ -656,17 +674,39 @@ _EST_USD_PER_NODE = 0.002
 
 
 def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
-              run_commands: bool = False, resume_from=None) -> RunReport:
+              run_commands: bool = False, resume_from=None,
+              inputs: dict | None = None) -> RunReport:
     """Execute an AGR graph against a runner.
 
     v1.1 adds: subgraph expansion, join semantics, error/compensate edge kinds,
     per-node retries, and human approval gates. With every node defaulting to
     `join: any` and no v1.1 fields present, scheduling is byte-identical to v1 —
     locked by tests/fixtures/v1_trace_lock.json.
+
+    v1.6 adds `inputs`: the blackboard keys a caller supplies at entry. 31 graphs
+    have declared `state.inputs` since v1.1 and the runtime seeded none of them —
+    the linter vouched for values that never arrived, so every graph began work
+    without knowing its subject. `inputs` is that missing half, and `goal` is the
+    key it exists for. Passing nothing reproduces pre-v1.6 behaviour exactly.
     """
     from .subgraphs import entry_nodes, expand, has_subgraphs  # local: avoids an import cycle
 
     rep = RunReport()
+    seed = dict(inputs or {})
+    # The goal gate runs before anything is scheduled. A graph that cannot know
+    # what it is working on does not guess at it: it refuses, having executed no
+    # node, and reports what it needed. `supplied_by_trigger` exempts graphs whose
+    # firing event carries the subject — the requirement is on manual invocation.
+    goal = doc.get("goal") or {}
+    if goal.get("required") and not seed.get("goal"):
+        if not (goal.get("supplied_by_trigger") and doc.get("triggers")):
+            # Deliberately NOT written to `rep.trace`: that field means "nodes that
+            # executed", and callers compare it against node ids (the adapter parity
+            # test does exactly this). A refusal executed nothing, so the trace stays
+            # empty and `goal_missing` carries the reason — the same shape as
+            # `deadlocked` and `budget_exhausted`.
+            rep.goal_missing = goal.get("description") or "a goal for this run"
+            return rep
     if hasattr(runner, "bind"):
         runner.bind(doc)
     # Give a tool-bound runner the report to append its calls to, unwrapping a
@@ -708,7 +748,7 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
     forced: set[str] = set()
     visits: dict[str, int] = defaultdict(int)
     attempts: dict[str, int] = defaultdict(int)
-    bb: dict = {}
+    bb: dict = seed
     cap = doc["termination"]["max_steps"]
     budget = doc.get("budget") or {}
     # D3: resume is replay. v1.2 already journals every node execution, so a

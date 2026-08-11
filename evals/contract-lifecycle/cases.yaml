@@ -26,3 +26,4 @@ cases:
         residual_risk_level: low
         signed_off: true
         executed: true
+  goal: review the Acme MSA under our standard enterprise risk posture

@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-101` | logistics-retail | **pipeline** | 5 | 6 | 0 | 0 | 30 | execute |
 
+> 🎯 **Requires a goal** — the products to list and the marketplace policy that governs them. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

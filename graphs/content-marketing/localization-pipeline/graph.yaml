@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: localization-pipeline
 description: Translate per locale, reduce into a consistency report.
 category: content-marketing

@@ -11,6 +11,7 @@ import json
 import pytest
 import yaml
 
+from agenticgraphs.evalcmd import case_inputs
 from agenticgraphs.harness import MockRunner, ReplayRunner, run_graph
 from agenticgraphs.registry import ROOT, iter_graphs, load
 from agenticgraphs.subgraphs import expand
@@ -238,7 +239,8 @@ def test_child_asserts_are_evaluated_against_their_phase_not_the_final_board():
     doc = load(ROOT / "graphs/software-engineering/feature-delivery-lifecycle/graph.yaml")
     cases = {c["id"]: c for c in yaml.safe_load(
         (ROOT / "evals/feature-delivery-lifecycle/cases.yaml").read_text())["cases"]}
-    rep = run_graph(doc, MockRunner(cases["clean-path-releases"]["node_outputs"]), root=ROOT)
+    rep = run_graph(doc, MockRunner(cases["clean-path-releases"]["node_outputs"]), root=ROOT,
+                    inputs=case_inputs(cases["clean-path-releases"]))
     assert rep.passed, rep.assert_failures
 
     # the final board's `output` does NOT carry the child's keys...
@@ -252,7 +254,7 @@ def test_phase_frame_accumulates_rather_than_taking_the_last_write():
     """A child ends with an accumulated board; only the last write loses keys."""
     doc = load(ROOT / "graphs/devops-sre/incident-lifecycle/graph.yaml")
     case = yaml.safe_load((ROOT / "evals/incident-lifecycle/cases.yaml").read_text())["cases"][0]
-    rep = run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT)
+    rep = run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT, inputs=case_inputs(case))
     frame = rep.phase_frame("postmortem")
     # `output` is written by postmortem.produce, but postmortem.review runs after it
     assert "output" in frame and "timeline" in frame["output"]
@@ -262,7 +264,21 @@ def test_phase_frame_accumulates_rather_than_taking_the_last_write():
 def test_expansion_tags_child_verification_with_its_phase():
     out = expand(load(ROOT / "graphs/software-engineering/feature-delivery-lifecycle/graph.yaml"), ROOT)
     assert {v["phase"] for v in out["verification"] if v.get("phase")} == {"implement", "test", "audit"}
-    assert out["apiVersion"] == "agr/v1.2"
+
+
+def test_expansion_stamps_the_version_whose_surface_it_actually_uses():
+    """The stamp is a floor, not a ceiling.
+
+    Expansion emits phase-tagged verification, a v1.2 feature, so a plain composite
+    declares v1.2. A composite carrying a v1.7 `goal` keeps its own version —
+    stamping v1.2 there would produce a doc that contradicts its own contents, and
+    the goal lint would (correctly) reject it.
+    """
+    doc = load(ROOT / "graphs/software-engineering/feature-delivery-lifecycle/graph.yaml")
+    assert expand(doc, ROOT)["apiVersion"] == doc["apiVersion"]
+
+    goalless = {k: v for k, v in doc.items() if k != "goal"}
+    assert expand(goalless, ROOT)["apiVersion"] == "agr/v1.2"
 
 
 # ------------------------------------------------------------------------- replay
@@ -341,7 +357,8 @@ def test_whole_registry_still_validates_and_passes():
         for case in yaml.safe_load(
                 (ROOT / "evals" / doc["name"] / "cases.yaml").read_text())["cases"]:
             total += 1
-            passed += run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT).passed
+            passed += run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT,
+                                inputs=case_inputs(case)).passed
     assert passed == total, f"{total - passed} of {total} failing"
 
 
@@ -355,12 +372,12 @@ def test_state_schema_is_enforced_not_merely_declared():
         (ROOT / "evals/flaky-test-reflexion/cases.yaml").read_text())["cases"][0]
     assert doc["state"]["schema"] == "state/lessons.schema.json"
 
-    rep = run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT)
+    rep = run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT, inputs=case_inputs(case))
     assert rep.passed and not rep.state_violations
 
     broken = json.loads(json.dumps(case["node_outputs"]))
     broken["evaluate"]["lessons"] = "not-a-list"
-    rep = run_graph(doc, MockRunner(broken), root=ROOT)
+    rep = run_graph(doc, MockRunner(broken), root=ROOT, inputs=case_inputs(case))
     assert not rep.passed
     assert "is not of type 'array'" in rep.state_violations[0]
 
@@ -376,7 +393,7 @@ def test_reflexion_lessons_are_captured_on_the_report():
     doc = load(ROOT / "graphs/software-engineering/flaky-test-reflexion/graph.yaml")
     case = yaml.safe_load(
         (ROOT / "evals/flaky-test-reflexion/cases.yaml").read_text())["cases"][0]
-    rep = run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT)
+    rep = run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT, inputs=case_inputs(case))
     assert rep.lessons and all(isinstance(x, dict) for x in rep.lessons)
 
 

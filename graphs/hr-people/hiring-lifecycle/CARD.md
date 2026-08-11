@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-122` | hr-people | **human-gate** | 5 | 5 | 0 | 0 | 35 | execute |
 
+> 🎯 **Requires a goal** — the role to fill and what a successful hire must be able to do. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

@@ -46,6 +46,16 @@ def main(argv: list[str] | None = None) -> int:
     ep.add_argument("name")
     ep.add_argument("--live", action="store_true",
                     help="use AGR_LLM_BASE_URL/AGR_LLM_MODEL instead of mock fixtures")
+    ep.add_argument("--goal", metavar="TEXT",
+                    help="what this run is about; overrides the goal in each case. "
+                         "Graphs with goal.required refuse to run without one.")
+    gp = sub.add_parser("goal", help="run one graph against a stated goal (v1.6)")
+    gp.add_argument("name")
+    gp.add_argument("goal", help="what this run is about, in plain language")
+    gp.add_argument("--live", action="store_true",
+                    help="use AGR_LLM_BASE_URL/AGR_LLM_MODEL instead of mock fixtures")
+    gp.add_argument("--run-commands", action="store_true",
+                    help="actually execute verification[].command entries")
     ip = sub.add_parser("infuse", help="add an ability to a node, gate-checked + lineage-logged (M2)")
     ip.add_argument("name"); ip.add_argument("node"); ip.add_argument("ability")
     op = sub.add_parser("optimize", help="v0 structural optimizer: dry-run by default (M2)")
@@ -102,9 +112,25 @@ def main(argv: list[str] | None = None) -> int:
         profile = eval_graph(args.name, live=args.live, auto_approve=args.auto_approve,
                              run_commands=args.run_commands,
                              replay=not args.no_replay,
-                             resume_from=args.resume_from)
+                             resume_from=args.resume_from,
+                             goal=args.goal)
         print(json.dumps(profile["measured"], indent=2))
         return 0 if profile["measured"]["pass_rate"] == 1.0 else 1
+    if args.cmd == "goal":
+        from .evalcmd import eval_graph
+        doc = _need(args.name)
+        profile = eval_graph(args.name, live=args.live, run_commands=args.run_commands,
+                             replay=False, goal=args.goal)
+        block = profile["measured"]
+        declared = doc.get("goal") or {}
+        print(f"goal:     {args.goal}")
+        print(f"graph:    {doc['name']} ({doc['category']})")
+        print(f"contract: {doc['termination'].get('contract', '—')}")
+        if not declared:
+            print("note:     this graph declares no goal block — the goal is seeded "
+                  "on the blackboard but nothing requires it")
+        print(json.dumps(block, indent=2))
+        return 0 if block["pass_rate"] == 1.0 else 1
     if args.cmd == "infuse":
         from .mutate import infuse
         print(json.dumps(infuse(args.name, args.node, args.ability)))

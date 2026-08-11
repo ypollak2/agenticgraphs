@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-126` | healthcare-science | **ensemble-quorum** | 3 | 2 | 1 | 0 | 30 | read |
 
+> 🎯 **Requires a goal** — the case to work up and the question the clinician needs answered. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: gdpr-data-audit
 description: Map personal data across systems, classify lawful basis, find gaps, and produce a remediation
   plan.
@@ -67,4 +67,8 @@ verification:
   assert: all(gp.owner and gp.due for gp in output.gaps)
 state:
   inputs:
+  - goal
   - systems
+goal:
+  required: true
+  description: the systems in scope and the lawful-basis question being answered

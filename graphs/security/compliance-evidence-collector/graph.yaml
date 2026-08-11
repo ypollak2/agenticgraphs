@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: compliance-evidence-collector
 description: Walk a control framework, collect evidence per control, and flag controls with no live evidence.
 category: security
@@ -59,4 +59,8 @@ verification:
   assert: output.controls_total == output.controls_evidenced + len(output.uncovered)
 state:
   inputs:
+  - goal
   - framework
+goal:
+  required: true
+  description: the control framework to evidence and the audit period

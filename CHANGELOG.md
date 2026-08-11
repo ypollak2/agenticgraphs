@@ -1,5 +1,64 @@
 # Changelog
 
+## [0.9.0] — the goal
+
+`state.inputs` named what a caller must bring at entry from v1.1 onward. **Nothing
+ever supplied it.** `run_graph` opened with `bb = {}` and had no parameter for entry
+inputs; no eval case passed any. Meanwhile `validate.py` trusted the declaration and
+`compose.py` read it for compatibility — so the linter vouched for values that never
+arrived, and 31 of 83 graphs began work not knowing their subject.
+
+That is the anti-pattern v1.3 deleted `approval.timeout` over, surviving five versions
+in a field nothing read.
+
+| | before | after |
+|---|---|---|
+| graphs declaring `state.inputs` | 31 | 31 |
+| ...that actually receive them | **0** | 31 |
+| graphs that refuse without a goal | 0 | 31 |
+| assert expressions changed | — | **0 of 118** |
+
+A graph with `goal.required` and no goal executes **zero nodes** and returns
+`goal_missing` carrying what it needed. It does not guess.
+
+**Not a claim about quality.** Seeding a goal makes a contract easier to satisfy, not
+more truthful — v10 measured exactly this for typed scalars (3 graphs moved, 1
+grounded). No re-record has been run, so nothing here says whether a goal moves any of
+the 14 contracts no model satisfies. `assert-grounded` stays orthogonal to pass/fail.
+
+### Added
+
+- `goal` block on graphs: `required`, `description`, `supplied_by_trigger`.
+- `run_graph(inputs=...)` seeds the blackboard at entry; omitting it reproduces prior
+  behaviour byte-for-byte (the v1 trace lock still holds).
+- `RunReport.goal_missing`, gating `passed`. Deliberately not written to `trace`, which
+  means "nodes that executed".
+- `agr goal <graph> "<text>"` and `agr eval --goal TEXT`.
+- `goal_required` / `goal_description` on the MCP `search_graphs` result, so an agent
+  learns what to bring before calling `get_graph` or `instantiate`.
+- `/goal` slash command (`.claude/commands/goal.md`) — asks the user for a goal when the
+  session has none, rather than inventing one.
+- Four lints: required-but-unsupplied, consumed-but-undeclared, trigger-without-exemption,
+  required-without-description.
+- `registry.SPEC_VERSION` as the single source of truth for the registry's spec version.
+- 🎯 **Requires a goal** line on the 31 affected cards.
+
+### Changed
+
+- `subgraphs.expand` no longer downgrades an expanded composite to `agr/v1.2` when the
+  source uses a later feature. The stamp was always meant as a floor.
+- Two version-completeness tests read `SPEC_VERSION` instead of a hardcoded version, so
+  the test that catches an incomplete migration no longer has to be edited by every
+  migration.
+
+### Note on versioning
+
+The registry skips `agr/v1.6`. That number arms a hard provenance lint in
+`_lint_provenance` as a per-graph opt-in; migrating 83 graphs through it would have
+armed an unrelated escalation and failed `clinical-protocol-lifecycle` on a
+ground-truth field no binding here can obtain. See
+[docs/agr-v1.7.md](docs/agr-v1.7.md#why-v17-and-not-v16).
+
 ## [0.8.0] — ability bindings
 
 The seam shipped in M0 and no ability ever used it: `spec/agr-ability.schema.json`

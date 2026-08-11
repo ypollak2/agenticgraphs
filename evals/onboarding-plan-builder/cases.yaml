@@ -12,3 +12,4 @@ cases:
       output:
         milestones_covered: true
         access_requested: true
+  goal: build a 30/60/90 plan for a staff data engineer joining the platform team

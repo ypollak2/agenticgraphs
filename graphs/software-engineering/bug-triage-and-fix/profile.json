@@ -18,7 +18,7 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-08-10",
+    "date": "2026-08-11",
     "cases": 2,
     "passed": 2,
     "pass_rate": 1.0,
@@ -33,6 +33,7 @@
           "execute",
           "verify"
         ],
+        "goal_missing": "",
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -56,6 +57,7 @@
           "execute",
           "verify"
         ],
+        "goal_missing": "",
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -74,7 +76,7 @@
     "runner": "llm-replay:gpt-4o,hermes3:8b,qwen2.5-coder:7b,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-grounded",
-    "date": "2026-08-10",
+    "date": "2026-08-11",
     "cases": 4,
     "passed": 1,
     "pass_rate": 0.25,
@@ -92,6 +94,7 @@
           "execute",
           "verify"
         ],
+        "goal_missing": "",
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -147,6 +150,7 @@
           "execute",
           "verify"
         ],
+        "goal_missing": "",
         "assert_failures": [
           "output.test_failed_before_patch and output.test_passes_after_patch"
         ],
@@ -173,6 +177,7 @@
           "execute",
           "verify"
         ],
+        "goal_missing": "",
         "assert_failures": [
           "output.test_failed_before_patch and output.test_passes_after_patch"
         ],
@@ -199,6 +204,7 @@
           "execute",
           "verify"
         ],
+        "goal_missing": "",
         "assert_failures": [
           "output.test_failed_before_patch and output.test_passes_after_patch"
         ],
@@ -221,7 +227,7 @@
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-09",
-    "age_days": 1,
+    "age_days": 2,
     "per_model_pass_rate": {
       "gpt-4o": 1.0,
       "hermes3:8b": 0.0,

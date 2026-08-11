@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-096` | hr-people | **pipeline** | 4 | 4 | 1 | 0 | 25 | write |
 
+> 🎯 **Requires a goal** — the review cycle and the person it covers. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

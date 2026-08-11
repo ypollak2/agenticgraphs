@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-105` | creative-production | **pipeline** | 4 | 4 | 1 | 0 | 25 | read |
 
+> 🎯 **Requires a goal** — the screenplay to cover and the mandate it is being read against. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

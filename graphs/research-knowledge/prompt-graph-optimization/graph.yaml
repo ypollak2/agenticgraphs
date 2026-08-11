@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: prompt-graph-optimization
 description: Search prompt-and-topology variants against a held-out eval set, keeping only measured winners.
 category: research-knowledge
@@ -51,4 +51,8 @@ verification:
   assert: output.holdout_score > output.baseline_score
 state:
   inputs:
+  - goal
   - graph_under_test
+goal:
+  required: true
+  description: the graph to optimize and the metric that decides a winner

@@ -23,3 +23,4 @@ cases:
       output:
         suite_green: true
         slices_remaining: 0
+  goal: port the admin app from Flask to FastAPI in verifiable slices

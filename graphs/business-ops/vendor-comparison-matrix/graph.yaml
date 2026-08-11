@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: vendor-comparison-matrix
 description: Build a like-for-like vendor matrix where every cell cites the source document it came from.
 category: business-ops
@@ -59,4 +59,8 @@ verification:
   assert: output.criteria_consistent == true
 state:
   inputs:
+  - goal
   - vendors
+goal:
+  required: true
+  description: the vendors to compare and the decision the matrix must inform

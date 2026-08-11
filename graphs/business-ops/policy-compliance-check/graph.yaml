@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: policy-compliance-check
 description: Check internal docs and processes against a policy set.
 category: business-ops

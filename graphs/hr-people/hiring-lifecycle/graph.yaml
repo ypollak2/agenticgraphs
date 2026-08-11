@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: hiring-lifecycle
 description: Draft a role, screen a pipeline, run a structured interview loop, and gate the offer on a
   panel decision.
@@ -76,4 +76,8 @@ verification:
   assert: output.signed_off == true
 state:
   inputs:
+  - goal
   - role_brief
+goal:
+  required: true
+  description: the role to fill and what a successful hire must be able to do

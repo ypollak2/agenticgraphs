@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: book-editing-pipeline
 description: Take a manuscript through developmental, line and copy edit passes with author sign-off before
   typesetting.
@@ -83,4 +83,8 @@ verification:
   assert: output.signed_off == true
 state:
   inputs:
+  - goal
   - manuscript
+goal:
+  required: true
+  description: the manuscript to edit and the editorial brief it must meet

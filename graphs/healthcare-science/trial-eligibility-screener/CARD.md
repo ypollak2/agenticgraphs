@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-069` | healthcare-science | **pipeline** | 5 | 5 | 0 | 0 | 30 | execute |
 
+> 🎯 **Requires a goal** — the trial to screen against and the cohort to screen. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

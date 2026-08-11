@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: kb-article-generator
 description: Mine resolved tickets into draft knowledge-base articles.
 category: customer-support-sales

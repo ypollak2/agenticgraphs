@@ -279,8 +279,10 @@ def test_every_registry_graph_is_fully_declared():
     """v1.4 connected verification to producers; v1.5 gave every dependent node one."""
     from agenticgraphs.validate import silent_nodes, unconnected_keys
 
+    from agenticgraphs.registry import SPEC_VERSION
+
     stragglers = [load(gp)["name"] for gp in iter_graphs()
-                  if load(gp)["apiVersion"] not in ("agr/v1.4", "agr/v1.5")]
+                  if load(gp)["apiVersion"] != SPEC_VERSION]
     assert not stragglers, stragglers
     silent = {load(gp)["name"]: silent_nodes(load(gp))
               for gp in iter_graphs() if silent_nodes(load(gp))}

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: architecture-decision-tournament
 description: Independent designs are scored on one rubric, and the winner must beat the runner-up on record.
 category: software-engineering
@@ -55,4 +55,8 @@ verification:
   assert: output.margin is not None
 state:
   inputs:
+  - goal
   - decision
+goal:
+  required: true
+  description: the architecture decision to settle and the constraints any winner must meet

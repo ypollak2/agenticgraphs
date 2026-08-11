@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-117` | security | **lifecycle** | 7 | 7 | 1 | 0 | 45 | execute |
 
+> 🎯 **Requires a goal** — the vulnerability to remediate and the affected estate. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

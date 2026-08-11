@@ -20,3 +20,4 @@ cases:
       output:
         uncited_cells: 0
         criteria_consistent: true
+  goal: compare Snowflake, BigQuery and Redshift for our warehouse migration

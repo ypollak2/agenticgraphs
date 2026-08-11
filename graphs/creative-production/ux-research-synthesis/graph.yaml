@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: ux-research-synthesis
 description: Code interview transcripts, reduce to themed insights.
 category: creative-production

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: red-team-blue-team-hardening
 description: An attacker searches for a working bypass while a defender patches, until the attacker is
   exhausted.
@@ -70,4 +70,8 @@ verification:
   assert: output.unmitigated == 0
 state:
   inputs:
+  - goal
   - target
+goal:
+  required: true
+  description: the target to harden and what counts as a successful bypass

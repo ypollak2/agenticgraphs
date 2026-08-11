@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: alert-noise-reduction
 description: Cluster alerts, dedupe storms, emit one incident per cause.
 category: devops-sre

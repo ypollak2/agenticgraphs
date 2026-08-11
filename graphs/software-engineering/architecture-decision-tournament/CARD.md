@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-131` | software-engineering | **tournament** | 3 | 2 | 1 | 0 | 30 | write |
 
+> 🎯 **Requires a goal** — the architecture decision to settle and the constraints any winner must meet. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

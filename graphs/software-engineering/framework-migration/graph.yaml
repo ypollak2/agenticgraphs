@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: framework-migration
 description: Port a codebase between frameworks in verifiable slices, each slice delegated to a refactor
   subgraph.
@@ -75,4 +75,8 @@ verification:
   assert: output.slices_remaining == 0
 state:
   inputs:
+  - goal
   - repo
+goal:
+  required: true
+  description: the codebase to port, its source framework and its target framework

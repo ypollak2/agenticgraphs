@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: runbook-executor
 description: Execute a runbook step-wise with post-condition checks.
 category: devops-sre

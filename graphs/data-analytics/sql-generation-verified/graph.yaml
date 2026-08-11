@@ -1,4 +1,4 @@
-apiVersion: agr/v1.5
+apiVersion: agr/v1.7
 name: sql-generation-verified
 description: Generate SQL, critic checks schema validity and row sanity.
 category: data-analytics

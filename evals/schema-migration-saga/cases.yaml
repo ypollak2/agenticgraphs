@@ -22,3 +22,4 @@ cases:
       shadow_undone: shadow_undone-value
       consistent: false
       output: *id001
+  goal: migrate the orders schema to the normalized v3 shape without downtime

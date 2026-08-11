@@ -692,6 +692,20 @@ averaged away. Deepening it is the open problem, not a solved one.
       Plan: [v6-agr-1.5.md](docs/plans/v6-agr-1.5.md) ·
       Audit: [v6-audit.md](docs/plans/v6-audit.md).
 
+- [x] **M10 / AGR v1.7 — the goal.** `state.inputs` had named what a caller must bring
+      since v1.1, and **the runtime seeded none of it**: `run_graph` opened with
+      `bb = {}`, so the linter vouched for values that never arrived and 31 of 83 graphs
+      began work not knowing their subject. A model handed an empty board invents a
+      plausible subject and answers about that — a well-typed answer to a question
+      nobody asked. `run_graph(inputs=...)` closes the seeding half; a declared `goal`
+      closes the other. A graph with `goal.required` and no goal executes **zero nodes**
+      and reports what it needed, rather than guessing. Which 31 require one is derived
+      from `state.inputs`, not hand-picked, with **zero asserts modified**. Ships
+      `agr goal`, `--goal`, `goal_required` on the MCP search result, and a `/goal`
+      command that asks the user rather than inventing one.
+      Spec: [agr-v1.7.md](docs/agr-v1.7.md) ·
+      Plan + outcome: [v11-goal.md](docs/plans/v11-goal.md).
+
 **Known limits, stated rather than buried:**
 
 - Live recordings cover **27 of 83 graphs**. Composites and human-gated graphs have
@@ -699,6 +713,11 @@ averaged away. Deepening it is the open problem, not a solved one.
 - **Each cell is one sample.** Model output varies between runs; a ✅ may have passed
   by luck and a ❌ may have been unlucky. Nothing here distinguishes them.
 - Three local models, all small (7B–30B). Nothing is claimed about frontier models.
+- **v1.7 seeded entry inputs but has not re-recorded.** Every live number above was
+  measured with an empty entry blackboard. Whether telling a graph its subject moves any
+  of the contracts no model satisfies is unmeasured — and seeding makes a contract
+  easier to satisfy, not more truthful, so `assert-grounded` remains the column that
+  decides what a pass is worth.
 - Search graphs are tested against synthetic gradients, not a real scorer.
 
 Of the 52 primitives, three are handcrafted with domain specialities
