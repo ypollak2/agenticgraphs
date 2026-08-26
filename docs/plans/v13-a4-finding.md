@@ -144,9 +144,35 @@ The fix is re-recording, not exclusion.
 5. **`docs/live-coverage.md` needs its caveat now** — before M12, not after. The
    five-model breadth claim is currently stronger than the evidence under it.
 
-## 7. What would have prevented it
+## 7. The bundle move made the case better than this document did
+
+A0 moved all 560 recordings into their graph's bundle. Nothing was edited — a pure
+`git mv`. Reconstructing provenance from git broke twice in the same afternoon:
+
+1. **`git log -1 -- <path>` returned the move commit**, so every recording looked
+   like it was captured the day the directories moved. The audit reported **0
+   recordings** and divided by zero.
+2. **The obvious patch was wrong.** `git log --follow --diff-filter=AM` skips the
+   rename, and on spot-checks it matched. Across all 560 it reported **139 stale
+   against a true 71** — `--follow`'s similarity heuristic hops onto a
+   near-identical file's history, so a `#1` resample was dated to the older sample
+   it resembles. `fcdb435` *created* that file (`git show --name-status` says `A`),
+   and `--follow` credited it to `0e97086`.
+
+The fix that holds is asking about both the bundle path and the pre-move path and
+taking the last commit that Added or Modified either — validated against the
+pre-move measurement on **all 560 recordings, zero disagreements**. A date-based
+reconstruction from the recording's own `recorded` stamp was also tried and
+rejected: 33 recordings land on 2026-08-09, a day carrying six commits, so
+day-granularity credits a recording with a graph revision that landed after it —
+biasing toward *fresh*, which is the wrong direction for an honesty audit.
+
+None of that fragility is inherent. It exists because provenance is being
+inferred. A hash written at capture would not have noticed the move at all.
+
+## 8. What would have prevented it
 
 `record_live.py` stamping `graph_sha` at capture, and the gate refusing to count a
 recording whose `graph_sha` no longer matches. The cost is one hash per recording.
 The gap ran from v1.3 to now and cost 71 recordings, 10 published tiers, and one
-breadth claim.
+breadth claim — plus, once, an audit that reported zero and then nearly double.

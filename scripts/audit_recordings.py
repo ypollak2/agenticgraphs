@@ -103,7 +103,24 @@ def audit() -> dict:
     for name in sorted(graphs):
         for r in sorted(live_dir(name, ROOT).glob("*.json")):
             rel = str(r.relative_to(ROOT))
-            commit = git("log", "-1", "--format=%H", "--", rel).strip()
+            # Ask about the bundle path AND the pre-move `evals/` path, and take
+            # the last commit that Added or Modified either. `--diff-filter=AM`
+            # skips the move itself, which renamed 560 files without changing a
+            # byte any model produced.
+            #
+            # Explicitly NOT `--follow`, which was tried and is wrong here: its
+            # similarity heuristic hops onto a near-identical file's history, so
+            # a `#1` resample gets dated to the older sample it resembles. That
+            # reported 139 stale recordings against a true 71. The two-pathspec
+            # form reproduces the pre-move measurement on all 560, exactly.
+            #
+            # And this is the case for the `graph_sha` stamp in one paragraph: a
+            # file move, not even an edit, first made git-reconstructed
+            # provenance report zero recordings, then nearly doubled the finding.
+            # A hash written at capture would not have noticed the move at all.
+            legacy = f"evals/{name}/live/{r.name}"
+            commit = git("log", "-1", "--format=%H", "--diff-filter=AM",
+                         "--", rel, legacy).strip()
             if not commit:
                 continue
             key = (commit, name)
