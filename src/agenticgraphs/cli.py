@@ -9,7 +9,7 @@ from pathlib import Path
 import yaml
 
 from .inspect import find_graph, render_profile, to_mermaid
-from .registry import iter_graphs, iter_yaml, load
+from .registry import Registry, iter_graphs, iter_yaml, load
 from .validate import validate_graph_file, validate_schema
 
 
@@ -88,15 +88,18 @@ def main(argv: list[str] | None = None) -> int:
     args = p.parse_args(argv)
 
     if args.cmd == "list":
-        for g in iter_graphs():
-            d = load(g)
-            print(f"{d['category']}/{d['name']}: {d['description']}")
+        for e in Registry.load():
+            print(f"{e.category}/{e.name}: {e.description}")
         return 0
     if args.cmd == "search":
-        hits = [d for d in map(load, iter_graphs())
-                if args.term.lower() in (d["name"] + d["description"]).lower()]
-        for d in hits:
-            print(f"{d['category']}/{d['name']}: {d['description']}")
+        # Now matches name + description + *category*, which is what the MCP
+        # `search_graphs` tool has always matched. The two surfaces disagreed:
+        # `agr search finance` returned nothing and exited 1 while the MCP tool
+        # returned four graphs. One definition, and the wider one is the correct
+        # one — a domain is a legitimate thing to search a registry by.
+        hits = Registry.load().search(args.term)
+        for e in hits:
+            print(f"{e.category}/{e.name}: {e.description}")
         return 0 if hits else 1
     if args.cmd == "show":
         print(yaml.safe_dump(_need(args.name), sort_keys=False, width=120), end="")
