@@ -1,0 +1,4 @@
+id: uc-129
+pattern: reflexion
+summary: Diagnose a red pipeline and attempt a bounded repair, accumulating lessons.
+verification: pipeline green or escalated with its history; never retried blind

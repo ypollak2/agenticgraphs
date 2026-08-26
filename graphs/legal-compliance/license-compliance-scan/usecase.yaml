@@ -1,0 +1,4 @@
+id: uc-057
+pattern: map-reduce
+summary: Scan dependency licenses, reduce to obligations report.
+verification: SPDX ids resolved; copyleft conflicts flagged

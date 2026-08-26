@@ -1,0 +1,4 @@
+id: uc-012
+pattern: planner-executor-verifier
+summary: Execute a runbook step-wise with post-condition checks.
+verification: each step post-condition command exits zero

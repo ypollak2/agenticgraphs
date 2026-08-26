@@ -1,0 +1,4 @@
+id: uc-101
+pattern: pipeline
+summary: Draft listings from specs with claim and image checks.
+verification: attributes match spec sheet; banned claims zero

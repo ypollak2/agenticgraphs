@@ -1,0 +1,6 @@
+id: uc-064
+name: protocol-drafting-critic
+domain: healthcare-science
+pattern: generator-critic
+summary: Draft study protocols, critic checks power and ethics gaps.
+verification: checklist conformance complete; power calc reproducible

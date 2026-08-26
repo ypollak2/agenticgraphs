@@ -1,0 +1,6 @@
+id: uc-103
+name: demand-signal-digest
+domain: logistics-retail
+pattern: map-reduce
+summary: Merge sales, weather, and events into demand notes.
+verification: signals quantified with source data ranges

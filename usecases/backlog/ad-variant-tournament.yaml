@@ -1,0 +1,6 @@
+id: uc-036
+name: ad-variant-tournament
+domain: content-marketing
+pattern: generator-critic
+summary: Generate ad variants, critic ranks against brand and claim rules.
+verification: surviving variants pass legal claim checklist

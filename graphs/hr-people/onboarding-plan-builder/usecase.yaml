@@ -1,0 +1,4 @@
+id: uc-093
+pattern: planner-executor-verifier
+summary: Build role-specific onboarding with checkpoint tasks.
+verification: every task has owner, system access verified

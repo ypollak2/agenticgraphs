@@ -1,0 +1,4 @@
+id: uc-001
+pattern: pipeline
+summary: Staged PR review with risk triage and parallel security plus style passes.
+verification: verdict in approve or request_changes; findings carry file and line

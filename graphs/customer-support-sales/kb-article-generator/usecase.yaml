@@ -1,0 +1,4 @@
+id: uc-078
+pattern: pipeline
+summary: Mine resolved tickets into draft knowledge-base articles.
+verification: steps reproduce resolution; duplicates deduped

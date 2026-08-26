@@ -1,0 +1,4 @@
+id: uc-058
+pattern: parallel-swarm
+summary: Workers map personal data flows per system.
+verification: every flow lists lawful basis or a gap

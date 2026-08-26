@@ -775,12 +775,27 @@ worth before you spend a token — and whether that number is provisional (mock)
 A graph is accepted when — and only when — the gate passes: schema conformance, MAST lint,
 resolvable specialities/abilities, and (post-M1) a measured profile.
 
+**One graph is one directory.** Everything authored about it lives in its bundle,
+so two contributors adding two graphs never touch the same file:
+
+```
+graphs/<domain>/<name>/
+    graph.yaml      usecase.yaml    cases.yaml      live/*.json
+    CARD.md         profile.json    lineage.yaml          # generated / appended
+```
+
 1. Fork the project
 2. Create your branch (`git checkout -b graph/amazing-workflow`)
-3. Add your use case in `scripts/gen_catalog.py` (single source of truth) and regenerate
-4. Run the gate (`uv run agr validate && uv run pytest`)
-5. Commit (`git commit -m 'Add amazing-workflow graph'`)
-6. Push and open a Pull Request
+3. Claim a use case: `git mv usecases/backlog/<name>.yaml graphs/<domain>/<name>/usecase.yaml`
+   and drop its now-derived `name` and `domain` fields — or write a new
+   `usecase.yaml` if none of the 48 open entries fits
+4. Write `graph.yaml` and `cases.yaml` in the same directory
+5. Run the gate (`uv run agr validate && uv run pytest`)
+6. Commit (`git commit -m 'Add amazing-workflow graph'`)
+7. Push and open a Pull Request
+
+Do not commit generated files — `usecases/catalog.yaml`, `CARDS.md`, the README
+blocks and `docs/traces/` are projections, rebuilt and diffed by CI.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

@@ -1,0 +1,4 @@
+id: uc-010
+pattern: parallel-swarm
+summary: Workers execute every doc example against the current API.
+verification: all documented examples run exit zero

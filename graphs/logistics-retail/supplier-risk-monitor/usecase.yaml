@@ -1,0 +1,4 @@
+id: uc-100
+pattern: map-reduce
+summary: Scan supplier news and filings, reduce to risk deltas.
+verification: every delta links a dated source

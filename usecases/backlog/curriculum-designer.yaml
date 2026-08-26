@@ -1,0 +1,6 @@
+id: uc-070
+name: curriculum-designer
+domain: education
+pattern: planner-executor-verifier
+summary: Design course from outcomes to assessments with alignment.
+verification: every outcome mapped to lesson and assessment

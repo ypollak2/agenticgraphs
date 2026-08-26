@@ -1,0 +1,4 @@
+id: uc-077
+pattern: router
+summary: Classify and route tickets with priority and sentiment.
+verification: routing accuracy measured on labeled backlog

@@ -1,0 +1,6 @@
+id: uc-068
+name: lab-notebook-summarizer
+domain: healthcare-science
+pattern: pipeline
+summary: Turn raw notebook entries into structured experiment records.
+verification: records validate against schema; entries linked

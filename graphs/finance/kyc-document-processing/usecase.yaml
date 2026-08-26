@@ -1,0 +1,4 @@
+id: uc-052
+pattern: pipeline
+summary: Extract, cross-check, and flag gaps in KYC documents.
+verification: extracted fields validate against document images

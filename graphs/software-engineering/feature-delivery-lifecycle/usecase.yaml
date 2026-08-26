@@ -1,0 +1,4 @@
+id: uc-115
+pattern: lifecycle
+summary: Research, plan, implement, test, audit, fix, document and release a feature end to end.
+verification: audit verdict is approve, docs updated, and a human signed the release

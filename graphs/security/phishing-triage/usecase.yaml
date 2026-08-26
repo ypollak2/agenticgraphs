@@ -1,0 +1,4 @@
+id: uc-085
+pattern: router
+summary: Classify reported emails, route confirmed phish to response.
+verification: verdicts benchmarked against labeled corpus

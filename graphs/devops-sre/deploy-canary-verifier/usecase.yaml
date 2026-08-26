@@ -1,0 +1,4 @@
+id: uc-015
+pattern: loop
+summary: Progressively shift traffic while checking error budgets.
+verification: rollback fires when error rate exceeds threshold

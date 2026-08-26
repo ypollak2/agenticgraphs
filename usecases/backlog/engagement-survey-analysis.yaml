@@ -1,0 +1,6 @@
+id: uc-094
+name: engagement-survey-analysis
+domain: hr-people
+pattern: map-reduce
+summary: Theme open-text responses, reduce with anonymity floor.
+verification: themes cite response counts; k-anonymity respected

@@ -1,0 +1,4 @@
+id: uc-043
+pattern: pipeline
+summary: Transcript to decisions, owners, deadlines, and follow-ups.
+verification: each action has owner and date; quotes traceable

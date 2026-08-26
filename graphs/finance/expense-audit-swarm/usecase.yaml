@@ -1,0 +1,4 @@
+id: uc-055
+pattern: parallel-swarm
+summary: Workers audit expense lines against policy in parallel.
+verification: violations carry line id and policy rule

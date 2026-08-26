@@ -1,0 +1,6 @@
+id: uc-030
+name: patent-landscape
+domain: research-knowledge
+pattern: map-reduce
+summary: Cluster patents by claim family, summarize white space.
+verification: cluster assignments reproducible; ids valid

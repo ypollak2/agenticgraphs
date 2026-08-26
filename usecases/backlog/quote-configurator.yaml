@@ -1,0 +1,6 @@
+id: uc-083
+name: quote-configurator
+domain: customer-support-sales
+pattern: pipeline
+summary: Assemble quotes against price book and discount policy.
+verification: totals recompute exactly; policy violations zero

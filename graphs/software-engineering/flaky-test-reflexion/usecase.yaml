@@ -1,0 +1,4 @@
+id: uc-128
+pattern: reflexion
+summary: Re-run a suspected flake, recording a lesson per attempt.
+verification: stability proven over repeated runs; each attempt leaves a lesson

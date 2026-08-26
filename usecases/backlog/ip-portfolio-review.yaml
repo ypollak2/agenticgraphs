@@ -1,0 +1,6 @@
+id: uc-062
+name: ip-portfolio-review
+domain: legal-compliance
+pattern: map-reduce
+summary: Review marks and patents for renewals and conflicts.
+verification: deadlines extracted match registry records

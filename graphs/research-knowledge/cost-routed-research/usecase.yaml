@@ -1,0 +1,4 @@
+id: uc-113
+pattern: router
+summary: Routes research subtasks to the cheapest capable model, escalates low-confidence answers, synthesizes with citations.
+verification: every claim in the synthesis cites at least one source

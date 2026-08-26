@@ -1,0 +1,6 @@
+id: uc-098
+name: route-optimization-review
+domain: logistics-retail
+pattern: generator-critic
+summary: Propose delivery routes, critic checks constraints.
+verification: routes satisfy time windows and capacity

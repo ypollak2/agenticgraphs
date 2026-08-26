@@ -1,0 +1,6 @@
+id: uc-080
+name: churn-signal-analysis
+domain: customer-support-sales
+pattern: map-reduce
+summary: Aggregate account signals, reduce to ranked churn risks.
+verification: every risk factor cites underlying events

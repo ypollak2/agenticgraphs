@@ -1,0 +1,4 @@
+id: uc-087
+pattern: planner-executor-verifier
+summary: Investigate an alert with hypothesis-driven queries.
+verification: conclusion supported by query results attached

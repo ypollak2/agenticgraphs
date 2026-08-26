@@ -1,0 +1,4 @@
+id: uc-091
+pattern: generator-critic
+summary: Draft job descriptions, critic removes bias and inflation.
+verification: bias-term lint clean; requirements deduplicated

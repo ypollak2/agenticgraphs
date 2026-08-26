@@ -1,0 +1,4 @@
+id: uc-069
+pattern: pipeline
+summary: Screen criteria against records for informational matching.
+verification: each criterion pass or fail with evidence span

@@ -1,0 +1,4 @@
+id: uc-019
+pattern: planner-executor-verifier
+summary: Design and build an ETL job from source to warehouse.
+verification: end-to-end run loads expected row counts

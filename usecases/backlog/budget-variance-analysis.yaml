@@ -1,0 +1,6 @@
+id: uc-050
+name: budget-variance-analysis
+domain: finance
+pattern: map-reduce
+summary: Explain variance per cost center, reduce to an exec brief.
+verification: variances sum to total; drivers cite ledger lines

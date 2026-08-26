@@ -1,0 +1,4 @@
+id: uc-063
+pattern: router
+summary: Route new papers by study type and evidence level.
+verification: labels match a validated sample set

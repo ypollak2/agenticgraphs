@@ -1,0 +1,4 @@
+id: uc-086
+pattern: pipeline
+summary: Rank findings by exploitability and blast radius.
+verification: ranking inputs cite scanner evidence and asset map

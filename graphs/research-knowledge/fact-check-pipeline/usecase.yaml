@@ -1,0 +1,4 @@
+id: uc-029
+pattern: pipeline
+summary: Decompose claims, verify each against sources, grade verdicts.
+verification: each verdict carries source URL and quote span

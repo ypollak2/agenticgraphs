@@ -1,0 +1,6 @@
+id: uc-111
+name: image-asset-qa
+domain: creative-production
+pattern: parallel-swarm
+summary: Workers check assets for spec, licensing, and artifacts.
+verification: every asset pass or fail with rule id

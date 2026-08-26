@@ -1,0 +1,4 @@
+id: uc-033
+pattern: parallel-swarm
+summary: Workers verify each citation exists and supports its claim.
+verification: every citation resolves; mismatches listed

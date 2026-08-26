@@ -1,0 +1,4 @@
+id: uc-016
+pattern: pipeline
+summary: Assemble timeline from logs and chat, draft blameless postmortem.
+verification: every timeline event cites a log or message id

@@ -1,0 +1,4 @@
+id: uc-018
+pattern: generator-critic
+summary: Generate SQL, critic checks schema validity and row sanity.
+verification: query executes; result passes row-count sanity assertions

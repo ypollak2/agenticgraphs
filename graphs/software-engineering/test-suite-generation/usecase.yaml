@@ -1,0 +1,4 @@
+id: uc-003
+pattern: generator-critic
+summary: Generate tests, critic rejects trivial or tautological assertions.
+verification: coverage delta positive; mutation score above baseline

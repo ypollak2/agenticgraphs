@@ -1,0 +1,4 @@
+id: uc-011
+pattern: router
+summary: Classify severity and route incidents to the owning team.
+verification: routing matches on-call ownership map

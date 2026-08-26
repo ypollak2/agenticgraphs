@@ -1,0 +1,6 @@
+id: uc-007
+name: api-design-review
+domain: software-engineering
+pattern: debate
+summary: Two reviewers argue REST versus RPC tradeoffs, judge synthesizes.
+verification: spec passes lint; breaking changes enumerated

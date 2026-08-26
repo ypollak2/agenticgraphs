@@ -1,0 +1,4 @@
+id: uc-004
+pattern: pipeline
+summary: Refactor a module behind characterization tests.
+verification: behavior snapshot tests unchanged before and after

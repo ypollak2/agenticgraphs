@@ -1,0 +1,4 @@
+id: uc-071
+pattern: generator-critic
+summary: Generate items, critic solves them blind to verify keys.
+verification: critic answers match keys; distractors plausible

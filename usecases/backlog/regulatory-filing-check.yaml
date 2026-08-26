@@ -1,0 +1,6 @@
+id: uc-053
+name: regulatory-filing-check
+domain: finance
+pattern: parallel-swarm
+summary: Workers check filing sections against requirement checklists.
+verification: every checklist item pass or fail with location

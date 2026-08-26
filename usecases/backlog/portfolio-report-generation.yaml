@@ -1,0 +1,6 @@
+id: uc-054
+name: portfolio-report-generation
+domain: finance
+pattern: pipeline
+summary: Assemble informational holdings and performance reporting.
+verification: figures reconcile to custodian data; no advice emitted

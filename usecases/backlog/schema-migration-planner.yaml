@@ -1,0 +1,6 @@
+id: uc-022
+name: schema-migration-planner
+domain: data-analytics
+pattern: planner-executor-verifier
+summary: Plan backward-compatible schema changes with shadow reads.
+verification: shadow-read diff empty before cutover

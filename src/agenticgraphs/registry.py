@@ -364,6 +364,9 @@ class Registry:
 
     @classmethod
     def load(cls, root: Path = ROOT) -> Registry:
+        # The use case a graph answers lives in its bundle. `usecases/catalog.yaml`
+        # is a projection of those files (plus the backlog) and is read only as a
+        # fallback, for a bundle that has no `usecase.yaml` yet.
         catalog = {}
         cat_file = root / "usecases" / "catalog.yaml"
         if cat_file.exists():
@@ -388,9 +391,20 @@ class Registry:
                     # A malformed profile is a missing measurement, not a crash:
                     # `agr list` must keep working on a half-written tree.
                     profile = {}
+            uc_file = path.parent / "usecase.yaml"
+            if uc_file.exists():
+                uc = load(uc_file) or {}
+                # `name` and `domain` are read off the graph rather than stored
+                # twice, so a bundle cannot disagree with itself about what it is.
+                use_case = {"id": uc.get("id", ""), "name": doc["name"],
+                            "domain": doc["category"], "pattern": uc.get("pattern", ""),
+                            "summary": uc.get("summary", ""),
+                            "verification": uc.get("verification", "")}
+            else:
+                use_case = catalog.get(doc["name"], {})
             entries.append(RegistryEntry(
                 name=doc["name"], category=doc["category"], path=path, doc=doc,
-                root=root, entry=catalog.get(doc["name"], {}), profile=profile,
+                root=root, entry=use_case, profile=profile,
                 evidence=Evidence.from_profile(profile), ability_risk=risks,
             ))
         return cls(entries, root=root)
@@ -410,7 +424,15 @@ class Registry:
                 if t in (e.name + " " + e.description + " " + e.category).lower()]
 
     def uncovered(self) -> list[dict]:
-        """Catalog rows with no graph — what M12 is for."""
+        """Use cases with no graph — the backlog M12 works through.
+
+        Read from `usecases/backlog/`, one file each, so claiming one is a
+        `git mv` into a bundle rather than an edit to a list everybody shares.
+        Falls back to the projected catalog for a tree without the backlog dir.
+        """
+        backlog = self.root / "usecases" / "backlog"
+        if backlog.is_dir():
+            return [load(p) for p in sorted(backlog.glob("*.yaml"))]
         cat_file = self.root / "usecases" / "catalog.yaml"
         if not cat_file.exists():
             return []

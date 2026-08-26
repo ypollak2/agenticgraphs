@@ -131,3 +131,32 @@ def test_uncovered_is_the_expansion_backlog(reg):
     assert len(uncovered) + len(reg) == len(
         load(reg.root / "usecases" / "catalog.yaml")["entries"]
     )
+
+
+def test_use_case_comes_from_the_bundle_not_the_catalog(reg):
+    """The entry lives with the graph; catalog.yaml is a projection of it."""
+    for e in reg:
+        uc = e.path.parent / "usecase.yaml"
+        assert uc.exists(), f"{e.name} has no usecase.yaml"
+        raw = load(uc)
+        assert raw["id"].startswith("uc-")
+        # name/domain are derived, never stored twice, so they cannot disagree
+        assert "name" not in raw and "domain" not in raw
+        assert e.entry["name"] == e.name and e.entry["domain"] == e.category
+        assert e.motif == raw["pattern"]
+
+
+def test_catalog_is_a_faithful_projection(reg):
+    """Regenerating from the bundles must reproduce every committed row."""
+    committed = {r["name"]: r for r in
+                 load(reg.root / "usecases" / "catalog.yaml")["entries"]}
+    for e in reg:
+        assert committed[e.name] == e.entry
+    for row in reg.uncovered():
+        assert committed[row["name"]] == row
+    assert len(committed) == len(reg) + len(reg.uncovered())
+
+
+def test_backlog_ids_do_not_collide_with_shipped_ones(reg):
+    ids = [e.entry["id"] for e in reg] + [r["id"] for r in reg.uncovered()]
+    assert len(ids) == len(set(ids)), "use-case ids must be unique across both sources"

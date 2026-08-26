@@ -1,0 +1,6 @@
+id: uc-107
+name: game-npc-dialogue
+domain: creative-production
+pattern: generator-critic
+summary: Generate branching dialogue, critic checks lore and tone.
+verification: branches validate against dialogue schema; lore conflicts zero

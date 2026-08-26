@@ -1,0 +1,4 @@
+id: uc-008
+pattern: loop
+summary: Profile, patch hotspot, re-benchmark until budget met.
+verification: benchmark under target with no test regressions

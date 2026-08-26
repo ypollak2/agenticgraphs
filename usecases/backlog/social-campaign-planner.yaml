@@ -1,0 +1,6 @@
+id: uc-039
+name: social-campaign-planner
+domain: content-marketing
+pattern: planner-executor-verifier
+summary: Plan a campaign calendar, draft posts, verify constraints.
+verification: calendar has no channel conflicts; lengths within limits

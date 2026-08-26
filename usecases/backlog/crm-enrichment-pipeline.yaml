@@ -1,0 +1,6 @@
+id: uc-081
+name: crm-enrichment-pipeline
+domain: customer-support-sales
+pattern: pipeline
+summary: Fill CRM gaps from public sources with provenance.
+verification: each field carries source URL and timestamp

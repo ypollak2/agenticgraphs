@@ -1,0 +1,6 @@
+id: uc-048
+name: process-documentation-miner
+domain: business-ops
+pattern: map-reduce
+summary: Mine tickets and chats to document the de facto process.
+verification: steps corroborated by at least two sources

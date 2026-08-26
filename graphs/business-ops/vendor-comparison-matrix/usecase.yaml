@@ -1,0 +1,4 @@
+id: uc-044
+pattern: parallel-swarm
+summary: Workers score vendors per criterion from evidence.
+verification: every score cites vendor documentation

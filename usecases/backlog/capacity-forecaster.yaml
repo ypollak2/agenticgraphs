@@ -1,0 +1,6 @@
+id: uc-017
+name: capacity-forecaster
+domain: devops-sre
+pattern: generator-critic
+summary: Forecast load, critic stress-tests assumptions against history.
+verification: backtest error within stated confidence band

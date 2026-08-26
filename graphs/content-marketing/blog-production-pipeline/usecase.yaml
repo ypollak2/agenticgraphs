@@ -1,0 +1,4 @@
+id: uc-034
+pattern: pipeline
+summary: Brief to outline to draft to edit to publish-ready post.
+verification: style guide lint passes; plagiarism scan clean
