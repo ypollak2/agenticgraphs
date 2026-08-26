@@ -117,7 +117,7 @@ Seven pieces. None changes the AGR **graph** spec — every existing `graph.yaml
 stays valid at `agr/v1.7`. Two schemas below it do change, each versioned and
 named where it happens (§C, §D).
 
-### A0. The bundle and the projection — one rule
+### A0. The bundle and the projection — one rule ✅ shipped
 
 **Authored data is per-artifact; derived data is never committed by an author.**
 
@@ -126,12 +126,20 @@ named where it happens (§C, §D).
 ```
 graphs/<domain>/<name>/
     graph.yaml
-    usecase.yaml      # the catalog entry — moves out of scripts/gen_catalog.py's `E` list
-    cases.yaml        # moves in from evals/<name>/          (decision 4.1)
-    live/*.json       # moves in from evals/<name>/live/     (decision 4.1)
+    usecase.yaml      # the catalog entry — moved out of scripts/gen_catalog.py's `E` list
+    cases.yaml        # moved in from evals/<name>/          (decision 4.1)
+    live/*.json       # moved in from evals/<name>/live/     (decision 4.1)
     CARD.md           # generated
     profile.json      # generated
 ```
+
+Shipped. `evals/` is gone (83 cases + 560 recordings moved); the 48 use cases with
+no graph live one-per-file in `usecases/backlog/`, so claiming one is a `git mv`
+into a bundle. Two pre-existing facts surfaced on the way: `scripts/gen_catalog.py`
+had stopped being the source of truth it was documented as (112 entries against the
+catalog's 131), and the bundle move broke the A4 audit's git-reconstructed
+provenance twice — the strongest argument yet for stamping `graph_sha` at capture
+rather than inferring it. Detail in [v13-a4-finding.md](v13-a4-finding.md) §7.
 
 *Projection* (derived, rebuilt, never hand-edited): `usecases/catalog.yaml`,
 `CARDS.md`, every `CARD.md`, the two README blocks, `docs/traces/*`,
