@@ -4,7 +4,7 @@ import yaml
 from agenticgraphs.evalcmd import eval_graph
 from agenticgraphs.harness import MockRunner, run_graph, safe_eval
 from agenticgraphs.inspect import find_graph
-from agenticgraphs.registry import ROOT, load
+from agenticgraphs.registry import ROOT, cases_path, load
 
 
 def test_level_conditions():
@@ -25,7 +25,7 @@ def test_router_takes_single_branch():
 
 def test_loop_bounded_and_escalation_detected():
     doc = load(find_graph("verifier-swarm"))
-    cases = yaml.safe_load((ROOT / "evals/verifier-swarm/cases.yaml").read_text())["cases"]
+    cases = yaml.safe_load((cases_path("verifier-swarm")).read_text())["cases"]
     retry = next(c for c in cases if c["id"] == "retry-then-verified")
     rep = run_graph(doc, MockRunner(retry["node_outputs"]))
     assert rep.passed and rep.trace.count("worker") == 2

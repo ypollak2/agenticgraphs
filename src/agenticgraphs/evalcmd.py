@@ -9,7 +9,7 @@ import yaml
 
 from .harness import LLMRunner, MockRunner, ReplayRunner, run_graph
 from .inspect import find_graph, structural_profile
-from .registry import ROOT, load
+from .registry import ROOT, cases_path, live_dir, load
 
 
 def verification_depth(doc: dict, runner_name: str, grounded: bool = False) -> str:
@@ -38,15 +38,16 @@ def verification_depth(doc: dict, runner_name: str, grounded: bool = False) -> s
 def _recordings(root: Path, name: str, case_id: str) -> list[Path]:
     """Every checked-in real-model run for this case, one per model.
 
-    Recordings live at evals/<graph>/live/<case>@<model>.json (v1.2 wrote a
-    single <case>.json; both are read). They are what makes `assert-live`
-    reachable in CI: the depth grade shipped in v1.1 could report it, but
-    producing it needed a network call, so no graph ever earned it.
+    Recordings live in the graph's bundle at `live/<case>@<model>.json` (v1.2
+    wrote a single <case>.json; both are read), falling back to the legacy
+    `evals/<graph>/live/` tree. They are what makes `assert-live` reachable in
+    CI: the depth grade shipped in v1.1 could report it, but producing it needed
+    a network call, so no graph ever earned it.
 
     Several models matter because one weak model looks exactly like a bad
     contract. Only disagreement between models tells them apart.
     """
-    live = root / "evals" / name / "live"
+    live = live_dir(name, root)
     if not live.is_dir():
         return []
     return sorted(p for p in live.glob(f"{case_id}*.json"))
@@ -73,7 +74,7 @@ def eval_graph(name: str, root: Path = ROOT, live: bool = False,
     gpath = find_graph(name, root)
     if gpath is None:
         raise SystemExit(f"no graph named '{name}'")
-    cases_file = root / "evals" / name / "cases.yaml"
+    cases_file = cases_path(name, root)
     if not cases_file.exists():
         raise SystemExit(f"no eval cases at {cases_file.relative_to(root)} — write golden cases first")
     doc = load(gpath)

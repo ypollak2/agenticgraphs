@@ -1,7 +1,7 @@
 """Executable audit: is a checked-in recording still evidence about the graph it
 is filed under?
 
-A recording in `evals/<graph>/live/` stamps the model and the date. It does not
+A recording in a graph's `live/` stamps the model and the date. It does not
 stamp the graph revision it was recorded against — so nothing detects a graph
 edited after its evidence was captured, and `ReplayRunner` replays the old reply
 against the new shape without comment.
@@ -41,7 +41,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 # `shape` and `sha` live in the registry core, not here: which parts of a graph a
 # recording depends on is a fact about the registry, and a second copy in a script
 # is exactly the duplication M11 exists to remove.
-from agenticgraphs.registry import sha, shape  # noqa: E402
+from agenticgraphs.registry import live_dir, sha, shape  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -98,47 +98,47 @@ def audit() -> dict:
         head_shape[doc["name"]] = sha(shape(doc))
 
     rows, blob_cache, verdict_cache, head_verdicts = [], {}, {}, {}
-    for r in sorted(ROOT.glob("evals/*/live/*.json")):
-        name = r.parent.parent.name
-        if name not in graphs:
-            continue
-        rel = str(r.relative_to(ROOT))
-        commit = git("log", "-1", "--format=%H", "--", rel).strip()
-        if not commit:
-            continue
-        key = (commit, name)
-        if key not in blob_cache:
-            blob = git("show", f"{commit}:{graphs[name]}")
-            old = yaml.safe_load(blob) if blob.strip() else None
-            blob_cache[key] = (sha(old), sha(shape(old))) if old else None
-            verdict_cache[key] = _verdicts(git("show", f"{commit}:{profiles[name]}"))
-        if name not in head_verdicts:
-            head_verdicts[name] = _verdicts((ROOT / profiles[name]).read_text())
+    # Through the registry, not a glob: where recordings live is the registry's
+    # business, and this audit must keep working either side of the bundle move.
+    for name in sorted(graphs):
+        for r in sorted(live_dir(name, ROOT).glob("*.json")):
+            rel = str(r.relative_to(ROOT))
+            commit = git("log", "-1", "--format=%H", "--", rel).strip()
+            if not commit:
+                continue
+            key = (commit, name)
+            if key not in blob_cache:
+                blob = git("show", f"{commit}:{graphs[name]}")
+                old = yaml.safe_load(blob) if blob.strip() else None
+                blob_cache[key] = (sha(old), sha(shape(old))) if old else None
+                verdict_cache[key] = _verdicts(git("show", f"{commit}:{profiles[name]}"))
+            if name not in head_verdicts:
+                head_verdicts[name] = _verdicts((ROOT / profiles[name]).read_text())
 
-        rec = json.loads(r.read_text())
-        model, case = rec.get("model", "?"), r.stem.split("@")[0]
-        old_hashes = blob_cache[key]
-        content = "absent" if not old_hashes else (
-            "same" if old_hashes[0] == head_full[name] else "changed")
-        shp = "absent" if not old_hashes else (
-            "same" if old_hashes[1] == head_shape[name] else "changed")
-        # Only a cell holding exactly ONE sample on both sides can be compared:
-        # with several samples the pairing between a recording file and a result
-        # row is not recoverable from the profile, and a re-record may legitimately
-        # have added samples. Conservative on purpose — a false flip would be worse
-        # than a missed one, since the whole point is to say what the evidence is
-        # actually worth.
-        then = verdict_cache[key].get((case, model)) or []
-        now = head_verdicts[name].get((case, model)) or []
-        if len(then) != 1 or len(now) != 1:
-            verdict = "not-comparable"
-        elif then[0] == now[0]:
-            verdict = "stable"
-        else:
-            verdict = f"{'PASS' if then[0] else 'FAIL'}->{'PASS' if now[0] else 'FAIL'}"
-        rows.append({"graph": name, "file": rel, "model": model, "case": case,
-                     "commit": commit[:8], "content": content, "shape": shp,
-                     "verdict": verdict})
+            rec = json.loads(r.read_text())
+            model, case = rec.get("model", "?"), r.stem.split("@")[0]
+            old_hashes = blob_cache[key]
+            content = "absent" if not old_hashes else (
+                "same" if old_hashes[0] == head_full[name] else "changed")
+            shp = "absent" if not old_hashes else (
+                "same" if old_hashes[1] == head_shape[name] else "changed")
+            # Only a cell holding exactly ONE sample on both sides can be compared:
+            # with several samples the pairing between a recording file and a result
+            # row is not recoverable from the profile, and a re-record may legitimately
+            # have added samples. Conservative on purpose — a false flip would be worse
+            # than a missed one, since the whole point is to say what the evidence is
+            # actually worth.
+            then = verdict_cache[key].get((case, model)) or []
+            now = head_verdicts[name].get((case, model)) or []
+            if len(then) != 1 or len(now) != 1:
+                verdict = "not-comparable"
+            elif then[0] == now[0]:
+                verdict = "stable"
+            else:
+                verdict = f"{'PASS' if then[0] else 'FAIL'}->{'PASS' if now[0] else 'FAIL'}"
+            rows.append({"graph": name, "file": rel, "model": model, "case": case,
+                         "commit": commit[:8], "content": content, "shape": shp,
+                         "verdict": verdict})
 
     stale = {(x["graph"], x["model"], x["case"]) for x in rows if x["shape"] == "changed"}
     tier_now, tier_excl, moved = Counter(), Counter(), []

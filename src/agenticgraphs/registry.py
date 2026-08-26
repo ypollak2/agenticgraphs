@@ -9,10 +9,16 @@ drifting six ways.
 `RegistryEntry` is that join, once. `Registry.load()` builds every entry (83
 graphs, ~80 ms) and everything above this module reads entries instead of globbing.
 
-Path derivation is deliberately concentrated in `RegistryEntry`: `cases_path` and
-`live_dir` are the two places that know evidence currently lives under `evals/`
-rather than beside the graph, so the bundle move (A0) edits two properties instead
-of chasing string joins through eight modules.
+One graph is one **bundle**: a directory holding the graph, the use case it
+answers, its golden cases, and the recordings of real models running it. Adding a
+graph touches no file any other graph shares, which is what makes parallel
+authoring a merge rather than a rebase queue.
+
+Path derivation is concentrated here — `graph_dir`, `cases_path`, `live_dir` and
+the matching entry properties are the only code that knows where a bundle keeps
+anything. Cases and recordings used to live under `evals/<name>/`; these functions
+still resolve that layout, and concentrating them is what let the move land
+without every caller moving with it.
 """
 from __future__ import annotations
 
@@ -67,6 +73,50 @@ def iter_yaml(dirname: str, root: Path = ROOT) -> list[Path]:
 
 def load(path: Path) -> dict:
     return yaml.safe_load(path.read_text())
+
+
+# ----------------------------------------------------------------- bundle paths
+# One graph is one directory. Everything authored about it -- the graph, the use
+# case it answers, its golden cases, and the recordings of real models running it
+# -- lives together, so adding a graph touches no file any other graph shares.
+#
+# `cases.yaml` and `live/` used to live under `evals/<name>/`. These three
+# functions are the whole of that knowledge: they prefer the bundle and fall back
+# to the old tree, so the move lands without every caller moving in the same
+# commit. The fallback goes away one release after the last one does.
+
+def graph_dir(name: str, root: Path = ROOT) -> Path | None:
+    """The bundle directory for `name`, or None if no such graph."""
+    for g in iter_graphs(root):
+        if g.parent.name == name:
+            return g.parent
+    return None
+
+
+def cases_path(name: str, root: Path = ROOT) -> Path:
+    """Golden cases for `name` — bundle first, legacy `evals/` second.
+
+    Returns the bundle path when neither exists: a file that has yet to be written
+    belongs in the new layout, so `agr new` scaffolds forward, not backward.
+    """
+    bundle = graph_dir(name, root)
+    if bundle is not None and (bundle / "cases.yaml").exists():
+        return bundle / "cases.yaml"
+    legacy = root / "evals" / name / "cases.yaml"
+    if legacy.exists():
+        return legacy
+    return (bundle / "cases.yaml") if bundle is not None else legacy
+
+
+def live_dir(name: str, root: Path = ROOT) -> Path:
+    """Recorded real-model runs for `name` — bundle first, legacy second."""
+    bundle = graph_dir(name, root)
+    if bundle is not None and (bundle / "live").is_dir():
+        return bundle / "live"
+    legacy = root / "evals" / name / "live"
+    if legacy.is_dir():
+        return legacy
+    return (bundle / "live") if bundle is not None else legacy
 
 
 # --------------------------------------------------------------- identity hashes
@@ -257,15 +307,19 @@ class RegistryEntry:
         return (load(p) or {}).get("mutations", []) if p.exists() else []
 
     # -- paths ------------------------------------------------------------
-    # The two properties below are where "evidence lives under evals/" is written
-    # down. A0 moves the bundle by editing these, not by chasing string joins.
+    # Bundle first, legacy `evals/` second — see the module-level helpers. The
+    # entry already knows its own directory, so it does not re-scan to find it.
     @property
     def cases_path(self) -> Path:
-        return self.root / "evals" / self.name / "cases.yaml"
+        bundle = self.path.parent / "cases.yaml"
+        legacy = self.root / "evals" / self.name / "cases.yaml"
+        return bundle if bundle.exists() or not legacy.exists() else legacy
 
     @property
     def live_dir(self) -> Path:
-        return self.root / "evals" / self.name / "live"
+        bundle = self.path.parent / "live"
+        legacy = self.root / "evals" / self.name / "live"
+        return bundle if bundle.is_dir() or not legacy.is_dir() else legacy
 
     @property
     def profile_path(self) -> Path:

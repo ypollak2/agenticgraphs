@@ -15,7 +15,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from agenticgraphs.evalcmd import eval_graph  # noqa: E402
-from agenticgraphs.registry import ROOT, iter_graphs, load  # noqa: E402
+from agenticgraphs.registry import ROOT, cases_path, iter_graphs, load  # noqa: E402
 from agenticgraphs.validate import silent_nodes, unconnected_keys  # noqa: E402
 
 BEGIN, END = "<!-- scoreboard:begin -->", "<!-- scoreboard:end -->"
@@ -24,7 +24,7 @@ BEGIN, END = "<!-- scoreboard:begin -->", "<!-- scoreboard:end -->"
 def row_for(gpath: Path) -> dict:
     doc = load(gpath)
     name, category = doc["name"], doc["category"]
-    has_cases = (ROOT / "evals" / name / "cases.yaml").exists()
+    has_cases = (cases_path(name)).exists()
     if not has_cases:
         return {"name": name, "category": category, "cases": 0, "pass_rate": None,
                 "mean_steps": None, "routes": 0, "depth": "none", "live": None,
@@ -79,7 +79,7 @@ def scoreboard_block(rows: list[dict]) -> str:
         "| `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |",
         "",
         f"**Real-model evidence:** {len(lived)} graphs carry checked-in recordings of actual "
-        f"model runs across {n_models} models (`evals/<graph>/live/`); **{live_pass} of "
+        f"model runs across {n_models} models (`graphs/<domain>/<graph>/live/`); **{live_pass} of "
         f"{len(lived)}** satisfy their contract on every model, and **{unsat} satisfy it on "
         "none** (🚫 — a contract no model delivers is a bad contract, not a bad model). "
         "⚠️ marks graphs where models disagree, which is the only way to tell a weak model "

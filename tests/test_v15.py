@@ -13,7 +13,7 @@ import yaml
 
 from agenticgraphs.evalcmd import case_inputs
 from agenticgraphs.harness import LLMRunner, MockRunner, run_graph
-from agenticgraphs.registry import ROOT, iter_graphs, load
+from agenticgraphs.registry import ROOT, cases_path, iter_graphs, load
 from agenticgraphs.subgraphs import expand, has_subgraphs
 from agenticgraphs.validate import (
     joint_precondition_asserts,
@@ -197,7 +197,7 @@ def test_whole_registry_still_passes_its_golden_cases():
     for gp in iter_graphs():
         doc = load(gp)
         for case in yaml.safe_load(
-                (ROOT / "evals" / doc["name"] / "cases.yaml").read_text())["cases"]:
+                (cases_path(doc["name"])).read_text())["cases"]:
             total += 1
             passed += run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT,
                                 inputs=case_inputs(case)).passed

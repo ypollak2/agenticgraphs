@@ -13,7 +13,7 @@ import yaml
 
 from agenticgraphs.evalcmd import case_inputs
 from agenticgraphs.harness import MockRunner, ReplayRunner, run_graph
-from agenticgraphs.registry import ROOT, iter_graphs, load
+from agenticgraphs.registry import ROOT, cases_path, iter_graphs, load
 from agenticgraphs.subgraphs import expand
 from agenticgraphs.validate import lint_graph, validate_graph_file, validate_schema
 
@@ -238,7 +238,7 @@ def test_child_asserts_are_evaluated_against_their_phase_not_the_final_board():
     """
     doc = load(ROOT / "graphs/software-engineering/feature-delivery-lifecycle/graph.yaml")
     cases = {c["id"]: c for c in yaml.safe_load(
-        (ROOT / "evals/feature-delivery-lifecycle/cases.yaml").read_text())["cases"]}
+        (cases_path("feature-delivery-lifecycle")).read_text())["cases"]}
     rep = run_graph(doc, MockRunner(cases["clean-path-releases"]["node_outputs"]), root=ROOT,
                     inputs=case_inputs(cases["clean-path-releases"]))
     assert rep.passed, rep.assert_failures
@@ -253,7 +253,7 @@ def test_child_asserts_are_evaluated_against_their_phase_not_the_final_board():
 def test_phase_frame_accumulates_rather_than_taking_the_last_write():
     """A child ends with an accumulated board; only the last write loses keys."""
     doc = load(ROOT / "graphs/devops-sre/incident-lifecycle/graph.yaml")
-    case = yaml.safe_load((ROOT / "evals/incident-lifecycle/cases.yaml").read_text())["cases"][0]
+    case = yaml.safe_load((cases_path("incident-lifecycle")).read_text())["cases"][0]
     rep = run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT, inputs=case_inputs(case))
     frame = rep.phase_frame("postmortem")
     # `output` is written by postmortem.produce, but postmortem.review runs after it
@@ -355,7 +355,7 @@ def test_whole_registry_still_validates_and_passes():
     for gp in iter_graphs():
         doc = load(gp)
         for case in yaml.safe_load(
-                (ROOT / "evals" / doc["name"] / "cases.yaml").read_text())["cases"]:
+                (cases_path(doc["name"])).read_text())["cases"]:
             total += 1
             passed += run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT,
                                 inputs=case_inputs(case)).passed
@@ -369,7 +369,7 @@ def test_state_schema_is_enforced_not_merely_declared():
     """v1.1 accepted `state.schema` and never read it, deferring 'until it has a consumer'."""
     doc = load(ROOT / "graphs/software-engineering/flaky-test-reflexion/graph.yaml")
     case = yaml.safe_load(
-        (ROOT / "evals/flaky-test-reflexion/cases.yaml").read_text())["cases"][0]
+        (cases_path("flaky-test-reflexion")).read_text())["cases"][0]
     assert doc["state"]["schema"] == "state/lessons.schema.json"
 
     rep = run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT, inputs=case_inputs(case))
@@ -392,7 +392,7 @@ def test_reflexion_lessons_are_captured_on_the_report():
     """A reflexion graph that cannot carry a lesson is a retry loop with vocabulary."""
     doc = load(ROOT / "graphs/software-engineering/flaky-test-reflexion/graph.yaml")
     case = yaml.safe_load(
-        (ROOT / "evals/flaky-test-reflexion/cases.yaml").read_text())["cases"][0]
+        (cases_path("flaky-test-reflexion")).read_text())["cases"][0]
     rep = run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT, inputs=case_inputs(case))
     assert rep.lessons and all(isinstance(x, dict) for x in rep.lessons)
 

@@ -20,7 +20,7 @@ import json
 import pytest
 
 from agenticgraphs.harness import LLMRunner
-from agenticgraphs.registry import ROOT, iter_graphs, load
+from agenticgraphs.registry import ROOT, iter_graphs, live_dir, load
 from agenticgraphs.subgraphs import expand, has_subgraphs
 from agenticgraphs.validate import asserted_keys
 
@@ -109,7 +109,7 @@ def test_no_child_node_in_the_recordings_produced_parent_keys():
         for v in expand(doc, ROOT).get("verification") or []:
             if "assert" in v and not v.get("phase"):
                 parent_keys |= asserted_keys(v["assert"])
-        for f in glob.glob(str(ROOT / "evals" / doc["name"] / "live" / "*.json")):
+        for f in glob.glob(str(live_dir(doc["name"]) / "*.json")):
             for nid, out in json.load(open(f))["node_outputs"].items():
                 if "." not in nid or not isinstance(out, dict):
                     continue

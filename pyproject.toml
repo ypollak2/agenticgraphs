@@ -56,7 +56,6 @@ packages = ["src/agenticgraphs"]
 "spec" = "agenticgraphs/data/spec"
 "specialities" = "agenticgraphs/data/specialities"
 "abilities" = "agenticgraphs/data/abilities"
-"evals" = "agenticgraphs/data/evals"
 "usecases" = "agenticgraphs/data/usecases"
 
 [dependency-groups]

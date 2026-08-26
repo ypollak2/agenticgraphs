@@ -11,7 +11,7 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from agenticgraphs.inspect import structural_profile, to_mermaid  # noqa: E402
-from agenticgraphs.registry import ROOT, iter_graphs, load  # noqa: E402
+from agenticgraphs.registry import ROOT, cases_path, iter_graphs, load  # noqa: E402
 
 CATALOG = ROOT / "usecases" / "catalog.yaml"
 BEGIN, END = "<!-- graph-of-graphs:begin -->", "<!-- graph-of-graphs:end -->"
@@ -198,7 +198,7 @@ def gen_card(doc: dict, entry: dict, catalog: list[dict], has_evals: bool) -> st
                      f"(../../../docs/traces/{name}.md)")
     else:
         lines.append("- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the "
-                     "next step for this card (see `evals/` for the format)")
+                     "next step for this card (see any graph's cases.yaml for the format)")
     lines += [
         "",
         "## How to work with it",
@@ -307,7 +307,7 @@ def main() -> int:
         entry = by_name.get(doc["name"])
         if entry is None:
             print(f"FAIL no catalog entry for {doc['name']}"); return 1
-        has_evals = (ROOT / "evals" / doc["name"] / "cases.yaml").exists()
+        has_evals = (cases_path(doc["name"])).exists()
         (gpath.parent / "CARD.md").write_text(gen_card(doc, entry, catalog, has_evals))
         rows.append({"cid": card_id(entry), "name": doc["name"], "domain": doc["category"],
                      "pattern": entry["pattern"], "contract": doc["termination"]["contract"],

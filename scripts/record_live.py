@@ -1,4 +1,4 @@
-"""Record real-model node outputs into evals/<graph>/live/<case>.json.
+"""Record real-model node outputs into a graph's live/<case>.json.
 
 The depth grading shipped in v1.1 could report `assert-live`, but nothing ever
 produced it: a live run needs a network call, so CI never made one and all 74
@@ -27,7 +27,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from agenticgraphs.evalcmd import case_inputs  # noqa: E402
 from agenticgraphs.harness import LLMRunner, ToolRunner, run_graph  # noqa: E402
 from agenticgraphs.inspect import find_graph  # noqa: E402
-from agenticgraphs.registry import ROOT, load  # noqa: E402
+from agenticgraphs.registry import ROOT, cases_path, live_dir, load  # noqa: E402
 
 
 class RecordingRunner:
@@ -65,7 +65,7 @@ class RecordingRunner:
 
 
 def _model_dir(name: str, model: str) -> str:
-    """Recordings are per-model: `evals/<graph>/live/<case>@<model>.json`.
+    """Recordings are per-model: `<graph bundle>/live/<case>@<model>.json`.
 
     v1.2 kept one recording per case, which made a single weak model look like a
     property of the graph. Distinguishing "no model satisfies this contract" from
@@ -77,7 +77,7 @@ def _model_dir(name: str, model: str) -> str:
 def record(name: str, sample: int = 0) -> dict:
     gpath = find_graph(name)
     doc = load(gpath)
-    cases = yaml.safe_load((ROOT / "evals" / name / "cases.yaml").read_text())["cases"]
+    cases = yaml.safe_load((cases_path(name)).read_text())["cases"]
     case = cases[0]
     # AGR_TOOLS=1 binds each node's declared abilities; AGR_ALLOW_MUTATING=1 also
     # permits risk: write/execute, the same gate `agr eval --run-commands` uses.
@@ -95,7 +95,7 @@ def record(name: str, sample: int = 0) -> dict:
     # it fails silently and looks like a negative result.
     inputs = case_inputs(case)
     rep = run_graph(doc, runner, root=ROOT, auto_approve=True, inputs=inputs)
-    out_dir = ROOT / "evals" / name / "live"
+    out_dir = live_dir(name)
     out_dir.mkdir(parents=True, exist_ok=True)
     payload = {
         "model": os.environ["AGR_LLM_MODEL"],

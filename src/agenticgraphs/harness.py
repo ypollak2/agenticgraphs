@@ -438,7 +438,7 @@ class LLMRunner:
 
 
 class ReplayRunner:
-    """Replays *recorded real-model* outputs from evals/<graph>/live/<case>.json.
+    """Replays *recorded real-model* outputs from a graph's live/<case>.json.
 
     The depth grading shipped in v1.1 could report `assert-live`, but nothing
     ever produced it: a live run needs a network call, so CI never made one and

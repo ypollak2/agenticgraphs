@@ -27,7 +27,7 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from agenticgraphs.registry import ROOT, SPEC_VERSION, iter_graphs, load  # noqa: E402
+from agenticgraphs.registry import ROOT, SPEC_VERSION, cases_path, iter_graphs, load  # noqa: E402
 
 # name -> (what the caller must state, a concrete instance for the golden cases)
 #
@@ -160,7 +160,7 @@ def migrate_graph(doc: dict) -> bool:
 
 def migrate_cases(name: str, root: Path) -> int:
     """Give every golden case a concrete goal, so the fixtures exercise the gate."""
-    path = root / "evals" / name / "cases.yaml"
+    path = cases_path(name)
     if not path.exists():
         return 0
     data = yaml.safe_load(path.read_text())

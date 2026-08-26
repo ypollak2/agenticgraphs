@@ -35,7 +35,7 @@ def main(argv: list[str] | None = None) -> int:
     ep.add_argument("--resume-from", type=Path, metavar="JOURNAL",
                     help="resume a killed run from its journal (requires durability.resume)")
     ep.add_argument("--no-replay", action="store_true",
-                    help="ignore checked-in real-model recordings in evals/<graph>/live/ "
+                    help="ignore checked-in real-model recordings in the graph's live/ "
                          "and use mock fixtures instead")
     ep.add_argument("--run-commands", action="store_true",
                     help="actually execute verification[].command entries (runs real code "

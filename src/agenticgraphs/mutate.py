@@ -16,7 +16,7 @@ import yaml
 from .autonomy import commit_autonomous_mutation, require_autonomous, require_execute_allowed
 from .harness import MockRunner, run_graph
 from .inspect import find_graph
-from .registry import ROOT, iter_yaml, load
+from .registry import ROOT, cases_path, iter_yaml, load
 from .validate import validate_graph_file
 
 
@@ -36,7 +36,7 @@ def _write_checked(gpath: Path, doc: dict, original: str) -> list[str]:
 
 
 def _cases_still_pass(name: str, doc: dict, root: Path = ROOT) -> bool:
-    cf = root / "evals" / name / "cases.yaml"
+    cf = cases_path(name, root)
     if not cf.exists():
         return True
     for case in yaml.safe_load(cf.read_text())["cases"]:

@@ -20,7 +20,7 @@ from agenticgraphs.compose import (
 )
 from agenticgraphs.evalcmd import case_inputs
 from agenticgraphs.harness import HumanGateRequired, LLMRunner, MockRunner, run_graph
-from agenticgraphs.registry import ROOT, iter_graphs, load
+from agenticgraphs.registry import ROOT, cases_path, iter_graphs, load
 from agenticgraphs.subgraphs import MAX_DEPTH, SubgraphError, entry_nodes, expand
 from agenticgraphs.validate import lint_graph, validate_graph_file, validate_schema
 
@@ -56,7 +56,7 @@ def test_v1_traces_are_byte_identical():
         doc = load(gp)
         if doc["name"] not in lock:
             continue
-        cases = yaml.safe_load((ROOT / "evals" / doc["name"] / "cases.yaml").read_text())["cases"]
+        cases = yaml.safe_load((cases_path(doc["name"])).read_text())["cases"]
         for case, expected in zip(cases, lock[doc["name"]], strict=True):
             rep = run_graph(doc, MockRunner(case["node_outputs"]), inputs=case_inputs(case))
             assert rep.trace == expected["trace"], f"{doc['name']}/{case['id']} trace drifted"
@@ -70,7 +70,7 @@ def test_whole_registry_still_passes():
     total = passed = 0
     for gp in iter_graphs():
         doc = load(gp)
-        cf = ROOT / "evals" / doc["name"] / "cases.yaml"
+        cf = cases_path(doc["name"])
         assert cf.exists(), f"{doc['name']} has no golden cases"
         for case in yaml.safe_load(cf.read_text())["cases"]:
             total += 1
@@ -480,7 +480,7 @@ def test_compose_by_reference_emits_subgraph_nodes_and_validates():
 
 def test_e2e_feature_delivery_lifecycle_runs_all_eight_phases():
     doc = load(ROOT / "graphs/software-engineering/feature-delivery-lifecycle/graph.yaml")
-    cases = yaml.safe_load((ROOT / "evals/feature-delivery-lifecycle/cases.yaml").read_text())["cases"]
+    cases = yaml.safe_load((cases_path("feature-delivery-lifecycle")).read_text())["cases"]
     by_id = {c["id"]: c for c in cases}
 
     rep = run_graph(doc, MockRunner(by_id["clean-path-releases"]["node_outputs"]), root=ROOT,
@@ -499,7 +499,7 @@ def test_e2e_feature_delivery_lifecycle_runs_all_eight_phases():
 def test_e2e_audit_rework_loop_reruns_the_audit_phase():
     doc = load(ROOT / "graphs/software-engineering/feature-delivery-lifecycle/graph.yaml")
     cases = {c["id"]: c for c in yaml.safe_load(
-        (ROOT / "evals/feature-delivery-lifecycle/cases.yaml").read_text())["cases"]}
+        (cases_path("feature-delivery-lifecycle")).read_text())["cases"]}
     rep = run_graph(doc, MockRunner(cases["audit-requests-changes-then-approves"]["node_outputs"]),
                     root=ROOT, inputs=case_inputs(cases["audit-requests-changes-then-approves"]))
     assert rep.passed, rep.assert_failures
@@ -510,7 +510,7 @@ def test_e2e_audit_rework_loop_reruns_the_audit_phase():
 def test_e2e_failed_release_is_compensated_not_left_partial():
     doc = load(ROOT / "graphs/software-engineering/feature-delivery-lifecycle/graph.yaml")
     cases = {c["id"]: c for c in yaml.safe_load(
-        (ROOT / "evals/feature-delivery-lifecycle/cases.yaml").read_text())["cases"]}
+        (cases_path("feature-delivery-lifecycle")).read_text())["cases"]}
     rep = run_graph(doc, MockRunner(cases["failed-release-is-compensated"]["node_outputs"]),
                     root=ROOT, inputs=case_inputs(cases["failed-release-is-compensated"]))
     assert rep.passed, rep.assert_failures

@@ -8,16 +8,15 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from .registry import ROOT, iter_graphs, iter_yaml, load
+from .registry import ROOT, graph_dir, iter_graphs, iter_yaml, load
 
 RISK_ORDER = {"read": 0, "write": 1, "execute": 2}
 
 
 def find_graph(name: str, root: Path = ROOT) -> Path | None:
-    for g in iter_graphs(root):
-        if g.parent.name == name:
-            return g
-    return None
+    """The graph.yaml for `name`. One definition of the lookup, in the core."""
+    d = graph_dir(name, root)
+    return (d / "graph.yaml") if d is not None else None
 
 
 def to_mermaid(doc: dict) -> str:
