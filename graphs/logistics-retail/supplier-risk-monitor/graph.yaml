@@ -30,7 +30,7 @@ nodes:
   inputs:
   - risk_scores
   outputs:
-  - concentration
+  - concentration: list[{single_source:bool, supplier_count:int}]
 - id: mitigate
   speciality: planner
   abilities:
@@ -40,7 +40,7 @@ nodes:
   - concentration
   outputs:
   - above_appetite
-  - concentration
+  - concentration: list[{single_source:bool, supplier_count:int}]
   - mitigations
   - mitigations_planned
   - output

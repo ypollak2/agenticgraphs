@@ -66,12 +66,28 @@ def test_the_files_are_kept_not_deleted():
     assert len(list(ROOT.glob("graphs/*/*/live/*.json"))) > 500
 
 
-def test_no_profile_reports_live_evidence():
+def test_a_published_live_rate_comes_only_from_current_recordings():
+    """The durable property, not the transitional one.
+
+    This asserted that NO profile reports live evidence, which was true only while
+    the count was zero. Re-recording makes it false by design, and a test that
+    fails when the thing it guards starts working is guarding the wrong thing.
+    What must always hold is that any published rate rests on recordings made
+    under the current spec.
+    """
+    from agenticgraphs.registry import SPEC_VERSION
+
     for e in Registry.load():
-        assert not e.profile.get("measured_live"), (
-            f"{e.name} still publishes a live pass rate from a superseded recording"
+        if not e.profile.get("measured_live"):
+            assert e.evidence.tier == "none"
+            continue
+        current = [
+            json.loads(p.read_text()) for p in live_dir(e.name).glob("*.json")
+        ]
+        assert any(d.get("spec") == SPEC_VERSION and not d.get("superseded_by")
+                   for d in current), (
+            f"{e.name} publishes a live rate with no current-spec recording behind it"
         )
-        assert e.evidence.tier == "none"
 
 
 def test_a_superseded_recording_is_not_loaded_for_replay():

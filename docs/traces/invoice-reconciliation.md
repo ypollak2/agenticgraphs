@@ -30,7 +30,7 @@ flowchart LR
 |---|---|---|
 | 1 | `auto-match.plan` | `steps=['decompose goal']` |
 | 2 | `auto-match.work` | *(no fixture — empty output)* |
-| 3 | `auto-match.verify` | `exceptions=[], matched=[{'inv': 1}], verify_failed=False, attempts=1, output={'violations': [{'line_id': 'L-12', 'policy_rule': 'T&E-4'}]}` |
+| 3 | `auto-match.verify` | `exceptions=[], matched=[{'invoice_id': 'INV-1', 'po_id': 'PO-1', 'receipt_id': 'GR-1'}], verify_failed=False, attempts=1, output={'violations': [{'line_id': 'L-12', 'policy_rule': 'T&E-4'}]}` |
 | 4 | `post` | `posted=True, unreviewed_exceptions=0, output={'posted': 128, 'unreviewed_exceptions': 0, 'three_way_matched': True, 'matched': [{'invoice_id': 'INV-1', 'po_id': 'PO-1', 'receipt_id': 'GR-1'}]}, matched=[{'invoice_id': 'INV-1', 'po_id': 'PO-1', 'receipt_id': 'GR-1'}]` |
 
 **Verification checked:**

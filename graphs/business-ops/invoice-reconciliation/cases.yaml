@@ -8,7 +8,9 @@ cases:
     auto-match.verify:
       exceptions: []
       matched:
-      - inv: 1
+      - invoice_id: INV-1
+        po_id: PO-1
+        receipt_id: GR-1
       verify_failed: false
       attempts: 1
       output:

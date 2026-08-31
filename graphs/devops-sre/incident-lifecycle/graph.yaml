@@ -64,7 +64,7 @@ nodes:
   inputs:
   - postmortem
   outputs:
-  - actions
+  - actions: list[{owner:any, task:any}]
   - output
 edges:
 - from: detect

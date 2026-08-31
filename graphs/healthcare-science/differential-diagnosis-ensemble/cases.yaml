@@ -7,7 +7,9 @@ cases:
       - p: 2
       - p: 3
     diagnose:
-      ranking: ranking-value
+      ranking:
+      - clinician_id: c1
+      - clinician_id: c2
     adjudicate:
       consensus: PE
       dissent:

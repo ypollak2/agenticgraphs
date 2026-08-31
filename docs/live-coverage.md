@@ -6,7 +6,7 @@ the registry.
 
 **0 of 83 graphs recorded**.
 
-> **560 recordings are held but not counted.** They were taken
+> **546 recordings are held but not counted.** They were taken
 > before agr/v1.8, when the runner passed each node the verification asserts
 > it was about to be scored on, under unpinned sampling, and against the 16
 > self-graded contracts v1.8 replaced. They are kept so a reader can see what

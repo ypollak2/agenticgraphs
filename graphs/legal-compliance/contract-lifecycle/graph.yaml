@@ -49,7 +49,7 @@ nodes:
   outputs:
   - output
   - residual_risk_level
-  - signatures
+  - signatures: list[{party:any, dated:any}]
 edges:
 - from: intake
   to: redline

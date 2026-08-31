@@ -28,7 +28,7 @@ nodes:
   - cut_list
   outputs:
   - show_notes
-  - timestamps
+  - timestamps: list[{start:int, end:int}]
   parallel_group: edit-plan-fanout
 - id: rights-check
   speciality: counsel
@@ -37,7 +37,7 @@ nodes:
   inputs:
   - cut_list
   outputs:
-  - clearances
+  - clearances: list[{license_ref:any}]
   - rights_clear: any
   parallel_group: edit-plan-fanout
 - id: publish
@@ -48,10 +48,10 @@ nodes:
   - show_notes
   - rights_clear
   outputs:
-  - clearances
+  - clearances: list[{license_ref:any}]
   - output
   - published
-  - timestamps
+  - timestamps: list[{start:int, end:int}]
   join: all
 edges:
 - from: transcribe

@@ -14,7 +14,9 @@ cases:
     score:
       risk_scores: []
     concentrate:
-      concentration: concentration-value
+      concentration:
+      - single_source: true
+        supplier_count: 1
     mitigate:
       mitigations:
       - m1

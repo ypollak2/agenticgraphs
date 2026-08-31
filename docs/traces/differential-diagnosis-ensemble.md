@@ -25,7 +25,7 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `intake` | `presentations=[{'p': 1}, {'p': 2}, {'p': 3}]` |
-| 2 | `diagnose` | `ranking='ranking-value'` |
+| 2 | `diagnose` | `ranking=[{'clinician_id': 'c1'}, {'clinician_id': 'c2'}]` |
 | 3 | `adjudicate` | `consensus='PE', dissent=['ACS'], output={'consensus': 'PE', 'dissent': ['ACS'], 'dissent_retained': True, 'represented': ['c1', 'c2'], 'ranking': [{'clinician_id': 'c1'}, {'clinician_id': 'c2'}]}, represented=['c1', 'c2'], ranking=[{'clinician_id': 'c1'}, {'clinician_id': 'c2'}]` |
 
 **Verification checked:**

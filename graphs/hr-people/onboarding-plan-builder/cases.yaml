@@ -4,7 +4,8 @@ cases:
     gather:
       role_context: role_context-value
     draft-plan:
-      plan_30_60_90: plan_30_60_90-value
+      plan_30_60_90:
+      - milestone: ship one PR
     access-map:
       access_requests: []
     review:

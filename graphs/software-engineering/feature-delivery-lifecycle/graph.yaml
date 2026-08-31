@@ -83,7 +83,7 @@ nodes:
   - patch
   - verdict
   outputs:
-  - doc_changes
+  - doc_changes: list[{file:any, pr_url:any}]
   join: all
 - id: release-approval
   speciality: approver
@@ -114,7 +114,7 @@ nodes:
   inputs:
   - release_tag
   outputs:
-  - doc_changes
+  - doc_changes: list[{file:any, pr_url:any}]
   - output
   - rolled_back
 edges:

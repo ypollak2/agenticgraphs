@@ -20,7 +20,7 @@ nodes:
   inputs:
   - role_context
   outputs:
-  - plan_30_60_90
+  - plan_30_60_90: list[{milestone:any}]
   parallel_group: gather-fanout
 - id: access-map
   speciality: mapper
@@ -29,7 +29,7 @@ nodes:
   inputs:
   - role_context
   outputs:
-  - access_requests
+  - access_requests: list[{system:any, requested_on:any}]
   parallel_group: gather-fanout
 - id: review
   speciality: critic
@@ -40,9 +40,9 @@ nodes:
   - plan_30_60_90
   - access_requests
   outputs:
-  - access_requests
+  - access_requests: list[{system:any, requested_on:any}]
   - output
-  - plan_30_60_90
+  - plan_30_60_90: list[{milestone:any}]
   join: all
   criteria: Each 30/60/90 checkpoint carries a milestone an observer could mark done or not done, and
     every system the role needs on day one is requested before the start date. 'Get up to speed' is not

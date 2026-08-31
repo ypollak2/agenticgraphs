@@ -27,7 +27,7 @@ nodes:
   inputs:
   - criteria_grid
   outputs:
-  - matrix
+  - matrix: list[{criteria:list, vendor:any}]
   fan_out:
     over: vendor_docs
 - id: cite-check
@@ -39,7 +39,7 @@ nodes:
   - matrix
   outputs:
   - criteria_grid
-  - matrix
+  - matrix: list[{criteria:list, vendor:any}]
   - output
   - uncited_cells
   criteria: Every cell cites the vendor document and section it came from, and all vendors are scored

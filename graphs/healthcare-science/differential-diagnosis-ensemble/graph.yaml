@@ -17,7 +17,7 @@ nodes:
   abilities:
   - analyze
   outputs:
-  - ranking
+  - ranking: list[{clinician_id:any}]
   inputs:
   - presentations
   fan_out:
@@ -32,7 +32,7 @@ nodes:
   - consensus
   - dissent
   - output
-  - ranking
+  - ranking: list[{clinician_id:any}]
   - represented
   inputs:
   - ranking

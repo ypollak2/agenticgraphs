@@ -46,7 +46,7 @@ nodes:
   abilities:
   - run_command
   outputs:
-  - bypasses
+  - bypasses: list[{mitigation_ref:any}]
   - output
   - unmitigated
   inputs:

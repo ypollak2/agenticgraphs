@@ -29,7 +29,7 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `gather` | `role_context='role_context-value'` |
-| 2 | `draft-plan` | `plan_30_60_90='plan_30_60_90-value'` |
+| 2 | `draft-plan` | `plan_30_60_90=[{'milestone': 'ship one PR'}]` |
 | 3 | `access-map` | `access_requests=[]` |
 | 4 | `review` | `milestones_covered=True, output={'milestones_covered': True, 'access_requested': True, 'plan_30_60_90': [{'milestone': 'ship one PR'}], 'access_requests': [{'system': 'github', 'requested_on': '2026-08-20'}]}, plan_30_60_90=[{'milestone': 'ship one PR'}], access_requests=[{'system': 'github', 'requested_on': '2026-08-20'}]` |
 

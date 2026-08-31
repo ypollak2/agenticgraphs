@@ -30,7 +30,7 @@ flowchart LR
 | 2 | `ingest.map` | *(no fixture — empty output)* |
 | 3 | `ingest.reduce` | `supplier_signals=[], output={'findings': [{'title': 'competitor launched feature X', 'source_url': 'https://example.com/blog', 'source_date': '2026-07-01'}]}` |
 | 4 | `score` | `risk_scores=[]` |
-| 5 | `concentrate` | `concentration='concentration-value'` |
+| 5 | `concentrate` | `concentration=[{'single_source': True, 'supplier_count': 1}]` |
 | 6 | `mitigate` | `mitigations=['m1', 'm2'], output={'above_appetite': 2, 'mitigations_planned': 2, 'single_source_flagged': True, 'concentration': [{'single_source': True, 'supplier_count': 1}]}, above_appetite=2, mitigations_planned=2, concentration=[{'single_source': True, 'supplier_count': 1}]` |
 
 **Verification checked:**

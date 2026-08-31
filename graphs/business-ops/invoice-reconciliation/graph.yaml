@@ -12,7 +12,7 @@ nodes:
   - invoices
   outputs:
   - exceptions
-  - matched
+  - matched: list[{invoice_id:any, po_id:any, receipt_id:any}]
   - violations: list[{line_id:any, policy_rule:any}]
 - id: fuzzy-match
   speciality: escalator
@@ -42,7 +42,7 @@ nodes:
   inputs:
   - matched
   outputs:
-  - matched
+  - matched: list[{invoice_id:any, po_id:any, receipt_id:any}]
   - output
   - posted
   - unreviewed_exceptions
