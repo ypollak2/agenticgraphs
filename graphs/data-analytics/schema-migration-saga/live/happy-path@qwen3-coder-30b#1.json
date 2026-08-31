@@ -1,9 +1,15 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-11",
+  "recorded": "2026-08-31",
   "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
   "inputs": {
-    "goal": "migrate the orders schema to the normalized v3 shape without downtime"
+    "goal": "orders v3 to v4, keeping orders readable throughout"
   },
   "node_outputs": {
     "plan": {
@@ -11,42 +17,37 @@
         {
           "step": 1,
           "action": "decompose_goal",
-          "detail": "break down schema migration into logical phases: analysis, preparation, data transfer, switchover, verification"
+          "details": "Break down v3 to v4 orders migration into manageable components"
         },
         {
           "step": 2,
-          "action": "analyze_current_schema",
-          "detail": "examine existing orders schema structure and identify dependencies"
+          "action": "validate_v3_orders",
+          "details": "Verify all v3 order data integrity and readability before migration"
         },
         {
           "step": 3,
-          "action": "create_v3_schema",
-          "detail": "design normalized v3 schema with proper relationships and constraints"
+          "action": "create_v4_schema",
+          "details": "Design and implement v4 order schema maintaining readability standards"
         },
         {
           "step": 4,
-          "action": "setup_read_replica",
-          "detail": "create read-only replica of current database for migration testing"
+          "action": "migrate_orders_batch",
+          "details": "Migrate orders in small batches with validation at each step"
         },
         {
           "step": 5,
-          "action": "migrate_data_structure",
-          "detail": "transfer data from old schema to new schema in batches"
+          "action": "validate_v4_orders",
+          "details": "Ensure migrated orders maintain readability and data integrity"
         },
         {
           "step": 6,
-          "action": "validate_data_integrity",
-          "detail": "verify data consistency between old and new schemas"
+          "action": "update_references",
+          "details": "Update all system references to point to v4 orders"
         },
         {
           "step": 7,
-          "action": "switch_over_services",
-          "detail": "update application connections to point to new v3 schema"
-        },
-        {
-          "step": 8,
-          "action": "final_verification",
-          "detail": "confirm all downstream systems operate correctly with new schema"
+          "action": "cleanup_v3",
+          "details": "Remove v3 order data after successful migration and validation"
         }
       ]
     },
@@ -63,7 +64,5 @@
       "parity_verified": true
     }
   },
-  "tool_calls": [],
-  "superseded_by": "agr/v1.8",
-  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+  "tool_calls": []
 }

@@ -1,23 +1,37 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-11",
+  "recorded": "2026-08-31",
   "endpoint": "http://localhost:11434/v1",
-  "inputs": {},
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "ticket 84120, escalating to tier 3"
+  },
   "node_outputs": {
     "intake": {
-      "summary": "All asks resolved with traceable quotes"
+      "summary": "Ticket 84120 requires escalation to Tier 3 support due to unresolved hardware compatibility issues with the newly deployed network switches. Initial analysis indicates configuration conflicts between legacy and new equipment that cannot be resolved within current tier's scope. All troubleshooting steps at Tier 1 and 2 have been exhausted, including firmware updates, configuration resets, and cross-referencing with vendor documentation. The issue involves intermittent connectivity drops affecting critical business applications, necessitating specialized hardware diagnostics and potential replacement protocols. Escalation is required to access Tier 3's advanced diagnostic tools and vendor-specific expertise for resolution."
     },
     "produce": {
       "all_asks_covered": true,
       "asks": [
         {
-          "quote": "quote1"
+          "quote": "Ticket 84120 requires escalation to Tier 3 support due to unresolved hardware compatibility issues with the newly deployed network switches."
         },
         {
-          "quote": "quote2"
+          "quote": "Initial analysis indicates configuration conflicts between legacy and new equipment that cannot be resolved within current tier's scope."
         },
         {
-          "quote": "quote3"
+          "quote": "All troubleshooting steps at Tier 1 and 2 have been exhausted, including firmware updates, configuration resets, and cross-referencing with vendor documentation."
+        },
+        {
+          "quote": "The issue involves intermittent connectivity drops affecting critical business applications, necessitating specialized hardware diagnostics and potential replacement protocols."
+        },
+        {
+          "quote": "Escalation is required to access Tier 3's advanced diagnostic tools and vendor-specific expertise for resolution."
         }
       ]
     },
@@ -26,19 +40,23 @@
         "all_asks_covered": true,
         "asks": [
           {
-            "quote": "quote1"
+            "quote": "Ticket 84120 requires escalation to Tier 3 support due to unresolved hardware compatibility issues with the newly deployed network switches."
           },
           {
-            "quote": "quote2"
+            "quote": "Initial analysis indicates configuration conflicts between legacy and new equipment that cannot be resolved within current tier's scope."
           },
           {
-            "quote": "quote3"
+            "quote": "All troubleshooting steps at Tier 1 and 2 have been exhausted, including firmware updates, configuration resets, and cross-referencing with vendor documentation."
+          },
+          {
+            "quote": "The issue involves intermittent connectivity drops affecting critical business applications, necessitating specialized hardware diagnostics and potential replacement protocols."
+          },
+          {
+            "quote": "Escalation is required to access Tier 3's advanced diagnostic tools and vendor-specific expertise for resolution."
           }
         ]
       }
     }
   },
-  "tool_calls": [],
-  "superseded_by": "agr/v1.8",
-  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+  "tool_calls": []
 }

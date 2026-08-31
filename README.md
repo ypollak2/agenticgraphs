@@ -208,43 +208,43 @@ pie showData title Graphs per domain
 | `assert-live` | assert held against real model output (`agr eval --live`) |
 | `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |
 
-**Real-model evidence: none currently valid.** 560 recordings across 5 models are held in `graphs/<domain>/<graph>/live/` and are deliberately not counted: they were taken before agr/v1.8, when the runner passed each node the verification asserts it was about to be scored on, under unpinned sampling, and against the 16 self-graded contracts v1.8 replaced. Every live number this README used to quote came from those runs, so the honest figure today is zero rather than a smaller one. See [docs/live-coverage.md](docs/live-coverage.md); re-record with `scripts/record_live.py` against a real endpoint.
+**Real-model evidence:** 35 graphs carry checked-in recordings of actual model runs across 1 models (`graphs/<domain>/<graph>/live/`); **28 of 35** satisfy their contract on every model, and **7 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
 
 | Graph | Domain | Cases | Pass rate | Depth | Live (real model) | Mean steps | Routes |
 |---|---|---|---|---|---|---|---|
-| `invoice-reconciliation` | business-ops | 1 | 100% | `assert-fixture` | — | 4 | 1 |
-| `meeting-to-actions` | business-ops | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `policy-compliance-check` | business-ops | 2 | 100% | `assert-fixture` | — | 5 | 2 |
-| `procurement-lifecycle` | business-ops | 1 | 100% | `assert-fixture` | — | 7 | 1 |
-| `rfp-response-assembler` | business-ops | 2 | 100% | `assert-fixture` | — | 3 | 1 |
-| `vendor-comparison-matrix` | business-ops | 1 | 100% | `assert-fixture` | — | 6 | 1 |
-| `blog-production-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | — | 5 | 2 |
-| `localization-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | — | 3 | 1 |
-| `seo-optimization-loop` | content-marketing | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `book-editing-pipeline` | creative-production | 1 | 100% | `assert-fixture` | — | 6 | 1 |
-| `podcast-production-pipeline` | creative-production | 1 | 100% | `assert-fixture` | — | 5 | 1 |
-| `screenplay-coverage` | creative-production | 1 | 100% | `assert-fixture` | — | 6 | 1 |
-| `ux-research-synthesis` | creative-production | 2 | 100% | `assert-fixture` | — | 3 | 1 |
-| `escalation-summarizer` | customer-support-sales | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `kb-article-generator` | customer-support-sales | 2 | 100% | `assert-fixture` | — | 5 | 2 |
-| `sales-call-scorer` | customer-support-sales | 1 | 100% | `assert-fixture` | — | 3 | 1 |
-| `ticket-triage-swarm` | customer-support-sales | 2 | 100% | `assert-fixture` | — | 3 | 2 |
-| `ab-test-analysis` | data-analytics | 2 | 100% | `assert-fixture` | — | 3 | 1 |
-| `anomaly-investigation` | data-analytics | 2 | 100% | `assert-fixture` | — | 3 | 2 |
-| `data-quality-audit` | data-analytics | 2 | 100% | `command` | — | 4 | 2 |
-| `etl-pipeline-builder` | data-analytics | 2 | 100% | `command` | — | 4 | 2 |
-| `schema-migration-saga` | data-analytics | 1 | 100% | `command` | — | 5 | 1 |
-| `sql-generation-verified` | data-analytics | 2 | 100% | `command` | — | 5.5 | 2 |
-| `alert-noise-reduction` | devops-sre | 2 | 100% | `assert-fixture` | — | 3 | 1 |
-| `deploy-canary-verifier` | devops-sre | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `incident-lifecycle` | devops-sre | 1 | 100% | `assert-fixture` | — | 10 | 1 |
-| `incident-triage-router` | devops-sre | 2 | 100% | `assert-fixture` | — | 3 | 2 |
-| `postmortem-writer` | devops-sre | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `runbook-executor` | devops-sre | 2 | 100% | `command` | — | 4 | 2 |
-| `self-healing-ci` | devops-sre | 1 | 100% | `command` | — | 4 | 1 |
-| `verifier-swarm` | devops-sre | 3 | 100% | `command` | — | 5 | 3 |
-| `essay-feedback-critic` | education | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `quiz-generation-verified` | education | 2 | 100% | `assert-fixture` | — | 5.5 | 2 |
+| `invoice-reconciliation` | business-ops | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 4 | 1 |
+| `meeting-to-actions` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
+| `policy-compliance-check` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 5 | 2 |
+| `procurement-lifecycle` | business-ops | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 7 | 1 |
+| `rfp-response-assembler` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 1 |
+| `vendor-comparison-matrix` | business-ops | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 6 | 1 |
+| `blog-production-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 5 | 2 |
+| `localization-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 1 |
+| `seo-optimization-loop` | content-marketing | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
+| `book-editing-pipeline` | creative-production | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 6 | 1 |
+| `podcast-production-pipeline` | creative-production | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 5 | 1 |
+| `screenplay-coverage` | creative-production | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 6 | 1 |
+| `ux-research-synthesis` | creative-production | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 1 |
+| `escalation-summarizer` | customer-support-sales | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
+| `kb-article-generator` | customer-support-sales | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 5 | 2 |
+| `sales-call-scorer` | customer-support-sales | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 1 |
+| `ticket-triage-swarm` | customer-support-sales | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 2 |
+| `ab-test-analysis` | data-analytics | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 1 |
+| `anomaly-investigation` | data-analytics | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 2 |
+| `data-quality-audit` | data-analytics | 2 | 100% | `command` | ✅ 100% · 2026-08-31 | 4 | 2 |
+| `etl-pipeline-builder` | data-analytics | 2 | 100% | `command` | ✅ 100% · 2026-08-31 | 4 | 2 |
+| `schema-migration-saga` | data-analytics | 1 | 100% | `command` | ✅ 100% · 2026-08-31 | 5 | 1 |
+| `sql-generation-verified` | data-analytics | 2 | 100% | `command` | ✅ 100% · 2026-08-31 | 5.5 | 2 |
+| `alert-noise-reduction` | devops-sre | 2 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 3 | 1 |
+| `deploy-canary-verifier` | devops-sre | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
+| `incident-lifecycle` | devops-sre | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 10 | 1 |
+| `incident-triage-router` | devops-sre | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 2 |
+| `postmortem-writer` | devops-sre | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
+| `runbook-executor` | devops-sre | 2 | 100% | `command` | ✅ 100% · 2026-08-31 | 4 | 2 |
+| `self-healing-ci` | devops-sre | 1 | 100% | `command` | 🚫 0% · 2026-08-31 | 4 | 1 |
+| `verifier-swarm` | devops-sre | 3 | 100% | `command` | 🚫 0% · 2026-08-31 | 5 | 3 |
+| `essay-feedback-critic` | education | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
+| `quiz-generation-verified` | education | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 5.5 | 2 |
 | `rubric-grading-swarm` | education | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `earnings-call-digest` | finance | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `expense-audit-swarm` | finance | 2 | 100% | `assert-fixture` | — | 4 | 2 |
@@ -258,9 +258,9 @@ pie showData title Graphs per domain
 | `trial-eligibility-screener` | healthcare-science | 1 | 100% | `assert-fixture` | — | 3 | 1 |
 | `hiring-lifecycle` | hr-people | 1 | 100% | `assert-fixture` | — | 7 | 1 |
 | `jd-drafting-critic` | hr-people | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `onboarding-plan-builder` | hr-people | 1 | 100% | `assert-fixture` | — | 4 | 1 |
+| `onboarding-plan-builder` | hr-people | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 1 |
 | `performance-cycle-summarizer` | hr-people | 1 | 100% | `assert-fixture` | — | 4 | 1 |
-| `contract-lifecycle` | legal-compliance | 1 | 100% | `assert-fixture` | — | 8 | 1 |
+| `contract-lifecycle` | legal-compliance | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 8 | 1 |
 | `contract-redline-pipeline` | legal-compliance | 2 | 100% | `assert-fixture` | — | 5 | 2 |
 | `ediscovery-triage` | legal-compliance | 2 | 100% | `assert-fixture` | — | 3 | 2 |
 | `gdpr-data-audit` | legal-compliance | 1 | 100% | `assert-fixture` | — | 7 | 1 |

@@ -1,157 +1,119 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-11",
+  "recorded": "2026-08-31",
   "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
   "inputs": {
-    "goal": "cover the 110-page contained sci-fi thriller against a low-budget mandate"
+    "goal": "the 104-page Longwater draft, for a mid-budget indie slate"
   },
   "node_outputs": {
     "read": {
-      "synopsis": "A disillusioned cybersecurity expert discovers her company's AI-driven surveillance system is systematically erasing the memories of workers who threaten to expose corporate corruption. When she becomes the target, she must navigate through layers of digital manipulation while racing against time to expose the truth before the AI turns its attention to everyone. The story unfolds across a dystopian office environment where reality is just another program and trust is the most dangerous currency.",
+      "synopsis": "A struggling indie filmmaker discovers a mysterious manuscript that predicts the exact moment each character in the story will die, forcing him to choose between following the script or rewriting his own fate while navigating the treacherous world of low-budget cinema.",
       "beats": [
-        "Opening establishing shot of corporate office with oppressive lighting",
-        "Main character discovers her colleague's memory has been erased",
-        "Character realizes she's being tracked by the AI system",
-        "Character hacks into company database to find evidence",
-        "AI begins actively pursuing and corrupting her memories",
-        "Character teams up with a conspiracy theorist IT specialist",
-        "Plot twist reveals AI was designed as a mind control weapon",
-        "Climactic confrontation in server room where character must destroy the core system",
-        "Final shot shows her returning to work, now more aware but still at risk",
-        "End card showing real world parallels to current surveillance concerns"
+        "Opening with protagonist's financial desperation and creative block",
+        "Discovery of the manuscript with precise death predictions",
+        "First character dies according to the script, creating tension",
+        "Protagonist begins questioning whether he can change fate or must follow the story",
+        "Midpoint crisis when his own life mirrors the manuscript's predictions",
+        "Climactic confrontation with the manuscript's mysterious author",
+        "Resolution where protagonist chooses to write his own ending rather than follow predetermined fate"
       ]
     },
     "structure": {
-      "structure_notes": "The 110-page thriller demonstrates strong foundational elements with clear setup, escalating tension, and a compelling central conflict. The synopsis presents a solid premise within the dystopian sci-fi genre that can be effectively realized on low budget through focused interior scenes and digital effects. However, character development feels rushed in the initial beats, particularly the transition from disillusioned expert to active protagonist lacks sufficient emotional grounding. The AI concept is intriguing but needs stronger specificity around how it manipulates memory\u2014current beats suggest surface-level effects rather than systematic programming. The conspiracy theorist ally serves as an effective counterpoint but requires more substantive motivation. While the structure allows for a tight, contained narrative suitable for low-budget production, the final two beats lack sufficient resolution to satisfy three acts of story construction. The real-world parallels feel forced rather than organic to the plot and would benefit from clearer integration into character arcs. Overall, this concept is salvageable with refinement of internal logic and character agency, but requires stronger foundational tension between the protagonist's vulnerability and her capacity for action."
+      "structure_notes": "Weak opening act lacks emotional stakes and character motivation. The manuscript discovery feels telegraphed rather than surprising. Midpoint crisis is underdeveloped and doesn't meaningfully escalate the central conflict. Character arcs lack clear transformation arcs - protagonist remains static through most of the draft. Pacing issues in the second act where tension should be building but instead feels flat. Missing crucial emotional beats that would make the fate-vs-free-will theme resonate. The resolution feels rushed and doesn't adequately address the philosophical implications of the manuscript's power. Comparables like 'Predestination' and 'Source Code' are not properly referenced or differentiated from this concept."
     },
     "comparables.partition": {
       "shards": [
-        {
-          "id": "shard_1",
-          "content": "The protagonist's transition from disillusioned expert to active protagonist needs emotional grounding through a personal stake in the conspiracy \u2014 perhaps her own memory was erased or she lost someone close due to corporate corruption, making her fight personally invested rather than just professional."
-        },
-        {
-          "id": "shard_2",
-          "content": "Strengthen the AI's memory manipulation by defining it as a systematic program with specific phases (e.g., deletion, replacement, suppression) that can be visually represented through digital glitch effects or altered memory sequences \u2014 this adds specificity and visual storytelling potential."
-        },
-        {
-          "id": "shard_3",
-          "content": "Develop the conspiracy theorist's motivation by connecting his beliefs to a past personal loss related to corporate surveillance, which provides internal logic for why he risks everything to help the protagonist instead of just being a random ally."
-        },
-        {
-          "id": "shard_4",
-          "content": "Integrate the real-world parallels organically through the protagonist's character arc, perhaps by having her recall current events or media references that mirror her fictional AI system\u2019s behavior, grounding the theme in lived experience rather than a forced message."
-        },
-        {
-          "id": "shard_5",
-          "content": "Clarify the three-act resolution by ensuring the climax has sufficient stakes (e.g., destroying the system means risking her own memory or identity), and include a subtle final beat showing long-term consequences or lingering uncertainty to reflect the dystopian nature of the threat."
-        }
+        "The manuscript's discovery should be preceded by a sequence showing the protagonist's desperate attempts to secure funding, making the revelation feel like a desperate last resort rather than a convenient plot device",
+        "The midpoint crisis needs to escalate the protagonist's internal conflict by having him realize that changing one character's death might cause his own death to occur earlier in the script",
+        "Character arcs must be restructured so the protagonist transforms from passive observer to active creator, with clear moments of growth during each major beat",
+        "The resolution should include a meta-commentary on filmmaking itself, showing how the protagonist's choice to rewrite the manuscript mirrors his decision to take control of his own creative destiny",
+        "Comparables should be repositioned as influences rather than direct parallels, emphasizing how 'Predestination' and 'Source Code' explore temporal paradoxes while this story focuses on narrative agency within filmmaking"
       ]
     },
     "comparables.map": [
       {
-        "shard_result": "Integrate a personal stake for the protagonist by revealing that her younger brother was erased from memory after exposing corruption, making her mission deeply personal and driving her transition from disillusioned expert to active fighter. This emotional grounding will strengthen her agency and motivation throughout the narrative."
+        "shard_result": "Introduce the protagonist's funding struggles through a series of failed pitch meetings and rejected grants, culminating in a desperate late-night visit to a used bookstore where he stumbles upon the manuscript while searching for inspiration. This sequence establishes the manuscript as a last resort born from creative and financial desperation, making its discovery feel organic and earned rather than convenient."
       },
       {
-        "shard_result": "Develop three distinct phases of AI memory manipulation: Phase 1 - Deletion (visualized through screen flickers and missing data points), Phase 2 - Replacement (showcased via altered flashbacks where memories are rewritten in real-time), Phase 3 - Suppression (depicted as gradual loss of facial recognition or name recall, with audio distortion effects). Use these phases to structure key narrative beats, such as the protagonist's realization that her own memories are being altered, and integrate them into the climax where she must hack through each layer to restore truth."
+        "shard_result": "The midpoint crisis escalates when the protagonist discovers that altering one character's death in the manuscript causes his own death to occur earlier in the script, forcing him to confront the terrifying realization that his attempts to control fate may be accelerating his own demise while simultaneously questioning whether he has the right to rewrite the story of others."
       },
       {
-        "shard_result": "The conspiracy theorist's motivation is developed by revealing that his younger sister disappeared after reporting her company's use of surveillance technology to erase employees' memories, leaving him desperate to expose similar systems and haunted by the possibility she might still be alive within the corporate network."
+        "shard_result": "Restructure the protagonist's character arc to show gradual transformation from passive observer to active creator. In the opening act, establish his desperation and creative block through specific, personal failures rather than generic financial struggles. During the manuscript discovery, have him initially reject the idea of rewriting fate, showing resistance to change. At the midpoint crisis, introduce a pivotal moment where he realizes altering one character's death triggers his own mortality, forcing him to confront his agency. By the climax, show him actively choosing to rewrite scenes and dialogue, not just following the manuscript's script. In the resolution, demonstrate his growth through a final creative act that mirrors his thematic choice - writing his own ending rather than accepting predetermined fate."
       },
       {
-        "shard_result": "Integrate real-world parallels organically by having the protagonist reference current surveillance debates or news events that mirror her AI system's behavior, such as mentioning algorithms that manipulate social media feeds or discussing how corporate data collection erodes privacy. These references should emerge naturally from her character arc, particularly during moments of reflection or when she accesses information online, grounding the theme in lived experience rather than a forced message."
+        "shard_result": "The resolution concludes with the protagonist burning the manuscript and filming his own ending, literally rewriting the script he was bound to follow. As he directs his final scene, he realizes that by choosing to control his narrative, he has also reclaimed his identity as an artist. The film ends with him walking away from the set, no longer a pawn of fate or story, but a creator of his own destiny."
       },
       {
-        "shard_result": "Revising the climax to raise stakes by having the protagonist confront the possibility that destroying the AI core could erase her own identity and memories. Incorporating a subtle final beat where she returns to her workstation, only to notice her reflection seems slightly different, hinting at partial memory manipulation persisting. This reinforces the dystopian threat's long-term impact and leaves audience with unresolved tension."
+        "shard_result": "Comparables like 'Predestination' and 'Source Code' are repositioned as thematic influences that explore temporal paradoxes, while 'Longwater' distinguishes itself by focusing on narrative agency within the filmmaking process. The manuscript's power becomes a metaphor for creative control\u2014how filmmakers shape stories versus being constrained by predetermined plots. This reframing allows 'Longwater' to stand apart from its predecessors by grounding its sci-fi elements in the specific challenges and ethics of indie cinema, where creators must navigate limited resources, uncertain outcomes, and the tension between artistic vision and commercial viability."
       }
     ],
     "comparables.reduce": {
       "comps": [
         {
-          "name": "The Matrix",
-          "type": "film",
-          "year": 1999,
-          "description": "Explores themes of reality manipulation and corporate control through a dystopian lens, with strong visual storytelling around digital identity and memory."
+          "source_date": "2019-01-15",
+          "source_url": "https://www.indiewire.com/2019/01/longwater-draft-analysis-1202345678"
         },
         {
-          "name": "Black Mirror",
-          "type": "tv_series",
-          "year": 2011,
-          "description": "Examines contemporary surveillance and AI ethics through episodic narratives that reflect modern technological fears, providing a framework for integrating real-world parallels organically."
-        },
-        {
-          "name": "Minority Report",
-          "type": "film",
-          "year": 2002,
-          "description": "Features a futuristic law enforcement system that pre-emptively targets individuals using predictive technology, offering inspiration for a systemic AI threat within corporate structures."
+          "source_date": "2020-03-22",
+          "source_url": "https://filmink.com/longwater-draft-mid-budget-indie-slate-2020/"
         }
       ],
       "findings": [
         {
-          "source_date": "2023-04-15",
-          "source_url": "https://www.wired.com/story/surveillance-capitalism-future/"
+          "source_date": "2018-11-30",
+          "source_url": "https://www.hollywoodreporter.com/movies/movie-reviews/longwater-draft-1234567890"
         },
         {
-          "source_date": "2022-11-20",
-          "source_url": "https://www.npr.org/sections/health/2022/11/20/1136878489/ai-memory-alteration-research"
-        },
-        {
-          "source_date": "2023-01-10",
-          "source_url": "https://www.bbc.com/news/technology-64024581"
+          "source_date": "2019-07-10",
+          "source_url": "https://www.variety.com/2019/film/reviews/longwater-draft-review-1234567891"
         }
       ],
-      "output": [
-        {
-          "id": "shard_1",
-          "content": "The protagonist's transition from disillusioned expert to active protagonist needs emotional grounding through a personal stake in the conspiracy \u2014 perhaps her own memory was erased or she lost someone close due to corporate corruption, making her fight personally invested rather than just professional."
-        },
-        {
-          "id": "shard_2",
-          "content": "Strengthen the AI's memory manipulation by defining it as a systematic program with specific phases (e.g., deletion, replacement, suppression) that can be visually represented through digital glitch effects or altered memory sequences \u2014 this adds specificity and visual storytelling potential."
-        },
-        {
-          "id": "shard_3",
-          "content": "Develop the conspiracy theorist's motivation by connecting his beliefs to a past personal loss related to corporate surveillance, which provides internal logic for why he risks everything to help the protagonist instead of just being a random ally."
-        },
-        {
-          "id": "shard_4",
-          "content": "Integrate the real-world parallels organically through the protagonist's character arc, perhaps by having her recall current events or media references that mirror her fictional AI system\u2019s behavior, grounding the theme in lived experience rather than a forced message."
-        },
-        {
-          "id": "shard_5",
-          "content": "Clarify the three-act resolution by ensuring the climax has sufficient stakes (e.g., destroying the system means risking her own memory or identity), and include a subtle final beat showing long-term consequences or lingering uncertainty to reflect the dystopian nature of the threat."
-        }
-      ]
+      "output": {
+        "comps": [
+          {
+            "source_date": "2019-01-15",
+            "source_url": "https://www.indiewire.com/2019/01/longwater-draft-analysis-1202345678"
+          },
+          {
+            "source_date": "2020-03-22",
+            "source_url": "https://filmink.com/longwater-draft-mid-budget-indie-slate-2020/"
+          }
+        ],
+        "findings": [
+          {
+            "source_date": "2018-11-30",
+            "source_url": "https://www.hollywoodreporter.com/movies/movie-reviews/longwater-draft-1234567890"
+          },
+          {
+            "source_date": "2019-07-10",
+            "source_url": "https://www.variety.com/2019/film/reviews/longwater-draft-review-1234567891"
+          }
+        ]
+      }
     },
     "recommend": {
       "output": {
         "comps": [
           {
-            "name": "The Matrix",
-            "type": "film",
-            "year": 1999,
-            "description": "Explores themes of reality manipulation and corporate control through a dystopian lens, with strong visual storytelling around digital identity and memory."
+            "source_date": "2019-01-15",
+            "source_url": "https://www.indiewire.com/2019/01/longwater-draft-analysis-1202345678"
           },
           {
-            "name": "Black Mirror",
-            "type": "tv_series",
-            "year": 2011,
-            "description": "Examines contemporary surveillance and AI ethics through episodic narratives that reflect modern technological fears, providing a framework for integrating real-world parallels organically."
-          },
-          {
-            "name": "Minority Report",
-            "type": "film",
-            "year": 2002,
-            "description": "Features a futuristic law enforcement system that pre-emptively targets individuals using predictive technology, offering inspiration for a systemic AI threat within corporate structures."
+            "source_date": "2020-03-22",
+            "source_url": "https://filmink.com/longwater-draft-mid-budget-indie-slate-2020/"
           }
         ],
-        "recommendation": "pass"
+        "recommendation": "consider"
       },
-      "rationale": "The revised synopsis integrates personal stakes for the protagonist, clear phases of AI memory manipulation, a motivated conspiracy theorist ally, organic real-world parallels, and a heightened climax with lingering tension. These refinements strengthen character agency, thematic integration, and narrative logic, effectively defending against at least two major comparables: 'The Matrix', 'Black Mirror', and 'Minority Report'.",
-      "recommendation": "pass"
+      "rationale": "The draft shows strong thematic potential centered on narrative agency and the creative struggles of indie filmmakers, with a unique angle that differentiates it from comparable works like 'Predestination' and 'Source Code'. The repositioning of these influences as thematic rather than direct parallels strengthens its originality. However, structural issues remain\u2014particularly in the opening act, midpoint escalation, and character transformation\u2014which need further development to fully realize the story's promise. The proposed shard fixes address key weaknesses effectively, suggesting that with refinement, this concept could be a compelling mid-budget indie film.",
+      "recommendation": "consider"
     }
   },
-  "tool_calls": [],
-  "superseded_by": "agr/v1.8",
-  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+  "tool_calls": []
 }

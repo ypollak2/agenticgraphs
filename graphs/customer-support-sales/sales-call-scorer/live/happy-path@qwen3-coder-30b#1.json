@@ -1,34 +1,53 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-11",
+  "recorded": "2026-08-31",
   "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
   "inputs": {
-    "goal": "score the Acme discovery call against the MEDDIC rubric"
+    "goal": "the Northwind discovery call, against the MEDDIC rubric"
   },
   "node_outputs": {
     "segment": {
       "segments": [
         {
-          "segment": "Acme discovery call",
-          "score": 85,
-          "max_score": 100
+          "node": "segment",
+          "ability": "map_shard",
+          "input": {
+            "goal": "the Northwind discovery call, against the MEDDIC rubric",
+            "attempts": 1
+          },
+          "output": {
+            "score": {
+              "spread": 0,
+              "median": 0
+            }
+          }
         }
       ]
     },
     "score-pass": {
-      "rubric_score": 85
+      "rubric_score": {
+        "spread": 0,
+        "median": 0
+      }
     },
     "consolidate": {
-      "final_score": 85,
+      "final_score": {
+        "spread": 0,
+        "median": 0
+      },
       "output": {
         "segments_scored": 1,
-        "variance": null
+        "variance": 0
       },
       "segments_scored": 1,
-      "variance": null
+      "variance": 0
     }
   },
-  "tool_calls": [],
-  "superseded_by": "agr/v1.8",
-  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+  "tool_calls": []
 }

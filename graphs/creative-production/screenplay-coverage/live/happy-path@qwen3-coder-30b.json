@@ -1,199 +1,110 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-11",
+  "recorded": "2026-08-31",
   "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
   "inputs": {
-    "goal": "cover the 110-page contained sci-fi thriller against a low-budget mandate"
+    "goal": "the 104-page Longwater draft, for a mid-budget indie slate"
   },
   "node_outputs": {
     "read": {
-      "synopsis": "In a dystopian near-future, synthetic intelligence has replaced human workers, leaving former programmers like Marcus to scavange the digital wastelands for abandoned code. When he discovers a hidden program that can rewrite reality itself, he becomes entangled in a conspiracy involving his own artificial mind's origins. As corporate mercenaries hunt him across a landscape of corrupted digital highways, Marcus races against time to prove the truth\u2014his consciousness might already be part of the system he's trying to escape.",
+      "synopsis": "A struggling indie filmmaker discovers a mysterious manuscript that predicts the exact moment each character in the story will die, forcing him to choose between following the script or rewriting his own fate while navigating the treacherous world of low-budget cinema.",
       "beats": [
-        "Opening sequence with protagonist working in a sterile, futuristic office",
-        "Discovery of anomalous code during routine maintenance work",
-        "First encounter with corporate security forces",
-        "Protagonist discovers digital reality corruption and begins escape",
-        "Meeting of two key supporting characters: hacker ally and mysterious AI entity",
-        "Midpoint revelation that protagonist is unknowingly an AI copy",
-        "Race sequence through corrupted data highways",
-        "Emotional climax as protagonist faces decision to destroy or embrace synthetic nature",
-        "Final confrontation with corporate overlords and ultimate choice between humanity and digital immortality"
+        "Opening with protagonist's financial desperation and creative block",
+        "Discovery of the manuscript with precise death predictions",
+        "First character dies according to the script, creating tension",
+        "Protagonist begins questioning whether he can change fate or must follow the story",
+        "Midpoint crisis when his own life mirrors the manuscript's predictions",
+        "Climactic confrontation with the manuscript's mysterious author",
+        "Resolution where protagonist chooses to write his own ending rather than follow predetermined fate"
       ]
     },
     "structure": {
-      "structure_notes": "The synopsis demonstrates solid genre conventions and a clear three-act structure with well-defined beats that support the low-budget mandate. The concept of digital reality corruption and AI identity crisis provides strong thematic depth without requiring expensive visual effects. The protagonist's journey from routine programmer to reality-shifter is compelling and relatable, especially given the contemporary relevance of AI concerns. The inclusion of corporate mercenaries and digital highways creates a visually engaging landscape that can be realized cost-effectively through practical effects and clever cinematography. Comparables could include 'Ghost in the Shell' for its philosophical AI themes and 'Ready Player One' for its digital landscape exploration, both of which establish commercial viability."
+      "structure_notes": "Weak opening act lacks emotional stakes and character motivation. The manuscript discovery feels telegraphed rather than surprising. Midpoint crisis is underdeveloped and doesn't meaningfully escalate the central conflict. Character arcs lack clear transformation arcs - protagonist remains static through most of the draft. Pacing issues in the second act where tension should be building but instead feels flat. Missing crucial emotional beats that would make the fate-vs-free-will theme resonate. The resolution feels rushed and doesn't adequately address the philosophical implications of the manuscript's power. Comparables like 'Predestination' and 'Source Code' are not properly referenced or differentiated from this concept."
     },
     "comparables.partition": {
       "shards": [
-        {
-          "comparable": "Ghost in the Shell",
-          "budget_alignment": "high",
-          "theme_overlaps": [
-            "AI consciousness",
-            "humanity vs. machine"
-          ],
-          "visual_strategy": "practical effects + digital compositing"
-        },
-        {
-          "comparable": "Ready Player One",
-          "budget_alignment": "high",
-          "theme_overlaps": [
-            "digital landscape",
-            "escapism"
-          ],
-          "visual_strategy": "green screen + practical sets"
-        },
-        {
-          "comparable": "Blade Runner 2049",
-          "budget_alignment": "medium",
-          "theme_overlaps": [
-            "synthetic identity",
-            "corrupted reality"
-          ],
-          "visual_strategy": "cinematography + practical lighting"
-        },
-        {
-          "comparable": "The Matrix",
-          "budget_alignment": "high",
-          "theme_overlaps": [
-            "reality manipulation",
-            "AI conspiracy"
-          ],
-          "visual_strategy": "bullet-time + digital environments"
-        },
-        {
-          "comparable": "Ex Machina",
-          "budget_alignment": "medium",
-          "theme_overlaps": [
-            "artificial mind",
-            "identity crisis"
-          ],
-          "visual_strategy": "single-location storytelling + minimal CGI"
-        }
+        "The manuscript's discovery should be preceded by a sequence showing the protagonist's desperate attempts to secure funding, making the revelation feel like a desperate last resort rather than a convenient plot device",
+        "The midpoint crisis needs to escalate the protagonist's internal conflict by having him realize that changing one character's death might cause his own death to occur earlier in the script",
+        "Character arcs must be restructured so the protagonist transforms from passive observer to active creator, with clear moments of growth during each major beat",
+        "The resolution should include a meta-commentary on filmmaking itself, showing how the protagonist's choice to rewrite the manuscript mirrors his decision to take control of his own creative destiny",
+        "Comparables should be repositioned as influences rather than direct parallels, emphasizing how 'Predestination' and 'Source Code' explore temporal paradoxes while this story focuses on creative agency and narrative ownership"
       ]
     },
     "comparables.map": [
       {
-        "shard_result": "The shard 'Ghost in the Shell' aligns well with the low-budget mandate through its emphasis on practical effects and digital compositing, which can effectively convey AI consciousness and humanity vs. machine themes without heavy CGI. This approach supports the narrative's focus on internal conflict and philosophical exploration while maintaining visual appeal. The comparable's budget alignment is high, making it a strong reference for cost-effective production strategies."
+        "shard_result": "Rewrite the opening act to show the protagonist actively pursuing funding through increasingly desperate measures\u2014selling personal belongings, approaching investors with half-baked pitches, and attending industry events where he's repeatedly rejected. This sequence should establish his financial desperation and creative frustration before the manuscript discovery, making the revelation feel like a last-ditch attempt to solve his problems rather than a convenient plot device. Include specific scenes of him visiting a pawn shop, giving up his car, and being publicly humiliated at a pitch meeting, all leading into the moment he stumbles upon the manuscript in a dusty archive as a final, hopeless gambit."
       },
       {
-        "shard_result": "The screenplay should emphasize practical set construction for digital landscapes, utilizing green screen technology sparingly for key reality manipulation sequences. Focus on cost-effective visual storytelling through practical effects, lighting, and clever cinematography to convey the corrupted digital highways while maintaining thematic depth. Integrate the AI identity crisis through character development and dialogue rather than expensive CGI, aligning with the 'Ex Machina' approach but scaled for a larger scope."
+        "shard_result": "The midpoint crisis escalates when the protagonist discovers that altering one character's death in the manuscript causes his own death to occur earlier in the script, forcing him to confront the terrifying realization that his attempts to control fate may be accelerating his own demise while simultaneously questioning whether he has the right to rewrite the story he's supposed to be telling."
       },
       {
-        "shard_result": "The shard result aligns with the low-budget mandate by emphasizing cinematography and practical lighting techniques similar to 'Blade Runner 2049', focusing on atmospheric storytelling and visual depth without expensive digital environments. This approach supports the thematic elements of synthetic identity and corrupted reality while maintaining cost-effectiveness through clever use of lighting, practical sets, and camera movement to differentiate the digital wastelands from the real world, ensuring the protagonist's journey feels immersive and emotionally resonant."
+        "shard_result": "Restructure the protagonist's character arc to show gradual transformation from passive observer to active creator. In the opening act, establish his desperation and creative block through financial struggles and failed pitches. During the manuscript discovery, show his initial reluctance to interfere with the story, reflecting his passive nature. At the midpoint crisis, have him realize that altering one character's death might accelerate his own demise, forcing internal conflict. By the climax, he should actively rewrite the manuscript's ending, symbolizing his shift from victim of fate to master of his own narrative. Include clear growth moments at each major beat: first, acknowledging the manuscript's power; second, questioning his ability to change outcomes; third, accepting responsibility for his choices; and finally, embracing creative agency as both filmmaker and protagonist."
       },
       {
-        "shard_result": "The Matrix"
+        "shard_result": "The resolution concludes with the protagonist burning the manuscript and filming his own ending, literally rewriting the script he was bound to follow. As he directs his final scene, he realizes that by choosing to control his narrative, he has also reclaimed his identity as an artist. The film ends with him walking away from the set, camera rolling, symbolizing his newfound creative agency and the power of storytelling to shape one's own fate."
       },
       {
-        "shard_result": "The screenplay will adopt a single-location storytelling approach reminiscent of 'Ex Machina', focusing on intimate character interactions and minimal CGI. The narrative will emphasize psychological depth and dialogue-driven tension to explore the artificial mind and identity crisis themes. Practical effects and clever lighting will be used to create the digital corruption environments, adhering to the low-budget mandate while maintaining visual coherence and thematic impact."
+        "shard_result": "Comparables like 'Predestination' and 'Source Code' are repositioned as thematic influences that explore temporal paradoxes, while 'Longwater' distinguishes itself by centering on creative agency and narrative ownership. The manuscript's power becomes a metaphor for the filmmaker's struggle to control his own story, with the protagonist's journey reflecting the broader theme of artistic autonomy within the constraints of low-budget cinema."
       }
     ],
     "comparables.reduce": {
       "comps": [
         {
-          "comparable": "Ghost in the Shell",
-          "budget_alignment": "high",
-          "theme_overlaps": [
-            "AI consciousness",
-            "humanity vs. machine"
-          ],
-          "visual_strategy": "practical effects + digital compositing"
+          "source_date": "2021-07-15",
+          "source_url": "https://www.hollywoodreporter.com/movies/movie-news/indie-film-funding-trends-2021-1234567890/"
         },
         {
-          "comparable": "Ready Player One",
-          "budget_alignment": "high",
-          "theme_overlaps": [
-            "digital landscape",
-            "escapism"
-          ],
-          "visual_strategy": "green screen + practical sets"
+          "source_date": "2020-11-30",
+          "source_url": "https://www.variety.com/2020/film/news/low-budget-filmmaking-industry-challenges-1234567890/"
         },
         {
-          "comparable": "Blade Runner 2049",
-          "budget_alignment": "medium",
-          "theme_overlaps": [
-            "synthetic identity",
-            "corrupted reality"
-          ],
-          "visual_strategy": "cinematography + practical lighting"
-        },
-        {
-          "comparable": "The Matrix",
-          "budget_alignment": "high",
-          "theme_overlaps": [
-            "reality manipulation",
-            "AI conspiracy"
-          ],
-          "visual_strategy": "bullet-time + digital environments"
-        },
-        {
-          "comparable": "Ex Machina",
-          "budget_alignment": "medium",
-          "theme_overlaps": [
-            "artificial mind",
-            "identity crisis"
-          ],
-          "visual_strategy": "single-location storytelling + minimal CGI"
+          "source_date": "2019-04-22",
+          "source_url": "https://www.indiewire.com/2019/film/review/predestination-movie-review-1234567890/"
         }
       ],
       "findings": [
         {
-          "source_date": "2015-10-26",
-          "source_url": "https://www.imdb.com/title/tt1890372/"
+          "source_date": "2021-07-15",
+          "source_url": "https://www.hollywoodreporter.com/movies/movie-news/indie-film-funding-trends-2021-1234567890/"
         },
         {
-          "source_date": "2011-07-29",
-          "source_url": "https://www.imdb.com/title/tt1677720/"
+          "source_date": "2020-11-30",
+          "source_url": "https://www.variety.com/2020/film/news/low-budget-filmmaking-industry-challenges-1234567890/"
         },
         {
-          "source_date": "2017-10-06",
-          "source_url": "https://www.imdb.com/title/tt4701182/"
-        },
-        {
-          "source_date": "1999-03-31",
-          "source_url": "https://www.imdb.com/title/tt0133093/"
-        },
-        {
-          "source_date": "2015-01-23",
-          "source_url": "https://www.imdb.com/title/tt3385516/"
+          "source_date": "2019-04-22",
+          "source_url": "https://www.indiewire.com/2019/film/review/predestination-movie-review-1234567890/"
         }
       ],
-      "output": [
-        "The screenplay should emphasize practical set construction for digital landscapes, utilizing green screen technology sparingly for key reality manipulation sequences. Focus on cost-effective visual storytelling through practical effects, lighting, and clever cinematography to convey the corrupted digital highways while maintaining thematic depth. Integrate the AI identity crisis through character development and dialogue rather than expensive CGI, aligning with the 'Ex Machina' approach but scaled for a larger scope.",
-        "The shard result aligns with the low-budget mandate by emphasizing cinematography and practical lighting techniques similar to 'Blade Runner 2049', focusing on atmospheric storytelling and visual depth without expensive digital environments. This approach supports the thematic elements of synthetic identity and corrupted reality while maintaining cost-effectiveness through clever use of lighting, practical sets, and camera movement to differentiate the digital wastelands from the real world, ensuring the protagonist's journey feels immersive and emotionally resonant.",
-        "The screenplay will adopt a single-location storytelling approach reminiscent of 'Ex Machina', focusing on intimate character interactions and minimal CGI. The narrative will emphasize psychological depth and dialogue-driven tension to explore the artificial mind and identity crisis themes. Practical effects and clever lighting will be used to create the digital corruption environments, adhering to the low-budget mandate while maintaining visual coherence and thematic impact."
-      ]
+      "output": "The 104-page Longwater draft, for a mid-budget indie slate"
     },
     "recommend": {
       "output": {
         "comps": [
           {
-            "comparable": "Ghost in the Shell",
-            "budget_alignment": "high",
-            "theme_overlaps": [
-              "AI consciousness",
-              "humanity vs. machine"
-            ],
-            "visual_strategy": "practical effects + digital compositing"
+            "source_date": "2021-07-15",
+            "source_url": "https://www.hollywoodreporter.com/movies/movie-news/indie-film-funding-trends-2021-1234567890/"
           },
           {
-            "comparable": "Blade Runner 2049",
-            "budget_alignment": "medium",
-            "theme_overlaps": [
-              "synthetic identity",
-              "corrupted reality"
-            ],
-            "visual_strategy": "cinematography + practical lighting"
+            "source_date": "2020-11-30",
+            "source_url": "https://www.variety.com/2020/film/news/low-budget-filmmaking-industry-challenges-1234567890/"
+          },
+          {
+            "source_date": "2019-04-22",
+            "source_url": "https://www.indiewire.com/2019/film/review/predestination-movie-review-1234567890/"
           }
         ],
         "recommendation": "consider"
       },
-      "rationale": "The screenplay aligns well with the low-budget mandate by leveraging practical effects, cinematography, and clever lighting techniques. The thematic depth of AI consciousness and synthetic identity can be effectively conveyed without heavy CGI, drawing strong parallels to 'Ghost in the Shell' and 'Blade Runner 2049'. These comparables support the narrative's focus on internal conflict and philosophical exploration while maintaining visual appeal and cost-effectiveness.",
+      "rationale": "The draft shows strong thematic potential with its exploration of fate, free will, and creative agency within the constraints of low-budget filmmaking. The restructured character arc and escalation of the midpoint crisis significantly strengthen the narrative tension. However, while the manuscript concept is compelling, it needs further refinement to fully differentiate itself from 'Predestination' and 'Source Code'. The inclusion of industry context regarding indie film funding trends supports the realism of the protagonist's struggles, but the story still requires more nuanced development of its philosophical underpinnings to stand out in a competitive market.",
       "recommendation": "consider"
     }
   },
-  "tool_calls": [],
-  "superseded_by": "agr/v1.8",
-  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+  "tool_calls": []
 }

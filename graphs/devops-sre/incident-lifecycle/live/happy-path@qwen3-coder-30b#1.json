@@ -1,20 +1,45 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-11",
+  "recorded": "2026-08-31",
   "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
   "inputs": {
     "goal": "work the checkout-latency page; resolved means p99 back under 400ms"
   },
   "node_outputs": {
     "detect": {
-      "signal": "p99_checkout_latency",
-      "blast_radius": "payment-processing-service"
+      "signal": "p99 checkout latency increased to 450ms",
+      "blast_radius": "payment processing service"
     },
     "triage.route": {
-      "complexity": 3
+      "complexity": "medium"
+    },
+    "triage.branch-simple": {
+      "assigned_team": "payment-processing"
+    },
+    "triage.verify": {
+      "assigned_team": "payment-processing",
+      "expected_team": "payment-processing",
+      "matches_ownership_map": true,
+      "output": {
+        "blast_radius": "payment processing service"
+      },
+      "owner": "payment-processing",
+      "severity": "major"
+    },
+    "mitigate": {
+      "mitigation": "restarted payment processing service to clear latency spikes",
+      "mitigated": true
+    },
+    "confirm": {
+      "blast_radius": "payment processing service",
+      "residual_blast_radius": "payment processing service"
     }
   },
-  "tool_calls": [],
-  "superseded_by": "agr/v1.8",
-  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+  "tool_calls": []
 }

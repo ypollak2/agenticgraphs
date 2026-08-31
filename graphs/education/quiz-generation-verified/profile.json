@@ -74,5 +74,58 @@
         "tool_calls": []
       }
     ]
+  },
+  "measured_live": {
+    "runner": "llm-replay:qwen3-coder:30b",
+    "provisional": false,
+    "verification_depth": "assert-live",
+    "date": "2026-08-31",
+    "cases": 1,
+    "passed": 1,
+    "pass_rate": 1.0,
+    "mean_steps": 4.0,
+    "results": [
+      {
+        "id": "generated-and-approved",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 4,
+        "trace": [
+          "intake",
+          "generate",
+          "blind-solve",
+          "critique"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      }
+    ],
+    "models": [
+      "qwen3-coder:30b"
+    ],
+    "recorded": "2026-08-31",
+    "age_days": 0,
+    "per_model_pass_rate": {
+      "qwen3-coder:30b": 1.0
+    },
+    "models_disagree": false,
+    "fails_every_model": false,
+    "flaky_models": [],
+    "samples_per_model": {
+      "qwen3-coder:30b": 1
+    },
+    "gate_auto_approved": false
   }
 }

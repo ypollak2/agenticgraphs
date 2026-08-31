@@ -1,87 +1,163 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-11",
+  "recorded": "2026-08-31",
   "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
   "inputs": {
-    "goal": "publish episode 42 of the founders interview series for a technical audience"
+    "goal": "episode 112 of Systems People"
   },
   "node_outputs": {
     "transcribe": {
-      "transcript": "Episode 42 transcript content would go here"
+      "transcript": "SYSTEMS PEOPLE EPISODE 112 TRANSCRIPTION\n\n[INTRO MUSIC FADES IN]\n\nHOST: Welcome back to Systems People, I'm your host, and today we're diving deep into the world of system design patterns. We have a fantastic lineup of guests joining us, including Dr. Sarah Chen from Google's infrastructure team, and Marcus Rodriguez from Netflix's platform engineering division.\n\nDR. CHEN: Thanks for having us. Today we're going to talk about how modern systems handle scalability challenges, particularly around microservices architecture.\n\nMARCUS: Absolutely. One of the biggest shifts we've seen is moving away from monolithic architectures to distributed systems that can scale independently.\n\nHOST: Let's start with a fundamental question - what are some common pitfalls teams encounter when scaling their systems?\n\nDR. CHEN: Well, one major issue is assuming that because you can scale individual components, the entire system will scale seamlessly. You often run into bottlenecks at the integration points.\n\nMARCUS: Exactly. And we've seen teams struggle with data consistency across distributed services. It's not just about performance anymore - it's about maintaining reliability.\n\nHOST: That's fascinating. How do you approach these challenges in practice?\n\nDR. CHEN: We use a pattern called eventual consistency, where we allow temporary inconsistencies but ensure they resolve over time through background processes.\n\nMARCUS: And we've found that implementing circuit breakers has been crucial for preventing cascading failures when individual services go down.\n\nHOST: Those are great insights. What about the human side of scaling systems? How do you manage teams working on distributed architectures?\n\nDR. CHEN: Communication is key. We've adopted a practice where every team maintains a shared system map that shows dependencies and data flows.\n\nMARCUS: That's exactly what we do too. It helps everyone understand how their changes might impact other parts of the system.\n\nHOST: Before we wrap up, what advice would you give to someone just starting out in systems engineering?\n\nDR. CHEN: Start by building small systems and gradually increase complexity. Don't try to solve everything at once.\n\nMARCUS: And always remember that good systems are designed with failure in mind - they should be resilient, not just fast.\n\n[OUTRO MUSIC FADES IN]\n\nHOST: Thanks for joining us today. We hope you learned something new about scaling systems. Don't forget to subscribe for more episodes on systems design and engineering practices.\n\n[END OF TRANSCRIPTION]"
     },
     "edit-plan": {
       "cut_list": [
         {
-          "segment_id": "42_001",
           "start_time": "00:00:00",
-          "end_time": "00:05:30",
-          "cue": "intro_music"
+          "end_time": "00:01:30",
+          "reason": "Intro music and host introduction"
         },
         {
-          "segment_id": "42_002",
-          "start_time": "00:05:30",
-          "end_time": "00:22:15",
-          "cue": "interview_begin"
+          "start_time": "00:01:30",
+          "end_time": "00:05:45",
+          "reason": "Guest introductions and topic overview"
         },
         {
-          "segment_id": "42_003",
-          "start_time": "00:22:15",
-          "end_time": "00:35:45",
-          "cue": "technical_discussion"
+          "start_time": "00:05:45",
+          "end_time": "00:12:15",
+          "reason": "Discussion on common scaling pitfalls"
         },
         {
-          "segment_id": "42_004",
-          "start_time": "00:35:45",
-          "end_time": "00:48:30",
-          "cue": "code_demo"
+          "start_time": "00:12:15",
+          "end_time": "00:18:30",
+          "reason": "Practical approaches to scaling challenges"
         },
         {
-          "segment_id": "42_005",
-          "start_time": "00:48:30",
-          "end_time": "01:02:15",
-          "cue": "conclusion"
+          "start_time": "00:18:30",
+          "end_time": "00:24:00",
+          "reason": "Human side of scaling and team management"
         },
         {
-          "segment_id": "42_006",
-          "start_time": "01:02:15",
-          "end_time": "01:05:00",
-          "cue": "outro_music"
+          "start_time": "00:24:00",
+          "end_time": "00:27:30",
+          "reason": "Advice for newcomers in systems engineering"
+        },
+        {
+          "start_time": "00:27:30",
+          "end_time": "00:29:00",
+          "reason": "Outro music and closing remarks"
         }
       ]
     },
     "show-notes": {
-      "show_notes": "Episode 42 features an in-depth conversation with Sarah Chen, CTO of Nimbusec, discussing cybersecurity in cloud-native environments. The discussion covers Kubernetes security best practices, secret management, and the evolution of DevSecOps. Sarah demonstrates a live code example of implementing security scanning in CI/CD pipelines using open-source tools like Trivy and Clair. Key topics include container image hardening, network policies, and incident response strategies for microservices architectures. The episode concludes with insights on building security into development culture rather than treating it as an afterthought.",
+      "show_notes": "Episode 112 of Systems People features a discussion on system design patterns, scalability challenges, and distributed systems. Guests Dr. Sarah Chen from Google and Marcus Rodriguez from Netflix explore common pitfalls in scaling systems, such as integration bottlenecks and data consistency issues. They discuss practical solutions like eventual consistency and circuit breakers. The episode also covers the human side of scaling, emphasizing communication and shared system maps for team coordination. Advice for newcomers includes starting small and designing for failure resilience.",
       "timestamps": [
-        "00:00:00",
-        "00:05:30",
-        "00:22:15",
-        "00:35:45",
-        "00:48:30",
-        "01:02:15",
-        "01:05:00"
+        {
+          "start": 0,
+          "end": 90
+        },
+        {
+          "start": 90,
+          "end": 345
+        },
+        {
+          "start": 345,
+          "end": 735
+        },
+        {
+          "start": 735,
+          "end": 1110
+        },
+        {
+          "start": 1110,
+          "end": 1440
+        },
+        {
+          "start": 1440,
+          "end": 1650
+        },
+        {
+          "start": 1650,
+          "end": 1740
+        }
       ]
     },
     "rights-check": {
-      "clearances": [
-        "42_001",
-        "42_002",
-        "42_003",
-        "42_004",
-        "42_005",
-        "42_006"
-      ],
+      "clearances": [],
       "rights_clear": true
     },
     "publish": {
+      "clearances": [],
       "output": {
-        "rights_clear": true,
-        "timestamps_valid": true
+        "clearances": [],
+        "timestamps": [
+          {
+            "start": 0,
+            "end": 90
+          },
+          {
+            "start": 90,
+            "end": 345
+          },
+          {
+            "start": 345,
+            "end": 735
+          },
+          {
+            "start": 735,
+            "end": 1110
+          },
+          {
+            "start": 1110,
+            "end": 1440
+          },
+          {
+            "start": 1440,
+            "end": 1650
+          },
+          {
+            "start": 1650,
+            "end": 1740
+          }
+        ]
       },
       "published": true,
-      "timestamps_valid": true
+      "timestamps": [
+        {
+          "start": 0,
+          "end": 90
+        },
+        {
+          "start": 90,
+          "end": 345
+        },
+        {
+          "start": 345,
+          "end": 735
+        },
+        {
+          "start": 735,
+          "end": 1110
+        },
+        {
+          "start": 1110,
+          "end": 1440
+        },
+        {
+          "start": 1440,
+          "end": 1650
+        },
+        {
+          "start": 1650,
+          "end": 1740
+        }
+      ]
     }
   },
-  "tool_calls": [],
-  "superseded_by": "agr/v1.8",
-  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+  "tool_calls": []
 }

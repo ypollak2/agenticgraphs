@@ -1,31 +1,37 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-11",
+  "recorded": "2026-08-31",
   "endpoint": "http://localhost:11434/v1",
-  "inputs": {},
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "Stripe events into the warehouse, daily revenue by plan"
+  },
   "node_outputs": {
     "plan": {
       "steps": [
-        "Load test data into target system",
-        "Execute data processing pipeline",
-        "Count actual rows in output",
-        "Compare actual_rows to expected_rows",
-        "Fail if mismatch detected"
+        "Extract Stripe events from API",
+        "Transform events into warehouse schema",
+        "Load events into warehouse staging table",
+        "Aggregate daily revenue by plan from events",
+        "Load aggregated data into warehouse fact table"
       ]
     },
     "execute": {
-      "step_result": "Count actual rows in output"
+      "step_result": "Extracted 15000 Stripe events from API for date range 2023-10-01 to 2023-10-01"
     },
     "verify": {
-      "actual_rows": "Count actual rows in output",
-      "expected_rows": "Compare actual_rows to expected_rows",
+      "actual_rows": 15000,
+      "expected_rows": 15000,
       "output": {
-        "actual_rows": "Count actual rows in output",
-        "expected_rows": "Compare actual_rows to expected_rows"
+        "actual_rows": 15000,
+        "expected_rows": 15000
       }
     }
   },
-  "tool_calls": [],
-  "superseded_by": "agr/v1.8",
-  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+  "tool_calls": []
 }

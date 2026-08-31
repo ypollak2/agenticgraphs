@@ -1,24 +1,57 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-11",
+  "recorded": "2026-08-31",
   "endpoint": "http://localhost:11434/v1",
-  "inputs": {},
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the onboarding guide, into de-DE, ja-JP and pt-BR"
+  },
   "node_outputs": {
     "partition": {
-      "shards": 3
+      "shards": [
+        {
+          "language": "de-DE",
+          "content": "Willkommensleitfaden",
+          "status": "translated"
+        },
+        {
+          "language": "ja-JP",
+          "content": "\u30aa\u30f3\u30dc\u30fc\u30c7\u30a3\u30f3\u30b0\u30ac\u30a4\u30c9",
+          "status": "translated"
+        },
+        {
+          "language": "pt-BR",
+          "content": "Guia de integra\u00e7\u00e3o",
+          "status": "translated"
+        }
+      ]
     },
-    "reduce": {
-      "glossary_violations": false,
-      "output": {
-        "glossary_violations": false,
-        "similarity": 0.0,
-        "threshold": 0.0
+    "map": [
+      {
+        "shard_result": "translated"
       },
-      "similarity": 0.0,
-      "threshold": 0.0
+      {
+        "shard_result": "translated"
+      },
+      {
+        "shard_result": "Guia de integra\u00e7\u00e3o"
+      }
+    ],
+    "reduce": {
+      "glossary_violations": [],
+      "output": {
+        "glossary_violations": [],
+        "similarity": 0.92,
+        "threshold": 0.9
+      },
+      "similarity": 0.92,
+      "threshold": 0.9
     }
   },
-  "tool_calls": [],
-  "superseded_by": "agr/v1.8",
-  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+  "tool_calls": []
 }

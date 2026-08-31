@@ -1,29 +1,81 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-11",
+  "recorded": "2026-08-31",
   "endpoint": "http://localhost:11434/v1",
-  "inputs": {},
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "12 onboarding interviews, on why trial users stall at step 3"
+  },
   "node_outputs": {
     "partition": {
       "shards": [
-        {
-          "participant_ids": [
-            "partition",
-            "analyst"
-          ],
-          "content": "Analysis complete: participant 'partition' (analyst) identified and validated. Participant 'analyst' confirmed as required downstream assertion holder."
-        }
+        "Participants consistently mention unclear instructions for step 3, with 7/12 citing confusion about required actions",
+        "Users report technical difficulties with the step 3 interface, noted by 5/12 participants during interviews",
+        "Lack of immediate feedback when completing step 3 causes uncertainty, mentioned by 8/12 participants",
+        "Time constraints and competing priorities prevent users from completing step 3, identified by 6/12 interviewees"
       ]
     },
-    "map": {
-      "shard_result": "Analysis complete: participant 'partition' (analyst) identified and validated. Participant 'analyst' confirmed as required downstream assertion holder."
-    },
+    "map": [
+      {
+        "shard_result": "Participants consistently mention unclear instructions for step 3, with 7/12 citing confusion about required actions"
+      },
+      {
+        "shard_result": "Users report technical difficulties with the step 3 interface, noted by 5/12 participants during interviews"
+      },
+      {
+        "shard_result": "Lack of immediate feedback when completing step 3 causes uncertainty, mentioned by 8/12 participants"
+      },
+      {
+        "shard_result": "Time constraints and competing priorities prevent users from completing step 3, identified by 6/12 interviewees"
+      }
+    ],
     "reduce": {
       "insights": [
         {
           "participant_ids": [
-            "partition",
-            "analyst"
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        },
+        {
+          "participant_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
+        },
+        {
+          "participant_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "participant_ids": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
           ]
         }
       ],
@@ -31,15 +83,49 @@
         "insights": [
           {
             "participant_ids": [
-              "partition",
-              "analyst"
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7"
+            ]
+          },
+          {
+            "participant_ids": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ]
+          },
+          {
+            "participant_ids": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8"
+            ]
+          },
+          {
+            "participant_ids": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6"
             ]
           }
         ]
       }
     }
   },
-  "tool_calls": [],
-  "superseded_by": "agr/v1.8",
-  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+  "tool_calls": []
 }

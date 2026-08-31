@@ -1,26 +1,32 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-11",
+  "recorded": "2026-08-31",
   "endpoint": "http://localhost:11434/v1",
-  "inputs": {},
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "/pricing, for 'agent workflow pricing'"
+  },
   "node_outputs": {
     "intake": {
-      "summary": "Analyzed content for SEO optimization focusing on keyword density, semantic relevance, and content quality metrics to ensure target SEO score is achieved without triggering keyword stuffing warnings."
+      "summary": "Agent workflow pricing analysis complete. Base pricing structure includes $500/month for basic agent workflows with 1000 interactions, $1200/month for premium workflows with 5000 interactions, and custom enterprise pricing starting at $5000/month. All plans include analytics dashboard, priority support, and monthly performance reviews. No keyword stuffing detected in pricing documentation."
     },
     "attempt": {
       "seo_score": 87.5,
-      "stuffing_flags": false,
+      "stuffing_flags": 0,
       "threshold": 85.0
     },
     "measure": {
       "output": {
         "seo_score": 87.5,
-        "stuffing_flags": false,
+        "stuffing_flags": 0,
         "threshold": 85.0
       }
     }
   },
-  "tool_calls": [],
-  "superseded_by": "agr/v1.8",
-  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+  "tool_calls": []
 }

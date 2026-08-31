@@ -1,24 +1,37 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-11",
+  "recorded": "2026-08-31",
   "endpoint": "http://localhost:11434/v1",
-  "inputs": {},
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "ticket 79004, written for self-serve customers"
+  },
   "node_outputs": {
     "intake": {
-      "summary": "Analysis complete. Reproduction steps have been generated and duplicate entries have been removed from the dataset."
+      "summary": "Customer reported issue with self-serve portal not allowing ticket submission. After analysis, determined that the problem was caused by a temporary server overload during peak hours, which has since been resolved. Customer was advised to retry their submission and provided with a workaround in case of future occurrences."
+    },
+    "dedupe-search": {
+      "existing_articles": [
+        "How to Submit a Ticket via Self-Serve Portal",
+        "Troubleshooting Self-Serve Portal Issues",
+        "Self-Serve Portal Not Accepting Submissions"
+      ]
     },
     "produce": {
       "duplicates_deduped": true,
-      "reproduces_resolution": true
+      "reproduces_resolution": "Customer reported issue with self-serve portal not allowing ticket submission. After analysis, determined that the problem was caused by a temporary server overload during peak hours, which has since been resolved. Customer was advised to retry their submission and provided with a workaround in case of future occurrences."
     },
     "review": {
       "output": {
-        "reproduces_resolution": true,
+        "reproduces_resolution": "Customer reported issue with self-serve portal not allowing ticket submission. After analysis, determined that the problem was caused by a temporary server overload during peak hours, which has since been resolved. Customer was advised to retry their submission and provided with a workaround in case of future occurrences.",
         "duplicates_deduped": true
       }
     }
   },
-  "tool_calls": [],
-  "superseded_by": "agr/v1.8",
-  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+  "tool_calls": []
 }

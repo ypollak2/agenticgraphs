@@ -1,17 +1,65 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-11",
+  "recorded": "2026-08-31",
   "endpoint": "http://localhost:11434/v1",
-  "inputs": {},
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "chapter 4 on photosynthesis, for year 9"
+  },
   "node_outputs": {
     "intake": {
-      "summary": "Analysis complete. All entries meet the exit contract requirements with critic answers matching keys and distractors being plausible."
+      "summary": "Chapter 4 covers the process of photosynthesis including the role of chlorophyll, light-dependent and light-independent reactions, the equation for photosynthesis (6CO2 + 6H2O + light energy \u2192 C6H12O6 + 6O2), factors affecting photosynthesis rate such as light intensity, carbon dioxide concentration, and temperature, and the importance of photosynthesis in producing oxygen and food for ecosystems."
     },
     "generate": {
-      "draft": "Analysis complete. All entries meet the exit contract requirements with critic answers matching keys and distractors being plausible."
+      "draft": "Chapter 4: Photosynthesis\n\n4.1 What is Photosynthesis?\nPhotosynthesis is the process by which plants, algae, and some bacteria convert light energy into chemical energy (glucose). This process occurs in the chloroplasts of plant cells.\n\n4.2 The Photosynthesis Equation\nThe overall equation for photosynthesis is:\n6CO\u2082 + 6H\u2082O + light energy \u2192 C\u2086H\u2081\u2082O\u2086 + 6O\u2082\n\n4.3 The Two Stages of Photosynthesis\nLight-Dependent Reactions (thylakoids):\n\u2022 Chlorophyll absorbs light energy\n\u2022 Water molecules are split, releasing oxygen\n\u2022 ATP and NADPH are produced\n\nLight-Independent Reactions (Calvin Cycle - stroma):\n\u2022 Carbon dioxide is fixed into organic molecules\n\u2022 ATP and NADPH from light reactions provide energy\n\u2022 Glucose is synthesized\n\n4.4 Factors Affecting Photosynthesis Rate\nLight Intensity: Higher intensity increases rate up to a point\nCarbon Dioxide Concentration: More CO\u2082 increases rate\nTemperature: Optimum temperature range (25-35\u00b0C)\n\n4.5 Importance of Photosynthesis\n\u2022 Produces oxygen for respiration\n\u2022 Creates food for ecosystems\n\u2022 Removes carbon dioxide from atmosphere\n\u2022 Forms the base of most food chains"
+    },
+    "blind-solve": {
+      "blind_answers": [
+        {
+          "question": "What is the overall equation for photosynthesis?",
+          "answer": "6CO2 + 6H2O + light energy \u2192 C6H12O6 + 6O2"
+        },
+        {
+          "question": "Where does photosynthesis occur in plant cells?",
+          "answer": "In the chloroplasts"
+        },
+        {
+          "question": "What are the two main stages of photosynthesis?",
+          "answer": "Light-dependent reactions and light-independent reactions (Calvin cycle)"
+        },
+        {
+          "question": "What is the role of chlorophyll in photosynthesis?",
+          "answer": "Chlorophyll absorbs light energy"
+        },
+        {
+          "question": "What are three factors that affect the rate of photosynthesis?",
+          "answer": "Light intensity, carbon dioxide concentration, and temperature"
+        }
+      ]
     },
     "critique": {
       "entries": [
+        {
+          "answer_matches_key": true,
+          "distractors_plausible": true
+        },
+        {
+          "answer_matches_key": true,
+          "distractors_plausible": true
+        },
+        {
+          "answer_matches_key": true,
+          "distractors_plausible": true
+        },
+        {
+          "answer_matches_key": true,
+          "distractors_plausible": true
+        },
         {
           "answer_matches_key": true,
           "distractors_plausible": true
@@ -22,12 +70,26 @@
           {
             "answer_matches_key": true,
             "distractors_plausible": true
+          },
+          {
+            "answer_matches_key": true,
+            "distractors_plausible": true
+          },
+          {
+            "answer_matches_key": true,
+            "distractors_plausible": true
+          },
+          {
+            "answer_matches_key": true,
+            "distractors_plausible": true
+          },
+          {
+            "answer_matches_key": true,
+            "distractors_plausible": true
           }
         ]
       }
     }
   },
-  "tool_calls": [],
-  "superseded_by": "agr/v1.8",
-  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+  "tool_calls": []
 }

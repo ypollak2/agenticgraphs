@@ -1,17 +1,25 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-11",
+  "recorded": "2026-08-31",
   "endpoint": "http://localhost:11434/v1",
-  "inputs": {},
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "ticket 84120, escalating to tier 3"
+  },
   "node_outputs": {
     "intake": {
-      "summary": "Initial intake analysis complete. All asks covered and quotes traceable."
+      "summary": "Ticket 84120 requires escalation to Tier 3 support due to unresolved issues with system integration failures and persistent API timeouts that have exceeded standard troubleshooting protocols."
     },
     "produce": {
       "all_asks_covered": true,
       "asks": [
         {
-          "quote": "Quote123"
+          "quote": "Ticket 84120 requires escalation to Tier 3 support due to unresolved issues with system integration failures and persistent API timeouts that have exceeded standard troubleshooting protocols."
         }
       ]
     },
@@ -20,13 +28,11 @@
         "all_asks_covered": true,
         "asks": [
           {
-            "quote": "Quote123"
+            "quote": "Ticket 84120 requires escalation to Tier 3 support due to unresolved issues with system integration failures and persistent API timeouts that have exceeded standard troubleshooting protocols."
           }
         ]
       }
     }
   },
-  "tool_calls": [],
-  "superseded_by": "agr/v1.8",
-  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+  "tool_calls": []
 }

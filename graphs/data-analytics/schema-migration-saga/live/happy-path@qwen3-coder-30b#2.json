@@ -1,100 +1,53 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-11",
+  "recorded": "2026-08-31",
   "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
   "inputs": {
-    "goal": "migrate the orders schema to the normalized v3 shape without downtime"
+    "goal": "orders v3 to v4, keeping orders readable throughout"
   },
   "node_outputs": {
     "plan": {
       "migration_plan": [
         {
-          "phase": "preparation",
-          "steps": [
-            {
-              "task": "create_v3_schema",
-              "dependencies": [],
-              "compensator": "drop_v3_schema"
-            },
-            {
-              "task": "validate_v3_structure",
-              "dependencies": [
-                "create_v3_schema"
-              ],
-              "compensator": "none"
-            }
-          ]
+          "step": 1,
+          "action": "decompose_goal",
+          "details": "Break down v3 to v4 orders migration into manageable components"
         },
         {
-          "phase": "data_migration",
-          "steps": [
-            {
-              "task": "enable_read_write_mode",
-              "dependencies": [
-                "validate_v3_structure"
-              ],
-              "compensator": "disable_read_write_mode"
-            },
-            {
-              "task": "migrate_orders_batch",
-              "dependencies": [
-                "enable_read_write_mode"
-              ],
-              "compensator": "rollback_orders_batch"
-            },
-            {
-              "task": "validate_batch_migration",
-              "dependencies": [
-                "migrate_orders_batch"
-              ],
-              "compensator": "none"
-            }
-          ]
+          "step": 2,
+          "action": "validate_v3_orders",
+          "details": "Verify all v3 order data integrity and readability before migration"
         },
         {
-          "phase": "switchover",
-          "steps": [
-            {
-              "task": "freeze_new_orders",
-              "dependencies": [
-                "validate_batch_migration"
-              ],
-              "compensator": "unfreeze_new_orders"
-            },
-            {
-              "task": "migrate_remaining_orders",
-              "dependencies": [
-                "freeze_new_orders"
-              ],
-              "compensator": "rollback_remaining_orders"
-            },
-            {
-              "task": "switch_to_v3",
-              "dependencies": [
-                "migrate_remaining_orders"
-              ],
-              "compensator": "switch_to_v2"
-            }
-          ]
+          "step": 3,
+          "action": "create_v4_schema",
+          "details": "Design and implement v4 order schema maintaining readability standards"
         },
         {
-          "phase": "verification",
-          "steps": [
-            {
-              "task": "verify_parity",
-              "dependencies": [
-                "switch_to_v3"
-              ],
-              "compensator": "none"
-            },
-            {
-              "task": "validate_consistency",
-              "dependencies": [
-                "verify_parity"
-              ],
-              "compensator": "none"
-            }
-          ]
+          "step": 4,
+          "action": "migrate_orders_batch",
+          "details": "Migrate orders in small batches with validation at each step"
+        },
+        {
+          "step": 5,
+          "action": "validate_v4_orders",
+          "details": "Ensure migrated orders maintain readability and data integrity"
+        },
+        {
+          "step": 6,
+          "action": "update_references",
+          "details": "Update all system references to point to v4 orders"
+        },
+        {
+          "step": 7,
+          "action": "cleanup_v3",
+          "details": "Remove v3 order data after successful migration and validation"
         }
       ]
     },
@@ -111,7 +64,5 @@
       "parity_verified": true
     }
   },
-  "tool_calls": [],
-  "superseded_by": "agr/v1.8",
-  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+  "tool_calls": []
 }
