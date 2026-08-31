@@ -747,6 +747,7 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
     errors.extend(_lint_irreversible(doc))
     errors.extend(_lint_motif(doc, root))
     errors.extend(_lint_flow_keys(doc))
+    errors.extend(_lint_stall(doc))
     errors.extend(_lint_runtime_keys(doc))
 
     # speciality / ability resolution

@@ -2,12 +2,12 @@
   "name": "contract-lifecycle",
   "category": "legal-compliance",
   "structural": {
-    "nodes": 5,
-    "edges": 5,
+    "nodes": 6,
+    "edges": 6,
     "verifier_nodes": 0,
     "router_nodes": 0,
     "parallel_groups": 0,
-    "max_fan_out": 2,
+    "max_fan_out": 3,
     "loops": 1,
     "loops_bounded": true,
     "max_steps": 35,
@@ -55,137 +55,5 @@
         "tool_calls": []
       }
     ]
-  },
-  "measured_live": {
-    "runner": "llm-replay:qwen3-coder:30b",
-    "provisional": false,
-    "verification_depth": "assert-live",
-    "date": "2026-08-31",
-    "cases": 3,
-    "passed": 0,
-    "pass_rate": 0.0,
-    "mean_steps": 8.0,
-    "results": [
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
-        "gate_auto_approved": true,
-        "passed": false,
-        "steps": 8,
-        "trace": [
-          "intake",
-          "redline.intake",
-          "redline.playbook-lookup",
-          "redline.produce",
-          "redline.review",
-          "risk-assess",
-          "counsel-approval",
-          "execute"
-        ],
-        "goal_missing": "",
-        "unreached_terminals": [],
-        "shape_violations": [],
-        "state_violations": [],
-        "assert_failures": [
-          "all(s.party and s.dated for s in output.signatures)"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": true,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
-        "gate_auto_approved": true,
-        "passed": false,
-        "steps": 8,
-        "trace": [
-          "intake",
-          "redline.intake",
-          "redline.playbook-lookup",
-          "redline.produce",
-          "redline.review",
-          "risk-assess",
-          "counsel-approval",
-          "execute"
-        ],
-        "goal_missing": "",
-        "unreached_terminals": [],
-        "shape_violations": [],
-        "state_violations": [],
-        "assert_failures": [
-          "all(s.party and s.dated for s in output.signatures)"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": true,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
-        "gate_auto_approved": true,
-        "passed": false,
-        "steps": 8,
-        "trace": [
-          "intake",
-          "redline.intake",
-          "redline.playbook-lookup",
-          "redline.produce",
-          "redline.review",
-          "risk-assess",
-          "counsel-approval",
-          "execute"
-        ],
-        "goal_missing": "",
-        "unreached_terminals": [],
-        "shape_violations": [],
-        "state_violations": [],
-        "assert_failures": [
-          "all(s.party and s.dated for s in output.signatures)"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": true,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      }
-    ],
-    "models": [
-      "qwen3-coder:30b"
-    ],
-    "recorded": "2026-08-31",
-    "age_days": 0,
-    "per_model_pass_rate": {
-      "qwen3-coder:30b": 0.0
-    },
-    "models_disagree": false,
-    "fails_every_model": true,
-    "flaky_models": [],
-    "samples_per_model": {
-      "qwen3-coder:30b": 3
-    },
-    "gate_auto_approved": true
   }
 }

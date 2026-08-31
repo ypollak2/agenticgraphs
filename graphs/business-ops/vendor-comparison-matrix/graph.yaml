@@ -19,7 +19,7 @@ nodes:
   inputs:
   - vendor_docs
   outputs:
-  - criteria_grid
+  - criteria_grid: list
 - id: fill
   speciality: reducer
   abilities:
@@ -38,7 +38,7 @@ nodes:
   inputs:
   - matrix
   outputs:
-  - criteria_grid
+  - criteria_grid: list
   - matrix: list[{criteria:list, vendor:any}]
   - output
   - uncited_cells

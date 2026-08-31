@@ -16,6 +16,7 @@ flowchart LR
     N4{{"prove<br/><i>verifier</i>"}}
     N5["disclose-approval<br/><i>approver</i>"]
     N6["disclose<br/><i>producer</i>"]
+    N7["escalate-vuln<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N2 --> N3
@@ -23,6 +24,7 @@ flowchart LR
     N4 -->|not exploit_blocked and attempts < 3| N3
     N4 -->|exploit_blocked| N5
     N5 --> N6
+    N4 -->|not exploit_blocked and attempts >= 3| N7
 ```
 
 ## Cases

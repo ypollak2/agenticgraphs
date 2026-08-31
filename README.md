@@ -208,7 +208,7 @@ pie showData title Graphs per domain
 | `assert-live` | assert held against real model output (`agr eval --live`) |
 | `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |
 
-**Real-model evidence:** 83 graphs carry checked-in recordings of actual model runs across 2 models (`graphs/<domain>/<graph>/live/`); **56 of 83** satisfy their contract on every model, and **25 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
+**Real-model evidence:** 71 graphs carry checked-in recordings of actual model runs across 2 models (`graphs/<domain>/<graph>/live/`); **53 of 71** satisfy their contract on every model, and **16 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
 
 | Graph | Domain | Cases | Pass rate | Depth | Live (real model) | Mean steps | Routes |
 |---|---|---|---|---|---|---|---|
@@ -217,12 +217,12 @@ pie showData title Graphs per domain
 | `policy-compliance-check` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 5 | 2 |
 | `procurement-lifecycle` | business-ops | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 7 | 1 |
 | `rfp-response-assembler` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 1 |
-| `vendor-comparison-matrix` | business-ops | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 6 | 1 |
+| `vendor-comparison-matrix` | business-ops | 1 | 100% | `assert-fixture` | — | 6 | 1 |
 | `blog-production-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 5 | 2 |
 | `localization-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 1 |
 | `seo-optimization-loop` | content-marketing | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
-| `book-editing-pipeline` | creative-production | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 6 | 1 |
-| `podcast-production-pipeline` | creative-production | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 5 | 1 |
+| `book-editing-pipeline` | creative-production | 1 | 100% | `assert-fixture` | — | 6 | 1 |
+| `podcast-production-pipeline` | creative-production | 1 | 100% | `assert-fixture` | — | 5 | 1 |
 | `screenplay-coverage` | creative-production | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 6 | 1 |
 | `ux-research-synthesis` | creative-production | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 1 |
 | `escalation-summarizer` | customer-support-sales | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
@@ -237,7 +237,7 @@ pie showData title Graphs per domain
 | `sql-generation-verified` | data-analytics | 2 | 100% | `command` | ✅ 100% · 2026-08-31 | 5.5 | 2 |
 | `alert-noise-reduction` | devops-sre | 2 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 3 | 1 |
 | `deploy-canary-verifier` | devops-sre | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
-| `incident-lifecycle` | devops-sre | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 10 | 1 |
+| `incident-lifecycle` | devops-sre | 1 | 100% | `assert-fixture` | — | 10 | 1 |
 | `incident-triage-router` | devops-sre | 2 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-08-31 | 3 | 2 |
 | `postmortem-writer` | devops-sre | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
 | `runbook-executor` | devops-sre | 2 | 100% | `command` | ✅ 100% · 2026-08-31 | 4 | 2 |
@@ -249,23 +249,23 @@ pie showData title Graphs per domain
 | `earnings-call-digest` | finance | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
 | `expense-audit-swarm` | finance | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
 | `kyc-document-processing` | finance | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 5 | 2 |
-| `regulatory-filing-lifecycle` | finance | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 5 | 1 |
+| `regulatory-filing-lifecycle` | finance | 1 | 100% | `assert-fixture` | — | 5 | 1 |
 | `adverse-event-scanner` | healthcare-science | 2 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 3 | 1 |
 | `clinical-literature-triage` | healthcare-science | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 2 |
 | `clinical-protocol-lifecycle` | healthcare-science | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 4 | 1 |
-| `differential-diagnosis-ensemble` | healthcare-science | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 3 | 1 |
+| `differential-diagnosis-ensemble` | healthcare-science | 1 | 100% | `assert-fixture` | — | 3 | 1 |
 | `medical-coding-audit` | healthcare-science | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 5.5 | 2 |
 | `trial-eligibility-screener` | healthcare-science | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 3 | 1 |
-| `hiring-lifecycle` | hr-people | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 7 | 1 |
+| `hiring-lifecycle` | hr-people | 1 | 100% | `assert-fixture` | — | 7 | 1 |
 | `jd-drafting-critic` | hr-people | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
 | `onboarding-plan-builder` | hr-people | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 1 |
-| `performance-cycle-summarizer` | hr-people | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 4 | 1 |
-| `contract-lifecycle` | legal-compliance | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 8 | 1 |
+| `performance-cycle-summarizer` | hr-people | 1 | 100% | `assert-fixture` | — | 4 | 1 |
+| `contract-lifecycle` | legal-compliance | 1 | 100% | `assert-fixture` | — | 8 | 1 |
 | `contract-redline-pipeline` | legal-compliance | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 5 | 2 |
 | `ediscovery-triage` | legal-compliance | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 2 |
 | `gdpr-data-audit` | legal-compliance | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 7 | 1 |
 | `license-compliance-scan` | legal-compliance | 2 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 3 | 1 |
-| `product-listing-pipeline` | logistics-retail | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 7 | 1 |
+| `product-listing-pipeline` | logistics-retail | 1 | 100% | `assert-fixture` | — | 7 | 1 |
 | `returns-triage` | logistics-retail | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 2 |
 | `supplier-risk-monitor` | logistics-retail | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 6 | 1 |
 | `citation-integrity-audit` | research-knowledge | 2 | 100% | `command` | ✅ 100% · 2026-08-31 | 4 | 2 |
@@ -281,7 +281,7 @@ pie showData title Graphs per domain
 | `soc-alert-investigation` | security | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
 | `threat-intel-digest` | security | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 1 |
 | `vuln-prioritization` | security | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
-| `vuln-remediation-lifecycle` | security | 1 | 100% | `command` | 🚫 0% · 2026-08-31 | 9 | 1 |
+| `vuln-remediation-lifecycle` | security | 1 | 100% | `command` | — | 9 | 1 |
 | `architecture-decision-tournament` | software-engineering | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 3 | 1 |
 | `benchmark-driven-optimization-search` | software-engineering | 1 | 100% | `command` | ✅ 100% · 2026-08-31 | 3 | 1 |
 | `bug-triage-and-fix` | software-engineering | 2 | 100% | `command` | 🚫 0% · 2026-08-31 | 4 | 2 |
@@ -290,7 +290,7 @@ pie showData title Graphs per domain
 | `docs-code-sync-audit` | software-engineering | 2 | 100% | `command` | 🚫 0% · 2026-08-31 | 4 | 2 |
 | `feature-delivery-lifecycle` | software-engineering | 3 | 100% | `command` | 🚫 0% · 2026-08-31 | 16 | 3 |
 | `flaky-test-reflexion` | software-engineering | 1 | 100% | `command` | 🚫 0% · 2026-08-31 | 4 | 1 |
-| `framework-migration` | software-engineering | 1 | 100% | `command` | 🚫 0% · 2026-08-31 | 7 | 1 |
+| `framework-migration` | software-engineering | 1 | 100% | `command` | — | 7 | 1 |
 | `legacy-refactor` | software-engineering | 2 | 100% | `command` | 🚫 0% · 2026-08-31 | 4 | 2 |
 | `performance-optimization` | software-engineering | 2 | 100% | `command` | ✅ 100% · 2026-08-31 | 4 | 2 |
 | `release-notes-generation` | software-engineering | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 1 |

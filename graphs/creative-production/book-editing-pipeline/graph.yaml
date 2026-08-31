@@ -58,6 +58,16 @@ nodes:
   outputs:
   - output
   - typeset
+- id: escalate-manuscript
+  speciality: escalator
+  abilities:
+  - escalate
+  inputs: []
+  outputs:
+  - escalated: bool
+  - escalation_reason
+  criteria: The manuscript returns to the editor with the violations that survived copy-editing, rather
+    than reaching an author sign-off it has not earned.
 edges:
 - from: assess
   to: dev-edit
@@ -73,6 +83,9 @@ edges:
   when: len(style_violations) == 0
 - from: author-signoff
   to: typeset
+- from: copy-edit
+  to: escalate-manuscript
+  when: len(style_violations) > 0 and attempts >= 2
 termination:
   max_steps: 35
   contract: nothing typesets with open style violations or without author sign-off

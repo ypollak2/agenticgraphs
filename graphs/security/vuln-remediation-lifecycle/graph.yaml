@@ -82,6 +82,16 @@ nodes:
   - advisory_url
   - cve_id
   - output
+- id: escalate-vuln
+  speciality: escalator
+  abilities:
+  - escalate
+  inputs: []
+  outputs:
+  - escalated: bool
+  - escalation_reason
+  criteria: The vulnerability is escalated with every patch attempted and the proof-of-concept still succeeding.
+    Nothing is disclosed on this path.
 edges:
 - from: ingest
   to: prioritize
@@ -99,6 +109,9 @@ edges:
   when: exploit_blocked
 - from: disclose-approval
   to: disclose
+- from: prove
+  to: escalate-vuln
+  when: not exploit_blocked and attempts >= 3
 termination:
   max_steps: 45
   contract: nothing is disclosed until the exploit is proven blocked and a human has signed off

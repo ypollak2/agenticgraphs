@@ -53,6 +53,16 @@ nodes:
   - published
   - timestamps: list[{start:int, end:int}]
   join: all
+- id: escalate-rights
+  speciality: escalator
+  abilities:
+  - escalate
+  inputs: []
+  outputs:
+  - escalated: bool
+  - escalation_reason
+  criteria: 'The episode is held with the clips whose licensing could not be confirmed. This node had
+    no failure path at all: unclear rights stopped the graph, which looks identical to rights being clear.'
 edges:
 - from: transcribe
   to: edit-plan
@@ -65,6 +75,9 @@ edges:
 - from: rights-check
   to: publish
   when: rights_clear
+- from: rights-check
+  to: escalate-rights
+  when: not rights_clear
 termination:
   max_steps: 30
   contract: no episode publishes with an uncleared cue or drifting timestamps

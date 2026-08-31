@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-096` | hr-people | **pipeline** | 4 | 4 | 1 | 0 | 25 | write |
+| `AGR-096` | hr-people | **pipeline** | 5 | 5 | 1 | 0 | 25 | write |
 
 > 🎯 **Requires a goal** — the review cycle and the person it covers. Without one the graph refuses and runs no node.
 
@@ -17,10 +17,12 @@ flowchart LR
     N1["synthesize<br/><i>reducer</i>"]
     N2["bias-check<br/><i>critic</i>"]
     N3{{"calibrate<br/><i>judge</i>"}}
+    N4["escalate-review<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N2 -->|len(bias_flags) > 0 and attempts < 2| N1
     N2 -->|len(bias_flags) == 0| N3
+    N2 -->|len(bias_flags) > 0 and attempts >= 2| N4
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -62,6 +64,7 @@ To evolve it: `uv run agr infuse performance-cycle-summarizer <node> <ability>` 
 | `synthesize` | reducer | agent | reduce_merge |
 | `bias-check` | critic | agent | critique |
 | `calibrate` | judge | verifier | adjudicate |
+| `escalate-review` | escalator | agent | escalate |
 
 ## Edge logic
 
@@ -71,6 +74,7 @@ To evolve it: `uv run agr infuse performance-cycle-summarizer <node> <ability>` 
 | `synthesize` | `bias-check` | always |
 | `bias-check` | `synthesize` | len(bias_flags) > 0 and attempts < 2 |
 | `bias-check` | `calibrate` | len(bias_flags) == 0 |
+| `bias-check` | `escalate-review` | len(bias_flags) > 0 and attempts >= 2 |
 
 ## Optional use-cases
 

@@ -52,6 +52,16 @@ nodes:
   - listings_published
   - output
   join: all
+- id: escalate-listing
+  speciality: escalator
+  abilities:
+  - escalate
+  inputs: []
+  outputs:
+  - escalated: bool
+  - escalation_reason
+  criteria: The listing is held with the claims that could not be substantiated. An unsupported product
+    claim is a regulatory exposure, not a copy defect.
 edges:
 - from: extract
   to: write
@@ -68,6 +78,12 @@ edges:
 - from: policy-check
   to: publish
   when: len(policy_violations) == 0
+- from: claim-check
+  to: escalate-listing
+  when: len(unsupported_claims) > 0 and attempts >= 2
+- from: policy-check
+  to: escalate-listing
+  when: len(policy_violations) > 0
 termination:
   max_steps: 30
   contract: every published claim traces to the spec sheet and clears marketplace policy

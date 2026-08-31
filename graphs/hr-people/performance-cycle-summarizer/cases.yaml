@@ -12,4 +12,5 @@ cases:
       output:
         uncited_claims: 0
         bias_flags: []
+    escalate-review: {}
   goal: summarize the H1 2026 cycle for a senior engineer on the infra team

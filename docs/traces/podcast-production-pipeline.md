@@ -14,11 +14,13 @@ flowchart LR
     N2["show-notes<br/><i>producer</i>"]
     N3["rights-check<br/><i>counsel</i>"]
     N4["publish<br/><i>executor</i>"]
+    N5["escalate-rights<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N1 --> N3
     N2 --> N4
     N3 -->|rights_clear| N4
+    N3 -->|not rights_clear| N5
 ```
 
 ## Cases

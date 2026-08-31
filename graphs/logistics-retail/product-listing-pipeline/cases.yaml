@@ -26,4 +26,5 @@ cases:
         unsupported_claims: []
         policy_violations: []
         listings_published: 40
+    escalate-listing: {}
   goal: list the spring hardware line on Amazon under its claims policy

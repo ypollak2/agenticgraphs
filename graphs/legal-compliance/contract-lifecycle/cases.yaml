@@ -37,4 +37,5 @@ cases:
         dated: '2026-08-01'
       - party: us
         dated: '2026-08-01'
+    escalate-contract: {}
   goal: review the Acme MSA under our standard enterprise risk posture

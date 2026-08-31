@@ -151,3 +151,76 @@ def test_every_registry_graph_reaches_a_terminal_on_its_golden_cases():
             rep = run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT,
                             inputs=case_inputs(case))
             assert rep.unreached_terminals == [], f"{doc['name']}/{case['id']}"
+
+
+# ------------------------------------------- a bounded retry must have an exit
+
+def test_no_graph_stalls_when_its_retry_bound_is_reached():
+    from agenticgraphs.validate import _lint_stall
+
+    for gpath in iter_graphs():
+        assert _lint_stall(load(gpath)) == [], load(gpath)["name"]
+
+
+def test_the_uncovered_case_is_the_bound_being_reached():
+    """Retry while failing with attempts left, advance when it worked — and
+    nothing for still-failing-and-out-of-attempts. The run stops there: not
+    failed, not escalated, just stopped."""
+    from agenticgraphs.validate import _lint_stall
+
+    doc = {"apiVersion": "agr/v1.8",
+           "nodes": [{"id": "work"}, {"id": "check"}, {"id": "ship"}],
+           "edges": [{"from": "work", "to": "check"},
+                     {"from": "check", "to": "work", "when": "failed and attempts < 3"},
+                     {"from": "check", "to": "ship", "when": "not failed"}]}
+    assert _lint_stall(doc)
+    doc["nodes"].append({"id": "escalate"})
+    doc["edges"].append({"from": "check", "to": "escalate",
+                         "when": "failed and attempts >= 3"})
+    assert _lint_stall(doc) == []
+
+
+def test_a_lone_success_path_cannot_express_failure():
+    """`rights-check -> publish when rights_clear` was the whole forward flow, so
+    unclear rights looked identical to rights being clear."""
+    from agenticgraphs.validate import _lint_stall
+
+    doc = {"apiVersion": "agr/v1.8",
+           "nodes": [{"id": "check"}, {"id": "publish"}],
+           "edges": [{"from": "check", "to": "publish", "when": "clear"}]}
+    assert _lint_stall(doc)
+
+
+def test_a_terminal_that_loops_is_not_a_stall():
+    """A node whose only edge is a retry back-edge IS the end of the graph.
+    Counting those turned 11 real findings into 51."""
+    from agenticgraphs.validate import _lint_stall
+
+    doc = {"apiVersion": "agr/v1.8",
+           "nodes": [{"id": "produce"}, {"id": "review"}],
+           "edges": [{"from": "produce", "to": "review"},
+                     {"from": "review", "to": "produce",
+                      "when": "revision_requested and attempts < 2"}]}
+    assert _lint_stall(doc) == []
+
+
+def test_an_exhausted_retry_now_reaches_an_escalation_terminal():
+    """The behaviour the escalation edge buys, on a real graph.
+
+    `regulatory-filing-lifecycle` reconciled three times against figures it could
+    not balance and then stopped — the filing neither made nor formally abandoned.
+    """
+    from agenticgraphs.evalcmd import case_inputs
+    from agenticgraphs.registry import ROOT, cases_path
+
+    doc = load(next(g for g in iter_graphs()
+                    if load(g)["name"] == "regulatory-filing-lifecycle"))
+    case = yaml.safe_load(cases_path("regulatory-filing-lifecycle").read_text())["cases"][0]
+    outs = {k: (dict(v) if isinstance(v, dict) else v)
+            for k, v in case["node_outputs"].items()}
+    outs["reconcile"] = [{"reconciled": False}] * 4   # never reconciles
+    rep = run_graph(doc, MockRunner(outs), root=ROOT, inputs=case_inputs(case))
+    assert "abandon-filing" in rep.trace, (
+        f"an unreconcilable filing stalled instead of being abandoned: {rep.trace}"
+    )
+    assert rep.unreached_terminals == [], "the run reached a terminal"

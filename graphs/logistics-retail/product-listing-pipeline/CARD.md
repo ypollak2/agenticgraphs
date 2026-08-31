@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-101` | logistics-retail | **pipeline** | 5 | 6 | 0 | 0 | 30 | execute |
+| `AGR-101` | logistics-retail | **pipeline** | 6 | 8 | 0 | 0 | 30 | execute |
 
 > 🎯 **Requires a goal** — the products to list and the marketplace policy that governs them. Without one the graph refuses and runs no node.
 
@@ -18,12 +18,15 @@ flowchart LR
     N2["claim-check<br/><i>supervisor</i>"]
     N3["policy-check<br/><i>critic</i>"]
     N4["publish<br/><i>executor</i>"]
+    N5["escalate-listing<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N1 --> N3
     N2 -->|len(unsupported_claims) > 0 and attempts < 2| N1
     N2 -->|len(unsupported_claims) == 0| N4
     N3 -->|len(policy_violations) == 0| N4
+    N2 -->|len(unsupported_claims) > 0 and attempts >= 2| N5
+    N3 -->|len(policy_violations) > 0| N5
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -66,6 +69,7 @@ To evolve it: `uv run agr infuse product-listing-pipeline <node> <ability>` — 
 | `claim-check` | supervisor | subgraph | — |
 | `policy-check` | critic | agent | critique |
 | `publish` | executor | agent | execute_step |
+| `escalate-listing` | escalator | agent | escalate |
 
 ## Edge logic
 
@@ -77,6 +81,8 @@ To evolve it: `uv run agr infuse product-listing-pipeline <node> <ability>` — 
 | `claim-check` | `write` | len(unsupported_claims) > 0 and attempts < 2 |
 | `claim-check` | `publish` | len(unsupported_claims) == 0 |
 | `policy-check` | `publish` | len(policy_violations) == 0 |
+| `claim-check` | `escalate-listing` | len(unsupported_claims) > 0 and attempts >= 2 |
+| `policy-check` | `escalate-listing` | len(policy_violations) > 0 |
 
 ## Optional use-cases
 

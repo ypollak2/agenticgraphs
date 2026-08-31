@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-121` | finance | **human-gate** | 6 | 6 | 0 | 0 | 35 | execute |
+| `AGR-121` | finance | **human-gate** | 7 | 7 | 0 | 0 | 35 | execute |
 
 > 🎯 **Requires a goal** — the filing period and the regime being filed under. Without one the graph refuses and runs no node.
 
@@ -19,12 +19,14 @@ flowchart LR
     N3["file<br/><i>controller</i>"]
     N4["retain<br/><i>producer</i>"]
     N5["withdraw-filing<br/><i>compensator</i>"]
+    N6["abandon-filing<br/><i>escalator</i>"]
     N0 --> N1
     N1 -->|not reconciled and attempts < 3| N0
     N1 -->|reconciled| N2
     N2 --> N3
     N3 --> N4
     N3 -->|file_failed| N5
+    N1 -->|not reconciled and attempts >= 3| N6
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -69,6 +71,7 @@ To evolve it: `uv run agr infuse regulatory-filing-lifecycle <node> <ability>` �
 | `file` | controller | agent | analyze, file_record |
 | `retain` | producer | agent | generate |
 | `withdraw-filing` | compensator | agent | rollback |
+| `abandon-filing` | escalator | agent | escalate |
 
 ## Edge logic
 
@@ -80,6 +83,7 @@ To evolve it: `uv run agr infuse regulatory-filing-lifecycle <node> <ability>` �
 | `controller-signoff` | `file` | always |
 | `file` | `retain` | always |
 | `file` | `withdraw-filing` | file_failed |
+| `reconcile` | `abandon-filing` | not reconciled and attempts >= 3 |
 
 ## Optional use-cases
 

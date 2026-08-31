@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-117` | security | **lifecycle** | 7 | 7 | 1 | 0 | 45 | execute |
+| `AGR-117` | security | **lifecycle** | 8 | 8 | 1 | 0 | 45 | execute |
 
 > 🎯 **Requires a goal** — the vulnerability to remediate and the affected estate. Without one the graph refuses and runs no node.
 
@@ -20,6 +20,7 @@ flowchart LR
     N4{{"prove<br/><i>verifier</i>"}}
     N5["disclose-approval<br/><i>approver</i>"]
     N6["disclose<br/><i>producer</i>"]
+    N7["escalate-vuln<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N2 --> N3
@@ -27,6 +28,7 @@ flowchart LR
     N4 -->|not exploit_blocked and attempts < 3| N3
     N4 -->|exploit_blocked| N5
     N5 --> N6
+    N4 -->|not exploit_blocked and attempts >= 3| N7
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -73,6 +75,7 @@ To evolve it: `uv run agr infuse vuln-remediation-lifecycle <node> <ability>` �
 | `prove` | verifier | verifier | run_command |
 | `disclose-approval` | approver | human | approve |
 | `disclose` | producer | agent | generate |
+| `escalate-vuln` | escalator | agent | escalate |
 
 ## Edge logic
 
@@ -85,6 +88,7 @@ To evolve it: `uv run agr infuse vuln-remediation-lifecycle <node> <ability>` �
 | `prove` | `patch` | not exploit_blocked and attempts < 3 |
 | `prove` | `disclose-approval` | exploit_blocked |
 | `disclose-approval` | `disclose` | always |
+| `prove` | `escalate-vuln` | not exploit_blocked and attempts >= 3 |
 
 ## Optional use-cases
 

@@ -67,6 +67,16 @@ nodes:
   - withdraw_filing_filed
   criteria: A filing is received the moment it is submitted. Undoing it is a formal withdrawal or amendment
     on the record, not a deletion, and the amendment must cite the filing it corrects.
+- id: abandon-filing
+  speciality: escalator
+  abilities:
+  - escalate
+  inputs: []
+  outputs:
+  - escalated: bool
+  - escalation_reason
+  criteria: The filing is formally abandoned with the unreconciled variance recorded. A filing that cannot
+    be reconciled must be visibly not-filed, never silently unfiled.
 edges:
 - from: collect
   to: reconcile
@@ -84,6 +94,9 @@ edges:
   to: withdraw-filing
   kind: compensate
   when: file_failed
+- from: reconcile
+  to: abandon-filing
+  when: not reconciled and attempts >= 3
 termination:
   max_steps: 35
   contract: nothing files until figures reconcile to source and a controller signs

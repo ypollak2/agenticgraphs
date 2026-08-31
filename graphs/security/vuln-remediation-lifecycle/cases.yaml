@@ -39,4 +39,5 @@ cases:
         cve_id: CVE-2026-1234
       advisory_url: https://example.org/GHSA-1
       cve_id: CVE-2026-1234
+    escalate-vuln: {}
   goal: remediate CVE-2026-1234 across the payment services estate

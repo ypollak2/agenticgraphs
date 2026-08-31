@@ -14,11 +14,13 @@ flowchart LR
     N2["port-slice<br/><i>supervisor</i>"]
     N3{{"integrate<br/><i>qa-lead</i>"}}
     N4["sign-off<br/><i>tech-lead</i>"]
+    N5["escalate-migration<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N2 --> N3
     N3 -->|not suite_green and attempts < 3| N1
     N3 -->|suite_green| N4
+    N3 -->|not suite_green and attempts >= 3| N5
 ```
 
 ## Cases

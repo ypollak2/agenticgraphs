@@ -18,4 +18,5 @@ cases:
         style_violations: []
         signed_off: true
         typeset: true
+    escalate-manuscript: {}
   goal: the 90k-word Ridgeline draft, against the Kestrel style guide

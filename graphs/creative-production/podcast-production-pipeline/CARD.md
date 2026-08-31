@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-106` | creative-production | **pipeline** | 5 | 5 | 0 | 0 | 30 | execute |
+| `AGR-106` | creative-production | **pipeline** | 6 | 6 | 0 | 0 | 30 | execute |
 
 > 🎯 **Requires a goal** — the episode transcript to work from and the show it belongs to. Without one the graph refuses and runs no node.
 
@@ -18,11 +18,13 @@ flowchart LR
     N2["show-notes<br/><i>producer</i>"]
     N3["rights-check<br/><i>counsel</i>"]
     N4["publish<br/><i>executor</i>"]
+    N5["escalate-rights<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N1 --> N3
     N2 --> N4
     N3 -->|rights_clear| N4
+    N3 -->|not rights_clear| N5
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -65,6 +67,7 @@ To evolve it: `uv run agr infuse podcast-production-pipeline <node> <ability>` �
 | `show-notes` | producer | agent | generate |
 | `rights-check` | counsel | agent | critique |
 | `publish` | executor | agent | execute_step |
+| `escalate-rights` | escalator | agent | escalate |
 
 ## Edge logic
 
@@ -75,6 +78,7 @@ To evolve it: `uv run agr infuse podcast-production-pipeline <node> <ability>` �
 | `edit-plan` | `rights-check` | always |
 | `show-notes` | `publish` | always |
 | `rights-check` | `publish` | rights_clear |
+| `rights-check` | `escalate-rights` | not rights_clear |
 
 ## Optional use-cases
 

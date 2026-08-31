@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-005` | software-engineering | **planner-executor-verifier** | 5 | 5 | 1 | 0 | 60 | execute |
+| `AGR-005` | software-engineering | **planner-executor-verifier** | 6 | 6 | 1 | 0 | 60 | execute |
 
 > 🎯 **Requires a goal** — the codebase to port, its source framework and its target framework. Without one the graph refuses and runs no node.
 
@@ -18,11 +18,13 @@ flowchart LR
     N2["port-slice<br/><i>supervisor</i>"]
     N3{{"integrate<br/><i>qa-lead</i>"}}
     N4["sign-off<br/><i>tech-lead</i>"]
+    N5["escalate-migration<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N2 --> N3
     N3 -->|not suite_green and attempts < 3| N1
     N3 -->|suite_green| N4
+    N3 -->|not suite_green and attempts >= 3| N5
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -65,6 +67,7 @@ To evolve it: `uv run agr infuse framework-migration <node> <ability>` — every
 | `port-slice` | supervisor | subgraph | — |
 | `integrate` | qa-lead | verifier | run_suite |
 | `sign-off` | tech-lead | agent | read_diff |
+| `escalate-migration` | escalator | agent | escalate |
 
 ## Edge logic
 
@@ -75,6 +78,7 @@ To evolve it: `uv run agr infuse framework-migration <node> <ability>` — every
 | `port-slice` | `integrate` | always |
 | `integrate` | `supervise` | not suite_green and attempts < 3 |
 | `integrate` | `sign-off` | suite_green |
+| `integrate` | `escalate-migration` | not suite_green and attempts >= 3 |
 
 ## Optional use-cases
 

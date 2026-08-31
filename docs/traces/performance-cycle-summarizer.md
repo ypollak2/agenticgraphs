@@ -13,10 +13,12 @@ flowchart LR
     N1["synthesize<br/><i>reducer</i>"]
     N2["bias-check<br/><i>critic</i>"]
     N3{{"calibrate<br/><i>judge</i>"}}
+    N4["escalate-review<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N2 -->|len(bias_flags) > 0 and attempts < 2| N1
     N2 -->|len(bias_flags) == 0| N3
+    N2 -->|len(bias_flags) > 0 and attempts >= 2| N4
 ```
 
 ## Cases

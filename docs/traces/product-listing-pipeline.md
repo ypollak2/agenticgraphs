@@ -14,12 +14,15 @@ flowchart LR
     N2["claim-check<br/><i>supervisor</i>"]
     N3["policy-check<br/><i>critic</i>"]
     N4["publish<br/><i>executor</i>"]
+    N5["escalate-listing<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N1 --> N3
     N2 -->|len(unsupported_claims) > 0 and attempts < 2| N1
     N2 -->|len(unsupported_claims) == 0| N4
     N3 -->|len(policy_violations) == 0| N4
+    N2 -->|len(unsupported_claims) > 0 and attempts >= 2| N5
+    N3 -->|len(policy_violations) > 0| N5
 ```
 
 ## Cases
