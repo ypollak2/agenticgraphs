@@ -1,22 +1,39 @@
 {
   "model": "qwen3-coder:30b",
-  "recorded": "2026-08-11",
+  "recorded": "2026-08-31",
   "endpoint": "http://localhost:11434/v1",
-  "inputs": {},
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the vendor onboarding runbook, against InfoSec policy v4"
+  },
   "node_outputs": {
     "intake": {
-      "summary": "Analysis complete. All findings map to specific policy clause ids."
+      "summary": "Vendor onboarding runbook requires multi-factor authentication for all vendor access accounts, mandatory security training completion before access provisioning, and regular security awareness updates. Policy v4 clause 3.2.1 mandates that all third-party vendors must undergo security screening and risk assessment prior to onboarding. The runbook lacks specific requirements for vendor contract terms inclusion and does not explicitly address data classification levels for vendor access. Additionally, the runbook does not specify incident response procedures for vendor-related security breaches, which is required by policy v4 clause 5.3.2."
+    },
+    "clause-map": {
+      "clause_shards": [
+        {
+          "clause_id": "3.2.1",
+          "shard_content": "Policy v4 clause 3.2.1 mandates that all third-party vendors must undergo security screening and risk assessment prior to onboarding. The runbook lacks specific requirements for vendor contract terms inclusion and does not explicitly address data classification levels for vendor access."
+        },
+        {
+          "clause_id": "5.3.2",
+          "shard_content": "Policy v4 clause 5.3.2 requires incident response procedures for vendor-related security breaches. The runbook does not specify incident response procedures for vendor-related security breaches."
+        }
+      ]
     },
     "produce": {
       "findings": [
         {
-          "clause_id": "A1"
+          "clause_id": "3.2.1"
         },
         {
-          "clause_id": "B3"
-        },
-        {
-          "clause_id": "C2"
+          "clause_id": "5.3.2"
         }
       ]
     },
@@ -24,19 +41,16 @@
       "output": {
         "findings": [
           {
-            "clause_id": "A1"
+            "clause_id": "3.2.1",
+            "breach_text": "Policy v4 clause 3.2.1 mandates that all third-party vendors must undergo security screening and risk assessment prior to onboarding. The runbook lacks specific requirements for vendor contract terms inclusion and does not explicitly address data classification levels for vendor access."
           },
           {
-            "clause_id": "B3"
-          },
-          {
-            "clause_id": "C2"
+            "clause_id": "5.3.2",
+            "breach_text": "Policy v4 clause 5.3.2 requires incident response procedures for vendor-related security breaches. The runbook does not specify incident response procedures for vendor-related security breaches."
           }
         ]
       }
     }
   },
-  "tool_calls": [],
-  "superseded_by": "agr/v1.8",
-  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+  "tool_calls": []
 }

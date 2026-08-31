@@ -1,5 +1,96 @@
 # Changelog
 
+## [0.9.4] — the claims get checked, and the evidence gets thrown away
+
+Two things happened. A security audit found the evaluator was not a sandbox, and
+closing it exposed that most of what this registry asserted about itself was
+unverified — including, in one case, by the runner handing every node the answer.
+
+### The evaluator was not a sandbox
+
+`edges[].when` and `verification[].assert` reached `eval()` with
+`{"__builtins__": {}}`. That is not a sandbox: `().__class__.__bases__[0]` walks
+back to `subprocess.Popen`. Any downloaded `graph.yaml` ran arbitrary code on
+`agr eval`, with no opt-in, no warning, `agr validate` reporting `OK`, and the
+same hole inlined into every module `agr adapt` generated. Closed by an AST
+allowlist enforced at the gate, at run time, and inside generated code.
+See [SECURITY.md](SECURITY.md) — the exposure was checkouts, not a package index;
+nothing was ever published.
+
+Fixing it surfaced a bug of the same age: the namespace was passed as *locals*, so
+every **nested** quantifier raised `NameError` from the comprehension's own scope.
+No contract in this registry could quantify two levels deep, and single-level
+asserts hid it completely.
+
+### The runner was telling each node the answer
+
+Every prompt carried `Downstream assertions that must hold: [...]`, and the node
+was then scored on exactly those asserts. 31 of 117 asserts were a bare truthy
+read; 16 read a flag the graph's own model-driven node wrote. **Every live number
+this project has ever published came from runs conducted that way.**
+
+The assert text is gone from the prompt. What replaces it is `criteria` — a
+required rubric on every verifier, saying what the claim MEANS in the domain
+rather than which flag to set.
+
+### What is now checked that was not
+
+| Rule | Refuses | Found |
+|---|---|---|
+| `_lint_self_graded` | a contract the model grades itself on | 16 |
+| `_lint_criteria` | a verifier with no rubric | 72 |
+| `_lint_motif` | a graph declaring a motif its topology lacks | 14 |
+| `_lint_commands` | prose in the `command` field | 1 |
+| `_lint_irreversible` | a one-way effect with no compensating path | 3 |
+| `safeexpr` | any construct outside a small allowlist | the RCE |
+
+`_lint_motif` deserves a note: ten graphs called themselves `parallel-swarm` while
+being a linear three-node chain, including `verifier-swarm` — the graph the README
+uses to explain what a swarm is.
+
+### 83 graphs are now 83 graphs
+
+Stripping the strings that are free to differ, **36 of 83 were byte-identical to
+another**, and 83 graphs were 40 shapes. `clinical-literature-triage` and
+`incident-triage-router` differed in four strings; the healthcare graph had nodes
+called `branch-simple` and `branch-complex` and contained no healthcare. Now 83
+distinct topologies, 0 clones — each remaining pair differentiated by the step its
+domain actually needs, not by renaming.
+
+### All 560 recordings retired
+
+Prompt change, sampling change, and 16 replaced contracts invalidate every one of
+them at once. They are stamped and kept, not deleted — the record of what was
+measured is the evidence the correction was needed — and excluded from every
+number. **Live coverage reads 0 of 83, and that means pending re-recording.**
+
+They had to be retired *wholesale* because none said which spec it was scored
+against or how the model was sampled. Recordings now carry both, so the next spec
+change retires precisely what it invalidates.
+
+Two more things the retirement exposed:
+- `record_live.py` recorded `cases[0]` only. For the project's whole life,
+  "83 of 83 graphs recorded" meant *one case each* — and the cases worth measuring
+  are the ones written second, the branch a model gets wrong.
+- The router migration seeded its reference tables with the placeholder
+  `"<ownership_map supplied by the caller>"`. With nothing to read, a model writes
+  the same value into both sides of the comparison and passes. Real tables now,
+  with a trap case in each.
+
+### Also
+
+- `uv.lock` was gitignored and untracked while CI ran `uv sync`; committed, with
+  `--frozen` in both workflows.
+- ruff + mypy adopted and in the gate. The source carried ten `# noqa` suppressions
+  for a linter that had never run — one of them on the `eval` above. 152 findings
+  to zero, including four real defects (dead `super()._prompt()` call, a
+  `find_graph` None-deref, shadowed loop variables, and `ToolRunner.root` serving
+  as both working directory and ability registry — which silently unbound every
+  ability when pointed at a target repo).
+- Executable verification commands 1 -> 20. The one that existed was prose.
+- Tests 266 -> 393, coverage floor at 90%.
+- `claims.txt`, a saved copy of example.com's HTML, deleted.
+
 ## [0.9.3] — instability is the setup, not the model
 
 v0.9.2 found 20% of `qwen3-coder:30b` cells returning different verdicts on identical

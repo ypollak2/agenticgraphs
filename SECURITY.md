@@ -28,7 +28,17 @@ If you find a graph that reaches outside these, that is a vulnerability — repo
 
 ## Known issue: expression evaluation before v0.9.4
 
-**Affected: all releases through 0.9.3. Fixed in 0.9.4.**
+**Affected: every checkout of this repository before v0.9.4. Fixed in v0.9.4.**
+
+**Scope, stated precisely.** This project has never been published to a package
+index — `pip install` was never a way to get it, under any of the three names the
+`pyproject.toml` discusses. The only distribution channel was this public
+repository, which at the time of the fix had no forks and no dependents. So the
+population at risk is: anyone who cloned the repo and ran `agr eval`, `agr
+optimize`, or the MCP server against a graph they did not write themselves, plus
+CI on any pull request. That is a real exposure and the reason this section
+exists — it is not a supply-chain incident, and describing it as one would be the
+same kind of unearned claim the project's own contracts are audited for.
 
 `edges[].when` and `verification[].assert` were evaluated with
 `eval(expr, {"__builtins__": {}}, ns)`. Emptying `__builtins__` is not a sandbox:
@@ -63,7 +73,11 @@ The same walk runs in three places, because one of them alone is not enough:
 Regression coverage is in `tests/test_safeexpr.py`, which pins the known escapes,
 the 214 expressions the registry actually uses, and the guard inside generated code.
 
-### If you ran an untrusted graph on an affected version
+### If you ran an untrusted graph on an affected checkout
 
-Assume arbitrary code execution as the invoking user. Rotate any credential reachable
-from that environment — CI tokens and PyPI publishing credentials first.
+Assume arbitrary code execution as the invoking user. Rotate any credential
+reachable from that environment. If you merged a pull request that touched a
+`graph.yaml` before v0.9.4, the `gate` workflow evaluated it — and the `publish`
+workflow in the same repository holds `id-token: write` against PyPI, so that
+trusted-publishing relationship is worth reviewing even though nothing was ever
+published through it.
