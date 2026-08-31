@@ -4,13 +4,15 @@ cases:
     triage.route:
       complexity: low
     triage.branch-simple:
-      handled_by: simple
+      assigned_team: platform-oncall
     triage.verify:
       owner: owner-value
       severity: severity-value
+      assigned_team: platform-oncall
+      expected_team: platform-oncall
       output:
-        routed_team: platform-oncall
-        matches_ownership_map: true
+        assigned_team: platform-oncall
+        expected_team: platform-oncall
     postmortem.intake:
       summary: intake complete
     postmortem.produce:
@@ -35,6 +37,9 @@ cases:
       mitigated: true
     confirm:
       impact_cleared: true
+      blast_radius: 12
+      residual_blast_radius: 0
+      output: {}
     action-items:
       actions: &id001
       - owner: sre

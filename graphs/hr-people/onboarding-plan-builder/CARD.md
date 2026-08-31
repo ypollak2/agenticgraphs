@@ -35,8 +35,8 @@ Build role-specific onboarding with checkpoint tasks.
 The plan makes intent inspectable before anything touches the world, the executor works inside that plan, and the verifier proves the postcondition actually holds — success is demonstrated, not asserted.
 
 - **Exit contract** — every checkpoint carries a measurable milestone and day-one access is pre-requested
-- **Machine-checked** — `output.milestones_covered == true`
-- **Machine-checked** — `output.access_requested == true`
+- **Machine-checked** — `all(c.milestone for c in output.plan_30_60_90)`
+- **Machine-checked** — `all(a.system and a.requested_on for a in output.access_requests)`
 - **Bounded** — hard stop after 25 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval onboarding-plan-builder` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/onboarding-plan-builder.md)

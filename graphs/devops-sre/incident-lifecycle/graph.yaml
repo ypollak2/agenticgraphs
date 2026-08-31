@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: incident-lifecycle
 description: Detect, triage, mitigate and prove an incident closed, then write the postmortem and file
   the actions.
@@ -40,7 +40,10 @@ nodes:
   inputs:
   - mitigation
   outputs:
-  - impact_cleared: any
+  - blast_radius
+  - residual_blast_radius
+  criteria: "Mitigation is proven by the signal that declared the incident returning to normal, not by\
+    \ a responder saying so \u2014 and the postmortem yields at least one action with a named owner."
 - id: postmortem
   speciality: supervisor
   kind: subgraph
@@ -79,10 +82,11 @@ termination:
   contract: mitigation is proven effective before the postmortem is written; every postmortem yields owned
     actions
 verification:
-- describe: impact is cleared before the incident is written up
-  assert: output.impact_cleared == true
-- describe: every postmortem produces at least one owned action
-  assert: len(output.actions) >= 1
+- describe: the blast radius measured after mitigation is smaller than the one `detect` measured before
+    it
+  assert: output.residual_blast_radius < output.blast_radius
+- describe: the postmortem yields at least one owned action
+  assert: len(output.actions) >= 1 and all(a.owner for a in output.actions)
 state:
   inputs:
   - goal

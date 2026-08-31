@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: kyc-document-processing
 description: Extract, cross-check, and flag gaps in KYC documents.
 category: finance
@@ -22,6 +22,8 @@ nodes:
   kind: verifier
   outputs:
   - output
+  criteria: Every extracted field validates against the document image it came from, and a field that
+    could not be read is flagged as a gap rather than inferred from the rest of the pack.
 edges:
 - from: intake
   to: produce

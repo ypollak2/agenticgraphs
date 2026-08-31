@@ -18,10 +18,15 @@ cases:
       advisory: advisory-value
     reproduce:
       repro_confirmed: true
+      repro_exit_code_before: 0
+      output: {}
     patch:
       patch: patch-value
     prove:
       exploit_blocked: true
+      repro_exit_code_before: 0
+      repro_exit_code_after: 1
+      output: {}
     disclose-approval:
       signed_off: true
     disclose:

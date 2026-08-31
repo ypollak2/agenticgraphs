@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: alert-noise-reduction
 description: Cluster alerts, dedupe storms, emit one incident per cause.
 category: devops-sre
@@ -28,6 +28,8 @@ nodes:
   - dedupe_ratio: int
   - missed_paging_alerts
   - output
+  criteria: Clustering collapses a storm into one incident per underlying cause, and no alert that would
+    have paged a human is suppressed. Missing one page outweighs any dedupe ratio.
 edges:
 - from: partition
   to: map

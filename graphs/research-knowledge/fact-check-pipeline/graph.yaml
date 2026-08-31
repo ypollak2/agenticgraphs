@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: fact-check-pipeline
 description: Decompose claims, verify each against sources, grade verdicts.
 category: research-knowledge
@@ -23,6 +23,8 @@ nodes:
   kind: verifier
   outputs:
   - output
+  criteria: Every verdict carries the source URL and the quoted span that settles it, so a reader can
+    check the check. A verdict without a quote span is an assertion about an assertion.
 edges:
 - from: intake
   to: produce

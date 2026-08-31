@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: vuln-prioritization
 description: Rank findings by exploitability and blast radius.
 category: security
@@ -22,6 +22,8 @@ nodes:
   kind: verifier
   outputs:
   - output
+  criteria: Every ranked item cites the scanner evidence and the asset-map reference that give it exposure.
+    A CVSS score without an asset map ranks a vulnerability nobody can reach above one on the perimeter.
 edges:
 - from: intake
   to: produce

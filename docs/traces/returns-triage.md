@@ -28,12 +28,13 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `route` | `complexity='low'` |
-| 2 | `branch-simple` | `handled_by='simple'` |
-| 3 | `verify` | `output={'decision': 'refund', 'matches_policy_table': True}` |
+| 2 | `branch-simple` | `assigned_disposition='refund'` |
+| 3 | `verify` | `assigned_disposition='refund', expected_disposition='refund', output={'assigned_disposition': 'refund', 'expected_disposition': 'refund'}` |
 
 **Verification checked:**
 
-- ✅ `output.matches_policy_table`
+- ✅ `output.assigned_disposition == output.expected_disposition`
+- ✅ `len(output.expected_disposition) > 0`
 
 ### `complex-branch` — ✅ passed
 
@@ -42,12 +43,13 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `route` | `complexity='high'` |
-| 2 | `branch-complex` | `handled_by='complex'` |
-| 3 | `verify` | `output={'decision': 'refund', 'matches_policy_table': True}` |
+| 2 | `branch-complex` | `assigned_disposition='refund'` |
+| 3 | `verify` | `assigned_disposition='refund', expected_disposition='refund', output={'assigned_disposition': 'refund', 'expected_disposition': 'refund'}` |
 
 **Verification checked:**
 
-- ✅ `output.matches_policy_table`
+- ✅ `output.assigned_disposition == output.expected_disposition`
+- ✅ `len(output.expected_disposition) > 0`
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/logistics-retail/returns-triage/CARD.md)*

@@ -178,6 +178,25 @@ def _lint_self_graded(doc: dict) -> list[str]:
     return msgs
 
 
+def _lint_criteria(doc: dict) -> list[str]:
+    """A verifier without a rubric is a role label, not a verifier.
+
+    Armed at v1.8. Before it, a node carried only its position in a topology, so
+    two graphs in unrelated domains could be — and 36 of 83 were — the same nodes
+    under different names. `criteria` is where the domain knowledge lives, and
+    requiring it on the node that makes the judgement is what stops a graph from
+    being a shape the reader could have typed themselves.
+    """
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    return [
+        f"node '{n['id']}' is kind: verifier but declares no `criteria` — state what it "
+        f"must judge, in this domain's terms, not which flag to set"
+        for n in doc.get("nodes", [])
+        if n.get("kind") == "verifier" and not (n.get("criteria") or "").strip()
+    ]
+
+
 def _parses(expr: str) -> bool:
     try:
         ast.parse(expr, mode="eval")
@@ -404,6 +423,7 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
     # and code running on whoever typed `agr eval`.
     errors.extend(_lint_expressions(doc))
     errors.extend(_lint_self_graded(doc))
+    errors.extend(_lint_criteria(doc))
 
     # speciality / ability resolution
     specs = {load(p)["name"]: load(p) for p in iter_yaml("specialities", root)}

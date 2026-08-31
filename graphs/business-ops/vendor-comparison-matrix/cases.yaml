@@ -20,4 +20,20 @@ cases:
       output:
         uncited_cells: 0
         criteria_consistent: true
+        criteria_grid:
+        - price
+        - sso
+        matrix:
+        - criteria:
+          - price
+          - sso
+          vendor: acme
+      criteria_grid:
+      - price
+      - sso
+      matrix:
+      - criteria:
+        - price
+        - sso
+        vendor: acme
   goal: compare Snowflake, BigQuery and Redshift for our warehouse migration

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: feature-delivery-lifecycle
 description: "End-to-end feature delivery: research a problem, plan it, implement it, test it, audit the\
   \ change, fix what the audit found, document it, and release behind a human gate with a rollback path.\

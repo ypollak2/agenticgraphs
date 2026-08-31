@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: dependency-upgrade
 description: Upgrade pinned deps, scan changelogs for breakage, run suite.
 category: software-engineering
@@ -24,6 +24,8 @@ nodes:
   kind: verifier
   outputs:
   - output
+  criteria: The lockfile is updated, the suite passes, and no new deprecation warning was introduced.
+    A green suite that emits deprecations has deferred the breakage to the next upgrade, not avoided it.
 edges:
 - from: intake
   to: produce

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: data-quality-audit
 description: Workers profile each table for nulls, drift, and duplicates.
 category: data-analytics
@@ -28,6 +28,8 @@ nodes:
   outputs:
   - output
   - violations: list[{count:int, rule_id:any}]
+  criteria: Every violation is a machine-readable rule id with the row count that breaks it, so the report
+    can be re-run and diffed rather than re-read.
 edges:
 - from: plan
   to: work

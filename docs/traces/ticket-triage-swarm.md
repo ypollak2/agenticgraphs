@@ -28,12 +28,13 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `route` | `complexity='low'` |
-| 2 | `branch-simple` | `handled_by='simple'` |
-| 3 | `verify` | `output={'routing_correct': True, 'ticket_id': 'T-1'}` |
+| 2 | `branch-simple` | `assigned_queue='billing-tier2'` |
+| 3 | `verify` | `assigned_queue='billing-tier2', expected_queue='billing-tier2', output={'assigned_queue': 'billing-tier2', 'expected_queue': 'billing-tier2'}` |
 
 **Verification checked:**
 
-- ✅ `output.routing_correct`
+- ✅ `output.assigned_queue == output.expected_queue`
+- ✅ `len(output.expected_queue) > 0`
 
 ### `complex-branch` — ✅ passed
 
@@ -42,12 +43,13 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `route` | `complexity='high'` |
-| 2 | `branch-complex` | `handled_by='complex'` |
-| 3 | `verify` | `output={'routing_correct': True, 'ticket_id': 'T-1'}` |
+| 2 | `branch-complex` | `assigned_queue='billing-tier2'` |
+| 3 | `verify` | `assigned_queue='billing-tier2', expected_queue='billing-tier2', output={'assigned_queue': 'billing-tier2', 'expected_queue': 'billing-tier2'}` |
 
 **Verification checked:**
 
-- ✅ `output.routing_correct`
+- ✅ `output.assigned_queue == output.expected_queue`
+- ✅ `len(output.expected_queue) > 0`
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/customer-support-sales/ticket-triage-swarm/CARD.md)*

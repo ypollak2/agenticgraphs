@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: compliance-evidence-collector
 description: Walk a control framework, collect evidence per control, and flag controls with no live evidence.
 category: security
@@ -41,6 +41,9 @@ nodes:
   - controls_total: any
   - evidence_report
   - output
+  criteria: 'Every control is either evidenced with a live artefact or named explicitly in the uncovered
+    list. The totals must reconcile: a control that is silently neither is how an audit finds what the
+    collector missed.'
 edges:
 - from: enumerate
   to: collect

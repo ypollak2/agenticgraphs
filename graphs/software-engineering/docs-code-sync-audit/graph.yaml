@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: docs-code-sync-audit
 description: Extract every code example from the docs and execute it, recording the real exit code for
   each.
@@ -29,6 +29,8 @@ nodes:
   outputs:
   - examples: list[{doc:str, exit_code:int}]
   - output
+  criteria: Every code example extracted from the docs was actually executed and exited zero. An example
+    that was read and judged plausible has not been checked.
 edges:
 - from: plan
   to: work

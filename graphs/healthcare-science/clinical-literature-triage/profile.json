@@ -11,7 +11,7 @@
     "loops": 0,
     "loops_bounded": true,
     "max_steps": 12,
-    "verification_asserts": 1,
+    "verification_asserts": 2,
     "risk_surface": "write"
   },
   "measured": {
@@ -76,8 +76,8 @@
     "verification_depth": "assert-live",
     "date": "2026-08-31",
     "cases": 7,
-    "passed": 2,
-    "pass_rate": 0.286,
+    "passed": 0,
+    "pass_rate": 0.0,
     "mean_steps": 2.43,
     "results": [
       {
@@ -92,7 +92,8 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.matches_validated_set (AttributeError: matches_validated_set)"
+          "output.assigned_evidence_level == output.expected_evidence_level (AttributeError: assigned_evidence_level)",
+          "len(output.expected_evidence_level) > 0 (AttributeError: expected_evidence_level)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -119,7 +120,8 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.matches_validated_set"
+          "output.assigned_evidence_level == output.expected_evidence_level (AttributeError: assigned_evidence_level)",
+          "len(output.expected_evidence_level) > 0 (AttributeError: expected_evidence_level)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -144,7 +146,8 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.matches_validated_set (AttributeError: matches_validated_set)"
+          "output.assigned_evidence_level == output.expected_evidence_level (AttributeError: assigned_evidence_level)",
+          "len(output.expected_evidence_level) > 0 (AttributeError: expected_evidence_level)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -171,7 +174,8 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.matches_validated_set"
+          "output.assigned_evidence_level == output.expected_evidence_level (AttributeError: assigned_evidence_level)",
+          "len(output.expected_evidence_level) > 0 (AttributeError: expected_evidence_level)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -189,7 +193,7 @@
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 3,
         "trace": [
           "route",
@@ -197,7 +201,10 @@
           "verify"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "output.assigned_evidence_level == output.expected_evidence_level (AttributeError: assigned_evidence_level)",
+          "len(output.expected_evidence_level) > 0 (AttributeError: expected_evidence_level)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -214,7 +221,7 @@
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 3,
         "trace": [
           "route",
@@ -222,7 +229,10 @@
           "verify"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "output.assigned_evidence_level == output.expected_evidence_level (AttributeError: assigned_evidence_level)",
+          "len(output.expected_evidence_level) > 0 (AttributeError: expected_evidence_level)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -248,7 +258,8 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.matches_validated_set"
+          "output.assigned_evidence_level == output.expected_evidence_level (AttributeError: assigned_evidence_level)",
+          "len(output.expected_evidence_level) > 0 (AttributeError: expected_evidence_level)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -272,13 +283,11 @@
     "per_model_pass_rate": {
       "devstral:24b": 0.0,
       "gpt-4o": 0.0,
-      "qwen3-coder:30b": 0.667
+      "qwen3-coder:30b": 0.0
     },
-    "models_disagree": true,
-    "fails_every_model": false,
-    "flaky_models": [
-      "qwen3-coder:30b"
-    ],
+    "models_disagree": false,
+    "fails_every_model": true,
+    "flaky_models": [],
     "samples_per_model": {
       "devstral:24b": 3,
       "gpt-4o": 1,

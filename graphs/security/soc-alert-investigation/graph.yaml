@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: soc-alert-investigation
 description: Investigate an alert with hypothesis-driven queries.
 category: security
@@ -24,6 +24,8 @@ nodes:
   - conclusion: any
   - output
   - query_results
+  criteria: The conclusion is supported by the query results attached to it, and the queries were driven
+    by a stated hypothesis rather than assembled after the answer was chosen.
 edges:
 - from: plan
   to: execute

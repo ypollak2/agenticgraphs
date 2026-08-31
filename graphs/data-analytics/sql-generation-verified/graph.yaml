@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: sql-generation-verified
 description: Generate SQL, critic checks schema validity and row sanity.
 category: data-analytics
@@ -24,6 +24,9 @@ nodes:
   - output
   - query_executes: any
   - row_count_sane: any
+  criteria: The query executes against the real schema and its result passes row-count sanity. A query
+    returning zero rows from a populated table, or every row where a filter was asked for, is wrong even
+    though it ran.
 edges:
 - from: intake
   to: generate

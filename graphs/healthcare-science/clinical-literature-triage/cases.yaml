@@ -4,20 +4,28 @@ cases:
     route:
       complexity: low
     branch-simple:
-      handled_by: simple
+      assigned_evidence_level: 1b
     verify:
+      assigned_evidence_level: 1b
+      expected_evidence_level: 1b
       output:
-        label: RCT
-        matches_validated_set: true
+        assigned_evidence_level: 1b
+        expected_evidence_level: 1b
   goal: 142 new papers on SGLT2 inhibitors, by GRADE
+  inputs:
+    validated_labels: <validated_labels supplied by the caller>
 - id: complex-branch
   node_outputs:
     route:
       complexity: high
     branch-complex:
-      handled_by: complex
+      assigned_evidence_level: 1b
     verify:
+      assigned_evidence_level: 1b
+      expected_evidence_level: 1b
       output:
-        label: RCT
-        matches_validated_set: true
+        assigned_evidence_level: 1b
+        expected_evidence_level: 1b
   goal: 142 new papers on SGLT2 inhibitors, by GRADE
+  inputs:
+    validated_labels: <validated_labels supplied by the caller>

@@ -22,6 +22,17 @@ def _executable(doc: dict) -> dict:
     return expand(doc) if has_subgraphs(doc) else doc
 
 
+def _criteria(n: dict) -> str:
+    """A node's rubric, escaped for embedding in a generated double-quoted string.
+
+    Every emitter carries it. The stub (or the CrewAI goal, or the AutoGen system
+    message) is where a human or an agent binds behavior, so it is exactly where
+    the domain knowledge has to arrive — leaving it in a YAML file the implementer
+    is not reading is how a "healthcare graph" ends up containing no healthcare.
+    """
+    return (n.get("criteria") or "").replace("\\", "\\\\").replace('"', '\\"')
+
+
 def _fn(node_id: str) -> str:
     # Expanded subgraph ids carry a dot (`implement.plan`); both it and the
     # dash are illegal in a Python identifier.
@@ -109,8 +120,16 @@ def emit_langgraph(doc: dict) -> str:
            "", f'Contract: {doc["termination"]["contract"]}', '"""', _PRELUDE]
     for n in doc["nodes"]:
         abilities = ", ".join(n.get("abilities", []))
+        # The stub is where a human or an agent binds behavior, so it is exactly
+        # where the rubric has to arrive. Emitting only the speciality handed the
+        # implementer a role label and left the domain knowledge in a YAML file
+        # they were not reading.
+        doc_lines = [f'speciality: {n["speciality"]} | abilities: {abilities}']
+        if n.get("criteria"):
+            doc_lines += ["", f'Must judge: {n["criteria"]}']
+        body = "\n    ".join(doc_lines)
         out += [f"def {_fn(n['id'])}(state: dict) -> dict:",
-                f'    """speciality: {n["speciality"]} | abilities: {abilities}"""',
+                f'    """{body}"""',
                 f"    raise NotImplementedError(\"bind speciality '{n['speciality']}'"
                 f" (abilities: {abilities})\")", ""]
     out += ["g = StateGraph(dict)"]
@@ -163,7 +182,8 @@ def emit_crewai(doc: dict) -> str:
         abilities = ", ".join(n.get("abilities", [])) or "none declared"
         out += [f"{var}_agent = Agent(",
                 f'    role="{n["speciality"]}",',
-                f'    goal="perform the \'{n["id"]}\' step of {doc["name"]}",',
+                (f'    goal="{_criteria(n)}",' if _criteria(n)
+                 else f'    goal="perform the \'{n["id"]}\' step of {doc["name"]}",'),
                 f'    backstory="specialised in {n["speciality"]}",',
                 f"    tools=[],  # TODO: bind abilities ({abilities}) to real CrewAI tools",
                 "    allow_delegation=False,", ")", ""]
@@ -246,7 +266,9 @@ def emit_autogen(doc: dict) -> str:
         cls = "ConversableAgent" if n.get("kind") == "human" else "AssistantAgent"
         out += [f"{var} = {cls}(",
                 f'    name="{n["id"]}",',
-                f'    system_message="You are a {n["speciality"]} agent. Abilities: {abilities}.",',
+                (f'    system_message="You are a {n["speciality"]} agent. Abilities: '
+                 f'{abilities}. Must judge: {_criteria(n)}",' if _criteria(n) else
+                 f'    system_message="You are a {n["speciality"]} agent. Abilities: {abilities}.",'),
                 "    is_termination_msg=is_termination_msg,", ")", ""]
 
     has_out: dict[str, list] = {}

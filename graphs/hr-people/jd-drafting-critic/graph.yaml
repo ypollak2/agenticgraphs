@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: jd-drafting-critic
 description: Draft job descriptions, critic removes bias and inflation.
 category: hr-people
@@ -24,6 +24,9 @@ nodes:
   - bias_lint_clean: any
   - output
   - requirements_deduped: any
+  criteria: The description is clean of gendered and coded bias terms, and requirements are deduplicated
+    and separated into must-have and nice-to-have. An inflated requirement list narrows the pool without
+    raising the bar.
 edges:
 - from: intake
   to: generate

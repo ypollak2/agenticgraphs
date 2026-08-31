@@ -33,10 +33,10 @@ flowchart LR
 |---|---|---|
 | 1 | `detect` | `signal='signal-value', blast_radius=[]` |
 | 2 | `triage.route` | `complexity='low'` |
-| 3 | `triage.branch-simple` | `handled_by='simple'` |
-| 4 | `triage.verify` | `owner='owner-value', severity='severity-value', output={'routed_team': 'platform-oncall', 'matches_ownership_map': True}` |
+| 3 | `triage.branch-simple` | `assigned_team='platform-oncall'` |
+| 4 | `triage.verify` | `owner='owner-value', severity='severity-value', assigned_team='platform-oncall', expected_team='platform-oncall', output={'assigned_team': 'platform-oncall', 'expected_team': 'platform-oncall'}` |
 | 5 | `mitigate` | `mitigation='mitigation-value', mitigated=True` |
-| 6 | `confirm` | `impact_cleared=True` |
+| 6 | `confirm` | `impact_cleared=True, blast_radius=12, residual_blast_radius=0, output={}` |
 | 7 | `postmortem.intake` | `summary='intake complete'` |
 | 8 | `postmortem.produce` | `output={'timeline': [{'event': 'alert fired', 'log_id': 'L-1', 'message_id': 'value'}, {'event': 'paged on-call', 'message_id': 'M-2', 'log_id': 'value'}]}` |
 | 9 | `postmortem.review` | `postmortem='postmortem-value', revision_requested=False, attempts=1` |
@@ -44,8 +44,8 @@ flowchart LR
 
 **Verification checked:**
 
-- ✅ `output.impact_cleared == true`
-- ✅ `len(output.actions) >= 1`
+- ✅ `output.residual_blast_radius < output.blast_radius`
+- ✅ `len(output.actions) >= 1 and all(a.owner for a in output.actions)`
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/devops-sre/incident-lifecycle/CARD.md)*

@@ -4,20 +4,28 @@ cases:
     route:
       complexity: low
     branch-simple:
-      handled_by: simple
+      assigned_disposition: refund
     verify:
+      assigned_disposition: refund
+      expected_disposition: refund
       output:
-        decision: refund
-        matches_policy_table: true
+        assigned_disposition: refund
+        expected_disposition: refund
   goal: return R-55910, against the 2026 returns policy
+  inputs:
+    policy_table: <policy_table supplied by the caller>
 - id: complex-branch
   node_outputs:
     route:
       complexity: high
     branch-complex:
-      handled_by: complex
+      assigned_disposition: refund
     verify:
+      assigned_disposition: refund
+      expected_disposition: refund
       output:
-        decision: refund
-        matches_policy_table: true
+        assigned_disposition: refund
+        expected_disposition: refund
   goal: return R-55910, against the 2026 returns policy
+  inputs:
+    policy_table: <policy_table supplied by the caller>

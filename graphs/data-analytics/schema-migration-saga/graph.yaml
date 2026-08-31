@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: schema-migration-saga
 description: Migrate a schema in four reversible steps; any failure compensates back to a consistent state.
 category: data-analytics
@@ -46,6 +46,9 @@ nodes:
   - cutover_done
   outputs:
   - parity_verified: any
+  criteria: 'The saga ends in one of two consistent states: forward-complete with source and target parity
+    verified, or fully unwound with every executed step compensated. A partially applied migration is
+    the outcome this graph exists to prevent.'
 - id: undo-cutover
   speciality: compensator
   abilities:

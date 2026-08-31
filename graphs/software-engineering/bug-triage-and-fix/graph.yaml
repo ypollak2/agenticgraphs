@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: bug-triage-and-fix
 description: Reproduce a bug, plan a fix, apply it in isolation, verify.
 category: software-engineering
@@ -24,6 +24,8 @@ nodes:
   - output
   - test_failed_before_patch: any
   - test_passes_after_patch: any
+  criteria: The regression test fails against the unpatched code and passes against the patched code.
+    A test that passes before the fix is testing something else.
 edges:
 - from: plan
   to: execute

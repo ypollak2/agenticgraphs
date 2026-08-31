@@ -30,11 +30,11 @@ flowchart LR
 | 1 | `scope` | `surface='surface-value', rules_of_engagement='rules_of_engagement-value'` |
 | 2 | `attack` | `bypass='bypass-value', severity=2` |
 | 3 | `defend` | `mitigation='mitigation-value'` |
-| 4 | `retest` | `attacker_exhausted=True, output={'attacker_exhausted': True, 'unmitigated': 0}` |
+| 4 | `retest` | `attacker_exhausted=True, output={'attacker_exhausted': True, 'unmitigated': 0, 'bypasses': [{'mitigation_ref': 'm-1'}]}, unmitigated=0, bypasses=[{'mitigation_ref': 'm-1'}]` |
 
 **Verification checked:**
 
-- ✅ `output.attacker_exhausted == true`
+- ✅ `all(b.mitigation_ref for b in output.bypasses)`
 - ✅ `output.unmitigated == 0`
 
 ---

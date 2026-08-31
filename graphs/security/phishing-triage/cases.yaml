@@ -4,20 +4,28 @@ cases:
     route:
       complexity: low
     branch-simple:
-      handled_by: simple
+      assigned_verdict: phish
     verify:
+      assigned_verdict: phish
+      expected_verdict: phish
       output:
-        verdict: phish
-        matches_labeled_corpus: true
+        assigned_verdict: phish
+        expected_verdict: phish
   goal: a reported invoice email, against known-good senders
+  inputs:
+    labeled_corpus: <labeled_corpus supplied by the caller>
 - id: complex-branch
   node_outputs:
     route:
       complexity: high
     branch-complex:
-      handled_by: complex
+      assigned_verdict: phish
     verify:
+      assigned_verdict: phish
+      expected_verdict: phish
       output:
-        verdict: phish
-        matches_labeled_corpus: true
+        assigned_verdict: phish
+        expected_verdict: phish
   goal: a reported invoice email, against known-good senders
+  inputs:
+    labeled_corpus: <labeled_corpus supplied by the caller>

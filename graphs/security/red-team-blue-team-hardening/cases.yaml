@@ -14,4 +14,9 @@ cases:
       output:
         attacker_exhausted: true
         unmitigated: 0
+        bypasses:
+        - mitigation_ref: m-1
+      unmitigated: 0
+      bypasses:
+      - mitigation_ref: m-1
   goal: the public API, against an authenticated-tenant attacker

@@ -34,12 +34,12 @@ flowchart LR
 | 3 | `port-slice.intake` | `summary='intake complete'` |
 | 4 | `port-slice.produce` | `output={'snapshot_before': 'hash-abc123', 'snapshot_after': 'hash-abc123'}` |
 | 5 | `port-slice.review` | `slice_ported=True, revision_requested=False, attempts=1` |
-| 6 | `integrate` | `suite_green=True` |
+| 6 | `integrate` | `suite_green=True, ported_slices=3, output={}` |
 | 7 | `sign-off` | `migration_complete='migration_complete-value', output={'suite_green': True, 'slices_remaining': 0}` |
 
 **Verification checked:**
 
-- ✅ `output.suite_green == true`
+- ⏭️ `pytest -q` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 - ✅ `output.slices_remaining == 0`
 
 ---

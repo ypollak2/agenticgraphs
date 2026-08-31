@@ -32,7 +32,7 @@ Several independent passes answer the same question and a quorum decides. Becaus
 
 - **Exit contract** — a diagnosis carries its quorum; disagreement is reported rather than averaged away
 - **Machine-checked** — `output.consensus is not None or len(output.dissent) > 0`
-- **Machine-checked** — `output.dissent_retained == true`
+- **Machine-checked** — `all(r.clinician_id in output.represented for r in output.ranking)`
 - **Bounded** — hard stop after 30 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval differential-diagnosis-ensemble` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/differential-diagnosis-ensemble.md)

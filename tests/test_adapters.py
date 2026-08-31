@@ -156,3 +156,17 @@ def test_emitted_langgraph_routes_the_same_branch_the_harness_does():
     assert cond("complexity <= moderate", {"complexity": "low"})
     assert not cond("complexity > moderate", {"complexity": "low"})
     assert cond("complexity > moderate", {"complexity": "high"})
+
+
+def test_emitted_stub_carries_the_rubric_to_whoever_binds_it():
+    """The stub is where behavior gets bound, so it is where criteria must land.
+
+    Emitting only the speciality handed the implementer a role label and left the
+    domain knowledge in a YAML file they were not reading.
+    """
+    doc = load(find_graph("code-review-pipeline"))
+    verifier = next(n for n in doc["nodes"] if n.get("kind") == "verifier")
+    if not verifier.get("criteria"):
+        pytest.skip("graph not yet migrated to v1.8 criteria")
+    for emit in (emit_langgraph, emit_crewai, emit_autogen):
+        assert verifier["criteria"] in emit(doc)

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: quiz-generation-verified
 description: Generate items, critic solves them blind to verify keys.
 category: education
@@ -23,6 +23,8 @@ nodes:
   outputs:
   - entries: list[{answer_matches_key:any, distractors_plausible:any}]
   - output
+  criteria: "The critic, solving each item without seeing the key, arrives at the keyed answer \u2014\
+    \ and each distractor is wrong for a reason a learner could plausibly hold, not obviously absurd."
 edges:
 - from: intake
   to: generate

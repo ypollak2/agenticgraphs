@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: contract-redline-pipeline
 description: Compare against playbook, propose redlines with rationale.
 category: legal-compliance
@@ -22,6 +22,8 @@ nodes:
   kind: verifier
   outputs:
   - output
+  criteria: Every redline cites the playbook position it enforces and says what risk the original language
+    creates. A stylistic edit with no playbook reference is noise in a negotiation.
 edges:
 - from: intake
   to: produce

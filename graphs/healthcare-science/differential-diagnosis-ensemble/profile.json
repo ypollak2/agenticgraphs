@@ -54,8 +54,8 @@
     "verification_depth": "assert-live",
     "date": "2026-08-31",
     "cases": 8,
-    "passed": 7,
-    "pass_rate": 0.875,
+    "passed": 0,
+    "pass_rate": 0.0,
     "mean_steps": 3.0,
     "results": [
       {
@@ -72,7 +72,8 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.consensus is not None or len(output.dissent) > 0"
+          "output.consensus is not None or len(output.dissent) > 0",
+          "all(r.clinician_id in output.represented for r in output.ranking) (TypeError: 'NoneType' object is not iterable)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -90,7 +91,7 @@
         "model": "devstral:24b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 3,
         "trace": [
           "intake",
@@ -98,7 +99,9 @@
           "adjudicate"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "all(r.clinician_id in output.represented for r in output.ranking) (AttributeError: clinician_id)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -115,7 +118,7 @@
         "model": "devstral:24b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 3,
         "trace": [
           "intake",
@@ -123,7 +126,9 @@
           "adjudicate"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "all(r.clinician_id in output.represented for r in output.ranking) (TypeError: 'NoneType' object is not iterable)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -140,7 +145,7 @@
         "model": "hermes3:8b",
         "recorded": "2026-08-09",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 3,
         "trace": [
           "intake",
@@ -148,7 +153,9 @@
           "adjudicate"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "all(r.clinician_id in output.represented for r in output.ranking) (AttributeError: clinician_id)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -165,7 +172,7 @@
         "model": "qwen2.5-coder:7b",
         "recorded": "2026-08-09",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 3,
         "trace": [
           "intake",
@@ -173,7 +180,9 @@
           "adjudicate"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "all(r.clinician_id in output.represented for r in output.ranking) (TypeError: 'NoneType' object is not iterable)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -190,7 +199,7 @@
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 3,
         "trace": [
           "intake",
@@ -198,7 +207,9 @@
           "adjudicate"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "all(r.clinician_id in output.represented for r in output.ranking) (TypeError: 'NoneType' object is not iterable)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -215,7 +226,7 @@
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 3,
         "trace": [
           "intake",
@@ -223,7 +234,9 @@
           "adjudicate"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "all(r.clinician_id in output.represented for r in output.ranking) (AttributeError: 'str' object has no attribute 'clinician_id')"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -240,7 +253,7 @@
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 3,
         "trace": [
           "intake",
@@ -248,7 +261,9 @@
           "adjudicate"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "all(r.clinician_id in output.represented for r in output.ranking) (AttributeError: 'str' object has no attribute 'clinician_id')"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -270,16 +285,14 @@
     "recorded": "2026-08-09",
     "age_days": 22,
     "per_model_pass_rate": {
-      "devstral:24b": 0.667,
-      "hermes3:8b": 1.0,
-      "qwen2.5-coder:7b": 1.0,
-      "qwen3-coder:30b": 1.0
+      "devstral:24b": 0.0,
+      "hermes3:8b": 0.0,
+      "qwen2.5-coder:7b": 0.0,
+      "qwen3-coder:30b": 0.0
     },
-    "models_disagree": true,
-    "fails_every_model": false,
-    "flaky_models": [
-      "devstral:24b"
-    ],
+    "models_disagree": false,
+    "fails_every_model": true,
+    "flaky_models": [],
     "samples_per_model": {
       "devstral:24b": 3,
       "hermes3:8b": 1,

@@ -34,7 +34,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 
 - **Exit contract** — every supplier above risk appetite carries a named mitigation owner
 - **Machine-checked** — `output.above_appetite == output.mitigations_planned`
-- **Machine-checked** — `output.single_source_flagged == true`
+- **Machine-checked** — `all(c.single_source == (c.supplier_count == 1) for c in output.concentration)`
 - **Bounded** — hard stop after 25 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval supplier-risk-monitor` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/supplier-risk-monitor.md)

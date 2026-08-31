@@ -37,15 +37,15 @@ flowchart LR
 | 2 | `prioritize.intake` | `summary='intake complete'` |
 | 3 | `prioritize.produce` | `output={'ranking': [{'finding': 'CVE-2026-1111', 'scanner_evidence': 'scan-report-88', 'asset_map_ref': 'asset-42'}]}` |
 | 4 | `prioritize.review` | `exploitability='exploitability-value', priority='priority-value', revision_requested=False, attempts=1` |
-| 5 | `reproduce` | `repro_confirmed=True` |
+| 5 | `reproduce` | `repro_confirmed=True, repro_exit_code_before=0, output={}` |
 | 6 | `patch` | `patch='patch-value'` |
-| 7 | `prove` | `exploit_blocked=True` |
+| 7 | `prove` | `exploit_blocked=True, repro_exit_code_before=0, repro_exit_code_after=1, output={}` |
 | 8 | `disclose-approval` | `signed_off=True` |
 | 9 | `disclose` | `advisory_published=True, output={'exploit_blocked': True, 'signed_off': True, 'advisory_published': True}` |
 
 **Verification checked:**
 
-- ✅ `output.exploit_blocked == true`
+- ✅ `output.repro_exit_code_before == 0 and output.repro_exit_code_after != 0`
 - ✅ `output.signed_off == true`
 - ✅ `output.advisory_published == true`
 

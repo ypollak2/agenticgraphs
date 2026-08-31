@@ -28,12 +28,13 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `route` | `complexity='low'` |
-| 2 | `branch-simple` | `handled_by='simple'` |
-| 3 | `verify` | `output={'verdict': 'phish', 'matches_labeled_corpus': True}` |
+| 2 | `branch-simple` | `assigned_verdict='phish'` |
+| 3 | `verify` | `assigned_verdict='phish', expected_verdict='phish', output={'assigned_verdict': 'phish', 'expected_verdict': 'phish'}` |
 
 **Verification checked:**
 
-- ✅ `output.matches_labeled_corpus`
+- ✅ `output.assigned_verdict == output.expected_verdict`
+- ✅ `len(output.expected_verdict) > 0`
 
 ### `complex-branch` — ✅ passed
 
@@ -42,12 +43,13 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `route` | `complexity='high'` |
-| 2 | `branch-complex` | `handled_by='complex'` |
-| 3 | `verify` | `output={'verdict': 'phish', 'matches_labeled_corpus': True}` |
+| 2 | `branch-complex` | `assigned_verdict='phish'` |
+| 3 | `verify` | `assigned_verdict='phish', expected_verdict='phish', output={'assigned_verdict': 'phish', 'expected_verdict': 'phish'}` |
 
 **Verification checked:**
 
-- ✅ `output.matches_labeled_corpus`
+- ✅ `output.assigned_verdict == output.expected_verdict`
+- ✅ `len(output.expected_verdict) > 0`
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/security/phishing-triage/CARD.md)*

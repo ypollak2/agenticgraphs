@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: threat-intel-digest
 description: Summarize feeds into an actionable daily brief.
 category: security
@@ -28,6 +28,8 @@ nodes:
   outputs:
   - entries: list[{advisory_url:any, cve_ids:any}]
   - output
+  criteria: Every item links its source advisory and the CVE ids it concerns, and relevance is judged
+    against the estate actually run rather than the severity score in isolation.
 edges:
 - from: partition
   to: map

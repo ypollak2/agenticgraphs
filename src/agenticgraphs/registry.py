@@ -57,7 +57,7 @@ SPEC_DIR = ROOT / "spec"
 #: never reviewed for it — `clinical-protocol-lifecycle` asserts `registry_id`, a
 #: ground-truth field no binding here can obtain, so it would fail on a rule about
 #: provenance while the actual change was about goals.
-SPEC_VERSION = "agr/v1.7"
+SPEC_VERSION = "agr/v1.8"
 
 
 def load_schema(kind: str) -> dict:

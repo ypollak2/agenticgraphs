@@ -4,20 +4,28 @@ cases:
     route:
       complexity: low
     branch-simple:
-      handled_by: simple
+      assigned_queue: billing-tier2
     verify:
+      assigned_queue: billing-tier2
+      expected_queue: billing-tier2
       output:
-        routing_correct: true
-        ticket_id: T-1
+        assigned_queue: billing-tier2
+        expected_queue: billing-tier2
   goal: the overnight queue, against the 2026-Q3 ownership map
+  inputs:
+    ownership_map: <ownership_map supplied by the caller>
 - id: complex-branch
   node_outputs:
     route:
       complexity: high
     branch-complex:
-      handled_by: complex
+      assigned_queue: billing-tier2
     verify:
+      assigned_queue: billing-tier2
+      expected_queue: billing-tier2
       output:
-        routing_correct: true
-        ticket_id: T-1
+        assigned_queue: billing-tier2
+        expected_queue: billing-tier2
   goal: the overnight queue, against the 2026-Q3 ownership map
+  inputs:
+    ownership_map: <ownership_map supplied by the caller>

@@ -144,7 +144,17 @@ def safe_eval(expr: str, bb: dict):
     ns = {**_SAFE, **wrap(dict(bb))}
     # `output` is the one name whose lookup falls through to the blackboard.
     ns["output"] = OutputView(bb.get("output"), dict(bb))
-    return eval(code, {"__builtins__": {}}, ns)  # noqa: S307 — allowlisted + closed ns
+    # The namespace is passed as GLOBALS, not locals, and the difference is not
+    # stylistic. A comprehension body is its own scope that sees globals and its
+    # own bindings — never the enclosing locals — so with `eval(code, g, ns)` a
+    # nested quantifier such as
+    #     all(all(c in output.grid for c in r.criteria) for r in output.matrix)
+    # raised `NameError: name 'all' is not defined` from the inner scope. Single
+    # comprehensions survived only because their outermost iterable is evaluated
+    # eagerly in the enclosing scope, which is why this went unnoticed while
+    # every assert in the registry was one level deep.
+    ns["__builtins__"] = {}
+    return eval(code, ns)  # noqa: S307 — allowlisted expression, closed namespace
 
 
 def edge_true(when: str | None, bb: dict) -> bool:
@@ -509,12 +519,20 @@ class LLMRunner:
         # What survives is the *keys* (via `_assembly_hint`) and the exit
         # contract — a node is entitled to know what it must produce and what the
         # workflow is for. It is not entitled to the marking scheme.
+        # v1.8 — `criteria` is what replaces the assert text T7 removed, and the
+        # difference is the whole point. An assert is the marking scheme: telling
+        # a node `output.matches_ownership_map` and then scoring it on that key
+        # measures echo. Criteria are the rubric: what "matches the ownership map"
+        # MEANS in this domain, which is the thing a verifier has to reason about
+        # and the thing that made two identically-shaped graphs different graphs.
+        criteria = node.get("criteria", "")
         prompt = (
             f"You are node '{node['id']}' (speciality: {node['speciality']}) in a workflow. "
             f"Abilities: {', '.join(node.get('abilities', []))}.\n"
             + _goal_line(bb)
             + f"Blackboard so far: {json.dumps(bb, default=str)}\n"
             + (f"The workflow's exit contract is: {contract}\n" if contract else "")
+            + (f"What this step must judge: {criteria}\n" if criteria else "")
             + wants
             + _shapes.describe(node)
             + self._assembly_hint(declared, scoped["keys"])
@@ -668,8 +686,11 @@ class ToolRunner(LLMRunner):
             f"You are node '{node['id']}' (speciality: {node['speciality']}) in a workflow.\n"
             + _goal_line(bb)
             + f"Blackboard so far: {json.dumps(bb, default=str)}\n"
-            + (f"Downstream assertions that must hold: {json.dumps(scoped['checks'])}\n"
-               if scoped["checks"] else "")
+            # The tool-using path leaked the same assert text the plain runner did —
+            # and leaks it to the node best equipped to fabricate a matching fact,
+            # since this one can also cite a tool result. Criteria replace it.
+            + (f"What this step must judge: {node['criteria']}\n"
+               if node.get("criteria") else "")
             + f"You have these tools and MUST use them for any fact you cannot "
               f"otherwise verify: {names}. Never invent a URL, exit code, file, line "
               f"number or identifier — obtain it from a tool.\n"

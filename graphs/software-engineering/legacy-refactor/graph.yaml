@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: legacy-refactor
 description: Refactor a module behind characterization tests.
 category: software-engineering
@@ -23,6 +23,8 @@ nodes:
   kind: verifier
   outputs:
   - output
+  criteria: The characterization snapshots are identical before and after. A refactor is a change in structure
+    and in nothing else; any behavioural difference means it was a rewrite.
 edges:
 - from: intake
   to: produce

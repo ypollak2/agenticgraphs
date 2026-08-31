@@ -26,12 +26,12 @@ flowchart LR
 |---|---|---|
 | 1 | `profile` | `hotspot='hotspot-value', baseline_ms=400` |
 | 2 | `explore` | `patch='patch-value', bench_ms=120` |
-| 3 | `verify` | `suite_green=True, output={'bench_ms': 120, 'baseline_ms': 400, 'suite_green': True}, bench_ms=120` |
+| 3 | `verify` | `suite_green=True, output={'bench_ms': 120, 'baseline_ms': 400, 'suite_green': True}, bench_ms=120, baseline_ms=400` |
 
 **Verification checked:**
 
 - ✅ `output.bench_ms < output.baseline_ms`
-- ✅ `output.suite_green == true`
+- ⏭️ `pytest -q` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/software-engineering/benchmark-driven-optimization-search/CARD.md)*

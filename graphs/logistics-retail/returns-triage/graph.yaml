@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: returns-triage
 description: Route returns by reason to refund, repair, or fraud review.
 category: logistics-retail
@@ -15,21 +15,24 @@ nodes:
   abilities:
   - generate
   outputs:
-  - handled_by
+  - assigned_disposition
 - id: branch-complex
   speciality: producer
   abilities:
   - generate
   outputs:
-  - handled_by
+  - assigned_disposition
 - id: verify
   speciality: critic
   abilities:
   - critique
   kind: verifier
   outputs:
-  - matches_policy_table
+  - expected_disposition
+  - assigned_disposition
   - output
+  criteria: The route agrees with the policy decision table for the stated reason code, and anything routed
+    to fraud review cites the specific pattern that triggered it rather than a general suspicion.
 edges:
 - from: route
   to: branch-simple
@@ -45,10 +48,14 @@ termination:
   max_steps: 12
   contract: routing agrees with policy decision table
 verification:
-- assert: output.matches_policy_table
+- describe: the decision agrees with the policy table the caller supplied
+  assert: output.assigned_disposition == output.expected_disposition
+- describe: the reference was actually consulted, not left empty
+  assert: len(output.expected_disposition) > 0
 goal:
   required: true
   description: the return request to route and the policy table that governs it
 state:
   inputs:
   - goal
+  - policy_table

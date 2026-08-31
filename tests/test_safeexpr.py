@@ -150,3 +150,34 @@ def test_emitted_guard_and_module_guard_share_one_callable_allowlist():
     ns: dict = {}
     exec(compile(guard, "<guard>", "exec"), ns)
     assert ns["_CALLABLE_NAMES"] == set(safeexpr._CALLABLE_NAMES)
+
+
+NESTED = [
+    "all(all(c in output.criteria_grid for c in r.criteria) for r in output.matrix)",
+    "all(r.clinician_id in output.represented for r in output.ranking)",
+    "any(all(f.file for f in g.findings) for g in output.groups)",
+]
+
+
+@pytest.mark.parametrize("expr", NESTED)
+def test_a_nested_quantifier_can_see_the_namespace(expr):
+    """A comprehension body is its own scope: it sees globals and its own
+    bindings, never the enclosing locals. Passing the namespace as locals made
+    every nested quantifier raise NameError from the inner scope, and single-level
+    asserts hid it because their outermost iterable is evaluated eagerly."""
+    bb = {
+        "output": {
+            "criteria_grid": ["price"], "matrix": [{"criteria": ["price"]}],
+            "represented": ["c1"], "ranking": [{"clinician_id": "c1"}],
+            "groups": [{"findings": [{"file": "a.py"}]}],
+        }
+    }
+    assert safe_eval(expr, bb) is True
+
+
+def test_builtins_stay_closed_even_as_globals():
+    """Moving the namespace to globals must not reopen what the allowlist closes."""
+    with pytest.raises(UnsafeExpression):
+        safe_eval("open('/etc/passwd')", {})
+    with pytest.raises(UnsafeExpression):
+        safe_eval("__import__('os')", {})

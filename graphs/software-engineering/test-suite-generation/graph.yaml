@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: test-suite-generation
 description: Generate tests, critic rejects trivial or tautological assertions.
 category: software-engineering
@@ -26,6 +26,9 @@ nodes:
   - mutation_baseline: float
   - mutation_score: float
   - output
+  criteria: Coverage increases and the mutation score beats the baseline. A test that executes a line
+    without asserting anything about it raises coverage and catches nothing, which is exactly what mutation
+    score exists to detect.
 edges:
 - from: intake
   to: generate

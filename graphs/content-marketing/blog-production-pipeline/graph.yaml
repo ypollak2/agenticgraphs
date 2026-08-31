@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: blog-production-pipeline
 description: Brief to outline to draft to edit to publish-ready post.
 category: content-marketing
@@ -23,6 +23,8 @@ nodes:
   kind: verifier
   outputs:
   - output
+  criteria: The draft passes the house style guide on voice, heading depth and sentence length, and no
+    passage matches published text beyond an incidental phrase.
 edges:
 - from: intake
   to: produce

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: benchmark-driven-optimization-search
 description: Branch candidate optimizations, score each on a real benchmark, keep the beam, prune the
   rest.
@@ -37,10 +37,11 @@ nodes:
   - baseline_ms
   - bench_ms
   - output
-  - suite_green: any
   inputs:
   - patch
   kind: verifier
+  criteria: The retained candidate is measurably faster than baseline on the real benchmark with the suite
+    green. A candidate that is faster because it stopped doing the work is the failure this node catches.
 edges:
 - from: profile
   to: explore
@@ -51,10 +52,10 @@ termination:
   contract: the retained candidate is faster than baseline with a green suite; losers are pruned, not
     shipped
 verification:
-- describe: the winning candidate actually beats the baseline
+- describe: the retained candidate is faster than the baseline `profile` measured
   assert: output.bench_ms < output.baseline_ms
-- describe: and does not do it by breaking the suite
-  assert: output.suite_green == true
+- describe: "the suite is green \u2014 the exit code is the fact, not a claim about it"
+  command: pytest -q
 state:
   inputs:
   - goal

@@ -57,8 +57,8 @@
     "verification_depth": "assert-live",
     "date": "2026-08-31",
     "cases": 7,
-    "passed": 1,
-    "pass_rate": 0.143,
+    "passed": 0,
+    "pass_rate": 0.0,
     "mean_steps": 6.0,
     "results": [
       {
@@ -78,7 +78,8 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.above_appetite == output.mitigations_planned"
+          "output.above_appetite == output.mitigations_planned",
+          "all(c.single_source == (c.supplier_count == 1) for c in output.concentration) (AttributeError: 'str' object has no attribute 'single_source')"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -108,7 +109,8 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.above_appetite == output.mitigations_planned"
+          "output.above_appetite == output.mitigations_planned",
+          "all(c.single_source == (c.supplier_count == 1) for c in output.concentration) (AttributeError: single_source)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -138,6 +140,7 @@
         ],
         "goal_missing": "",
         "assert_failures": [
+          "all(c.single_source == (c.supplier_count == 1) for c in output.concentration) (AttributeError: 'str' object has no attribute 'single_source')",
           "[ingest] all(f.source_url and f.source_date for f in output.findings)"
         ],
         "skipped_command_checks": 0,
@@ -156,34 +159,6 @@
         "model": "gpt-4o",
         "recorded": "2026-08-09",
         "gate_auto_approved": false,
-        "passed": true,
-        "steps": 6,
-        "trace": [
-          "ingest.partition",
-          "ingest.map",
-          "ingest.reduce",
-          "score",
-          "concentrate",
-          "mitigate"
-        ],
-        "goal_missing": "",
-        "assert_failures": [],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
         "passed": false,
         "steps": 6,
         "trace": [
@@ -196,37 +171,7 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.above_appetite == output.mitigations_planned"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 6,
-        "trace": [
-          "ingest.partition",
-          "ingest.map",
-          "ingest.reduce",
-          "score",
-          "concentrate",
-          "mitigate"
-        ],
-        "goal_missing": "",
-        "assert_failures": [
-          "output.above_appetite == output.mitigations_planned"
+          "all(c.single_source == (c.supplier_count == 1) for c in output.concentration) (AttributeError: 'str' object has no attribute 'single_source')"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -256,7 +201,70 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.above_appetite == output.mitigations_planned"
+          "output.above_appetite == output.mitigations_planned",
+          "all(c.single_source == (c.supplier_count == 1) for c in output.concentration) (TypeError: 'float' object is not iterable)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 6,
+        "trace": [
+          "ingest.partition",
+          "ingest.map",
+          "ingest.reduce",
+          "score",
+          "concentrate",
+          "mitigate"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "output.above_appetite == output.mitigations_planned",
+          "all(c.single_source == (c.supplier_count == 1) for c in output.concentration) (AttributeError: 'str' object has no attribute 'single_source')"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-11",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 6,
+        "trace": [
+          "ingest.partition",
+          "ingest.map",
+          "ingest.reduce",
+          "score",
+          "concentrate",
+          "mitigate"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "output.above_appetite == output.mitigations_planned",
+          "all(c.single_source == (c.supplier_count == 1) for c in output.concentration) (TypeError: 'float' object is not iterable)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -279,11 +287,11 @@
     "age_days": 22,
     "per_model_pass_rate": {
       "devstral:24b": 0.0,
-      "gpt-4o": 1.0,
+      "gpt-4o": 0.0,
       "qwen3-coder:30b": 0.0
     },
-    "models_disagree": true,
-    "fails_every_model": false,
+    "models_disagree": false,
+    "fails_every_model": true,
     "flaky_models": [],
     "samples_per_model": {
       "devstral:24b": 3,

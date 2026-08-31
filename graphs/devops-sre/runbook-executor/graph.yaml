@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: runbook-executor
 description: Execute a runbook step-wise with post-condition checks.
 category: devops-sre
@@ -22,6 +22,8 @@ nodes:
   kind: verifier
   outputs:
   - output
+  criteria: Each step's post-condition command exited zero. A step whose check was skipped is not a passed
+    step.
 edges:
 - from: plan
   to: execute

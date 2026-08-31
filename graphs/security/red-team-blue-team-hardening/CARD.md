@@ -34,7 +34,7 @@ Attacker searches for a bypass while a defender patches, until exhaustion.
 An attacker searches for a working bypass while a defender patches, alternating until the attacker is exhausted. It is the only motif here that produces evidence of *absence*: the run ends because nothing more could be found, not because nobody looked.
 
 - **Exit contract** — terminates on attacker exhaustion, producing evidence of absence rather than absence of evidence
-- **Machine-checked** — `output.attacker_exhausted == true`
+- **Machine-checked** — `all(b.mitigation_ref for b in output.bypasses)`
 - **Machine-checked** — `output.unmitigated == 0`
 - **Bounded** — hard stop after 45 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval red-team-blue-team-hardening` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)

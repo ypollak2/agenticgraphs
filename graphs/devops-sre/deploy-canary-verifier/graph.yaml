@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: deploy-canary-verifier
 description: Progressively shift traffic while checking error budgets.
 category: devops-sre
@@ -24,6 +24,8 @@ nodes:
   kind: verifier
   outputs:
   - output
+  criteria: Either the canary's error rate stayed inside the budget, or the rollback fired. A canary that
+    exceeded its threshold and was promoted anyway is the exact failure this node exists to catch.
 edges:
 - from: intake
   to: attempt

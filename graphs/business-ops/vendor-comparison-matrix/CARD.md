@@ -35,7 +35,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 
 - **Exit contract** — every matrix cell cites its source and all vendors share one criteria set
 - **Machine-checked** — `output.uncited_cells == 0`
-- **Machine-checked** — `output.criteria_consistent == true`
+- **Machine-checked** — `all(all(c in output.criteria_grid for c in r.criteria) for r in output.matrix)`
 - **Bounded** — hard stop after 25 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval vendor-comparison-matrix` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/vendor-comparison-matrix.md)

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: vuln-remediation-lifecycle
 description: Ingest a vulnerability, prioritize it, reproduce it, patch it, prove the patch, and disclose
   behind a human gate.
@@ -31,6 +31,7 @@ nodes:
   - priority
   outputs:
   - repro_confirmed
+  - repro_exit_code_before
 - id: patch
   speciality: executor
   abilities:
@@ -48,18 +49,23 @@ nodes:
   inputs:
   - patch
   outputs:
-  - exploit_blocked: any
+  - repro_exit_code_after
+  - repro_exit_code_before
+  criteria: The recorded proof-of-concept no longer succeeds against the patched build, demonstrated by
+    re-running it rather than by inspecting the diff. Nothing is disclosed before that re-run passes and
+    a human has signed off.
 - id: disclose-approval
   speciality: approver
   kind: human
   abilities:
   - approve
   inputs:
-  - exploit_blocked
+  - repro_exit_code_after
+  - repro_exit_code_before
   outputs:
   - signed_off: any
   approval:
-    contract: signed_off == true and exploit_blocked == true
+    contract: signed_off == true and repro_exit_code_before == 0 and repro_exit_code_after != 0
     on_timeout: escalate
 - id: disclose
   speciality: producer
@@ -91,8 +97,9 @@ termination:
   max_steps: 45
   contract: nothing is disclosed until the exploit is proven blocked and a human has signed off
 verification:
-- describe: the exploit is proven blocked before anything is disclosed
-  assert: output.exploit_blocked == true
+- describe: "the recorded proof-of-concept succeeded before the patch and fails after it \u2014 proven\
+    \ by re-running it, not by inspecting the diff"
+  assert: output.repro_exit_code_before == 0 and output.repro_exit_code_after != 0
 - describe: disclosure carries a human signature
   assert: output.signed_off == true
 - describe: the advisory actually shipped

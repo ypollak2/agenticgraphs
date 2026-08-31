@@ -28,12 +28,13 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `route` | `complexity='low'` |
-| 2 | `branch-simple` | `handled_by='simple'` |
-| 3 | `verify` | `output={'routed_team': 'platform-oncall', 'matches_ownership_map': True}` |
+| 2 | `branch-simple` | `assigned_team='platform-oncall'` |
+| 3 | `verify` | `assigned_team='platform-oncall', expected_team='platform-oncall', output={'assigned_team': 'platform-oncall', 'expected_team': 'platform-oncall'}` |
 
 **Verification checked:**
 
-- ✅ `output.matches_ownership_map`
+- ✅ `output.assigned_team == output.expected_team`
+- ✅ `len(output.expected_team) > 0`
 
 ### `complex-branch` — ✅ passed
 
@@ -42,12 +43,13 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `route` | `complexity='high'` |
-| 2 | `branch-complex` | `handled_by='complex'` |
-| 3 | `verify` | `output={'routed_team': 'platform-oncall', 'matches_ownership_map': True}` |
+| 2 | `branch-complex` | `assigned_team='platform-oncall'` |
+| 3 | `verify` | `assigned_team='platform-oncall', expected_team='platform-oncall', output={'assigned_team': 'platform-oncall', 'expected_team': 'platform-oncall'}` |
 
 **Verification checked:**
 
-- ✅ `output.matches_ownership_map`
+- ✅ `output.assigned_team == output.expected_team`
+- ✅ `len(output.expected_team) > 0`
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/devops-sre/incident-triage-router/CARD.md)*

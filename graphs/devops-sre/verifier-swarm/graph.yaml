@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: verifier-swarm
 description: Planner fans work out to isolated workers; nothing merges until a verifier command proves
   the goal is done.
@@ -30,6 +30,9 @@ nodes:
   - escalated: any
   - output
   - verified: any
+  criteria: The goal's verification command exits zero against the merged result. Nothing merges on a
+    worker's report that it finished; three failures escalate to a human rather than becoming a fourth
+    attempt.
 edges:
 - from: planner
   to: worker

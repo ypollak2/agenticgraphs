@@ -32,12 +32,12 @@ flowchart LR
 | 3 | `collect.reduce` | `vendor_docs=[], output={'findings': [{'title': 'competitor launched feature X', 'source_url': 'https://example.com/blog', 'source_date': '2026-07-01'}]}` |
 | 4 | `normalize` | `criteria_grid=[]` |
 | 5 | `fill` | `matrix='matrix-value'` |
-| 6 | `cite-check` | `uncited_cells=0, output={'uncited_cells': 0, 'criteria_consistent': True}` |
+| 6 | `cite-check` | `uncited_cells=0, output={'uncited_cells': 0, 'criteria_consistent': True, 'criteria_grid': ['price', 'sso'], 'matrix': [{'criteria': ['price', 'sso'], 'vendor': 'acme'}]}, criteria_grid=['price', 'sso'], matrix=[{'criteria': ['price', 'sso'], 'vendor': 'acme'}]` |
 
 **Verification checked:**
 
 - ✅ `output.uncited_cells == 0`
-- ✅ `output.criteria_consistent == true`
+- ✅ `all(all(c in output.criteria_grid for c in r.criteria) for r in output.matrix)`
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/business-ops/vendor-comparison-matrix/CARD.md)*

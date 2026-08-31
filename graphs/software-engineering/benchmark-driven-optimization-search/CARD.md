@@ -32,7 +32,7 @@ Candidates are branched, scored against a real measurement, and pruned to a beam
 
 - **Exit contract** — the retained candidate is faster than baseline with a green suite; losers are pruned, not shipped
 - **Machine-checked** — `output.bench_ms < output.baseline_ms`
-- **Machine-checked** — `output.suite_green == true`
+- **Command-checked** — `pytest -q`
 - **Bounded** — hard stop after 40 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval benchmark-driven-optimization-search` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/benchmark-driven-optimization-search.md)

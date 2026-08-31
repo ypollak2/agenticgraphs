@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: product-listing-pipeline
 description: Generate marketplace listings from spec sheets, checking claims against source and policy
   before publish.

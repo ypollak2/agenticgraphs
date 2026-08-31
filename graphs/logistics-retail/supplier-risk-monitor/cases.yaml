@@ -16,9 +16,19 @@ cases:
     concentrate:
       concentration: concentration-value
     mitigate:
-      mitigations: []
+      mitigations:
+      - m1
+      - m2
       output:
-        above_appetite: 4
-        mitigations_planned: 4
+        above_appetite: 2
+        mitigations_planned: 2
         single_source_flagged: true
+        concentration:
+        - single_source: true
+          supplier_count: 1
+      above_appetite: 2
+      mitigations_planned: 2
+      concentration:
+      - single_source: true
+        supplier_count: 1
   goal: the 240 tier-1 suppliers, on single-source and concentration

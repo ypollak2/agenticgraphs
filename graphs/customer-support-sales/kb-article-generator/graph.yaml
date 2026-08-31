@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: kb-article-generator
 description: Mine resolved tickets into draft knowledge-base articles.
 category: customer-support-sales
@@ -23,6 +23,8 @@ nodes:
   kind: verifier
   outputs:
   - output
+  criteria: "The steps, followed literally by someone who never saw the ticket, reproduce the resolution\
+    \ \u2014 and the article does not duplicate an existing one covering the same symptom."
 edges:
 - from: intake
   to: produce

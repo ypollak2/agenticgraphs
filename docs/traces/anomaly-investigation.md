@@ -28,12 +28,13 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `route` | `complexity='low'` |
-| 2 | `branch-simple` | `handled_by='simple'` |
-| 3 | `verify` | `output={'classification': 'seasonal', 'matches_holdout': True}` |
+| 2 | `branch-simple` | `assigned_class='seasonal'` |
+| 3 | `verify` | `assigned_class='seasonal', expected_class='seasonal', output={'assigned_class': 'seasonal', 'expected_class': 'seasonal'}` |
 
 **Verification checked:**
 
-- ✅ `output.matches_holdout`
+- ✅ `output.assigned_class == output.expected_class`
+- ✅ `len(output.expected_class) > 0`
 
 ### `complex-branch` — ✅ passed
 
@@ -42,12 +43,13 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `route` | `complexity='high'` |
-| 2 | `branch-complex` | `handled_by='complex'` |
-| 3 | `verify` | `output={'classification': 'seasonal', 'matches_holdout': True}` |
+| 2 | `branch-complex` | `assigned_class='seasonal'` |
+| 3 | `verify` | `assigned_class='seasonal', expected_class='seasonal', output={'assigned_class': 'seasonal', 'expected_class': 'seasonal'}` |
 
 **Verification checked:**
 
-- ✅ `output.matches_holdout`
+- ✅ `output.assigned_class == output.expected_class`
+- ✅ `len(output.expected_class) > 0`
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/data-analytics/anomaly-investigation/CARD.md)*

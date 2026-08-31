@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: prompt-graph-optimization
 description: Search prompt-and-topology variants against a held-out eval set, keeping only measured winners.
 category: research-knowledge
@@ -38,6 +38,8 @@ nodes:
   inputs:
   - variant
   kind: verifier
+  criteria: A variant ships only if it beats the baseline on a held-out set it was never searched against.
+    A winner selected on the set that selected it has measured its own search, not its quality.
 edges:
 - from: baseline
   to: search

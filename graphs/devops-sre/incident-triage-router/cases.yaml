@@ -4,20 +4,28 @@ cases:
     route:
       complexity: low
     branch-simple:
-      handled_by: simple
+      assigned_team: platform-oncall
     verify:
+      assigned_team: platform-oncall
+      expected_team: platform-oncall
       output:
-        routed_team: platform-oncall
-        matches_ownership_map: true
+        assigned_team: platform-oncall
+        expected_team: platform-oncall
   goal: the checkout 5xx page, against the 2026-Q3 ownership map
+  inputs:
+    ownership_map: <ownership_map supplied by the caller>
 - id: complex-branch
   node_outputs:
     route:
       complexity: high
     branch-complex:
-      handled_by: complex
+      assigned_team: platform-oncall
     verify:
+      assigned_team: platform-oncall
+      expected_team: platform-oncall
       output:
-        routed_team: platform-oncall
-        matches_ownership_map: true
+        assigned_team: platform-oncall
+        expected_team: platform-oncall
   goal: the checkout 5xx page, against the 2026-Q3 ownership map
+  inputs:
+    ownership_map: <ownership_map supplied by the caller>

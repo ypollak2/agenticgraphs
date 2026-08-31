@@ -17,7 +17,7 @@
   "measured": {
     "runner": "mock",
     "provisional": true,
-    "verification_depth": "assert-fixture",
+    "verification_depth": "command",
     "date": "2026-08-31",
     "cases": 1,
     "passed": 1,
@@ -39,7 +39,7 @@
         ],
         "goal_missing": "",
         "assert_failures": [],
-        "skipped_command_checks": 0,
+        "skipped_command_checks": 1,
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
@@ -55,7 +55,7 @@
   "measured_live": {
     "runner": "llm-replay:devstral:24b,gpt-4o,qwen3-coder:30b",
     "provisional": false,
-    "verification_depth": "assert-live",
+    "verification_depth": "command",
     "date": "2026-08-31",
     "cases": 6,
     "passed": 1,
@@ -82,7 +82,7 @@
         "assert_failures": [
           "[port-slice] output.snapshot_before == output.snapshot_after"
         ],
-        "skipped_command_checks": 0,
+        "skipped_command_checks": 1,
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
@@ -114,7 +114,7 @@
           "output.slices_remaining == 0",
           "[port-slice] output.snapshot_before == output.snapshot_after"
         ],
-        "skipped_command_checks": 0,
+        "skipped_command_checks": 1,
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
@@ -152,11 +152,10 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.suite_green == true",
           "output.slices_remaining == 0 (AttributeError: slices_remaining)",
           "[port-slice] output.snapshot_before == output.snapshot_after"
         ],
-        "skipped_command_checks": 0,
+        "skipped_command_checks": 1,
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
@@ -187,7 +186,7 @@
         "assert_failures": [
           "[port-slice] output.snapshot_before == output.snapshot_after"
         ],
-        "skipped_command_checks": 0,
+        "skipped_command_checks": 1,
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
@@ -216,7 +215,7 @@
         ],
         "goal_missing": "",
         "assert_failures": [],
-        "skipped_command_checks": 0,
+        "skipped_command_checks": 1,
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
@@ -247,7 +246,7 @@
         "assert_failures": [
           "[port-slice] output.snapshot_before == output.snapshot_after"
         ],
-        "skipped_command_checks": 0,
+        "skipped_command_checks": 1,
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,

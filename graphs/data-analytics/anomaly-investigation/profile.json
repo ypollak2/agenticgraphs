@@ -11,7 +11,7 @@
     "loops": 0,
     "loops_bounded": true,
     "max_steps": 12,
-    "verification_asserts": 1,
+    "verification_asserts": 2,
     "risk_surface": "write"
   },
   "measured": {
@@ -76,8 +76,8 @@
     "verification_depth": "assert-live",
     "date": "2026-08-31",
     "cases": 6,
-    "passed": 3,
-    "pass_rate": 0.5,
+    "passed": 0,
+    "pass_rate": 0.0,
     "mean_steps": 3.0,
     "results": [
       {
@@ -94,7 +94,8 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.matches_holdout"
+          "output.assigned_class == output.expected_class (AttributeError: assigned_class)",
+          "len(output.expected_class) > 0 (AttributeError: expected_class)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -121,7 +122,8 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.matches_holdout"
+          "output.assigned_class == output.expected_class (AttributeError: assigned_class)",
+          "len(output.expected_class) > 0 (AttributeError: expected_class)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -148,7 +150,8 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.matches_holdout"
+          "output.assigned_class == output.expected_class (AttributeError: assigned_class)",
+          "len(output.expected_class) > 0 (AttributeError: expected_class)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -166,7 +169,7 @@
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 3,
         "trace": [
           "route",
@@ -174,7 +177,10 @@
           "verify"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "output.assigned_class == output.expected_class (AttributeError: assigned_class)",
+          "len(output.expected_class) > 0 (AttributeError: expected_class)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -191,7 +197,7 @@
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 3,
         "trace": [
           "route",
@@ -199,7 +205,10 @@
           "verify"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "output.assigned_class == output.expected_class (AttributeError: assigned_class)",
+          "len(output.expected_class) > 0 (AttributeError: expected_class)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -216,7 +225,7 @@
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 3,
         "trace": [
           "route",
@@ -224,7 +233,10 @@
           "verify"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "output.assigned_class == output.expected_class (AttributeError: assigned_class)",
+          "len(output.expected_class) > 0 (AttributeError: expected_class)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -245,10 +257,10 @@
     "age_days": 20,
     "per_model_pass_rate": {
       "devstral:24b": 0.0,
-      "qwen3-coder:30b": 1.0
+      "qwen3-coder:30b": 0.0
     },
-    "models_disagree": true,
-    "fails_every_model": false,
+    "models_disagree": false,
+    "fails_every_model": true,
     "flaky_models": [],
     "samples_per_model": {
       "devstral:24b": 3,

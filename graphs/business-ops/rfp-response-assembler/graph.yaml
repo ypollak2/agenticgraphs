@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: rfp-response-assembler
 description: Answer each RFP requirement from a knowledge base, assemble.
 category: business-ops
@@ -29,6 +29,9 @@ nodes:
   - page_count: float
   - page_limit: float
   - requirements: list[{answered:bool, flagged:bool}]
+  criteria: "Every numbered requirement is either answered from the knowledge base with its source, or\
+    \ explicitly flagged as unanswerable \u2014 silence on a requirement is a failure, not an omission.\
+    \ The assembled document is within the RFP's stated page limit."
 edges:
 - from: partition
   to: map

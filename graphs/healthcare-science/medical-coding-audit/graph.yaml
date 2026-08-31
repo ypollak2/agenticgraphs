@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: medical-coding-audit
 description: Workers verify diagnosis and procedure codes against notes.
 category: healthcare-science
@@ -28,6 +28,8 @@ nodes:
   outputs:
   - codes: list[{note_span:any}]
   - output
+  criteria: Every assigned code points at the note span that documents it. A code the chart supports only
+    by inference is an unsupported code, however clinically likely.
 edges:
 - from: plan
   to: work

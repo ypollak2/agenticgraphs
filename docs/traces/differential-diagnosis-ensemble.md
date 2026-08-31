@@ -26,12 +26,12 @@ flowchart LR
 |---|---|---|
 | 1 | `intake` | `presentations=[{'p': 1}, {'p': 2}, {'p': 3}]` |
 | 2 | `diagnose` | `ranking='ranking-value'` |
-| 3 | `adjudicate` | `consensus='dx-a', dissent=[{'dx': 'dx-b'}], output={'consensus': 'dx-a', 'dissent': [{'dx': 'dx-b'}], 'dissent_retained': True}` |
+| 3 | `adjudicate` | `consensus='PE', dissent=['ACS'], output={'consensus': 'PE', 'dissent': ['ACS'], 'dissent_retained': True, 'represented': ['c1', 'c2'], 'ranking': [{'clinician_id': 'c1'}, {'clinician_id': 'c2'}]}, represented=['c1', 'c2'], ranking=[{'clinician_id': 'c1'}, {'clinician_id': 'c2'}]` |
 
 **Verification checked:**
 
 - ✅ `output.consensus is not None or len(output.dissent) > 0`
-- ✅ `output.dissent_retained == true`
+- ✅ `all(r.clinician_id in output.represented for r in output.ranking)`
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/healthcare-science/differential-diagnosis-ensemble/CARD.md)*

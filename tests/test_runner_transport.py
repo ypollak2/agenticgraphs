@@ -184,3 +184,29 @@ def test_the_prompt_never_carries_the_assert_text(env, monkeypatch):
     # The key and the contract are legitimate: a node must know what it owes.
     assert "matches_ownership_map" in prompt
     assert "routing matches the ownership map" in prompt
+
+
+def test_the_tool_using_prompt_also_withholds_the_assert_text(env, monkeypatch, tmp_path):
+    """The grounded runner leaked the same asserts the plain one did — to the node
+    best equipped to fabricate a matching fact, since it can also cite a tool."""
+    rec = _Recorder([_response()])
+    monkeypatch.setattr(harness.urllib.request, "urlopen", rec)
+    r = harness.ToolRunner(root=tmp_path)
+    r.bind({"termination": {}, "verification": [{"assert": "output.exploit_blocked == true"}]})
+    r.run({"id": "prove", "speciality": "verifier", "abilities": ["read_diff"],
+           "outputs": ["exploit_blocked"],
+           "criteria": "the recorded proof-of-concept no longer reaches the sink"}, {})
+    prompt = rec.payloads[0]["messages"][0]["content"]
+    assert "output.exploit_blocked" not in prompt
+    assert "Downstream assertions" not in prompt
+    assert "no longer reaches the sink" in prompt, "criteria must replace what was removed"
+
+
+def test_criteria_reach_the_plain_runner_too(env, monkeypatch):
+    rec = _Recorder([_response()])
+    monkeypatch.setattr(harness.urllib.request, "urlopen", rec)
+    r = LLMRunner()
+    r.bind({"termination": {}, "verification": []})
+    r.run({"id": "verify", "speciality": "critic", "outputs": ["ok"],
+           "criteria": "every finding names a file and a line in the diff under review"}, {})
+    assert "names a file and a line" in rec.payloads[0]["messages"][0]["content"]

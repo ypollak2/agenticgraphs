@@ -9,11 +9,24 @@ cases:
     diagnose:
       ranking: ranking-value
     adjudicate:
-      consensus: dx-a
-      dissent: &id001
-      - dx: dx-b
+      consensus: PE
+      dissent:
+      - ACS
       output:
-        consensus: dx-a
-        dissent: *id001
+        consensus: PE
+        dissent:
+        - ACS
         dissent_retained: true
+        represented:
+        - c1
+        - c2
+        ranking:
+        - clinician_id: c1
+        - clinician_id: c2
+      represented:
+      - c1
+      - c2
+      ranking:
+      - clinician_id: c1
+      - clinician_id: c2
   goal: a 54-year-old with acute dyspnoea and a cardiac history

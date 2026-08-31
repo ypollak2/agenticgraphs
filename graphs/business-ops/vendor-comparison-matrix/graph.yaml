@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: vendor-comparison-matrix
 description: Build a like-for-like vendor matrix where every cell cites the source document it came from.
 category: business-ops
@@ -36,9 +36,13 @@ nodes:
   inputs:
   - matrix
   outputs:
-  - criteria_consistent: any
+  - criteria_grid
+  - matrix
   - output
-  - uncited_cells: int
+  - uncited_cells
+  criteria: Every cell cites the vendor document and section it came from, and all vendors are scored
+    on the identical criteria set. A criterion applied to one vendor but not another makes the matrix
+    incomparable rather than merely incomplete.
 edges:
 - from: collect
   to: normalize
@@ -53,10 +57,10 @@ termination:
   max_steps: 25
   contract: every matrix cell cites its source and all vendors share one criteria set
 verification:
-- describe: every filled cell cites a source document
+- describe: no cell is uncited
   assert: output.uncited_cells == 0
-- describe: all vendors are scored on identical criteria
-  assert: output.criteria_consistent == true
+- describe: every vendor row is scored on the criteria grid `normalize` produced
+  assert: all(all(c in output.criteria_grid for c in r.criteria) for r in output.matrix)
 state:
   inputs:
   - goal

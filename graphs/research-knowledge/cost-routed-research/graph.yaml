@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: cost-routed-research
 description: Routes research subtasks to the cheapest capable model, escalates low-confidence answers,
   synthesizes with citations.
@@ -31,6 +31,8 @@ nodes:
   kind: verifier
   outputs:
   - claims: list[{sources:any}]
+  criteria: Every claim in the synthesis cites at least one source, and anything the cheap path could
+    not verify is labelled as unverified rather than dropped or stated plainly.
 edges:
 - from: router
   to: cheap-researcher

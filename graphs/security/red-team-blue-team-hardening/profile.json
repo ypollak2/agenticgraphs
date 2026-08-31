@@ -55,8 +55,8 @@
     "verification_depth": "assert-live",
     "date": "2026-08-31",
     "cases": 6,
-    "passed": 4,
-    "pass_rate": 0.667,
+    "passed": 0,
+    "pass_rate": 0.0,
     "mean_steps": 6.0,
     "results": [
       {
@@ -64,7 +64,7 @@
         "model": "devstral:24b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 4,
         "trace": [
           "scope",
@@ -73,7 +73,9 @@
           "retest"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "all(b.mitigation_ref for b in output.bypasses) (AttributeError: bypasses)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -90,7 +92,7 @@
         "model": "devstral:24b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 4,
         "trace": [
           "scope",
@@ -99,7 +101,9 @@
           "retest"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "all(b.mitigation_ref for b in output.bypasses) (AttributeError: bypasses)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -132,7 +136,7 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.attacker_exhausted == true",
+          "all(b.mitigation_ref for b in output.bypasses) (AttributeError: bypasses)",
           "output.unmitigated == 0"
         ],
         "skipped_command_checks": 0,
@@ -167,7 +171,7 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.attacker_exhausted == true"
+          "all(b.mitigation_ref for b in output.bypasses) (AttributeError: bypasses)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -185,7 +189,7 @@
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 4,
         "trace": [
           "scope",
@@ -194,7 +198,9 @@
           "retest"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "all(b.mitigation_ref for b in output.bypasses) (AttributeError: bypasses)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -211,7 +217,7 @@
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 4,
         "trace": [
           "scope",
@@ -220,7 +226,9 @@
           "retest"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "all(b.mitigation_ref for b in output.bypasses) (AttributeError: bypasses)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -240,15 +248,12 @@
     "recorded": "2026-08-11",
     "age_days": 20,
     "per_model_pass_rate": {
-      "devstral:24b": 0.667,
-      "qwen3-coder:30b": 0.667
+      "devstral:24b": 0.0,
+      "qwen3-coder:30b": 0.0
     },
     "models_disagree": false,
-    "fails_every_model": false,
-    "flaky_models": [
-      "devstral:24b",
-      "qwen3-coder:30b"
-    ],
+    "fails_every_model": true,
+    "flaky_models": [],
     "samples_per_model": {
       "devstral:24b": 3,
       "qwen3-coder:30b": 3

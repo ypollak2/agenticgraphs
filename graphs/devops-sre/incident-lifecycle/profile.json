@@ -61,8 +61,8 @@
     "verification_depth": "assert-grounded",
     "date": "2026-08-31",
     "cases": 7,
-    "passed": 3,
-    "pass_rate": 0.429,
+    "passed": 0,
+    "pass_rate": 0.0,
     "mean_steps": 8.86,
     "results": [
       {
@@ -86,7 +86,10 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "len(output.actions) >= 1"
+          "output.residual_blast_radius < output.blast_radius (AttributeError: residual_blast_radius)",
+          "len(output.actions) >= 1 and all(a.owner for a in output.actions)",
+          "[triage] output.assigned_team == output.expected_team (AttributeError: assigned_team)",
+          "[triage] len(output.expected_team) > 0 (AttributeError: expected_team)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -120,9 +123,10 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.impact_cleared == true",
-          "len(output.actions) >= 1 (AttributeError: actions)",
-          "[triage] output.matches_ownership_map",
+          "output.residual_blast_radius < output.blast_radius (AttributeError: residual_blast_radius)",
+          "len(output.actions) >= 1 and all(a.owner for a in output.actions) (AttributeError: actions)",
+          "[triage] output.assigned_team == output.expected_team (AttributeError: assigned_team)",
+          "[triage] len(output.expected_team) > 0 (AttributeError: expected_team)",
           "[postmortem] all(e.get('log_id') or e.get('message_id') for e in output.timeline) (AttributeError: timeline)"
         ],
         "skipped_command_checks": 0,
@@ -157,7 +161,10 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "len(output.actions) >= 1"
+          "output.residual_blast_radius < output.blast_radius (AttributeError: residual_blast_radius)",
+          "len(output.actions) >= 1 and all(a.owner for a in output.actions)",
+          "[triage] output.assigned_team == output.expected_team (AttributeError: assigned_team)",
+          "[triage] len(output.expected_team) > 0 (AttributeError: expected_team)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -175,7 +182,7 @@
         "model": "gpt-4o",
         "recorded": "2026-08-09",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 10,
         "trace": [
           "detect",
@@ -190,7 +197,12 @@
           "action-items"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "output.residual_blast_radius < output.blast_radius (AttributeError: residual_blast_radius)",
+          "len(output.actions) >= 1 and all(a.owner for a in output.actions) (AttributeError: 'str' object has no attribute 'owner')",
+          "[triage] output.assigned_team == output.expected_team (AttributeError: assigned_team)",
+          "[triage] len(output.expected_team) > 0 (AttributeError: expected_team)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -236,9 +248,10 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.impact_cleared == true (AttributeError: impact_cleared)",
-          "len(output.actions) >= 1 (AttributeError: actions)",
-          "[triage] output.matches_ownership_map (AttributeError: matches_ownership_map)",
+          "output.residual_blast_radius < output.blast_radius (AttributeError: residual_blast_radius)",
+          "len(output.actions) >= 1 and all(a.owner for a in output.actions) (AttributeError: actions)",
+          "[triage] output.assigned_team == output.expected_team (AttributeError: assigned_team)",
+          "[triage] len(output.expected_team) > 0 (AttributeError: expected_team)",
           "[postmortem] all(e.get('log_id') or e.get('message_id') for e in output.timeline) (AttributeError: timeline)"
         ],
         "skipped_command_checks": 0,
@@ -257,7 +270,7 @@
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 10,
         "trace": [
           "detect",
@@ -272,7 +285,12 @@
           "action-items"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "output.residual_blast_radius < output.blast_radius (AttributeError: residual_blast_radius)",
+          "len(output.actions) >= 1 and all(a.owner for a in output.actions) (AttributeError: 'str' object has no attribute 'owner')",
+          "[triage] output.assigned_team == output.expected_team (AttributeError: assigned_team)",
+          "[triage] len(output.expected_team) > 0 (AttributeError: expected_team)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -289,7 +307,7 @@
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 10,
         "trace": [
           "detect",
@@ -304,7 +322,12 @@
           "action-items"
         ],
         "goal_missing": "",
-        "assert_failures": [],
+        "assert_failures": [
+          "output.residual_blast_radius < output.blast_radius (AttributeError: residual_blast_radius)",
+          "len(output.actions) >= 1 and all(a.owner for a in output.actions) (AttributeError: 'str' object has no attribute 'owner')",
+          "[triage] output.assigned_team == output.expected_team (AttributeError: assigned_team)",
+          "[triage] len(output.expected_team) > 0 (AttributeError: expected_team)"
+        ],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -326,14 +349,12 @@
     "age_days": 22,
     "per_model_pass_rate": {
       "devstral:24b": 0.0,
-      "gpt-4o": 1.0,
-      "qwen3-coder:30b": 0.667
+      "gpt-4o": 0.0,
+      "qwen3-coder:30b": 0.0
     },
-    "models_disagree": true,
-    "fails_every_model": false,
-    "flaky_models": [
-      "qwen3-coder:30b"
-    ],
+    "models_disagree": false,
+    "fails_every_model": true,
+    "flaky_models": [],
     "samples_per_model": {
       "devstral:24b": 3,
       "gpt-4o": 1,

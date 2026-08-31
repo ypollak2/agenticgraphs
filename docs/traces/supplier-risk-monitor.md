@@ -31,12 +31,12 @@ flowchart LR
 | 3 | `ingest.reduce` | `supplier_signals=[], output={'findings': [{'title': 'competitor launched feature X', 'source_url': 'https://example.com/blog', 'source_date': '2026-07-01'}]}` |
 | 4 | `score` | `risk_scores=[]` |
 | 5 | `concentrate` | `concentration='concentration-value'` |
-| 6 | `mitigate` | `mitigations=[], output={'above_appetite': 4, 'mitigations_planned': 4, 'single_source_flagged': True}` |
+| 6 | `mitigate` | `mitigations=['m1', 'm2'], output={'above_appetite': 2, 'mitigations_planned': 2, 'single_source_flagged': True, 'concentration': [{'single_source': True, 'supplier_count': 1}]}, above_appetite=2, mitigations_planned=2, concentration=[{'single_source': True, 'supplier_count': 1}]` |
 
 **Verification checked:**
 
 - ✅ `output.above_appetite == output.mitigations_planned`
-- ✅ `output.single_source_flagged == true`
+- ✅ `all(c.single_source == (c.supplier_count == 1) for c in output.concentration)`
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/logistics-retail/supplier-risk-monitor/CARD.md)*

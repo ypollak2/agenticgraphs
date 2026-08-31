@@ -18,6 +18,8 @@ cases:
       slice_queue: []
     integrate:
       suite_green: true
+      ported_slices: 3
+      output: {}
     sign-off:
       migration_complete: migration_complete-value
       output:
