@@ -134,3 +134,51 @@ def test_executable_checks_cover_the_graphs_that_can_have_them():
     n = sum(1 for gpath in iter_graphs()
             for v in (load(gpath).get("verification") or []) if "command" in v)
     assert n >= 20, f"executable verification commands regressed to {n}"
+
+
+# ------------------------------------------------------- one-way effects (v1.8)
+
+def test_every_one_way_effect_has_a_compensating_path():
+    """A filing is received the moment it is submitted; a registration is public.
+
+    The v1.3 saga lint required this only of graphs whose declared pattern is
+    `saga`, but reversibility has nothing to do with what a graph calls itself.
+    """
+    from agenticgraphs.validate import _lint_irreversible
+
+    for gpath in iter_graphs():
+        assert _lint_irreversible(load(gpath)) == [], load(gpath)["name"]
+
+
+def test_editing_a_working_tree_is_deliberately_not_a_one_way_effect():
+    """`git revert` undoes it. Marking it as a saga step would dress a reversible
+    action in the vocabulary reserved for one-way ones, which is how a compensator
+    count grows without any compensation being possible."""
+    from agenticgraphs.validate import _IRREVERSIBLE_ABILITIES, _lint_irreversible
+
+    assert "edit_files" not in _IRREVERSIBLE_ABILITIES
+    doc = {"apiVersion": "agr/v1.8", "edges": [],
+           "nodes": [{"id": "w", "abilities": ["edit_files"]}]}
+    assert _lint_irreversible(doc) == []
+
+
+def test_an_uncompensated_filing_is_refused():
+    from agenticgraphs.validate import _lint_irreversible
+
+    doc = {"apiVersion": "agr/v1.8", "edges": [],
+           "nodes": [{"id": "file", "abilities": ["file_record"]}]}
+    assert _lint_irreversible(doc)
+    doc["edges"] = [{"from": "file", "to": "withdraw", "kind": "compensate"}]
+    assert _lint_irreversible(doc) == []
+
+
+def test_outward_reaching_nodes_carry_a_bounded_retry():
+    """A 429 is not a contract failure — the argument `LLMRunner._post` already
+    makes for HTTP, applied one level up. A node that only reasons gets none:
+    it fails because the task is hard, and retrying is not free evidence."""
+    TRANSIENT = {"web_search", "run_command", "sast_scan", "secret_detection"}
+    for gpath in iter_graphs():
+        doc = load(gpath)
+        for n in doc["nodes"]:
+            if TRANSIENT & set(n.get("abilities") or []):
+                assert n.get("retries", {}).get("max", 0) >= 1, f"{doc['name']}/{n['id']}"

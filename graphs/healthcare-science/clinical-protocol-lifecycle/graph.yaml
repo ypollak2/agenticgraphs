@@ -51,6 +51,15 @@ nodes:
   - output
   - registered
   - registry_id: any
+- id: amend-registration
+  speciality: compensator
+  abilities:
+  - rollback
+  inputs: []
+  outputs:
+  - amend_registration_filed
+  criteria: A trial registration is public and permanent. The compensating action is a posted amendment
+    explaining the change, because a silently altered protocol is the thing registration exists to prevent.
 edges:
 - from: draft
   to: critique
@@ -65,6 +74,10 @@ edges:
   when: len(deviations) == 0
 - from: investigator-signoff
   to: register
+- from: register
+  to: amend-registration
+  kind: compensate
+  when: register_failed
 termination:
   max_steps: 35
   contract: a protocol registers only with zero open deviations and a named investigator signature

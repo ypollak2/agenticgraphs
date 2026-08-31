@@ -20,6 +20,8 @@ nodes:
   parallel_group: reviews
   outputs:
   - sec_hits
+  retries:
+    max: 2
 - id: style-review
   speciality: style-reviewer
   abilities:

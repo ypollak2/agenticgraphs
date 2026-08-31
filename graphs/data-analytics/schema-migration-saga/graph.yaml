@@ -49,6 +49,8 @@ nodes:
   criteria: 'The saga ends in one of two consistent states: forward-complete with source and target parity
     verified, or fully unwound with every executed step compensated. A partially applied migration is
     the outcome this graph exists to prevent.'
+  retries:
+    max: 2
 - id: undo-cutover
   speciality: compensator
   abilities:

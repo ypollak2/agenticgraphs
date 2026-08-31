@@ -31,6 +31,7 @@ nodes:
   - unsupported_claims
   - verdicts: list[{quote_span:any, source_url:any}]
   join: all
+  parallel_group: write-fanout
 - id: policy-check
   speciality: critic
   abilities:
@@ -39,6 +40,7 @@ nodes:
   - listing_copy
   outputs:
   - policy_violations
+  parallel_group: write-fanout
 - id: publish
   speciality: executor
   abilities:

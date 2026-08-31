@@ -21,6 +21,8 @@ nodes:
     on_partial: continue
   outputs:
   - patched
+  retries:
+    max: 2
 - id: verifier
   speciality: verifier
   abilities:
@@ -33,6 +35,8 @@ nodes:
   criteria: The goal's verification command exits zero against the merged result. Nothing merges on a
     worker's report that it finished; three failures escalate to a human rather than becoming a fourth
     attempt.
+  retries:
+    max: 2
 edges:
 - from: planner
   to: worker

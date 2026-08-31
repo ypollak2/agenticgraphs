@@ -6,7 +6,7 @@
     "edges": 4,
     "verifier_nodes": 1,
     "router_nodes": 0,
-    "parallel_groups": 0,
+    "parallel_groups": 1,
     "max_fan_out": 2,
     "loops": 0,
     "loops_bounded": true,

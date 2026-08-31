@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-065` | healthcare-science | **parallel-swarm** | 4 | 4 | 1 | 0 | 30 | execute |
+| `AGR-065` | healthcare-science | **parallel-swarm** | 5 | 5 | 1 | 0 | 30 | execute |
 
 > 🎯 **Requires a goal** — the assigned codes to audit and the clinical documentation behind them. Without one the graph refuses and runs no node.
 
@@ -17,10 +17,12 @@ flowchart LR
     N1["work<br/><i>worker</i>"]
     N2["recode<br/><i>compensator</i>"]
     N3{{"verify<br/><i>verifier</i>"}}
+    N4["reverse-claim<br/><i>compensator</i>"]
     N0 --> N1
     N1 --> N2
     N2 --> N3
     N3 -->|verify_failed and attempts < 3| N1
+    N2 -->|recode_failed| N4
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -61,6 +63,7 @@ To evolve it: `uv run agr infuse medical-coding-audit <node> <ability>` — ever
 | `work` | worker | agent | run_command, edit_files |
 | `recode` | compensator | agent | rollback, backfill |
 | `verify` | verifier | verifier | run_command |
+| `reverse-claim` | compensator | agent | rollback |
 
 ## Edge logic
 
@@ -70,6 +73,7 @@ To evolve it: `uv run agr infuse medical-coding-audit <node> <ability>` — ever
 | `work` | `recode` | always |
 | `recode` | `verify` | always |
 | `verify` | `work` | verify_failed and attempts < 3 |
+| `recode` | `reverse-claim` | recode_failed |
 
 ## Optional use-cases
 

@@ -30,6 +30,8 @@ nodes:
   - output
   criteria: Every finding links a dated public source. An undated observation cannot be told apart from
     a stale one, which is the whole risk in a competitive brief.
+  retries:
+    max: 2
 edges:
 - from: partition
   to: map

@@ -27,6 +27,8 @@ nodes:
   - exit_code
   criteria: The query is run against the real schema and its exit code and row count are recorded. A query
     judged correct without being executed has not been verified.
+  retries:
+    max: 2
 - id: critique
   speciality: critic
   abilities:

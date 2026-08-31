@@ -20,6 +20,8 @@ nodes:
     on_partial: continue
   outputs:
   - work_result
+  retries:
+    max: 2
 - id: verify
   speciality: verifier
   abilities:
@@ -30,6 +32,8 @@ nodes:
   - violations: list[{line_id:any, policy_rule:any}]
   criteria: Every violation names the expense line id and the specific policy rule it breaches, so the
     claimant can see what to fix rather than that something was wrong.
+  retries:
+    max: 2
 edges:
 - from: plan
   to: work

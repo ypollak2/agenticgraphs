@@ -20,6 +20,8 @@ nodes:
   outputs:
   - research_brief
   - prior_art
+  retries:
+    max: 2
 - id: plan
   speciality: planner
   abilities:

@@ -20,6 +20,8 @@ nodes:
     on_partial: continue
   outputs:
   - work_result
+  retries:
+    max: 2
 - id: verify
   speciality: verifier
   abilities:
@@ -31,6 +33,8 @@ nodes:
   criteria: Every citation resolves to a real, reachable source, and the cited passage actually supports
     the claim it is attached to. A resolving link under a claim it does not support is the harder failure
     and the one this node exists for.
+  retries:
+    max: 2
 edges:
 - from: plan
   to: work

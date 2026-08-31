@@ -52,6 +52,15 @@ nodes:
   outputs:
   - evidence_pack: any
   - output
+- id: withdraw-filing
+  speciality: compensator
+  abilities:
+  - rollback
+  inputs: []
+  outputs:
+  - withdraw_filing_filed
+  criteria: A filing is received the moment it is submitted. Undoing it is a formal withdrawal or amendment
+    on the record, not a deletion, and the amendment must cite the filing it corrects.
 edges:
 - from: collect
   to: reconcile
@@ -65,6 +74,10 @@ edges:
   to: file
 - from: file
   to: retain
+- from: file
+  to: withdraw-filing
+  kind: compensate
+  when: file_failed
 termination:
   max_steps: 35
   contract: nothing files until figures reconcile to source and a controller signs

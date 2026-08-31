@@ -13,10 +13,12 @@ flowchart LR
     N1["work<br/><i>worker</i>"]
     N2["recode<br/><i>compensator</i>"]
     N3{{"verify<br/><i>verifier</i>"}}
+    N4["reverse-claim<br/><i>compensator</i>"]
     N0 --> N1
     N1 --> N2
     N2 --> N3
     N3 -->|verify_failed and attempts < 3| N1
+    N2 -->|recode_failed| N4
 ```
 
 ## Cases

@@ -32,6 +32,8 @@ nodes:
     on_partial: continue
   outputs:
   - work_result
+  retries:
+    max: 2
 - id: verify
   speciality: verifier
   abilities:
@@ -42,6 +44,8 @@ nodes:
   - output
   criteria: Every claim cites the specific paper and the section within it. A claim citing a paper but
     not where in it stops the next reader from verifying anything.
+  retries:
+    max: 2
 edges:
 - from: plan
   to: screen

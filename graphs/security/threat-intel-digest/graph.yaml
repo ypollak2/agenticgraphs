@@ -40,6 +40,8 @@ nodes:
   - output
   criteria: Every item links its source advisory and the CVE ids it concerns, and relevance is judged
     against the estate actually run rather than the severity score in isolation.
+  retries:
+    max: 2
 edges:
 - from: partition
   to: map

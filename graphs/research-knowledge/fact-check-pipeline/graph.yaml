@@ -16,6 +16,8 @@ nodes:
   - web_search
   outputs:
   - verdicts: list[{quote_span:any, source_url:any}]
+  retries:
+    max: 2
 - id: review
   speciality: critic
   abilities:

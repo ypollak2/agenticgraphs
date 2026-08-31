@@ -26,6 +26,8 @@ nodes:
   - test_passes_after_patch: any
   criteria: The regression test fails against the unpatched code and passes against the patched code.
     A test that passes before the fix is testing something else.
+  retries:
+    max: 2
 edges:
 - from: plan
   to: execute

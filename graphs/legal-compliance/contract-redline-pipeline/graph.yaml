@@ -20,6 +20,8 @@ nodes:
   criteria: Each flagged clause is matched to the playbook position that governs it, including the fallback
     the business has already agreed to accept. A clause with no retrieved position is escalated, not negotiated
     from first principles.
+  retries:
+    max: 2
 - id: produce
   speciality: producer
   abilities:

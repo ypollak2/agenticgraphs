@@ -21,6 +21,7 @@ nodes:
   - beats
   outputs:
   - structure_notes
+  parallel_group: read-fanout
 - id: comparables
   speciality: supervisor
   kind: subgraph
@@ -30,6 +31,7 @@ nodes:
   outputs:
   - comps
   - findings: list[{source_date:any, source_url:any}]
+  parallel_group: read-fanout
 - id: recommend
   speciality: judge
   abilities:

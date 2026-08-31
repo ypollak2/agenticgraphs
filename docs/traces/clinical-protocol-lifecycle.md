@@ -14,11 +14,13 @@ flowchart LR
     N2["revise<br/><i>producer</i>"]
     N3["investigator-signoff<br/><i>approver</i>"]
     N4["register<br/><i>controller</i>"]
+    N5["amend-registration<br/><i>compensator</i>"]
     N0 --> N1
     N1 -->|len(deviations) > 0| N2
     N2 -->|attempts < 3| N1
     N1 -->|len(deviations) == 0| N3
     N3 --> N4
+    N4 -->|register_failed| N5
 ```
 
 ## Cases

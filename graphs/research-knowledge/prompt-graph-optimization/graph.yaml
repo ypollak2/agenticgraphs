@@ -40,6 +40,8 @@ nodes:
   kind: verifier
   criteria: A variant ships only if it beats the baseline on a held-out set it was never searched against.
     A winner selected on the set that selected it has measured its own search, not its quality.
+  retries:
+    max: 2
 edges:
 - from: baseline
   to: search

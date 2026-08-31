@@ -30,6 +30,8 @@ nodes:
     score: severity
     objective: max
     prune: beam(2)
+  retries:
+    max: 2
 - id: defend
   speciality: executor
   abilities:
@@ -53,6 +55,8 @@ nodes:
   criteria: The loop terminates because the attacker exhausted its options with every finding mitigated,
     producing evidence of absence rather than absence of evidence. An unmitigated finding means the loop
     stopped early.
+  retries:
+    max: 2
 edges:
 - from: scope
   to: attack

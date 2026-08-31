@@ -23,6 +23,7 @@ cases:
       corrections:
       - from: J18.9
         to: J15.9
+    reverse-claim: {}
   goal: the July inpatient DRG assignments and their charts
 - id: retry-then-verified
   node_outputs:
@@ -46,4 +47,5 @@ cases:
         - code: J45.909
           note_span: pt has asthma, wheezing on exam
     recode: *id002
+    reverse-claim: {}
   goal: the July inpatient DRG assignments and their charts

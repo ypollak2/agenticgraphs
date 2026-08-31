@@ -32,6 +32,8 @@ nodes:
   outputs:
   - repro_confirmed
   - repro_exit_code_before
+  retries:
+    max: 2
 - id: patch
   speciality: executor
   abilities:
@@ -54,6 +56,8 @@ nodes:
   criteria: The recorded proof-of-concept no longer succeeds against the patched build, demonstrated by
     re-running it rather than by inspecting the diff. Nothing is disclosed before that re-run passes and
     a human has signed off.
+  retries:
+    max: 2
 - id: disclose-approval
   speciality: approver
   kind: human

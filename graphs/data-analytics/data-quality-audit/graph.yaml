@@ -20,6 +20,8 @@ nodes:
     on_partial: continue
   outputs:
   - work_result
+  retries:
+    max: 2
 - id: verify
   speciality: verifier
   abilities:
@@ -30,6 +32,8 @@ nodes:
   - violations: list[{count:int, rule_id:any}]
   criteria: Every violation is a machine-readable rule id with the row count that breaks it, so the report
     can be re-run and diffed rather than re-read.
+  retries:
+    max: 2
 edges:
 - from: plan
   to: work

@@ -29,6 +29,7 @@ nodes:
   outputs:
   - show_notes
   - timestamps
+  parallel_group: edit-plan-fanout
 - id: rights-check
   speciality: counsel
   abilities:
@@ -38,6 +39,7 @@ nodes:
   outputs:
   - clearances
   - rights_clear: any
+  parallel_group: edit-plan-fanout
 - id: publish
   speciality: executor
   abilities:

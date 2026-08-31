@@ -25,6 +25,8 @@ nodes:
   - expected_rows: any
   - output
   criteria: An end-to-end run loads exactly the expected row count, and a second run loads no duplicates.
+  retries:
+    max: 2
 edges:
 - from: plan
   to: execute

@@ -24,6 +24,8 @@ nodes:
   - output
   criteria: Each step's post-condition command exited zero. A step whose check was skipped is not a passed
     step.
+  retries:
+    max: 2
 edges:
 - from: plan
   to: execute

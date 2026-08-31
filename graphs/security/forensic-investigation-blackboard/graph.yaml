@@ -25,6 +25,8 @@ nodes:
   fan_out:
     over: leads
     max: 8
+  retries:
+    max: 2
 - id: assess
   speciality: judge
   abilities:

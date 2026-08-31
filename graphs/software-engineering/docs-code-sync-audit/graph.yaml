@@ -21,6 +21,8 @@ nodes:
     on_partial: continue
   outputs:
   - work_result: '{doc:str, command:str, exit_code:int}'
+  retries:
+    max: 2
 - id: verify
   speciality: verifier
   abilities:
@@ -31,6 +33,8 @@ nodes:
   - output
   criteria: Every code example extracted from the docs was actually executed and exited zero. An example
     that was read and judged plausible has not been checked.
+  retries:
+    max: 2
 edges:
 - from: plan
   to: work

@@ -249,6 +249,37 @@ def _lint_commands(doc: dict) -> list[str]:
     return errors
 
 
+#: Effects no revert undoes. A filing is received the moment it is submitted; a
+#: registration is public; a cut release is downloadable; a resubmitted billing
+#: code has been claimed against. `edit_files` is deliberately ABSENT: a working
+#: tree is reversible by `git revert`, and marking it as a saga step would dress a
+#: reversible action in the vocabulary reserved for one-way ones — which is how a
+#: compensator count grows without any compensation being possible.
+_IRREVERSIBLE_ABILITIES = frozenset({
+    "file_record", "cut_release", "shadow_write", "backfill",
+})
+
+
+def _lint_irreversible(doc: dict) -> list[str]:
+    """A one-way effect needs a compensating path, or the graph cannot be unwound.
+
+    Armed at v1.8. The v1.3 saga lint already required this of graphs whose
+    declared pattern is `saga`; the property has nothing to do with what a graph
+    calls itself. `regulatory-filing-lifecycle` files with a regulator and had no
+    way back.
+    """
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    compensated = {e["from"] for e in doc.get("edges", []) if e.get("kind") == "compensate"}
+    return [
+        f"node '{n['id']}' performs a one-way effect ({sorted(hit)}) with no compensate "
+        f"edge — name the action that undoes it on the record, or drop the ability"
+        for n in doc.get("nodes", [])
+        if (hit := _IRREVERSIBLE_ABILITIES & set(n.get("abilities") or []))
+        and n["id"] not in compensated
+    ]
+
+
 def _parses(expr: str) -> bool:
     try:
         ast.parse(expr, mode="eval")
@@ -477,6 +508,7 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
     errors.extend(_lint_self_graded(doc))
     errors.extend(_lint_criteria(doc))
     errors.extend(_lint_commands(doc))
+    errors.extend(_lint_irreversible(doc))
 
     # speciality / ability resolution
     specs = {load(p)["name"]: load(p) for p in iter_yaml("specialities", root)}

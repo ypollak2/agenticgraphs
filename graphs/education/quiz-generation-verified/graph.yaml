@@ -25,6 +25,8 @@ nodes:
   - blind_answers
   criteria: Each item is answered without sight of the key. An answer produced by a step that could see
     the key measures nothing about whether the item is solvable.
+  retries:
+    max: 2
 - id: critique
   speciality: critic
   abilities:

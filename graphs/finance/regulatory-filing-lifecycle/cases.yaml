@@ -18,4 +18,5 @@ cases:
         signed_off: true
         filed: true
         evidence_pack: s3://evidence/q3
+    withdraw-filing: {}
   goal: file Q1 2026 under the SEC regime with reconciled figures

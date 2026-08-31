@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-119` | healthcare-science | **human-gate** | 5 | 5 | 0 | 0 | 35 | execute |
+| `AGR-119` | healthcare-science | **human-gate** | 6 | 6 | 0 | 0 | 35 | execute |
 
 > 🎯 **Requires a goal** — the study question the protocol must answer. Without one the graph refuses and runs no node.
 
@@ -18,11 +18,13 @@ flowchart LR
     N2["revise<br/><i>producer</i>"]
     N3["investigator-signoff<br/><i>approver</i>"]
     N4["register<br/><i>controller</i>"]
+    N5["amend-registration<br/><i>compensator</i>"]
     N0 --> N1
     N1 -->|len(deviations) > 0| N2
     N2 -->|attempts < 3| N1
     N1 -->|len(deviations) == 0| N3
     N3 --> N4
+    N4 -->|register_failed| N5
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -66,6 +68,7 @@ To evolve it: `uv run agr infuse clinical-protocol-lifecycle <node> <ability>` �
 | `revise` | producer | agent | generate |
 | `investigator-signoff` | approver | human | approve |
 | `register` | controller | agent | analyze, file_record |
+| `amend-registration` | compensator | agent | rollback |
 
 ## Edge logic
 
@@ -76,6 +79,7 @@ To evolve it: `uv run agr infuse clinical-protocol-lifecycle <node> <ability>` �
 | `revise` | `critique` | attempts < 3 |
 | `critique` | `investigator-signoff` | len(deviations) == 0 |
 | `investigator-signoff` | `register` | always |
+| `register` | `amend-registration` | register_failed |
 
 ## Optional use-cases
 

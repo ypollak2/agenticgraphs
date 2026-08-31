@@ -12,6 +12,8 @@ nodes:
   - seed
   inputs:
   - test_id
+  retries:
+    max: 2
 - id: hypothesise
   speciality: analyst
   abilities:
@@ -45,6 +47,8 @@ nodes:
   kind: verifier
   criteria: Stability is shown by at least three consecutive green runs, not one, and every failed attempt
     is recorded with what it ruled out so the next attempt does not repeat it.
+  retries:
+    max: 2
 edges:
 - from: reproduce
   to: hypothesise

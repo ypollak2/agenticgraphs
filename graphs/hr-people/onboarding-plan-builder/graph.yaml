@@ -21,6 +21,7 @@ nodes:
   - role_context
   outputs:
   - plan_30_60_90
+  parallel_group: gather-fanout
 - id: access-map
   speciality: mapper
   abilities:
@@ -29,6 +30,7 @@ nodes:
   - role_context
   outputs:
   - access_requests
+  parallel_group: gather-fanout
 - id: review
   speciality: critic
   abilities:

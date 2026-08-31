@@ -31,6 +31,8 @@ nodes:
   - output
   criteria: Every note links the merged PR it describes, and no note claims a change that no PR made.
     An orphan claim in release notes becomes a support ticket.
+  retries:
+    max: 2
 edges:
 - from: partition
   to: map

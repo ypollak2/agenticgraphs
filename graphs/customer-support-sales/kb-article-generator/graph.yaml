@@ -19,6 +19,8 @@ nodes:
   - existing_articles
   criteria: The existing knowledge base is searched for the same symptom before anything is written. A
     near-duplicate is an article to update, not a second article to publish.
+  retries:
+    max: 2
 - id: produce
   speciality: producer
   abilities:

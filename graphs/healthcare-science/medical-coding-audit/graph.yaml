@@ -20,6 +20,8 @@ nodes:
     on_partial: continue
   outputs:
   - work_result
+  retries:
+    max: 2
 - id: recode
   speciality: compensator
   abilities:
@@ -41,6 +43,17 @@ nodes:
   - output
   criteria: Every assigned code points at the note span that documents it. A code the chart supports only
     by inference is an unsupported code, however clinically likely.
+  retries:
+    max: 2
+- id: reverse-claim
+  speciality: compensator
+  abilities:
+  - rollback
+  inputs: []
+  outputs:
+  - reverse_claim_filed
+  criteria: A resubmitted code has already been claimed against. Undoing it means issuing the reversing
+    adjustment, so the payer's ledger and the chart agree.
 edges:
 - from: plan
   to: work
@@ -51,6 +64,10 @@ edges:
 - from: verify
   to: work
   when: verify_failed and attempts < 3
+- from: recode
+  to: reverse-claim
+  kind: compensate
+  when: recode_failed
 termination:
   max_steps: 30
   contract: code assignments justified by note spans

@@ -17,6 +17,8 @@ nodes:
   - web_search
   outputs:
   - confidence
+  retries:
+    max: 2
 - id: deep-researcher
   speciality: researcher
   abilities:
@@ -24,6 +26,8 @@ nodes:
   - read_papers
   outputs:
   - confidence
+  retries:
+    max: 2
 - id: synthesizer
   speciality: synthesizer
   abilities:

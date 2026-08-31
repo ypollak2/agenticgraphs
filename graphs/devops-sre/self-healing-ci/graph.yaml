@@ -12,6 +12,8 @@ nodes:
   - failures
   inputs:
   - pipeline_run
+  retries:
+    max: 2
 - id: classify
   speciality: analyst
   abilities:
@@ -44,6 +46,8 @@ nodes:
   kind: verifier
   criteria: "The pipeline ends green, or escalates with the diagnosis attached \u2014 and every attempted\
     \ repair is recorded with why it failed, so the next run does not retry what already did not work."
+  retries:
+    max: 2
 edges:
 - from: collect
   to: classify

@@ -17,4 +17,5 @@ cases:
       registered: true
       registry_id: NCT00000001
       output: *id001
+    amend-registration: {}
   goal: draft a phase II protocol for drug X in treatment-resistant patients

@@ -32,6 +32,8 @@ nodes:
   outputs:
   - mitigation
   - mitigated
+  retries:
+    max: 2
 - id: confirm
   speciality: verifier
   abilities:
@@ -44,6 +46,8 @@ nodes:
   - residual_blast_radius
   criteria: "Mitigation is proven by the signal that declared the incident returning to normal, not by\
     \ a responder saying so \u2014 and the postmortem yields at least one action with a named owner."
+  retries:
+    max: 2
 - id: postmortem
   speciality: supervisor
   kind: subgraph
