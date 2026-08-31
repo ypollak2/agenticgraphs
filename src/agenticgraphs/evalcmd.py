@@ -9,7 +9,7 @@ import yaml
 
 from .harness import LLMRunner, MockRunner, ReplayRunner, run_graph
 from .inspect import find_graph, structural_profile
-from .registry import ROOT, cases_path, live_dir, load
+from .registry import ROOT, SPEC_VERSION, cases_path, live_dir, load
 
 
 def verification_depth(doc: dict, runner_name: str, grounded: bool = False) -> str:
@@ -50,15 +50,23 @@ def _recordings(root: Path, name: str, case_id: str) -> list[Path]:
     live = live_dir(name, root)
     if not live.is_dir():
         return []
-    # A recording stamped `superseded_by` was taken under evaluation conditions
-    # that no longer hold — see scripts/invalidate_recordings.py. It is kept so a
-    # reader can see what was measured, and excluded here so no report quotes a
-    # number it cannot stand behind. Silently scoring it would be the exact
-    # failure this registry says it exists to prevent.
-    return sorted(
-        p for p in live.glob(f"{case_id}*.json")
-        if not json.loads(p.read_text()).get("superseded_by")
-    )
+    # Two ways a recording stops counting, and both must be checked here rather
+    # than trusted upstream:
+    #
+    # `superseded_by` is the explicit retirement — see
+    # scripts/invalidate_recordings.py. The file is kept so a reader can see what
+    # was measured; excluding it here is what stops a report quoting a number it
+    # cannot stand behind.
+    #
+    # A missing or older `spec` is the implicit one. Recordings made before v1.8
+    # did not say which spec they were scored against, which is exactly why all
+    # 560 had to be invalidated wholesale instead of filtered. Requiring the field
+    # means the next spec change can retire precisely what it invalidates.
+    def current(p) -> bool:
+        doc = json.loads(p.read_text())
+        return not doc.get("superseded_by") and doc.get("spec") == SPEC_VERSION
+
+    return sorted(p for p in live.glob(f"{case_id}*.json") if current(p))
 
 
 def case_inputs(case: dict, goal: str | None = None) -> dict:

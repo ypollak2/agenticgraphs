@@ -20,14 +20,16 @@ nodes:
   - figures
   outputs:
   - variance
-  - reconciled: any
+  - filing_total
+  - ledger_total
 - id: controller-signoff
   speciality: approver
   kind: human
   abilities:
   - approve
   inputs:
-  - reconciled
+  - filing_total
+  - ledger_total
   outputs:
   - signed_off: any
   approval:
@@ -50,7 +52,9 @@ nodes:
   inputs:
   - confirmation_id
   outputs:
-  - evidence_pack: any
+  - evidence_pack
+  - filing_total
+  - ledger_total
   - output
 - id: withdraw-filing
   speciality: compensator
@@ -82,12 +86,13 @@ termination:
   max_steps: 35
   contract: nothing files until figures reconcile to source and a controller signs
 verification:
-- describe: figures tie to source before filing
-  assert: output.reconciled == true
-- describe: a controller signed the filing
+- describe: "the filed figures equal the ledger `collect` read \u2014 reconciliation is two numbers agreeing,\
+    \ not a model reporting that they do"
+  assert: output.filing_total == output.ledger_total
+- describe: the filing carries a human signature
   assert: output.signed_off == true
-- describe: the filing is evidenced end to end
-  assert: output.filed == true and output.evidence_pack is not None
+- describe: the retained evidence pack exists
+  assert: output.evidence_pack is not None
 state:
   inputs:
   - goal

@@ -27,7 +27,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from agenticgraphs.evalcmd import case_inputs
 from agenticgraphs.harness import LLMRunner, ToolRunner, run_graph
 from agenticgraphs.inspect import find_graph
-from agenticgraphs.registry import ROOT, cases_path, live_dir, load
+from agenticgraphs.registry import ROOT, SPEC_VERSION, cases_path, live_dir, load
 
 
 class RecordingRunner:
@@ -74,11 +74,25 @@ def _model_dir(name: str, model: str) -> str:
     return model.replace("/", "-").replace(":", "-")
 
 
-def record(name: str, sample: int = 0) -> dict:
+def record(name: str, sample: int = 0) -> list[dict]:
+    """Record every golden case, not just the first one.
+
+    This said `case = cases[0]` for the whole life of the project, so every live
+    recording ever made exercised one branch per graph. "83 of 83 graphs recorded"
+    always meant "one case each", and the cases most worth measuring are the ones
+    written second — the branch a model gets wrong, the input that looks like one
+    thing and routes to another. Those were never put to a model.
+
+    The filename already carried the case id, and `_recordings` already globs by
+    it, so the storage and replay sides were ready; only the loop was missing.
+    """
     gpath = find_graph(name)
     doc = load(gpath)
     cases = yaml.safe_load((cases_path(name)).read_text())["cases"]
-    case = cases[0]
+    return [_record_case(name, doc, case, sample) for case in cases]
+
+
+def _record_case(name: str, doc: dict, case: dict, sample: int) -> dict:
     # AGR_TOOLS=1 binds each node's declared abilities; AGR_ALLOW_MUTATING=1 also
     # permits risk: write/execute, the same gate `agr eval --run-commands` uses.
     if os.environ.get("AGR_TOOLS") == "1":
@@ -101,6 +115,14 @@ def record(name: str, sample: int = 0) -> dict:
         "model": os.environ["AGR_LLM_MODEL"],
         "recorded": date.today().isoformat(),
         "endpoint": os.environ["AGR_LLM_BASE_URL"],
+        # The conditions the measurement was taken under. All 560 pre-v1.8
+        # recordings had to be invalidated WHOLESALE rather than filtered, because
+        # none of them said which spec version they were scored against or how the
+        # model was sampled — so there was no way to tell a recording that survived
+        # the prompt change from one that did not. A recording that cannot state
+        # its own conditions cannot be re-validated later, only thrown away.
+        "spec": SPEC_VERSION,
+        "sampling": dict(LLMRunner.SAMPLING),
         # What the model was given. A recording that does not say what was on the
         # board cannot be compared against one made under different entry state.
         "inputs": inputs,
@@ -145,14 +167,15 @@ def main() -> int:
         # A model that fails to emit JSON is itself an observation about the cell.
         for i in range(samples):
             try:
-                r = record(name, sample=i)
+                results = record(name, sample=i)
             except Exception as ex:
-                r = {"graph": name, "error": f"{type(ex).__name__}: {ex}"}
+                results = [{"graph": name, "error": f"{type(ex).__name__}: {ex}"}]
             # Reported as it happens, not accumulated. A 249-run sweep that batches
             # its output loses every result if the process is killed — which is
             # exactly what happened, and the recordings on disk were the only
             # surviving evidence of how far it got.
-            _report(r)
+            for r in results:
+                _report(r)
     return 0
 
 

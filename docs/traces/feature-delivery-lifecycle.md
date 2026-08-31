@@ -50,16 +50,14 @@ flowchart LR
 | 9 | `audit.triage` | `risk='low'` |
 | 10 | `audit.style-review` | `style_findings=[]` |
 | 11 | `audit.synthesize` | `verdict='approve', findings=[], output={'verdict': 'approve', 'findings': []}` |
-| 12 | `docs` | `docs_updated=True` |
+| 12 | `docs` | `docs_updated=True, doc_changes=[{'file': 'README.md', 'pr_url': 'https://x/pr/1'}], output={}` |
 | 13 | `release-approval` | `signed_off=True` |
 | 14 | `release` | `released=True, release_tag='v1.2.0', release_failed=False, output={'verdict': 'approve', 'docs_updated': True, 'signed_off': True, 'released': True, 'rolled_back': False}` |
 
 **Verification checked:**
 
-- ✅ `output.verdict == 'approve'`
-- ✅ `output.docs_updated == true`
+- ✅ `all(d.file and d.pr_url for d in output.doc_changes)`
 - ✅ `output.signed_off == true`
-- ✅ `output.released == true or output.rolled_back == true`
 - ⏭️ `pytest -q` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `audit-requests-changes-then-approves` — ✅ passed
@@ -84,16 +82,14 @@ flowchart LR
 | 14 | `audit.triage` | `risk='low'` |
 | 15 | `audit.style-review` | `style_findings=[]` |
 | 16 | `audit.synthesize` | `verdict='approve', findings=[], output={'verdict': 'approve', 'findings': []}` |
-| 17 | `docs` | `docs_updated=True` |
+| 17 | `docs` | `docs_updated=True, doc_changes=[{'file': 'README.md', 'pr_url': 'https://x/pr/1'}], output={}` |
 | 18 | `release-approval` | `signed_off=True` |
 | 19 | `release` | `released=True, release_tag='v1.2.1', release_failed=False, output={'verdict': 'approve', 'docs_updated': True, 'signed_off': True, 'released': True, 'rolled_back': False}` |
 
 **Verification checked:**
 
-- ✅ `output.verdict == 'approve'`
-- ✅ `output.docs_updated == true`
+- ✅ `all(d.file and d.pr_url for d in output.doc_changes)`
 - ✅ `output.signed_off == true`
-- ✅ `output.released == true or output.rolled_back == true`
 - ⏭️ `pytest -q` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `failed-release-is-compensated` — ✅ passed
@@ -113,17 +109,15 @@ flowchart LR
 | 9 | `audit.triage` | `risk='low'` |
 | 10 | `audit.style-review` | `style_findings=[]` |
 | 11 | `audit.synthesize` | `verdict='approve', findings=[], output={'verdict': 'approve', 'findings': []}` |
-| 12 | `docs` | `docs_updated=True` |
+| 12 | `docs` | `docs_updated=True, doc_changes=[{'file': 'README.md', 'pr_url': 'https://x/pr/1'}], output={}` |
 | 13 | `release-approval` | `signed_off=True` |
 | 14 | `release` | `released=False, release_tag='v1.2.2', release_failed=True` |
-| 15 | `rollback` | `rolled_back=True, output={'verdict': 'approve', 'docs_updated': True, 'signed_off': True, 'released': False, 'rolled_back': True}` |
+| 15 | `rollback` | `rolled_back=False, output={'verdict': 'approve', 'docs_updated': True, 'signed_off': True, 'released': False, 'rolled_back': True, 'doc_changes': [{'file': 'README.md', 'pr_url': 'https://x/pr/1'}]}, doc_changes=[{'file': 'README.md', 'pr_url': 'https://x/pr/1'}]` |
 
 **Verification checked:**
 
-- ✅ `output.verdict == 'approve'`
-- ✅ `output.docs_updated == true`
+- ✅ `all(d.file and d.pr_url for d in output.doc_changes)`
 - ✅ `output.signed_off == true`
-- ✅ `output.released == true or output.rolled_back == true`
 - ⏭️ `pytest -q` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---

@@ -153,19 +153,28 @@ def _lint_self_graded(doc: dict) -> list[str]:
     and this node had to reconcile, or to add a `verification[].command` that
     checks the claim outside the model. Both are real work; that is the point.
     """
+    # Any node a MODEL drives, not only `kind: verifier`. The rule was written for
+    # the verifier case and missed eight contracts where the flag is written by an
+    # ordinary agent — `post` deciding `three_way_matched`, `disclose` deciding
+    # `advisory_published`. The node's kind never mattered; who writes the flag does.
+    #
+    # `kind: human` is the exemption, and the only one. A signature IS evidence:
+    # `output.signed_off == true` is a claim by a person the graph refused to make
+    # on their behalf (see `LLMRunner.approve`), which is the opposite of
+    # self-grading. Seven contracts rest on that and are correct.
     verifier_outputs: dict[str, str] = {}
     for n in doc.get("nodes", []):
-        if n.get("kind") != "verifier":
+        if n.get("kind") == "human":
             continue
         for o in _out_names(n):
-            verifier_outputs[o] = n["id"]
+            verifier_outputs.setdefault(o, n["id"])
     msgs: list[str] = []
     for v in doc.get("verification") or []:
         key = _bare_truthy_key(v.get("assert") or "")
         if key and key in verifier_outputs:
             msgs.append(
                 f"self-graded contract: assert '{v['assert']}' reads a key that node "
-                f"'{verifier_outputs[key]}' (kind: verifier) produces itself — the model "
+                f"'{verifier_outputs[key]}' produces itself — the model "
                 f"writes the flag it is scored on. Assert on a fact an upstream node "
                 f"produced, or add a verification[].command."
             )

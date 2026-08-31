@@ -41,13 +41,13 @@ flowchart LR
 | 6 | `patch` | `patch='patch-value'` |
 | 7 | `prove` | `exploit_blocked=True, repro_exit_code_before=0, repro_exit_code_after=1, output={}` |
 | 8 | `disclose-approval` | `signed_off=True` |
-| 9 | `disclose` | `advisory_published=True, output={'exploit_blocked': True, 'signed_off': True, 'advisory_published': True}` |
+| 9 | `disclose` | `advisory_published=True, output={'exploit_blocked': True, 'signed_off': True, 'advisory_published': True, 'advisory_url': 'https://example.org/GHSA-1', 'cve_id': 'CVE-2026-1234'}, advisory_url='https://example.org/GHSA-1', cve_id='CVE-2026-1234'` |
 
 **Verification checked:**
 
 - ✅ `output.repro_exit_code_before == 0 and output.repro_exit_code_after != 0`
 - ✅ `output.signed_off == true`
-- ✅ `output.advisory_published == true`
+- ✅ `output.advisory_url and output.cve_id`
 - ⏭️ `pytest -q {repro_path}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---

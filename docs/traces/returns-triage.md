@@ -43,8 +43,8 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `route` | `complexity='high'` |
-| 2 | `branch-complex` | `assigned_disposition='refund'` |
-| 3 | `verify` | `assigned_disposition='refund', expected_disposition='refund', output={'assigned_disposition': 'refund', 'expected_disposition': 'refund'}` |
+| 2 | `branch-complex` | `assigned_disposition='reject'` |
+| 3 | `verify` | `assigned_disposition='reject', expected_disposition='reject', output={'assigned_disposition': 'reject', 'expected_disposition': 'reject'}` |
 
 **Verification checked:**
 

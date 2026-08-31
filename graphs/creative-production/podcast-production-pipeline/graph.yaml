@@ -48,9 +48,10 @@ nodes:
   - show_notes
   - rights_clear
   outputs:
+  - clearances
   - output
   - published
-  - timestamps_valid: any
+  - timestamps
   join: all
 edges:
 - from: transcribe
@@ -68,10 +69,12 @@ termination:
   max_steps: 30
   contract: no episode publishes with an uncleared cue or drifting timestamps
 verification:
-- describe: every music or clip cue is cleared before publish
-  assert: output.rights_clear == true
-- describe: show notes timestamps line up with the cut
-  assert: output.timestamps_valid == true
+- describe: "every clip names the licence it cleared under \u2014 'rights are clear' is unfalsifiable,\
+    \ a licence reference is not"
+  assert: all(c.license_ref for c in output.clearances)
+- describe: every chapter marker starts before it ends, which is what makes a timestamp valid rather than
+    merely present
+  assert: all(t.start < t.end for t in output.timestamps)
 state:
   inputs:
   - goal

@@ -31,12 +31,12 @@ flowchart LR
 | 1 | `auto-match.plan` | `steps=['decompose goal']` |
 | 2 | `auto-match.work` | *(no fixture — empty output)* |
 | 3 | `auto-match.verify` | `exceptions=[], matched=[{'inv': 1}], verify_failed=False, attempts=1, output={'violations': [{'line_id': 'L-12', 'policy_rule': 'T&E-4'}]}` |
-| 4 | `post` | `posted=128, unreviewed_exceptions=0, output={'posted': 128, 'unreviewed_exceptions': 0, 'three_way_matched': True}` |
+| 4 | `post` | `posted=True, unreviewed_exceptions=0, output={'posted': 128, 'unreviewed_exceptions': 0, 'three_way_matched': True, 'matched': [{'invoice_id': 'INV-1', 'po_id': 'PO-1', 'receipt_id': 'GR-1'}]}, matched=[{'invoice_id': 'INV-1', 'po_id': 'PO-1', 'receipt_id': 'GR-1'}]` |
 
 **Verification checked:**
 
 - ✅ `output.unreviewed_exceptions == 0`
-- ✅ `output.three_way_matched == true`
+- ✅ `all(m.invoice_id and m.po_id and m.receipt_id for m in output.matched)`
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/business-ops/invoice-reconciliation/CARD.md)*

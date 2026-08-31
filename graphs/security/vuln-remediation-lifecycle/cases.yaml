@@ -35,4 +35,8 @@ cases:
         exploit_blocked: true
         signed_off: true
         advisory_published: true
+        advisory_url: https://example.org/GHSA-1
+        cve_id: CVE-2026-1234
+      advisory_url: https://example.org/GHSA-1
+      cve_id: CVE-2026-1234
   goal: remediate CVE-2026-1234 across the payment services estate

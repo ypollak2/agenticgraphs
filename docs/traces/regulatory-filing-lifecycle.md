@@ -32,16 +32,16 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `collect` | `figures=[]` |
-| 2 | `reconcile` | `variance='variance-value', reconciled=True` |
+| 2 | `reconcile` | `variance=0, reconciled=True, filing_total=1000, ledger_total=1000, output={}` |
 | 3 | `controller-signoff` | `signed_off=True` |
 | 4 | `file` | `filed=True, confirmation_id='confirmation_id-value'` |
-| 5 | `retain` | `evidence_pack='s3://evidence/q3', output={'reconciled': True, 'signed_off': True, 'filed': True, 'evidence_pack': 's3://evidence/q3'}` |
+| 5 | `retain` | `evidence_pack='pack-1', output={'reconciled': True, 'signed_off': True, 'filed': True, 'evidence_pack': 'pack-1', 'filing_total': 1000, 'ledger_total': 1000}, filing_total=1000, ledger_total=1000` |
 
 **Verification checked:**
 
-- ✅ `output.reconciled == true`
+- ✅ `output.filing_total == output.ledger_total`
 - ✅ `output.signed_off == true`
-- ✅ `output.filed == true and output.evidence_pack is not None`
+- ✅ `output.evidence_pack is not None`
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/finance/regulatory-filing-lifecycle/CARD.md)*

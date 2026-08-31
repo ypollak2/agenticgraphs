@@ -20,10 +20,18 @@ cases:
     ap-review:
       signed_off: true
     post:
-      posted: 128
+      posted: true
       unreviewed_exceptions: 0
       output:
         posted: 128
         unreviewed_exceptions: 0
         three_way_matched: true
+        matched:
+        - invoice_id: INV-1
+          po_id: PO-1
+          receipt_id: GR-1
+      matched:
+      - invoice_id: INV-1
+        po_id: PO-1
+        receipt_id: GR-1
   goal: reconcile the March 2026 supplier invoice batch against POs and receipts

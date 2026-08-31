@@ -36,13 +36,13 @@ flowchart LR
 | 5 | `redline.review` | `redlines=[{'clause': 7, 'playbook_ref': 'value'}], revision_requested=False, attempts=1` |
 | 6 | `risk-assess` | `residual_risk='low'` |
 | 7 | `counsel-approval` | `signed_off=True` |
-| 8 | `execute` | `executed=True, output={'residual_risk_level': 'low', 'signed_off': True, 'executed': True}` |
+| 8 | `execute` | `executed=True, output={'residual_risk_level': 'low', 'signed_off': True, 'executed': True, 'signatures': [{'party': 'acme', 'dated': '2026-08-01'}, {'party': 'us', 'dated': '2026-08-01'}]}, residual_risk_level='low', signatures=[{'party': 'acme', 'dated': '2026-08-01'}, {'party': 'us', 'dated': '2026-08-01'}]` |
 
 **Verification checked:**
 
+- ✅ `all(s.party and s.dated for s in output.signatures)`
 - ✅ `output.residual_risk_level in ['low','medium']`
 - ✅ `output.signed_off == true`
-- ✅ `output.executed == true`
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/legal-compliance/contract-lifecycle/CARD.md)*

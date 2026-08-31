@@ -46,8 +46,8 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `route` | `complexity='high'` |
-| 2 | `branch-complex` | `assigned_queue='billing-tier2'` |
-| 3 | `verify` | `assigned_queue='billing-tier2', expected_queue='billing-tier2', output={'assigned_queue': 'billing-tier2', 'expected_queue': 'billing-tier2'}` |
+| 2 | `branch-complex` | `assigned_queue='identity-tier1'` |
+| 3 | `verify` | `assigned_queue='identity-tier1', expected_queue='identity-tier1', output={'assigned_queue': 'identity-tier1', 'expected_queue': 'identity-tier1'}` |
 
 **Verification checked:**
 

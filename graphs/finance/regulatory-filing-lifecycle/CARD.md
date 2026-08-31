@@ -38,9 +38,9 @@ Collect, reconcile, sign off, file and retain evidence for a regulatory filing.
 A `kind: human` node holds an approval contract that no model may sign — the live runner raises rather than approve its own work. Downstream flow edges stay blocked until the contract evaluates true, which is what makes a graph usable in a regulated domain instead of merely plausible-looking.
 
 - **Exit contract** — nothing files until figures reconcile to source and a controller signs
-- **Machine-checked** — `output.reconciled == true`
+- **Machine-checked** — `output.filing_total == output.ledger_total`
 - **Machine-checked** — `output.signed_off == true`
-- **Machine-checked** — `output.filed == true and output.evidence_pack is not None`
+- **Machine-checked** — `output.evidence_pack is not None`
 - **Bounded** — hard stop after 35 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval regulatory-filing-lifecycle` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/regulatory-filing-lifecycle.md)

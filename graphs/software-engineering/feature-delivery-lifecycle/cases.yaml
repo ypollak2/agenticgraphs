@@ -44,6 +44,10 @@ cases:
         findings: []
     docs:
       docs_updated: true
+      doc_changes: &id001
+      - file: README.md
+        pr_url: https://x/pr/1
+      output: {}
     release-approval:
       signed_off: true
     release:
@@ -56,6 +60,15 @@ cases:
         signed_off: true
         released: true
         rolled_back: false
+    rollback:
+      rolled_back: false
+      doc_changes: &id002
+      - file: README.md
+        pr_url: https://x/pr/1
+      output:
+        doc_changes: &id003
+        - file: README.md
+          pr_url: https://x/pr/1
   goal: add SSO login to the web app in the platform repo
 - id: audit-requests-changes-then-approves
   node_outputs:
@@ -118,6 +131,8 @@ cases:
       audit_rounds: 1
     docs:
       docs_updated: true
+      doc_changes: *id001
+      output: {}
     release-approval:
       signed_off: true
     release:
@@ -130,6 +145,11 @@ cases:
         signed_off: true
         released: true
         rolled_back: false
+    rollback:
+      rolled_back: false
+      doc_changes: *id002
+      output:
+        doc_changes: *id003
   goal: add SSO login to the web app in the platform repo
 - id: failed-release-is-compensated
   node_outputs:
@@ -175,6 +195,8 @@ cases:
         findings: []
     docs:
       docs_updated: true
+      doc_changes: *id001
+      output: {}
     release-approval:
       signed_off: true
     release:
@@ -182,11 +204,13 @@ cases:
       release_tag: v1.2.2
       release_failed: true
     rollback:
-      rolled_back: true
+      rolled_back: false
       output:
         verdict: approve
         docs_updated: true
         signed_off: true
         released: false
         rolled_back: true
+        doc_changes: *id003
+      doc_changes: *id002
   goal: add SSO login to the web app in the platform repo

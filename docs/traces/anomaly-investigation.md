@@ -43,8 +43,8 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `route` | `complexity='high'` |
-| 2 | `branch-complex` | `assigned_class='seasonal'` |
-| 3 | `verify` | `assigned_class='seasonal', expected_class='seasonal', output={'assigned_class': 'seasonal', 'expected_class': 'seasonal'}` |
+| 2 | `branch-complex` | `assigned_class='data-bug'` |
+| 3 | `verify` | `assigned_class='data-bug', expected_class='data-bug', output={'assigned_class': 'data-bug', 'expected_class': 'data-bug'}` |
 
 **Verification checked:**
 

@@ -4,16 +4,19 @@ cases:
     route:
       complexity: low
     branch-simple:
-      assigned_verdict: phish
+      assigned_verdict: benign
     verify:
-      assigned_verdict: phish
-      expected_verdict: phish
+      assigned_verdict: benign
+      expected_verdict: benign
       output:
-        assigned_verdict: phish
-        expected_verdict: phish
-  goal: a reported invoice email, against known-good senders
+        assigned_verdict: benign
+        expected_verdict: benign
+  goal: the reported email 'invoice-from-known-vendor', against the labelled corpus
   inputs:
-    labeled_corpus: <labeled_corpus supplied by the caller>
+    labeled_corpus: &id001
+      invoice-from-known-vendor: benign
+      password-expiry-lookalike-domain: phish
+      ceo-gift-card-request: phish
 - id: complex-branch
   node_outputs:
     route:
@@ -26,6 +29,6 @@ cases:
       output:
         assigned_verdict: phish
         expected_verdict: phish
-  goal: a reported invoice email, against known-good senders
+  goal: the reported email 'password-expiry-lookalike-domain', against the labelled corpus
   inputs:
-    labeled_corpus: <labeled_corpus supplied by the caller>
+    labeled_corpus: *id001

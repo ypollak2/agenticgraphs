@@ -43,8 +43,8 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `route` | `complexity='high'` |
-| 2 | `branch-complex` | `assigned_evidence_level='1b'` |
-| 3 | `verify` | `assigned_evidence_level='1b', expected_evidence_level='1b', output={'assigned_evidence_level': '1b', 'expected_evidence_level': '1b'}` |
+| 2 | `branch-complex` | `assigned_evidence_level='2b'` |
+| 3 | `verify` | `assigned_evidence_level='2b', expected_evidence_level='2b', output={'assigned_evidence_level': '2b', 'expected_evidence_level': '2b'}` |
 
 **Verification checked:**
 

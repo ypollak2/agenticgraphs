@@ -11,21 +11,24 @@ cases:
       output:
         assigned_class: seasonal
         expected_class: seasonal
-  goal: the 2026-08-12 spike in signup latency, over the prior 14 days
+  goal: the friday-signup-dip anomaly, against the labelled holdout
   inputs:
-    holdout_labels: <holdout_labels supplied by the caller>
+    holdout_labels: &id001
+      friday-signup-dip: seasonal
+      null-spike-2026-08-12: data-bug
+      eu-latency-step: real-change
 - id: complex-branch
   node_outputs:
     route:
       complexity: high
     branch-complex:
-      assigned_class: seasonal
+      assigned_class: data-bug
     verify:
-      assigned_class: seasonal
-      expected_class: seasonal
+      assigned_class: data-bug
+      expected_class: data-bug
       output:
-        assigned_class: seasonal
-        expected_class: seasonal
-  goal: the 2026-08-12 spike in signup latency, over the prior 14 days
+        assigned_class: data-bug
+        expected_class: data-bug
+  goal: the null-spike-2026-08-12 anomaly, against the labelled holdout
   inputs:
-    holdout_labels: <holdout_labels supplied by the caller>
+    holdout_labels: *id001

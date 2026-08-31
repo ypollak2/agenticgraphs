@@ -78,7 +78,8 @@ nodes:
   inputs:
   - signed_off
   outputs:
-  - advisory_published: any
+  - advisory_url
+  - cve_id
   - output
 edges:
 - from: ingest
@@ -106,8 +107,9 @@ verification:
   assert: output.repro_exit_code_before == 0 and output.repro_exit_code_after != 0
 - describe: disclosure carries a human signature
   assert: output.signed_off == true
-- describe: the advisory actually shipped
-  assert: output.advisory_published == true
+- describe: "the advisory is locatable \u2014 it names the CVE it concerns and where it was published,\
+    \ which 'published: true' does not"
+  assert: output.advisory_url and output.cve_id
 - describe: the proof-of-concept is re-run against the patched build
   command: pytest -q {repro_path}
 state:

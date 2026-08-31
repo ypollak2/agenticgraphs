@@ -47,9 +47,9 @@ nodes:
   inputs:
   - signed_off
   outputs:
-  - executed: any
   - output
-  - residual_risk_level: any
+  - residual_risk_level
+  - signatures
 edges:
 - from: intake
   to: redline
@@ -67,12 +67,13 @@ termination:
   max_steps: 35
   contract: a contract executes only at or below medium residual risk with counsel signature
 verification:
-- describe: residual risk is at or below the accepted threshold
+- describe: "every signature names its party and its date \u2014 an executed contract is one both sides\
+    \ signed, which is checkable"
+  assert: all(s.party and s.dated for s in output.signatures)
+- describe: residual risk landed inside appetite
   assert: output.residual_risk_level in ['low','medium']
-- describe: counsel signed before execution
+- describe: counsel signed off
   assert: output.signed_off == true
-- describe: the contract was executed
-  assert: output.executed == true
 state:
   inputs:
   - goal

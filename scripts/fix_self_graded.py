@@ -224,6 +224,14 @@ REWIRE = {
     "framework-migration": {
         "sign-off": {"inputs": ["ported_slices"]},
     },
+    # Second pass: the human gate consumed the very flag the model wrote. It now
+    # signs against the reconciled figures themselves.
+    "regulatory-filing-lifecycle": {
+        "controller-signoff": {"inputs": ["filing_total", "ledger_total"]},
+    },
+    "feature-delivery-lifecycle": {
+        "release-approval": {"inputs": ["doc_changes"]},
+    },
 }
 
 
@@ -288,14 +296,118 @@ def fix_composite_fixtures() -> int:
 def main() -> int:
     for name in ROUTERS:
         fix_router(name)
-    for name, spec in {**INDIVIDUAL, **COMMANDS}.items():
+    for name, spec in {**INDIVIDUAL, **COMMANDS, **SECOND_PASS}.items():
         fix_individual(name, spec)
     cases = fix_composite_fixtures()
     print(f"realigned {cases} composite cases that embed a rewritten router")
     print(f"rewrote {len(ROUTERS)} router contracts and "
-          f"{len(INDIVIDUAL) + len(COMMANDS)} individual contracts "
+          f"{len(INDIVIDUAL) + len(COMMANDS) + len(SECOND_PASS)} individual contracts "
           f"({len(COMMANDS)} now checked by an executable command)")
     return 0
+
+
+
+
+# ---------------------------------------------------------------- second pass
+#
+# `_lint_self_graded` was written for `kind: verifier` and missed eight contracts
+# whose flag is written by an ordinary agent — `post` deciding `three_way_matched`,
+# `disclose` deciding `advisory_published`. The node's kind never mattered; who
+# writes the flag does. Widening the rule (exempting only `kind: human`, because a
+# signature IS evidence) surfaced these six.
+#
+# Each replacement asks for the artefact the flag was standing in for. "The rights
+# are clear" is unfalsifiable; "every clip names the licence it cleared under" is
+# a thing that is either in the output or is not.
+
+SECOND_PASS: dict[str, tuple] = {
+    "invoice-reconciliation": (
+        [{"describe": "no exception reached posting unreviewed",
+          "assert": "output.unreviewed_exceptions == 0"},
+         {"describe": "a three-way match names all three documents — invoice, PO and "
+                      "receipt. A match that cannot say what it matched is a claim",
+          "assert": "all(m.invoice_id and m.po_id and m.receipt_id for m in output.matched)"}],
+        {"post": ["matched", "output", "posted", "unreviewed_exceptions"]},
+        {"post": {"matched": [{"invoice_id": "INV-1", "po_id": "PO-1", "receipt_id": "GR-1"}],
+                  "unreviewed_exceptions": 0, "posted": True,
+                  "output": {"unreviewed_exceptions": 0,
+                             "matched": [{"invoice_id": "INV-1", "po_id": "PO-1",
+                                          "receipt_id": "GR-1"}]}}},
+    ),
+    "podcast-production-pipeline": (
+        [{"describe": "every clip names the licence it cleared under — 'rights are clear' "
+                      "is unfalsifiable, a licence reference is not",
+          "assert": "all(c.license_ref for c in output.clearances)"},
+         {"describe": "every chapter marker starts before it ends, which is what makes a "
+                      "timestamp valid rather than merely present",
+          "assert": "all(t.start < t.end for t in output.timestamps)"}],
+        {"publish": ["clearances", "output", "published", "timestamps"]},
+        {"publish": {"published": True,
+                     "clearances": [{"license_ref": "CC-BY-4.0"}],
+                     "timestamps": [{"start": 0, "end": 120}],
+                     "output": {"clearances": [{"license_ref": "CC-BY-4.0"}],
+                                "timestamps": [{"start": 0, "end": 120}]}}},
+    ),
+    "regulatory-filing-lifecycle": (
+        [{"describe": "the filed figures equal the ledger `collect` read — reconciliation "
+                      "is two numbers agreeing, not a model reporting that they do",
+          "assert": "output.filing_total == output.ledger_total"},
+         {"describe": "the filing carries a human signature",
+          "assert": "output.signed_off == true"},
+         {"describe": "the retained evidence pack exists",
+          "assert": "output.evidence_pack is not None"}],
+        {"reconcile": ["variance", "filing_total", "ledger_total"],
+         "retain": ["evidence_pack", "filing_total", "ledger_total", "output"]},
+        {"reconcile": {"variance": 0, "filing_total": 1000, "ledger_total": 1000},
+         "retain": {"evidence_pack": "pack-1", "filing_total": 1000, "ledger_total": 1000,
+                    "output": {"filing_total": 1000, "ledger_total": 1000,
+                               "evidence_pack": "pack-1"}}},
+    ),
+    "contract-lifecycle": (
+        [{"describe": "every signature names its party and its date — an executed contract "
+                      "is one both sides signed, which is checkable",
+          "assert": "all(s.party and s.dated for s in output.signatures)"},
+         {"describe": "residual risk landed inside appetite",
+          "assert": "output.residual_risk_level in ['low','medium']"},
+         {"describe": "counsel signed off",
+          "assert": "output.signed_off == true"}],
+        {"execute": ["output", "residual_risk_level", "signatures"]},
+        {"execute": {"residual_risk_level": "low",
+                     "signatures": [{"party": "acme", "dated": "2026-08-01"},
+                                    {"party": "us", "dated": "2026-08-01"}],
+                     "output": {"residual_risk_level": "low",
+                                "signatures": [{"party": "acme", "dated": "2026-08-01"},
+                                               {"party": "us", "dated": "2026-08-01"}]}}},
+    ),
+    "vuln-remediation-lifecycle": (
+        [{"describe": "the recorded proof-of-concept succeeded before the patch and fails "
+                      "after it — proven by re-running it, not by inspecting the diff",
+          "assert": "output.repro_exit_code_before == 0 and output.repro_exit_code_after != 0"},
+         {"describe": "disclosure carries a human signature",
+          "assert": "output.signed_off == true"},
+         {"describe": "the advisory is locatable — it names the CVE it concerns and where "
+                      "it was published, which 'published: true' does not",
+          "assert": "output.advisory_url and output.cve_id"}],
+        {"disclose": ["advisory_url", "cve_id", "output"]},
+        {"disclose": {"advisory_url": "https://example.org/GHSA-1",
+                      "cve_id": "CVE-2026-1234",
+                      "output": {"advisory_url": "https://example.org/GHSA-1",
+                                 "cve_id": "CVE-2026-1234"}}},
+    ),
+    "feature-delivery-lifecycle": (
+        [{"describe": "every documentation change names the file it touched and the PR it "
+                      "landed in, so 'docs updated' can be checked against the diff",
+          "assert": "all(d.file and d.pr_url for d in output.doc_changes)"},
+         {"describe": "the release carries a human signature",
+          "assert": "output.signed_off == true"}],
+        {"docs": ["doc_changes"], "rollback": ["doc_changes", "output", "rolled_back"]},
+        {"docs": {"doc_changes": [{"file": "README.md", "pr_url": "https://x/pr/1"}]},
+         "rollback": {"rolled_back": False,
+                      "doc_changes": [{"file": "README.md", "pr_url": "https://x/pr/1"}],
+                      "output": {"doc_changes": [{"file": "README.md",
+                                                  "pr_url": "https://x/pr/1"}]}}},
+    ),
+}
 
 
 if __name__ == "__main__":

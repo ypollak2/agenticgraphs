@@ -28,8 +28,8 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `route` | `complexity='low'` |
-| 2 | `branch-simple` | `assigned_verdict='phish'` |
-| 3 | `verify` | `assigned_verdict='phish', expected_verdict='phish', output={'assigned_verdict': 'phish', 'expected_verdict': 'phish'}` |
+| 2 | `branch-simple` | `assigned_verdict='benign'` |
+| 3 | `verify` | `assigned_verdict='benign', expected_verdict='benign', output={'assigned_verdict': 'benign', 'expected_verdict': 'benign'}` |
 
 **Verification checked:**
 

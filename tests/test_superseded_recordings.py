@@ -20,13 +20,43 @@ from agenticgraphs.evalcmd import _recordings, eval_graph
 from agenticgraphs.registry import ROOT, Registry, live_dir
 
 
-def test_every_committed_recording_is_stamped():
-    """A recording that slipped through unstamped would be silently scored."""
-    unstamped = [
-        p.relative_to(ROOT) for p in ROOT.glob("graphs/*/*/live/*.json")
-        if not json.loads(p.read_text()).get("superseded_by")
-    ]
-    assert not unstamped, f"pre-v1.8 recordings still counted as evidence: {unstamped[:5]}"
+def test_every_recording_either_is_retired_or_states_its_conditions():
+    """The two ways a recording can count, and nothing in between.
+
+    All 560 pre-v1.8 recordings had to be invalidated WHOLESALE rather than
+    filtered, because none said which spec it was scored against or how the model
+    was sampled. A recording that cannot state its own conditions cannot be
+    re-validated later, only thrown away — so a current one must carry both.
+    """
+    from agenticgraphs.registry import SPEC_VERSION
+
+    bad = []
+    for p in ROOT.glob("graphs/*/*/live/*.json"):
+        doc = json.loads(p.read_text())
+        if doc.get("superseded_by"):
+            continue
+        if doc.get("spec") != SPEC_VERSION or not doc.get("sampling"):
+            bad.append(p.relative_to(ROOT))
+    assert not bad, f"recordings that state neither retirement nor conditions: {bad[:5]}"
+
+
+def test_a_recording_from_an_older_spec_is_not_replayed():
+    """Retirement need not be explicit. A recording scored against a spec that has
+    moved is stale whether or not anyone remembered to stamp it."""
+    from agenticgraphs.evalcmd import _recordings
+
+    name = "code-review-pipeline"
+    case_id = Registry.load().get(name).cases()[0]["id"]
+    src = sorted(live_dir(name).glob("*.json"))[0]
+    doc = json.loads(src.read_text())
+    doc.pop("superseded_by", None)
+    doc["spec"] = "agr/v1.7"
+    probe = live_dir(name) / f"{case_id}@zz-oldspec.json"
+    probe.write_text(json.dumps(doc, indent=2))
+    try:
+        assert probe not in _recordings(ROOT, name, case_id)
+    finally:
+        probe.unlink()
 
 
 def test_the_files_are_kept_not_deleted():
@@ -57,9 +87,12 @@ def test_an_unstamped_recording_is_still_replayed(tmp_path, monkeypatch):
     re-recording would land files that are silently never read."""
     name = "code-review-pipeline"
     src = sorted(live_dir(name).glob("*.json"))[0]
+    from agenticgraphs.registry import SPEC_VERSION
+
     doc = json.loads(src.read_text())
     doc.pop("superseded_by", None)
     doc.pop("reason", None)
+    doc["spec"] = SPEC_VERSION
 
     fresh = live_dir(name) / "zz-v18-probe@test-model.json"
     fresh.write_text(json.dumps(doc, indent=2))
@@ -100,9 +133,12 @@ def test_the_live_scoring_path_still_works_when_a_valid_recording_exists(tmp_pat
     name = "code-review-pipeline"
     case_id = json.loads((ROOT / "graphs" / "software-engineering" / name /
                           "profile.json").read_text())["measured"]["results"][0]["id"]
+    from agenticgraphs.registry import SPEC_VERSION
+
     template = json.loads(sorted(live_dir(name).glob(f"{case_id}*.json"))[0].read_text())
     template.pop("superseded_by", None)
     template.pop("reason", None)
+    template["spec"] = SPEC_VERSION
 
     cases = {c["id"]: c for c in Registry.load().get(name).cases()}
     good = dict(template, model="model-good", recorded="2026-08-01",
@@ -136,9 +172,12 @@ def test_a_model_that_both_passes_and_fails_is_reported_as_flaky():
     name = "code-review-pipeline"
     entry = Registry.load().get(name)
     case_id = entry.cases()[0]["id"]
+    from agenticgraphs.registry import SPEC_VERSION
+
     template = json.loads(sorted(live_dir(name).glob("*.json"))[0].read_text())
     template.pop("superseded_by", None)
     template.pop("reason", None)
+    template["spec"] = SPEC_VERSION
     outs = entry.cases()[0]["node_outputs"]
 
     planted = []

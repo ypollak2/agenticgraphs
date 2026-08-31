@@ -26,4 +26,15 @@ cases:
         residual_risk_level: low
         signed_off: true
         executed: true
+        signatures:
+        - party: acme
+          dated: '2026-08-01'
+        - party: us
+          dated: '2026-08-01'
+      residual_risk_level: low
+      signatures:
+      - party: acme
+        dated: '2026-08-01'
+      - party: us
+        dated: '2026-08-01'
   goal: review the Acme MSA under our standard enterprise risk posture

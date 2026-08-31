@@ -11,21 +11,24 @@ cases:
       output:
         assigned_evidence_level: 1b
         expected_evidence_level: 1b
-  goal: 142 new papers on SGLT2 inhibitors, by GRADE
+  goal: PMID-30011, against the validated evidence-level sample
   inputs:
-    validated_labels: <validated_labels supplied by the caller>
+    validated_labels: &id001
+      PMID-30011: 1b
+      PMID-30012: 2b
+      PMID-30013: '4'
 - id: complex-branch
   node_outputs:
     route:
       complexity: high
     branch-complex:
-      assigned_evidence_level: 1b
+      assigned_evidence_level: 2b
     verify:
-      assigned_evidence_level: 1b
-      expected_evidence_level: 1b
+      assigned_evidence_level: 2b
+      expected_evidence_level: 2b
       output:
-        assigned_evidence_level: 1b
-        expected_evidence_level: 1b
-  goal: 142 new papers on SGLT2 inhibitors, by GRADE
+        assigned_evidence_level: 2b
+        expected_evidence_level: 2b
+  goal: PMID-30012, against the validated evidence-level sample
   inputs:
-    validated_labels: <validated_labels supplied by the caller>
+    validated_labels: *id001

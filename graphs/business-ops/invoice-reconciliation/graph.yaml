@@ -42,10 +42,10 @@ nodes:
   inputs:
   - matched
   outputs:
+  - matched
   - output
   - posted
-  - three_way_matched: any
-  - unreviewed_exceptions: int
+  - unreviewed_exceptions
   join: any
 edges:
 - from: auto-match
@@ -66,10 +66,11 @@ termination:
   max_steps: 30
   contract: an unmatched invoice never posts without an AP signature
 verification:
-- describe: no exception posts without human review
+- describe: no exception reached posting unreviewed
   assert: output.unreviewed_exceptions == 0
-- describe: three-way match holds for everything posted
-  assert: output.three_way_matched == true
+- describe: "a three-way match names all three documents \u2014 invoice, PO and receipt. A match that\
+    \ cannot say what it matched is a claim"
+  assert: all(m.invoice_id and m.po_id and m.receipt_id for m in output.matched)
 state:
   inputs:
   - goal

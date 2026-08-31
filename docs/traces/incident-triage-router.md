@@ -28,8 +28,8 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `route` | `complexity='low'` |
-| 2 | `branch-simple` | `assigned_team='platform-oncall'` |
-| 3 | `verify` | `assigned_team='platform-oncall', expected_team='platform-oncall', output={'assigned_team': 'platform-oncall', 'expected_team': 'platform-oncall'}` |
+| 2 | `branch-simple` | `assigned_team='payments-oncall'` |
+| 3 | `verify` | `assigned_team='payments-oncall', expected_team='payments-oncall', output={'assigned_team': 'payments-oncall', 'expected_team': 'payments-oncall'}` |
 
 **Verification checked:**
 
