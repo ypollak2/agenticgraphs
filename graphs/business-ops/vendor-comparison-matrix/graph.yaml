@@ -28,6 +28,8 @@ nodes:
   - criteria_grid
   outputs:
   - matrix
+  fan_out:
+    over: vendor_docs
 - id: cite-check
   speciality: critic
   abilities:

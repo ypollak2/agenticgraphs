@@ -280,6 +280,85 @@ def _lint_irreversible(doc: dict) -> list[str]:
     ]
 
 
+def _lint_motif(doc: dict, root: Path = ROOT) -> list[str]:
+    """A graph's declared motif must be visible in its topology.
+
+    Every graph declares a `pattern` in its `usecase.yaml`, and nothing has ever
+    checked it. Ten graphs called themselves `parallel-swarm` while being a linear
+    three-node chain — `verifier-swarm`, the one the README uses to explain what a
+    swarm is, among them. A motif nothing verifies is the same defect as a contract
+    nothing verifies: a claim living in the artifact, which is what this registry
+    exists to stop.
+
+    Each rule names the structure the motif is *about*, not a proxy for it. A
+    debate is defined by two positions reaching one judge, so it is in-degree, not
+    fan-out; a router is defined by mutually exclusive conditional edges, so a
+    `kind: router` node is sufficient but not necessary.
+    """
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    pattern = doc.get("__pattern__")
+    if not pattern:
+        return []
+    nodes, edges = doc.get("nodes", []), doc.get("edges", [])
+    ids = [n["id"] for n in nodes]
+    out_deg: dict[str, int] = {}
+    in_deg: dict[str, int] = {}
+    cond_out: dict[str, int] = {}
+    for e in edges:
+        if e.get("kind") == "compensate":
+            continue
+        out_deg[e["from"]] = out_deg.get(e["from"], 0) + 1
+        in_deg[e["to"]] = in_deg.get(e["to"], 0) + 1
+        if e.get("when"):
+            cond_out[e["from"]] = cond_out.get(e["from"], 0) + 1
+    groups: dict[str, int] = {}
+    for n in nodes:
+        if g := n.get("parallel_group"):
+            groups[g] = groups.get(g, 0) + 1
+
+    has_fan_out = any(n.get("fan_out") for n in nodes)
+    has_group = any(v >= 2 for v in groups.values())
+    max_in = max(in_deg.values(), default=0)
+    max_out = max(out_deg.values(), default=0)
+    routes = any(v >= 2 for v in cond_out.values()) or any(
+        n.get("kind") == "router" for n in nodes)
+    back_edge = any(
+        e.get("when") and e["to"] in ids and e["from"] in ids
+        and ids.index(e["to"]) <= ids.index(e["from"])
+        for e in edges
+    )
+
+    def fail(why: str) -> list[str]:
+        return [f"declares motif '{pattern}' but {why}"]
+
+    if pattern == "router" and not routes:
+        return fail("no node routes: none is `kind: router` and none has two "
+                    "conditional out-edges")
+    if pattern in ("parallel-swarm", "map-reduce") and not (has_fan_out or has_group):
+        return fail("nothing runs in parallel: no node declares `fan_out` and no "
+                    "`parallel_group` has two members")
+    if pattern in ("debate", "ensemble-quorum") and max_in < 2 and not has_fan_out:
+        return fail("only one contribution reaches the adjudicator — there is "
+                    "nobody to disagree with")
+    if pattern == "tournament" and not has_fan_out and max_in < 3:
+        return fail("fewer than three entrants reach the judge")
+    if pattern == "loop" and not back_edge:
+        return fail("no conditional back-edge")
+    if pattern == "reflexion" and not doc.get("memory"):
+        return fail("no `memory` block, so nothing carries between attempts")
+    if pattern == "human-gate" and not any(n.get("kind") == "human" for n in nodes):
+        return fail("no `kind: human` node")
+    if pattern == "saga" and not any(e.get("kind") == "compensate" for e in edges):
+        return fail("no compensate edge, so it cannot unwind")
+    if pattern == "tree-search" and not any(n.get("search") for n in nodes):
+        return fail("no node declares a `search` block")
+    if pattern == "pipeline" and max_out > 1 and not (has_group or routes):
+        return fail("it branches without a router or a parallel group, which is "
+                    "not a pipeline")
+    return []
+
+
 def _parses(expr: str) -> bool:
     try:
         ast.parse(expr, mode="eval")
@@ -509,6 +588,7 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
     errors.extend(_lint_criteria(doc))
     errors.extend(_lint_commands(doc))
     errors.extend(_lint_irreversible(doc))
+    errors.extend(_lint_motif(doc, root))
 
     # speciality / ability resolution
     specs = {load(p)["name"]: load(p) for p in iter_yaml("specialities", root)}
@@ -785,5 +865,12 @@ def validate_graph_file(path: Path, root: Path = ROOT) -> list[str]:
     doc = load(path)
     errors = validate_schema(doc, "graph")
     if not errors:
+        # The motif is declared next door in `usecase.yaml`, not in the graph, so
+        # the check that they agree needs both. Passed on the doc rather than
+        # threaded through every lint signature.
+        uc = path.parent / "usecase.yaml"
+        if uc.exists():
+            doc["__pattern__"] = load(uc).get("pattern")
         errors += lint_graph(doc, root)
+        doc.pop("__pattern__", None)
     return errors

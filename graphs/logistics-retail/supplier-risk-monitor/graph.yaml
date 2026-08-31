@@ -21,6 +21,8 @@ nodes:
   - supplier_signals
   outputs:
   - risk_scores
+  fan_out:
+    over: supplier_signals
 - id: concentrate
   speciality: analyst
   abilities:

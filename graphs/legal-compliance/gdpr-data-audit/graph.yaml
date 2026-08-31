@@ -21,6 +21,8 @@ nodes:
   - data_map
   outputs:
   - lawful_basis
+  fan_out:
+    over: data_map
 - id: gap-scan
   speciality: critic
   abilities:

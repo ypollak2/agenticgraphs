@@ -20,6 +20,8 @@ nodes:
   outputs:
   - evidence
   - steps: list[{exit_code:int}]
+  fan_out:
+    over: controls
 - id: assess
   speciality: reducer
   abilities:

@@ -131,10 +131,36 @@ def add_compensators() -> int:
     return len(COMPENSATORS)
 
 
+#: graph -> (node that should fan out, the blackboard list it fans over).
+#:
+#: `fan_out` has existed since v1.2 and 21 graphs use it. These four declared a
+#: motif that is *about* running the same step over many items — `parallel-swarm`,
+#: `map-reduce` — and then ran it once. The motif was a label on a linear chain,
+#: which `_lint_motif` now refuses.
+FAN_OUT = {
+    "vendor-comparison-matrix": ("fill", "vendor_docs"),
+    "gdpr-data-audit": ("classify", "data_map"),
+    "supplier-risk-monitor": ("score", "supplier_signals"),
+    "compliance-evidence-collector": ("collect", "controls"),
+}
+
+
+def add_fan_out() -> int:
+    for name, (node_id, over) in FAN_OUT.items():
+        gpath = find_graph(name)
+        doc = load(gpath)
+        node = next(n for n in doc["nodes"] if n["id"] == node_id)
+        node["fan_out"] = {"over": over}
+        gpath.write_text(yaml.safe_dump(doc, sort_keys=False, width=100))
+    return len(FAN_OUT)
+
+
 def main() -> int:
-    r, p, c = add_retries(), add_parallel_groups(), add_compensators()
+    r, p, c, f = (add_retries(), add_parallel_groups(), add_compensators(),
+                  add_fan_out())
     print(f"retries on {r} outward-reaching nodes; {p} nodes labelled into parallel "
-          f"groups; {c} compensators for genuinely one-way effects")
+          f"groups; {c} compensators for genuinely one-way effects; {f} nodes given "
+          f"the fan_out their declared motif claims")
     return 0
 
 
