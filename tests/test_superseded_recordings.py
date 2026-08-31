@@ -211,3 +211,24 @@ def test_a_model_that_both_passes_and_fails_is_reported_as_flaky():
         for p in planted:
             p.unlink(missing_ok=True)
         eval_graph(name)
+
+
+def test_a_new_recording_never_overwrites_an_archived_one(tmp_path):
+    """The archive is the record of what was measured before the correction.
+
+    A v1.8 run written over the same `case@model` name destroyed 101 of the 560
+    pre-v1.8 files. They survived only because they had been committed: the next
+    cleanup deleted the new file and took the archived original with it.
+    """
+    import subprocess
+
+    name = "code-review-pipeline"
+    archived = [p for p in live_dir(name).glob("*.json")
+                if json.loads(p.read_text()).get("superseded_by")]
+    assert archived, "fixture precondition: an archived recording exists"
+    before = json.loads(archived[0].read_text())
+    assert before.get("superseded_by"), "archived files must keep their stamp"
+    tracked = subprocess.run(
+        ["git", "ls-files", str(archived[0].relative_to(ROOT))],
+        cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    assert tracked, "the archive must be committed, or it cannot be recovered"

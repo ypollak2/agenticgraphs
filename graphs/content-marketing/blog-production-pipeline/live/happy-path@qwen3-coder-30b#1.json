@@ -1,0 +1,24 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Initial analysis complete. Waiting for downstream systems to verify style guide lint passes and plagiarism scan clean before finalizing workflow completion."
+    },
+    "produce": {
+      "lint_passed": true,
+      "plagiarism_clean": true
+    },
+    "review": {
+      "output": {
+        "lint_passed": true,
+        "plagiarism_clean": true
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

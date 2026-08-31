@@ -1,0 +1,42 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Initial analysis complete. All findings map to specific policy clause ids as required by downstream assertions."
+    },
+    "produce": {
+      "findings": [
+        {
+          "clause_id": "A1"
+        },
+        {
+          "clause_id": "B3"
+        },
+        {
+          "clause_id": "C2"
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "findings": [
+          {
+            "clause_id": "A1"
+          },
+          {
+            "clause_id": "B3"
+          },
+          {
+            "clause_id": "C2"
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

@@ -1,0 +1,32 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Initial intake analysis complete. All asks covered and quotes traceable."
+    },
+    "produce": {
+      "all_asks_covered": true,
+      "asks": [
+        {
+          "quote": "Quote123"
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "all_asks_covered": true,
+        "asks": [
+          {
+            "quote": "Quote123"
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

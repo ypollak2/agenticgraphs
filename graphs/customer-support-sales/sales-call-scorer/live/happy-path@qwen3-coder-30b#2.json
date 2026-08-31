@@ -1,0 +1,41 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "score the Acme discovery call against the MEDDIC rubric"
+  },
+  "node_outputs": {
+    "segment": {
+      "segments": [
+        {
+          "segment": "Acme discovery call",
+          "score": 75,
+          "rubric": {
+            "Metrics": 80,
+            "Authority": 70,
+            "Decision Criteria": 85,
+            "Decision Process": 70,
+            "Identify Pain": 90,
+            " Champion": 65
+          }
+        }
+      ]
+    },
+    "score-pass": {
+      "rubric_score": 75
+    },
+    "consolidate": {
+      "final_score": 75,
+      "output": {
+        "segments_scored": 1,
+        "variance": null
+      },
+      "segments_scored": 1,
+      "variance": null
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

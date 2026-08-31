@@ -1,0 +1,74 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "build a 30/60/90 plan for a staff data engineer joining the platform team"
+  },
+  "node_outputs": {
+    "gather": {
+      "role_context": "Staff Data Engineer joining Platform Team"
+    },
+    "draft-plan": {
+      "plan_30_60_90": {
+        "30_days": {
+          "milestone": "Complete onboarding and understand platform architecture",
+          "access_requested": true,
+          "tasks": [
+            "Set up development environment",
+            "Review platform documentation",
+            "Meet with team members",
+            "Understand data pipelines"
+          ]
+        },
+        "60_days": {
+          "milestone": "Contribute to active projects and identify improvement areas",
+          "access_requested": true,
+          "tasks": [
+            "Participate in sprint planning",
+            "Implement minor feature enhancements",
+            "Conduct system performance analysis",
+            "Document current processes"
+          ]
+        },
+        "90_days": {
+          "milestone": "Lead initiatives and mentor junior team members",
+          "access_requested": true,
+          "tasks": [
+            "Own end-to-end data pipeline development",
+            "Mentor new hires",
+            "Propose platform improvements",
+            "Present project outcomes to leadership"
+          ]
+        }
+      }
+    },
+    "access-map": {
+      "access_requests": [
+        "development_environment_setup",
+        "platform_documentation_access",
+        "team_member_introductions",
+        "data_pipeline_inspection",
+        "sprint_planning_participation",
+        "feature_enhancement_improvement",
+        "system_performance_analysis",
+        "process_documentation",
+        "end_to_end_pipeline_development",
+        "junior_team_member_mentoring",
+        "platform_improvement_proposals",
+        "leadership_project_presentations"
+      ]
+    },
+    "review": {
+      "access_requested": true,
+      "milestones_covered": true,
+      "output": {
+        "access_requested": true,
+        "milestones_covered": true
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

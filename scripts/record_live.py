@@ -141,7 +141,16 @@ def _record_case(name: str, doc: dict, case: dict, sample: int) -> dict:
     # correction of the first: one recording per cell cannot distinguish a graph
     # that passes from one that passed by luck.
     suffix = f"@{model_tag}" + (f"#{sample}" if sample else "")
-    (out_dir / f"{case['id']}{suffix}.json").write_text(json.dumps(payload, indent=2) + "\n")
+    dest = out_dir / f"{case['id']}{suffix}.json"
+    # A superseded recording is an ARCHIVE, not a slot to reuse. Writing a v1.8 run
+    # over the same case+model name destroyed 101 of the 560 pre-v1.8 files, and
+    # they were only recoverable because they had been committed — the next
+    # cleanup deleted the new file and took the archived one with it. The archive
+    # is the record of what was measured before the correction; the correction is
+    # not entitled to overwrite it.
+    if dest.exists() and json.loads(dest.read_text()).get("superseded_by"):
+        dest = out_dir / f"{case['id']}{suffix}~{SPEC_VERSION.split('/')[-1]}.json"
+    dest.write_text(json.dumps(payload, indent=2) + "\n")
     return {"graph": name, "case": case["id"], "passed": rep.passed,
             "steps": rep.steps, "failures": rep.assert_failures,
             "tool_calls": len(rep.tool_calls),
