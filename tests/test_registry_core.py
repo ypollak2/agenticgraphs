@@ -84,11 +84,19 @@ def test_evidence_tier_matches_the_published_profile(reg):
 
 
 def test_min_samples_exposes_the_n_equals_1_cells(reg):
-    """A2 grades these `unproven`; A1 only has to make them countable."""
+    """A2 grades these `unproven`; A1 only has to make them countable.
+
+    The registry currently holds no VALID recordings — every one predates agr/v1.8
+    and is stamped `superseded_by` (see scripts/invalidate_recordings.py), so there
+    are no cells of any width to count. The property being pinned is the one that
+    outlives that: any cell the registry does report must report its own width, so
+    a single sample can never pass for a measurement.
+    """
     thin = [e for e in reg if 0 < e.evidence.min_samples < 2]
-    assert thin, "the registry still carries single-sample cells"
     for e in thin:
         assert min(e.evidence.samples_per_model.values()) == 1
+    if not any(e.evidence.min_samples for e in reg):
+        pytest.skip("no valid recordings: the v1.8 evidence base is pending re-recording")
 
 
 def test_evidence_absent_is_not_evidence_of_absence():

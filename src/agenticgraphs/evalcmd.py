@@ -50,7 +50,15 @@ def _recordings(root: Path, name: str, case_id: str) -> list[Path]:
     live = live_dir(name, root)
     if not live.is_dir():
         return []
-    return sorted(p for p in live.glob(f"{case_id}*.json"))
+    # A recording stamped `superseded_by` was taken under evaluation conditions
+    # that no longer hold — see scripts/invalidate_recordings.py. It is kept so a
+    # reader can see what was measured, and excluded here so no report quotes a
+    # number it cannot stand behind. Silently scoring it would be the exact
+    # failure this registry says it exists to prevent.
+    return sorted(
+        p for p in live.glob(f"{case_id}*.json")
+        if not json.loads(p.read_text()).get("superseded_by")
+    )
 
 
 def case_inputs(case: dict, goal: str | None = None) -> dict:

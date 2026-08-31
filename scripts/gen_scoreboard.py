@@ -87,7 +87,15 @@ def scoreboard_block(rows: list[dict]) -> str:
         "headline pass rate — a contract a real model cannot satisfy must not be able to hide "
         "inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a "
         "recording older than 90 days. Re-record with `scripts/record_live.py`."
-        if lived else "",
+        if lived else
+        "**Real-model evidence: none currently valid.** 560 recordings across 5 models are "
+        "held in `graphs/<domain>/<graph>/live/` and are deliberately not counted: they were "
+        "taken before agr/v1.8, when the runner passed each node the verification asserts it "
+        "was about to be scored on, under unpinned sampling, and against the 16 self-graded "
+        "contracts v1.8 replaced. Every live number this README used to quote came from those "
+        "runs, so the honest figure today is zero rather than a smaller one. See "
+        "[docs/live-coverage.md](docs/live-coverage.md); re-record with "
+        "`scripts/record_live.py` against a real endpoint.",
         "",
         "| Graph | Domain | Cases | Pass rate | Depth | Live (real model) | Mean steps | Routes |",
         "|---|---|---|---|---|---|---|---|",
