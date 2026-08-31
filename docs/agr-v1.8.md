@@ -73,17 +73,53 @@ across fifteen graphs were built that way. They are replaced by:
 
 | Rule | Refuses |
 |---|---|
-| `_lint_self_graded` | a contract the verifier grades itself on |
+| `_lint_self_graded` | a contract any model-driven node grades itself on |
 | `_lint_criteria` | a verifier with no rubric |
 | `_lint_commands` | prose in the `command` field |
 | `_lint_irreversible` | a one-way effect with no compensating path |
 | `_lint_motif` | a graph that declares a motif its topology does not have |
+| `_lint_flow_keys` | an edge guard or approval contract on a key nothing produces |
+| `_lint_runtime_keys` | a node declaring a key the runtime owns |
 | `safeexpr` | any expression construct outside a small allowlist |
 
 `_lint_motif` matters more than it looks. Ten graphs declared `parallel-swarm`
 while being a linear three-node chain — including `verifier-swarm`, which the
 README uses to explain what a swarm is. A motif nothing verifies is the same
 defect as a contract nothing verifies.
+
+### The rule the registry was missing: flags may route, they may not grade
+
+Replacing the self-graded contracts deleted flags that were *also* routing guards
+— `exploit_blocked`, `impact_cleared`, `suite_green`. Dropping them from the
+CONTRACT was right. Dropping them from the node's OUTPUTS disabled each graph's
+second half, and `regulatory-filing-lifecycle` could no longer reach its human
+gate at all.
+
+**A model-written flag may drive control flow; it just may not be the thing the
+contract checks.** Routing on a model's judgement is what a router *is*. Grading a
+model on its own judgement is what v1.8 refuses. The two had never been
+distinguished, which is why the first fix broke the second property while fixing
+the first.
+
+`_lint_flow_keys` exists because that mistake was already latent, 52 times over.
+`edge_true` catches every exception and returns `False`, so an edge guarded on a
+key nothing produces is not an error — it is an edge that is never taken. Every
+`verify_failed and attempts < 3` retry, every `<node>_failed` compensator, every
+`revision_requested` review loop across 43 graphs was dead, and every golden case
+passed anyway because a fixture supplies the key by hand. Only a live run reaches
+the guard with a blackboard a model wrote.
+
+v1.7 found exactly this for `attempts` and fixed that one name by publishing it
+from the runtime. The hole stayed open for every other key. `unconnected_keys` has
+applied the same rule to verification asserts since v1.4; control flow deserves it
+more, because **a broken assert reports a failure and a broken guard reports
+nothing at all.**
+
+`_lint_runtime_keys` is the other half. A node that declares `attempts` lets a
+fixture pin the counter, and the bounded loop it guards never terminates —
+`verifier-swarm` ran to the step cap the moment the guard started working. Nothing
+needs to declare it: `output.attempts` resolves through `OutputView`'s
+fall-through to the blackboard.
 
 `_lint_irreversible` deliberately excludes `edit_files`: a working tree is
 reversible by `git revert`, and marking it as a saga step would dress a

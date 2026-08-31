@@ -1,0 +1,57 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the onboarding guide, into de-DE, ja-JP and pt-BR"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "language": "de-DE",
+          "content": "Willkommensleitfaden",
+          "status": "translated"
+        },
+        {
+          "language": "ja-JP",
+          "content": "\u30aa\u30f3\u30dc\u30fc\u30c7\u30a3\u30f3\u30b0\u30ac\u30a4\u30c9",
+          "status": "translated"
+        },
+        {
+          "language": "pt-BR",
+          "content": "Guia de integra\u00e7\u00e3o",
+          "status": "translated"
+        }
+      ]
+    },
+    "map": [
+      {
+        "shard_result": "translated"
+      },
+      {
+        "shard_result": "translated"
+      },
+      {
+        "shard_result": "Guia de integra\u00e7\u00e3o"
+      }
+    ],
+    "reduce": {
+      "glossary_violations": [],
+      "output": {
+        "glossary_violations": [],
+        "similarity": 0.92,
+        "threshold": 0.9
+      },
+      "similarity": 0.92,
+      "threshold": 0.9
+    }
+  },
+  "tool_calls": []
+}
