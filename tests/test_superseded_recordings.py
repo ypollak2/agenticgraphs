@@ -94,8 +94,14 @@ def test_a_superseded_recording_is_not_loaded_for_replay():
     name = "code-review-pipeline"
     case_id = json.loads((ROOT / "graphs" / "software-engineering" / name /
                           "profile.json").read_text())["measured"]["results"][0]["id"]
-    assert list(live_dir(name).glob(f"{case_id}*.json")), "fixture precondition: files exist"
-    assert _recordings(ROOT, name, case_id) == [], "a superseded recording was replayed"
+    on_disk = list(live_dir(name).glob(f"{case_id}*.json"))
+    assert any(json.loads(p.read_text()).get("superseded_by") for p in on_disk), \
+        "fixture precondition: at least one archived recording exists"
+    # Not "returns nothing" — current-spec recordings now exist and SHOULD be
+    # replayed. The property is that a retired one never is.
+    for p in _recordings(ROOT, name, case_id):
+        assert not json.loads(p.read_text()).get("superseded_by"), \
+            f"a superseded recording was replayed: {p.name}"
 
 
 def test_an_unstamped_recording_is_still_replayed(tmp_path, monkeypatch):
@@ -119,14 +125,22 @@ def test_an_unstamped_recording_is_still_replayed(tmp_path, monkeypatch):
         fresh.unlink()
 
 
-def test_eval_still_reports_mock_results_with_no_live_evidence():
-    """Losing the live tier must not take the mock tier with it — the mechanics
-    are still measured, and saying so is the whole point of the two tiers."""
+def test_the_mock_tier_survives_alongside_the_live_one():
+    """Two tiers, reported separately and never blended.
+
+    This asserted `measured_live` was ABSENT, which held only while the evidence
+    base was empty. Blending is the failure to guard against, not coexistence: a
+    graph a real model cannot satisfy must not hide inside a mock average.
+    """
     profile = eval_graph("code-review-pipeline")
     assert profile["measured"]["runner"] == "mock"
-    assert profile["measured"]["provisional"] is True
+    assert profile["measured"]["provisional"] is True, \
+        "a mock pass rate must always be labelled provisional"
     assert profile["measured"]["pass_rate"] == 1.0
-    assert "measured_live" not in profile
+    live = profile.get("measured_live")
+    if live:
+        assert live["runner"] != profile["measured"]["runner"], \
+            "the live block must be reported separately, never merged"
 
 
 @pytest.mark.parametrize("field", ["superseded_by", "reason"])
@@ -169,14 +183,16 @@ def test_the_live_scoring_path_still_works_when_a_valid_recording_exists(tmp_pat
             p.write_text(json.dumps(doc, indent=2))
             planted.append(p)
         block = eval_graph(name)["measured_live"]
-        assert set(block["models"]) == {"model-good", "model-bad"}
+        # Subset, not equality: real recordings now sit alongside the probes.
+        assert {"model-good", "model-bad"} <= set(block["models"])
         assert block["per_model_pass_rate"]["model-good"] == 1.0
         assert block["per_model_pass_rate"]["model-bad"] == 0.0
         # One model passing and another failing is the signal that separates a
         # weak model from an unsatisfiable contract, and it must not be averaged.
         assert block["models_disagree"] is True
         assert block["fails_every_model"] is False
-        assert block["samples_per_model"] == {"model-good": 1, "model-bad": 1}
+        assert block["samples_per_model"]["model-good"] == 1
+        assert block["samples_per_model"]["model-bad"] == 1
     finally:
         for p in planted:
             p.unlink(missing_ok=True)
