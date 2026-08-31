@@ -39,6 +39,9 @@
           "execute"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -81,6 +84,9 @@
           "execute"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "all(s.party and s.dated for s in output.signatures)"
         ],

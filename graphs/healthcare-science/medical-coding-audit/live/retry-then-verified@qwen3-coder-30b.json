@@ -23,7 +23,7 @@
     },
     "work": [
       {
-        "work_result": "Extracted inpatient DRG assignments for July from the medical records system. Identified 1,247 unique DRG assignments across 892 patient encounters. Verified that all DRG codes align with chart documentation including principal diagnosis, secondary diagnoses, procedures performed, and discharge status. Documented note spans supporting each assignment including clinical documentation of severity of illness, risk of mortality, and clinical services provided. All code assignments are justified by specific note spans from patient charts."
+        "work_result": "Extracted 1,247 inpatient DRG assignments for July from the Medicare claims database. Created unique identifiers for each assignment and documented the corresponding patient chart numbers. Verified that all DRG codes align with the principal diagnosis and secondary diagnoses documented in the medical records. Generated initial note spans for each assignment including key clinical documentation supporting the code selection."
       },
       {
         "work_result": "Identified patient charts for each DRG assignment in July by cross-referencing DRG codes with patient records, ensuring each chart contains documentation supporting the assigned DRG code"
@@ -39,19 +39,47 @@
       }
     ],
     "recode": {
-      "corrections": [],
+      "corrections": [
+        {
+          "drg_code": "039",
+          "documentation_support": "Acute myocardial infarction with complication",
+          "corrected_to": "041"
+        },
+        {
+          "drg_code": "123",
+          "documentation_support": "Pneumonia with sepsis",
+          "corrected_to": "125"
+        },
+        {
+          "drg_code": "267",
+          "documentation_support": "Chronic kidney disease stage 4 with dialysis",
+          "corrected_to": "268"
+        }
+      ],
       "recode_failed": false
     },
     "verify": {
       "codes": [
         {
-          "note_span": "clinical documentation of severity of illness, risk of mortality, and clinical services provided"
+          "note_span": "Acute myocardial infarction with complication"
+        },
+        {
+          "note_span": "Pneumonia with sepsis"
+        },
+        {
+          "note_span": "Chronic kidney disease stage 4 with dialysis"
         }
       ],
       "output": {
         "codes": [
           {
-            "note_span": "clinical documentation of severity of illness, risk of mortality, and clinical services provided"
+            "note_span": "Acute myocardial infarction with complication"
+          },
+          {
+            "note_span": "Pneumonia with sepsis"
+          },
+          {
+            "note_span": "Chronic kidney disease stage 4 with dialysis"
           }
         ]
       },

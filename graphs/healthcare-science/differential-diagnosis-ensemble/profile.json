@@ -34,6 +34,9 @@
           "adjudicate"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -71,6 +74,9 @@
           "adjudicate"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "all(r.clinician_id in output.represented for r in output.ranking) (TypeError: argument of type 'int' is not a container or iterable)"
         ],

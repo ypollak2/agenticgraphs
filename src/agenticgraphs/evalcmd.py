@@ -103,6 +103,12 @@ def eval_graph(name: str, root: Path = ROOT, live: bool = False,
                         inputs=inputs)
         return {"passed": rep.passed, "steps": rep.steps, "trace": rep.trace,
                 "goal_missing": rep.goal_missing,
+                # Without this the diagnosis exists on the report and nowhere a
+                # reader can see it: the profile said `AttributeError: <key>` for
+                # eight graphs whose real fault was a terminal that never ran.
+                "unreached_terminals": rep.unreached_terminals,
+                "shape_violations": rep.shape_violations,
+                "state_violations": rep.state_violations,
                 "assert_failures": rep.assert_failures,
                 "skipped_command_checks": rep.skipped_commands,
                 "commands_run": rep.commands_run,

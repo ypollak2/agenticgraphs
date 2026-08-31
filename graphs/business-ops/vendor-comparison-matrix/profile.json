@@ -37,6 +37,9 @@
           "cite-check"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -77,6 +80,13 @@
           "cite-check"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [
+          "cite-check.matrix: expected an object at [0], got list",
+          "cite-check.matrix: expected an object at [1], got list",
+          "cite-check.matrix: expected an object at [2], got list"
+        ],
+        "state_violations": [],
         "assert_failures": [
           "output.uncited_cells == 0",
           "all(all(c in output.criteria_grid for c in r.criteria) for r in output.matrix) (AttributeError: 'list' object has no attribute 'criteria')"
@@ -108,6 +118,13 @@
           "cite-check"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [
+          "cite-check.matrix: expected an object at [0], got list",
+          "cite-check.matrix: expected an object at [1], got list",
+          "cite-check.matrix: expected an object at [2], got list"
+        ],
+        "state_violations": [],
         "assert_failures": [
           "output.uncited_cells == 0",
           "all(all(c in output.criteria_grid for c in r.criteria) for r in output.matrix) (AttributeError: 'list' object has no attribute 'criteria')"
@@ -139,6 +156,13 @@
           "cite-check"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [
+          "cite-check.matrix: expected an object at [0], got list",
+          "cite-check.matrix: expected an object at [1], got list",
+          "cite-check.matrix: expected an object at [2], got list"
+        ],
+        "state_violations": [],
         "assert_failures": [
           "output.uncited_cells == 0",
           "all(all(c in output.criteria_grid for c in r.criteria) for r in output.matrix) (AttributeError: 'list' object has no attribute 'criteria')"

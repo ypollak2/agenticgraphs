@@ -41,6 +41,9 @@
           "action-items"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -63,7 +66,7 @@
     "cases": 1,
     "passed": 0,
     "pass_rate": 0.0,
-    "mean_steps": 14.0,
+    "mean_steps": 10.0,
     "results": [
       {
         "id": "happy-path",
@@ -71,7 +74,7 @@
         "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": false,
-        "steps": 14,
+        "steps": 10,
         "trace": [
           "detect",
           "triage.route",
@@ -82,15 +85,18 @@
           "mitigate",
           "confirm",
           "mitigate",
-          "confirm",
-          "postmortem.intake",
-          "postmortem.produce",
-          "postmortem.review",
-          "action-items"
+          "confirm"
         ],
         "goal_missing": "",
+        "unreached_terminals": [
+          "action-items"
+        ],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
-          "output.residual_blast_radius < output.blast_radius"
+          "output.residual_blast_radius < output.blast_radius",
+          "len(output.actions) >= 1 and all(a.owner for a in output.actions) (AttributeError: actions)",
+          "[postmortem] all(e.get('log_id') or e.get('message_id') for e in output.timeline) (AttributeError: timeline)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,

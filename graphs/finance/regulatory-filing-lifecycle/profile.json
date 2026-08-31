@@ -36,6 +36,9 @@
           "retain"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -76,6 +79,11 @@
           "reconcile"
         ],
         "goal_missing": "",
+        "unreached_terminals": [
+          "retain"
+        ],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "output.signed_off == true (AttributeError: signed_off)",
           "output.evidence_pack is not None (AttributeError: evidence_pack)"

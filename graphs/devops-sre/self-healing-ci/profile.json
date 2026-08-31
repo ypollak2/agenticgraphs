@@ -35,6 +35,9 @@
           "confirm"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 1,
         "commands_run": 0,
@@ -79,6 +82,11 @@
           "confirm"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [
+          "state does not satisfy state/lessons.schema.json: 'Nightly build failing due to unmet dependency version constraints in package.json' is not of type 'object'"
+        ],
         "assert_failures": [],
         "skipped_command_checks": 1,
         "commands_run": 0,

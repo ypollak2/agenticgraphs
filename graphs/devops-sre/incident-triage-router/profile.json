@@ -34,6 +34,9 @@
           "verify"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -56,6 +59,9 @@
           "verify"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -93,6 +99,9 @@
           "verify"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -116,6 +125,11 @@
           "route"
         ],
         "goal_missing": "",
+        "unreached_terminals": [
+          "verify"
+        ],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "output.assigned_team == output.expected_team (AttributeError: assigned_team)",
           "len(output.expected_team) > 0 (AttributeError: expected_team)"
@@ -144,6 +158,9 @@
           "verify"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,

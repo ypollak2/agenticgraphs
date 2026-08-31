@@ -35,6 +35,9 @@
           "calibrate"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -74,6 +77,11 @@
           "bias-check"
         ],
         "goal_missing": "",
+        "unreached_terminals": [
+          "calibrate"
+        ],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "output.uncited_claims == 0 (AttributeError: uncited_claims)",
           "len(output.bias_flags) == 0"

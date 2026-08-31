@@ -37,6 +37,9 @@
           "mitigate"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -77,6 +80,9 @@
           "mitigate"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "output.above_appetite == output.mitigations_planned",
           "all(c.single_source == (c.supplier_count == 1) for c in output.concentration)"

@@ -38,6 +38,9 @@
           "attest"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 1,
         "commands_run": 0,
@@ -79,6 +82,9 @@
           "attest"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 1,
         "commands_run": 0,

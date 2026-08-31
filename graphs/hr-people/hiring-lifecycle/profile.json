@@ -38,6 +38,9 @@
           "offer"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -79,6 +82,11 @@
           "interview"
         ],
         "goal_missing": "",
+        "unreached_terminals": [
+          "offer"
+        ],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "output.scorecard_count >= 3 (AttributeError: scorecard_count)",
           "output.signed_off == true (AttributeError: signed_off)"

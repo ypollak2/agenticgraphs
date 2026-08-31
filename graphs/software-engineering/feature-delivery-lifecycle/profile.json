@@ -45,6 +45,9 @@
           "release"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 4,
         "commands_run": 0,
@@ -83,6 +86,9 @@
           "release"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 4,
         "commands_run": 0,
@@ -117,6 +123,9 @@
           "rollback"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 4,
         "commands_run": 0,
@@ -258,6 +267,11 @@
           "audit.synthesize"
         ],
         "goal_missing": "",
+        "unreached_terminals": [
+          "release"
+        ],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "all(d.file and d.pr_url for d in output.doc_changes) (AttributeError: doc_changes)",
           "output.signed_off == true (AttributeError: signed_off)",
@@ -391,6 +405,11 @@
           "audit.synthesize"
         ],
         "goal_missing": "",
+        "unreached_terminals": [
+          "release"
+        ],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "all(d.file and d.pr_url for d in output.doc_changes) (AttributeError: doc_changes)",
           "output.signed_off == true (AttributeError: signed_off)",
@@ -524,6 +543,11 @@
           "audit.synthesize"
         ],
         "goal_missing": "",
+        "unreached_terminals": [
+          "release"
+        ],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "all(d.file and d.pr_url for d in output.doc_changes) (AttributeError: doc_changes)",
           "output.signed_off == true (AttributeError: signed_off)",
