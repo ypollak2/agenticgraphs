@@ -62,7 +62,7 @@
 ## 🧭 About The Project
 
 A **registry of ready-made multi-agent workflow graphs** in a portable, framework-neutral
-format (AGR v1.5), built on three principles:
+format (AGR v1.8), built on three principles:
 
 ```yaml
 principles:
@@ -95,7 +95,7 @@ flowchart LR
 ```
 
 ```yaml
-apiVersion: agr/v1
+apiVersion: agr/v1.8
 name: code-review-pipeline
 category: software-engineering
 nodes:
@@ -403,7 +403,7 @@ uv run python scripts/audit_usecases.py      # 112 use cases, 15 domains, AUDIT 
 | **Speciality** | `specialities/*.yaml` | A role a node plays (e.g. `security-auditor`), with required abilities |
 | **Ability** | `abilities/*.yaml` | An atomic capability (e.g. `sast_scan`) with a risk level; MCP-bindable |
 | **Use case** | `usecases/catalog.yaml` | Demand-side backlog: 123 audited entries that graduate into graphs |
-| **Spec** | `spec/*.schema.json` | AGR v1.5 JSON Schemas ([v1.1](docs/agr-v1.1.md) · [v1.2](docs/agr-v1.2.md) · [v1.4](docs/agr-v1.4.md) · [v1.5](docs/agr-v1.5.md)) |
+| **Spec** | `spec/*.schema.json` | AGR v1.8 JSON Schemas ([v1.1](docs/agr-v1.1.md) · [v1.2](docs/agr-v1.2.md) · [v1.4](docs/agr-v1.4.md) · [v1.5](docs/agr-v1.5.md) · [v1.7](docs/agr-v1.7.md) · [**v1.8**](docs/agr-v1.8.md)) |
 | **Subgraph** | `nodes[].kind: subgraph` + `ref` | A phase that *is* another registry graph, inlined at load (v1.1) |
 | **Join** | `nodes[].join` | `any` (default) · `all` · `quorum(n)` — when a multi-predecessor node is ready (v1.1) |
 | **Human gate** | `nodes[].kind: human` + `approval` | An approval contract the live runner refuses to sign itself (v1.1) |
@@ -455,144 +455,15 @@ deterministic, and step-capped like everything else.
 
 ### What real models actually did
 
-The most useful thing this project produced is a failure. `assert-live` grading
-shipped in v1.1 but nothing could produce it, so every graph sat at `assert-fixture`.
-v1.2 made recordings possible and pointed a local `qwen2.5-coder:7b` at five graphs.
+Live recording is how this project found most of its own bugs: contracts no model
+could satisfy, a phase merge that dropped facts, two vocabularies for one key, and
+— in v1.8 — that the runner had been handing every node the assertions it was about
+to be scored on. The version-by-version record of those findings is in
+[docs/evidence-history.md](docs/evidence-history.md).
 
-**All five failed.** Every one raised `NameError: name 'output' is not defined` — on
-the exact key its contract asserts. The cause was not the model. `LLMRunner`'s prompt
-had said *"reply with a JSON object of your output keys"* since v1.0 and never said
-**which**; v1.1 added declared `outputs` contracts and the live runner never read
-them. Worse, declared outputs existed only on composites — all 74 primitives had no
-contract for a model to aim at.
-
-After teaching the runner to state the contract, **4 of 5 pass**. The fifth is kept,
-failing, because the model returned `output: true` where an object is required.
-
-A registry reporting 74/74 at 100% was, on first contact with a real model, 0/5.
-
-v1.3 then recorded **75 runs — 25 graphs × 3 models** — and the same lesson landed
-twice more. v1.5 re-recorded the identical sweep after giving every dependent node
-a declared output:
-
-| Model | v1.3 pass | **v1.5 pass** | unparseable |
-|---|---|---|---|
-| `qwen3-coder:30b` | 19/25 | **24/25** | 0 |
-| `hermes3:8b` | 7/25 | **14/25** | 8 → 5 |
-| `qwen2.5-coder:7b` | 11/25 | 11/25 | 3 → 2 |
-
-Contracts satisfied by **no** model: 4 → 1 → 0 **across the 25 graphs then recorded.**
-
-### That number was read off a slice, and the slice was the smallest 25 graphs
-
-Recording **all 83** — every composite and every human-gated graph, for the first
-time — gives a different picture:
-
-| | 25-graph slice | **all 83** |
-|---|---|---|
-| satisfied on every model | 13 | **42** of 83 |
-| satisfied by **no** model | 0 | **27** of 83 |
-
-And it is not spread evenly:
-
-| shape | satisfied by no model |
-|---|---|
-| primitive | 11 of 65 |
-| human-gated | 2 of 4 |
-| **composite** | **14 of 14** |
-
-**Every multi-phase composite failed on every model** — the graphs that were the
-whole thesis of v1.1. The sample said 96%; the registry was 64% on its strongest
-tested model, and 0% on its most ambitious graphs.
-
-Reading those recordings found two structural bugs, not a prompt problem: a phase
-merge that lost any fact a later node overwrote, and asserts reading
-`output.violations` while nodes declared `outputs: [violations]` — two conventions
-for one contract, with the declaration being the one the model was told. Fixing
-both moved the registry to **48 clean / 21 unsatisfied**, and 3 composites now pass.
-
-The remaining composite failures are no longer misplaced facts: the required key is
-absent from the blackboard entirely. That looked like a model-scale limit, so it
-was tested against `gpt-4o`:
-
-| model | composites passing |
-|---|---|
-| `qwen3-coder:30b` (local) | 3 of 14 |
-| `gpt-4o` (frontier) | **4 of 14** |
-
-**One graph better — and `procurement-lifecycle` passes on the 30B model and fails
-on `gpt-4o`.** Not a capability ladder. The hypothesis was wrong.
-
-Classifying all 28 remaining failures: **18 demand a grounded provenance field** —
-`source_url`, `log_id`, `file`+`line`, `exit_code`, `scanner_evidence`,
-`snapshot_before`. Facts no model can obtain by generating. **A model that passed
-them would be fabricating provenance.**
-
-Which means the contracts are working. Every graph declares abilities —
-`web_search`, `sast_scan`, `run_command` — and `agr adapt` has always emitted
-`NotImplementedError: bind speciality X`. **No run in this repo has ever bound a
-tool.** `LLMRunner` sends a prompt and parses JSON; that is all it does.
-
-The graphs whose contracts are satisfiable by generation alone pass at 47 of 83.
-The ones that demand evidence correctly refuse. See
-[`docs/plans/v8-frontier-finding.md`](docs/plans/v8-frontier-finding.md).
-
-### So the abilities got bound — and the pilot graph stopped passing
-
-`docs-code-sync-audit` asserts `all(e.exit_code == 0 for e in output.examples)`.
-Run against `gpt-4o` twice:
-
-| | tool calls | result | depth |
-|---|---|---|---|
-| tools **off** | 0 | **PASS** | `assert-live` |
-| tools **on** | 20, all succeeded | **FAIL** | `assert-grounded` |
-
-**It only ever passed because the model fabricated `exit_code: 0`.** With
-`run_command` actually bound it fails, and the failure is the correct answer.
-
-A new depth grade sits above `assert-live`:
-
-```
-describe-only < assert-fixture < assert-live < assert-grounded < command
-```
-
-`assert-grounded` means the assert held *and* the values trace to a recorded tool
-call. It does **not** mean the call was the right one — on that pilot run several
-of the 20 were theatre (`echo 'Running test command 2'`). The trace proves
-something ran, not that the right thing ran. Stated plainly, because
-`assert-fixture` went over-read for five versions.
-
-Typing every output the asserts read (116 of them) then moved 3 more graphs — and
-**only 1 of the 3 was grounded.** The other two pass by producing a well-typed
-value for a fact nothing in this repo can establish, and both are labelled 🔌
-*unsatisfiable by construction*.
-
-**Typing is necessary and not sufficient.** A type tells a model what a key should
-be; it does not make the model obtain it. See
-[`docs/agr-bindings.md`](docs/agr-bindings.md) and
-[`docs/plans/v10-remaining-sixteen.md`](docs/plans/v10-remaining-sixteen.md).
-
-This is exactly the failure [`docs/live-coverage.md`](docs/live-coverage.md) exists
-to prevent, made one commit before that report was written. A pass rate over the
-easiest quarter of a registry is not a pass rate.
-
-Four versions in, the pattern has a name: **anything optional in the spec ends up
-unused, and anything unused ends up load-bearing by accident.** `outputs` was
-optional from v1.1; 29% of nodes skipped it and the whole registry depended on them
-anyway. Each version's headline failure was the same shape — the artifact looked
-complete and the runtime had nothing to work with.
-
-A large share of apparent *model* failure was the harness again: `LLMRunner`
-extracted JSON with `text[text.index("{"):text.rindex("}")+1]`, which breaks on
-markdown fences, trailing commas and Python `True`/`False`. Hardening it moved
-qwen2.5-coder from 8 passes to 11.
-
-And model choice dominates. On v1.2's single-model evidence, **12 graphs looked like
-bad contracts that a larger model satisfies perfectly.** Only disagreement between
-models separates "this contract is unsatisfiable" from "that model was weak" —
-which is why the scoreboard reports per-model results and
-[`docs/contract-findings.md`](docs/contract-findings.md) names the contracts no
-model satisfies.
+**None of that evidence is currently valid.** The v1.8 prompt, sampling and contract
+changes superseded all 560 recordings at once, so live coverage reads 0 of 83 and
+means *pending re-recording*. See [docs/live-coverage.md](docs/live-coverage.md).
 
 ### Composites reference, they don't copy
 
@@ -634,114 +505,20 @@ averaged away. Deepening it is the open problem, not a solved one.
 
 ## 🗺️ Roadmap
 
-- [x] **M0** — AGR v1 spec, validator + MAST lint, `agr` CLI, 52 validating graphs, audit-gated 112-entry catalog
-- [x] **M1** — eval harness (`agr eval`): real graph interpreter (routers, joins, bounded loops,
-      contract asserts) + pluggable runners. Mock-fixture profiles are marked `provisional`;
-      set `AGR_LLM_BASE_URL`/`AGR_LLM_MODEL` and pass `--live` for model-quality numbers.
-- [x] **M2** — `agr infuse` (ability injection; schema+lint+golden-case gated, lineage-logged)
-      and `agr optimize` (v0 deterministic hill-climb: dedupe, sibling parallelization,
-      measurement-driven `max_steps` tightening). AFlow-style MCTS search remains open.
-- [x] **M3** — LangGraph adapter (`agr adapt`: self-contained codegen, no runtime dependency)
-      + MCP server (`agr mcp`): `search_graphs / get_graph / instantiate / infuse_ability`.
-- [x] **M4** — `agr adapt --target {crewai,autogen}` (two more self-contained codegen
-      targets) and `agr compose` (sequentially chain two graphs, with a heuristic
-      contract-compatibility check and `--allow-gaps` escape hatch).
-- [x] **M5 / AGR v1.1 — composites.** Depth instead of length: `kind: subgraph`
-      (inline expansion, depth-capped, cycle-detected), real `join` semantics with
-      dead-branch settlement, executable `kind: human` gates, `error`/`compensate`
-      edge kinds, per-node `retries`, declared `inputs`/`outputs` contracts, and
-      opt-in verification-command execution. 22 composite graphs across five new
-      motifs. The v1 scheduler was replaced wholesale against a
-      [trace lock](tests/fixtures/v1_trace_lock.json) proving all 106 pre-existing
-      cases execute byte-identically. Plan: [v2-agr-1.1.md](docs/plans/v2-agr-1.1.md) ·
-      Audit: [v2-audit.md](docs/plans/v2-audit.md).
-- [x] **M6 / AGR v1.2 — depth.** Execution frames (the blackboard gained a history),
-      real `fan_out` cardinality with logged truncation, `aggregate` (majority /
-      median / union / best), `kind: search` (bounded beam), scoped `memory`,
-      enforced `state.schema`, and phase-scoped verification — which closes v1.1's
-      deferral so a composite inherits its children's contracts. `ReplayRunner`
-      makes `assert-live` reachable in CI from checked-in real-model recordings.
-      17 graphs migrated off the decorative `parallel_group` label onto real
-      fan-out. Plan: [v3-agr-1.2.md](docs/plans/v3-agr-1.2.md) ·
-      Audit: [v3-audit.md](docs/plans/v3-audit.md).
-- [x] **M7 / AGR v1.3 — live.** `triggers` + `agr triggers` (cron / GitHub Actions /
-      webhook), `durability` + `agr eval --resume-from` (resume is replay over v1.2
-      frames), and **enforced** `budget` caps. `approval.timeout` and
-      `retries.backoff` were deleted rather than carried a third version unenforced.
-      75 recordings across 3 models, with per-model results and
-      [contract findings](docs/contract-findings.md).
-      Plan: [v4-agr-1.3.md](docs/plans/v4-agr-1.3.md) ·
-      Audit: [v4-audit.md](docs/plans/v4-audit.md).
-- [x] **M8 / AGR v1.4 — connect the contracts.** A graph had two vocabularies with
-      nothing checking they matched: **123 of 183 verification keys (67%) were
-      produced by no declared node output**. One lint now closes that, and all 83
-      graphs are migrated — declarations derived from the golden fixtures, with
-      **zero asserts modified** (verified by parsing HEAD against the working tree).
-      Contracts satisfied by no recorded model: **4 → 1**. Spec:
-      [agr-v1.4.md](docs/agr-v1.4.md) · Plan: [v5-agr-1.4.md](docs/plans/v5-agr-1.4.md) ·
-      Audit: [v5-audit.md](docs/plans/v5-audit.md).
-- [x] **M9 / AGR v1.5 — every node declares.** v1.4's diagnosis was wrong, and the
-      recordings said so: `ab-test-analysis` had both keys on *one* node, nothing
-      joint about it. The real gap was **103 of 346 nodes (29%) declaring no outputs
-      at all** — every one feeding a downstream node. Told only to "return the keys
-      this step is responsible for", a live model answers that question literally
-      and returns key *names* where values belong. All 103 now declare; `inputs` are
-      checked against producers that can actually *reach* the consumer; the 6 genuine
-      joint-precondition asserts get an advisory rather than new machinery.
-      Spec: [agr-v1.5.md](docs/agr-v1.5.md) ·
-      Plan: [v6-agr-1.5.md](docs/plans/v6-agr-1.5.md) ·
-      Audit: [v6-audit.md](docs/plans/v6-audit.md).
+Shipped through **AGR v1.8**. Each version closed a gap the previous one left, and
+several corrected an earlier version's diagnosis — the per-milestone record is in
+[docs/milestones.md](docs/milestones.md), and the current spec is
+[docs/agr-v1.8.md](docs/agr-v1.8.md).
 
-- [x] **M10 / AGR v1.7 — the goal.** `state.inputs` had named what a caller must bring
-      since v1.1, and **the runtime seeded none of it**: `run_graph` opened with
-      `bb = {}`, so the linter vouched for values that never arrived and 31 of 83 graphs
-      began work not knowing their subject. A model handed an empty board invents a
-      plausible subject and answers about that — a well-typed answer to a question
-      nobody asked. `run_graph(inputs=...)` closes the seeding half; a declared `goal`
-      closes the other. A graph with `goal.required` and no goal executes **zero nodes**
-      and reports what it needed, rather than guessing. Which 31 require one is derived
-      from `state.inputs`, not hand-picked, with **zero asserts modified**. Ships
-      `agr goal`, `--goal`, `goal_required` on the MCP search result, and a `/goal`
-      command that asks the user rather than inventing one.
-      Spec: [agr-v1.7.md](docs/agr-v1.7.md) ·
-      Plan + outcome: [v11-goal.md](docs/plans/v11-goal.md).
+**Next, in order:**
 
-**Known limits, stated rather than buried:**
-
-- **A graph+model cell frequently returns a different verdict on identical input** —
-  **20%** of cells on `qwen3-coder:30b`, **51%** on `devstral:24b`, at 3 samples each. It
-  is not one weak model: the second family was twice as unstable, and worse once the
-  composites were included. Of the cells scorable on both, **57% land in different
-  stability classes**; `incident-triage-router` is 0/3 on one model and 3/3 on the other.
-- **✅ *satisfied on every model, every sample* went 50 → 13** as repeats arrived, and 🚫
-  *satisfied by no model* went 14 → 5. Nothing broke: 37 graphs that looked clean had
-  been measured once each. Four graphs have cross-family evidence of an unsatisfiable
-  contract. **74 cells are still n=1.** [Full analysis](docs/plans/v12-variance.md).
-- **13 cells cannot be scored at all.** `devstral:24b` reliably emits unparseable output
-  for them, and a sample that fails to parse writes no record — so it shrinks the
-  denominator instead of counting. The worst model/graph pairings are *excluded from*
-  the percentages rather than *penalised by* them, and no amount of resampling fixes it.
-- **Model replies that do not parse are counted as nothing.** Three graphs returned a
-  JSON array where an object was required, or truncated mid-object.
-  `clinical-protocol-lifecycle` produced ERROR, FAIL and PASS across three identical
-  runs. The scoreboard has no column for this.
-- Three local models, all small (7B–30B). Nothing is claimed about frontier models.
-- **v1.7's re-record measured sampling noise, not the goal.** 31 graphs were re-recorded
-  on `qwen3-coder:30b` with the goal seeded: 10 improved, 5 regressed. Since seeding a
-  goal cannot break a passing graph, the regressions were resampled — **two graphs
-  produced both a pass and a fail under identical input**, and three reversed. The
-  registry-wide 14 → 11 therefore rests on single ungrounded samples from cells now
-  shown to be unstable, and no improvement traced to a tool call. Read the unsatisfiable
-  count as unmoved.
-- Search graphs are tested against synthetic gradients, not a real scorer.
-
-Of the 52 primitives, three are handcrafted with domain specialities
-(`code-review-pipeline`, `verifier-swarm`, `cost-routed-research`) and the other 49 are
-motif-template instantiations carrying real per-use-case contracts. The 22 composites
-each declare an explicit phase list and I/O contract; 14 of them reference a primitive
-by `ref` rather than restating it.
-
-See [open issues][issues-url] for the full list of proposed graphs and known issues.
+1. **Re-record the evidence base.** v1.8 superseded all 560 recordings at once;
+   until someone points `scripts/record_live.py` at a real endpoint, the registry has
+   no live evidence. This is the only item here a checkout cannot do for itself.
+2. **Depth.** The median graph is 4 nodes. These are motif demonstrations with real
+   contracts, not production workflows, and the composites are where the thesis lives.
+3. **Executable checks beyond 20 of 83.** Every contract still settled by an assert is
+   settled by the model's account of itself.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
