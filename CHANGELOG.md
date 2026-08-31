@@ -48,6 +48,40 @@ rather than which flag to set.
 being a linear three-node chain, including `verifier-swarm` — the graph the README
 uses to explain what a swarm is.
 
+### The retry loops never ran
+
+`edge_true` catches every exception and returns `False`, so an edge guarded on a
+key nothing produces is not an error — it is an edge that is never taken. **52
+guards across 43 graphs were in that state.** Every `verify_failed and attempts <
+3` retry, every `<node>_failed` compensator, every `revision_requested` review
+loop. The registry advertised bounded retries, escalation and saga compensation,
+and in a real run it had none of them.
+
+Every golden case passed throughout, because a fixture hands the key over. Only a
+live run reaches the guard with a blackboard a model wrote, which is why this
+survived until the first v1.8 recording sweep found it.
+
+v1.7 found exactly this for `attempts` — "48 edge guards read it and nothing
+produced it… every bounded retry loop silently failed closed" — fixed that one
+name, and left the hole open for every other key.
+
+The rule the spec was missing, now written down:
+
+> **A model-written flag may drive control flow; it just may not be the thing the
+> contract checks.**
+
+Routing on a model's judgement is what a router *is*. Grading a model on its own
+judgement is what v1.8 refuses. Those had never been distinguished, so removing a
+self-graded flag from a contract also removed it from the node's outputs and
+killed the edge reading it — `regulatory-filing-lifecycle` stopped being able to
+reach its human gate at all. After the fix it runs six steps, exhausts its bounded
+retry against a model that genuinely cannot reconcile the figures, and fails
+honestly. Before, it ran two and stopped.
+
+`_lint_flow_keys` and `_lint_runtime_keys` enforce both halves; the second exists
+because the obvious fix — letting the node declare `attempts` — lets a fixture pin
+the counter so the loop never terminates.
+
 ### 83 graphs are now 83 graphs
 
 Stripping the strings that are free to differ, **36 of 83 were byte-identical to
