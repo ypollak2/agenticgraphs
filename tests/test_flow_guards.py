@@ -84,3 +84,70 @@ def test_a_retry_loop_runs_twice_when_the_guard_says_so(name, loop_node, fail_ke
     assert rep.trace.count(loop_node) == 2, (
         f"{name}: guard on {fail_key} did not re-enter {loop_node} — trace {rep.trace}"
     )
+
+
+# ------------------------------------------------- a run that stops short says so
+
+def test_a_run_that_reaches_no_terminal_reports_it():
+    """Three graphs in the first v1.8 sweep failed with `AttributeError: <key>`.
+
+    That reads like a model formatting problem. The truth was that `post`, `enrol`
+    and `offer` never executed — the workflow stopped mid-way and the contract was
+    reporting the symptom. `passed` was already False; the diagnosis was wrong.
+    """
+    doc = yaml.safe_load("""
+apiVersion: agr/v1.8
+name: stops-short
+description: a graph used only by unit tests
+category: software-engineering
+state: {inputs: [goal]}
+goal: {required: true, description: the subject}
+nodes:
+- {id: a, speciality: producer, abilities: [generate], outputs: [{go: bool}]}
+- {id: b, speciality: producer, abilities: [generate], outputs: [x]}
+- {id: end, speciality: critic, abilities: [critique], kind: verifier, outputs: [x, output],
+   criteria: the run reached the end rather than stopping at a branch nobody took}
+edges:
+- {from: a, to: b, when: go}
+- {from: b, to: end}
+termination: {max_steps: 6, contract: the run completes}
+verification: [{assert: "output.x"}]
+""")
+    rep = run_graph(doc, MockRunner({"a": {"go": False}}), inputs={"goal": "g"})
+    assert rep.unreached_terminals == ["end"]
+    assert not rep.passed
+    rep2 = run_graph(doc, MockRunner({"a": {"go": True}, "b": {"x": 1},
+                                      "end": {"x": 1, "output": {"x": 1}}}),
+                     inputs={"goal": "g"})
+    assert rep2.unreached_terminals == [] and rep2.passed
+
+
+def test_a_recovery_terminal_not_running_is_the_desired_outcome():
+    """A clean run must not be failed for skipping its compensator. Both failure
+    edge kinds count: `_normalize` desugars `on_error` into an `error` edge, so a
+    compensator usually has one of each and testing `compensate` alone misses it."""
+    from agenticgraphs.registry import ROOT
+
+    doc = load(next(g for g in iter_graphs()
+                    if load(g)["name"] == "feature-delivery-lifecycle"))
+    cases = yaml.safe_load(
+        (next(g for g in iter_graphs()
+              if load(g)["name"] == "feature-delivery-lifecycle").parent / "cases.yaml").read_text()
+    )["cases"]
+    clean = next(c for c in cases if c["id"] == "clean-path-releases")
+    rep = run_graph(doc, MockRunner(clean["node_outputs"]), root=ROOT,
+                    inputs={"goal": "g", **(clean.get("inputs") or {})})
+    assert "rollback" not in rep.trace
+    assert rep.unreached_terminals == [], "a clean run was failed for not rolling back"
+
+
+def test_every_registry_graph_reaches_a_terminal_on_its_golden_cases():
+    from agenticgraphs.evalcmd import case_inputs
+    from agenticgraphs.registry import ROOT, cases_path
+
+    for gpath in iter_graphs():
+        doc = load(gpath)
+        for case in yaml.safe_load(cases_path(doc["name"]).read_text())["cases"]:
+            rep = run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT,
+                            inputs=case_inputs(case))
+            assert rep.unreached_terminals == [], f"{doc['name']}/{case['id']}"

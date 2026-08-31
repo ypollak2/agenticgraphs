@@ -1,0 +1,37 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "policy_table": {
+      "arrived damaged": "refund",
+      "changed mind, 40 days": "reject",
+      "wrong size": "exchange",
+      "third return this month": "fraud-review"
+    },
+    "goal": "return R-55911, reason 'changed mind, 40 days', against the 2026 returns policy"
+  },
+  "node_outputs": {
+    "route": {
+      "complexity": "simple"
+    },
+    "branch-simple": {
+      "assigned_disposition": "reject"
+    },
+    "verify": {
+      "expected_disposition": "reject",
+      "assigned_disposition": "reject",
+      "output": {
+        "assigned_disposition": "reject",
+        "expected_disposition": "reject"
+      }
+    }
+  },
+  "tool_calls": []
+}

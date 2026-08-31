@@ -243,6 +243,12 @@ class RunReport:
     hit_step_cap: bool = False
     # v1.1
     deadlocked: bool = False
+    #: Terminal nodes, none of which ran. A run that ends without reaching any of
+    #: them did not complete the workflow — and said so only as
+    #: `AttributeError: <key>` from the contract, which reads like a model
+    #: formatting problem. Three graphs in the first v1.8 sweep reported exactly
+    #: that while the real fault was `post` / `enrol` / `offer` never executing.
+    unreached_terminals: list[str] = field(default_factory=list)
     auto_approved: bool = False
     approvals: list[tuple[str, bool]] = field(default_factory=list)
     retries_used: int = 0
@@ -317,7 +323,8 @@ class RunReport:
         return (not self.assert_failures and not self.command_failures
                 and not self.state_violations and not self.budget_exhausted
                 and not self.shape_violations and not self.goal_missing
-                and not self.hit_step_cap and not self.deadlocked)
+                and not self.hit_step_cap and not self.deadlocked
+                and not self.unreached_terminals)
 
 
 def _goal_line(bb: dict) -> str:
@@ -1033,6 +1040,32 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
     if (doc.get("durability") or {}).get("checkpoint") == "every_node":
         rep.journal = [{"node": f["node"], "out": f["out"]}
                        for f in rep.frames if not f.get("resumed")]
+
+    # A graph that ran nodes but reached no terminal stopped short. Terminals are
+    # often mutually exclusive — success or rollback, promote or escalate — so the
+    # requirement is that ONE ran, not all of them. Compensate edges do not make
+    # their source non-terminal: `release` still ends the workflow when it works.
+    edges = doc.get("edges", [])
+    # A recovery node is a terminal only reached when something failed, so a clean
+    # run reaching none of them is the desired outcome, not a stall. It is
+    # identified by its INCOMING edges — every one a failure path — not its
+    # outgoing ones. Both kinds count: `_normalize` desugars `on_error: rollback`
+    # into an `error` edge, so a compensator usually has one of each and testing
+    # for `compensate` alone misses it.
+    _FAILURE_EDGES = {"compensate", "error"}
+    recovery = {
+        n["id"] for n in nodes.values()
+        if (inc := [e for e in edges if e["to"] == n["id"]])
+        and all(e.get("kind") in _FAILURE_EDGES for e in inc)
+    }
+    terminal = [
+        n["id"] for n in nodes.values()
+        if n["id"] not in recovery
+        and not any(e["from"] == n["id"] and e.get("kind") not in _FAILURE_EDGES
+                    for e in edges)
+    ]
+    if terminal and rep.trace and not (set(terminal) & set(rep.trace)):
+        rep.unreached_terminals = sorted(terminal)
 
     _check_state(doc, bb, root, rep)
     _persist_memory(doc, bb, root, rep)

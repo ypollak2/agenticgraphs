@@ -1,0 +1,89 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "api v2.14.0 at 5%, on p99 latency and 5xx rate"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Analyzed API v2.14.0 deployment at 5% traffic level showing p99 latency and 5xx error rates within acceptable thresholds, no rollback required"
+    },
+    "attempt": [
+      {
+        "error_rate": 0.02,
+        "rollback_fired": false,
+        "threshold": 0.05
+      },
+      {
+        "error_rate": 0.02,
+        "rollback_fired": false,
+        "threshold": 0.05
+      },
+      {
+        "error_rate": 0.02,
+        "rollback_fired": false,
+        "threshold": 0.05
+      },
+      {
+        "error_rate": 0.02,
+        "rollback_fired": false,
+        "threshold": 0.05
+      },
+      {
+        "error_rate": 0.02,
+        "rollback_fired": false,
+        "threshold": 0.05
+      }
+    ],
+    "measure": [
+      {
+        "output": {
+          "error_rate": 0.02,
+          "rollback_fired": false,
+          "threshold": 0.05
+        },
+        "below_target": true
+      },
+      {
+        "output": {
+          "error_rate": 0.02,
+          "rollback_fired": false,
+          "threshold": 0.05
+        },
+        "below_target": true
+      },
+      {
+        "output": {
+          "error_rate": 0.02,
+          "rollback_fired": false,
+          "threshold": 0.05
+        },
+        "below_target": true
+      },
+      {
+        "output": {
+          "error_rate": 0.02,
+          "rollback_fired": false,
+          "threshold": 0.05
+        },
+        "below_target": true
+      },
+      {
+        "output": {
+          "error_rate": 0.02,
+          "rollback_fired": false,
+          "threshold": 0.05
+        },
+        "below_target": true
+      }
+    ]
+  },
+  "tool_calls": []
+}

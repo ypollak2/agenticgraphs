@@ -1,0 +1,36 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "validated_labels": {
+      "PMID-30011": "1b",
+      "PMID-30012": "2b",
+      "PMID-30013": "4"
+    },
+    "goal": "PMID-30011, against the validated evidence-level sample"
+  },
+  "node_outputs": {
+    "route": {
+      "complexity": "medium"
+    },
+    "branch-simple": {
+      "assigned_evidence_level": "1b"
+    },
+    "verify": {
+      "expected_evidence_level": "1b",
+      "assigned_evidence_level": "1b",
+      "output": {
+        "assigned_evidence_level": "1b",
+        "expected_evidence_level": "1b"
+      }
+    }
+  },
+  "tool_calls": []
+}

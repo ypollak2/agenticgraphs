@@ -1,0 +1,76 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "a UK sole-trader onboarding pack, under FCA rules"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "UK sole-trader onboarding pack under FCA rules including business registration details, financial statements, identification documents, proof of address, business premises information, anti-money laundering checks, and compliance documentation for regulatory approval"
+    },
+    "sanctions-screen": {
+      "screen_hits": 0
+    },
+    "produce": {
+      "fields": [
+        {
+          "validated": true
+        },
+        {
+          "validated": true
+        },
+        {
+          "validated": true
+        },
+        {
+          "validated": true
+        },
+        {
+          "validated": true
+        },
+        {
+          "validated": true
+        },
+        {
+          "validated": true
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "fields": [
+          {
+            "validated": true
+          },
+          {
+            "validated": true
+          },
+          {
+            "validated": true
+          },
+          {
+            "validated": true
+          },
+          {
+            "validated": true
+          },
+          {
+            "validated": true
+          },
+          {
+            "validated": true
+          }
+        ]
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": []
+}
