@@ -1,0 +1,6 @@
+id: uc-073
+name: tutoring-router
+domain: education
+pattern: router
+summary: Route learner questions by topic and difficulty to tutors.
+verification: routing matches topic taxonomy on holdout set

@@ -22,7 +22,8 @@
         "agr/v1.4",
         "agr/v1.5",
         "agr/v1.6",
-        "agr/v1.7"
+        "agr/v1.7",
+        "agr/v1.8"
       ]
     },
     "name": {
@@ -254,6 +255,11 @@
                 "pattern": "^(none|beam\\([1-9][0-9]*\\))$"
               }
             }
+          },
+          "criteria": {
+            "type": "string",
+            "minLength": 20,
+            "description": "What this node must actually judge or produce, in the domain's own terms. Required on `kind: verifier` from agr/v1.8. Until v1.8 a node carried a topology position (`speciality`, `abilities`, `outputs`) and nothing else, so `clinical-literature-triage` and `incident-triage-router` were the same four nodes differing only in name, description and category \u2014 a healthcare graph containing no healthcare. The rubric is the domain knowledge; without a field to hold it, a downloaded graph was a shape you could have typed yourself. The runner gives this to the node in place of the assert text it used to leak (see LLMRunner.run), so it is what a verifier reasons with rather than what it is scored on."
           }
         },
         "additionalProperties": false,

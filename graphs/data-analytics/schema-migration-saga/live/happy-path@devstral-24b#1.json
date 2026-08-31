@@ -1,0 +1,114 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "migrate the orders schema to the normalized v3 shape without downtime"
+  },
+  "node_outputs": {
+    "plan": {
+      "migration_plan": {
+        "steps": [
+          {
+            "name": "preparation",
+            "actions": [
+              "Analyze current orders schema structure and dependencies",
+              "Backup existing database",
+              "Create new normalized v3 order schemas in the database"
+            ],
+            "compensators": [
+              "Restore database from backup"
+            ]
+          },
+          {
+            "name": "data_migration_start",
+            "actions": [
+              "Add new columns to the orders table for tracking migration state",
+              "Add a job to migrate existing records to the normalized schema over time"
+            ],
+            "compensators": "Remove new columns and rollback partially migrated data"
+          },
+          {
+            "name": "parallel_data_migration",
+            "actions": [
+              "Periodically migrate batches of orders from old format to normalized v3 format",
+              "Track migration progress using the added columns"
+            ],
+            "compensators": [
+              "Stop migration job and rollback partially migrated data"
+            ]
+          },
+          {
+            "name": "dual_writes_initiation",
+            "actions": [
+              "Modify application code to support dual writes (both v2 and v3 schema)",
+              "Implement dual-read capability for API consumers that need to read both formats"
+            ],
+            "compensators": [
+              "Remove dual-write and dual-read capabilities from the code"
+            ]
+          },
+          {
+            "name": "verification",
+            "actions": [
+              "Verify data consistency between old and new schemas",
+              "Run end-to-end tests on application with dual writes/reads enabled"
+            ],
+            "compensators": [
+              "Review test failures, fix critical regressions or revert changes"
+            ]
+          },
+          {
+            "name": "switch_over",
+            "actions": [
+              "Remove write access from old v2 schema tables",
+              "Update all read operations to use the new normalized v3 schema"
+            ],
+            "compensators": [
+              "Re-enable write access on old schema and revert reading operations"
+            ]
+          },
+          {
+            "name": "cleanup",
+            "actions": [
+              "Remove old schema tables after verification of successful migration",
+              "Clean up any temporary migration state columns"
+            ],
+            "compensators": [
+              "Restore removed tables from backup, if needed"
+            ]
+          }
+        ]
+      }
+    },
+    "shadow-write": {
+      "shadow_active": false
+    },
+    "backfill": {
+      "backfill_complete": false
+    },
+    "cutover": {
+      "cutover_done": false
+    },
+    "verify": {
+      "parity_verified": false
+    },
+    "undo-cutover": {
+      "cutover_undone": false
+    },
+    "undo-backfill": {
+      "backfill_undone": false
+    },
+    "undo-shadow": {
+      "shadow_undone": true,
+      "output": {
+        "consistent": false,
+        "parity_verified": false
+      },
+      "consistent": false
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

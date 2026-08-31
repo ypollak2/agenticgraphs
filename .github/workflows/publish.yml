@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
-      - run: uv sync --all-extras
+      - run: uv sync --all-extras --frozen
       - name: Gate before publishing
         run: |
           uv run --all-extras agr validate

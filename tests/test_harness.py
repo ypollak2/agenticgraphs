@@ -4,7 +4,13 @@ import yaml
 from agenticgraphs.evalcmd import eval_graph
 from agenticgraphs.harness import MockRunner, run_graph, safe_eval
 from agenticgraphs.inspect import find_graph
-from agenticgraphs.registry import ROOT, load
+from agenticgraphs.registry import cases_path, load
+
+#: Every graph declares `goal.required` as of v1.8, so a direct `run_graph` must
+#: supply one or the graph refuses before scheduling a node — which is the gate
+#: working, not a broken test. Golden cases carry their own goal; these
+#: hand-built runs need one stated here.
+GOAL = {"goal": "a stated subject, so the graph does not invent one"}
 
 
 def test_level_conditions():
@@ -19,15 +25,15 @@ def test_router_takes_single_branch():
         "router": {"complexity": "complex"},
         "deep-researcher": {"confidence": 0.9},
         "synthesizer": {"output": {"claims": [{"text": "t", "sources": ["s"]}]}},
-    }))
+    }), inputs=GOAL)
     assert rep.passed and "cheap-researcher" not in rep.trace
 
 
 def test_loop_bounded_and_escalation_detected():
     doc = load(find_graph("verifier-swarm"))
-    cases = yaml.safe_load((ROOT / "evals/verifier-swarm/cases.yaml").read_text())["cases"]
+    cases = yaml.safe_load((cases_path("verifier-swarm")).read_text())["cases"]
     retry = next(c for c in cases if c["id"] == "retry-then-verified")
-    rep = run_graph(doc, MockRunner(retry["node_outputs"]))
+    rep = run_graph(doc, MockRunner(retry["node_outputs"]), inputs=GOAL)
     assert rep.passed and rep.trace.count("worker") == 2
 
 
@@ -37,7 +43,7 @@ def test_verification_failure_is_caught():
         "triage": {"risk": "low"},
         "style-review": {},
         "synthesize": {"output": {"verdict": "merged!!", "findings": []}},
-    }))
+    }), inputs=GOAL)
     assert not rep.passed and rep.assert_failures
 
 

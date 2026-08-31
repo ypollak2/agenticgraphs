@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-059` | legal-compliance | **router** | 4 | 4 | 1 | 1 | 12 | write |
 
+> 🎯 **Requires a goal** — the document set to triage and the matter that defines relevance. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

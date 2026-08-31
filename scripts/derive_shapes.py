@@ -27,9 +27,9 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from agenticgraphs.registry import ROOT, iter_graphs, load  # noqa: E402
-from agenticgraphs.shapes import declared  # noqa: E402
-from agenticgraphs.subgraphs import expand, has_subgraphs  # noqa: E402
+from agenticgraphs.registry import ROOT, iter_graphs, load
+from agenticgraphs.shapes import declared
+from agenticgraphs.subgraphs import expand, has_subgraphs
 
 #: Field-name conventions the registry already uses consistently. Anything not
 #: listed defaults to `str`, which is the weakest useful claim rather than a guess

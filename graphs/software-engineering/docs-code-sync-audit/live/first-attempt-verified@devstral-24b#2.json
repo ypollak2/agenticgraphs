@@ -1,0 +1,63 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "doc": "Run the first example in order to verify it works",
+          "snippet": "node.run_command(command='python examples/example1.py')"
+        },
+        {
+          "doc": "Run the second example to ensure it also runs successfully",
+          "snippet": "node.run_command(command='python examples/hello.py')"
+        }
+      ]
+    },
+    "work": [
+      {
+        "work_result": {
+          "doc": "Run the first example in order to verify it works",
+          "command": "python examples/example1.py",
+          "exit_code": 0
+        }
+      },
+      {
+        "work_result": {
+          "doc": "Run the second example to ensure it also runs successfully",
+          "command": "python examples/hello.py",
+          "exit_code": 127
+        }
+      }
+    ],
+    "verify": {
+      "examples": [
+        {
+          "doc": "Run the first example in order to verify it works",
+          "exit_code": 0
+        },
+        {
+          "doc": "Run the second example to ensure it also runs successfully",
+          "exit_code": 127
+        }
+      ],
+      "output": {
+        "examples": [
+          {
+            "doc": "Run the first example in order to verify it works",
+            "exit_code": 0
+          },
+          {
+            "doc": "Run the second example to ensure it also runs successfully",
+            "exit_code": 127
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

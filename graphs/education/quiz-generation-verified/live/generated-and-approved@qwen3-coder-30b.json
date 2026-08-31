@@ -1,0 +1,62 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Analyst intake processing complete. All entries meet exit contract requirements with answer keys matched and distractors appearing plausible."
+    },
+    "generate": {
+      "draft": {
+        "entries": [
+          {
+            "question": "What is the capital of France?",
+            "answer": "Paris",
+            "distractors": [
+              "London",
+              "Berlin",
+              "Madrid"
+            ]
+          },
+          {
+            "question": "Which planet is known as the Red Planet?",
+            "answer": "Mars",
+            "distractors": [
+              "Venus",
+              "Jupiter",
+              "Saturn"
+            ]
+          }
+        ]
+      }
+    },
+    "critique": {
+      "entries": [
+        {
+          "answer_matches_key": true,
+          "distractors_plausible": true
+        },
+        {
+          "answer_matches_key": true,
+          "distractors_plausible": true
+        }
+      ],
+      "output": {
+        "entries": [
+          {
+            "answer_matches_key": true,
+            "distractors_plausible": true
+          },
+          {
+            "answer_matches_key": true,
+            "distractors_plausible": true
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

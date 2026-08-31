@@ -1,0 +1,29 @@
+cases:
+- id: happy-path
+  node_outputs:
+    collect:
+      figures: []
+    reconcile:
+      variance: 0
+      reconciled: true
+      filing_total: 1000
+      ledger_total: 1000
+      output: {}
+    controller-signoff:
+      signed_off: true
+    file:
+      filed: true
+      confirmation_id: confirmation_id-value
+    retain:
+      evidence_pack: pack-1
+      output:
+        reconciled: true
+        signed_off: true
+        filed: true
+        evidence_pack: pack-1
+        filing_total: 1000
+        ledger_total: 1000
+      filing_total: 1000
+      ledger_total: 1000
+    withdraw-filing: {}
+  goal: file Q1 2026 under the SEC regime with reconciled figures

@@ -1,0 +1,4 @@
+id: uc-116
+pattern: lifecycle
+summary: Detect, triage, mitigate and prove an incident closed, then write the postmortem and file actions.
+verification: mitigation verified before write-up; every postmortem yields owned actions

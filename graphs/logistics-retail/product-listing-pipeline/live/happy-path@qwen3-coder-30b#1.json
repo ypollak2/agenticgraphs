@@ -1,0 +1,101 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "list the spring hardware line on Amazon under its claims policy"
+  },
+  "node_outputs": {
+    "extract": {
+      "attributes": {
+        "unsupported_claims": [],
+        "policy_violations": []
+      }
+    },
+    "write": [
+      {
+        "listing_copy": "Spring Hardware Line - Premium Quality Compression Springs, Extension Springs, and Spiral Springs for Industrial and Household Applications. All products meet Amazon's strict safety and quality standards. Subject to Amazon's claims policy which requires all product descriptions to be accurate, supported by manufacturer specifications, and compliant with marketplace policies. Each listing includes detailed technical specifications, material composition, and proper usage guidelines as required by Amazon's seller policy."
+      },
+      {
+        "listing_copy": "Spring Hardware Line - High-Performance Compression Springs, Extension Springs, and Spiral Springs for Industrial and Household Applications. All products comply with ANSI/ASME standards and include detailed technical specifications, material composition, and proper usage guidelines. Subject to Amazon's claims policy which requires product descriptions to be accurate, supported by manufacturer specifications, and compliant with marketplace policies."
+      }
+    ],
+    "claim-check.intake": [
+      {
+        "summary": "Spring Hardware Line including compression springs, extension springs, and spiral springs for industrial and household use, meeting Amazon's safety standards and claims policy requirements for accurate product descriptions and technical specifications."
+      },
+      {
+        "summary": "Spring Hardware Line including compression springs, extension springs, and spiral springs for industrial and household use, meeting Amazon's safety standards and claims policy requirements for accurate product descriptions and technical specifications."
+      }
+    ],
+    "policy-check": [
+      {
+        "policy_violations": [
+          "Listing states 'All products meet Amazon's strict safety and quality standards' without referencing specific certification numbers or compliance documentation required by Amazon's marketplace policy.",
+          "Claim of 'Premium Quality' lacks substantiation through specific technical specifications, material grades, or third-party testing results as required by Amazon's claims policy.",
+          "The phrase 'Subject to Amazon's claims policy which requires all product descriptions to be accurate, supported by manufacturer specifications, and compliant with marketplace policies' is circular and doesn't provide specific compliance details."
+        ]
+      },
+      {
+        "policy_violations": [
+          "Listing states 'All products meet Amazon's strict safety and quality standards' without referencing specific certification numbers or compliance documentation required by Amazon's marketplace policy.",
+          "Claim of 'Premium Quality' lacks substantiation through specific technical specifications, material grades, or third-party testing results as required by Amazon's claims policy.",
+          "The phrase 'Subject to Amazon's claims policy which requires all product descriptions to be accurate, supported by manufacturer specifications, and compliant with marketplace policies' is circular and doesn't provide specific compliance details."
+        ]
+      }
+    ],
+    "claim-check.produce": [
+      {
+        "quote_span": "All products meet Amazon's strict safety and quality standards",
+        "source_url": "https://sellercentral.amazon.com/gp/help/external/article.html?language=en_US&topicId=A12T5F407J89QV"
+      },
+      {
+        "quote_span": "All products meet Amazon's strict safety and quality standards",
+        "source_url": "https://sellercentral.amazon.com/gp/help/external/article.html?language=en_US&topicId=A12T5F407J89QV"
+      }
+    ],
+    "claim-check.review": [
+      {
+        "output": [
+          "Listing states 'All products meet Amazon's strict safety and quality standards' without referencing specific certification numbers or compliance documentation required by Amazon's marketplace policy.",
+          "Claim of 'Premium Quality' lacks substantiation through specific technical specifications, material grades, or third-party testing results as required by Amazon's claims policy.",
+          "The phrase 'Subject to Amazon's claims policy which requires all product descriptions to be accurate, supported by manufacturer specifications, and compliant with marketplace policies' is circular and doesn't provide specific compliance details."
+        ],
+        "unsupported_claims": [
+          "All products meet Amazon's strict safety and quality standards",
+          "Premium Quality",
+          "Subject to Amazon's claims policy which requires all product descriptions to be accurate, supported by manufacturer specifications, and compliant with marketplace policies"
+        ],
+        "verdicts": [
+          {
+            "quote_span": "All products meet Amazon's strict safety and quality standards",
+            "source_url": "https://sellercentral.amazon.com/gp/help/external/article.html?language=en_US&topicId=A12T5F407J89QV"
+          }
+        ]
+      },
+      {
+        "output": {
+          "policy_violations": [
+            "Listing states 'All products meet Amazon's strict safety and quality standards' without referencing specific certification numbers or compliance documentation required by Amazon's marketplace policy.",
+            "Claim of 'Premium Quality' lacks substantiation through specific technical specifications, material grades, or third-party testing results as required by Amazon's claims policy.",
+            "The phrase 'Subject to Amazon's claims policy which requires all product descriptions to be accurate, supported by manufacturer specifications, and compliant with marketplace policies' is circular and doesn't provide specific compliance details."
+          ]
+        },
+        "unsupported_claims": [
+          "All products meet Amazon's strict safety and quality standards",
+          "Premium Quality",
+          "Subject to Amazon's claims policy which requires all product descriptions to be accurate, supported by manufacturer specifications, and compliant with marketplace policies"
+        ],
+        "verdicts": [
+          {
+            "quote_span": "All products meet Amazon's strict safety and quality standards",
+            "source_url": "https://sellercentral.amazon.com/gp/help/external/article.html?language=en_US&topicId=A12T5F407J89QV"
+          }
+        ]
+      }
+    ]
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

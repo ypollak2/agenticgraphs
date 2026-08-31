@@ -1,0 +1,6 @@
+id: uc-060
+name: case-law-research
+domain: legal-compliance
+pattern: pipeline
+summary: Find, shepardize, and brief controlling authority.
+verification: every citation verified as good law with source

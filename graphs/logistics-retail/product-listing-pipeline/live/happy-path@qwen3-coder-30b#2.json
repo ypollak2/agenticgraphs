@@ -1,0 +1,47 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "list the spring hardware line on Amazon under its claims policy"
+  },
+  "node_outputs": {
+    "extract": {
+      "attributes": {
+        "unsupported_claims": [],
+        "policy_violations": []
+      }
+    },
+    "write": {
+      "listing_copy": "Spring Hardware Line - Premium quality springs for various applications including automotive, industrial, and residential use. Features include durable materials, precise manufacturing tolerances, and comprehensive performance specifications. All products meet or exceed industry standards for safety and reliability. Commercial applications subject to additional compliance requirements. For specific claims about load capacity, material composition, or performance metrics, please reference the detailed product specification sheets available on each item's Amazon product page."
+    },
+    "claim-check.intake": {
+      "summary": "Spring Hardware Line - Premium quality springs for various applications including automotive, industrial, and residential use. Features include durable materials, precise manufacturing tolerances, and comprehensive performance specifications. All products meet or exceed industry standards for safety and reliability. Commercial applications subject to additional compliance requirements. For specific claims about load capacity, material composition, or performance metrics, please reference the detailed product specification sheets available on each item's Amazon product page."
+    },
+    "policy-check": {
+      "policy_violations": []
+    },
+    "claim-check.produce": {
+      "verdicts": []
+    },
+    "claim-check.review": {
+      "output": {
+        "policy_violations": []
+      },
+      "unsupported_claims": [],
+      "verdicts": []
+    },
+    "publish": {
+      "listings_published": [
+        "Spring Hardware Line - Premium quality springs for various applications including automotive, industrial, and residential use. Features include durable materials, precise manufacturing tolerances, and comprehensive performance specifications. All products meet or exceed industry standards for safety and reliability. Commercial applications subject to additional compliance requirements. For specific claims about load capacity, material composition, or performance metrics, please reference the detailed product specification sheets available on each item's Amazon product page."
+      ],
+      "output": {
+        "policy_violations": [],
+        "unsupported_claims": []
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: gdpr-data-audit
 description: Map personal data across systems, classify lawful basis, find gaps, and produce a remediation
   plan.
@@ -21,6 +21,8 @@ nodes:
   - data_map
   outputs:
   - lawful_basis
+  fan_out:
+    over: data_map
 - id: gap-scan
   speciality: critic
   abilities:
@@ -48,6 +50,8 @@ nodes:
   - attested
   - output
   - unclassified_stores: int
+  criteria: Every store holding personal data carries a lawful basis, and every gap carries a named owner
+    and a due date. An unclassified store is the finding, not an omission from the report.
 edges:
 - from: discover
   to: classify

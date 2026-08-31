@@ -1,0 +1,22 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "partition": {
+      "shards": []
+    },
+    "reduce": {
+      "copyleft_conflicts": false,
+      "output": {
+        "copyleft_conflicts": false,
+        "packages": []
+      },
+      "packages": []
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

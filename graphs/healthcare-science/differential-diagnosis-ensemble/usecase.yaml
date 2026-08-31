@@ -1,0 +1,4 @@
+id: uc-126
+pattern: ensemble-quorum
+summary: Independent diagnosticians rank hypotheses; a quorum decides, dissent is reported.
+verification: consensus or explicit dissent; no tie resolved silently

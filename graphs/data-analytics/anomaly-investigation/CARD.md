@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-023` | data-analytics | **router** | 4 | 4 | 1 | 1 | 12 | write |
 
+> 🎯 **Requires a goal** — the metric anomaly to investigate and the window it appeared in. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid
@@ -32,7 +34,8 @@ Route metric anomalies to seasonal, data-bug, or real-change analysts.
 A cheap classifier sends every item down the narrowest branch that can handle it, so cost and latency scale with the difficulty of each item rather than the worst case. Escalation edges guarantee hard items still reach the strong path.
 
 - **Exit contract** — classification agrees with holdout labels
-- **Machine-checked** — `output.matches_holdout`
+- **Machine-checked** — `output.assigned_class == output.expected_class`
+- **Machine-checked** — `len(output.expected_class) > 0`
 - **Bounded** — hard stop after 12 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval anomaly-investigation` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/anomaly-investigation.md)

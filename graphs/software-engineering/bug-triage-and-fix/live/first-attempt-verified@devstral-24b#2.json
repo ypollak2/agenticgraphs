@@ -1,0 +1,31 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "plan": {
+      "steps": [
+        "repro_test",
+        "patch_and_test"
+      ]
+    },
+    "execute": {
+      "step_result": {
+        "test_failed_before_patch": true,
+        "test_passes_after_patch": false
+      }
+    },
+    "verify": {
+      "output": {
+        "test_failed_before_patch": true,
+        "test_passes_after_patch": false
+      },
+      "test_failed_before_patch": true,
+      "test_passes_after_patch": false
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

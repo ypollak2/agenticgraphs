@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-091` | hr-people | **generator-critic** | 3 | 3 | 1 | 0 | 10 | write |
 
+> 🎯 **Requires a goal** — the role to describe and the level and team it sits in. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid
@@ -30,7 +32,8 @@ Draft job descriptions, critic removes bias and inflation.
 The generator optimizes for recall, the critic for precision. Nothing is accepted until the critic signs off, which filters out trivial, tautological, or hallucinated output before it ever reaches you.
 
 - **Exit contract** — bias-term lint clean; requirements deduplicated
-- **Machine-checked** — `output.bias_lint_clean and output.requirements_deduped`
+- **Machine-checked** — `len(output.bias_terms) == 0`
+- **Machine-checked** — `len(output.requirements) == len(output.unique_requirements)`
 - **Bounded** — hard stop after 10 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval jd-drafting-critic` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/jd-drafting-critic.md)

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: data-quality-audit
 description: Workers profile each table for nulls, drift, and duplicates.
 category: data-analytics
@@ -20,6 +20,8 @@ nodes:
     on_partial: continue
   outputs:
   - work_result
+  retries:
+    max: 2
 - id: verify
   speciality: verifier
   abilities:
@@ -28,6 +30,11 @@ nodes:
   outputs:
   - output
   - violations: list[{count:int, rule_id:any}]
+  - verify_failed: bool
+  criteria: Every violation is a machine-readable rule id with the row count that breaks it, so the report
+    can be re-run and diffed rather than re-read.
+  retries:
+    max: 2
 edges:
 - from: plan
   to: work
@@ -41,3 +48,12 @@ termination:
   contract: violations emitted as machine-readable rules with counts
 verification:
 - assert: all(v.rule_id and v.count >= 0 for v in output.violations)
+- describe: the quality rules are executed against the dataset
+  command: dbt test --select {model_name}
+goal:
+  required: true
+  description: the dataset to profile and the quality rules it must satisfy
+state:
+  inputs:
+  - goal
+  - model_name

@@ -1,0 +1,90 @@
+{
+  "model": "hermes3:8b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "seed": {
+      "leads": [
+        {
+          "lead": "It seems there were some attempts mentioned in the input blackboard. If this evidence isn't cited to support any conclusions, that would be an unresolved issue that should likely be noted.",
+          "importance": "medium",
+          "justification": "Citing evidence is a key requirement of the workflow exit contract"
+        },
+        {
+          "lead": "The prompt mentions having me generate leads rather than actual outputs. So if there are any open questions or uncited claims in whatever conclusions are drawn downstream, that should be called out as unresolved problems with this system.",
+          "importance": "high",
+          "justification": "Meeting the contractual performance requirements of my role and being up-front about limitations is critical"
+        }
+      ]
+    },
+    "investigate": [
+      {
+        "evidence": [
+          "If this evidence isn't cited to support any conclusions, that would be an unresolved issue that should likely be noted.",
+          "The prompt mentions having me generate leads rather than actual outputs. So if there are any open questions or uncited claims in whatever conclusions are drawn downstream, that should be called out as unresolved problems with this system."
+        ]
+      },
+      {
+        "evidence": "The prompt mentions having me generate leads rather than actual outputs. So if there are any open questions or uncited claims in whatever conclusions are drawn downstream, that should be called out as unresolved problems with this system."
+      },
+      {
+        "evidence": [
+          "If this evidence isn't cited to support any conclusions, that would be an unresolved issue that should likely be noted.",
+          "The prompt mentions having me generate leads rather than actual outputs. So if there are any open questions or uncited claims in whatever conclusions are drawn downstream, that should be called out as unresolved problems with this system.",
+          "The prompt mentions having me generate leads rather than actual outputs. So if there are any open questions or uncited claims in whatever conclusions are drawn downstream, that should be called out as unresolved problems with this system."
+        ]
+      },
+      {
+        "uncited_claims": 1,
+        "open_questions": [
+          "There seem to be some unresolved issues with this analysis."
+        ]
+      },
+      {
+        "evidence": [
+          "Based on the leads generated so far, it appears there is one uncited claim and one open question that has not been addressed in the conclusions drawn from the evidence presented.",
+          "The prompt mentions having me generate leads rather than actual outputs. So if there are any open questions or uncited claims in whatever conclusions are drawn downstream, that should be called out as unresolved problems with this system.",
+          "There seem to be some unresolved issues with this analysis."
+        ]
+      },
+      {
+        "evidence": [
+          "Based on the leads generated so far, it appears there is one uncited claim and one open question that has not been addressed in the conclusions drawn from the evidence presented."
+        ]
+      }
+    ],
+    "assess": [
+      {
+        "uncited_claims": 1,
+        "open_questions": [
+          "There seem to be some unresolved issues with this analysis.",
+          "This system has limitations that should be acknowledged."
+        ]
+      },
+      {
+        "open_questions": [
+          "There seem to be some unresolved issues with this analysis."
+        ],
+        "output": {
+          "uncited_claims": 1,
+          "open_questions": "There seem to be some unresolved issues with this analysis."
+        },
+        "picture": "Based on the leads generated so far, it appears there is one uncited claim and one open question that has not been addressed in the conclusions drawn from the evidence presented.",
+        "uncited_claims": 1
+      },
+      {
+        "open_questions": [
+          "There seem to be some unresolved issues with this analysis."
+        ],
+        "output": {
+          "uncited_claims": 1,
+          "open_questions": "There seem to be some unresolved issues with this analysis."
+        },
+        "picture": "Based on the leads generated so far, it appears there is one uncited claim and one open question that has not been addressed in the conclusions drawn from the evidence presented.",
+        "uncited_claims": 1
+      }
+    ]
+  },
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

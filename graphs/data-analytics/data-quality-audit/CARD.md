@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-020` | data-analytics | **parallel-swarm** | 3 | 3 | 1 | 0 | 30 | execute |
 
+> 🎯 **Requires a goal** — the dataset to profile and the quality rules it must satisfy. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid
@@ -31,6 +33,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 
 - **Exit contract** — violations emitted as machine-readable rules with counts
 - **Machine-checked** — `all(v.rule_id and v.count >= 0 for v in output.violations)`
+- **Command-checked** — `dbt test --select {model_name}`
 - **Bounded** — hard stop after 30 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval data-quality-audit` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/data-quality-audit.md)

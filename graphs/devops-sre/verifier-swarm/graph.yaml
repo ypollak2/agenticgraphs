@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: verifier-swarm
 description: Planner fans work out to isolated workers; nothing merges until a verifier command proves
   the goal is done.
@@ -21,15 +21,22 @@ nodes:
     on_partial: continue
   outputs:
   - patched
+  retries:
+    max: 2
 - id: verifier
   speciality: verifier
   abilities:
   - run_command
   kind: verifier
   outputs:
-  - escalated: any
+  - escalated
   - output
-  - verified: any
+  - verify_failed: bool
+  criteria: The goal's verification command exits zero against the merged result. Nothing merges on a
+    worker's report that it finished; three failures escalate to a human rather than becoming a fourth
+    attempt.
+  retries:
+    max: 2
 edges:
 - from: planner
   to: worker
@@ -42,5 +49,15 @@ termination:
   max_steps: 30
   contract: verifier command exits 0, or 3 failed attempts escalate to human
 verification:
-- assert: output.verified == true or output.escalated == true
-- command: user-supplied verify command must exit 0
+- describe: "the caller's own verification command exits 0 \u2014 the exit code is the fact, and nothing\
+    \ merges before it"
+  command: '{verify_command}'
+- describe: 'the retry loop is bounded: three failures escalate rather than becoming a fourth attempt'
+  assert: output.attempts <= 3
+goal:
+  required: true
+  description: the goal to decompose and the command that proves it done
+state:
+  inputs:
+  - goal
+  - verify_command

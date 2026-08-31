@@ -1,0 +1,34 @@
+cases:
+- id: simple-branch
+  node_outputs:
+    route:
+      complexity: low
+    branch-simple:
+      assigned_evidence_level: 1b
+    verify:
+      assigned_evidence_level: 1b
+      expected_evidence_level: 1b
+      output:
+        assigned_evidence_level: 1b
+        expected_evidence_level: 1b
+  goal: PMID-30011, against the validated evidence-level sample
+  inputs:
+    validated_labels: &id001
+      PMID-30011: 1b
+      PMID-30012: 2b
+      PMID-30013: '4'
+- id: complex-branch
+  node_outputs:
+    route:
+      complexity: high
+    branch-complex:
+      assigned_evidence_level: 2b
+    verify:
+      assigned_evidence_level: 2b
+      expected_evidence_level: 2b
+      output:
+        assigned_evidence_level: 2b
+        expected_evidence_level: 2b
+  goal: PMID-30012, against the validated evidence-level sample
+  inputs:
+    validated_labels: *id001

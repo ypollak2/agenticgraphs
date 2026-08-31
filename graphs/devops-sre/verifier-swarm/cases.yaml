@@ -1,0 +1,76 @@
+cases:
+- id: first-attempt-verified
+  node_outputs:
+    planner:
+      plan:
+      - fix-timeout
+      tasks:
+      - i: 1
+      - i: 2
+      - i: 3
+    worker:
+      patched: true
+    verifier:
+      verify_failed: false
+      attempts: 1
+      output:
+        verified: true
+        escalated: false
+      escalated: false
+  goal: make tests/integration pass; proven by `pytest tests/integration`
+- id: retry-then-verified
+  node_outputs:
+    planner:
+      plan:
+      - fix-timeout
+      tasks:
+      - i: 1
+      - i: 2
+      - i: 3
+    worker:
+    - patched: false
+    - patched: true
+    verifier:
+    - verify_failed: true
+      attempts: 1
+      escalated: false
+      output:
+        escalated: false
+    - verify_failed: false
+      attempts: 2
+      output:
+        verified: true
+        escalated: false
+      escalated: false
+  goal: make tests/integration pass; proven by `pytest tests/integration`
+- id: three-failures-escalates
+  node_outputs:
+    planner:
+      plan:
+      - impossible
+      tasks:
+      - i: 1
+      - i: 2
+      - i: 3
+    worker:
+    - {}
+    - {}
+    - {}
+    verifier:
+    - verify_failed: true
+      attempts: 1
+      escalated: false
+      output:
+        escalated: false
+    - verify_failed: true
+      attempts: 2
+      escalated: false
+      output:
+        escalated: false
+    - verify_failed: true
+      attempts: 3
+      output:
+        verified: false
+        escalated: false
+      escalated: false
+  goal: make tests/integration pass; proven by `pytest tests/integration`

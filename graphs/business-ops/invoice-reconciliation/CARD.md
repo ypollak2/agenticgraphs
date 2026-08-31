@@ -36,7 +36,7 @@ A cheap classifier sends every item down the narrowest branch that can handle it
 
 - **Exit contract** — an unmatched invoice never posts without an AP signature
 - **Machine-checked** — `output.unreviewed_exceptions == 0`
-- **Machine-checked** — `output.three_way_matched == true`
+- **Machine-checked** — `all(m.invoice_id and m.po_id and m.receipt_id for m in output.matched)`
 - **Bounded** — hard stop after 30 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval invoice-reconciliation` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/invoice-reconciliation.md)

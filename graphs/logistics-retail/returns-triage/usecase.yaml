@@ -1,0 +1,4 @@
+id: uc-102
+pattern: router
+summary: Route returns by reason to refund, repair, or fraud review.
+verification: routing agrees with policy decision table

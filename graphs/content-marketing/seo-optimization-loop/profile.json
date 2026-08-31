@@ -18,7 +18,7 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-08-11",
+    "date": "2026-08-31",
     "cases": 2,
     "passed": 2,
     "pass_rate": 1.0,
@@ -73,10 +73,10 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:devstral:24b,qwen3-coder:30b",
+    "runner": "llm-replay:qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-08-11",
+    "date": "2026-08-31",
     "cases": 6,
     "passed": 6,
     "pass_rate": 1.0,
@@ -84,58 +84,8 @@
     "results": [
       {
         "id": "meets-target-first-try",
-        "model": "devstral:24b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": true,
-        "steps": 3,
-        "trace": [
-          "intake",
-          "attempt",
-          "measure"
-        ],
-        "goal_missing": "",
-        "assert_failures": [],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "meets-target-first-try",
-        "model": "devstral:24b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": true,
-        "steps": 3,
-        "trace": [
-          "intake",
-          "attempt",
-          "measure"
-        ],
-        "goal_missing": "",
-        "assert_failures": [],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "meets-target-first-try",
-        "model": "devstral:24b",
-        "recorded": "2026-08-11",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": true,
         "steps": 3,
@@ -160,7 +110,7 @@
       {
         "id": "meets-target-first-try",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
+        "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": true,
         "steps": 3,
@@ -185,7 +135,7 @@
       {
         "id": "meets-target-first-try",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
+        "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": true,
         "steps": 3,
@@ -208,9 +158,59 @@
         "tool_calls": []
       },
       {
-        "id": "meets-target-first-try",
+        "id": "retry-then-meets-target",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "intake",
+          "attempt",
+          "measure"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "retry-then-meets-target",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "intake",
+          "attempt",
+          "measure"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "retry-then-meets-target",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": true,
         "steps": 3,
@@ -234,21 +234,18 @@
       }
     ],
     "models": [
-      "devstral:24b",
       "qwen3-coder:30b"
     ],
-    "recorded": "2026-08-11",
+    "recorded": "2026-08-31",
     "age_days": 0,
     "per_model_pass_rate": {
-      "devstral:24b": 1.0,
       "qwen3-coder:30b": 1.0
     },
     "models_disagree": false,
     "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
-      "devstral:24b": 3,
-      "qwen3-coder:30b": 3
+      "qwen3-coder:30b": 6
     },
     "gate_auto_approved": false
   }

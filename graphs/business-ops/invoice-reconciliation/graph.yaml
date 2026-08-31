@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: invoice-reconciliation
 description: Match invoices to POs and receipts cheapest-first, escalating only genuine exceptions to
   a human.
@@ -12,7 +12,7 @@ nodes:
   - invoices
   outputs:
   - exceptions
-  - matched
+  - matched: list[{invoice_id:any, po_id:any, receipt_id:any}]
   - violations: list[{line_id:any, policy_rule:any}]
 - id: fuzzy-match
   speciality: escalator
@@ -42,10 +42,10 @@ nodes:
   inputs:
   - matched
   outputs:
+  - matched: list[{invoice_id:any, po_id:any, receipt_id:any}]
   - output
   - posted
-  - three_way_matched: any
-  - unreviewed_exceptions: int
+  - unreviewed_exceptions
   join: any
 edges:
 - from: auto-match
@@ -66,10 +66,11 @@ termination:
   max_steps: 30
   contract: an unmatched invoice never posts without an AP signature
 verification:
-- describe: no exception posts without human review
+- describe: no exception reached posting unreviewed
   assert: output.unreviewed_exceptions == 0
-- describe: three-way match holds for everything posted
-  assert: output.three_way_matched == true
+- describe: "a three-way match names all three documents \u2014 invoice, PO and receipt. A match that\
+    \ cannot say what it matched is a claim"
+  assert: all(m.invoice_id and m.po_id and m.receipt_id for m in output.matched)
 state:
   inputs:
   - goal

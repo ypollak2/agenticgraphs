@@ -1,0 +1,6 @@
+id: uc-025
+name: data-catalog-enrichment
+domain: data-analytics
+pattern: map-reduce
+summary: Describe every table and column, reduce into a searchable catalog.
+verification: descriptions exist for all tables; lineage links resolve

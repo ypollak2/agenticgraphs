@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: sql-generation-verified
 description: Generate SQL, critic checks schema validity and row sanity.
 category: data-analytics
@@ -15,19 +15,39 @@ nodes:
   - generate
   outputs:
   - draft
+- id: execute
+  speciality: executor
+  abilities:
+  - execute_step
+  - run_command
+  inputs:
+  - draft
+  outputs:
+  - row_count
+  - exit_code
+  criteria: The query is run against the real schema and its exit code and row count are recorded. A query
+    judged correct without being executed has not been verified.
+  retries:
+    max: 2
 - id: critique
   speciality: critic
   abilities:
   - critique
   kind: verifier
   outputs:
+  - exit_code: int
   - output
-  - query_executes: any
-  - row_count_sane: any
+  - row_count: int
+  - rejected: bool
+  criteria: The query executes against the real schema and its result passes row-count sanity. A query
+    returning zero rows from a populated table, or every row where a filter was asked for, is wrong even
+    though it ran.
 edges:
 - from: intake
   to: generate
 - from: generate
+  to: execute
+- from: execute
   to: critique
 - from: critique
   to: generate
@@ -36,4 +56,17 @@ termination:
   max_steps: 10
   contract: query executes; result passes row-count sanity assertions
 verification:
-- assert: output.query_executes and output.row_count_sane
+- describe: the query ran, read off the exit code the `execute` node recorded
+  assert: output.exit_code == 0
+- describe: "the result is not vacuous \u2014 a query returning nothing from a populated table is wrong\
+    \ even though it ran"
+  assert: output.row_count > 0
+- describe: the query is executed against the real schema
+  command: psql -v ON_ERROR_STOP=1 -f {query_path}
+goal:
+  required: true
+  description: the question to answer in SQL and the schema to answer it against
+state:
+  inputs:
+  - goal
+  - query_path

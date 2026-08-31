@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-033` | research-knowledge | **parallel-swarm** | 3 | 3 | 1 | 0 | 30 | execute |
 
+> 🎯 **Requires a goal** — the document whose citations to verify and the sources it cites. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid
@@ -31,6 +33,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 
 - **Exit contract** — every citation resolves; mismatches listed
 - **Machine-checked** — `all(c.resolves for c in output.citations)`
+- **Command-checked** — `linkchecker --no-warnings {document_path}`
 - **Bounded** — hard stop after 30 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval citation-integrity-audit` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/citation-integrity-audit.md)

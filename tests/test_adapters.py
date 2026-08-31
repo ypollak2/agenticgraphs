@@ -5,6 +5,7 @@ import pytest
 from agenticgraphs.adapters import emit_autogen, emit_crewai, emit_langgraph
 from agenticgraphs.inspect import find_graph
 from agenticgraphs.registry import iter_graphs, load
+from agenticgraphs.subgraphs import expand, has_subgraphs
 
 
 def test_every_graph_compiles_to_valid_langgraph_source():
@@ -111,3 +112,61 @@ def test_compiled_topology_matches_executed_topology():
         compiled = {n["id"] for n in executable["nodes"]}
         rep = run_graph(doc, MockRunner({}))
         assert set(rep.trace) <= compiled, doc["name"]
+
+
+# --------------------------------------------------------------- runnable-ness
+#
+# `ast.parse` proves the emitter produced Python. It does not prove the emitted
+# module builds a graph, and none of these frameworks were installed, so nothing
+# ever imported one. An upstream rename in `langgraph.graph` would have kept
+# every test green while `agr adapt` shipped source that cannot run.
+
+langgraph = pytest.importorskip("langgraph.graph", reason="install the `adapters` extra")
+
+
+@pytest.mark.parametrize("name", ["code-review-pipeline", "incident-triage-router",
+                                  "verifier-swarm"])
+def test_emitted_langgraph_module_actually_builds(name, tmp_path):
+    """Execute the generated module and compile the StateGraph it declares.
+
+    The node bodies raise NotImplementedError by design — structure is compiled,
+    behavior is bound — so this asserts the graph *builds*, which is the part the
+    adapter is responsible for.
+    """
+    src = emit_langgraph(load(find_graph(name)))
+    ns: dict = {}
+    exec(compile(src, f"<{name}>", "exec"), ns)
+    app = ns["app"]
+    assert app is not None
+    graph = app.get_graph()
+    doc = load(find_graph(name))
+    executable = expand(doc) if has_subgraphs(doc) else doc
+    emitted = set(graph.nodes) - {"__start__", "__end__"}
+    assert emitted == {n["id"] for n in executable["nodes"]}
+
+
+def test_emitted_langgraph_routes_the_same_branch_the_harness_does():
+    """Adapter and harness must agree on a router, or the compiled app is a
+    different graph from the one the eval profile describes."""
+    doc = load(find_graph("incident-triage-router"))
+    src = emit_langgraph(doc)
+    ns: dict = {}
+    exec(compile(src, "<router>", "exec"), ns)
+    cond = ns["_cond"]
+    assert cond("complexity <= moderate", {"complexity": "low"})
+    assert not cond("complexity > moderate", {"complexity": "low"})
+    assert cond("complexity > moderate", {"complexity": "high"})
+
+
+def test_emitted_stub_carries_the_rubric_to_whoever_binds_it():
+    """The stub is where behavior gets bound, so it is where criteria must land.
+
+    Emitting only the speciality handed the implementer a role label and left the
+    domain knowledge in a YAML file they were not reading.
+    """
+    doc = load(find_graph("code-review-pipeline"))
+    verifier = next(n for n in doc["nodes"] if n.get("kind") == "verifier")
+    if not verifier.get("criteria"):
+        pytest.skip("graph not yet migrated to v1.8 criteria")
+    for emit in (emit_langgraph, emit_crewai, emit_autogen):
+        assert verifier["criteria"] in emit(doc)

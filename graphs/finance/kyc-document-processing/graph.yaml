@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: kyc-document-processing
 description: Extract, cross-check, and flag gaps in KYC documents.
 category: finance
@@ -9,6 +9,16 @@ nodes:
   - analyze
   outputs:
   - summary
+- id: sanctions-screen
+  speciality: screener
+  abilities:
+  - screen
+  inputs:
+  - summary
+  outputs:
+  - screen_hits
+  criteria: Every name and date of birth is screened against the sanctions and PEP lists for the customer's
+    jurisdiction. A near-match is a hit to adjudicate, never a miss to round away.
 - id: produce
   speciality: producer
   abilities:
@@ -22,8 +32,13 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - revision_requested: bool
+  criteria: Every extracted field validates against the document image it came from, and a field that
+    could not be read is flagged as a gap rather than inferred from the rest of the pack.
 edges:
 - from: intake
+  to: sanctions-screen
+- from: sanctions-screen
   to: produce
 - from: produce
   to: review
@@ -35,3 +50,9 @@ termination:
   contract: extracted fields validate against document images
 verification:
 - assert: all(f.validated for f in output.fields)
+goal:
+  required: true
+  description: the customer documents to process and the jurisdiction's KYC requirements
+state:
+  inputs:
+  - goal

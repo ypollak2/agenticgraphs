@@ -677,8 +677,7 @@ entries:
   name: cost-routed-research
   domain: research-knowledge
   pattern: router
-  summary: Routes research subtasks to the cheapest capable model, escalates low-confidence answers, synthesizes
-    with citations.
+  summary: Routes research subtasks to the cheapest capable model, escalates low-confidence answers, synthesizes with citations.
   verification: every claim in the synthesis cites at least one source
 - id: uc-114
   name: verifier-swarm

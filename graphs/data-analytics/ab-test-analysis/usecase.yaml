@@ -1,0 +1,4 @@
+id: uc-024
+pattern: debate
+summary: Two analysts argue significance and pitfalls, judge writes readout.
+verification: stats recomputed from raw data reproduce claimed effect

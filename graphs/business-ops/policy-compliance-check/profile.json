@@ -2,8 +2,8 @@
   "name": "policy-compliance-check",
   "category": "business-ops",
   "structural": {
-    "nodes": 3,
-    "edges": 3,
+    "nodes": 4,
+    "edges": 4,
     "verifier_nodes": 1,
     "router_nodes": 0,
     "parallel_groups": 0,
@@ -18,18 +18,19 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-08-11",
+    "date": "2026-08-31",
     "cases": 2,
     "passed": 2,
     "pass_rate": 1.0,
-    "mean_steps": 4.0,
+    "mean_steps": 5.0,
     "results": [
       {
         "id": "happy-path",
         "passed": true,
-        "steps": 3,
+        "steps": 4,
         "trace": [
           "intake",
+          "clause-map",
           "produce",
           "review"
         ],
@@ -49,9 +50,10 @@
       {
         "id": "retry-then-resolved",
         "passed": true,
-        "steps": 5,
+        "steps": 6,
         "trace": [
           "intake",
+          "clause-map",
           "produce",
           "review",
           "produce",
@@ -73,74 +75,27 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:devstral:24b,qwen3-coder:30b",
+    "runner": "llm-replay:qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-08-11",
+    "date": "2026-08-31",
     "cases": 6,
     "passed": 6,
     "pass_rate": 1.0,
-    "mean_steps": 3.0,
+    "mean_steps": 6.0,
     "results": [
       {
         "id": "happy-path",
-        "model": "devstral:24b",
-        "recorded": "2026-08-11",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": true,
-        "steps": 3,
+        "steps": 6,
         "trace": [
           "intake",
+          "clause-map",
           "produce",
-          "review"
-        ],
-        "goal_missing": "",
-        "assert_failures": [],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "devstral:24b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": true,
-        "steps": 3,
-        "trace": [
-          "intake",
-          "produce",
-          "review"
-        ],
-        "goal_missing": "",
-        "assert_failures": [],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "devstral:24b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": true,
-        "steps": 3,
-        "trace": [
-          "intake",
+          "review",
           "produce",
           "review"
         ],
@@ -160,12 +115,15 @@
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
+        "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": true,
-        "steps": 3,
+        "steps": 6,
         "trace": [
           "intake",
+          "clause-map",
+          "produce",
+          "review",
           "produce",
           "review"
         ],
@@ -185,12 +143,15 @@
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
+        "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": true,
-        "steps": 3,
+        "steps": 6,
         "trace": [
           "intake",
+          "clause-map",
+          "produce",
+          "review",
           "produce",
           "review"
         ],
@@ -208,14 +169,73 @@
         "tool_calls": []
       },
       {
-        "id": "happy-path",
+        "id": "retry-then-resolved",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
+        "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": true,
-        "steps": 3,
+        "steps": 6,
         "trace": [
           "intake",
+          "clause-map",
+          "produce",
+          "review",
+          "produce",
+          "review"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "retry-then-resolved",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 6,
+        "trace": [
+          "intake",
+          "clause-map",
+          "produce",
+          "review",
+          "produce",
+          "review"
+        ],
+        "goal_missing": "",
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "retry-then-resolved",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 6,
+        "trace": [
+          "intake",
+          "clause-map",
+          "produce",
+          "review",
           "produce",
           "review"
         ],
@@ -234,21 +254,18 @@
       }
     ],
     "models": [
-      "devstral:24b",
       "qwen3-coder:30b"
     ],
-    "recorded": "2026-08-11",
+    "recorded": "2026-08-31",
     "age_days": 0,
     "per_model_pass_rate": {
-      "devstral:24b": 1.0,
       "qwen3-coder:30b": 1.0
     },
     "models_disagree": false,
     "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
-      "devstral:24b": 3,
-      "qwen3-coder:30b": 3
+      "qwen3-coder:30b": 6
     },
     "gate_auto_approved": false
   }

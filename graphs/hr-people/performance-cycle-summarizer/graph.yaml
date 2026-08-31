@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: performance-cycle-summarizer
 description: Aggregate self, peer and manager input into a calibrated summary with evidence for every
   claim.
@@ -39,6 +39,8 @@ nodes:
   - calibrated_summary
   - output
   - uncited_claims: int
+  criteria: Every statement cites the self, peer or manager input it came from, and no recency or halo
+    bias flag survives calibration. An uncited claim in a performance summary is hearsay.
 edges:
 - from: gather
   to: synthesize

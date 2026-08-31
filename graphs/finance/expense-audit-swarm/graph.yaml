@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: expense-audit-swarm
 description: Workers audit expense lines against policy in parallel.
 category: finance
@@ -20,6 +20,8 @@ nodes:
     on_partial: continue
   outputs:
   - work_result
+  retries:
+    max: 2
 - id: verify
   speciality: verifier
   abilities:
@@ -28,6 +30,11 @@ nodes:
   outputs:
   - output
   - violations: list[{line_id:any, policy_rule:any}]
+  - verify_failed: bool
+  criteria: Every violation names the expense line id and the specific policy rule it breaches, so the
+    claimant can see what to fix rather than that something was wrong.
+  retries:
+    max: 2
 edges:
 - from: plan
   to: work
@@ -41,3 +48,9 @@ termination:
   contract: violations carry line id and policy rule
 verification:
 - assert: all(v.line_id and v.policy_rule for v in output.violations)
+goal:
+  required: true
+  description: the expense reports to audit and the policy that governs them
+state:
+  inputs:
+  - goal

@@ -1,0 +1,91 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the Acme Health RFP, answered from the 2026 solutions library"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "requirement_id": "RFP-001",
+          "status": "answered",
+          "answer": "Our 2026 solution library includes comprehensive health analytics platforms that meet all specified requirements for data integration, compliance, and scalability."
+        },
+        {
+          "requirement_id": "RFP-002",
+          "status": "answered",
+          "answer": "All solutions in our 2026 library comply with HIPAA, GDPR, and other relevant healthcare regulations, ensuring full regulatory adherence."
+        },
+        {
+          "requirement_id": "RFP-003",
+          "status": "answered",
+          "answer": "Our platform offers multi-tenant architecture with customizable dashboards and real-time reporting capabilities as specified in the RFP."
+        },
+        {
+          "requirement_id": "RFP-004",
+          "status": "answered",
+          "answer": "The 2026 solutions library includes advanced AI/ML models for predictive analytics, population health management, and clinical decision support."
+        },
+        {
+          "requirement_id": "RFP-005",
+          "status": "flagged",
+          "answer": "Some requirements regarding third-party integrations may require additional configuration. Please confirm specific integration needs for detailed assessment."
+        }
+      ]
+    },
+    "map": [
+      {
+        "shard_result": "answered"
+      },
+      {
+        "shard_result": "answered"
+      },
+      {
+        "shard_result": "answered"
+      },
+      {
+        "shard_result": "flagged"
+      },
+      {
+        "shard_result": "flagged"
+      }
+    ],
+    "reduce": {
+      "output": {
+        "page_count": 1.0,
+        "page_limit": 5.0,
+        "requirements": [
+          {
+            "answered": true,
+            "flagged": false
+          },
+          {
+            "answered": true,
+            "flagged": false
+          },
+          {
+            "answered": true,
+            "flagged": false
+          },
+          {
+            "answered": true,
+            "flagged": false
+          },
+          {
+            "answered": false,
+            "flagged": true
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": []
+}

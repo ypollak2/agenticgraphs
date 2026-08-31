@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: code-review-pipeline
 description: Multi-stage PR review that triages risk, splits security and style review, and synthesizes
   one verdict.
@@ -20,6 +20,8 @@ nodes:
   parallel_group: reviews
   outputs:
   - sec_hits
+  retries:
+    max: 2
 - id: style-review
   speciality: style-reviewer
   abilities:
@@ -35,6 +37,8 @@ nodes:
   outputs:
   - findings: list[{file:any, line:int}]
   - verdict: any
+  criteria: The verdict is approve or request_changes, and every finding names the file and line it is
+    about. A review comment that cannot be located in the diff cannot be acted on.
 edges:
 - from: triage
   to: security-review
@@ -51,3 +55,11 @@ termination:
 verification:
 - assert: output.verdict in ['approve','request_changes']
 - assert: all(f.file and f.line for f in output.findings)
+- describe: the secret scanner runs over the diff rather than the reviewer eyeballing it
+  command: gitleaks detect --no-banner --redact
+goal:
+  required: true
+  description: the change to review and the repository it lands in
+state:
+  inputs:
+  - goal

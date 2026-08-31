@@ -46,10 +46,9 @@ Research, plan, implement, test, audit, fix, document and release a feature end 
 A multi-phase workflow where each phase is itself a motif and hand-offs are explicit. Phases that duplicate an existing single-purpose graph reference it with `kind: subgraph` instead of restating it, so the flat library becomes the component library and a fix to a child propagates to every composite using it.
 
 - **Exit contract** — A release is cut only after the audit verdict is approve, docs are updated, and a human signs off; a failed release is compensated by a rollback.
-- **Machine-checked** — `output.verdict == 'approve'`
-- **Machine-checked** — `output.docs_updated == true`
+- **Machine-checked** — `all(d.file and d.pr_url for d in output.doc_changes)`
 - **Machine-checked** — `output.signed_off == true`
-- **Machine-checked** — `output.released == true or output.rolled_back == true`
+- **Command-checked** — `pytest -q`
 - **Bounded** — hard stop after 60 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval feature-delivery-lifecycle` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/feature-delivery-lifecycle.md)

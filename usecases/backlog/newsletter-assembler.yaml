@@ -1,0 +1,6 @@
+id: uc-040
+name: newsletter-assembler
+domain: content-marketing
+pattern: map-reduce
+summary: Summarize the period's items, reduce into sections.
+verification: every item links its source; dead links zero

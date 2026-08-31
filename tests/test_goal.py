@@ -13,7 +13,7 @@ import yaml
 
 from agenticgraphs.evalcmd import case_inputs
 from agenticgraphs.harness import MockRunner, run_graph
-from agenticgraphs.registry import ROOT, SPEC_VERSION, iter_graphs, load
+from agenticgraphs.registry import SPEC_VERSION, cases_path, iter_graphs, load
 from agenticgraphs.validate import lint_graph
 
 
@@ -139,7 +139,7 @@ def test_every_required_goal_is_reachable_from_its_golden_cases():
         doc = load(gp)
         if not (doc.get("goal") or {}).get("required"):
             continue
-        cases_file = ROOT / "evals" / doc["name"] / "cases.yaml"
+        cases_file = cases_path(doc["name"])
         if not cases_file.exists():
             continue
         for case in yaml.safe_load(cases_file.read_text())["cases"]:

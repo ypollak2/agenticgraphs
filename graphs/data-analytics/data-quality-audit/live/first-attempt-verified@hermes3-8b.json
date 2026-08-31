@@ -1,0 +1,76 @@
+{
+  "model": "hermes3:8b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "id": "decompose_goal",
+          "name": "Decompose the goal of generating a workflow for planning into more specific tasks.",
+          "inputs": [
+            "goal"
+          ],
+          "outputType": "task_list"
+        },
+        {
+          "id": "select_specialty",
+          "name": "Choose which speciality area to use given current information like prior_planning and expert system setup.",
+          "inputs": [
+            "current_prior_planning",
+            "expert_system_setup"
+          ],
+          "outputType": "specialties_selected"
+        },
+        {
+          "id": "create_plan",
+          "name": "Use selected specialization and domain knowledge to generate the plan.",
+          "inputs": [
+            "tasks_list",
+            "specialties_selected"
+          ],
+          "outputType": "plan"
+        }
+      ]
+    },
+    "work": [
+      {
+        "work_result": {
+          "violations": [
+            {
+              "rule_id": "R1",
+              "count": 0
+            },
+            {
+              "rule_id": "R2",
+              "count": 0
+            }
+          ]
+        }
+      },
+      {
+        "work_result": "select_specialty"
+      },
+      {
+        "work_result": "Generated a workflow plan"
+      }
+    ],
+    "verify": {
+      "output": {
+        "plan": "Use the selected 'planner' speciality to generate the plan for decomposing the goal of generating a workflow for planning into more specific tasks, then selecting the right specialty to use given current information, and finally creating the detailed plan using that chosen specialty.",
+        "violations": [
+          {
+            "rule_id": "R1",
+            "count": 0
+          },
+          {
+            "rule_id": "R2",
+            "count": 0
+          }
+        ]
+      }
+    }
+  },
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

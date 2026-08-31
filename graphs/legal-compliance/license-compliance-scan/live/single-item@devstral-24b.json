@@ -1,0 +1,64 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "type": "package",
+          "attribute": "license_type",
+          "range": {
+            "lower": "Permissive",
+            "upper": "Proprietary"
+          }
+        }
+      ]
+    },
+    "map": {
+      "shard_result": [
+        [
+          {
+            "type": "package",
+            "name": "React",
+            "spdx": "MIT",
+            "license_type": "Permissive"
+          },
+          {
+            "type": "package",
+            "name": "Vue.js",
+            "spdx": "MIT",
+            "license_type": "Permissive"
+          },
+          false
+        ]
+      ]
+    },
+    "reduce": {
+      "copyleft_conflicts": false,
+      "output": {
+        "copyleft_conflicts": false,
+        "packages": [
+          {
+            "spdx": "MIT"
+          },
+          {
+            "spdx": "MIT"
+          }
+        ]
+      },
+      "packages": [
+        {
+          "spdx": "MIT"
+        },
+        {
+          "spdx": "MIT"
+        }
+      ]
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

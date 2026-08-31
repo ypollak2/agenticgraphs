@@ -1,0 +1,4 @@
+id: uc-120
+pattern: human-gate
+summary: Intake, redline and execute a contract gated on residual risk and counsel approval.
+verification: residual risk at or below medium with counsel signature before execution

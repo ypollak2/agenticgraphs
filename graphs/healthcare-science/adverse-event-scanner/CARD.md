@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-067` | healthcare-science | **map-reduce** | 3 | 2 | 1 | 0 | 20 | write |
 
+> 🎯 **Requires a goal** — the reports to scan and the product whose safety signal matters. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

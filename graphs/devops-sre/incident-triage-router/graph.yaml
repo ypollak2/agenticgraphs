@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: incident-triage-router
 description: Classify severity and route incidents to the owning team.
 category: devops-sre
@@ -15,21 +15,24 @@ nodes:
   abilities:
   - generate
   outputs:
-  - handled_by
+  - assigned_team
 - id: branch-complex
   speciality: producer
   abilities:
   - generate
   outputs:
-  - handled_by
+  - assigned_team
 - id: verify
   speciality: critic
   abilities:
   - critique
   kind: verifier
   outputs:
-  - matches_ownership_map
+  - expected_team
+  - assigned_team
   - output
+  criteria: The team the incident was routed to owns the affected service in the current on-call map,
+    and the severity reflects observed customer impact rather than the reporter's urgency.
 edges:
 - from: route
   to: branch-simple
@@ -45,4 +48,14 @@ termination:
   max_steps: 12
   contract: routing matches on-call ownership map
 verification:
-- assert: output.matches_ownership_map
+- describe: the decision agrees with the ownership map the caller supplied
+  assert: output.assigned_team == output.expected_team
+- describe: the reference was actually consulted, not left empty
+  assert: len(output.expected_team) > 0
+goal:
+  required: true
+  description: the incident to route and the on-call ownership map to route it by
+state:
+  inputs:
+  - goal
+  - ownership_map

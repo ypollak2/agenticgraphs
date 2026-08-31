@@ -1,0 +1,6 @@
+id: uc-037
+name: brand-consistency-audit
+domain: content-marketing
+pattern: parallel-swarm
+summary: Workers audit assets against voice and visual guidelines.
+verification: violations reported per asset with rule ids

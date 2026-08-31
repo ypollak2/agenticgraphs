@@ -25,7 +25,9 @@ from __future__ import annotations
 
 import re
 
-SCALARS = {
+#: `float` accepts an int too, so a value is checked against a tuple of types —
+#: which is why this is annotated as isinstance's `_ClassInfo`, not `type`.
+SCALARS: dict[str, type | tuple[type, ...]] = {
     "str": str, "int": int, "float": (int, float), "bool": bool,
     "list": list, "dict": dict, "any": object,
 }

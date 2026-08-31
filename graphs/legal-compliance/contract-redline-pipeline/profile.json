@@ -2,8 +2,8 @@
   "name": "contract-redline-pipeline",
   "category": "legal-compliance",
   "structural": {
-    "nodes": 3,
-    "edges": 3,
+    "nodes": 4,
+    "edges": 4,
     "verifier_nodes": 1,
     "router_nodes": 0,
     "parallel_groups": 0,
@@ -18,18 +18,19 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-08-11",
+    "date": "2026-08-31",
     "cases": 2,
     "passed": 2,
     "pass_rate": 1.0,
-    "mean_steps": 4.0,
+    "mean_steps": 5.0,
     "results": [
       {
         "id": "happy-path",
         "passed": true,
-        "steps": 3,
+        "steps": 4,
         "trace": [
           "intake",
+          "playbook-lookup",
           "produce",
           "review"
         ],
@@ -49,9 +50,10 @@
       {
         "id": "retry-then-resolved",
         "passed": true,
-        "steps": 5,
+        "steps": 6,
         "trace": [
           "intake",
+          "playbook-lookup",
           "produce",
           "review",
           "produce",
@@ -73,153 +75,25 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:devstral:24b,hermes3:8b,qwen2.5-coder:7b,qwen3-coder:30b",
+    "runner": "llm-replay:qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-08-11",
-    "cases": 8,
-    "passed": 6,
-    "pass_rate": 0.75,
-    "mean_steps": 3.0,
+    "date": "2026-08-31",
+    "cases": 2,
+    "passed": 2,
+    "pass_rate": 1.0,
+    "mean_steps": 5.0,
     "results": [
       {
         "id": "happy-path",
-        "model": "devstral:24b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": true,
-        "steps": 3,
-        "trace": [
-          "intake",
-          "produce",
-          "review"
-        ],
-        "goal_missing": "",
-        "assert_failures": [],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "devstral:24b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": true,
-        "steps": 3,
-        "trace": [
-          "intake",
-          "produce",
-          "review"
-        ],
-        "goal_missing": "",
-        "assert_failures": [],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "devstral:24b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": true,
-        "steps": 3,
-        "trace": [
-          "intake",
-          "produce",
-          "review"
-        ],
-        "goal_missing": "",
-        "assert_failures": [],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "hermes3:8b",
-        "recorded": "2026-08-09",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 3,
-        "trace": [
-          "intake",
-          "produce",
-          "review"
-        ],
-        "goal_missing": "",
-        "assert_failures": [
-          "all(r.playbook_ref for r in output.redlines) (AttributeError: playbook_ref)"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen2.5-coder:7b",
-        "recorded": "2026-08-09",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 3,
-        "trace": [
-          "intake",
-          "produce",
-          "review"
-        ],
-        "goal_missing": "",
-        "assert_failures": [
-          "all(r.playbook_ref for r in output.redlines)"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
+        "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": true,
-        "steps": 3,
+        "steps": 4,
         "trace": [
           "intake",
+          "playbook-lookup",
           "produce",
           "review"
         ],
@@ -237,39 +111,17 @@
         "tool_calls": []
       },
       {
-        "id": "happy-path",
+        "id": "retry-then-resolved",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
+        "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": true,
-        "steps": 3,
+        "steps": 6,
         "trace": [
           "intake",
+          "playbook-lookup",
           "produce",
-          "review"
-        ],
-        "goal_missing": "",
-        "assert_failures": [],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": true,
-        "steps": 3,
-        "trace": [
-          "intake",
+          "review",
           "produce",
           "review"
         ],
@@ -288,27 +140,18 @@
       }
     ],
     "models": [
-      "devstral:24b",
-      "hermes3:8b",
-      "qwen2.5-coder:7b",
       "qwen3-coder:30b"
     ],
-    "recorded": "2026-08-09",
-    "age_days": 2,
+    "recorded": "2026-08-31",
+    "age_days": 0,
     "per_model_pass_rate": {
-      "devstral:24b": 1.0,
-      "hermes3:8b": 0.0,
-      "qwen2.5-coder:7b": 0.0,
       "qwen3-coder:30b": 1.0
     },
-    "models_disagree": true,
+    "models_disagree": false,
     "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
-      "devstral:24b": 3,
-      "hermes3:8b": 1,
-      "qwen2.5-coder:7b": 1,
-      "qwen3-coder:30b": 3
+      "qwen3-coder:30b": 2
     },
     "gate_auto_approved": false
   }

@@ -1,0 +1,50 @@
+cases:
+- id: happy-path
+  node_outputs:
+    triage.route:
+      complexity: low
+    triage.branch-simple:
+      assigned_team: platform-oncall
+    triage.verify:
+      owner: owner-value
+      severity: severity-value
+      assigned_team: platform-oncall
+      expected_team: platform-oncall
+      output:
+        assigned_team: platform-oncall
+        expected_team: platform-oncall
+    postmortem.intake:
+      summary: intake complete
+    postmortem.produce:
+      output:
+        timeline:
+        - event: alert fired
+          log_id: L-1
+          message_id: value
+        - event: paged on-call
+          message_id: M-2
+          log_id: value
+    postmortem.review:
+      postmortem: postmortem-value
+      revision_requested: false
+      attempts: 1
+    detect:
+      signal: signal-value
+      blast_radius: []
+    triage.branch-complex: {}
+    mitigate:
+      mitigation: mitigation-value
+      mitigated: true
+    confirm:
+      impact_cleared: true
+      blast_radius: 12
+      residual_blast_radius: 0
+      output: {}
+    action-items:
+      actions: &id001
+      - owner: sre
+        task: add alert
+      output:
+        impact_cleared: true
+        actions: *id001
+  goal: work the checkout-latency page; resolved means p99 back under 400ms

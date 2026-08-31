@@ -1,0 +1,67 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "id": "task_1",
+          "description": "Decompose the main goal into subtasks",
+          "status": "completed"
+        },
+        {
+          "id": "task_2",
+          "description": "Assign code identifiers to each subtask",
+          "status": "completed"
+        },
+        {
+          "id": "task_3",
+          "description": "Justify each code assignment with relevant note spans",
+          "status": "completed"
+        }
+      ]
+    },
+    "work": [
+      {
+        "work_result": "completed"
+      },
+      {
+        "work_result": "completed"
+      },
+      {
+        "work_result": "completed"
+      }
+    ],
+    "verify": {
+      "codes": [
+        {
+          "note_span": "completed"
+        },
+        {
+          "note_span": "completed"
+        },
+        {
+          "note_span": "completed"
+        }
+      ],
+      "output": {
+        "codes": [
+          {
+            "note_span": "completed"
+          },
+          {
+            "note_span": "completed"
+          },
+          {
+            "note_span": "completed"
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-049` | finance | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
 
+> 🎯 **Requires a goal** — the earnings call to digest and the prior guidance to compare against. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: blog-production-pipeline
 description: Brief to outline to draft to edit to publish-ready post.
 category: content-marketing
@@ -9,22 +9,39 @@ nodes:
   - analyze
   outputs:
   - summary
+- id: outline
+  speciality: planner
+  abilities:
+  - decompose_goal
+  inputs:
+  - summary
+  outputs:
+  - outline
+  criteria: The outline states the claim each section makes and the evidence it will use, so the draft
+    has an argument to write rather than a topic to fill.
 - id: produce
   speciality: producer
   abilities:
   - generate
   outputs:
-  - lint_passed: any
-  - plagiarism_clean: any
+  - max_match_ratio: float
+  - style_violations: list
 - id: review
   speciality: critic
   abilities:
   - critique
   kind: verifier
   outputs:
+  - max_match_ratio: float
   - output
+  - style_violations: list
+  - revision_requested: bool
+  criteria: The draft passes the house style guide on voice, heading depth and sentence length, and no
+    passage matches published text beyond an incidental phrase.
 edges:
 - from: intake
+  to: outline
+- from: outline
   to: produce
 - from: produce
   to: review
@@ -35,4 +52,14 @@ termination:
   max_steps: 12
   contract: style guide lint passes; plagiarism scan clean
 verification:
-- assert: output.lint_passed and output.plagiarism_clean
+- describe: "the style guide reports zero violations \u2014 a count the reader can check against the draft,\
+    \ not a lint verdict"
+  assert: len(output.style_violations) == 0
+- describe: no passage matches published text beyond an incidental phrase
+  assert: output.max_match_ratio < 0.15
+goal:
+  required: true
+  description: the content brief to develop and the audience it targets
+state:
+  inputs:
+  - goal

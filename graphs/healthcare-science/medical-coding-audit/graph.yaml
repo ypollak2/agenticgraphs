@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: medical-coding-audit
 description: Workers verify diagnosis and procedure codes against notes.
 category: healthcare-science
@@ -20,6 +20,20 @@ nodes:
     on_partial: continue
   outputs:
   - work_result
+  retries:
+    max: 2
+- id: recode
+  speciality: compensator
+  abilities:
+  - rollback
+  - backfill
+  inputs:
+  - work_result
+  outputs:
+  - corrections
+  - recode_failed: bool
+  criteria: Every disputed code is paired with the code the documentation does support, so the finding
+    tells the coder what to change it to rather than only that it is wrong.
 - id: verify
   speciality: verifier
   abilities:
@@ -28,16 +42,42 @@ nodes:
   outputs:
   - codes: list[{note_span:any}]
   - output
+  - verify_failed: bool
+  criteria: Every assigned code points at the note span that documents it. A code the chart supports only
+    by inference is an unsupported code, however clinically likely.
+  retries:
+    max: 2
+- id: reverse-claim
+  speciality: compensator
+  abilities:
+  - rollback
+  inputs: []
+  outputs:
+  - reverse_claim_filed
+  criteria: A resubmitted code has already been claimed against. Undoing it means issuing the reversing
+    adjustment, so the payer's ledger and the chart agree.
 edges:
 - from: plan
   to: work
 - from: work
+  to: recode
+- from: recode
   to: verify
 - from: verify
   to: work
   when: verify_failed and attempts < 3
+- from: recode
+  to: reverse-claim
+  kind: compensate
+  when: recode_failed
 termination:
   max_steps: 30
   contract: code assignments justified by note spans
 verification:
 - assert: all(c.note_span for c in output.codes)
+goal:
+  required: true
+  description: the assigned codes to audit and the clinical documentation behind them
+state:
+  inputs:
+  - goal

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: regulatory-filing-lifecycle
 description: Collect figures, reconcile them to source, gate on controller sign-off, then file and retain
   evidence.
@@ -20,14 +20,17 @@ nodes:
   - figures
   outputs:
   - variance
-  - reconciled: any
+  - filing_total
+  - ledger_total
+  - reconciled: bool
 - id: controller-signoff
   speciality: approver
   kind: human
   abilities:
   - approve
   inputs:
-  - reconciled
+  - filing_total
+  - ledger_total
   outputs:
   - signed_off: any
   approval:
@@ -43,6 +46,7 @@ nodes:
   outputs:
   - filed: any
   - confirmation_id
+  - file_failed: bool
 - id: retain
   speciality: producer
   abilities:
@@ -50,8 +54,19 @@ nodes:
   inputs:
   - confirmation_id
   outputs:
-  - evidence_pack: any
+  - evidence_pack
+  - filing_total
+  - ledger_total
   - output
+- id: withdraw-filing
+  speciality: compensator
+  abilities:
+  - rollback
+  inputs: []
+  outputs:
+  - withdraw_filing_filed
+  criteria: A filing is received the moment it is submitted. Undoing it is a formal withdrawal or amendment
+    on the record, not a deletion, and the amendment must cite the filing it corrects.
 edges:
 - from: collect
   to: reconcile
@@ -65,16 +80,21 @@ edges:
   to: file
 - from: file
   to: retain
+- from: file
+  to: withdraw-filing
+  kind: compensate
+  when: file_failed
 termination:
   max_steps: 35
   contract: nothing files until figures reconcile to source and a controller signs
 verification:
-- describe: figures tie to source before filing
-  assert: output.reconciled == true
-- describe: a controller signed the filing
+- describe: "the filed figures equal the ledger `collect` read \u2014 reconciliation is two numbers agreeing,\
+    \ not a model reporting that they do"
+  assert: output.filing_total == output.ledger_total
+- describe: the filing carries a human signature
   assert: output.signed_off == true
-- describe: the filing is evidenced end to end
-  assert: output.filed == true and output.evidence_pack is not None
+- describe: the retained evidence pack exists
+  assert: output.evidence_pack is not None
 state:
   inputs:
   - goal

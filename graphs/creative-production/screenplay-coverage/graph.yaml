@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: screenplay-coverage
 description: 'Produce studio-standard coverage: synopsis, structural analysis, comparables, and a defended
   recommendation.'
@@ -21,6 +21,7 @@ nodes:
   - beats
   outputs:
   - structure_notes
+  parallel_group: read-fanout
 - id: comparables
   speciality: supervisor
   kind: subgraph
@@ -30,6 +31,7 @@ nodes:
   outputs:
   - comps
   - findings: list[{source_date:any, source_url:any}]
+  parallel_group: read-fanout
 - id: recommend
   speciality: judge
   abilities:
@@ -43,6 +45,9 @@ nodes:
   - rationale
   - recommendation: any
   join: all
+  criteria: The verdict is one of pass, consider or recommend, and is defended against at least two named
+    comparable titles and how they performed. A recommendation with no market comparison is an opinion,
+    not coverage.
 edges:
 - from: read
   to: structure
@@ -66,4 +71,4 @@ state:
   - screenplay
 goal:
   required: true
-  description: the screenplay to cover and the mandate it is being read against
+  description: the screenplay to cover and the market it is being read for

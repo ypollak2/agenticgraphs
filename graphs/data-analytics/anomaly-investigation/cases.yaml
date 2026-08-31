@@ -1,0 +1,34 @@
+cases:
+- id: simple-branch
+  node_outputs:
+    route:
+      complexity: low
+    branch-simple:
+      assigned_class: seasonal
+    verify:
+      assigned_class: seasonal
+      expected_class: seasonal
+      output:
+        assigned_class: seasonal
+        expected_class: seasonal
+  goal: the friday-signup-dip anomaly, against the labelled holdout
+  inputs:
+    holdout_labels: &id001
+      friday-signup-dip: seasonal
+      null-spike-2026-08-12: data-bug
+      eu-latency-step: real-change
+- id: complex-branch
+  node_outputs:
+    route:
+      complexity: high
+    branch-complex:
+      assigned_class: data-bug
+    verify:
+      assigned_class: data-bug
+      expected_class: data-bug
+      output:
+        assigned_class: data-bug
+        expected_class: data-bug
+  goal: the null-spike-2026-08-12 anomaly, against the labelled holdout
+  inputs:
+    holdout_labels: *id001

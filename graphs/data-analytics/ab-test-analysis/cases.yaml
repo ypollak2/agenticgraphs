@@ -1,0 +1,25 @@
+cases:
+- id: significant-effect-confirmed
+  node_outputs:
+    position-a:
+      argument: effect is real and significant
+    position-b:
+      argument: effect could be noise
+    judge:
+      output:
+        recomputed_effect: 0.12
+        claimed_effect: 0.12
+        reproduces_claimed_effect: true
+  goal: experiment checkout-v3, claimed +2.1% conversion
+- id: null-result-confirmed
+  node_outputs:
+    position-a:
+      argument: no significant effect observed
+    position-b:
+      argument: agrees, effect is not significant
+    judge:
+      output:
+        recomputed_effect: 0.0
+        claimed_effect: 0.0
+        reproduces_claimed_effect: true
+  goal: experiment checkout-v3, claimed +2.1% conversion

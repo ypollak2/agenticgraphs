@@ -1,0 +1,6 @@
+id: uc-066
+name: bioinformatics-pipeline-builder
+domain: healthcare-science
+pattern: planner-executor-verifier
+summary: Assemble genomics workflow with validated steps.
+verification: pipeline reproduces reference results on test data

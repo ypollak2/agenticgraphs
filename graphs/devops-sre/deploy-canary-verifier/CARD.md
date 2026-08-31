@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-015` | devops-sre | **loop** | 3 | 3 | 1 | 0 | 15 | write |
 
+> 🎯 **Requires a goal** — the canary release to watch and the metrics that decide promotion. Its trigger supplies this when it fires on schedule.
+
 ## The graph
 
 ```mermaid

@@ -1,0 +1,4 @@
+id: uc-023
+pattern: router
+summary: Route metric anomalies to seasonal, data-bug, or real-change analysts.
+verification: classification agrees with holdout labels

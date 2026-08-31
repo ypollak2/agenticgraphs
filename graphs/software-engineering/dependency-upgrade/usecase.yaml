@@ -1,0 +1,4 @@
+id: uc-006
+pattern: pipeline
+summary: Upgrade pinned deps, scan changelogs for breakage, run suite.
+verification: lockfile updated; tests pass; no new deprecation warnings

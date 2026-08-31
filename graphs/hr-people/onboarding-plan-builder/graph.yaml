@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: onboarding-plan-builder
 description: Build a role-specific 30/60/90 plan from the JD, team context and access requirements, then
   verify coverage.
@@ -20,7 +20,8 @@ nodes:
   inputs:
   - role_context
   outputs:
-  - plan_30_60_90
+  - plan_30_60_90: list[{milestone:any}]
+  parallel_group: gather-fanout
 - id: access-map
   speciality: mapper
   abilities:
@@ -28,7 +29,8 @@ nodes:
   inputs:
   - role_context
   outputs:
-  - access_requests
+  - access_requests: list[{system:any, requested_on:any}]
+  parallel_group: gather-fanout
 - id: review
   speciality: critic
   abilities:
@@ -38,10 +40,14 @@ nodes:
   - plan_30_60_90
   - access_requests
   outputs:
-  - access_requested: any
-  - milestones_covered: any
+  - access_requests: list[{system:any, requested_on:any}]
   - output
+  - plan_30_60_90: list[{milestone:any}]
+  - milestones_covered: bool
   join: all
+  criteria: Each 30/60/90 checkpoint carries a milestone an observer could mark done or not done, and
+    every system the role needs on day one is requested before the start date. 'Get up to speed' is not
+    a milestone.
 edges:
 - from: gather
   to: draft-plan
@@ -58,10 +64,10 @@ termination:
   max_steps: 25
   contract: every checkpoint carries a measurable milestone and day-one access is pre-requested
 verification:
-- describe: all three checkpoints have a measurable milestone
-  assert: output.milestones_covered == true
-- describe: day-one access is requested before the start date
-  assert: output.access_requested == true
+- describe: every checkpoint in the plan `draft-plan` produced carries a markable milestone
+  assert: all(c.milestone for c in output.plan_30_60_90)
+- describe: every access request names the system and when it was raised
+  assert: all(a.system and a.requested_on for a in output.access_requests)
 state:
   inputs:
   - goal
@@ -69,4 +75,4 @@ state:
   - team
 goal:
   required: true
-  description: the role and team the 30/60/90 plan is for
+  description: the new hire's role and the team they are joining

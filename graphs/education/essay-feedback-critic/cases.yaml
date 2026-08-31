@@ -1,0 +1,32 @@
+cases:
+- id: generated-and-approved
+  node_outputs:
+    intake:
+      summary: intake complete
+    generate:
+      draft: v1
+    critique:
+      rejected: false
+      attempts: 1
+      output:
+        comments:
+        - quote: the argument lacks a counterpoint
+          rubric_id: R1
+  goal: a 1200-word essay, against the 'causes of the Dust Bowl' brief
+- id: revised-after-rejection
+  node_outputs:
+    intake:
+      summary: intake complete
+    generate:
+    - draft: v1
+    - draft: v2
+    critique:
+    - rejected: true
+      attempts: 1
+    - rejected: false
+      attempts: 2
+      output:
+        comments:
+        - quote: the argument lacks a counterpoint
+          rubric_id: R1
+  goal: a 1200-word essay, against the 'causes of the Dust Bowl' brief

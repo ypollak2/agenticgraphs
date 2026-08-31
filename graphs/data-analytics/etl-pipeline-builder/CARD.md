@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-019` | data-analytics | **planner-executor-verifier** | 3 | 3 | 1 | 0 | 25 | execute |
 
+> 🎯 **Requires a goal** — the source and destination systems and the transformation the pipeline owes. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid
@@ -31,6 +33,7 @@ The plan makes intent inspectable before anything touches the world, the executo
 
 - **Exit contract** — end-to-end run loads expected row counts
 - **Machine-checked** — `output.actual_rows == output.expected_rows`
+- **Command-checked** — `dbt build --select {model_name}`
 - **Bounded** — hard stop after 25 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval etl-pipeline-builder` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/etl-pipeline-builder.md)

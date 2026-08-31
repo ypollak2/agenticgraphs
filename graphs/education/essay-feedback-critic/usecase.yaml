@@ -1,0 +1,4 @@
+id: uc-072
+pattern: generator-critic
+summary: Rubric-based feedback with evidence quotes from the essay.
+verification: every comment quotes essay text; rubric ids cited

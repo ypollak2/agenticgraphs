@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-121` | finance | **human-gate** | 5 | 5 | 0 | 0 | 35 | execute |
+| `AGR-121` | finance | **human-gate** | 6 | 6 | 0 | 0 | 35 | execute |
 
 > 🎯 **Requires a goal** — the filing period and the regime being filed under. Without one the graph refuses and runs no node.
 
@@ -18,11 +18,13 @@ flowchart LR
     N2["controller-signoff<br/><i>approver</i>"]
     N3["file<br/><i>controller</i>"]
     N4["retain<br/><i>producer</i>"]
+    N5["withdraw-filing<br/><i>compensator</i>"]
     N0 --> N1
     N1 -->|not reconciled and attempts < 3| N0
     N1 -->|reconciled| N2
     N2 --> N3
     N3 --> N4
+    N3 -->|file_failed| N5
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -36,9 +38,9 @@ Collect, reconcile, sign off, file and retain evidence for a regulatory filing.
 A `kind: human` node holds an approval contract that no model may sign — the live runner raises rather than approve its own work. Downstream flow edges stay blocked until the contract evaluates true, which is what makes a graph usable in a regulated domain instead of merely plausible-looking.
 
 - **Exit contract** — nothing files until figures reconcile to source and a controller signs
-- **Machine-checked** — `output.reconciled == true`
+- **Machine-checked** — `output.filing_total == output.ledger_total`
 - **Machine-checked** — `output.signed_off == true`
-- **Machine-checked** — `output.filed == true and output.evidence_pack is not None`
+- **Machine-checked** — `output.evidence_pack is not None`
 - **Bounded** — hard stop after 35 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval regulatory-filing-lifecycle` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/regulatory-filing-lifecycle.md)
@@ -66,6 +68,7 @@ To evolve it: `uv run agr infuse regulatory-filing-lifecycle <node> <ability>` �
 | `controller-signoff` | approver | human | approve |
 | `file` | controller | agent | analyze, file_record |
 | `retain` | producer | agent | generate |
+| `withdraw-filing` | compensator | agent | rollback |
 
 ## Edge logic
 
@@ -76,6 +79,7 @@ To evolve it: `uv run agr infuse regulatory-filing-lifecycle <node> <ability>` �
 | `reconcile` | `controller-signoff` | reconciled |
 | `controller-signoff` | `file` | always |
 | `file` | `retain` | always |
+| `file` | `withdraw-filing` | file_failed |
 
 ## Optional use-cases
 

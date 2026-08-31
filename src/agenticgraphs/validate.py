@@ -12,12 +12,16 @@ asserts that parse, and a guard against using v1.1 features under an
 from __future__ import annotations
 
 import ast
+import shlex
 from pathlib import Path
 
 import jsonschema
 
+from . import safeexpr
 from .registry import ROOT, SPEC_VERSION, iter_yaml, load, load_schema
-from .shapes import ShapeError, names as _out_names, parse as _parse_shape
+from .shapes import ShapeError
+from .shapes import names as _out_names
+from .shapes import parse as _parse_shape
 from .subgraphs import entry_nodes
 
 #: Node/edge/graph keys introduced in AGR v1.1.
@@ -65,6 +69,10 @@ def asserted_keys(expr: str) -> set[str]:
     return keys
 
 
+#: Names the runtime owns, so a guard may read them without any node declaring them.
+_RUNTIME_KEYS = frozenset({"attempts", "shards_failed"})
+
+
 def unconnected_keys(doc: dict) -> set[str]:
     """Keys the contract asserts on that nothing in the graph is declared to produce.
 
@@ -76,6 +84,11 @@ def unconnected_keys(doc: dict) -> set[str]:
     """
     produced = {o for n in doc.get("nodes", []) for o in _out_names(n)}
     produced |= set((doc.get("state") or {}).get("inputs") or [])
+    # The runtime publishes these; `_lint_runtime_keys` refuses a node that also
+    # declares one. Two lints disagreeing about who owns `attempts` would make one
+    # of them unsatisfiable — a contract reading the real retry counter would be
+    # reported as asserting on a key nothing produces.
+    produced |= _RUNTIME_KEYS
     # No early return for graphs that declare nothing. An earlier draft excused
     # them — "a node that declares nothing makes no promise to break" — and that
     # escape hatch swallowed exactly the case it most needed to catch:
@@ -87,6 +100,359 @@ def unconnected_keys(doc: dict) -> set[str]:
         if "assert" in v:
             needed |= asserted_keys(v["assert"])
     return needed - produced
+
+
+def _lint_expressions(doc: dict) -> list[str]:
+    """Refuse any `when` / `assert` / approval contract the evaluator would refuse.
+
+    The runtime allowlist (`safeexpr`) is the security boundary; this is the same
+    boundary moved forward to `agr validate`, so CI and a reviewer see the
+    rejection before an interpreter does.
+    """
+    errors: list[str] = []
+    for e in doc.get("edges", []):
+        for reason in safeexpr.check(e.get("when") or ""):
+            errors.append(f"unsafe expression on edge {e['from']}->{e['to']}: {reason}")
+    for v in doc.get("verification", []):
+        for reason in safeexpr.check(v.get("assert") or ""):
+            errors.append(f"unsafe verification assert: {reason}")
+    for n in doc.get("nodes", []):
+        contract = (n.get("approval") or {}).get("contract", "")
+        for reason in safeexpr.check(contract):
+            errors.append(f"unsafe approval contract on '{n['id']}': {reason}")
+        for reason in safeexpr.check((n.get("search") or {}).get("score", "")):
+            errors.append(f"unsafe search score on '{n['id']}': {reason}")
+    return errors
+
+
+def _bare_truthy_key(expr: str) -> str | None:
+    """The key an assert reads if it is *only* a truthiness check, else None.
+
+    Matches `output.x`, `output.x == true`, `x`, `x == True` — the shapes that
+    assert nothing beyond "the graph said so".
+    """
+    try:
+        tree = ast.parse(expr, mode="eval").body
+    except SyntaxError:
+        return None
+    if isinstance(tree, ast.Compare) and len(tree.ops) == 1 and isinstance(tree.ops[0], ast.Eq):
+        rhs = tree.comparators[0]
+        lit = getattr(rhs, "value", getattr(rhs, "id", None))
+        if lit is True or (isinstance(lit, str) and lit.lower() == "true"):
+            tree = tree.left
+        else:
+            return None
+    if isinstance(tree, ast.Attribute) and isinstance(tree.value, ast.Name) and tree.value.id == "output":
+        return tree.attr
+    if isinstance(tree, ast.Name):
+        return tree.id
+    return None
+
+
+def _lint_self_graded(doc: dict) -> list[str]:
+    """A contract a verifier node grades itself on is not verification.
+
+    `verify` declares `outputs: [matches_ownership_map]`; the contract asserts
+    `output.matches_ownership_map`. The model writes the flag and the flag is the
+    pass criterion, so the check holds whenever the model claims it does — which
+    is every time. Six graphs in the registry were built this way, and 31 of 117
+    asserts are a bare truthy read of *something*.
+
+    The fix a graph author has is to assert on a fact an upstream node produced
+    and this node had to reconcile, or to add a `verification[].command` that
+    checks the claim outside the model. Both are real work; that is the point.
+    """
+    # Any node a MODEL drives, not only `kind: verifier`. The rule was written for
+    # the verifier case and missed eight contracts where the flag is written by an
+    # ordinary agent — `post` deciding `three_way_matched`, `disclose` deciding
+    # `advisory_published`. The node's kind never mattered; who writes the flag does.
+    #
+    # `kind: human` is the exemption, and the only one. A signature IS evidence:
+    # `output.signed_off == true` is a claim by a person the graph refused to make
+    # on their behalf (see `LLMRunner.approve`), which is the opposite of
+    # self-grading. Seven contracts rest on that and are correct.
+    verifier_outputs: dict[str, str] = {}
+    for n in doc.get("nodes", []):
+        if n.get("kind") == "human":
+            continue
+        for o in _out_names(n):
+            verifier_outputs.setdefault(o, n["id"])
+    msgs: list[str] = []
+    for v in doc.get("verification") or []:
+        key = _bare_truthy_key(v.get("assert") or "")
+        if key and key in verifier_outputs:
+            msgs.append(
+                f"self-graded contract: assert '{v['assert']}' reads a key that node "
+                f"'{verifier_outputs[key]}' produces itself — the model "
+                f"writes the flag it is scored on. Assert on a fact an upstream node "
+                f"produced, or add a verification[].command."
+            )
+    # Armed at v1.8, the same way `_lint_provenance` armed at v1.6: the rule
+    # ships with the spec version whose graphs are expected to satisfy it, so a
+    # v1.7 registry is not retroactively failed by a rule written after it. The
+    # 16 graphs this currently finds are tracked in `reports/self-graded.json`
+    # and migrated one at a time, each with a real check replacing the flag.
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    return msgs
+
+
+def _lint_criteria(doc: dict) -> list[str]:
+    """A verifier without a rubric is a role label, not a verifier.
+
+    Armed at v1.8. Before it, a node carried only its position in a topology, so
+    two graphs in unrelated domains could be — and 36 of 83 were — the same nodes
+    under different names. `criteria` is where the domain knowledge lives, and
+    requiring it on the node that makes the judgement is what stops a graph from
+    being a shape the reader could have typed themselves.
+    """
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    return [
+        f"node '{n['id']}' is kind: verifier but declares no `criteria` — state what it "
+        f"must judge, in this domain's terms, not which flag to set"
+        for n in doc.get("nodes", [])
+        if n.get("kind") == "verifier" and not (n.get("criteria") or "").strip()
+    ]
+
+
+#: Function words. A command line does not contain them as bare tokens.
+_PROSE_WORDS = frozenset({
+    "must", "should", "shall", "the", "a", "an", "is", "are", "be", "was", "were",
+    "that", "this", "which", "and", "or", "not", "with", "from", "when", "if",
+})
+
+
+def _lint_commands(doc: dict) -> list[str]:
+    """A `verification[].command` must be runnable, not a description of one.
+
+    `verifier-swarm` shipped `command: "user-supplied verify command must exit 0"`
+    — prose in the field whose entire purpose is that the exit code, not a claim
+    about it, is the fact. Under `--run-commands` that would have tried to execute
+    the program `user-supplied` and recorded a command_failure that looked like a
+    failing check rather than a malformed graph.
+
+    The heuristic is deliberately narrow: several bare words, none of which looks
+    like a flag, a path, or a placeholder, is a sentence. Anything a real command
+    line contains — `-q`, `tests/`, `{suite}`, `./x` — passes.
+    """
+    errors: list[str] = []
+    for v in doc.get("verification") or []:
+        cmd = v.get("command")
+        if not cmd:
+            continue
+        try:
+            argv = shlex.split(cmd)
+        except ValueError as ex:
+            errors.append(f"verification command is not parseable: {cmd!r} ({ex})")
+            continue
+        if not argv:
+            errors.append("verification command is empty")
+            continue
+        looks_like_argv = any(
+            t.startswith(("-", "/", "./", "{")) or "/" in t or "." in t or "=" in t
+            for t in argv
+        )
+        # Counting tokens was the first attempt and it called `alembic upgrade head`
+        # prose. What actually separates a sentence from a command line is function
+        # words: no CLI has a bare `must` or `the` in it. A command that legitimately
+        # passes one as an argument will also carry a flag, path or placeholder, and
+        # `looks_like_argv` clears it.
+        reads_as_prose = bool({t.lower() for t in argv} & _PROSE_WORDS)
+        if reads_as_prose and not looks_like_argv:
+            errors.append(
+                f"verification command reads as prose, not a command line: {cmd!r} — "
+                f"name the program to run, or use a {{placeholder}} the caller fills"
+            )
+    return errors
+
+
+#: Effects no revert undoes. A filing is received the moment it is submitted; a
+#: registration is public; a cut release is downloadable; a resubmitted billing
+#: code has been claimed against. `edit_files` is deliberately ABSENT: a working
+#: tree is reversible by `git revert`, and marking it as a saga step would dress a
+#: reversible action in the vocabulary reserved for one-way ones — which is how a
+#: compensator count grows without any compensation being possible.
+_IRREVERSIBLE_ABILITIES = frozenset({
+    "file_record", "cut_release", "shadow_write", "backfill",
+})
+
+
+def _lint_irreversible(doc: dict) -> list[str]:
+    """A one-way effect needs a compensating path, or the graph cannot be unwound.
+
+    Armed at v1.8. The v1.3 saga lint already required this of graphs whose
+    declared pattern is `saga`; the property has nothing to do with what a graph
+    calls itself. `regulatory-filing-lifecycle` files with a regulator and had no
+    way back.
+    """
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    compensated = {e["from"] for e in doc.get("edges", []) if e.get("kind") == "compensate"}
+    return [
+        f"node '{n['id']}' performs a one-way effect ({sorted(hit)}) with no compensate "
+        f"edge — name the action that undoes it on the record, or drop the ability"
+        for n in doc.get("nodes", [])
+        if (hit := _IRREVERSIBLE_ABILITIES & set(n.get("abilities") or []))
+        and n["id"] not in compensated
+    ]
+
+
+def _lint_motif(doc: dict, root: Path = ROOT) -> list[str]:
+    """A graph's declared motif must be visible in its topology.
+
+    Every graph declares a `pattern` in its `usecase.yaml`, and nothing has ever
+    checked it. Ten graphs called themselves `parallel-swarm` while being a linear
+    three-node chain — `verifier-swarm`, the one the README uses to explain what a
+    swarm is, among them. A motif nothing verifies is the same defect as a contract
+    nothing verifies: a claim living in the artifact, which is what this registry
+    exists to stop.
+
+    Each rule names the structure the motif is *about*, not a proxy for it. A
+    debate is defined by two positions reaching one judge, so it is in-degree, not
+    fan-out; a router is defined by mutually exclusive conditional edges, so a
+    `kind: router` node is sufficient but not necessary.
+    """
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    pattern = doc.get("__pattern__")
+    if not pattern:
+        return []
+    nodes, edges = doc.get("nodes", []), doc.get("edges", [])
+    ids = [n["id"] for n in nodes]
+    out_deg: dict[str, int] = {}
+    in_deg: dict[str, int] = {}
+    cond_out: dict[str, int] = {}
+    for e in edges:
+        if e.get("kind") == "compensate":
+            continue
+        out_deg[e["from"]] = out_deg.get(e["from"], 0) + 1
+        in_deg[e["to"]] = in_deg.get(e["to"], 0) + 1
+        if e.get("when"):
+            cond_out[e["from"]] = cond_out.get(e["from"], 0) + 1
+    groups: dict[str, int] = {}
+    for n in nodes:
+        if g := n.get("parallel_group"):
+            groups[g] = groups.get(g, 0) + 1
+
+    has_fan_out = any(n.get("fan_out") for n in nodes)
+    has_group = any(v >= 2 for v in groups.values())
+    max_in = max(in_deg.values(), default=0)
+    max_out = max(out_deg.values(), default=0)
+    routes = any(v >= 2 for v in cond_out.values()) or any(
+        n.get("kind") == "router" for n in nodes)
+    back_edge = any(
+        e.get("when") and e["to"] in ids and e["from"] in ids
+        and ids.index(e["to"]) <= ids.index(e["from"])
+        for e in edges
+    )
+
+    def fail(why: str) -> list[str]:
+        return [f"declares motif '{pattern}' but {why}"]
+
+    if pattern == "router" and not routes:
+        return fail("no node routes: none is `kind: router` and none has two "
+                    "conditional out-edges")
+    if pattern in ("parallel-swarm", "map-reduce") and not (has_fan_out or has_group):
+        return fail("nothing runs in parallel: no node declares `fan_out` and no "
+                    "`parallel_group` has two members")
+    if pattern in ("debate", "ensemble-quorum") and max_in < 2 and not has_fan_out:
+        return fail("only one contribution reaches the adjudicator — there is "
+                    "nobody to disagree with")
+    if pattern == "tournament" and not has_fan_out and max_in < 3:
+        return fail("fewer than three entrants reach the judge")
+    if pattern == "loop" and not back_edge:
+        return fail("no conditional back-edge")
+    if pattern == "reflexion" and not doc.get("memory"):
+        return fail("no `memory` block, so nothing carries between attempts")
+    if pattern == "human-gate" and not any(n.get("kind") == "human" for n in nodes):
+        return fail("no `kind: human` node")
+    if pattern == "saga" and not any(e.get("kind") == "compensate" for e in edges):
+        return fail("no compensate edge, so it cannot unwind")
+    if pattern == "tree-search" and not any(n.get("search") for n in nodes):
+        return fail("no node declares a `search` block")
+    if pattern == "pipeline" and max_out > 1 and not (has_group or routes):
+        return fail("it branches without a router or a parallel group, which is "
+                    "not a pipeline")
+    return []
+
+
+def _flow_names(expr: str) -> set[str]:
+    """Bare names an edge guard or approval contract depends on."""
+    try:
+        tree = ast.parse(expr, mode="eval")
+    except SyntaxError:
+        return set()
+    bound = {t.id for n in ast.walk(tree) if isinstance(n, ast.comprehension)
+             for t in ast.walk(n.target) if isinstance(t, ast.Name)}
+    return {
+        n.id for n in ast.walk(tree)
+        if isinstance(n, ast.Name) and n.id not in _ASSERT_LITERALS
+        and n.id not in bound and n.id not in _RUNTIME_KEYS
+    }
+
+
+def _lint_runtime_keys(doc: dict) -> list[str]:
+    """A node may not declare a key the runtime owns.
+
+    `attempts` is published by `run_graph` before each node runs, as the visit
+    count. A node that also declares it lets a fixture — or a model — pin it to a
+    constant, and `verify_failed and attempts < 3` then never terminates:
+    `verifier-swarm` ran its retry loop to the step cap the moment the guard
+    started working, because the fixture said `attempts: 1` forever.
+
+    Nothing needs to declare it. `output.attempts` resolves through `OutputView`'s
+    fall-through to the blackboard, so a contract can read the real counter while
+    no node claims to produce it.
+    """
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    return [
+        f"node '{n['id']}' declares '{key}', which the runtime owns — declaring it "
+        f"lets a fixture pin the value and a bounded loop never terminate"
+        for n in doc.get("nodes", [])
+        for key in sorted(set(_out_names(n)) & _RUNTIME_KEYS)
+    ]
+
+
+def _lint_flow_keys(doc: dict) -> list[str]:
+    """A guard reading a key nothing produces is a dead edge, and it fails SILENTLY.
+
+    `edge_true` catches any exception and returns False, so a condition naming an
+    undeclared key is not an error — it is an edge that is never taken. That is
+    the correct behaviour for an unresolvable condition at run time and a
+    catastrophe at authoring time: the retry never retries, the compensator never
+    compensates, the escalation never escalates, and every golden case still
+    passes because the fixture happens to supply the key by hand.
+
+    v1.7 found exactly this for `attempts` — 48 guards read it and nothing
+    produced it — and fixed that one name by publishing it from the runtime. The
+    same hole was left open for every OTHER guard key: `verify_failed`,
+    `revision_requested`, `rejected`, `<node>_failed`. No node in the registry
+    declared any of them.
+
+    `unconnected_keys` has applied this rule to verification asserts since v1.4.
+    Control flow deserves it more: a broken assert reports a failure, a broken
+    guard reports nothing at all.
+    """
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    produced = {o for n in doc.get("nodes", []) for o in _out_names(n)}
+    produced |= set((doc.get("state") or {}).get("inputs") or [])
+    errors: list[str] = []
+    for e in doc.get("edges", []):
+        for name in sorted(_flow_names(e.get("when") or "") - produced):
+            errors.append(
+                f"edge {e['from']}->{e['to']} is guarded on '{name}', which no node "
+                f"declares as an output — the edge can never be taken, silently"
+            )
+    for n in doc.get("nodes", []):
+        contract = (n.get("approval") or {}).get("contract", "")
+        for name in sorted(_flow_names(contract) - produced):
+            errors.append(
+                f"approval on '{n['id']}' depends on '{name}', which no node declares"
+            )
+    return errors
 
 
 def _parses(expr: str) -> bool:
@@ -178,14 +544,13 @@ def _lint_v11(doc: dict, root: Path) -> list[str]:
     # consumed-but-undeclared.
     goal = doc.get("goal") or {}
     supplied_keys = set((doc.get("state") or {}).get("inputs") or [])
-    if goal:
-        # Deliberately NOT added to `used`: that set drives the v1.1 gate, and a
-        # goal is not a v1.1 feature. Its own gate is the line below.
-        if doc.get("apiVersion") != SPEC_VERSION:
-            errors.append(
-                f"lint: declares a goal but apiVersion is '{doc.get('apiVersion')}' — "
-                f"bump to '{SPEC_VERSION}'"
-            )
+    # Deliberately NOT added to `used`: that set drives the v1.1 gate, and a
+    # goal is not a v1.1 feature. Its own gate is the line below.
+    if goal and doc.get("apiVersion") != SPEC_VERSION:
+        errors.append(
+            f"lint: declares a goal but apiVersion is '{doc.get('apiVersion')}' — "
+            f"bump to '{SPEC_VERSION}'"
+        )
     if goal.get("required"):
         if "goal" not in supplied_keys:
             errors.append(
@@ -250,8 +615,8 @@ def _lint_v11(doc: dict, root: Path) -> list[str]:
         for n in doc.get("nodes", []):
             if n["id"] in chained:
                 continue
-            if any(risks.get(a) == "execute" for a in n.get("abilities") or []):
-                if n["id"] not in compensating:
+            if (any(risks.get(a) == "execute" for a in n.get("abilities") or [])
+                    and n["id"] not in compensating):
                     errors.append(
                         f"lint: saga node '{n['id']}' has an execute-risk ability but no "
                         "compensate edge — the step cannot be undone"
@@ -309,6 +674,19 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
     for v in doc.get("verification", []):
         if "assert" in v and not _parses(v["assert"]):
             errors.append(f"lint: verification assert is not a parseable expression: {v['assert']!r}")
+
+    # Every expression the runtime will evaluate must survive the same allowlist
+    # the runtime applies. A graph is a downloaded artifact: catching a hostile
+    # expression at the gate is the difference between a rejected contribution
+    # and code running on whoever typed `agr eval`.
+    errors.extend(_lint_expressions(doc))
+    errors.extend(_lint_self_graded(doc))
+    errors.extend(_lint_criteria(doc))
+    errors.extend(_lint_commands(doc))
+    errors.extend(_lint_irreversible(doc))
+    errors.extend(_lint_motif(doc, root))
+    errors.extend(_lint_flow_keys(doc))
+    errors.extend(_lint_runtime_keys(doc))
 
     # speciality / ability resolution
     specs = {load(p)["name"]: load(p) for p in iter_yaml("specialities", root)}
@@ -585,5 +963,12 @@ def validate_graph_file(path: Path, root: Path = ROOT) -> list[str]:
     doc = load(path)
     errors = validate_schema(doc, "graph")
     if not errors:
+        # The motif is declared next door in `usecase.yaml`, not in the graph, so
+        # the check that they agree needs both. Passed on the doc rather than
+        # threaded through every lint signature.
+        uc = path.parent / "usecase.yaml"
+        if uc.exists():
+            doc["__pattern__"] = load(uc).get("pattern")
         errors += lint_graph(doc, root)
+        doc.pop("__pattern__", None)
     return errors

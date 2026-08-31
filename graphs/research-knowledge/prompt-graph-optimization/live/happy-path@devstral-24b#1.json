@@ -1,0 +1,151 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "optimize the support-triage graph for accuracy on the held-out set"
+  },
+  "node_outputs": {
+    "baseline": {
+      "baseline_score": 0.785,
+      "eval_set": "held-out"
+    },
+    "search": [
+      {
+        "variant": {
+          "optimizer": "ada",
+          "learning_rate": 0.1,
+          "batch_size": 32
+        },
+        "score": 0.825
+      },
+      {
+        "variant": {
+          "add_edge": [
+            "Customer Support",
+            "Customer Success"
+          ]
+        },
+        "score": 0.792
+      },
+      {
+        "variant": {
+          "model_type": "support-triage-graph",
+          "config_params": {
+            "num_hidden_nodes": 50,
+            "max_depth": 3
+          }
+        },
+        "score": null
+      },
+      {
+        "variant": {
+          "optimizer": "adam",
+          "learning_rate": 0.05,
+          "batch_size": 16
+        },
+        "score": 0.832
+      },
+      {
+        "variant": {
+          "optimizer": "adamw",
+          "learning_rate": 0.01,
+          "batch_size": 64
+        },
+        "score": 0.837
+      },
+      {
+        "variant": {
+          "optimizer": "rmsprop",
+          "learning_rate": 0.05,
+          "batch_size": 64
+        },
+        "score": 0.832
+      },
+      {
+        "variant": {
+          "add_edge": [
+            "Customer Success",
+            "HR"
+          ]
+        },
+        "score": 0.798
+      },
+      {
+        "variant": {
+          "add_edge": [
+            "Customer Success",
+            "Engineering"
+          ]
+        },
+        "score": 0.788
+      },
+      {
+        "variant": {
+          "add_node": [
+            "QA Team"
+          ]
+        },
+        "score": 0.812
+      },
+      {
+        "variant": {
+          "optimizer": "adamw",
+          "learning_rate": 0.01,
+          "batch_size": 48
+        },
+        "score": 0.845
+      },
+      {
+        "variant": {
+          "optimizer": "adamw",
+          "learning_rate": 0.01,
+          "batch_size": 64
+        },
+        "score": 0.837
+      },
+      {
+        "variant": {
+          "optimizer": "adamw",
+          "learning_rate": 0.005,
+          "batch_size": 32
+        },
+        "score": 0.843
+      },
+      {
+        "variant": {
+          "optimizer": "sgd",
+          "learning_rate": 0.1,
+          "batch_size": 32
+        },
+        "score": 0.845
+      },
+      {
+        "variant": {
+          "optimizer": "adam",
+          "learning_rate": 0.01,
+          "batch_size": 32
+        },
+        "score": 0.85
+      },
+      {
+        "variant": {
+          "optimizer": "adam",
+          "learning_rate": 0.02,
+          "batch_size": 32
+        },
+        "score": 0.845
+      }
+    ],
+    "confirm": {
+      "holdout_score": 0.85,
+      "output": {
+        "baseline_score": 0.785,
+        "holdout_score": 0.85
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

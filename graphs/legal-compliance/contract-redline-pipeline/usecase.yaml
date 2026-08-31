@@ -1,0 +1,4 @@
+id: uc-056
+pattern: pipeline
+summary: Compare against playbook, propose redlines with rationale.
+verification: every redline cites a playbook position

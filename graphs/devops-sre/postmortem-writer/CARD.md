@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-016` | devops-sre | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
 
+> 🎯 **Requires a goal** — the incident timeline to write up and the severity it was declared at. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: cost-routed-research
 description: Routes research subtasks to the cheapest capable model, escalates low-confidence answers,
   synthesizes with citations.
@@ -17,6 +17,8 @@ nodes:
   - web_search
   outputs:
   - confidence
+  retries:
+    max: 2
 - id: deep-researcher
   speciality: researcher
   abilities:
@@ -24,6 +26,8 @@ nodes:
   - read_papers
   outputs:
   - confidence
+  retries:
+    max: 2
 - id: synthesizer
   speciality: synthesizer
   abilities:
@@ -31,6 +35,8 @@ nodes:
   kind: verifier
   outputs:
   - claims: list[{sources:any}]
+  criteria: Every claim in the synthesis cites at least one source, and anything the cheap path could
+    not verify is labelled as unverified rather than dropped or stated plainly.
 edges:
 - from: router
   to: cheap-researcher
@@ -51,3 +57,9 @@ termination:
   contract: synthesizer output cites >=1 source per claim; unverifiable claims are labeled
 verification:
 - assert: all(c.sources for c in output.claims)
+goal:
+  required: true
+  description: the research question to answer and the confidence bar an answer must clear
+state:
+  inputs:
+  - goal

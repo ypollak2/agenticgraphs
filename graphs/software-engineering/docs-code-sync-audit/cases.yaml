@@ -1,0 +1,44 @@
+cases:
+- id: first-attempt-verified
+  node_outputs:
+    plan:
+      tasks:
+      - doc: README.md
+        snippet: uv run agr list
+    work:
+      work_result:
+        doc: README.md
+        command: uv run agr list
+        exit_code: 0
+    verify:
+      verify_failed: false
+      attempts: 1
+      output:
+        examples: &id001
+        - doc: README.md
+          exit_code: 0
+      examples: *id001
+  goal: docs/ against src/ at the current HEAD
+- id: retry-then-verified
+  node_outputs:
+    plan:
+      tasks:
+      - doc: README.md
+        snippet: uv run agr list
+    work:
+      work_result:
+        doc: README.md
+        command: uv run agr list
+        exit_code: 0
+    verify:
+    - verify_failed: true
+      attempts: 1
+      examples: *id001
+      output:
+        examples: *id001
+    - verify_failed: false
+      attempts: 2
+      output:
+        examples: *id001
+      examples: *id001
+  goal: docs/ against src/ at the current HEAD

@@ -1,0 +1,47 @@
+cases:
+- id: single-item
+  node_outputs:
+    partition:
+      shard_count: 1
+      shards:
+      - i: 1
+      - i: 2
+      - i: 3
+    map:
+      shard_result: &id001
+      - id: 1
+        finding: ok
+    reduce:
+      output:
+        entries:
+        - advisory_url: https://vendor.example/advisory/1
+          cve_ids:
+          - CVE-2026-1
+    estate-match: &id002
+      affected_assets:
+      - cve: CVE-2026-1
+        assets:
+        - api-1
+  goal: this week's CISA and vendor feeds, for a Kubernetes estate
+- id: multi-item
+  node_outputs:
+    partition:
+      shard_count: 2
+      shards:
+      - i: 1
+      - i: 2
+      - i: 3
+    map:
+      shard_result: *id001
+    reduce:
+      output:
+        entries:
+        - advisory_url: https://vendor.example/advisory/1
+          cve_ids:
+          - CVE-2026-1
+        - advisory_url: https://vendor.example/advisory/2
+          cve_ids:
+          - CVE-2026-2
+          - CVE-2026-3
+    estate-match: *id002
+  goal: this week's CISA and vendor feeds, for a Kubernetes estate

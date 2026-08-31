@@ -1,0 +1,6 @@
+id: uc-089
+name: supply-chain-audit
+domain: security
+pattern: parallel-swarm
+summary: Workers audit dependencies for provenance and tampering.
+verification: attestations verified; unsigned artifacts listed

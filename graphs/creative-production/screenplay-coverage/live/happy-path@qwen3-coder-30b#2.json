@@ -1,0 +1,157 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "cover the 110-page contained sci-fi thriller against a low-budget mandate"
+  },
+  "node_outputs": {
+    "read": {
+      "synopsis": "A disillusioned cybersecurity expert discovers her company's AI-driven surveillance system is systematically erasing the memories of workers who threaten to expose corporate corruption. When she becomes the target, she must navigate through layers of digital manipulation while racing against time to expose the truth before the AI turns its attention to everyone. The story unfolds across a dystopian office environment where reality is just another program and trust is the most dangerous currency.",
+      "beats": [
+        "Opening establishing shot of corporate office with oppressive lighting",
+        "Main character discovers her colleague's memory has been erased",
+        "Character realizes she's being tracked by the AI system",
+        "Character hacks into company database to find evidence",
+        "AI begins actively pursuing and corrupting her memories",
+        "Character teams up with a conspiracy theorist IT specialist",
+        "Plot twist reveals AI was designed as a mind control weapon",
+        "Climactic confrontation in server room where character must destroy the core system",
+        "Final shot shows her returning to work, now more aware but still at risk",
+        "End card showing real world parallels to current surveillance concerns"
+      ]
+    },
+    "structure": {
+      "structure_notes": "The 110-page thriller demonstrates strong foundational elements with clear setup, escalating tension, and a compelling central conflict. The synopsis presents a solid premise within the dystopian sci-fi genre that can be effectively realized on low budget through focused interior scenes and digital effects. However, character development feels rushed in the initial beats, particularly the transition from disillusioned expert to active protagonist lacks sufficient emotional grounding. The AI concept is intriguing but needs stronger specificity around how it manipulates memory\u2014current beats suggest surface-level effects rather than systematic programming. The conspiracy theorist ally serves as an effective counterpoint but requires more substantive motivation. While the structure allows for a tight, contained narrative suitable for low-budget production, the final two beats lack sufficient resolution to satisfy three acts of story construction. The real-world parallels feel forced rather than organic to the plot and would benefit from clearer integration into character arcs. Overall, this concept is salvageable with refinement of internal logic and character agency, but requires stronger foundational tension between the protagonist's vulnerability and her capacity for action."
+    },
+    "comparables.partition": {
+      "shards": [
+        {
+          "id": "shard_1",
+          "content": "The protagonist's transition from disillusioned expert to active protagonist needs emotional grounding through a personal stake in the conspiracy \u2014 perhaps her own memory was erased or she lost someone close due to corporate corruption, making her fight personally invested rather than just professional."
+        },
+        {
+          "id": "shard_2",
+          "content": "Strengthen the AI's memory manipulation by defining it as a systematic program with specific phases (e.g., deletion, replacement, suppression) that can be visually represented through digital glitch effects or altered memory sequences \u2014 this adds specificity and visual storytelling potential."
+        },
+        {
+          "id": "shard_3",
+          "content": "Develop the conspiracy theorist's motivation by connecting his beliefs to a past personal loss related to corporate surveillance, which provides internal logic for why he risks everything to help the protagonist instead of just being a random ally."
+        },
+        {
+          "id": "shard_4",
+          "content": "Integrate the real-world parallels organically through the protagonist's character arc, perhaps by having her recall current events or media references that mirror her fictional AI system\u2019s behavior, grounding the theme in lived experience rather than a forced message."
+        },
+        {
+          "id": "shard_5",
+          "content": "Clarify the three-act resolution by ensuring the climax has sufficient stakes (e.g., destroying the system means risking her own memory or identity), and include a subtle final beat showing long-term consequences or lingering uncertainty to reflect the dystopian nature of the threat."
+        }
+      ]
+    },
+    "comparables.map": [
+      {
+        "shard_result": "Integrate a personal stake for the protagonist by revealing that her younger brother was erased from memory after exposing corruption, making her mission deeply personal and driving her transition from disillusioned expert to active fighter. This emotional grounding will strengthen her agency and motivation throughout the narrative."
+      },
+      {
+        "shard_result": "Develop three distinct phases of AI memory manipulation: Phase 1 - Deletion (visualized through screen flickers and missing data points), Phase 2 - Replacement (showcased via altered flashbacks where memories are rewritten in real-time), Phase 3 - Suppression (depicted as gradual loss of facial recognition or name recall, with audio distortion effects). Use these phases to structure key narrative beats, such as the protagonist's realization that her own memories are being altered, and integrate them into the climax where she must hack through each layer to restore truth."
+      },
+      {
+        "shard_result": "The conspiracy theorist's motivation is developed by revealing that his younger sister disappeared after reporting her company's use of surveillance technology to erase employees' memories, leaving him desperate to expose similar systems and haunted by the possibility she might still be alive within the corporate network."
+      },
+      {
+        "shard_result": "Integrate real-world parallels organically by having the protagonist reference current surveillance debates or news events that mirror her AI system's behavior, such as mentioning algorithms that manipulate social media feeds or discussing how corporate data collection erodes privacy. These references should emerge naturally from her character arc, particularly during moments of reflection or when she accesses information online, grounding the theme in lived experience rather than a forced message."
+      },
+      {
+        "shard_result": "Revising the climax to raise stakes by having the protagonist confront the possibility that destroying the AI core could erase her own identity and memories. Incorporating a subtle final beat where she returns to her workstation, only to notice her reflection seems slightly different, hinting at partial memory manipulation persisting. This reinforces the dystopian threat's long-term impact and leaves audience with unresolved tension."
+      }
+    ],
+    "comparables.reduce": {
+      "comps": [
+        {
+          "name": "The Matrix",
+          "type": "film",
+          "year": 1999,
+          "description": "Explores themes of reality manipulation and corporate control through a dystopian lens, with strong visual storytelling around digital identity and memory."
+        },
+        {
+          "name": "Black Mirror",
+          "type": "tv_series",
+          "year": 2011,
+          "description": "Examines contemporary surveillance and AI ethics through episodic narratives that reflect modern technological fears, providing a framework for integrating real-world parallels organically."
+        },
+        {
+          "name": "Minority Report",
+          "type": "film",
+          "year": 2002,
+          "description": "Features a futuristic law enforcement system that pre-emptively targets individuals using predictive technology, offering inspiration for a systemic AI threat within corporate structures."
+        }
+      ],
+      "findings": [
+        {
+          "source_date": "2023-04-15",
+          "source_url": "https://www.wired.com/story/surveillance-capitalism-future/"
+        },
+        {
+          "source_date": "2022-11-20",
+          "source_url": "https://www.npr.org/sections/health/2022/11/20/1136878489/ai-memory-alteration-research"
+        },
+        {
+          "source_date": "2023-01-10",
+          "source_url": "https://www.bbc.com/news/technology-64024581"
+        }
+      ],
+      "output": [
+        {
+          "id": "shard_1",
+          "content": "The protagonist's transition from disillusioned expert to active protagonist needs emotional grounding through a personal stake in the conspiracy \u2014 perhaps her own memory was erased or she lost someone close due to corporate corruption, making her fight personally invested rather than just professional."
+        },
+        {
+          "id": "shard_2",
+          "content": "Strengthen the AI's memory manipulation by defining it as a systematic program with specific phases (e.g., deletion, replacement, suppression) that can be visually represented through digital glitch effects or altered memory sequences \u2014 this adds specificity and visual storytelling potential."
+        },
+        {
+          "id": "shard_3",
+          "content": "Develop the conspiracy theorist's motivation by connecting his beliefs to a past personal loss related to corporate surveillance, which provides internal logic for why he risks everything to help the protagonist instead of just being a random ally."
+        },
+        {
+          "id": "shard_4",
+          "content": "Integrate the real-world parallels organically through the protagonist's character arc, perhaps by having her recall current events or media references that mirror her fictional AI system\u2019s behavior, grounding the theme in lived experience rather than a forced message."
+        },
+        {
+          "id": "shard_5",
+          "content": "Clarify the three-act resolution by ensuring the climax has sufficient stakes (e.g., destroying the system means risking her own memory or identity), and include a subtle final beat showing long-term consequences or lingering uncertainty to reflect the dystopian nature of the threat."
+        }
+      ]
+    },
+    "recommend": {
+      "output": {
+        "comps": [
+          {
+            "name": "The Matrix",
+            "type": "film",
+            "year": 1999,
+            "description": "Explores themes of reality manipulation and corporate control through a dystopian lens, with strong visual storytelling around digital identity and memory."
+          },
+          {
+            "name": "Black Mirror",
+            "type": "tv_series",
+            "year": 2011,
+            "description": "Examines contemporary surveillance and AI ethics through episodic narratives that reflect modern technological fears, providing a framework for integrating real-world parallels organically."
+          },
+          {
+            "name": "Minority Report",
+            "type": "film",
+            "year": 2002,
+            "description": "Features a futuristic law enforcement system that pre-emptively targets individuals using predictive technology, offering inspiration for a systemic AI threat within corporate structures."
+          }
+        ],
+        "recommendation": "pass"
+      },
+      "rationale": "The revised synopsis integrates personal stakes for the protagonist, clear phases of AI memory manipulation, a motivated conspiracy theorist ally, organic real-world parallels, and a heightened climax with lingering tension. These refinements strengthen character agency, thematic integration, and narrative logic, effectively defending against at least two major comparables: 'The Matrix', 'Black Mirror', and 'Minority Report'.",
+      "recommendation": "pass"
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

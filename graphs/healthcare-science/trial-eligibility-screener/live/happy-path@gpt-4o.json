@@ -1,0 +1,17 @@
+{
+  "model": "gpt-4o",
+  "recorded": "2026-08-10",
+  "endpoint": "https://api.openai.com/v1",
+  "node_outputs": {
+    "prefilter": {
+      "obvious_excludes": 0
+    },
+    "criteria-match": {
+      "matched": true,
+      "ambiguous": 0
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

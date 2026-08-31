@@ -1,0 +1,270 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "collect SOC 2 Type II evidence for the 2026 audit period"
+  },
+  "node_outputs": {
+    "enumerate": {
+      "controls": [
+        "access controls",
+        "change management",
+        "risk management",
+        "incident response"
+      ]
+    },
+    "collect.plan": [
+      {
+        "steps": [
+          {
+            "exit_code": 10
+          },
+          {
+            "exit_code": 20
+          },
+          {
+            "exit_code": 30
+          },
+          {
+            "exit_code": 40
+          }
+        ]
+      },
+      {
+        "steps": [
+          {
+            "exit_code": 90
+          },
+          {
+            "exit_code": 100
+          }
+        ]
+      }
+    ],
+    "collect.execute": [
+      {
+        "step_result": {
+          "evidence_collected": [
+            {
+              "control": "access controls",
+              "files": [
+                "security/logs/2026-01-01.txt",
+                "security/logs/2026-02-01.txt"
+              ]
+            },
+            {
+              "control": "change management",
+              "files": [
+                "config/changes/2026-q1.csv"
+              ]
+            },
+            {
+              "control": "risk management",
+              "files": [
+                "reports/risk_2026-q1.pdf"
+              ]
+            },
+            {
+              "control": "incident response",
+              "files": [
+                "security/incidents/2026-q1.json"
+              ]
+            }
+          ],
+          "status": "partial",
+          "message": "Some evidence files were corruptions or missing segments."
+        }
+      },
+      {
+        "step_result": {
+          "evidence_collected": [
+            {
+              "control": "change management",
+              "files": [
+                "config/changes/2026-q1.csv"
+              ]
+            },
+            {
+              "control": "incident response",
+              "files": [
+                "security/incidents/2026-q1.json"
+              ]
+            }
+          ],
+          "status": "partial",
+          "message": "Re-collected evidence files as requested."
+        }
+      }
+    ],
+    "collect.verify": [
+      {
+        "evidence": [
+          {
+            "control": "access controls",
+            "files": [
+              "security/logs/2026-01-01.txt",
+              "security/logs/2026-02-01.txt"
+            ],
+            "verification_status": "verified with checksum"
+          },
+          {
+            "control": "change management",
+            "files": [
+              "config/changes/2026-q1.csv"
+            ],
+            "verification_status": "corrupt file detected, re-collection needed"
+          },
+          {
+            "control": "risk management",
+            "files": [
+              "reports/risk_2026-q1.pdf"
+            ],
+            "verification_status": "verified with digital signature"
+          },
+          {
+            "control": "incident response",
+            "files": [
+              "security/incidents/2026-q1.json"
+            ],
+            "verification_status": "missing segments in file, re-collection needed"
+          }
+        ],
+        "output": "Partial verification complete. Some files need to be re-collected due to corruption or missing segments.",
+        "steps": [
+          {
+            "exit_code": 50
+          },
+          {
+            "exit_code": 60
+          },
+          {
+            "exit_code": 70
+          },
+          {
+            "exit_code": 80
+          }
+        ]
+      },
+      {
+        "evidence": [
+          {
+            "control": "change management",
+            "files": [
+              "config/changes/2026-q1.csv"
+            ],
+            "verification_status": "corrupt file detected, re-verification needed"
+          },
+          {
+            "control": "incident response",
+            "files": [
+              "security/incidents/2026-q1.json"
+            ],
+            "verification_status": "missing segments in file, pending verification"
+          }
+        ],
+        "output": {
+          "controls_evidenced": 2,
+          "controls_total": 4,
+          "uncovered": [
+            "change management",
+            "incident response"
+          ]
+        },
+        "steps": [
+          {
+            "exit_code": 102
+          }
+        ]
+      }
+    ],
+    "assess": [
+      {
+        "coverage": 50,
+        "uncovered": [
+          "change management",
+          "incident response"
+        ]
+      },
+      {
+        "coverage": 0,
+        "uncovered": [
+          "access controls",
+          "change management",
+          "risk management",
+          "incident response"
+        ]
+      }
+    ],
+    "report": [
+      {
+        "controls_evidenced": 2,
+        "controls_total": 4,
+        "evidence_report": {
+          "access controls": {
+            "status": "verified with checksum",
+            "files": [
+              "security/logs/2026-01-01.txt",
+              "security/logs/2026-02-01.txt"
+            ]
+          },
+          "change management": {
+            "status": "corrupt file detected, re-collection needed",
+            "files": [
+              "config/changes/2026-q1.csv"
+            ]
+          },
+          "risk management": {
+            "status": "verified with digital signature",
+            "files": [
+              "reports/risk_2026-q1.pdf"
+            ]
+          },
+          "incident response": {
+            "status": "missing segments in file, re-collection needed",
+            "files": [
+              "security/incidents/2026-q1.json"
+            ]
+          }
+        },
+        "output": {
+          "controls_evidenced": 2,
+          "controls_total": 4,
+          "uncovered": [
+            "change management",
+            "incident response"
+          ]
+        }
+      },
+      {
+        "controls_evidenced": 2,
+        "controls_total": 4,
+        "output": {
+          "controls_evidenced": 2,
+          "controls_total": 4,
+          "uncovered": [
+            "access controls",
+            "risk management"
+          ]
+        },
+        "evidence_report": {
+          "change management": {
+            "status": "corrupt file detected, re-collection needed",
+            "files": [
+              "config/changes/2026-q1.csv"
+            ]
+          },
+          "incident response": {
+            "status": "missing segments in file, re-collection needed",
+            "files": [
+              "security/incidents/2026-q1.json"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

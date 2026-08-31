@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-024` | data-analytics | **debate** | 3 | 2 | 1 | 0 | 8 | write |
 
+> 🎯 **Requires a goal** — the experiment's raw data and the effect the analysis claims. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

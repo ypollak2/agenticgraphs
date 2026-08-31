@@ -18,7 +18,7 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-08-11",
+    "date": "2026-08-31",
     "cases": 1,
     "passed": 1,
     "pass_rate": 1.0,
@@ -52,19 +52,19 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:devstral:24b,gpt-4o,qwen3-coder:30b",
+    "runner": "llm-replay:qwen3-coder:30b",
     "provisional": false,
-    "verification_depth": "assert-grounded",
-    "date": "2026-08-11",
-    "cases": 5,
-    "passed": 3,
-    "pass_rate": 0.6,
+    "verification_depth": "assert-live",
+    "date": "2026-08-31",
+    "cases": 3,
+    "passed": 0,
+    "pass_rate": 0.0,
     "mean_steps": 6.0,
     "results": [
       {
         "id": "happy-path",
-        "model": "devstral:24b",
-        "recorded": "2026-08-11",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": false,
         "steps": 6,
@@ -78,7 +78,8 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "[collect] all(f.source_url and f.source_date for f in output.findings) (AttributeError: source_date)"
+          "output.uncited_cells == 0",
+          "all(all(c in output.criteria_grid for c in r.criteria) for r in output.matrix) (AttributeError: 'list' object has no attribute 'criteria')"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -93,8 +94,8 @@
       },
       {
         "id": "happy-path",
-        "model": "gpt-4o",
-        "recorded": "2026-08-10",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": false,
         "steps": 6,
@@ -108,53 +109,9 @@
         ],
         "goal_missing": "",
         "assert_failures": [
-          "output.criteria_consistent == true",
-          "[collect] all(f.source_url and f.source_date for f in output.findings) (AttributeError: 'str' object has no attribute 'source_url')"
+          "output.uncited_cells == 0",
+          "all(all(c in output.criteria_grid for c in r.criteria) for r in output.matrix) (AttributeError: 'list' object has no attribute 'criteria')"
         ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": true,
-        "tool_calls": [
-          {
-            "ability": "web_search",
-            "ok": true,
-            "detail": "ok"
-          },
-          {
-            "ability": "web_search",
-            "ok": true,
-            "detail": "ok"
-          },
-          {
-            "ability": "web_search",
-            "ok": true,
-            "detail": "ok"
-          }
-        ]
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": true,
-        "steps": 6,
-        "trace": [
-          "collect.partition",
-          "collect.map",
-          "collect.reduce",
-          "normalize",
-          "fill",
-          "cite-check"
-        ],
-        "goal_missing": "",
-        "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -169,9 +126,9 @@
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
+        "recorded": "2026-08-31",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 6,
         "trace": [
           "collect.partition",
@@ -182,35 +139,10 @@
           "cite-check"
         ],
         "goal_missing": "",
-        "assert_failures": [],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": true,
-        "steps": 6,
-        "trace": [
-          "collect.partition",
-          "collect.map",
-          "collect.reduce",
-          "normalize",
-          "fill",
-          "cite-check"
+        "assert_failures": [
+          "output.uncited_cells == 0",
+          "all(all(c in output.criteria_grid for c in r.criteria) for r in output.matrix) (AttributeError: 'list' object has no attribute 'criteria')"
         ],
-        "goal_missing": "",
-        "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -224,23 +156,17 @@
       }
     ],
     "models": [
-      "devstral:24b",
-      "gpt-4o",
       "qwen3-coder:30b"
     ],
-    "recorded": "2026-08-10",
-    "age_days": 1,
+    "recorded": "2026-08-31",
+    "age_days": 0,
     "per_model_pass_rate": {
-      "devstral:24b": 0.0,
-      "gpt-4o": 0.0,
-      "qwen3-coder:30b": 1.0
+      "qwen3-coder:30b": 0.0
     },
-    "models_disagree": true,
-    "fails_every_model": false,
+    "models_disagree": false,
+    "fails_every_model": true,
     "flaky_models": [],
     "samples_per_model": {
-      "devstral:24b": 1,
-      "gpt-4o": 1,
       "qwen3-coder:30b": 3
     },
     "gate_auto_approved": false

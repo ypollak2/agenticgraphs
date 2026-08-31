@@ -38,8 +38,8 @@ Detect, triage, mitigate and prove an incident closed, then write the postmortem
 A multi-phase workflow where each phase is itself a motif and hand-offs are explicit. Phases that duplicate an existing single-purpose graph reference it with `kind: subgraph` instead of restating it, so the flat library becomes the component library and a fix to a child propagates to every composite using it.
 
 - **Exit contract** — mitigation is proven effective before the postmortem is written; every postmortem yields owned actions
-- **Machine-checked** — `output.impact_cleared == true`
-- **Machine-checked** — `len(output.actions) >= 1`
+- **Machine-checked** — `output.residual_blast_radius < output.blast_radius`
+- **Machine-checked** — `len(output.actions) >= 1 and all(a.owner for a in output.actions)`
 - **Bounded** — hard stop after 45 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval incident-lifecycle` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/incident-lifecycle.md)

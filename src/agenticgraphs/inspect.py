@@ -8,16 +8,15 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from .registry import ROOT, iter_graphs, iter_yaml, load
+from .registry import ROOT, graph_dir, iter_yaml, load
 
 RISK_ORDER = {"read": 0, "write": 1, "execute": 2}
 
 
 def find_graph(name: str, root: Path = ROOT) -> Path | None:
-    for g in iter_graphs(root):
-        if g.parent.name == name:
-            return g
-    return None
+    """The graph.yaml for `name`. One definition of the lookup, in the core."""
+    d = graph_dir(name, root)
+    return (d / "graph.yaml") if d is not None else None
 
 
 def to_mermaid(doc: dict) -> str:
@@ -39,9 +38,25 @@ def to_mermaid(doc: dict) -> str:
     return "\n".join(lines)
 
 
-def structural_profile(doc: dict, root: Path = ROOT) -> dict:
+def ability_risks(root: Path = ROOT) -> dict[str, str]:
+    """Declared risk per ability name.
+
+    Its own function so a caller profiling the whole registry can build it once.
+    The inline version read every ability file *twice* per graph — 5312 reads to
+    profile 83 graphs, which dwarfed the join it was part of.
+    """
+    out = {}
+    for p in iter_yaml("abilities", root):
+        doc = load(p)
+        out[doc["name"]] = doc.get("risk", "read")
+    return out
+
+
+def structural_profile(doc: dict, root: Path = ROOT,
+                       ability_risk: dict[str, str] | None = None) -> dict:
     nodes, edges = doc["nodes"], doc["edges"]
-    ability_risk = {load(p)["name"]: load(p).get("risk", "read") for p in iter_yaml("abilities", root)}
+    if ability_risk is None:
+        ability_risk = ability_risks(root)
     risks = [ability_risk.get(a, "read") for n in nodes for a in n.get("abilities", [])]
     order = {nid: i for i, nid in enumerate(n["id"] for n in nodes)}
     back_edges = [e for e in edges if order.get(e["to"], 0) <= order.get(e["from"], 0)]

@@ -1,0 +1,35 @@
+cases:
+- id: simple-branch
+  node_outputs:
+    route:
+      complexity: low
+    branch-simple:
+      assigned_disposition: refund
+    verify:
+      assigned_disposition: refund
+      expected_disposition: refund
+      output:
+        assigned_disposition: refund
+        expected_disposition: refund
+  goal: return R-55910, reason 'arrived damaged', against the 2026 returns policy
+  inputs:
+    policy_table: &id001
+      arrived damaged: refund
+      changed mind, 40 days: reject
+      wrong size: exchange
+      third return this month: fraud-review
+- id: complex-branch
+  node_outputs:
+    route:
+      complexity: high
+    branch-complex:
+      assigned_disposition: reject
+    verify:
+      assigned_disposition: reject
+      expected_disposition: reject
+      output:
+        assigned_disposition: reject
+        expected_disposition: reject
+  goal: return R-55911, reason 'changed mind, 40 days', against the 2026 returns policy
+  inputs:
+    policy_table: *id001

@@ -1,0 +1,4 @@
+id: uc-084
+pattern: map-reduce
+summary: Summarize feeds into an actionable daily brief.
+verification: every item links source advisory with CVE ids

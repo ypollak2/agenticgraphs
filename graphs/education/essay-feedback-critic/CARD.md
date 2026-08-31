@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-072` | education | **generator-critic** | 3 | 3 | 1 | 0 | 10 | write |
 
+> 🎯 **Requires a goal** — the essay to critique and the assignment brief it answers. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

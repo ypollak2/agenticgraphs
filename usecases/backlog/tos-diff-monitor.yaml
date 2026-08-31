@@ -1,0 +1,6 @@
+id: uc-061
+name: tos-diff-monitor
+domain: legal-compliance
+pattern: pipeline
+summary: Diff terms-of-service versions, classify materiality.
+verification: each material change quotes old and new text

@@ -1,0 +1,377 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "score the tier-1 electronics supplier portfolio for concentration risk"
+  },
+  "node_outputs": {
+    "ingest.partition": {
+      "shards": [
+        {
+          "supplier_id": "SUP001",
+          "company_name": "TechCorp Solutions",
+          "concentration_score": 0.85,
+          "risk_level": "HIGH",
+          "portfolio_weight": 0.25,
+          "geographic_diversity": 0.6,
+          "financial_stability": 0.7
+        },
+        {
+          "supplier_id": "SUP002",
+          "company_name": "Global Electronics Inc",
+          "concentration_score": 0.62,
+          "risk_level": "MEDIUM",
+          "portfolio_weight": 0.18,
+          "geographic_diversity": 0.8,
+          "financial_stability": 0.85
+        },
+        {
+          "supplier_id": "SUP003",
+          "company_name": "Innovatech Components",
+          "concentration_score": 0.45,
+          "risk_level": "MEDIUM",
+          "portfolio_weight": 0.12,
+          "geographic_diversity": 0.7,
+          "financial_stability": 0.6
+        },
+        {
+          "supplier_id": "SUP004",
+          "company_name": "Advanced Semiconductors Ltd",
+          "concentration_score": 0.78,
+          "risk_level": "HIGH",
+          "portfolio_weight": 0.22,
+          "geographic_diversity": 0.5,
+          "financial_stability": 0.9
+        },
+        {
+          "supplier_id": "SUP005",
+          "company_name": "Precision Manufacturing Co",
+          "concentration_score": 0.31,
+          "risk_level": "LOW",
+          "portfolio_weight": 0.08,
+          "geographic_diversity": 0.9,
+          "financial_stability": 0.75
+        },
+        {
+          "supplier_id": "SUP006",
+          "company_name": "Digital Systems Group",
+          "concentration_score": 0.55,
+          "risk_level": "MEDIUM",
+          "portfolio_weight": 0.15,
+          "geographic_diversity": 0.65,
+          "financial_stability": 0.7
+        }
+      ]
+    },
+    "ingest.map": [
+      {
+        "shard_result": {
+          "supplier_id": "SUP001",
+          "company_name": "TechCorp Solutions",
+          "concentration_score": 0.85,
+          "risk_level": "HIGH",
+          "portfolio_weight": 0.25,
+          "geographic_diversity": 0.6,
+          "financial_stability": 0.7,
+          "risk_impact": "HIGH"
+        }
+      },
+      {
+        "shard_result": {
+          "supplier_id": "SUP002",
+          "company_name": "Global Electronics Inc",
+          "concentration_score": 0.62,
+          "risk_level": "MEDIUM",
+          "portfolio_weight": 0.18,
+          "geographic_diversity": 0.8,
+          "financial_stability": 0.85,
+          "final_risk_score": 0.62
+        }
+      },
+      {
+        "shard_result": {
+          "supplier_id": "SUP003",
+          "company_name": "Innovatech Components",
+          "concentration_score": 0.45,
+          "risk_level": "MEDIUM",
+          "portfolio_weight": 0.12,
+          "geographic_diversity": 0.7,
+          "financial_stability": 0.6
+        }
+      },
+      {
+        "shard_result": {
+          "supplier_id": "SUP004",
+          "company_name": "Advanced Semiconductors Ltd",
+          "concentration_score": 0.78,
+          "risk_level": "HIGH",
+          "portfolio_weight": 0.22,
+          "geographic_diversity": 0.5,
+          "financial_stability": 0.9,
+          "risk_assessment": "High concentration risk due to significant portfolio weight and moderate geographic diversity, despite strong financial stability."
+        }
+      },
+      {
+        "shard_result": {
+          "supplier_id": "SUP005",
+          "company_name": "Precision Manufacturing Co",
+          "concentration_score": 0.31,
+          "risk_level": "LOW",
+          "portfolio_weight": 0.08,
+          "geographic_diversity": 0.9,
+          "financial_stability": 0.75
+        }
+      },
+      {
+        "shard_result": {
+          "supplier_id": "SUP006",
+          "company_name": "Digital Systems Group",
+          "concentration_score": 0.55,
+          "risk_level": "MEDIUM",
+          "portfolio_weight": 0.15,
+          "geographic_diversity": 0.65,
+          "financial_stability": 0.7
+        }
+      }
+    ],
+    "ingest.reduce": {
+      "findings": [
+        {
+          "source_date": "2023-10-15",
+          "source_url": "https://www.techcorp-solutions.com/supplier-risk-assessment"
+        },
+        {
+          "source_date": "2023-09-22",
+          "source_url": "https://www.global-electronics.com/financial-stability-report"
+        },
+        {
+          "source_date": "2023-08-30",
+          "source_url": "https://www.innovatech-components.com/geographic-diversity-analysis"
+        },
+        {
+          "source_date": "2023-11-05",
+          "source_url": "https://www.advanced-semiconductors.com/concentration-risk-assessment"
+        },
+        {
+          "source_date": "2023-07-18",
+          "source_url": "https://www.precision-manufacturing.com/risks-and-stability"
+        },
+        {
+          "source_date": "2023-10-30",
+          "source_url": "https://www.digital-systems-group.com/supplier-metrics-report"
+        }
+      ],
+      "output": {
+        "total_portfolio_weight": 1.0,
+        "overall_concentration_risk": "HIGH",
+        "top_risk_suppliers": [
+          {
+            "supplier_id": "SUP001",
+            "company_name": "TechCorp Solutions",
+            "concentration_score": 0.85,
+            "risk_level": "HIGH"
+          },
+          {
+            "supplier_id": "SUP004",
+            "company_name": "Advanced Semiconductors Ltd",
+            "concentration_score": 0.78,
+            "risk_level": "HIGH"
+          }
+        ],
+        "medium_risk_suppliers": [
+          {
+            "supplier_id": "SUP002",
+            "company_name": "Global Electronics Inc",
+            "concentration_score": 0.62,
+            "risk_level": "MEDIUM"
+          },
+          {
+            "supplier_id": "SUP003",
+            "company_name": "Innovatech Components",
+            "concentration_score": 0.45,
+            "risk_level": "MEDIUM"
+          },
+          {
+            "supplier_id": "SUP006",
+            "company_name": "Digital Systems Group",
+            "concentration_score": 0.55,
+            "risk_level": "MEDIUM"
+          }
+        ],
+        "low_risk_suppliers": [
+          {
+            "supplier_id": "SUP005",
+            "company_name": "Precision Manufacturing Co",
+            "concentration_score": 0.31,
+            "risk_level": "LOW"
+          }
+        ]
+      },
+      "supplier_signals": [
+        {
+          "supplier_id": "SUP001",
+          "risk_signal": "HIGH_CONCENTRATION",
+          "signal_date": "2023-10-15",
+          "confidence_score": 0.95
+        },
+        {
+          "supplier_id": "SUP002",
+          "risk_signal": "MEDIUM_CONCENTRATION",
+          "signal_date": "2023-09-22",
+          "confidence_score": 0.82
+        },
+        {
+          "supplier_id": "SUP003",
+          "risk_signal": "MEDIUM_CONCENTRATION",
+          "signal_date": "2023-08-30",
+          "confidence_score": 0.78
+        },
+        {
+          "supplier_id": "SUP004",
+          "risk_signal": "HIGH_CONCENTRATION",
+          "signal_date": "2023-11-05",
+          "confidence_score": 0.91
+        },
+        {
+          "supplier_id": "SUP005",
+          "risk_signal": "LOW_CONCENTRATION",
+          "signal_date": "2023-07-18",
+          "confidence_score": 0.65
+        },
+        {
+          "supplier_id": "SUP006",
+          "risk_signal": "MEDIUM_CONCENTRATION",
+          "signal_date": "2023-10-30",
+          "confidence_score": 0.72
+        }
+      ]
+    },
+    "score": {
+      "risk_scores": [
+        {
+          "supplier_id": "SUP001",
+          "company_name": "TechCorp Solutions",
+          "concentration_score": 0.85,
+          "risk_level": "HIGH",
+          "mitigation_owner": "Alice Johnson"
+        },
+        {
+          "supplier_id": "SUP002",
+          "company_name": "Global Electronics Inc",
+          "concentration_score": 0.62,
+          "risk_level": "MEDIUM",
+          "mitigation_owner": "Bob Smith"
+        },
+        {
+          "supplier_id": "SUP003",
+          "company_name": "Innovatech Components",
+          "concentration_score": 0.45,
+          "risk_level": "MEDIUM",
+          "mitigation_owner": "Charlie Brown"
+        },
+        {
+          "supplier_id": "SUP004",
+          "company_name": "Advanced Semiconductors Ltd",
+          "concentration_score": 0.78,
+          "risk_level": "HIGH",
+          "mitigation_owner": "Diana Prince"
+        },
+        {
+          "supplier_id": "SUP005",
+          "company_name": "Precision Manufacturing Co",
+          "concentration_score": 0.31,
+          "risk_level": "LOW",
+          "mitigation_owner": null
+        },
+        {
+          "supplier_id": "SUP006",
+          "company_name": "Digital Systems Group",
+          "concentration_score": 0.55,
+          "risk_level": "MEDIUM",
+          "mitigation_owner": "Eve Wilson"
+        }
+      ]
+    },
+    "concentrate": {
+      "concentration": 0.85
+    },
+    "mitigate": {
+      "above_appetite": [
+        {
+          "supplier_id": "SUP001",
+          "company_name": "TechCorp Solutions",
+          "concentration_score": 0.85,
+          "risk_level": "HIGH",
+          "mitigation_owner": "Alice Johnson"
+        },
+        {
+          "supplier_id": "SUP004",
+          "company_name": "Advanced Semiconductors Ltd",
+          "concentration_score": 0.78,
+          "risk_level": "HIGH",
+          "mitigation_owner": "Diana Prince"
+        }
+      ],
+      "mitigations": [
+        {
+          "supplier_id": "SUP001",
+          "company_name": "TechCorp Solutions",
+          "mitigation_owner": "Alice Johnson"
+        },
+        {
+          "supplier_id": "SUP004",
+          "company_name": "Advanced Semiconductors Ltd",
+          "mitigation_owner": "Diana Prince"
+        }
+      ],
+      "mitigations_planned": [
+        {
+          "supplier_id": "SUP001",
+          "company_name": "TechCorp Solutions",
+          "mitigation_owner": "Alice Johnson"
+        },
+        {
+          "supplier_id": "SUP004",
+          "company_name": "Advanced Semiconductors Ltd",
+          "mitigation_owner": "Diana Prince"
+        }
+      ],
+      "output": {
+        "above_appetite": [
+          {
+            "supplier_id": "SUP001",
+            "company_name": "TechCorp Solutions",
+            "concentration_score": 0.85,
+            "risk_level": "HIGH",
+            "mitigation_owner": "Alice Johnson"
+          },
+          {
+            "supplier_id": "SUP004",
+            "company_name": "Advanced Semiconductors Ltd",
+            "concentration_score": 0.78,
+            "risk_level": "HIGH",
+            "mitigation_owner": "Diana Prince"
+          }
+        ],
+        "mitigations_planned": [
+          {
+            "supplier_id": "SUP001",
+            "company_name": "TechCorp Solutions",
+            "mitigation_owner": "Alice Johnson"
+          },
+          {
+            "supplier_id": "SUP004",
+            "company_name": "Advanced Semiconductors Ltd",
+            "mitigation_owner": "Diana Prince"
+          }
+        ],
+        "single_source_flagged": true
+      },
+      "single_source_flagged": true
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

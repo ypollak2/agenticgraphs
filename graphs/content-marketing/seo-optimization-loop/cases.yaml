@@ -1,0 +1,33 @@
+cases:
+- id: meets-target-first-try
+  node_outputs:
+    intake:
+      summary: intake complete
+    attempt:
+      output:
+        seo_score: 82
+        threshold: 75
+        stuffing_flags: []
+    measure:
+      below_target: false
+      attempts: 1
+  goal: /pricing, for 'agent workflow pricing'
+- id: retry-then-meets-target
+  node_outputs:
+    intake:
+      summary: intake complete
+    attempt:
+    - output:
+        seo_score: 60
+        threshold: 75
+        stuffing_flags: []
+    - output:
+        seo_score: 82
+        threshold: 75
+        stuffing_flags: []
+    measure:
+    - below_target: true
+      attempts: 1
+    - below_target: false
+      attempts: 2
+  goal: /pricing, for 'agent workflow pricing'

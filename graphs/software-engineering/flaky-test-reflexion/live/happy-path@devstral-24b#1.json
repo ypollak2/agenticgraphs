@@ -1,0 +1,141 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "stabilize test_checkout_timeout; it must go 3 consecutive greens"
+  },
+  "node_outputs": {
+    "reproduce": {
+      "observed": {
+        "type": "error",
+        "message": "Invalid context for 'reproduce' node. The blackboard contains state for the stabilization workflow but doesn't provide specific test run information needed to execute test_checkout_timeout."
+      },
+      "seed": 42
+    },
+    "hypothesise": [
+      {
+        "hypothesis": {
+          "type": "reproducer",
+          "test_id": "checkout_timeout_test",
+          "num_runs": 3
+        }
+      },
+      {
+        "hypothesis": {
+          "type": "fixer",
+          "test_id": "checkout_timeout_test",
+          "approach": {
+            "name": "investigate_specific_context_missing_for_reproduce_node",
+            "description": "Identify and provide necessary context for the reproduce node to run test_checkout_timeout"
+          }
+        }
+      },
+      {
+        "hypothesis": {
+          "type": "analyst",
+          "approach": {
+            "name": "identify_missing_context_for_reproduce",
+            "context_needed": [
+              "test_checkout_timeout_specific_steps",
+              "environment_setup"
+            ]
+          }
+        }
+      },
+      {
+        "hypothesis": {
+          "type": "analyst",
+          "approach": {
+            "name": "identify_missing_context_for_reproduce",
+            "context_needed": [
+              "test_checkout_timeout_specific_steps",
+              "environment_setup"
+            ]
+          }
+        }
+      }
+    ],
+    "test-fix": [
+      {
+        "candidate_fix": [
+          {
+            "action": "run_step",
+            "step_name": "reproduce_test_checkout_timeout"
+          }
+        ]
+      },
+      {
+        "candidate_fix": [
+          {
+            "action": "edit_files",
+            "files": [
+              {
+                "path": ".github/workflows/stabilize.yml",
+                "content": "context:\n  test_checkout_timeout: <add the necessary context here>"
+              }
+            ]
+          },
+          {
+            "action": "run_step",
+            "step_name": "reproduce_test_checkout_timeout"
+          }
+        ]
+      },
+      {
+        "candidate_fix": [
+          {
+            "action": "edit_workflow_context"
+          }
+        ]
+      },
+      {
+        "candidate_fix": [
+          {
+            "action": "edit_workflow_context"
+          }
+        ]
+      }
+    ],
+    "evaluate": [
+      {
+        "consecutive_green": 0,
+        "lessons": [],
+        "output": {
+          "consecutive_green": 0,
+          "lessons": []
+        },
+        "stable": false
+      },
+      {
+        "consecutive_green": 0,
+        "stable": false,
+        "output": {
+          "consecutive_green": 0,
+          "lessons": []
+        }
+      },
+      {
+        "consecutive_green": 0,
+        "lessons": [],
+        "output": {
+          "consecutive_green": 0,
+          "lessons": []
+        },
+        "stable": false
+      },
+      {
+        "consecutive_green": 0,
+        "lessons": [],
+        "output": {
+          "consecutive_green": 0,
+          "lessons": []
+        },
+        "stable": false
+      }
+    ]
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

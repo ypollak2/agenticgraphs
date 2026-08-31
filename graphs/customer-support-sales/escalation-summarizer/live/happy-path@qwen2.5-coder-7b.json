@@ -1,0 +1,32 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "summary": "All asks have been addressed in the output. Each ask includes a traceable quote."
+    },
+    "produce": {
+      "all_asks_covered": false,
+      "asks": [
+        {
+          "quote": null,
+          "unresolved": true
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "all_asks_covered": false,
+        "asks": [
+          {
+            "quote": null,
+            "unresolved": true
+          }
+        ]
+      }
+    }
+  },
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

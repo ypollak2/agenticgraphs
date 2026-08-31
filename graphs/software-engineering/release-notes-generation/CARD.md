@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-009` | software-engineering | **map-reduce** | 3 | 2 | 1 | 0 | 20 | execute |
 
+> 🎯 **Requires a goal** — the merged pull requests to summarize and the release they ship in. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

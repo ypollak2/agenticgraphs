@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: clinical-literature-triage
 description: Route new papers by study type and evidence level.
 category: healthcare-science
@@ -15,21 +15,24 @@ nodes:
   abilities:
   - generate
   outputs:
-  - handled_by
+  - assigned_evidence_level
 - id: branch-complex
   speciality: producer
   abilities:
   - generate
   outputs:
-  - handled_by
+  - assigned_evidence_level
 - id: verify
   speciality: critic
   abilities:
   - critique
   kind: verifier
   outputs:
-  - matches_validated_set
+  - expected_evidence_level
+  - assigned_evidence_level
   - output
+  criteria: The study-type and evidence-level labels agree with the validated sample, and the level reflects
+    the study design as reported rather than the strength of its conclusions.
 edges:
 - from: route
   to: branch-simple
@@ -45,4 +48,14 @@ termination:
   max_steps: 12
   contract: labels match a validated sample set
 verification:
-- assert: output.matches_validated_set
+- describe: the decision agrees with the validated labels the caller supplied
+  assert: output.assigned_evidence_level == output.expected_evidence_level
+- describe: the reference was actually consulted, not left empty
+  assert: len(output.expected_evidence_level) > 0
+goal:
+  required: true
+  description: the papers to triage and the evidence hierarchy to rank them by
+state:
+  inputs:
+  - goal
+  - validated_labels

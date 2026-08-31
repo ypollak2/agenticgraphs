@@ -6,7 +6,7 @@
     "edges": 6,
     "verifier_nodes": 0,
     "router_nodes": 0,
-    "parallel_groups": 0,
+    "parallel_groups": 1,
     "max_fan_out": 2,
     "loops": 1,
     "loops_bounded": true,
@@ -18,7 +18,7 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-08-11",
+    "date": "2026-08-31",
     "cases": 1,
     "passed": 1,
     "pass_rate": 1.0,
@@ -53,230 +53,19 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:devstral:24b,gpt-4o,qwen3-coder:30b",
+    "runner": "llm-replay:qwen3-coder:30b",
     "provisional": false,
-    "verification_depth": "assert-grounded",
-    "date": "2026-08-11",
-    "cases": 7,
-    "passed": 3,
-    "pass_rate": 0.429,
-    "mean_steps": 9.14,
+    "verification_depth": "assert-live",
+    "date": "2026-08-31",
+    "cases": 1,
+    "passed": 1,
+    "pass_rate": 1.0,
+    "mean_steps": 7.0,
     "results": [
       {
         "id": "happy-path",
-        "model": "devstral:24b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 7,
-        "trace": [
-          "extract",
-          "write",
-          "claim-check.intake",
-          "policy-check",
-          "claim-check.produce",
-          "claim-check.review",
-          "publish"
-        ],
-        "goal_missing": "",
-        "assert_failures": [
-          "[claim-check] all(v.source_url and v.quote_span for v in output.verdicts)"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "devstral:24b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 12,
-        "trace": [
-          "extract",
-          "write",
-          "claim-check.intake",
-          "policy-check",
-          "claim-check.produce",
-          "claim-check.review",
-          "publish",
-          "write",
-          "claim-check.intake",
-          "policy-check",
-          "claim-check.produce",
-          "claim-check.review"
-        ],
-        "goal_missing": "",
-        "assert_failures": [
-          "len(output.unsupported_claims) == 0",
-          "len(output.policy_violations) == 0"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "devstral:24b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 13,
-        "trace": [
-          "extract",
-          "write",
-          "claim-check.intake",
-          "policy-check",
-          "claim-check.produce",
-          "claim-check.review",
-          "publish",
-          "write",
-          "claim-check.intake",
-          "policy-check",
-          "claim-check.produce",
-          "publish",
-          "claim-check.review"
-        ],
-        "goal_missing": "",
-        "assert_failures": [
-          "len(output.unsupported_claims) == 0",
-          "[claim-check] all(v.source_url and v.quote_span for v in output.verdicts)"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "gpt-4o",
-        "recorded": "2026-08-09",
-        "gate_auto_approved": false,
-        "passed": true,
-        "steps": 7,
-        "trace": [
-          "extract",
-          "write",
-          "claim-check.intake",
-          "policy-check",
-          "claim-check.produce",
-          "claim-check.review",
-          "publish"
-        ],
-        "goal_missing": "",
-        "assert_failures": [],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": true,
-        "tool_calls": [
-          {
-            "ability": "web_search",
-            "ok": true,
-            "detail": "ok"
-          },
-          {
-            "ability": "web_search",
-            "ok": true,
-            "detail": "ok"
-          }
-        ]
-      },
-      {
-        "id": "happy-path",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 11,
-        "trace": [
-          "extract",
-          "write",
-          "claim-check.intake",
-          "policy-check",
-          "claim-check.produce",
-          "claim-check.review",
-          "write",
-          "claim-check.intake",
-          "policy-check",
-          "claim-check.produce",
-          "claim-check.review"
-        ],
-        "goal_missing": "",
-        "assert_failures": [
-          "len(output.unsupported_claims) == 0",
-          "len(output.policy_violations) == 0"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": true,
-        "steps": 7,
-        "trace": [
-          "extract",
-          "write",
-          "claim-check.intake",
-          "policy-check",
-          "claim-check.produce",
-          "claim-check.review",
-          "publish"
-        ],
-        "goal_missing": "",
-        "assert_failures": [],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
+        "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": true,
         "steps": 7,
@@ -304,26 +93,18 @@
       }
     ],
     "models": [
-      "devstral:24b",
-      "gpt-4o",
       "qwen3-coder:30b"
     ],
-    "recorded": "2026-08-09",
-    "age_days": 2,
+    "recorded": "2026-08-31",
+    "age_days": 0,
     "per_model_pass_rate": {
-      "devstral:24b": 0.0,
-      "gpt-4o": 1.0,
-      "qwen3-coder:30b": 0.667
+      "qwen3-coder:30b": 1.0
     },
-    "models_disagree": true,
+    "models_disagree": false,
     "fails_every_model": false,
-    "flaky_models": [
-      "qwen3-coder:30b"
-    ],
+    "flaky_models": [],
     "samples_per_model": {
-      "devstral:24b": 3,
-      "gpt-4o": 1,
-      "qwen3-coder:30b": 3
+      "qwen3-coder:30b": 1
     },
     "gate_auto_approved": false
   }

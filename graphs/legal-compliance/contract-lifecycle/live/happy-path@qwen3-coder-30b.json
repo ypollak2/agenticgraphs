@@ -1,0 +1,66 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "review the Acme MSA under our standard enterprise risk posture"
+  },
+  "node_outputs": {
+    "intake": {
+      "clauses": [
+        "Confidentiality and Non-Disclosure Agreement",
+        "Liability Limitation Clause",
+        "Force Majeure Provisions",
+        "Termination Rights and Conditions",
+        "Data Protection and Privacy Compliance",
+        "Intellectual Property Rights Transfer",
+        "Audit and Compliance Requirements"
+      ]
+    },
+    "redline.intake": {
+      "summary": "The Acme MSA contains standard enterprise risk posture elements including confidentiality protections, liability caps, force majeure events, termination rights, data privacy compliance requirements, IP transfer provisions, and audit clauses. Overall structure aligns with industry standards but requires closer examination of liability limitation thresholds and data protection specificity to ensure adequate risk mitigation."
+    },
+    "redline.produce": {
+      "redlines": [
+        {
+          "playbook_ref": "confidentiality_review"
+        },
+        {
+          "playbook_ref": "liability_cap_analysis"
+        },
+        {
+          "playbook_ref": "data_protection_specifics"
+        }
+      ]
+    },
+    "redline.review": {
+      "output": "The Acme MSA demonstrates comprehensive coverage of standard enterprise risk posture elements with particular strength in confidentiality and data protection frameworks. The agreement appropriately balances protection mechanisms with operational flexibility across key clauses including non-disclosure, liability limitation, force majeure, termination rights, and intellectual property transfer. However, critical areas requiring attention include the specificity of data protection measures, the adequacy of liability caps given industry exposure levels, and the granularity of audit requirements for compliance monitoring.",
+      "redlines": [
+        {
+          "playbook_ref": "confidentiality_review"
+        },
+        {
+          "playbook_ref": "liability_cap_analysis"
+        },
+        {
+          "playbook_ref": "data_protection_specifics"
+        }
+      ]
+    },
+    "risk-assess": {
+      "residual_risk": "medium"
+    },
+    "execute": {
+      "executed": true,
+      "output": {
+        "executed": true,
+        "residual_risk_level": "medium",
+        "signed_off": true
+      },
+      "residual_risk_level": "medium"
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

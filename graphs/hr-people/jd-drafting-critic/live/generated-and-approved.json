@@ -1,0 +1,27 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "responsibilities": [
+        "bias_lint_clean",
+        "requirements_deduped"
+      ]
+    },
+    "generate": {
+      "responsible_keys": [
+        "bias_lint_clean",
+        "requirements_deduped"
+      ]
+    },
+    "critique": {
+      "output": {
+        "bias_lint_clean": true,
+        "requirements_deduped": true
+      }
+    }
+  },
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

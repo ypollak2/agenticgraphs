@@ -1,0 +1,82 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "repair the failing nightly build on main"
+  },
+  "node_outputs": {
+    "collect": {
+      "failures": []
+    },
+    "classify": [
+      {
+        "cause": "Insufficient information to determine cause without exploring the build failures",
+        "known": "Nightly build is failing on main branch; need specific failure details"
+      },
+      {
+        "cause": "Insufficient information to analyze build failures without details",
+        "known": "Nightly builds are failing on main; need specific failure messages or logs"
+      },
+      {
+        "cause": "Need specific failure messages to determine root cause",
+        "known": ""
+      }
+    ],
+    "repair": [
+      {
+        "repair_applied": "No repair action determined without analysis"
+      },
+      {
+        "repair_applied": "No repair action determined without analysis"
+      },
+      {
+        "repair_applied": "No repair action determined without analysis"
+      }
+    ],
+    "confirm": [
+      {
+        "escalated": false,
+        "lessons": [
+          "Unable to proceed without specific build failure details."
+        ],
+        "output": {
+          "escalated": false,
+          "pipeline_green": false
+        },
+        "pipeline_green": false
+      },
+      {
+        "escalated": false,
+        "lessons": [
+          "Unable to proceed without specific build failure details."
+        ],
+        "output": {
+          "escalated": false,
+          "lessons": [
+            "Unable to proceed without specific build failure details."
+          ],
+          "pipeline_green": false
+        },
+        "pipeline_green": false
+      },
+      {
+        "escalated": false,
+        "lessons": [
+          "Unable to proceed without specific build failure details."
+        ],
+        "output": {
+          "escalated": false,
+          "lessons": [
+            "Unable to proceed without specific build failure details."
+          ],
+          "pipeline_green": false
+        },
+        "pipeline_green": false
+      }
+    ]
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

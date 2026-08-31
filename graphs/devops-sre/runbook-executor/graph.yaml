@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: runbook-executor
 description: Execute a runbook step-wise with post-condition checks.
 category: devops-sre
@@ -22,6 +22,11 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - verify_failed: bool
+  criteria: Each step's post-condition command exited zero. A step whose check was skipped is not a passed
+    step.
+  retries:
+    max: 2
 edges:
 - from: plan
   to: execute
@@ -35,3 +40,12 @@ termination:
   contract: each step post-condition command exits zero
 verification:
 - assert: all(s.exit_code == 0 for s in output.steps)
+- describe: each step's post-condition is executed; a skipped check is not a passed step
+  command: pytest -q {postcondition_path}
+goal:
+  required: true
+  description: the runbook to execute and the environment to execute it in
+state:
+  inputs:
+  - goal
+  - postcondition_path

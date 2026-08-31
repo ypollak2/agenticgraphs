@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-057` | legal-compliance | **map-reduce** | 3 | 2 | 1 | 0 | 20 | write |
 
+> 🎯 **Requires a goal** — the dependency set to scan and the licence policy it must satisfy. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

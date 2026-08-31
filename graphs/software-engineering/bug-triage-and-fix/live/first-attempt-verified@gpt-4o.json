@@ -1,0 +1,77 @@
+{
+  "model": "gpt-4o",
+  "recorded": "2026-08-10",
+  "endpoint": "https://api.openai.com/v1",
+  "node_outputs": {
+    "plan": {
+      "steps": [
+        "Run the repro test without the patch to confirm it fails",
+        "Apply the patch",
+        "Run the repro test again to confirm it passes"
+      ]
+    },
+    "execute": {
+      "step_result": "output.test_failed_before_patch and output.test_passes_after_patch"
+    },
+    "verify": {
+      "output": {
+        "test_failed_before_patch": "output.test_failed_before_patch",
+        "test_passes_after_patch": "output.test_passes_after_patch"
+      },
+      "test_failed_before_patch": "output.test_failed_before_patch",
+      "test_passes_after_patch": "output.test_passes_after_patch"
+    }
+  },
+  "tool_calls": [
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "run_repro_test_without_patch.sh"
+      },
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "apply_patch.sh"
+      },
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "./run_repro_test_without_patch.sh"
+      },
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "./apply_patch.sh"
+      },
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "ls"
+      },
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "ls scripts"
+      },
+      "ok": true,
+      "detail": "ok"
+    }
+  ],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

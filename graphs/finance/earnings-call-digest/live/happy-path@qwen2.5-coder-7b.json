@@ -1,0 +1,26 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "summary": {
+        "message": "Analysis failed: one or more figures did not match transcript; invented numbers were detected"
+      }
+    },
+    "produce": {
+      "figures": [],
+      "invented_numbers": true
+    },
+    "review": {
+      "figures": [],
+      "invented_numbers": true,
+      "output": {
+        "figures": [],
+        "invented_numbers": true
+      }
+    }
+  },
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

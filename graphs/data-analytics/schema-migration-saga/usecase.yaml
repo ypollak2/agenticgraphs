@@ -1,0 +1,4 @@
+id: uc-118
+pattern: saga
+summary: Migrate a schema in four reversible steps, compensating back to consistency on any failure.
+verification: migration verified or fully unwound; never partially applied

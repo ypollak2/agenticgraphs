@@ -1,0 +1,6 @@
+id: uc-031
+name: survey-design-critic
+domain: research-knowledge
+pattern: generator-critic
+summary: Draft survey, critic hunts leading and double-barreled items.
+verification: zero flagged items remain; branching logic validated

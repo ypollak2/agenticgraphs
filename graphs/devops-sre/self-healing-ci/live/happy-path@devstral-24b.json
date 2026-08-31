@@ -1,0 +1,170 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "repair the failing nightly build on main"
+  },
+  "node_outputs": {
+    "collect": {
+      "failures": []
+    },
+    "classify": [
+      {
+        "cause": [
+          {
+            "type": "analyzer",
+            "value": [
+              {
+                "systematic": true,
+                "issue_type": "test_failure",
+                "root_cause": null
+              }
+            ]
+          }
+        ],
+        "known": {
+          "context": "failed test causing a pipeline failure"
+        }
+      },
+      {
+        "cause": [
+          {
+            "type": "analyzer",
+            "value": [
+              {
+                "systematic": true,
+                "issue_type": "test_failure",
+                "root_cause": null
+              }
+            ]
+          }
+        ],
+        "known": {
+          "context": "failed test causing a pipeline failure"
+        }
+      },
+      {
+        "cause": [
+          {
+            "type": "analyzer",
+            "value": [
+              {
+                "systematic": true,
+                "issue_type": "test_failure",
+                "root_cause": null
+              }
+            ]
+          }
+        ],
+        "known": {
+          "context": [
+            "failed test causing a pipeline failure",
+            "Systematic test failures",
+            "Ensure comprehensive and specific logging"
+          ]
+        }
+      }
+    ],
+    "repair": [
+      {
+        "repair_applied": false
+      },
+      {
+        "repair_applied": false
+      },
+      {
+        "repair_applied": true
+      }
+    ],
+    "confirm": [
+      {
+        "escalated": false,
+        "lessons": [
+          {
+            "content": "Systematic test failures require deeper investigation into the root cause rather than quick fixes.",
+            "confidence": 0.85
+          },
+          {
+            "content": "Ensure comprehensive and specific logging in nightly builds to better diagnose failing tests.",
+            "confidence": 0.75
+          }
+        ],
+        "output": {
+          "escalated": false,
+          "lessons": [
+            {
+              "content": "Systematic test failures require deeper investigation into the root cause rather than quick fixes.",
+              "confidence": 0.85
+            },
+            {
+              "content": "Ensure comprehensive and specific logging in nightly builds to better diagnose failing tests.",
+              "confidence": 0.75
+            }
+          ],
+          "pipeline_green": false
+        },
+        "pipeline_green": false
+      },
+      {
+        "escalated": false,
+        "lessons": [
+          {
+            "content": "Systematic test failures require deeper investigation into the root cause rather than quick fixes.",
+            "confidence": 0.85
+          },
+          {
+            "content": "Ensure comprehensive and specific logging in nightly builds to better diagnose failing tests.",
+            "confidence": 0.75
+          }
+        ],
+        "output": {
+          "escalated": false,
+          "lessons": [
+            {
+              "content": "Systematic test failures require deeper investigation into the root cause rather than quick fixes.",
+              "confidence": 0.85
+            },
+            {
+              "content": "Ensure comprehensive and specific logging in nightly builds to better diagnose failing tests.",
+              "confidence": 0.75
+            }
+          ],
+          "pipeline_green": false
+        },
+        "pipeline_green": false
+      },
+      {
+        "escalated": false,
+        "lessons": [
+          {
+            "content": "Systematic test failures require deeper investigation into the root cause rather than quick fixes.",
+            "confidence": 0.85
+          },
+          {
+            "content": "Ensure comprehensive and specific logging in nightly builds to better diagnose failing tests.",
+            "confidence": 0.75
+          }
+        ],
+        "output": {
+          "escalated": false,
+          "lessons": [
+            {
+              "content": "Systematic test failures require deeper investigation into the root cause rather than quick fixes.",
+              "confidence": 0.85
+            },
+            {
+              "content": "Ensure comprehensive and specific logging in nightly builds to better diagnose failing tests.",
+              "confidence": 0.75
+            }
+          ],
+          "pipeline_green": false
+        },
+        "pipeline_green": false
+      }
+    ]
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

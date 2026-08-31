@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: escalation-summarizer
 description: Compress long threads into handoff briefs with state.
 category: customer-support-sales
@@ -23,6 +23,9 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - revision_requested: bool
+  criteria: Every unresolved customer ask appears in the brief with a verbatim quote and its current state.
+    An ask the thread left hanging is exactly what the receiving tier must not have to rediscover.
 edges:
 - from: intake
   to: produce
@@ -36,3 +39,9 @@ termination:
   contract: brief covers all unresolved asks; quotes traceable
 verification:
 - assert: output.all_asks_covered and all(a.quote for a in output.asks)
+goal:
+  required: true
+  description: the support thread to summarize and the tier receiving it
+state:
+  inputs:
+  - goal

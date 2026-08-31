@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: citation-integrity-audit
 description: Workers verify each citation exists and supports its claim.
 category: research-knowledge
@@ -20,6 +20,8 @@ nodes:
     on_partial: continue
   outputs:
   - work_result
+  retries:
+    max: 2
 - id: verify
   speciality: verifier
   abilities:
@@ -28,6 +30,12 @@ nodes:
   outputs:
   - citations: list[{resolves:bool}]
   - output
+  - verify_failed: bool
+  criteria: Every citation resolves to a real, reachable source, and the cited passage actually supports
+    the claim it is attached to. A resolving link under a claim it does not support is the harder failure
+    and the one this node exists for.
+  retries:
+    max: 2
 edges:
 - from: plan
   to: work
@@ -41,3 +49,12 @@ termination:
   contract: every citation resolves; mismatches listed
 verification:
 - assert: all(c.resolves for c in output.citations)
+- describe: every citation URL is actually fetched; a link that resolves in prose does not resolve
+  command: linkchecker --no-warnings {document_path}
+goal:
+  required: true
+  description: the document whose citations to verify and the sources it cites
+state:
+  inputs:
+  - goal
+  - document_path

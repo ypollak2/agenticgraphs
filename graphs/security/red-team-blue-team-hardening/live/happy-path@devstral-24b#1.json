@@ -1,0 +1,65 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "harden the auth service; a bypass is any unauthenticated admin action"
+  },
+  "node_outputs": {
+    "scope": {
+      "surface": "authentication mechanisms",
+      "rules_of_engagement": "focus on authentication by-products that can be misused for unauthorized admin access"
+    },
+    "attack": [
+      {
+        "bypass": "admin endpoint allows unauthenticated access",
+        "severity": "high"
+      },
+      {
+        "bypass": "missing CSRF protection in admin endpoints",
+        "severity": 8
+      },
+      {
+        "bypass": "Lack of token validation in admin endpoint",
+        "severity": "High"
+      },
+      {
+        "bypass": null,
+        "severity": null
+      },
+      {
+        "bypass": "missing CSRF protection in admin endpoints",
+        "severity": 8
+      },
+      {
+        "bypass": "missing CSRF protection in admin endpoints",
+        "severity": 8
+      },
+      {
+        "bypass": "Admin API accepts requests without JWT authentication",
+        "severity": 9
+      },
+      {
+        "bypass": "insecure direct object references in admin endpoints",
+        "severity": 9
+      }
+    ],
+    "defend": {
+      "mitigation": {
+        "description": "Implement JWT authentication check for Admin API endpoints",
+        "status": "success"
+      }
+    },
+    "retest": {
+      "attacker_exhausted": true,
+      "output": {
+        "attacker_exhausted": true,
+        "unmitigated": 0
+      },
+      "unmitigated": 0
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

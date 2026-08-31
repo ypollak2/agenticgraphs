@@ -17,8 +17,6 @@ import os
 import subprocess
 from pathlib import Path
 
-from .registry import ROOT
-
 AUTO_BRANCH = "auto/mutations"
 
 HUMAN_OWNED_CHECKOUT_MSG = (
@@ -84,8 +82,9 @@ def _git_config(root: Path, key: str, default: str) -> str:
 
 
 def commit_autonomous_mutation(root: Path, paths: list[Path], message: str) -> str:
-    """Commit `paths` (already written on disk) onto `AUTO_BRANCH`, never touching
-    `main`, the caller's real index, or the currently checked-out branch.
+    """Commit `paths` onto `AUTO_BRANCH`, touching nothing the human owns.
+
+    Never `main`, never the caller's real index, never the checked-out branch.
 
     Uses git plumbing with a scratch index so this can run against a live,
     human-owned checkout without disturbing anything the human has staged or

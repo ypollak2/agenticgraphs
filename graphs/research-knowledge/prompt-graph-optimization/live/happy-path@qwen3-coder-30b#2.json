@@ -1,0 +1,86 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "optimize the support-triage graph for accuracy on the held-out set"
+  },
+  "node_outputs": {
+    "baseline": {
+      "baseline_score": 0.823,
+      "eval_set": "support_tickets_v2_holdout"
+    },
+    "search": [
+      {
+        "variant": "triage_graph_v3_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.857
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.857
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.857
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.857
+      },
+      {
+        "variant": "triage_graph_v3_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v3_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v3_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.857
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.857
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.857
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.857
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.857
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.857
+      }
+    ],
+    "confirm": {
+      "holdout_score": 0.857,
+      "output": {
+        "baseline_score": 0.823,
+        "holdout_score": 0.857
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

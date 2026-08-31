@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: bug-triage-and-fix
 description: Reproduce a bug, plan a fix, apply it in isolation, verify.
 category: software-engineering
@@ -21,9 +21,14 @@ nodes:
   - run_command
   kind: verifier
   outputs:
+  - exit_after: int
+  - exit_before: int
   - output
-  - test_failed_before_patch: any
-  - test_passes_after_patch: any
+  - verify_failed: bool
+  criteria: The regression test fails against the unpatched code and passes against the patched code.
+    A test that passes before the fix is testing something else.
+  retries:
+    max: 2
 edges:
 - from: plan
   to: execute
@@ -36,4 +41,15 @@ termination:
   max_steps: 25
   contract: repro test fails before patch and passes after
 verification:
-- assert: output.test_failed_before_patch and output.test_passes_after_patch
+- describe: the regression test is run before and after the patch; the exit codes are the fact, not a
+    verdict about them
+  assert: output.exit_before != 0 and output.exit_after == 0
+- describe: the suite is run
+  command: pytest -q {test_path}
+goal:
+  required: true
+  description: the bug report to fix and the repository it reproduces in
+state:
+  inputs:
+  - goal
+  - test_path

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: postmortem-writer
 description: Assemble timeline from logs and chat, draft blameless postmortem.
 category: devops-sre
@@ -22,6 +22,9 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - revision_requested: bool
+  criteria: Every timeline event cites the log line or chat message id it came from, and the narrative
+    attributes cause to systems and decisions rather than to people.
 edges:
 - from: intake
   to: produce
@@ -35,3 +38,9 @@ termination:
   contract: every timeline event cites a log or message id
 verification:
 - assert: all(e.get('log_id') or e.get('message_id') for e in output.timeline)
+goal:
+  required: true
+  description: the incident timeline to write up and the severity it was declared at
+state:
+  inputs:
+  - goal

@@ -1,0 +1,4 @@
+id: uc-059
+pattern: router
+summary: Route documents by privilege, relevance, and confidentiality.
+verification: recall on seeded relevant set above threshold

@@ -1,0 +1,46 @@
+{
+  "model": "gpt-4o",
+  "recorded": "2026-08-09",
+  "endpoint": "https://api.openai.com/v1",
+  "node_outputs": {
+    "rfp.partition": {
+      "shards": 4
+    },
+    "rfp.reduce": {
+      "output": "success",
+      "page_count": 10,
+      "page_limit": 20,
+      "requirements": [
+        "Completeness",
+        "Accuracy"
+      ],
+      "rfp_responses": [
+        {
+          "id": 1,
+          "status": "accepted"
+        },
+        {
+          "id": 2,
+          "status": "rejected"
+        }
+      ]
+    },
+    "score": {
+      "vendor_scores": []
+    },
+    "negotiate": {
+      "terms": "Reviewed contracts with negotiated savings of 5% achievable through volume discounts.",
+      "savings": 5000
+    },
+    "award": {
+      "awarded": false,
+      "output": {
+        "scored_vendors": 0,
+        "signed_off": true
+      },
+      "scored_vendors": 0
+    }
+  },
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

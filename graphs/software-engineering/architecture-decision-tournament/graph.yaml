@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: architecture-decision-tournament
 description: Independent designs are scored on one rubric, and the winner must beat the runner-up on record.
 category: software-engineering
@@ -40,6 +40,9 @@ nodes:
     op: best
     over: rubric_score
   kind: verifier
+  criteria: At least three independent designs were scored on one rubric, and the decision names the runner-up
+    and the margin over it, so the choice can be revisited when the evidence changes rather than re-argued
+    from scratch.
 edges:
 - from: frame
   to: design

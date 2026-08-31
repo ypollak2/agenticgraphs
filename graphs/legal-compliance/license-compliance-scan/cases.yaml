@@ -1,0 +1,39 @@
+cases:
+- id: single-item
+  node_outputs:
+    partition:
+      shard_count: 1
+      shards:
+      - i: 1
+      - i: 2
+      - i: 3
+    map:
+      shard_result: &id001
+      - id: 1
+        finding: ok
+    reduce:
+      output:
+        packages:
+        - name: foo
+          spdx: MIT
+        copyleft_conflicts: []
+  goal: the production lockfile, against the no-copyleft policy
+- id: multi-item
+  node_outputs:
+    partition:
+      shard_count: 2
+      shards:
+      - i: 1
+      - i: 2
+      - i: 3
+    map:
+      shard_result: *id001
+    reduce:
+      output:
+        packages:
+        - name: foo
+          spdx: MIT
+        - name: bar
+          spdx: GPL-3.0
+        copyleft_conflicts: []
+  goal: the production lockfile, against the no-copyleft policy

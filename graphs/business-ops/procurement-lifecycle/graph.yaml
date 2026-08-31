@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: procurement-lifecycle
 description: Run an RFP, score vendors, negotiate terms, and gate the award on budget-holder approval.
 category: business-ops
@@ -32,6 +32,7 @@ nodes:
   outputs:
   - terms
   - savings
+  - target_savings: bool
 - id: budget-approval
   speciality: approver
   kind: human

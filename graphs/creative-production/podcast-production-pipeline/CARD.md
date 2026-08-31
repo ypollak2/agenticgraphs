@@ -7,7 +7,7 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-106` | creative-production | **pipeline** | 5 | 5 | 0 | 0 | 30 | execute |
 
-> 🎯 **Requires a goal** — the recording to publish and the episode's intended audience. Without one the graph refuses and runs no node.
+> 🎯 **Requires a goal** — the episode transcript to work from and the show it belongs to. Without one the graph refuses and runs no node.
 
 ## The graph
 
@@ -36,8 +36,8 @@ Outline, script, edit, and show notes with links.
 Staged specialists each own one narrow concern, so quality problems are localized to the stage that produced them instead of being smeared across a single mega-prompt. Output only leaves the graph through the exit contract.
 
 - **Exit contract** — no episode publishes with an uncleared cue or drifting timestamps
-- **Machine-checked** — `output.rights_clear == true`
-- **Machine-checked** — `output.timestamps_valid == true`
+- **Machine-checked** — `all(c.license_ref for c in output.clearances)`
+- **Machine-checked** — `all(t.start < t.end for t in output.timestamps)`
 - **Bounded** — hard stop after 30 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval podcast-production-pipeline` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/podcast-production-pipeline.md)

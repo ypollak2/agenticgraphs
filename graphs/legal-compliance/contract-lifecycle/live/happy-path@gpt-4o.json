@@ -1,0 +1,71 @@
+{
+  "model": "gpt-4o",
+  "recorded": "2026-08-09",
+  "endpoint": "https://api.openai.com/v1",
+  "node_outputs": {
+    "intake": {
+      "clauses": [
+        "The residual risk level has been assessed to be at or below medium.",
+        "The contract must be signed off by the counsel.",
+        "The contract will be executed once the above conditions are met."
+      ]
+    },
+    "redline.intake": {
+      "summary": "The contract is pending execution, contingent upon counsel approval and the assessed residual risk level being medium or lower."
+    },
+    "redline.produce": {
+      "redlines": [
+        {
+          "playbook_ref": "revise_condition_for_clarity"
+        },
+        {
+          "playbook_ref": "verify_risk_assessment_criteria"
+        },
+        {
+          "playbook_ref": "confirm_authorization_process"
+        },
+        {
+          "playbook_ref": "ensure_counsel_review"
+        },
+        {
+          "playbook_ref": "finalize_execution_procedure"
+        }
+      ]
+    },
+    "redline.review": {
+      "output": "The contract execution is awaiting completion pending legal counsel review and confirmation of medium or lower residual risk level. It is important to ensure clarity in conditions that govern these reviews, verify the criteria for risk assessment, confirm the authorization processes involved, and review the counsel's role meticulously. These steps will facilitate a smooth and unambiguous execution process.",
+      "redlines": [
+        {
+          "playbook_ref": "enhance_condition_clarity"
+        },
+        {
+          "playbook_ref": "detail_risk_assessment_criteria"
+        },
+        {
+          "playbook_ref": "validate_authorization_chain"
+        },
+        {
+          "playbook_ref": "review_counsel_involvement"
+        },
+        {
+          "playbook_ref": "streamline_execution_steps"
+        }
+      ]
+    },
+    "risk-assess": {
+      "residual_risk": "medium"
+    },
+    "execute": {
+      "executed": true,
+      "output": {
+        "executed": true,
+        "residual_risk_level": "medium",
+        "signed_off": true
+      },
+      "residual_risk_level": "medium"
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

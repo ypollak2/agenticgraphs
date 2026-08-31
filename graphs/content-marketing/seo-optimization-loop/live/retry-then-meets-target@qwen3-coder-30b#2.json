@@ -1,0 +1,33 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "/pricing, for 'agent workflow pricing'"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Agent workflow pricing analysis complete. Standard agent workflows priced at $299/month for basic automation, $499/month for advanced workflows with integrations, and $799/month for enterprise solutions with custom development. All packages include 1000 workflow executions monthly with additional charges of $0.10 per extra execution. No keyword stuffing detected in pricing documentation."
+    },
+    "attempt": {
+      "seo_score": 87.5,
+      "stuffing_flags": 0,
+      "threshold": 80.0
+    },
+    "measure": {
+      "output": {
+        "seo_score": 87.5,
+        "stuffing_flags": 0,
+        "threshold": 80.0
+      },
+      "below_target": false
+    }
+  },
+  "tool_calls": []
+}

@@ -1,0 +1,37 @@
+cases:
+- id: happy-path
+  node_outputs:
+    plan:
+      migration_plan: migration_plan-value
+    shadow-write:
+      shadow_active: true
+    backfill:
+      backfill_complete: backfill_complete-value
+    cutover:
+      cutover_done: cutover_done-value
+    verify:
+      parity_verified: true
+      output:
+        parity_verified: true
+        consistent: false
+      source_rows: 1000
+      target_rows: 1000
+    undo-cutover:
+      cutover_undone: cutover_undone-value
+    undo-backfill:
+      backfill_undone: backfill_undone-value
+    undo-shadow:
+      shadow_undone: shadow_undone-value
+      consistent: false
+      output:
+        parity_verified: true
+        consistent: false
+        source_rows: 1000
+        target_rows: 1000
+        compensated_steps: 0
+        executed_steps: 3
+      source_rows: 1000
+      target_rows: 1000
+      compensated_steps: 0
+      executed_steps: 3
+  goal: orders v3 to v4, keeping orders readable throughout

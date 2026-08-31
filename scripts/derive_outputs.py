@@ -22,10 +22,10 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from agenticgraphs.registry import ROOT, iter_graphs, load  # noqa: E402
-from agenticgraphs.shapes import names as _names  # noqa: E402
-from agenticgraphs.subgraphs import expand, has_subgraphs  # noqa: E402
-from agenticgraphs.validate import (  # noqa: E402
+from agenticgraphs.registry import ROOT, cases_path, iter_graphs, load
+from agenticgraphs.shapes import names as _names
+from agenticgraphs.subgraphs import expand, has_subgraphs
+from agenticgraphs.validate import (
     asserted_keys,
     silent_nodes,
     unconnected_keys,
@@ -51,7 +51,7 @@ def _emitters(cases: list[dict]) -> tuple[dict[str, set[str]], dict[str, set[str
 def derive(gpath: Path) -> tuple[str, list[str], list[str]]:
     doc = load(gpath)
     name = doc["name"]
-    cases_file = ROOT / "evals" / name / "cases.yaml"
+    cases_file = cases_path(name)
     if not cases_file.exists():
         return name, [], []
     cases = yaml.safe_load(cases_file.read_text())["cases"]

@@ -118,9 +118,10 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 3,
+      "steps": 4,
       "trace": [
         "intake",
+        "outline",
         "produce",
         "review"
       ]
@@ -131,9 +132,10 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 5,
+      "steps": 6,
       "trace": [
         "intake",
+        "outline",
         "produce",
         "review",
         "produce",
@@ -293,9 +295,10 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 3,
+      "steps": 4,
       "trace": [
         "intake",
+        "playbook-lookup",
         "produce",
         "review"
       ]
@@ -306,9 +309,10 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 5,
+      "steps": 6,
       "trace": [
         "intake",
+        "playbook-lookup",
         "produce",
         "review",
         "produce",
@@ -751,9 +755,10 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 3,
+      "steps": 4,
       "trace": [
         "intake",
+        "dedupe-search",
         "produce",
         "review"
       ]
@@ -764,9 +769,10 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 5,
+      "steps": 6,
       "trace": [
         "intake",
+        "dedupe-search",
         "produce",
         "review",
         "produce",
@@ -781,9 +787,10 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 3,
+      "steps": 4,
       "trace": [
         "intake",
+        "sanctions-screen",
         "produce",
         "review"
       ]
@@ -794,9 +801,10 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 5,
+      "steps": 6,
       "trace": [
         "intake",
+        "sanctions-screen",
         "produce",
         "review",
         "produce",
@@ -869,9 +877,10 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 3,
+      "steps": 4,
       "trace": [
         "plan",
+        "screen",
         "work",
         "verify"
       ]
@@ -882,9 +891,10 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 5,
+      "steps": 6,
       "trace": [
         "plan",
+        "screen",
         "work",
         "verify",
         "work",
@@ -927,10 +937,11 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 3,
+      "steps": 4,
       "trace": [
         "plan",
         "work",
+        "recode",
         "verify"
       ]
     },
@@ -940,12 +951,14 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 5,
+      "steps": 7,
       "trace": [
         "plan",
         "work",
+        "recode",
         "verify",
         "work",
+        "recode",
         "verify"
       ]
     }
@@ -1045,9 +1058,10 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 3,
+      "steps": 4,
       "trace": [
         "intake",
+        "clause-map",
         "produce",
         "review"
       ]
@@ -1058,9 +1072,10 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 5,
+      "steps": 6,
       "trace": [
         "intake",
+        "clause-map",
         "produce",
         "review",
         "produce",
@@ -1105,10 +1120,11 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 3,
+      "steps": 4,
       "trace": [
         "intake",
         "generate",
+        "blind-solve",
         "critique"
       ]
     },
@@ -1118,12 +1134,14 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 5,
+      "steps": 7,
       "trace": [
         "intake",
         "generate",
+        "blind-solve",
         "critique",
         "generate",
+        "blind-solve",
         "critique"
       ]
     }
@@ -1339,10 +1357,11 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 3,
+      "steps": 4,
       "trace": [
         "intake",
         "generate",
+        "execute",
         "critique"
       ]
     },
@@ -1352,12 +1371,14 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 5,
+      "steps": 7,
       "trace": [
         "intake",
         "generate",
+        "execute",
         "critique",
         "generate",
+        "execute",
         "critique"
       ]
     }
@@ -1399,10 +1420,11 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 3,
+      "steps": 4,
       "trace": [
         "partition",
         "map",
+        "estate-match",
         "reduce"
       ]
     },
@@ -1412,10 +1434,11 @@
       "hit_step_cap": false,
       "passed": true,
       "skipped_commands": 0,
-      "steps": 3,
+      "steps": 4,
       "trace": [
         "partition",
         "map",
+        "estate-match",
         "reduce"
       ]
     }

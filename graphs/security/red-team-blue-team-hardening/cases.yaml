@@ -1,0 +1,22 @@
+cases:
+- id: happy-path
+  node_outputs:
+    scope:
+      surface: surface-value
+      rules_of_engagement: rules_of_engagement-value
+    attack:
+      bypass: bypass-value
+      severity: 2
+    defend:
+      mitigation: mitigation-value
+    retest:
+      attacker_exhausted: true
+      output:
+        attacker_exhausted: true
+        unmitigated: 0
+        bypasses:
+        - mitigation_ref: m-1
+      unmitigated: 0
+      bypasses:
+      - mitigation_ref: m-1
+  goal: the public API, against an authenticated-tenant attacker

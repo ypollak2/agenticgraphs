@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-001` | software-engineering | **pipeline** | 4 | 4 | 1 | 0 | 12 | read |
 
+> 🎯 **Requires a goal** — the change to review and the repository it lands in. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid
@@ -34,6 +36,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 - **Exit contract** — synthesize emits a verdict in {approve, request_changes} with every finding carrying file+line
 - **Machine-checked** — `output.verdict in ['approve','request_changes']`
 - **Machine-checked** — `all(f.file and f.line for f in output.findings)`
+- **Command-checked** — `gitleaks detect --no-banner --redact`
 - **Bounded** — hard stop after 12 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval code-review-pipeline` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/code-review-pipeline.md)

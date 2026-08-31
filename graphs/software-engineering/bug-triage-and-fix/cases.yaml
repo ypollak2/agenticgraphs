@@ -1,0 +1,47 @@
+cases:
+- id: first-attempt-verified
+  node_outputs:
+    plan:
+      steps:
+      - decompose goal
+    execute:
+      step_result: &id001
+        step: 1
+        status: done
+    verify:
+      verify_failed: false
+      attempts: 1
+      output:
+        test_failed_before_patch: true
+        test_passes_after_patch: true
+        exit_before: 1
+        exit_after: 0
+      exit_before: 1
+      exit_after: 0
+  goal: issue 481, reproducing in the checkout service
+- id: retry-then-verified
+  node_outputs:
+    plan:
+      steps:
+      - decompose goal
+    execute:
+    - step_result: *id001
+    - step_result: *id001
+    verify:
+    - verify_failed: true
+      attempts: 1
+      exit_before: 1
+      exit_after: 0
+      output:
+        exit_before: 1
+        exit_after: 0
+    - verify_failed: false
+      attempts: 2
+      output:
+        test_failed_before_patch: true
+        test_passes_after_patch: true
+        exit_before: 1
+        exit_after: 0
+      exit_before: 1
+      exit_after: 0
+  goal: issue 481, reproducing in the checkout service

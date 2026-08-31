@@ -1,0 +1,4 @@
+id: uc-090
+pattern: map-reduce
+summary: Gather control evidence per framework requirement.
+verification: every control maps to dated evidence artifacts

@@ -1,0 +1,4 @@
+id: uc-065
+pattern: parallel-swarm
+summary: Workers verify diagnosis and procedure codes against notes.
+verification: code assignments justified by note spans

@@ -1,0 +1,24 @@
+{
+  "model": "gpt-4o",
+  "recorded": "2026-08-10",
+  "endpoint": "https://api.openai.com/v1",
+  "node_outputs": {
+    "position-a": {
+      "argument": "The close alignment between the recomputed effect and the claimed effect, within a difference of less than 0.01, strongly supports the validity of the initial claim. This negligible deviation is indicative of consistent data processing and reliable statistical validation, thereby reinforcing confidence in the outcomes presented."
+    },
+    "position-b": {
+      "argument": "The close alignment between the recomputed effect and the claimed effect, with a discrepancy of less than 0.01, unequivocally supports the validity of the initial claim. Such a minute deviation indicates a high level of consistency in data handling and statistical verification, thereby bolstering confidence in the reported findings."
+    },
+    "judge": {
+      "claimed_effect": 0.01,
+      "recomputed_effect": 0.01,
+      "output": {
+        "claimed_effect": 0.01,
+        "recomputed_effect": 0.01
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

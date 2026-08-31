@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: flaky-test-reflexion
 description: Re-run a suspected flake, write down what was learned each time, and use it on the next attempt.
 category: software-engineering
@@ -12,6 +12,8 @@ nodes:
   - seed
   inputs:
   - test_id
+  retries:
+    max: 2
 - id: hypothesise
   speciality: analyst
   abilities:
@@ -43,6 +45,10 @@ nodes:
   inputs:
   - candidate_fix
   kind: verifier
+  criteria: Stability is shown by at least three consecutive green runs, not one, and every failed attempt
+    is recorded with what it ruled out so the next attempt does not repeat it.
+  retries:
+    max: 2
 edges:
 - from: reproduce
   to: hypothesise
@@ -61,10 +67,13 @@ verification:
   assert: output.consecutive_green >= 3
 - describe: each failed attempt left a lesson behind
   assert: len(output.lessons) >= 1
+- describe: the suspect test is re-run enough times for three consecutive greens to mean something
+  command: pytest -q --count=5 {test_path}
 state:
   inputs:
   - goal
   - test_id
+  - test_path
   schema: state/lessons.schema.json
 memory:
   scope: graph

@@ -6,14 +6,15 @@ reports both, so "the registry passes" can never be read off a slice.
 """
 from __future__ import annotations
 
+import json
 import sys
 from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from agenticgraphs.evalcmd import eval_graph  # noqa: E402
-from agenticgraphs.registry import ROOT, iter_graphs, load  # noqa: E402
-from agenticgraphs.subgraphs import expand, has_subgraphs  # noqa: E402
+from agenticgraphs.evalcmd import eval_graph
+from agenticgraphs.registry import ROOT, iter_graphs, load
+from agenticgraphs.subgraphs import expand, has_subgraphs
 
 OUT = ROOT / "docs" / "live-coverage.md"
 
@@ -45,9 +46,27 @@ def main() -> int:
         "actually covers — so a pass rate is never read off a slice and mistaken for",
         "the registry.",
         "",
-        f"**{len(lived)} of {len(rows)} graphs recorded**, across "
-        + ", ".join(f"`{m}`" for m in models) + ".",
+        f"**{len(lived)} of {len(rows)} graphs recorded**"
+        + (", across " + ", ".join(f"`{m}`" for m in models) + "." if models else "."),
         "",
+    ]
+    superseded = sorted(ROOT.glob("graphs/*/*/live/*.json"))
+    n_superseded = sum(1 for p in superseded
+                       if json.loads(p.read_text()).get("superseded_by"))
+    if n_superseded:
+        md += [
+            f"> **{n_superseded} recordings are held but not counted.** They were taken",
+            "> before agr/v1.8, when the runner passed each node the verification asserts",
+            "> it was about to be scored on, under unpinned sampling, and against the 16",
+            "> self-graded contracts v1.8 replaced. They are kept so a reader can see what",
+            "> was measured; they are excluded from every number here because none of it",
+            "> is comparable to a v1.8 run. **A zero above means *pending re-recording*,",
+            "> not *never measured*.** Re-record with `scripts/record_live.py` against a",
+            "> real endpoint — the one part of the v1.8 migration a checkout cannot do",
+            "> for itself.",
+            "",
+        ]
+    md += [
         "| Graph shape | recorded | not recorded |",
         "|---|---|---|",
     ]
@@ -75,7 +94,7 @@ def main() -> int:
         md.append("")
     if unsat:
         md += ["## 🚫 Satisfied by no model", "", "| Graph | Shape |", "|---|---|"]
-        for d, lv in unsat:
+        for d, _lv in unsat:
             shape = next(s for dd, s, _ in lived if dd["name"] == d["name"])
             md.append(f"| `{d['name']}` | {shape} |")
         md.append("")

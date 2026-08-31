@@ -5,18 +5,22 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-078` | customer-support-sales | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
+| `AGR-078` | customer-support-sales | **pipeline** | 4 | 4 | 1 | 0 | 12 | write |
+
+> 🎯 **Requires a goal** — the resolved ticket to write up and the audience for the article. Without one the graph refuses and runs no node.
 
 ## The graph
 
 ```mermaid
 flowchart LR
     N0["intake<br/><i>analyst</i>"]
-    N1["produce<br/><i>producer</i>"]
-    N2{{"review<br/><i>critic</i>"}}
+    N1["dedupe-search<br/><i>researcher</i>"]
+    N2["produce<br/><i>producer</i>"]
+    N3{{"review<br/><i>critic</i>"}}
     N0 --> N1
     N1 --> N2
-    N2 -->|revision_requested and attempts < 2| N1
+    N2 --> N3
+    N3 -->|revision_requested and attempts < 2| N2
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -30,7 +34,8 @@ Mine resolved tickets into draft knowledge-base articles.
 Staged specialists each own one narrow concern, so quality problems are localized to the stage that produced them instead of being smeared across a single mega-prompt. Output only leaves the graph through the exit contract.
 
 - **Exit contract** — steps reproduce resolution; duplicates deduped
-- **Machine-checked** — `output.reproduces_resolution and output.duplicates_deduped`
+- **Machine-checked** — `all(s.action and s.expected for s in output.steps)`
+- **Machine-checked** — `len(output.near_duplicates) == 0`
 - **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval kb-article-generator` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/kb-article-generator.md)
@@ -54,6 +59,7 @@ To evolve it: `uv run agr infuse kb-article-generator <node> <ability>` — ever
 | Node | Speciality | Kind | Abilities |
 |---|---|---|---|
 | `intake` | analyst | agent | analyze |
+| `dedupe-search` | researcher | agent | web_search |
 | `produce` | producer | agent | generate |
 | `review` | critic | verifier | critique |
 
@@ -61,7 +67,8 @@ To evolve it: `uv run agr infuse kb-article-generator <node> <ability>` — ever
 
 | From | To | Condition |
 |---|---|---|
-| `intake` | `produce` | always |
+| `intake` | `dedupe-search` | always |
+| `dedupe-search` | `produce` | always |
 | `produce` | `review` | always |
 | `review` | `produce` | revision_requested and attempts < 2 |
 

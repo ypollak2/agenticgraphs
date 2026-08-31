@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-003` | software-engineering | **generator-critic** | 3 | 3 | 1 | 0 | 10 | execute |
 
+> 🎯 **Requires a goal** — the module to test and the coverage or mutation bar it must clear. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid
@@ -31,6 +33,7 @@ The generator optimizes for recall, the critic for precision. Nothing is accepte
 
 - **Exit contract** — coverage delta positive; mutation score above baseline
 - **Machine-checked** — `output.coverage_delta > 0 and output.mutation_score > output.mutation_baseline`
+- **Command-checked** — `pytest -q`
 - **Bounded** — hard stop after 10 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval test-suite-generation` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/test-suite-generation.md)

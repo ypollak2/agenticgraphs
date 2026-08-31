@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: license-compliance-scan
 description: Scan dependency licenses, reduce to obligations report.
 category: legal-compliance
@@ -28,6 +28,9 @@ nodes:
   - copyleft_conflicts
   - output
   - packages: list[{spdx:any}]
+  criteria: Every package resolves to an SPDX identifier, and any copyleft obligation incompatible with
+    the distribution model is flagged. A package whose licence could not be determined is a conflict until
+    proven otherwise.
 edges:
 - from: partition
   to: map
@@ -38,3 +41,9 @@ termination:
   contract: SPDX ids resolved; copyleft conflicts flagged
 verification:
 - assert: all(p.spdx for p in output.packages) and not output.copyleft_conflicts
+goal:
+  required: true
+  description: the dependency set to scan and the licence policy it must satisfy
+state:
+  inputs:
+  - goal

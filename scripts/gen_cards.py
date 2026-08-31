@@ -10,8 +10,8 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from agenticgraphs.inspect import structural_profile, to_mermaid  # noqa: E402
-from agenticgraphs.registry import ROOT, iter_graphs, load  # noqa: E402
+from agenticgraphs.inspect import structural_profile, to_mermaid
+from agenticgraphs.registry import ROOT, cases_path, iter_graphs, load
 
 CATALOG = ROOT / "usecases" / "catalog.yaml"
 BEGIN, END = "<!-- graph-of-graphs:begin -->", "<!-- graph-of-graphs:end -->"
@@ -160,8 +160,8 @@ def gen_card(doc: dict, entry: dict, catalog: list[dict], has_evals: bool) -> st
         "",
         f"> {doc['description']}",
         "",
-        f"| Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |",
-        f"|---|---|---|---|---|---|---|---|---|",
+        "| Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |",
+        "|---|---|---|---|---|---|---|---|---|",
         f"| `{cid}` | {cat} | **{entry['pattern']}** | {prof['nodes']} | {prof['edges']} "
         f"| {prof['verifier_nodes']} | {prof['router_nodes']} | {prof['max_steps']} | {prof['risk_surface']} |",
         "",
@@ -198,7 +198,7 @@ def gen_card(doc: dict, entry: dict, catalog: list[dict], has_evals: bool) -> st
                      f"(../../../docs/traces/{name}.md)")
     else:
         lines.append("- **Gate-checked** — schema + lint + structural gate run in CI; golden eval cases are the "
-                     "next step for this card (see `evals/` for the format)")
+                     "next step for this card (see any graph's cases.yaml for the format)")
     lines += [
         "",
         "## How to work with it",
@@ -242,7 +242,7 @@ def gen_card(doc: dict, entry: dict, catalog: list[dict], has_evals: bool) -> st
         for e in picks:
             lines.append(f"- **{e['name']}** ({e['domain']}, {e['pattern']}) — {e['summary']} "
                          f"*Verify:* {e['verification']}.")
-    lines += ["", "---", f"*Regenerate: `uv run python scripts/gen_cards.py` · Index: [CARDS.md](../../../CARDS.md)*", ""]
+    lines += ["", "---", "*Regenerate: `uv run python scripts/gen_cards.py` · Index: [CARDS.md](../../../CARDS.md)*", ""]
     return "\n".join(lines)
 
 
@@ -306,8 +306,9 @@ def main() -> int:
         doc = load(gpath)
         entry = by_name.get(doc["name"])
         if entry is None:
-            print(f"FAIL no catalog entry for {doc['name']}"); return 1
-        has_evals = (ROOT / "evals" / doc["name"] / "cases.yaml").exists()
+            print(f"FAIL no catalog entry for {doc['name']}")
+            return 1
+        has_evals = (cases_path(doc["name"])).exists()
         (gpath.parent / "CARD.md").write_text(gen_card(doc, entry, catalog, has_evals))
         rows.append({"cid": card_id(entry), "name": doc["name"], "domain": doc["category"],
                      "pattern": entry["pattern"], "contract": doc["termination"]["contract"],

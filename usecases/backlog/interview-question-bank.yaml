@@ -1,0 +1,6 @@
+id: uc-092
+name: interview-question-bank
+domain: hr-people
+pattern: generator-critic
+summary: Generate role questions, critic checks legality and signal.
+verification: no prohibited-topic questions; rubric attached

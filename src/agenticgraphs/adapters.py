@@ -22,13 +22,67 @@ def _executable(doc: dict) -> dict:
     return expand(doc) if has_subgraphs(doc) else doc
 
 
+def _criteria(n: dict) -> str:
+    """A node's rubric, escaped for embedding in a generated double-quoted string.
+
+    Every emitter carries it. The stub (or the CrewAI goal, or the AutoGen system
+    message) is where a human or an agent binds behavior, so it is exactly where
+    the domain knowledge has to arrive — leaving it in a YAML file the implementer
+    is not reading is how a "healthcare graph" ends up containing no healthcare.
+    """
+    return (n.get("criteria") or "").replace("\\", "\\\\").replace('"', '\\"')
+
+
 def _fn(node_id: str) -> str:
     # Expanded subgraph ids carry a dot (`implement.plan`); both it and the
     # dash are illegal in a Python identifier.
     return "node_" + node_id.replace("-", "_").replace(".", "_")
 
 
-_PRELUDE = '''\
+#: The emitted module is self-contained by design, so the allowlist that
+#: `agenticgraphs.safeexpr` applies at eval time is inlined here rather than
+#: imported. Without it, every generated LangGraph/CrewAI/AutoGen app shipped
+#: the escape `{"__builtins__": {}}` never closed.
+_EMITTED_GUARD = '''\
+import ast as _ast
+
+_ALLOWED_NODES = {
+    "Expression", "BoolOp", "And", "Or", "UnaryOp", "Not", "IfExp", "Compare",
+    "Eq", "NotEq", "Lt", "LtE", "Gt", "GtE", "Is", "IsNot", "In", "NotIn",
+    "BinOp", "Add", "Sub", "Mult", "Div", "Mod", "Name", "Load", "Attribute",
+    "Constant", "Subscript", "Slice", "List", "Tuple", "Set", "Dict", "Call",
+    "GeneratorExp", "ListComp", "SetComp", "comprehension", "Store",
+}
+_CALLABLE_NAMES = {"len", "all", "any", "sum", "min", "max", "abs", "round"}
+
+
+def _safe_expr(expr: str):
+    """Compile `expr` only if every node is allowlisted. Returns None otherwise."""
+    try:
+        tree = _ast.parse(expr, mode="eval")
+    except SyntaxError:
+        return None
+    for node in _ast.walk(tree):
+        if type(node).__name__ not in _ALLOWED_NODES:
+            return None
+        if isinstance(node, _ast.Attribute) and node.attr.startswith("_"):
+            return None
+        if isinstance(node, _ast.Name) and node.id.startswith("_"):
+            return None
+        if isinstance(node, _ast.Call):
+            fn = node.func
+            if isinstance(fn, _ast.Attribute):
+                if fn.attr != "get":
+                    return None
+            elif isinstance(fn, _ast.Name):
+                if fn.id not in _CALLABLE_NAMES:
+                    return None
+            else:
+                return None
+    return compile(tree, "<agr-expr>", "eval")
+'''
+
+_PRELUDE = _EMITTED_GUARD + '''\
 from langgraph.graph import END, START, StateGraph
 
 _ORDER = {"trivial": -1, "low": 0, "simple": 0, "medium": 1, "moderate": 1,
@@ -50,8 +104,11 @@ def _cond(expr: str, state: dict) -> bool:
 
     ns = {"true": True, "false": False, "len": len, "all": all, "any": any,
           **{k: _L(k) for k in _ORDER}, **state}
+    code = _safe_expr(expr)
+    if code is None:
+        return False  # refused by the allowlist: not a condition, not taken
     try:
-        return bool(eval(expr, {"__builtins__": {}}, ns))
+        return bool(eval(code, {"__builtins__": {}}, ns))
     except Exception:
         return False
 '''
@@ -63,8 +120,16 @@ def emit_langgraph(doc: dict) -> str:
            "", f'Contract: {doc["termination"]["contract"]}', '"""', _PRELUDE]
     for n in doc["nodes"]:
         abilities = ", ".join(n.get("abilities", []))
+        # The stub is where a human or an agent binds behavior, so it is exactly
+        # where the rubric has to arrive. Emitting only the speciality handed the
+        # implementer a role label and left the domain knowledge in a YAML file
+        # they were not reading.
+        doc_lines = [f'speciality: {n["speciality"]} | abilities: {abilities}']
+        if n.get("criteria"):
+            doc_lines += ["", f'Must judge: {n["criteria"]}']
+        body = "\n    ".join(doc_lines)
         out += [f"def {_fn(n['id'])}(state: dict) -> dict:",
-                f'    """speciality: {n["speciality"]} | abilities: {abilities}"""',
+                f'    """{body}"""',
                 f"    raise NotImplementedError(\"bind speciality '{n['speciality']}'"
                 f" (abilities: {abilities})\")", ""]
     out += ["g = StateGraph(dict)"]
@@ -117,7 +182,8 @@ def emit_crewai(doc: dict) -> str:
         abilities = ", ".join(n.get("abilities", [])) or "none declared"
         out += [f"{var}_agent = Agent(",
                 f'    role="{n["speciality"]}",',
-                f'    goal="perform the \'{n["id"]}\' step of {doc["name"]}",',
+                (f'    goal="{_criteria(n)}",' if _criteria(n)
+                 else f'    goal="perform the \'{n["id"]}\' step of {doc["name"]}",'),
                 f'    backstory="specialised in {n["speciality"]}",',
                 f"    tools=[],  # TODO: bind abilities ({abilities}) to real CrewAI tools",
                 "    allow_delegation=False,", ")", ""]
@@ -147,7 +213,7 @@ def emit_crewai(doc: dict) -> str:
     return "\n".join(out)
 
 
-_AUTOGEN_COND = '''\
+_AUTOGEN_COND = _EMITTED_GUARD + '''\
 def _cond(expr: str, state: dict) -> bool:
     class _L:
         def __init__(self, s): self.v = _ORDER[s]
@@ -163,8 +229,11 @@ def _cond(expr: str, state: dict) -> bool:
 
     ns = {"true": True, "false": False, "len": len, "all": all, "any": any,
           **{k: _L(k) for k in _ORDER}, **state}
+    code = _safe_expr(expr)
+    if code is None:
+        return False  # refused by the allowlist: not a condition, not taken
     try:
-        return bool(eval(expr, {"__builtins__": {}}, ns))
+        return bool(eval(code, {"__builtins__": {}}, ns))
     except Exception:
         return False
 '''
@@ -187,7 +256,7 @@ def emit_autogen(doc: dict) -> str:
            '_ORDER = {"trivial": -1, "low": 0, "simple": 0, "medium": 1, "moderate": 1,',
            '          "high": 2, "complex": 2, "critical": 3}', ""]
 
-    out += [f'def is_termination_msg(msg: dict) -> bool:',
+    out += ['def is_termination_msg(msg: dict) -> bool:',
             f'    """Contract: {contract}"""',
             '    return isinstance(msg, dict) and bool(msg.get("terminate"))', ""]
 
@@ -197,7 +266,9 @@ def emit_autogen(doc: dict) -> str:
         cls = "ConversableAgent" if n.get("kind") == "human" else "AssistantAgent"
         out += [f"{var} = {cls}(",
                 f'    name="{n["id"]}",',
-                f'    system_message="You are a {n["speciality"]} agent. Abilities: {abilities}.",',
+                (f'    system_message="You are a {n["speciality"]} agent. Abilities: '
+                 f'{abilities}. Must judge: {_criteria(n)}",' if _criteria(n) else
+                 f'    system_message="You are a {n["speciality"]} agent. Abilities: {abilities}.",'),
                 "    is_termination_msg=is_termination_msg,", ")", ""]
 
     has_out: dict[str, list] = {}

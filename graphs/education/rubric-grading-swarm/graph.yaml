@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: rubric-grading-swarm
 description: Independent graders score, disagreements auto-escalate.
 category: education
@@ -20,6 +20,8 @@ nodes:
     on_partial: continue
   outputs:
   - work_result
+  retries:
+    max: 2
 - id: verify
   speciality: verifier
   abilities:
@@ -30,6 +32,11 @@ nodes:
   - escalated: any
   - output
   - threshold: float
+  - verify_failed: bool
+  criteria: Inter-rater agreement clears the threshold, or the submission escalates to a human. Averaging
+    graders who disagree produces a defensible-looking number from an undefended judgement.
+  retries:
+    max: 2
 edges:
 - from: plan
   to: work
@@ -43,3 +50,9 @@ termination:
   contract: inter-rater agreement above threshold or escalated
 verification:
 - assert: output.agreement >= output.threshold or output.escalated
+goal:
+  required: true
+  description: the submissions to grade and the rubric to grade them against
+state:
+  inputs:
+  - goal

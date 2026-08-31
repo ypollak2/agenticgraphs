@@ -1,0 +1,4 @@
+id: uc-042
+pattern: map-reduce
+summary: Answer each RFP requirement from a knowledge base, assemble.
+verification: every requirement answered or flagged; page limit met

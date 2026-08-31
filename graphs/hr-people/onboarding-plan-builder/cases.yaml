@@ -1,0 +1,26 @@
+cases:
+- id: happy-path
+  node_outputs:
+    gather:
+      role_context: role_context-value
+    draft-plan:
+      plan_30_60_90:
+      - milestone: ship one PR
+    access-map:
+      access_requests: []
+    review:
+      milestones_covered: true
+      output:
+        milestones_covered: true
+        access_requested: true
+        plan_30_60_90:
+        - milestone: ship one PR
+        access_requests:
+        - system: github
+          requested_on: '2026-08-20'
+      plan_30_60_90:
+      - milestone: ship one PR
+      access_requests:
+      - system: github
+        requested_on: '2026-08-20'
+  goal: a senior data analyst joining growth

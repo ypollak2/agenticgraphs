@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: feature-delivery-lifecycle
 description: "End-to-end feature delivery: research a problem, plan it, implement it, test it, audit the\
   \ change, fix what the audit found, document it, and release behind a human gate with a rollback path.\
@@ -20,6 +20,8 @@ nodes:
   outputs:
   - research_brief
   - prior_art
+  retries:
+    max: 2
 - id: plan
   speciality: planner
   abilities:
@@ -81,7 +83,7 @@ nodes:
   - patch
   - verdict
   outputs:
-  - docs_updated: any
+  - doc_changes: list[{file:any, pr_url:any}]
   join: all
 - id: release-approval
   speciality: approver
@@ -89,8 +91,7 @@ nodes:
   abilities:
   - approve
   inputs:
-  - docs_updated
-  - verdict
+  - doc_changes
   outputs:
   - signed_off: any
   approval:
@@ -105,6 +106,7 @@ nodes:
   outputs:
   - released: any
   - release_tag
+  - release_failed: bool
   on_error: rollback
 - id: rollback
   speciality: compensator
@@ -113,8 +115,9 @@ nodes:
   inputs:
   - release_tag
   outputs:
+  - doc_changes: list[{file:any, pr_url:any}]
   - output
-  - rolled_back: any
+  - rolled_back
 edges:
 - from: research
   to: plan
@@ -146,14 +149,13 @@ termination:
   contract: A release is cut only after the audit verdict is approve, docs are updated, and a human signs
     off; a failed release is compensated by a rollback.
 verification:
-- describe: the audit must have cleared before anything ships
-  assert: output.verdict == 'approve'
-- describe: docs ship with the code, not after it
-  assert: output.docs_updated == true
-- describe: a human, not a model, authorised the release
+- describe: every documentation change names the file it touched and the PR it landed in, so 'docs updated'
+    can be checked against the diff
+  assert: all(d.file and d.pr_url for d in output.doc_changes)
+- describe: the release carries a human signature
   assert: output.signed_off == true
-- describe: "the release either completed or was rolled back \u2014 never partial"
-  assert: output.released == true or output.rolled_back == true
+- describe: the feature's tests pass in the repository it was delivered to
+  command: pytest -q
 goal:
   required: true
   description: the feature to deliver and the repository to deliver it in

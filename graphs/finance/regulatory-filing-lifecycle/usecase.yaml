@@ -1,0 +1,4 @@
+id: uc-121
+pattern: human-gate
+summary: Collect, reconcile, sign off, file and retain evidence for a regulatory filing.
+verification: figures reconcile to source and a controller signs before filing

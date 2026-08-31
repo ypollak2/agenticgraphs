@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: policy-compliance-check
 description: Check internal docs and processes against a policy set.
 category: business-ops
@@ -9,6 +9,16 @@ nodes:
   - analyze
   outputs:
   - summary
+- id: clause-map
+  speciality: mapper
+  abilities:
+  - map_shard
+  inputs:
+  - summary
+  outputs:
+  - clause_shards
+  criteria: Each policy clause becomes its own shard with the document spans that could satisfy or breach
+    it, so a finding can name a clause id rather than a document.
 - id: produce
   speciality: producer
   abilities:
@@ -22,8 +32,14 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - revision_requested: bool
+  criteria: Each finding cites the specific policy clause id it breaches and quotes the document text
+    that breaches it. A finding that restates a policy without pointing at non-compliant text is not a
+    finding.
 edges:
 - from: intake
+  to: clause-map
+- from: clause-map
   to: produce
 - from: produce
   to: review
@@ -35,3 +51,9 @@ termination:
   contract: findings map to specific policy clause ids
 verification:
 - assert: all(f.clause_id for f in output.findings)
+goal:
+  required: true
+  description: the internal documents to check and the policy set to check them against
+state:
+  inputs:
+  - goal

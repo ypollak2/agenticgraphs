@@ -1,0 +1,4 @@
+id: uc-105
+pattern: pipeline
+summary: Read script, produce coverage with comps and verdict.
+verification: verdict rubric complete; quotes have page numbers

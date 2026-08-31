@@ -1,0 +1,4 @@
+id: uc-028
+pattern: map-reduce
+summary: Scan competitor releases and filings, reduce to a delta brief.
+verification: every finding links a dated public source

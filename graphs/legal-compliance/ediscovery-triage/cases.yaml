@@ -1,0 +1,23 @@
+cases:
+- id: simple-branch
+  node_outputs:
+    route:
+      complexity: low
+    branch-simple:
+      handled_by: simple
+    verify:
+      output:
+        recall: 0.95
+        threshold: 0.9
+  goal: the custodian mailboxes, for the Meridian breach-of-contract matter
+- id: complex-branch
+  node_outputs:
+    route:
+      complexity: high
+    branch-complex:
+      handled_by: complex
+    verify:
+      output:
+        recall: 0.95
+        threshold: 0.9
+  goal: the custodian mailboxes, for the Meridian breach-of-contract matter

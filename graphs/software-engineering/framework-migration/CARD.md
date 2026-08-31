@@ -36,7 +36,7 @@ Port a codebase between frameworks in verifiable slices.
 The plan makes intent inspectable before anything touches the world, the executor works inside that plan, and the verifier proves the postcondition actually holds — success is demonstrated, not asserted.
 
 - **Exit contract** — build and full test suite green on the target stack with no slice left behind
-- **Machine-checked** — `output.suite_green == true`
+- **Command-checked** — `pytest -q`
 - **Machine-checked** — `output.slices_remaining == 0`
 - **Bounded** — hard stop after 60 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval framework-migration` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)

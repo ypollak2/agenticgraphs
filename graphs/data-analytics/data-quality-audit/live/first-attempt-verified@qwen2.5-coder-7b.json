@@ -1,0 +1,48 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "name": "Check current attempts",
+          "action": "evaluate_attempts"
+        },
+        {
+          "name": "Decompose goal based on attempts",
+          "condition": "attempts == 1",
+          "actions": [
+            "decompose_goal"
+          ]
+        }
+      ]
+    },
+    "work": [
+      {
+        "work_result": {
+          "action": "evaluate_attempts"
+        }
+      },
+      {
+        "work_result": "violations"
+      }
+    ],
+    "verify": {
+      "output": {
+        "violations": [
+          {
+            "rule_id": "shard_processing",
+            "count": 2
+          },
+          {
+            "rule_id": "shard_failure",
+            "count": 0
+          }
+        ]
+      }
+    }
+  },
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

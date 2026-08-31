@@ -1,0 +1,103 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "profile": {
+      "hotspot": null,
+      "baseline_ms": null
+    },
+    "explore": [
+      {
+        "patch": "increase_resolution",
+        "bench_ms": 95
+      },
+      {
+        "patch": null,
+        "bench_ms": 150
+      },
+      {
+        "patch": "optimize_loop",
+        "bench_ms": 950
+      },
+      {},
+      {
+        "patch": "increase_resolution",
+        "bench_ms": 50
+      },
+      {
+        "patch": null,
+        "bench_ms": null
+      },
+      {
+        "patch": "increase_resolution",
+        "bench_ms": 140
+      },
+      {
+        "patch": "increase_resolution",
+        "bench_ms": 90
+      },
+      {
+        "patch": null,
+        "bench_ms": 145
+      },
+      {
+        "output": {
+          "patch": null,
+          "bench_ms": 140
+        }
+      },
+      {
+        "patch": "",
+        "bench_ms": 120
+      },
+      {
+        "patch": "",
+        "bench_ms": 120
+      },
+      {
+        "patch": null,
+        "bench_ms": null
+      },
+      {
+        "patch": "increase_resolution",
+        "bench_ms": 45
+      },
+      {
+        "patch": "increase_resolution",
+        "bench_ms": 45
+      },
+      {
+        "patch": null,
+        "bench_ms": null
+      },
+      {
+        "patch": "increase_resolution",
+        "bench_ms": 85
+      },
+      {
+        "patch": "increase_resolution",
+        "bench_ms": 60
+      },
+      {
+        "patch": "increase_resolution",
+        "bench_ms": null
+      },
+      {
+        "patch": null,
+        "bench_ms": null
+      }
+    ],
+    "verify": {
+      "baseline_ms": null,
+      "bench_ms": 45,
+      "output": {
+        "baseline_ms": null,
+        "bench_ms": 45,
+        "suite_green": false
+      }
+    }
+  },
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

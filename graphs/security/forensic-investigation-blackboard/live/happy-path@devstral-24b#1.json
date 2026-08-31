@@ -1,0 +1,30 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "investigate the S3 exfiltration alert; settle whether data left the account"
+  },
+  "node_outputs": {
+    "seed": {
+      "leads": {
+        "access_logs_check": "Check CloudTrail logs for API calls that accessed the S3 bucket",
+        "data_transfer_events": "Look for events involving data transfer from the S3 bucket",
+        "user_activities": "Identify unusual user activities related to the S3 bucket",
+        "bucket_policy_review": "Review the S3 bucket policy to check permissions"
+      }
+    },
+    "assess": {
+      "open_questions": [],
+      "output": {
+        "open_questions": null,
+        "uncited_claims": 0
+      },
+      "picture": "",
+      "uncited_claims": 0
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

@@ -5,7 +5,9 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-084` | security | **map-reduce** | 3 | 2 | 1 | 0 | 20 | write |
+| `AGR-084` | security | **map-reduce** | 4 | 3 | 1 | 0 | 20 | write |
+
+> 🎯 **Requires a goal** — the feeds to digest and the estate the brief is written for. Without one the graph refuses and runs no node.
 
 ## The graph
 
@@ -13,9 +15,11 @@
 flowchart LR
     N0["partition<br/><i>analyst</i>"]
     N1["map<br/><i>mapper</i>"]
-    N2{{"reduce<br/><i>reducer</i>"}}
+    N2["estate-match<br/><i>analyst</i>"]
+    N3{{"reduce<br/><i>reducer</i>"}}
     N0 --> N1
     N1 --> N2
+    N2 --> N3
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -54,6 +58,7 @@ To evolve it: `uv run agr infuse threat-intel-digest <node> <ability>` — every
 |---|---|---|---|
 | `partition` | analyst | agent | analyze |
 | `map` | mapper | agent | map_shard |
+| `estate-match` | analyst | agent | analyze |
 | `reduce` | reducer | verifier | reduce_merge, web_search |
 
 ## Edge logic
@@ -61,7 +66,8 @@ To evolve it: `uv run agr infuse threat-intel-digest <node> <ability>` — every
 | From | To | Condition |
 |---|---|---|
 | `partition` | `map` | always |
-| `map` | `reduce` | always |
+| `map` | `estate-match` | always |
+| `estate-match` | `reduce` | always |
 
 ## Optional use-cases
 

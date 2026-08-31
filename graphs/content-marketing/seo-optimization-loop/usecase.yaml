@@ -1,0 +1,4 @@
+id: uc-035
+pattern: loop
+summary: Rewrite for target queries, re-score, iterate to threshold.
+verification: seo score above threshold without keyword stuffing flags

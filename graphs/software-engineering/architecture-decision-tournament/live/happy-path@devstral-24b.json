@@ -1,0 +1,84 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "settle sync vs async order processing under a 200ms p99 constraint"
+  },
+  "node_outputs": {
+    "frame": {
+      "options": {
+        "Option A - Optimistic Sync Processing": {
+          "description": "Process orders synchronously but optimize for fast completion.",
+          "strategies": [
+            {
+              "name": "Batch Small Orders",
+              "details": "Group small orders together for faster processing"
+            },
+            {
+              "name": "Caching Hot Paths",
+              "details": "Cache frequently accessed data to reduce lookup times"
+            }
+          ]
+        },
+        "Option B - Parallel Processing with Async": {
+          "description": "Use async/await for non-blocking operations.",
+          "strategies": [
+            {
+              "name": "Asynchronous Order Validation",
+              "details": "Validate orders in parallel without blocking queue"
+            },
+            {
+              "name": "Concurrent Database Writes",
+              "details": "Write to database asynchronously to speed up processing"
+            }
+          ]
+        },
+        "Option C - Hybrid Approach (Sync + Async)": {
+          "description": "Combine synchronous and asynchronous processing.",
+          "strategies": [
+            {
+              "name": "Critical Path Sync",
+              "details": "Keep critical operations synchronous for reliability"
+            },
+            {
+              "name": "Non-Critical Path Async",
+              "details": "Handle non-critical tasks asynchronously to speed up overall process"
+            }
+          ]
+        },
+        "Option D - Event-Driven Architecture with Queues": {
+          "description": "Implement an event-driven model with messaging queues.",
+          "strategies": [
+            {
+              "name": "Message Queue for Orders",
+              "details": "Use a queue system to manage order processing"
+            },
+            {
+              "name": "Asynchronous Event Handlers",
+              "details": "Process events asynchronously through handlers"
+            }
+          ]
+        }
+      },
+      "rubric": {
+        "Performance (40%)": "How well each option performs in terms of speed and latency, especially for the p99 constraint?",
+        "Reliability (30%)": "Is the approach reliable? Does it handle failures gracefully?",
+        "Scalability (20%)": "Can this solution scale with growing order volume?",
+        "Code Complexity (10%)": "How complex is the implementation compared to current architecture?"
+      }
+    },
+    "judge": {
+      "designs_scored": 4,
+      "margin": 5,
+      "winner": "Option C - Hybrid Approach (Sync + Async)",
+      "output": {
+        "designs_scored": 4,
+        "margin": 5
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

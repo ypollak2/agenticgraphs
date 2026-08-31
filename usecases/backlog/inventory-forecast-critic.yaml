@@ -1,0 +1,6 @@
+id: uc-099
+name: inventory-forecast-critic
+domain: logistics-retail
+pattern: generator-critic
+summary: Forecast SKU demand, critic backtests against history.
+verification: backtest error below naive baseline

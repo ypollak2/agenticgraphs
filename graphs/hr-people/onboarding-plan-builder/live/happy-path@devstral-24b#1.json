@@ -1,0 +1,64 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "build a 30/60/90 plan for a staff data engineer joining the platform team"
+  },
+  "node_outputs": {
+    "gather": {
+      "role_context": {
+        "team_name": "Platform Team",
+        "engineer_level": "Staff Data Engineer",
+        "time_horizon": [
+          "30 days",
+          "60 days",
+          "90 days"
+        ],
+        "goal": "Onboarding plan"
+      }
+    },
+    "draft-plan": {
+      "plan_30_60_90": {
+        "30_days": [
+          "Meet core team members and understand team dynamics",
+          "Get familiar with the project infrastructure and codebase",
+          "Setup development environment (tools, VPN, access credentials)",
+          "Participate in initial onboarding sessions and training programs",
+          "Start contributing to small tasks or bug fixes"
+        ],
+        "60_days": [
+          "Deep dive into major systems & data pipelines",
+          "Identify and address gaps in current knowledge/data processes",
+          "Collaborate with team members on larger projects/features",
+          "Begin exploring opportunities for process improvements",
+          "Attend relevant meetings and contribute ideas/suggestions"
+        ],
+        "90_days": [
+          "Propose and implement optimized solutions to identified issues",
+          "Take ownership of key components or processes within the team",
+          "Mentor junior engineers and facilitate knowledge sharing sessions",
+          "Fully integrate into team workflows & contribute strategically",
+          "Participate in long-term planning & roadmap discussions"
+        ]
+      }
+    },
+    "access-map": {
+      "access_requests": {
+        "type": "onboarding_access",
+        "requested_by": "access-map"
+      }
+    },
+    "review": {
+      "access_requested": "onboarding_access",
+      "milestones_covered": true,
+      "output": {
+        "access_requested": "onboarding_access",
+        "milestones_covered": true
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

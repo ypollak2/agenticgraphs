@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: literature-review-swarm
 description: Parallel readers summarize papers, merger builds themed review.
 category: research-knowledge
@@ -9,6 +9,18 @@ nodes:
   - decompose_goal
   outputs:
   - tasks
+- id: screen
+  speciality: screener
+  abilities:
+  - screen
+  inputs:
+  - tasks
+  outputs:
+  - included
+  - excluded
+  criteria: Each paper is included or excluded against the stated criteria, with the reason recorded.
+    An unexplained exclusion cannot be audited, which is the difference between a review and a reading
+    list.
 - id: work
   speciality: worker
   abilities:
@@ -20,6 +32,8 @@ nodes:
     on_partial: continue
   outputs:
   - work_result
+  retries:
+    max: 2
 - id: verify
   speciality: verifier
   abilities:
@@ -28,8 +42,15 @@ nodes:
   outputs:
   - claims: list[{paper:any, section:any}]
   - output
+  - verify_failed: bool
+  criteria: Every claim cites the specific paper and the section within it. A claim citing a paper but
+    not where in it stops the next reader from verifying anything.
+  retries:
+    max: 2
 edges:
 - from: plan
+  to: screen
+- from: screen
   to: work
 - from: work
   to: verify
@@ -41,3 +62,9 @@ termination:
   contract: every claim cites a specific paper and section
 verification:
 - assert: all(c.paper and c.section for c in output.claims)
+goal:
+  required: true
+  description: the research question to review and the inclusion criteria for screening
+state:
+  inputs:
+  - goal

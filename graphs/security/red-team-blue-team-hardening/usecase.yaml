@@ -1,0 +1,4 @@
+id: uc-127
+pattern: red-team-blue-team
+summary: Attacker searches for a bypass while a defender patches, until exhaustion.
+verification: terminates on attacker exhaustion with zero unmitigated bypasses

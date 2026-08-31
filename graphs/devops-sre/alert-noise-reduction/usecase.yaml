@@ -1,0 +1,4 @@
+id: uc-013
+pattern: map-reduce
+summary: Cluster alerts, dedupe storms, emit one incident per cause.
+verification: dedupe ratio measured; no missed paging alert

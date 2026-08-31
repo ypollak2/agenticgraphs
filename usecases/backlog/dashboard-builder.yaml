@@ -1,0 +1,6 @@
+id: uc-021
+name: dashboard-builder
+domain: data-analytics
+pattern: pipeline
+summary: From metric spec to working dashboard with tested queries.
+verification: every panel query executes under latency budget

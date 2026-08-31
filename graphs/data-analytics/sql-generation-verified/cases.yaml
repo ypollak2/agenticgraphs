@@ -1,0 +1,47 @@
+cases:
+- id: generated-and-approved
+  node_outputs:
+    intake:
+      summary: intake complete
+    generate:
+      draft: v1
+    critique:
+      rejected: false
+      attempts: 1
+      output:
+        query_executes: true
+        row_count_sane: true
+        exit_code: 0
+        row_count: 12
+      exit_code: 0
+      row_count: 12
+    execute: &id001
+      row_count: 12
+      exit_code: 0
+  goal: monthly active accounts by plan, against the warehouse schema
+- id: revised-after-rejection
+  node_outputs:
+    intake:
+      summary: intake complete
+    generate:
+    - draft: v1
+    - draft: v2
+    critique:
+    - rejected: true
+      attempts: 1
+      exit_code: 0
+      row_count: 12
+      output:
+        exit_code: 0
+        row_count: 12
+    - rejected: false
+      attempts: 2
+      output:
+        query_executes: true
+        row_count_sane: true
+        exit_code: 0
+        row_count: 12
+      exit_code: 0
+      row_count: 12
+    execute: *id001
+  goal: monthly active accounts by plan, against the warehouse schema

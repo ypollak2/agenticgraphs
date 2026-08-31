@@ -1,0 +1,28 @@
+cases:
+- id: happy-path
+  node_outputs:
+    port-slice.intake:
+      summary: intake complete
+    port-slice.produce:
+      output:
+        snapshot_before: hash-abc123
+        snapshot_after: hash-abc123
+    port-slice.review:
+      slice_ported: true
+      revision_requested: false
+      attempts: 1
+    inventory:
+      slices: []
+      risk_map: []
+    supervise:
+      slice_queue: []
+    integrate:
+      suite_green: true
+      ported_slices: 3
+      output: {}
+    sign-off:
+      migration_complete: migration_complete-value
+      output:
+        suite_green: true
+        slices_remaining: 0
+  goal: port the admin app from Flask to FastAPI in verifiable slices

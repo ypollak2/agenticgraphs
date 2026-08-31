@@ -1,0 +1,65 @@
+{
+  "model": "gpt-4o",
+  "recorded": "2026-08-09",
+  "endpoint": "https://api.openai.com/v1",
+  "node_outputs": {
+    "auto-match.plan": {
+      "tasks": [
+        "Identify the main objective of the plan",
+        "Break down the objective into smaller, manageable goals",
+        "Determine the resources required for each goal",
+        "Create a timeline for accomplishing each goal",
+        "Assign responsibilities for each task",
+        "Monitor progress and make adjustments as necessary"
+      ]
+    },
+    "auto-match.work": [
+      {
+        "work_result": "The main objective of the plan is to successfully implement a streamlined workflow that enhances productivity, ensures efficient resource allocation, and achieves the set goals within the specified timeline."
+      },
+      {
+        "work_result": [
+          "Clarify the objective into specific goals",
+          "Prioritize the goals based on urgency and importance",
+          "Set measurable outcomes for each goal",
+          "Ensure each goal is realistic",
+          "Define clear timeframes for each goal",
+          "Identify potential challenges and risks associated with each goal"
+        ]
+      },
+      {
+        "work_result": [
+          "Goal 1: Resource A, Resource B",
+          "Goal 2: Resource C, Resource D",
+          "Goal 3: Resource E, Resource F"
+        ]
+      },
+      {
+        "work_result": "1. Conduct an initial meeting to outline the general timeline: Day 1\n2. Define specific milestones and deadlines for each goal:\n   - Goal 1: Milestone 1 by Day 5, Milestone 2 by Day 10\n   - Goal 2: Milestone 1 by Day 15, Milestone 2 by Day 20\n   - Goal 3: Milestone 1 by Day 25, Milestone 2 by Day 30\n3. Finalize and distribute the complete timeline document: Day 2\n4. Set weekly check-in meetings to review progress in relation to the timeline.\n5. Adjust timeline based on progress during regular intervals or as required."
+      },
+      {
+        "work_result": "1. Define the criteria for assigning tasks based on team members' skills and experience. 2. Match each task to team members with the appropriate skill level and availability. 3. Communicate assignments clearly through team meetings or project management tools. 4. Establish a feedback loop for questions or concerns related to task assignments."
+      },
+      {
+        "work_result": "To effectively monitor progress and make necessary adjustments, implement regular review meetings, use project management tools to track milestones, engage in continuous feedback loops with stakeholders, and be flexible to reallocate resources or revise goals based on the progress assessments."
+      }
+    ],
+    "auto-match.verify": {
+      "exceptions": [],
+      "matched": true,
+      "output": "The task details on the blackboard are consistent with the requirements for effectively breaking down and implementing a plan.",
+      "violations": []
+    },
+    "post": {
+      "output": {
+        "three_way_matched": true,
+        "unreviewed_exceptions": 0
+      },
+      "posted": false,
+      "three_way_matched": true,
+      "unreviewed_exceptions": 0
+    }
+  },
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

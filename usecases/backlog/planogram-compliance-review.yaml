@@ -1,0 +1,6 @@
+id: uc-104
+name: planogram-compliance-review
+domain: logistics-retail
+pattern: parallel-swarm
+summary: Workers check shelf photos against planograms.
+verification: violations localized per fixture with confidence

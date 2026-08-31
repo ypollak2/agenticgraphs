@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-042` | business-ops | **map-reduce** | 3 | 2 | 1 | 0 | 20 | write |
 
+> 🎯 **Requires a goal** — the RFP to answer and the knowledge base to answer it from. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

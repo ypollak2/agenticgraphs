@@ -1,0 +1,37 @@
+cases:
+- id: generated-and-approved
+  node_outputs:
+    intake:
+      summary: intake complete
+    generate:
+      draft: v1
+    critique:
+      rejected: false
+      attempts: 1
+      output:
+        entries:
+        - answer_matches_key: true
+          distractors_plausible: true
+    blind-solve: &id001
+      blind_answers:
+      - item: 1
+        answer: b
+  goal: chapter 4 on photosynthesis, for year 9
+- id: revised-after-rejection
+  node_outputs:
+    intake:
+      summary: intake complete
+    generate:
+    - draft: v1
+    - draft: v2
+    critique:
+    - rejected: true
+      attempts: 1
+    - rejected: false
+      attempts: 2
+      output:
+        entries:
+        - answer_matches_key: true
+          distractors_plausible: true
+    blind-solve: *id001
+  goal: chapter 4 on photosynthesis, for year 9

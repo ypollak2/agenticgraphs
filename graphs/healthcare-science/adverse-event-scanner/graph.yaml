@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: adverse-event-scanner
 description: Scan reports for adverse-event signals, reduce to summary.
 category: healthcare-science
@@ -27,6 +27,8 @@ nodes:
   outputs:
   - output
   - signals: list[{count:int, report_ids:any}]
+  criteria: Every signal cites exactly the report ids counted in it, so the count is reproducible from
+    the citation and a reviewer can pull the source reports.
 edges:
 - from: partition
   to: map
@@ -37,3 +39,9 @@ termination:
   contract: every signal cites report ids; counts reproducible
 verification:
 - assert: all(s.report_ids and s.report_ids[s.count - 1:] and not s.report_ids[s.count:] for s in output.signals)
+goal:
+  required: true
+  description: the reports to scan and the product whose safety signal matters
+state:
+  inputs:
+  - goal

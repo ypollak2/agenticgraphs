@@ -1,0 +1,6 @@
+id: uc-027
+name: systematic-meta-analysis
+domain: research-knowledge
+pattern: pipeline
+summary: PRISMA-style screen, extract, pool effect sizes.
+verification: inclusion log complete; effect sizes recomputable

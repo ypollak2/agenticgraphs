@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-002` | software-engineering | **planner-executor-verifier** | 3 | 3 | 1 | 0 | 25 | execute |
 
+> 🎯 **Requires a goal** — the bug report to fix and the repository it reproduces in. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid
@@ -30,7 +32,8 @@ Reproduce a bug, plan a fix, apply it in isolation, verify.
 The plan makes intent inspectable before anything touches the world, the executor works inside that plan, and the verifier proves the postcondition actually holds — success is demonstrated, not asserted.
 
 - **Exit contract** — repro test fails before patch and passes after
-- **Machine-checked** — `output.test_failed_before_patch and output.test_passes_after_patch`
+- **Machine-checked** — `output.exit_before != 0 and output.exit_after == 0`
+- **Command-checked** — `pytest -q {test_path}`
 - **Bounded** — hard stop after 25 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval bug-triage-and-fix` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/bug-triage-and-fix.md)

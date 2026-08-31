@@ -104,7 +104,8 @@ def test_a_shape_violation_fails_the_run():
 
 def test_tool_results_land_on_the_blackboard_addressable_by_ability():
     """The gap: rep.tool_calls was built for auditing, and the assert reads what
-    the model wrote. A node could make 20 perfect calls and still hand over prose."""
+    the model wrote. A node could make 20 perfect calls and still hand over prose.
+    """
     from agenticgraphs.bindings import ToolCall
 
     class _Tooling:
@@ -176,7 +177,8 @@ def test_no_registry_shape_is_malformed():
 def test_an_assert_demanding_provenance_with_no_bindable_ability_is_flagged():
     """`vendor-comparison-matrix` asked for `source_url` from nodes that could only
     `analyze` and `reduce_merge`. Nothing could search. That went undetected for
-    nine versions because nothing ever asked."""
+    nine versions because nothing ever asked.
+    """
     from agenticgraphs.validate import provenance_gaps
 
     doc = _g([{"id": "a", "speciality": "analyst", "abilities": ["analyze"],
@@ -219,7 +221,8 @@ def test_asserted_keys_deep_reaches_record_fields():
 
 def test_a_speciality_never_loses_a_required_ability():
     """Minimality does not override what a role is defined to need — a pass to
-    strip redundant grants removed `web_search` from a `researcher` node."""
+    strip redundant grants removed `web_search` from a `researcher` node.
+    """
     from agenticgraphs.registry import iter_yaml
 
     specs = {load(p)["name"]: load(p) for p in iter_yaml("specialities")}

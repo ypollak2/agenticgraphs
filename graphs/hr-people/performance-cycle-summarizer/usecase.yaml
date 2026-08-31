@@ -1,0 +1,4 @@
+id: uc-096
+pattern: pipeline
+summary: Aggregate peer feedback into balanced review drafts.
+verification: every statement traces to submitted feedback

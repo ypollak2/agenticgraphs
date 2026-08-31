@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-086` | security | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
 
+> 🎯 **Requires a goal** — the vulnerabilities to rank and the asset map that gives them exposure. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

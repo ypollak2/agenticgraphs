@@ -1,0 +1,110 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "summarize the H1 2026 cycle for a senior engineer on the infra team"
+  },
+  "node_outputs": {
+    "gather": {
+      "inputs": [
+        {
+          "type": "source",
+          "id": "doc-1"
+        },
+        {
+          "type": "source",
+          "id": "doc-2"
+        }
+      ]
+    },
+    "synthesize": [
+      {
+        "draft_summary": {
+          "key_points": [
+            {
+              "claim": "Major infrastructure upgrades were planned for H1 2026.",
+              "citations": [
+                "doc-1"
+              ]
+            },
+            {
+              "claim": "The new data center in Oregon will be fully operational by Q2 2026.",
+              "citations": [
+                "doc-1",
+                "doc-2"
+              ]
+            },
+            {
+              "claim": "New security protocols were implemented across all infrastructure platforms.",
+              "citations": [
+                "doc-2"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "draft_summary": {
+          "key_points": [
+            {
+              "claim": "Major infrastructure upgrades were planned for H1 2026.",
+              "citations": [
+                "doc-1"
+              ]
+            },
+            {
+              "claim": "The new data center in Oregon is projected to be fully operational by Q2 2026, with completion of main infrastructure by end of Q1 2026.",
+              "citations": [
+                "doc-1",
+                "doc-2"
+              ]
+            },
+            {
+              "claim": "Enhanced cybersecurity protocols were introduced across all critical infrastructure platforms starting February 2026.",
+              "citations": [
+                "doc-2"
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "bias-check": [
+      {
+        "bias_flags": [
+          "potential overgeneralization in 'infrastructure platforms' without specific details"
+        ]
+      },
+      {
+        "bias_flags": []
+      }
+    ],
+    "calibrate": {
+      "calibrated_summary": {
+        "key_points": [
+          {
+            "claim": "Major infrastructure upgrades were planned for H1 2026.",
+            "citations": [
+              "doc-1"
+            ]
+          },
+          {
+            "claim": "The new data center in Oregon is projected to be fully operational by Q2 2026, with completion of main infrastructure by end of Q1 2026.",
+            "citations": [
+              "doc-1",
+              "doc-2"
+            ]
+          }
+        ]
+      },
+      "output": {
+        "bias_flags": [],
+        "uncited_claims": 1
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

@@ -1,0 +1,40 @@
+cases:
+- id: single-item
+  node_outputs:
+    partition:
+      shard_count: 1
+      shards:
+      - i: 1
+      - i: 2
+      - i: 3
+    map:
+      shard_result: &id001
+      - id: 1
+        finding: ok
+    reduce:
+      output:
+        findings:
+        - title: competitor launched feature X
+          source_url: https://example.com/blog
+          source_date: '2026-07-01'
+  goal: three workflow vendors, informing Q4 positioning
+- id: multi-item
+  node_outputs:
+    partition:
+      shard_count: 2
+      shards:
+      - i: 1
+      - i: 2
+      - i: 3
+    map:
+      shard_result: *id001
+    reduce:
+      output:
+        findings:
+        - title: competitor launched feature X
+          source_url: https://example.com/blog
+          source_date: '2026-07-01'
+        - title: competitor raised prices
+          source_url: https://example.com/news
+          source_date: '2026-07-15'
+  goal: three workflow vendors, informing Q4 positioning

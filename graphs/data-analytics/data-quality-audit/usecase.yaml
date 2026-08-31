@@ -1,0 +1,4 @@
+id: uc-020
+pattern: parallel-swarm
+summary: Workers profile each table for nulls, drift, and duplicates.
+verification: violations emitted as machine-readable rules with counts

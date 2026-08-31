@@ -1,0 +1,6 @@
+id: uc-032
+name: grant-proposal-pipeline
+domain: research-knowledge
+pattern: pipeline
+summary: Aims, methods, budget drafted then compliance-checked.
+verification: funder checklist items all satisfied

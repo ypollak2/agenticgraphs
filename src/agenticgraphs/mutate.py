@@ -14,9 +14,10 @@ from pathlib import Path
 import yaml
 
 from .autonomy import commit_autonomous_mutation, require_autonomous, require_execute_allowed
+from .evalcmd import case_inputs
 from .harness import MockRunner, run_graph
 from .inspect import find_graph
-from .registry import ROOT, iter_yaml, load
+from .registry import ROOT, cases_path, iter_yaml, load
 from .validate import validate_graph_file
 
 
@@ -36,11 +37,22 @@ def _write_checked(gpath: Path, doc: dict, original: str) -> list[str]:
 
 
 def _cases_still_pass(name: str, doc: dict, root: Path = ROOT) -> bool:
-    cf = root / "evals" / name / "cases.yaml"
+    """Replay the golden cases against a mutated doc, exactly as `eval_graph` would.
+
+    Seeding `case_inputs` is not optional. Every graph declares `goal.required`
+    as of v1.8, so a replay that omits the case's goal makes the graph refuse
+    before it schedules a node — every case "fails", every operator is reverted,
+    and `optimize` silently proposes nothing on a registry where it previously
+    worked. A safety check that rejects everything is indistinguishable from one
+    that is broken, which is why this shares `case_inputs` with the evaluator
+    rather than rebuilding the seed.
+    """
+    cf = cases_path(name, root)
     if not cf.exists():
         return True
     for case in yaml.safe_load(cf.read_text())["cases"]:
-        if not run_graph(doc, MockRunner(case["node_outputs"])).passed:
+        rep = run_graph(doc, MockRunner(case["node_outputs"]), inputs=case_inputs(case))
+        if not rep.passed:
             return False
     return True
 
@@ -68,10 +80,12 @@ def infuse(name: str, node_id: str, ability: str, root: Path = ROOT) -> dict:
 
 
 def infuse_autonomous(name: str, node_id: str, ability: str, root: Path = ROOT) -> dict:
-    """Like `infuse`, but for unattended runs: requires AGR_AUTONOMOUS=1, caps
-    execute-risk abilities behind AGR_AUTONOMOUS_ALLOW_EXECUTE=1, and — on a
-    real change — commits the mutated graph + lineage onto `auto/mutations`
-    (never `main`, never pushed). Raises AutonomyError if the gate is closed.
+    """Infuse an ability under the autonomy gate, for unattended runs.
+
+    Requires AGR_AUTONOMOUS=1, caps execute-risk abilities behind
+    AGR_AUTONOMOUS_ALLOW_EXECUTE=1, and — on a real change — commits the mutated
+    graph and its lineage onto `auto/mutations` (never `main`, never pushed).
+    Raises AutonomyError if the gate is closed.
     """
     require_autonomous()
     ability_doc = next((load(p) for p in iter_yaml("abilities", root) if load(p)["name"] == ability), None)
@@ -80,6 +94,8 @@ def infuse_autonomous(name: str, node_id: str, ability: str, root: Path = ROOT) 
     result = infuse(name, node_id, ability, root)
     if result.get("changed"):
         gpath = find_graph(name, root)
+        if gpath is None:  # unreachable via `infuse`, which resolves first — but a
+            raise SystemExit(f"no graph named '{name}'")  # None here would AttributeError
         commit = commit_autonomous_mutation(
             root,
             [gpath, gpath.parent / "lineage.yaml"],

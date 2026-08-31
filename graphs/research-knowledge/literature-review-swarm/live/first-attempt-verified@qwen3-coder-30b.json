@@ -1,0 +1,61 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        "decompose_goal('Verify that every claim in the output cites a specific paper and section')",
+        "identify_specific_paper_and_section_for_each_claim_in_output",
+        "validate_that_all_claims_have_paper_and_section_citations"
+      ]
+    },
+    "work": [
+      {
+        "work_result": "decompose_goal('Verify that every claim in the output cites a specific paper and section')"
+      },
+      {
+        "work_result": "identify_specific_paper_and_section_for_each_claim_in_output"
+      },
+      {
+        "work_result": "validate_that_all_claims_have_paper_and_section_citations"
+      }
+    ],
+    "verify": {
+      "claims": [
+        {
+          "paper": null,
+          "section": null
+        },
+        {
+          "paper": null,
+          "section": null
+        },
+        {
+          "paper": null,
+          "section": null
+        }
+      ],
+      "output": {
+        "claims": [
+          {
+            "paper": null,
+            "section": null
+          },
+          {
+            "paper": null,
+            "section": null
+          },
+          {
+            "paper": null,
+            "section": null
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

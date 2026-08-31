@@ -1,0 +1,42 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Intake node analysis complete. Waiting for document images to validate extracted fields against. All downstream assertions require that every field in output.fields must have validated set to true before workflow can proceed."
+    },
+    "produce": {
+      "fields": [
+        {
+          "validated": false
+        },
+        {
+          "validated": false
+        },
+        {
+          "validated": false
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "fields": [
+          {
+            "validated": false
+          },
+          {
+            "validated": false
+          },
+          {
+            "validated": false
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

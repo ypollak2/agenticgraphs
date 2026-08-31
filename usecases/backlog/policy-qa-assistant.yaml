@@ -1,0 +1,6 @@
+id: uc-095
+name: policy-qa-assistant
+domain: hr-people
+pattern: pipeline
+summary: Answer policy questions with citations to the handbook.
+verification: every answer cites handbook section

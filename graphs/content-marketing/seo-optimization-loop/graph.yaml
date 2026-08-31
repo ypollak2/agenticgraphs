@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: seo-optimization-loop
 description: Rewrite for target queries, re-score, iterate to threshold.
 category: content-marketing
@@ -24,6 +24,9 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - below_target: bool
+  criteria: 'The page clears the score threshold for its target queries while still reading naturally:
+    keyword density that trips a stuffing flag fails even at a passing score.'
 edges:
 - from: intake
   to: attempt
@@ -37,3 +40,9 @@ termination:
   contract: seo score above threshold without keyword stuffing flags
 verification:
 - assert: output.seo_score >= output.threshold and not output.stuffing_flags
+goal:
+  required: true
+  description: the page to optimize and the queries it should rank for
+state:
+  inputs:
+  - goal

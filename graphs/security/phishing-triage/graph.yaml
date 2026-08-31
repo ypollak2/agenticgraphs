@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: phishing-triage
 description: Classify reported emails, route confirmed phish to response.
 category: security
@@ -15,21 +15,25 @@ nodes:
   abilities:
   - generate
   outputs:
-  - handled_by
+  - assigned_verdict
 - id: branch-complex
   speciality: producer
   abilities:
   - generate
   outputs:
-  - handled_by
+  - assigned_verdict
 - id: verify
   speciality: critic
   abilities:
   - critique
   kind: verifier
   outputs:
-  - matches_labeled_corpus
+  - expected_verdict
+  - assigned_verdict
   - output
+  criteria: "Verdicts agree with the labeled corpus, and anything confirmed as phishing cites the specific\
+    \ indicator \u2014 sender mismatch, lookalike domain, credential-harvesting target \u2014 rather than\
+    \ a general impression of suspicion."
 edges:
 - from: route
   to: branch-simple
@@ -45,4 +49,14 @@ termination:
   max_steps: 12
   contract: verdicts benchmarked against labeled corpus
 verification:
-- assert: output.matches_labeled_corpus
+- describe: the decision agrees with the labeled corpus the caller supplied
+  assert: output.assigned_verdict == output.expected_verdict
+- describe: the reference was actually consulted, not left empty
+  assert: len(output.expected_verdict) > 0
+goal:
+  required: true
+  description: the reported email to classify and the organisation's sender baseline
+state:
+  inputs:
+  - goal
+  - labeled_corpus

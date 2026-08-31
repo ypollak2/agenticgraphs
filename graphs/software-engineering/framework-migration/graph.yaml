@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: framework-migration
 description: Port a codebase between frameworks in verifiable slices, each slice delegated to a refactor
   subgraph.
@@ -40,13 +40,17 @@ nodes:
   inputs:
   - slice_ported
   outputs:
-  - suite_green: any
+  - ported_slices
+  - suite_green: bool
+  criteria: The build and the full suite are green on the target stack with no slice left unported. A
+    partially migrated codebase that passes because the unported half is untested is the outcome the slice
+    count exists to prevent.
 - id: sign-off
   speciality: tech-lead
   abilities:
   - read_diff
   inputs:
-  - suite_green
+  - ported_slices
   outputs:
   - migration_complete
   - output
@@ -69,9 +73,9 @@ termination:
   max_steps: 60
   contract: build and full test suite green on the target stack with no slice left behind
 verification:
-- describe: the full suite is green on the target stack
-  assert: output.suite_green == true
-- describe: every inventoried slice was ported
+- describe: "the suite is green on the target stack \u2014 checked by running it"
+  command: pytest -q
+- describe: no slice is left unported
   assert: output.slices_remaining == 0
 state:
   inputs:

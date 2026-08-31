@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: localization-pipeline
 description: Translate per locale, reduce into a consistency report.
 category: content-marketing
@@ -29,6 +29,9 @@ nodes:
   - output
   - similarity: float
   - threshold: float
+  criteria: Each locale's back-translation stays above the similarity threshold against the source, and
+    every glossary term uses its approved target-language equivalent. A fluent translation that renames
+    the product is a failure.
 edges:
 - from: partition
   to: map
@@ -39,3 +42,9 @@ termination:
   contract: back-translation similarity above threshold; glossary respected
 verification:
 - assert: output.similarity >= output.threshold and not output.glossary_violations
+goal:
+  required: true
+  description: the source content to translate and the locales to translate it into
+state:
+  inputs:
+  - goal

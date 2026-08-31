@@ -5,20 +5,25 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-077` | customer-support-sales | **router** | 4 | 4 | 1 | 1 | 12 | write |
+| `AGR-077` | customer-support-sales | **router** | 5 | 6 | 1 | 1 | 12 | write |
+
+> 🎯 **Requires a goal** — the tickets to triage and the queue ownership map to route by. Without one the graph refuses and runs no node.
 
 ## The graph
 
 ```mermaid
 flowchart LR
     N0[/"route<br/><i>dispatcher</i>"/]
-    N1["branch-simple<br/><i>producer</i>"]
-    N2["branch-complex<br/><i>producer</i>"]
-    N3{{"verify<br/><i>critic</i>"}}
-    N0 -->|complexity <= moderate| N1
-    N0 -->|complexity > moderate| N2
-    N1 --> N3
-    N2 --> N3
+    N1["branch-sentiment<br/><i>analyst</i>"]
+    N2["branch-simple<br/><i>producer</i>"]
+    N3["branch-complex<br/><i>producer</i>"]
+    N4{{"verify<br/><i>critic</i>"}}
+    N0 -->|complexity <= moderate| N2
+    N0 -->|complexity > moderate| N3
+    N2 --> N4
+    N3 --> N4
+    N0 --> N1
+    N1 --> N4
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -32,7 +37,8 @@ Classify and route tickets with priority and sentiment.
 A cheap classifier sends every item down the narrowest branch that can handle it, so cost and latency scale with the difficulty of each item rather than the worst case. Escalation edges guarantee hard items still reach the strong path.
 
 - **Exit contract** — routing accuracy measured on labeled backlog
-- **Machine-checked** — `output.routing_correct`
+- **Machine-checked** — `output.assigned_queue == output.expected_queue`
+- **Machine-checked** — `len(output.expected_queue) > 0`
 - **Bounded** — hard stop after 12 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval ticket-triage-swarm` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/ticket-triage-swarm.md)
@@ -56,6 +62,7 @@ To evolve it: `uv run agr infuse ticket-triage-swarm <node> <ability>` — every
 | Node | Speciality | Kind | Abilities |
 |---|---|---|---|
 | `route` | dispatcher | router | dispatch |
+| `branch-sentiment` | analyst | agent | analyze |
 | `branch-simple` | producer | agent | generate |
 | `branch-complex` | producer | agent | generate |
 | `verify` | critic | verifier | critique |
@@ -68,6 +75,8 @@ To evolve it: `uv run agr infuse ticket-triage-swarm <node> <ability>` — every
 | `route` | `branch-complex` | complexity > moderate |
 | `branch-simple` | `verify` | always |
 | `branch-complex` | `verify` | always |
+| `route` | `branch-sentiment` | always |
+| `branch-sentiment` | `verify` | always |
 
 ## Optional use-cases
 

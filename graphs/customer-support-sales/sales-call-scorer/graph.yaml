@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: sales-call-scorer
 description: Score a call against a rubric from several independent passes, reporting variance as a confidence
   signal.
@@ -38,6 +38,9 @@ nodes:
     op: median
     over: rubric_score
   kind: verifier
+  criteria: The score reports the median across independent passes and the spread between them. A tight
+    spread is a confident score; a wide one must be surfaced, not averaged into a single number that hides
+    the disagreement.
 edges:
 - from: segment
   to: score-pass
@@ -57,4 +60,4 @@ state:
   - transcript
 goal:
   required: true
-  description: the call transcript to score and the rubric it is judged on
+  description: the call transcript to score and the rubric to score it against

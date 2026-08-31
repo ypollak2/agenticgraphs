@@ -1,0 +1,88 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "advisory_url": "https://example.gov/advisories/NNNN-YYYY",
+          "cve_ids": [
+            "CVE-2023-12345"
+          ]
+        },
+        {
+          "advisory_url": "https://example.gov/advisories/MMMM-XXXY",
+          "cve_ids": [
+            "CVE-2023-54321",
+            "CVE-2023-67890"
+          ]
+        }
+      ]
+    },
+    "map": [
+      {
+        "shard_result": [
+          {
+            "advisory_url": "https://example.gov/advisories/NNNN-YYYY",
+            "cve_ids": [
+              "CVE-2023-12345"
+            ]
+          }
+        ]
+      },
+      {
+        "shard_result": [
+          {
+            "advisory_url": "https://example.gov/advisories/MMMM-XXXY",
+            "cve_id": "CVE-2023-54321"
+          },
+          {
+            "advisory_url": "https://example.gov/advisories/MMMM-XXXY",
+            "cve_id": "CVE-2023-67890"
+          }
+        ]
+      }
+    ],
+    "reduce": {
+      "entries": [
+        {
+          "advisory_url": "https://example.gov/advisories/NNNN-YYYY",
+          "cve_ids": [
+            "CVE-2023-12345"
+          ]
+        },
+        {
+          "advisory_url": "https://example.gov/advisories/MMMM-XXXY",
+          "cve_id": "CVE-2023-54321"
+        },
+        {
+          "advisory_url": "https://example.gov/advisories/MMMM-XXXY",
+          "cve_id": "CVE-2023-67890"
+        }
+      ],
+      "output": {
+        "entries": [
+          {
+            "advisory_url": "https://example.gov/advisories/NNNN-YYYY",
+            "cve_ids": [
+              "CVE-2023-12345"
+            ]
+          },
+          {
+            "advisory_url": "https://example.gov/advisories/MMMM-XXXY",
+            "cve_id": "CVE-2023-54321"
+          },
+          {
+            "advisory_url": "https://example.gov/advisories/MMMM-XXXY",
+            "cve_id": "CVE-2023-67890"
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

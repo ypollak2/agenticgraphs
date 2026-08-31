@@ -36,6 +36,7 @@ Each failed attempt writes down what was learned, and the next attempt reads it.
 - **Exit contract** — stability is proven over repeated runs, and every failed attempt is recorded as a lesson
 - **Machine-checked** — `output.consecutive_green >= 3`
 - **Machine-checked** — `len(output.lessons) >= 1`
+- **Command-checked** — `pytest -q --count=5 {test_path}`
 - **Bounded** — hard stop after 40 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval flaky-test-reflexion` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/flaky-test-reflexion.md)

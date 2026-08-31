@@ -1,0 +1,4 @@
+id: uc-067
+pattern: map-reduce
+summary: Scan reports for adverse-event signals, reduce to summary.
+verification: every signal cites report ids; counts reproducible

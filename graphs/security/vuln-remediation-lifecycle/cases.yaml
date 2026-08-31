@@ -1,0 +1,42 @@
+cases:
+- id: happy-path
+  node_outputs:
+    prioritize.intake:
+      summary: intake complete
+    prioritize.produce:
+      output:
+        ranking:
+        - finding: CVE-2026-1111
+          scanner_evidence: scan-report-88
+          asset_map_ref: asset-42
+    prioritize.review:
+      exploitability: exploitability-value
+      priority: priority-value
+      revision_requested: false
+      attempts: 1
+    ingest:
+      advisory: advisory-value
+    reproduce:
+      repro_confirmed: true
+      repro_exit_code_before: 0
+      output: {}
+    patch:
+      patch: patch-value
+    prove:
+      exploit_blocked: true
+      repro_exit_code_before: 0
+      repro_exit_code_after: 1
+      output: {}
+    disclose-approval:
+      signed_off: true
+    disclose:
+      advisory_published: true
+      output:
+        exploit_blocked: true
+        signed_off: true
+        advisory_published: true
+        advisory_url: https://example.org/GHSA-1
+        cve_id: CVE-2026-1234
+      advisory_url: https://example.org/GHSA-1
+      cve_id: CVE-2026-1234
+  goal: remediate CVE-2026-1234 across the payment services estate

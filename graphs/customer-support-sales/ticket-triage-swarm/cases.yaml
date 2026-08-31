@@ -1,0 +1,39 @@
+cases:
+- id: simple-branch
+  node_outputs:
+    route:
+      complexity: low
+    branch-simple:
+      assigned_queue: billing-tier2
+    verify:
+      assigned_queue: billing-tier2
+      expected_queue: billing-tier2
+      output:
+        assigned_queue: billing-tier2
+        expected_queue: billing-tier2
+    branch-sentiment:
+      assigned_queue: billing-tier2
+  goal: the ticket 'refund not received', against the queue ownership map
+  inputs:
+    ownership_map: &id001
+      refund not received: billing-tier2
+      cannot log in: identity-tier1
+      invoice wrong amount: billing-tier2
+      app crashes on upload: mobile-tier2
+- id: complex-branch
+  node_outputs:
+    route:
+      complexity: high
+    branch-complex:
+      assigned_queue: identity-tier1
+    verify:
+      assigned_queue: identity-tier1
+      expected_queue: identity-tier1
+      output:
+        assigned_queue: identity-tier1
+        expected_queue: identity-tier1
+    branch-sentiment:
+      assigned_queue: identity-tier1
+  goal: the ticket 'cannot log in', against the queue ownership map
+  inputs:
+    ownership_map: *id001

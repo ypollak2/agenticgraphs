@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: test-suite-generation
 description: Generate tests, critic rejects trivial or tautological assertions.
 category: software-engineering
@@ -26,6 +26,12 @@ nodes:
   - mutation_baseline: float
   - mutation_score: float
   - output
+  - rejected: bool
+  criteria: Coverage increases and the mutation score beats the baseline. A test that executes a line
+    without asserting anything about it raises coverage and catches nothing, which is exactly what mutation
+    score exists to detect.
+  retries:
+    max: 2
 edges:
 - from: intake
   to: generate
@@ -39,3 +45,11 @@ termination:
   contract: coverage delta positive; mutation score above baseline
 verification:
 - assert: output.coverage_delta > 0 and output.mutation_score > output.mutation_baseline
+- describe: the generated tests run, and the mutation score is measured rather than claimed
+  command: pytest -q
+goal:
+  required: true
+  description: the module to test and the coverage or mutation bar it must clear
+state:
+  inputs:
+  - goal

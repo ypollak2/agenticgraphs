@@ -1,0 +1,25 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "position-a": {
+      "argument": "To ensure the recomputed effect is within 0.01 of the claimed effect, we need to position the effect value precisely in our analysis."
+    },
+    "position-b": {
+      "argument": "To meet the requirement that abs(output.recomputed_effect - output.claimed_effect) < 0.01, we must take care to calculate the recomputed effect value accurately."
+    },
+    "judge": {
+      "claimed_effect": null,
+      "recomputed_effect": null,
+      "output": {
+        "claimed_effect": null,
+        "recomputed_effect": null
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

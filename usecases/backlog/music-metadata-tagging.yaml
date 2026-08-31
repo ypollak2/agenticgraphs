@@ -1,0 +1,6 @@
+id: uc-112
+name: music-metadata-tagging
+domain: creative-production
+pattern: map-reduce
+summary: Tag tracks with genre, mood, and rights metadata.
+verification: tags validate against controlled vocabulary

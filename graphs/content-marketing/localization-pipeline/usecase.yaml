@@ -1,0 +1,4 @@
+id: uc-038
+pattern: map-reduce
+summary: Translate per locale, reduce into a consistency report.
+verification: back-translation similarity above threshold; glossary respected

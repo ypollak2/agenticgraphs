@@ -1,0 +1,213 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "score the tier-1 electronics supplier portfolio for concentration risk"
+  },
+  "node_outputs": {
+    "ingest.partition": {
+      "shards": [
+        {
+          "supplier_id": "SUP001",
+          "company_name": "TechGlobal Inc",
+          "percentage_of_portfolio": 25,
+          "risk_score": 85,
+          "concentration_risk_level": "High"
+        },
+        {
+          "supplier_id": "SUP002",
+          "company_name": "ElectroSystems Ltd",
+          "percentage_of_portfolio": 18,
+          "risk_score": 72,
+          "concentration_risk_level": "Medium"
+        },
+        {
+          "supplier_id": "SUP003",
+          "company_name": "InnovateChips Co",
+          "percentage_of_portfolio": 12,
+          "risk_score": 65,
+          "concentration_risk_level": "Medium"
+        },
+        {
+          "supplier_id": "SUP004",
+          "company_name": "CircuitMasters Corp",
+          "percentage_of_portfolio": 8,
+          "risk_score": 45,
+          "concentration_risk_level": "Low"
+        },
+        {
+          "supplier_id": "SUP005",
+          "company_name": "SignalTech Solutions",
+          "percentage_of_portfolio": 6,
+          "risk_score": 38,
+          "concentration_risk_level": "Low"
+        }
+      ]
+    },
+    "ingest.map": [
+      {
+        "shard_result": {
+          "supplier_id": "SUP001",
+          "company_name": "TechGlobal Inc",
+          "percentage_of_portfolio": 25,
+          "risk_score": 85,
+          "concentration_risk_level": "High",
+          "recommendation": "Diversify supplier base immediately due to excessive concentration risk"
+        }
+      },
+      {
+        "shard_result": {
+          "supplier_id": "SUP002",
+          "company_name": "ElectroSystems Ltd",
+          "percentage_of_portfolio": 18,
+          "risk_score": 72,
+          "concentration_risk_level": "Medium"
+        }
+      },
+      {
+        "shard_result": {
+          "supplier_id": "SUP003",
+          "company_name": "InnovateChips Co",
+          "percentage_of_portfolio": 12,
+          "risk_score": 65,
+          "concentration_risk_level": "Medium"
+        }
+      },
+      {
+        "shard_result": {
+          "supplier_id": "SUP004",
+          "company_name": "CircuitMasters Corp",
+          "percentage_of_portfolio": 8,
+          "risk_score": 45,
+          "concentration_risk_level": "Low",
+          "notes": "Supplier contributes 8% to portfolio with low concentration risk score of 45, indicating minimal concentration risk exposure."
+        }
+      },
+      {
+        "shard_result": {
+          "supplier_id": "SUP005",
+          "company_name": "SignalTech Solutions",
+          "percentage_of_portfolio": 6,
+          "risk_score": 38,
+          "concentration_risk_level": "Low",
+          "normalized_risk_score": 0.38
+        }
+      }
+    ],
+    "ingest.reduce": {
+      "findings": [
+        {
+          "source_date": "2023-11-15",
+          "source_url": "https://www.techglobalinc.com/sustainability-report"
+        },
+        {
+          "source_date": "2023-10-22",
+          "source_url": "https://www.electrosystems-ltd.com/financials"
+        }
+      ],
+      "output": {
+        "total_portfolio_concentration": 69,
+        "high_risk_suppliers": 1,
+        "medium_risk_suppliers": 2,
+        "low_risk_suppliers": 2,
+        "overall_concentration_risk_level": "High",
+        "recommendation": "Diversify supplier base immediately due to excessive concentration risk from TechGlobal Inc."
+      },
+      "supplier_signals": [
+        {
+          "supplier_id": "SUP001",
+          "company_name": "TechGlobal Inc",
+          "risk_score": 85,
+          "concentration_risk_level": "High",
+          "signals": [
+            "Exceeds 20% portfolio allocation",
+            "Has highest risk score among all suppliers"
+          ]
+        },
+        {
+          "supplier_id": "SUP002",
+          "company_name": "ElectroSystems Ltd",
+          "risk_score": 72,
+          "concentration_risk_level": "Medium",
+          "signals": [
+            "Allocation above 15% portfolio",
+            "Moderate risk score"
+          ]
+        }
+      ]
+    },
+    "score": {
+      "risk_scores": [
+        {
+          "supplier_id": "SUP001",
+          "company_name": "TechGlobal Inc",
+          "risk_score": 85,
+          "concentration_risk_level": "High"
+        },
+        {
+          "supplier_id": "SUP002",
+          "company_name": "ElectroSystems Ltd",
+          "risk_score": 72,
+          "concentration_risk_level": "Medium"
+        },
+        {
+          "supplier_id": "SUP003",
+          "company_name": "InnovateChips Co",
+          "risk_score": 65,
+          "concentration_risk_level": "Medium"
+        },
+        {
+          "supplier_id": "SUP004",
+          "company_name": "CircuitMasters Corp",
+          "risk_score": 45,
+          "concentration_risk_level": "Low"
+        },
+        {
+          "supplier_id": "SUP005",
+          "company_name": "SignalTech Solutions",
+          "risk_score": 38,
+          "concentration_risk_level": "Low"
+        }
+      ]
+    },
+    "concentrate": {
+      "concentration": "High"
+    },
+    "mitigate": {
+      "above_appetite": [
+        {
+          "supplier_id": "SUP001",
+          "company_name": "TechGlobal Inc",
+          "risk_score": 85,
+          "concentration_risk_level": "High"
+        }
+      ],
+      "mitigations": [
+        {
+          "supplier_id": "SUP001",
+          "company_name": "TechGlobal Inc",
+          "mitigation_owner": " procurement_team_lead",
+          "action": "Diversify supplier base immediately due to excessive concentration risk"
+        }
+      ],
+      "mitigations_planned": 1,
+      "output": {
+        "above_appetite": [
+          {
+            "supplier_id": "SUP001",
+            "company_name": "TechGlobal Inc",
+            "risk_score": 85,
+            "concentration_risk_level": "High"
+          }
+        ],
+        "mitigations_planned": 1,
+        "single_source_flagged": true
+      },
+      "single_source_flagged": true
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

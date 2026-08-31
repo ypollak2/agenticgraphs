@@ -1,0 +1,4 @@
+id: uc-082
+pattern: parallel-swarm
+summary: Workers score calls per methodology dimension.
+verification: scores cite transcript spans; calibration checked

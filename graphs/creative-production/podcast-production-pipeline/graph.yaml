@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: podcast-production-pipeline
 description: 'Turn a raw recording into a published episode: transcript, edit plan, show notes, rights
   check, publish.'
@@ -28,7 +28,8 @@ nodes:
   - cut_list
   outputs:
   - show_notes
-  - timestamps
+  - timestamps: list[{start:int, end:int}]
+  parallel_group: edit-plan-fanout
 - id: rights-check
   speciality: counsel
   abilities:
@@ -36,8 +37,9 @@ nodes:
   inputs:
   - cut_list
   outputs:
-  - clearances
+  - clearances: list[{license_ref:any}]
   - rights_clear: any
+  parallel_group: edit-plan-fanout
 - id: publish
   speciality: executor
   abilities:
@@ -46,9 +48,10 @@ nodes:
   - show_notes
   - rights_clear
   outputs:
+  - clearances: list[{license_ref:any}]
   - output
   - published
-  - timestamps_valid: any
+  - timestamps: list[{start:int, end:int}]
   join: all
 edges:
 - from: transcribe
@@ -66,14 +69,16 @@ termination:
   max_steps: 30
   contract: no episode publishes with an uncleared cue or drifting timestamps
 verification:
-- describe: every music or clip cue is cleared before publish
-  assert: output.rights_clear == true
-- describe: show notes timestamps line up with the cut
-  assert: output.timestamps_valid == true
+- describe: "every clip names the licence it cleared under \u2014 'rights are clear' is unfalsifiable,\
+    \ a licence reference is not"
+  assert: all(c.license_ref for c in output.clearances)
+- describe: every chapter marker starts before it ends, which is what makes a timestamp valid rather than
+    merely present
+  assert: all(t.start < t.end for t in output.timestamps)
 state:
   inputs:
   - goal
   - recording
 goal:
   required: true
-  description: the recording to publish and the episode's intended audience
+  description: the episode transcript to work from and the show it belongs to

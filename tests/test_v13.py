@@ -248,7 +248,8 @@ def test_declaring_the_key_clears_the_lint():
 
 def test_the_extractor_ignores_comprehension_variables():
     """A regex counted `f`, `v` and `for` as blackboard keys — a wrong number
-    that looked like a finding. The AST version does not."""
+    that looked like a finding. The AST version does not.
+    """
     from agenticgraphs.validate import asserted_keys
 
     assert asserted_keys("all(f.file and f.line for f in output.findings)") == {"findings"}
@@ -257,7 +258,8 @@ def test_the_extractor_ignores_comprehension_variables():
 
 def test_advisories_never_reach_the_error_channel():
     """An earlier draft returned warnings from lint_graph and bricked `agr infuse`,
-    which refuses on any lint output: 'infusion rejected by gate: warn: ...'."""
+    which refuses on any lint output: 'infusion rejected by gate: warn: ...'.
+    """
     from agenticgraphs.validate import lint_advisories, lint_graph
 
     doc = _g(apiVersion="agr/v1.2", verification=[{"assert": "output.nope > 0"}])
@@ -277,9 +279,8 @@ def test_every_registry_graph_has_a_connected_contract():
 
 def test_every_registry_graph_is_fully_declared():
     """v1.4 connected verification to producers; v1.5 gave every dependent node one."""
-    from agenticgraphs.validate import silent_nodes, unconnected_keys
-
     from agenticgraphs.registry import SPEC_VERSION
+    from agenticgraphs.validate import silent_nodes, unconnected_keys
 
     stragglers = [load(gp)["name"] for gp in iter_graphs()
                   if load(gp)["apiVersion"] != SPEC_VERSION]

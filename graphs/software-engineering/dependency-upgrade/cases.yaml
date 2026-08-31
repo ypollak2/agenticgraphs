@@ -1,0 +1,64 @@
+cases:
+- id: happy-path
+  node_outputs:
+    intake:
+      summary: intake complete
+    produce:
+      output:
+        lockfile_updated: true
+        tests_pass: true
+        new_deprecations: []
+      lockfile_sha_before: aaa
+      lockfile_sha_after: bbb
+      new_deprecations: &id001 []
+    review:
+      revision_requested: false
+      attempts: 1
+      lockfile_sha_before: aaa
+      lockfile_sha_after: bbb
+      new_deprecations: &id002 []
+      output:
+        lockfile_sha_before: aaa
+        lockfile_sha_after: bbb
+        new_deprecations: &id003 []
+  goal: the minor-version bumps in the lockfile, keeping tests/ green
+- id: retry-then-resolved
+  node_outputs:
+    intake:
+      summary: intake complete
+    produce:
+    - output:
+        lockfile_updated: true
+        tests_pass: false
+        new_deprecations:
+        - foo() is deprecated
+      lockfile_sha_before: aaa
+      lockfile_sha_after: bbb
+      new_deprecations: *id001
+    - output:
+        lockfile_updated: true
+        tests_pass: true
+        new_deprecations: []
+      lockfile_sha_before: aaa
+      lockfile_sha_after: bbb
+      new_deprecations: *id001
+    review:
+    - revision_requested: true
+      attempts: 1
+      lockfile_sha_before: aaa
+      lockfile_sha_after: bbb
+      new_deprecations: *id002
+      output:
+        lockfile_sha_before: aaa
+        lockfile_sha_after: bbb
+        new_deprecations: *id003
+    - revision_requested: false
+      attempts: 2
+      lockfile_sha_before: aaa
+      lockfile_sha_after: bbb
+      new_deprecations: *id002
+      output:
+        lockfile_sha_before: aaa
+        lockfile_sha_after: bbb
+        new_deprecations: *id003
+  goal: the minor-version bumps in the lockfile, keeping tests/ green

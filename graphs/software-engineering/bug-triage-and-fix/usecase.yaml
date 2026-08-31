@@ -1,0 +1,4 @@
+id: uc-002
+pattern: planner-executor-verifier
+summary: Reproduce a bug, plan a fix, apply it in isolation, verify.
+verification: repro test fails before patch and passes after

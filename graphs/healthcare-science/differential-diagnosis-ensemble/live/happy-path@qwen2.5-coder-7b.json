@@ -1,0 +1,26 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "recorded": "2026-08-09",
+  "endpoint": "http://localhost:11434/v1",
+  "node_outputs": {
+    "intake": {
+      "presentation": "A diagnosis has been carried to quorum due to disagreement in the input. The output contains both a consensus (based on available data) and a note regarding retained dissent."
+    },
+    "adjudicate": {
+      "consensus": " diagnosis based on available data",
+      "dissent": [
+        "disagreement in the input"
+      ],
+      "dissent_retained": true,
+      "output": {
+        "consensus": "diagnosis based on available data",
+        "dissent": [
+          "disagreement in the input"
+        ],
+        "dissent_retained": true
+      }
+    }
+  },
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

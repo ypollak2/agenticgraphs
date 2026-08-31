@@ -15,8 +15,8 @@ import yaml
 
 from .adapters import emit_langgraph
 from .autonomy import AutonomyError
-from .inspect import find_graph, structural_profile
-from .registry import iter_graphs, iter_yaml, load
+from .inspect import find_graph
+from .registry import Registry, iter_yaml, load
 from .validate import validate_schema
 
 
@@ -31,20 +31,16 @@ def create_server():
     @mcp.tool()
     def search_graphs(term: str) -> list[dict]:
         """Search the graph registry by keyword; returns name/category/description/profile."""
-        hits = []
-        for g in iter_graphs():
-            d = load(g)
-            if term.lower() in (d["name"] + " " + d["description"] + " " + d["category"]).lower():
-                goal = d.get("goal") or {}
-                hits.append({"name": d["name"], "category": d["category"],
-                             "description": d["description"],
-                             # v1.6 — surfaced on the SEARCH result, not just on the
-                             # graph, so a caller learns what it must bring before it
-                             # spends a call on get_graph or instantiate.
-                             "goal_required": bool(goal.get("required")),
-                             "goal_description": goal.get("description", ""),
-                             "structural": structural_profile(d)["structural"]})
-        return hits
+        return [
+            {"name": e.name, "category": e.category, "description": e.description,
+             # v1.6 — surfaced on the SEARCH result, not just on the graph, so a
+             # caller learns what it must bring before it spends a call on
+             # get_graph or instantiate.
+             "goal_required": e.goal_required,
+             "goal_description": e.goal_description,
+             "structural": e.structural}
+            for e in Registry.load().search(term)
+        ]
 
     @mcp.tool()
     def get_graph(name: str) -> str:

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: meeting-to-actions
 description: Transcript to decisions, owners, deadlines, and follow-ups.
 category: business-ops
@@ -22,6 +22,10 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - revision_requested: bool
+  criteria: Each action names one accountable person rather than a team, a calendar date rather than a
+    relative phrase like 'next week', and a verbatim transcript quote showing the commitment was actually
+    made. Discussion that never became a commitment is not an action.
 edges:
 - from: intake
   to: produce
@@ -35,3 +39,9 @@ termination:
   contract: each action has owner and date; quotes traceable
 verification:
 - assert: all(a.owner and a.date and a.quote for a in output.actions)
+goal:
+  required: true
+  description: the meeting transcript to convert and the team it belongs to
+state:
+  inputs:
+  - goal

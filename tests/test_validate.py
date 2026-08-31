@@ -1,6 +1,6 @@
 import copy
 
-from agenticgraphs.registry import ROOT, iter_graphs, iter_yaml, load
+from agenticgraphs.registry import iter_graphs, iter_yaml, load
 from agenticgraphs.validate import lint_graph, validate_graph_file, validate_schema
 
 

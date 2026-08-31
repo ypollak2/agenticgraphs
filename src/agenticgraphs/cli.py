@@ -9,7 +9,7 @@ from pathlib import Path
 import yaml
 
 from .inspect import find_graph, render_profile, to_mermaid
-from .registry import iter_graphs, iter_yaml, load
+from .registry import Registry, iter_graphs, iter_yaml, load
 from .validate import validate_graph_file, validate_schema
 
 
@@ -35,7 +35,7 @@ def main(argv: list[str] | None = None) -> int:
     ep.add_argument("--resume-from", type=Path, metavar="JOURNAL",
                     help="resume a killed run from its journal (requires durability.resume)")
     ep.add_argument("--no-replay", action="store_true",
-                    help="ignore checked-in real-model recordings in evals/<graph>/live/ "
+                    help="ignore checked-in real-model recordings in the graph's live/ "
                          "and use mock fixtures instead")
     ep.add_argument("--run-commands", action="store_true",
                     help="actually execute verification[].command entries (runs real code "
@@ -57,9 +57,12 @@ def main(argv: list[str] | None = None) -> int:
     gp.add_argument("--run-commands", action="store_true",
                     help="actually execute verification[].command entries")
     ip = sub.add_parser("infuse", help="add an ability to a node, gate-checked + lineage-logged (M2)")
-    ip.add_argument("name"); ip.add_argument("node"); ip.add_argument("ability")
+    ip.add_argument("name")
+    ip.add_argument("node")
+    ip.add_argument("ability")
     op = sub.add_parser("optimize", help="v0 structural optimizer: dry-run by default (M2)")
-    op.add_argument("name"); op.add_argument("--apply", action="store_true")
+    op.add_argument("name")
+    op.add_argument("--apply", action="store_true")
     op.add_argument("--autonomous", action="store_true",
                     help="allow --apply to run unattended (also honors AGR_AUTONOMOUS=1); see docs/autonomy.md")
     ap = sub.add_parser("adapt", help="compile a graph to framework source (M3)")
@@ -88,15 +91,18 @@ def main(argv: list[str] | None = None) -> int:
     args = p.parse_args(argv)
 
     if args.cmd == "list":
-        for g in iter_graphs():
-            d = load(g)
-            print(f"{d['category']}/{d['name']}: {d['description']}")
+        for e in Registry.load():
+            print(f"{e.category}/{e.name}: {e.description}")
         return 0
     if args.cmd == "search":
-        hits = [d for d in map(load, iter_graphs())
-                if args.term.lower() in (d["name"] + d["description"]).lower()]
-        for d in hits:
-            print(f"{d['category']}/{d['name']}: {d['description']}")
+        # Now matches name + description + *category*, which is what the MCP
+        # `search_graphs` tool has always matched. The two surfaces disagreed:
+        # `agr search finance` returned nothing and exited 1 while the MCP tool
+        # returned four graphs. One definition, and the wider one is the correct
+        # one — a domain is a legitimate thing to search a registry by.
+        hits = Registry.load().search(args.term)
+        for e in hits:
+            print(f"{e.category}/{e.name}: {e.description}")
         return 0 if hits else 1
     if args.cmd == "show":
         print(yaml.safe_dump(_need(args.name), sort_keys=False, width=120), end="")
@@ -169,7 +175,7 @@ def main(argv: list[str] | None = None) -> int:
             if args.mode == "subgraph":
                 doc = compose_by_reference(_need(args.graph_a), _need(args.graph_b),
                                            name=args.name)
-                warnings = []
+                warnings: list[str] = []
             else:
                 doc, warnings = compose(_need(args.graph_a), _need(args.graph_b),
                                         name=args.name, allow_gaps=args.allow_gaps)
@@ -205,14 +211,16 @@ def main(argv: list[str] | None = None) -> int:
         for kind, dirname in (("speciality", "specialities"), ("ability", "abilities")):
             for f in iter_yaml(dirname):
                 errs = validate_schema(load(f), kind)
-                for e in errs:
-                    print(f"FAIL {f.name}: {e}")
+                for err in errs:
+                    print(f"FAIL {f.name}: {err}")
                 failures += len(errs)
-        for gp in paths:
-            errs = validate_graph_file(Path(gp))
-            print(("OK  " if not errs else "FAIL") + f" {gp}")
-            for e in errs:
-                print(f"     {e}")
+        # `gp`/`e` are the parser and except names elsewhere in this function;
+        # reusing them here is what made mypy report reading a deleted variable.
+        for graph_path in paths:
+            errs = validate_graph_file(Path(graph_path))
+            print(("OK  " if not errs else "FAIL") + f" {graph_path}")
+            for err in errs:
+                print(f"     {err}")
             failures += len(errs)
         return 1 if failures else 0
     return 2

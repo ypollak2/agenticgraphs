@@ -36,9 +36,9 @@ Intake, redline and execute a contract gated on residual risk and counsel approv
 A `kind: human` node holds an approval contract that no model may sign — the live runner raises rather than approve its own work. Downstream flow edges stay blocked until the contract evaluates true, which is what makes a graph usable in a regulated domain instead of merely plausible-looking.
 
 - **Exit contract** — a contract executes only at or below medium residual risk with counsel signature
+- **Machine-checked** — `all(s.party and s.dated for s in output.signatures)`
 - **Machine-checked** — `output.residual_risk_level in ['low','medium']`
 - **Machine-checked** — `output.signed_off == true`
-- **Machine-checked** — `output.executed == true`
 - **Bounded** — hard stop after 35 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval contract-lifecycle` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/contract-lifecycle.md)

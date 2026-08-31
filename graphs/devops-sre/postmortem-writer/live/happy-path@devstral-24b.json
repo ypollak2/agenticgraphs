@@ -1,0 +1,40 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "intake": {
+      "summary": "Ensure every timeline event has either 'log_id' or 'message_id'"
+    },
+    "produce": {
+      "timeline": [
+        {
+          "log_id": "12345",
+          "message_id": null
+        },
+        {
+          "log_id": null,
+          "message_id": "abcde"
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "timeline": [
+          {
+            "log_id": "12345",
+            "message_id": null
+          },
+          {
+            "log_id": null,
+            "message_id": "abcde"
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

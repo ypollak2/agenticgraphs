@@ -1,0 +1,49 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {},
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "type": "question",
+          "content": "Can Devstral analyze the requirements and output structure given in this workflow?",
+          "requires": [
+            "requirements",
+            "page_limit"
+          ]
+        }
+      ]
+    },
+    "map": {
+      "shard_result": {
+        "answered": false,
+        "flagged_for_followup": true
+      }
+    },
+    "reduce": {
+      "output": {
+        "page_count": 1,
+        "page_limit": 0.5,
+        "requirements": [
+          {
+            "answered": false,
+            "flagged_for_followup": true
+          }
+        ]
+      },
+      "page_count": 1,
+      "page_limit": 0.5,
+      "requirements": [
+        {
+          "answered": false,
+          "flagged_for_followup": true
+        }
+      ]
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

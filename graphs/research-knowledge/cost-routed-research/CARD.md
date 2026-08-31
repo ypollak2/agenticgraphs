@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-113` | research-knowledge | **router** | 4 | 5 | 1 | 1 | 20 | read |
 
+> 🎯 **Requires a goal** — the research question to answer and the confidence bar an answer must clear. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

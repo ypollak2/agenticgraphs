@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: forensic-investigation-blackboard
 description: Specialists contribute independently to shared evidence; a controller decides when the picture
   closes.
@@ -25,6 +25,8 @@ nodes:
   fan_out:
     over: leads
     max: 8
+  retries:
+    max: 2
 - id: assess
   speciality: judge
   abilities:
@@ -40,6 +42,9 @@ nodes:
     op: union
     over: evidence
   kind: verifier
+  criteria: Every conclusion cites the evidence on the blackboard that supports it, and questions the
+    investigation could not settle are stated as open rather than dropped. A clean narrative that omits
+    its gaps is the failure mode of an investigation.
 edges:
 - from: seed
   to: investigate

@@ -18,7 +18,7 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-08-11",
+    "date": "2026-08-31",
     "cases": 2,
     "passed": 2,
     "pass_rate": 1.0,
@@ -71,177 +71,19 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:devstral:24b,gpt-4o,hermes3:8b,qwen2.5-coder:7b,qwen3-coder:30b",
+    "runner": "llm-replay:qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-08-11",
-    "cases": 9,
-    "passed": 5,
-    "pass_rate": 0.556,
+    "date": "2026-08-31",
+    "cases": 2,
+    "passed": 2,
+    "pass_rate": 1.0,
     "mean_steps": 3.0,
     "results": [
       {
         "id": "significant-effect-confirmed",
-        "model": "devstral:24b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": true,
-        "steps": 3,
-        "trace": [
-          "position-a",
-          "position-b",
-          "judge"
-        ],
-        "goal_missing": "",
-        "assert_failures": [],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "significant-effect-confirmed",
-        "model": "devstral:24b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 3,
-        "trace": [
-          "position-a",
-          "position-b",
-          "judge"
-        ],
-        "goal_missing": "",
-        "assert_failures": [
-          "abs(output.recomputed_effect - output.claimed_effect) < 0.01 (TypeError: unsupported operand type(s) for -: 'NoneType' and 'NoneType')"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "significant-effect-confirmed",
-        "model": "devstral:24b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 3,
-        "trace": [
-          "position-a",
-          "position-b",
-          "judge"
-        ],
-        "goal_missing": "",
-        "assert_failures": [
-          "abs(output.recomputed_effect - output.claimed_effect) < 0.01 (TypeError: unsupported operand type(s) for -: 'NoneType' and 'NoneType')"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "significant-effect-confirmed",
-        "model": "gpt-4o",
-        "recorded": "2026-08-10",
-        "gate_auto_approved": false,
-        "passed": true,
-        "steps": 3,
-        "trace": [
-          "position-a",
-          "position-b",
-          "judge"
-        ],
-        "goal_missing": "",
-        "assert_failures": [],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "significant-effect-confirmed",
-        "model": "hermes3:8b",
-        "recorded": "2026-08-09",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 3,
-        "trace": [
-          "position-a",
-          "position-b",
-          "judge"
-        ],
-        "goal_missing": "",
-        "assert_failures": [
-          "abs(output.recomputed_effect - output.claimed_effect) < 0.01 (TypeError: unsupported operand type(s) for -: 'str' and 'str')"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "significant-effect-confirmed",
-        "model": "qwen2.5-coder:7b",
-        "recorded": "2026-08-09",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 3,
-        "trace": [
-          "position-a",
-          "position-b",
-          "judge"
-        ],
-        "goal_missing": "",
-        "assert_failures": [
-          "abs(output.recomputed_effect - output.claimed_effect) < 0.01 (TypeError: unsupported operand type(s) for -: 'NoneType' and 'NoneType')"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "significant-effect-confirmed",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
+        "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": true,
         "steps": 3,
@@ -264,34 +106,9 @@
         "tool_calls": []
       },
       {
-        "id": "significant-effect-confirmed",
+        "id": "null-result-confirmed",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
-        "gate_auto_approved": false,
-        "passed": true,
-        "steps": 3,
-        "trace": [
-          "position-a",
-          "position-b",
-          "judge"
-        ],
-        "goal_missing": "",
-        "assert_failures": [],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "significant-effect-confirmed",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-11",
+        "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": true,
         "steps": 3,
@@ -315,32 +132,18 @@
       }
     ],
     "models": [
-      "devstral:24b",
-      "gpt-4o",
-      "hermes3:8b",
-      "qwen2.5-coder:7b",
       "qwen3-coder:30b"
     ],
-    "recorded": "2026-08-09",
-    "age_days": 2,
+    "recorded": "2026-08-31",
+    "age_days": 0,
     "per_model_pass_rate": {
-      "devstral:24b": 0.333,
-      "gpt-4o": 1.0,
-      "hermes3:8b": 0.0,
-      "qwen2.5-coder:7b": 0.0,
       "qwen3-coder:30b": 1.0
     },
-    "models_disagree": true,
+    "models_disagree": false,
     "fails_every_model": false,
-    "flaky_models": [
-      "devstral:24b"
-    ],
+    "flaky_models": [],
     "samples_per_model": {
-      "devstral:24b": 3,
-      "gpt-4o": 1,
-      "hermes3:8b": 1,
-      "qwen2.5-coder:7b": 1,
-      "qwen3-coder:30b": 3
+      "qwen3-coder:30b": 2
     },
     "gate_auto_approved": false
   }

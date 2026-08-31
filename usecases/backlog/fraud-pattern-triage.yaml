@@ -1,0 +1,6 @@
+id: uc-051
+name: fraud-pattern-triage
+domain: finance
+pattern: router
+summary: Route flagged transactions to rule, anomaly, or manual review.
+verification: routing precision measured against labeled history

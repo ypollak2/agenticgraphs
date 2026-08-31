@@ -1,0 +1,4 @@
+id: uc-125
+pattern: tree-search
+summary: Search prompt and topology variants against a held-out eval set.
+verification: winner beats baseline on a held-out set it was not searched against

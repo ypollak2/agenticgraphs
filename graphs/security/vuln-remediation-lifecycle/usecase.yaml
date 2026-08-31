@@ -1,0 +1,4 @@
+id: uc-117
+pattern: lifecycle
+summary: Ingest, prioritize, reproduce, patch, prove and disclose a vulnerability behind a human gate.
+verification: exploit proven blocked and disclosure signed before publication

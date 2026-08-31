@@ -1,0 +1,4 @@
+id: uc-045
+pattern: pipeline
+summary: Check internal docs and processes against a policy set.
+verification: findings map to specific policy clause ids

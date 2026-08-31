@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-102` | logistics-retail | **router** | 4 | 4 | 1 | 1 | 12 | write |
 
+> 🎯 **Requires a goal** — the return request to route and the policy table that governs it. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid
@@ -32,7 +34,8 @@ Route returns by reason to refund, repair, or fraud review.
 A cheap classifier sends every item down the narrowest branch that can handle it, so cost and latency scale with the difficulty of each item rather than the worst case. Escalation edges guarantee hard items still reach the strong path.
 
 - **Exit contract** — routing agrees with policy decision table
-- **Machine-checked** — `output.matches_policy_table`
+- **Machine-checked** — `output.assigned_disposition == output.expected_disposition`
+- **Machine-checked** — `len(output.expected_disposition) > 0`
 - **Bounded** — hard stop after 12 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval returns-triage` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/returns-triage.md)

@@ -1,0 +1,4 @@
+id: uc-123
+pattern: human-gate
+summary: Run an RFP, score vendors, negotiate and gate the award on budget-holder approval.
+verification: three rubric-scored vendors and a budget-holder signature before award

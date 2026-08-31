@@ -1,0 +1,4 @@
+id: uc-114
+pattern: parallel-swarm
+summary: Independent verifiers check an artifact in parallel; disagreement blocks release.
+verification: release verdict requires unanimous verifier pass

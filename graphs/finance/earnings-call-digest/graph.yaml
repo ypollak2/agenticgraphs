@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: earnings-call-digest
 description: Transcript to guidance changes, surprises, and QA highlights.
 category: finance
@@ -25,6 +25,9 @@ nodes:
   - figures
   - invented_numbers
   - output
+  - revision_requested: bool
+  criteria: Every figure in the digest appears in the transcript. A number that is directionally right
+    but never stated is an invented number.
 edges:
 - from: intake
   to: produce
@@ -38,3 +41,9 @@ termination:
   contract: every figure matches transcript; no invented numbers
 verification:
 - assert: all(f.matches_transcript for f in output.figures) and not output.invented_numbers
+goal:
+  required: true
+  description: the earnings call to digest and the prior guidance to compare against
+state:
+  inputs:
+  - goal

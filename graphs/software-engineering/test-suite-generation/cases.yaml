@@ -1,0 +1,32 @@
+cases:
+- id: generated-and-approved
+  node_outputs:
+    intake:
+      summary: intake complete
+    generate:
+      draft: v1
+    critique:
+      rejected: false
+      attempts: 1
+      output:
+        coverage_delta: 0.05
+        mutation_score: 0.8
+        mutation_baseline: 0.7
+  goal: the pricing module, to 85% mutation score
+- id: revised-after-rejection
+  node_outputs:
+    intake:
+      summary: intake complete
+    generate:
+    - draft: v1
+    - draft: v2
+    critique:
+    - rejected: true
+      attempts: 1
+    - rejected: false
+      attempts: 2
+      output:
+        coverage_delta: 0.05
+        mutation_score: 0.8
+        mutation_baseline: 0.7
+  goal: the pricing module, to 85% mutation score

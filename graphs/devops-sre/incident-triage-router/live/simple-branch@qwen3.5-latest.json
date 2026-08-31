@@ -1,0 +1,26 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "ownership_map": {
+      "checkout": "payments-oncall",
+      "search": "discovery-oncall",
+      "image-resize": "platform-oncall",
+      "billing": "payments-oncall"
+    },
+    "goal": "the checkout 5xx page, against the 2026-Q3 ownership map"
+  },
+  "node_outputs": {
+    "route": {
+      "complexity": 1
+    }
+  },
+  "tool_calls": []
+}

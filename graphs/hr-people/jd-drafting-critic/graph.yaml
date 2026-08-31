@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: jd-drafting-critic
 description: Draft job descriptions, critic removes bias and inflation.
 category: hr-people
@@ -21,9 +21,14 @@ nodes:
   - critique
   kind: verifier
   outputs:
-  - bias_lint_clean: any
+  - bias_terms: list
   - output
-  - requirements_deduped: any
+  - requirements: list
+  - unique_requirements: list
+  - rejected: bool
+  criteria: The description is clean of gendered and coded bias terms, and requirements are deduplicated
+    and separated into must-have and nice-to-have. An inflated requirement list narrows the pool without
+    raising the bar.
 edges:
 - from: intake
   to: generate
@@ -36,4 +41,13 @@ termination:
   max_steps: 10
   contract: bias-term lint clean; requirements deduplicated
 verification:
-- assert: output.bias_lint_clean and output.requirements_deduped
+- describe: "no gendered or coded term survives \u2014 the terms found, not a verdict that none were"
+  assert: len(output.bias_terms) == 0
+- describe: requirements are deduplicated, checked by counting rather than claiming
+  assert: len(output.requirements) == len(output.unique_requirements)
+goal:
+  required: true
+  description: the role to describe and the level and team it sits in
+state:
+  inputs:
+  - goal

@@ -1,0 +1,6 @@
+id: uc-014
+name: cloud-cost-optimizer
+domain: devops-sre
+pattern: pipeline
+summary: Scan usage, propose rightsizing, verify against SLO headroom.
+verification: projected savings computed from real billing export

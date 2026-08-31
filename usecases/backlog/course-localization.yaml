@@ -1,0 +1,6 @@
+id: uc-076
+name: course-localization
+domain: education
+pattern: map-reduce
+summary: Localize materials per language, reduce into a QA report.
+verification: terminology glossary respected; media links valid

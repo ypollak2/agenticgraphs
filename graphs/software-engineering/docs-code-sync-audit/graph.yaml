@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: docs-code-sync-audit
 description: Extract every code example from the docs and execute it, recording the real exit code for
   each.
@@ -21,6 +21,8 @@ nodes:
     on_partial: continue
   outputs:
   - work_result: '{doc:str, command:str, exit_code:int}'
+  retries:
+    max: 2
 - id: verify
   speciality: verifier
   abilities:
@@ -29,6 +31,11 @@ nodes:
   outputs:
   - examples: list[{doc:str, exit_code:int}]
   - output
+  - verify_failed: bool
+  criteria: Every code example extracted from the docs was actually executed and exited zero. An example
+    that was read and judged plausible has not been checked.
+  retries:
+    max: 2
 edges:
 - from: plan
   to: work
@@ -42,6 +49,8 @@ termination:
   contract: all documented examples run exit zero
 verification:
 - assert: all(e.exit_code == 0 for e in output.examples)
+- describe: every code example in the docs is executed; an example judged plausible has not been checked
+  command: pytest -q --doctest-glob=*.md {docs_path}
 triggers:
 - 'on': webhook
   source: github
@@ -51,3 +60,11 @@ budget:
 durability:
   checkpoint: every_node
   resume: true
+goal:
+  required: true
+  description: the documentation to audit and the codebase it describes
+  supplied_by_trigger: true
+state:
+  inputs:
+  - goal
+  - docs_path

@@ -1,0 +1,6 @@
+id: uc-097
+name: training-gap-analyzer
+domain: hr-people
+pattern: map-reduce
+summary: Map skills against role matrix, reduce to training plan.
+verification: gaps reference assessment evidence

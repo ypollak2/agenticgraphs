@@ -1,0 +1,30 @@
+cases:
+- id: happy-path
+  node_outputs:
+    transcribe:
+      transcript: transcript-value
+    edit-plan:
+      cut_list: []
+    show-notes:
+      show_notes: []
+      timestamps: []
+    rights-check:
+      clearances: []
+      rights_clear: true
+    publish:
+      published: true
+      output:
+        rights_clear: true
+        timestamps_valid: true
+        published: true
+        clearances:
+        - license_ref: CC-BY-4.0
+        timestamps:
+        - start: 0
+          end: 120
+      clearances:
+      - license_ref: CC-BY-4.0
+      timestamps:
+      - start: 0
+        end: 120
+  goal: episode 112 of Systems People

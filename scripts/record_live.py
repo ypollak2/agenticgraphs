@@ -1,4 +1,4 @@
-"""Record real-model node outputs into evals/<graph>/live/<case>.json.
+"""Record real-model node outputs into a graph's live/<case>.json.
 
 The depth grading shipped in v1.1 could report `assert-live`, but nothing ever
 produced it: a live run needs a network call, so CI never made one and all 74
@@ -24,10 +24,10 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from agenticgraphs.evalcmd import case_inputs  # noqa: E402
-from agenticgraphs.harness import LLMRunner, ToolRunner, run_graph  # noqa: E402
-from agenticgraphs.inspect import find_graph  # noqa: E402
-from agenticgraphs.registry import ROOT, load  # noqa: E402
+from agenticgraphs.evalcmd import case_inputs
+from agenticgraphs.harness import LLMRunner, ToolRunner, run_graph
+from agenticgraphs.inspect import find_graph
+from agenticgraphs.registry import ROOT, SPEC_VERSION, cases_path, live_dir, load
 
 
 class RecordingRunner:
@@ -65,7 +65,7 @@ class RecordingRunner:
 
 
 def _model_dir(name: str, model: str) -> str:
-    """Recordings are per-model: `evals/<graph>/live/<case>@<model>.json`.
+    """Recordings are per-model: `<graph bundle>/live/<case>@<model>.json`.
 
     v1.2 kept one recording per case, which made a single weak model look like a
     property of the graph. Distinguishing "no model satisfies this contract" from
@@ -74,11 +74,25 @@ def _model_dir(name: str, model: str) -> str:
     return model.replace("/", "-").replace(":", "-")
 
 
-def record(name: str, sample: int = 0) -> dict:
+def record(name: str, sample: int = 0) -> list[dict]:
+    """Record every golden case, not just the first one.
+
+    This said `case = cases[0]` for the whole life of the project, so every live
+    recording ever made exercised one branch per graph. "83 of 83 graphs recorded"
+    always meant "one case each", and the cases most worth measuring are the ones
+    written second — the branch a model gets wrong, the input that looks like one
+    thing and routes to another. Those were never put to a model.
+
+    The filename already carried the case id, and `_recordings` already globs by
+    it, so the storage and replay sides were ready; only the loop was missing.
+    """
     gpath = find_graph(name)
     doc = load(gpath)
-    cases = yaml.safe_load((ROOT / "evals" / name / "cases.yaml").read_text())["cases"]
-    case = cases[0]
+    cases = yaml.safe_load((cases_path(name)).read_text())["cases"]
+    return [_record_case(name, doc, case, sample) for case in cases]
+
+
+def _record_case(name: str, doc: dict, case: dict, sample: int) -> dict:
     # AGR_TOOLS=1 binds each node's declared abilities; AGR_ALLOW_MUTATING=1 also
     # permits risk: write/execute, the same gate `agr eval --run-commands` uses.
     if os.environ.get("AGR_TOOLS") == "1":
@@ -95,12 +109,20 @@ def record(name: str, sample: int = 0) -> dict:
     # it fails silently and looks like a negative result.
     inputs = case_inputs(case)
     rep = run_graph(doc, runner, root=ROOT, auto_approve=True, inputs=inputs)
-    out_dir = ROOT / "evals" / name / "live"
+    out_dir = live_dir(name)
     out_dir.mkdir(parents=True, exist_ok=True)
     payload = {
         "model": os.environ["AGR_LLM_MODEL"],
         "recorded": date.today().isoformat(),
         "endpoint": os.environ["AGR_LLM_BASE_URL"],
+        # The conditions the measurement was taken under. All 560 pre-v1.8
+        # recordings had to be invalidated WHOLESALE rather than filtered, because
+        # none of them said which spec version they were scored against or how the
+        # model was sampled — so there was no way to tell a recording that survived
+        # the prompt change from one that did not. A recording that cannot state
+        # its own conditions cannot be re-validated later, only thrown away.
+        "spec": SPEC_VERSION,
+        "sampling": dict(LLMRunner.SAMPLING),
         # What the model was given. A recording that does not say what was on the
         # board cannot be compared against one made under different entry state.
         "inputs": inputs,
@@ -119,7 +141,16 @@ def record(name: str, sample: int = 0) -> dict:
     # correction of the first: one recording per cell cannot distinguish a graph
     # that passes from one that passed by luck.
     suffix = f"@{model_tag}" + (f"#{sample}" if sample else "")
-    (out_dir / f"{case['id']}{suffix}.json").write_text(json.dumps(payload, indent=2) + "\n")
+    dest = out_dir / f"{case['id']}{suffix}.json"
+    # A superseded recording is an ARCHIVE, not a slot to reuse. Writing a v1.8 run
+    # over the same case+model name destroyed 101 of the 560 pre-v1.8 files, and
+    # they were only recoverable because they had been committed — the next
+    # cleanup deleted the new file and took the archived one with it. The archive
+    # is the record of what was measured before the correction; the correction is
+    # not entitled to overwrite it.
+    if dest.exists() and json.loads(dest.read_text()).get("superseded_by"):
+        dest = out_dir / f"{case['id']}{suffix}~{SPEC_VERSION.split('/')[-1]}.json"
+    dest.write_text(json.dumps(payload, indent=2) + "\n")
     return {"graph": name, "case": case["id"], "passed": rep.passed,
             "steps": rep.steps, "failures": rep.assert_failures,
             "tool_calls": len(rep.tool_calls),
@@ -145,14 +176,15 @@ def main() -> int:
         # A model that fails to emit JSON is itself an observation about the cell.
         for i in range(samples):
             try:
-                r = record(name, sample=i)
-            except Exception as ex:  # noqa: BLE001 — a failed recording is a result, not a crash
-                r = {"graph": name, "error": f"{type(ex).__name__}: {ex}"}
+                results = record(name, sample=i)
+            except Exception as ex:
+                results = [{"graph": name, "error": f"{type(ex).__name__}: {ex}"}]
             # Reported as it happens, not accumulated. A 249-run sweep that batches
             # its output loses every result if the process is killed — which is
             # exactly what happened, and the recordings on disk were the only
             # surviving evidence of how far it got.
-            _report(r)
+            for r in results:
+                _report(r)
     return 0
 
 

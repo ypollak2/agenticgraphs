@@ -1,0 +1,4 @@
+id: uc-106
+pattern: pipeline
+summary: Outline, script, edit, and show notes with links.
+verification: chapters match audio markers; links resolve

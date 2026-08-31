@@ -1,0 +1,77 @@
+{
+  "model": "gpt-4o",
+  "recorded": "2026-08-10",
+  "endpoint": "https://api.openai.com/v1",
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "doc": "Check all documented examples run exit zero.",
+          "snippet": "def test_example_runs_exit_zero(example):\n    assert example.run().exit_code == 0"
+        },
+        {
+          "doc": "Decompose the all-examples-exit-zero goal into smaller tasks.",
+          "snippet": "def decompose_goal(examples):\n    return [test_example_runs_exit_zero(ex) for ex in examples]"
+        }
+      ]
+    },
+    "work": [
+      {
+        "work_result": "Failed to find the command or script './run_all_examples.sh'. The specified file or executable is not in the directory, hence unable to verify that all documented examples exit with zero."
+      },
+      {
+        "work_result": "The execution of the examples failed because the 'python' command was not found, indicating an issue with the environment setup or the path to the example files. Please ensure the examples are correctly specified and accessible in the current environment."
+      }
+    ],
+    "verify": {
+      "examples": [],
+      "output": {
+        "examples": []
+      }
+    }
+  },
+  "tool_calls": [
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "./run_all_examples.sh"
+      },
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "python example1.py"
+      },
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "python example2.py"
+      },
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "ls"
+      },
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "ability": "run_command",
+      "args": {
+        "command": "echo $PATH"
+      },
+      "ok": true,
+      "detail": "ok"
+    }
+  ],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

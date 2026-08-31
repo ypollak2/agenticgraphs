@@ -1,0 +1,4 @@
+id: uc-047
+pattern: router
+summary: Match invoices to POs, route exceptions by mismatch type.
+verification: matched set balances; exceptions carry mismatch reason

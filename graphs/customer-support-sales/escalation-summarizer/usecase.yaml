@@ -1,0 +1,4 @@
+id: uc-079
+pattern: pipeline
+summary: Compress long threads into handoff briefs with state.
+verification: brief covers all unresolved asks; quotes traceable

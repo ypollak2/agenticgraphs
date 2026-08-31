@@ -40,9 +40,10 @@ Ingest, prioritize, reproduce, patch, prove and disclose a vulnerability behind 
 A multi-phase workflow where each phase is itself a motif and hand-offs are explicit. Phases that duplicate an existing single-purpose graph reference it with `kind: subgraph` instead of restating it, so the flat library becomes the component library and a fix to a child propagates to every composite using it.
 
 - **Exit contract** — nothing is disclosed until the exploit is proven blocked and a human has signed off
-- **Machine-checked** — `output.exploit_blocked == true`
+- **Machine-checked** — `output.repro_exit_code_before == 0 and output.repro_exit_code_after != 0`
 - **Machine-checked** — `output.signed_off == true`
-- **Machine-checked** — `output.advisory_published == true`
+- **Machine-checked** — `output.advisory_url and output.cve_id`
+- **Command-checked** — `pytest -q {repro_path}`
 - **Bounded** — hard stop after 45 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval vuln-remediation-lifecycle` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/vuln-remediation-lifecycle.md)

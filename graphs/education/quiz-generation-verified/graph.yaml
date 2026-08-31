@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: quiz-generation-verified
 description: Generate items, critic solves them blind to verify keys.
 category: education
@@ -15,6 +15,18 @@ nodes:
   - generate
   outputs:
   - draft
+- id: blind-solve
+  speciality: worker
+  abilities:
+  - run_command
+  inputs:
+  - draft
+  outputs:
+  - blind_answers
+  criteria: Each item is answered without sight of the key. An answer produced by a step that could see
+    the key measures nothing about whether the item is solvable.
+  retries:
+    max: 2
 - id: critique
   speciality: critic
   abilities:
@@ -23,10 +35,15 @@ nodes:
   outputs:
   - entries: list[{answer_matches_key:any, distractors_plausible:any}]
   - output
+  - rejected: bool
+  criteria: "The critic, solving each item without seeing the key, arrives at the keyed answer \u2014\
+    \ and each distractor is wrong for a reason a learner could plausibly hold, not obviously absurd."
 edges:
 - from: intake
   to: generate
 - from: generate
+  to: blind-solve
+- from: blind-solve
   to: critique
 - from: critique
   to: generate
@@ -36,3 +53,9 @@ termination:
   contract: critic answers match keys; distractors plausible
 verification:
 - assert: all(i.answer_matches_key and i.distractors_plausible for i in output.entries)
+goal:
+  required: true
+  description: the source material to quiz on and the level of the learners
+state:
+  inputs:
+  - goal

@@ -13,7 +13,7 @@ import yaml
 
 from agenticgraphs.evalcmd import case_inputs
 from agenticgraphs.harness import LLMRunner, MockRunner, run_graph
-from agenticgraphs.registry import ROOT, iter_graphs, load
+from agenticgraphs.registry import ROOT, cases_path, iter_graphs, load
 from agenticgraphs.subgraphs import expand, has_subgraphs
 from agenticgraphs.validate import (
     joint_precondition_asserts,
@@ -197,7 +197,7 @@ def test_whole_registry_still_passes_its_golden_cases():
     for gp in iter_graphs():
         doc = load(gp)
         for case in yaml.safe_load(
-                (ROOT / "evals" / doc["name"] / "cases.yaml").read_text())["cases"]:
+                (cases_path(doc["name"])).read_text())["cases"]:
             total += 1
             passed += run_graph(doc, MockRunner(case["node_outputs"]), root=ROOT,
                                 inputs=case_inputs(case)).passed
@@ -207,7 +207,8 @@ def test_whole_registry_still_passes_its_golden_cases():
 @pytest.mark.parametrize("motif_node", ["map", "work", "execute"])
 def test_template_worker_nodes_declare_a_result(motif_node):
     """20 nodes across map-reduce, parallel-swarm and PEV declared nothing and had
-    a `{}` fixture — the shape was copied before anyone asked what it hands on."""
+    a `{}` fixture — the shape was copied before anyone asked what it hands on.
+    """
     for gp in iter_graphs():
         doc = load(gp)
         node = next((n for n in doc["nodes"] if n["id"] == motif_node), None)

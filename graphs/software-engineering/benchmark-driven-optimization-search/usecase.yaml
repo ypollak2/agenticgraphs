@@ -1,0 +1,4 @@
+id: uc-124
+pattern: tree-search
+summary: Branch candidate optimizations, score each on a benchmark, keep the beam.
+verification: retained candidate beats baseline with a green suite

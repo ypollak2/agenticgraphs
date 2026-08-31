@@ -1,4 +1,4 @@
-apiVersion: agr/v1.7
+apiVersion: agr/v1.8
 name: differential-diagnosis-ensemble
 description: Independent diagnosticians rank hypotheses; a quorum decides and dissent is reported, never
   dropped.
@@ -17,7 +17,7 @@ nodes:
   abilities:
   - analyze
   outputs:
-  - ranking
+  - ranking: list[{clinician_id:any}]
   inputs:
   - presentations
   fan_out:
@@ -29,10 +29,11 @@ nodes:
   abilities:
   - adjudicate
   outputs:
-  - consensus: any
+  - consensus
   - dissent
-  - dissent_retained: any
   - output
+  - ranking: list[{clinician_id:any}]
+  - represented
   inputs:
   - ranking
   join: quorum(1)
@@ -40,6 +41,8 @@ nodes:
     op: majority
     over: ranking
   kind: verifier
+  criteria: The ranked differential carries the quorum supporting it, and any diagnostician's dissent
+    is reported alongside. The rare diagnosis one reviewer insisted on is the signal, not the noise.
 edges:
 - from: intake
   to: diagnose
@@ -49,14 +52,15 @@ termination:
   max_steps: 30
   contract: a diagnosis carries its quorum; disagreement is reported rather than averaged away
 verification:
-- describe: a tie is surfaced as no-consensus, never resolved by coin flip
+- describe: a consensus or a recorded disagreement, never neither
   assert: output.consensus is not None or len(output.dissent) > 0
-- describe: every dissenting opinion is retained
-  assert: output.dissent_retained == true
+- describe: "every ranked hypothesis is represented in the adjudication \u2014 dissent is carried, not\
+    \ averaged away"
+  assert: all(r.clinician_id in output.represented for r in output.ranking)
 state:
   inputs:
   - goal
   - case_notes
 goal:
   required: true
-  description: the case to work up and the question the clinician needs answered
+  description: the presenting case and the history available to reason from

@@ -1,0 +1,21 @@
+cases:
+- id: happy-path
+  node_outputs:
+    draft:
+      protocol: protocol-value
+    critique:
+      deviations: []
+    revise:
+      protocol_final: protocol_final-value
+      output: &id001
+        deviations: []
+        signed_off: true
+        registry_id: NCT00000001
+    investigator-signoff:
+      signed_off: true
+    register:
+      registered: true
+      registry_id: NCT00000001
+      output: *id001
+    amend-registration: {}
+  goal: draft a phase II protocol for drug X in treatment-resistant patients

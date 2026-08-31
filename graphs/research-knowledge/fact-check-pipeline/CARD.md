@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-029` | research-knowledge | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
 
+> 🎯 **Requires a goal** — the claims to check and the sources they may be checked against. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

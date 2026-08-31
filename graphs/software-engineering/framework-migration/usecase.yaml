@@ -1,0 +1,4 @@
+id: uc-005
+pattern: planner-executor-verifier
+summary: Port a codebase between frameworks in verifiable slices.
+verification: build and full test suite green on target stack

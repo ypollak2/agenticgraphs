@@ -1,0 +1,6 @@
+id: uc-074
+name: learning-path-planner
+domain: education
+pattern: planner-executor-verifier
+summary: Sequence modules against prerequisites and pace.
+verification: prerequisite DAG has no violations

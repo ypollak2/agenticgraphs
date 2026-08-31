@@ -1,0 +1,53 @@
+cases:
+- id: first-attempt-verified
+  node_outputs:
+    plan:
+      steps:
+      - decompose goal
+      tasks:
+      - i: 1
+      - i: 2
+      - i: 3
+    work:
+      work_result: &id001
+      - id: 1
+        status: done
+    verify:
+      verify_failed: false
+      attempts: 1
+      output:
+        claims:
+        - text: effect size is moderate
+          paper: Smith2024
+          section: '3.2'
+    screen: &id002
+      included:
+      - p1
+      excluded:
+      - paper: p2
+        reason: wrong design
+  goal: does spaced repetition improve retention, RCTs since 2015
+- id: retry-then-verified
+  node_outputs:
+    plan:
+      steps:
+      - decompose goal
+      tasks:
+      - i: 1
+      - i: 2
+      - i: 3
+    work:
+    - work_result: *id001
+    - work_result: *id001
+    verify:
+    - verify_failed: true
+      attempts: 1
+    - verify_failed: false
+      attempts: 2
+      output:
+        claims:
+        - text: effect size is moderate
+          paper: Smith2024
+          section: '3.2'
+    screen: *id002
+  goal: does spaced repetition improve retention, RCTs since 2015

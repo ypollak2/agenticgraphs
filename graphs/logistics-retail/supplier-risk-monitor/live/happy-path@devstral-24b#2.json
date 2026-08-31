@@ -1,0 +1,85 @@
+{
+  "model": "devstral:24b",
+  "recorded": "2026-08-11",
+  "endpoint": "http://localhost:11434/v1",
+  "inputs": {
+    "goal": "score the tier-1 electronics supplier portfolio for concentration risk"
+  },
+  "node_outputs": {
+    "ingest.partition": {
+      "shardSupplierRiskEvaluation": true,
+      "shardConcentrationScoringAlgorithm": true
+    },
+    "ingest.reduce": {
+      "findings": [
+        {
+          "source_date": "2023-10-01",
+          "source_url": "https://www.factors.com/risk-evaluation"
+        },
+        {
+          "source_date": "2023-09-15",
+          "source_url": "https://marketanalysis.info/supplier-concentration"
+        }
+      ],
+      "output": [
+        "Concentration risk is scored at Moderate level.",
+        "Supplier A has significant concentration in the portfolio."
+      ],
+      "supplier_signals": [
+        "Supplier A",
+        "Supplier B"
+      ]
+    },
+    "score": {
+      "risk_scores": {
+        "Supplier A": 85,
+        "Supplier B": 60
+      }
+    },
+    "concentrate": {
+      "concentration": [
+        {
+          "supplier": "Supplier A",
+          "risk_score": 85,
+          "mitigation_owner": "John Smith"
+        },
+        {
+          "supplier": "Supplier B",
+          "risk_score": 60,
+          "mitigation_owner": null
+        }
+      ]
+    },
+    "mitigate": {
+      "above_appetite": [
+        {
+          "supplier": "Supplier A",
+          "risk_score": 85,
+          "mitigation_owner": "John Smith"
+        }
+      ],
+      "mitigations_planned": [
+        {
+          "supplier": "Supplier A",
+          "risk_score": 85,
+          "mitigation_owner": "John Smith"
+        }
+      ],
+      "output": {
+        "above_appetite": [
+          {
+            "supplier": "Supplier A",
+            "risk_score": 85,
+            "mitigation_owner": "John Smith"
+          }
+        ],
+        "mitigations_planned": true,
+        "single_source_flagged": true
+      },
+      "single_source_flagged": true
+    }
+  },
+  "tool_calls": [],
+  "superseded_by": "agr/v1.8",
+  "reason": "recorded while the runner passed verification asserts into the node prompt, under unpinned sampling, and against contracts that v1.8 replaced. Not comparable to a v1.8 recording; re-record with scripts/record_live.py."
+}

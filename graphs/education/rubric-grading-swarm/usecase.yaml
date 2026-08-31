@@ -1,0 +1,4 @@
+id: uc-075
+pattern: parallel-swarm
+summary: Independent graders score, disagreements auto-escalate.
+verification: inter-rater agreement above threshold or escalated
