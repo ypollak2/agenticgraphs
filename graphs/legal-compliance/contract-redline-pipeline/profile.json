@@ -88,7 +88,7 @@
     "cases": 2,
     "passed": 2,
     "pass_rate": 1.0,
-    "mean_steps": 5.0,
+    "mean_steps": 4.0,
     "results": [
       {
         "id": "happy-path",
@@ -125,12 +125,10 @@
         "recorded": "2026-08-31",
         "gate_auto_approved": false,
         "passed": true,
-        "steps": 6,
+        "steps": 4,
         "trace": [
           "intake",
           "playbook-lookup",
-          "produce",
-          "review",
           "produce",
           "review"
         ],

@@ -37,6 +37,7 @@
     },
     "review": {
       "output": {
+        "all_asks_covered": true,
         "asks": [
           {
             "quote": "Ticket 84120 requires escalation to Tier 3 support due to unresolved hardware compatibility issues with the newly deployed network switches."
@@ -53,8 +54,7 @@
           {
             "quote": "Escalation is required to access Tier 3's advanced diagnostic tools and vendor-specific expertise for resolution."
           }
-        ],
-        "all_asks_covered": true
+        ]
       },
       "revision_requested": false
     }
