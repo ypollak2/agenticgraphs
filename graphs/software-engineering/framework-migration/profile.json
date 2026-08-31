@@ -51,5 +51,63 @@
         "tool_calls": []
       }
     ]
+  },
+  "measured_live": {
+    "runner": "llm-replay:qwen3-coder:30b",
+    "provisional": false,
+    "verification_depth": "command",
+    "date": "2026-08-31",
+    "cases": 1,
+    "passed": 0,
+    "pass_rate": 0.0,
+    "mean_steps": 7.0,
+    "results": [
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 7,
+        "trace": [
+          "inventory",
+          "supervise",
+          "port-slice.intake",
+          "port-slice.produce",
+          "port-slice.review",
+          "integrate",
+          "sign-off"
+        ],
+        "goal_missing": "",
+        "assert_failures": [
+          "output.slices_remaining == 0"
+        ],
+        "skipped_command_checks": 2,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      }
+    ],
+    "models": [
+      "qwen3-coder:30b"
+    ],
+    "recorded": "2026-08-31",
+    "age_days": 0,
+    "per_model_pass_rate": {
+      "qwen3-coder:30b": 0.0
+    },
+    "models_disagree": false,
+    "fails_every_model": true,
+    "flaky_models": [],
+    "samples_per_model": {
+      "qwen3-coder:30b": 1
+    },
+    "gate_auto_approved": false
   }
 }
