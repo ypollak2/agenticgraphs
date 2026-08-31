@@ -12,7 +12,6 @@ Three layers, matching the task's quality bar:
 """
 from __future__ import annotations
 
-import shutil
 import subprocess
 from pathlib import Path
 
@@ -28,7 +27,6 @@ from agenticgraphs.autonomy import (
 )
 from agenticgraphs.mutate import infuse_autonomous
 from agenticgraphs.registry import ROOT
-
 
 # ---------------------------------------------------------------------------
 # 1. Gate primitives
@@ -86,7 +84,8 @@ def test_infuse_autonomous_refuses_execute_risk_ability(monkeypatch):
 def repo_clone(tmp_path):
     """A throwaway local clone of the real repo, so the one test that exercises
     a real autonomous write + commit never touches the development repo's git
-    history (no stray `auto/mutations` branch left behind)."""
+    history (no stray `auto/mutations` branch left behind).
+    """
     dst = tmp_path / "clone"
     subprocess.run(["git", "clone", "-q", "--no-hardlinks", str(ROOT), str(dst)], check=True)
     # Pin the clone to a branch of our own. Cloning a source repo that is itself in

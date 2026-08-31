@@ -236,7 +236,7 @@ def emit_autogen(doc: dict) -> str:
            '_ORDER = {"trivial": -1, "low": 0, "simple": 0, "medium": 1, "moderate": 1,',
            '          "high": 2, "complex": 2, "critical": 3}', ""]
 
-    out += [f'def is_termination_msg(msg: dict) -> bool:',
+    out += ['def is_termination_msg(msg: dict) -> bool:',
             f'    """Contract: {contract}"""',
             '    return isinstance(msg, dict) and bool(msg.get("terminate"))', ""]
 

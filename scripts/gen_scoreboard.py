@@ -14,9 +14,9 @@ from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from agenticgraphs.evalcmd import eval_graph  # noqa: E402
-from agenticgraphs.registry import ROOT, cases_path, iter_graphs, load  # noqa: E402
-from agenticgraphs.validate import silent_nodes, unconnected_keys  # noqa: E402
+from agenticgraphs.evalcmd import eval_graph
+from agenticgraphs.registry import ROOT, cases_path, iter_graphs, load
+from agenticgraphs.validate import silent_nodes, unconnected_keys
 
 BEGIN, END = "<!-- scoreboard:begin -->", "<!-- scoreboard:end -->"
 

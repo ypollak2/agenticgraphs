@@ -29,6 +29,7 @@ from pathlib import Path
 
 import yaml
 
+
 def _resolve_root() -> Path:
     """Locate the registry payload.
 

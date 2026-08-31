@@ -128,7 +128,7 @@ def test_emitted_guard_actually_refuses_an_escape():
     src = emit_langgraph(load(find_graph("incident-triage-router")))
     guard = src[src.index("import ast as _ast"): src.index("from langgraph.graph")]
     ns: dict = {}
-    exec(compile(guard, "<guard>", "exec"), ns)  # noqa: S102 — the artifact under test
+    exec(compile(guard, "<guard>", "exec"), ns)
     assert ns["_safe_expr"]("().__class__.__bases__[0]") is None
     assert ns["_safe_expr"]("complexity <= moderate") is not None
 
@@ -136,16 +136,17 @@ def test_emitted_guard_actually_refuses_an_escape():
 def test_callable_allowlist_matches_the_runtime_namespace():
     """A callable the allowlist permits but the namespace lacks fails at runtime;
     one the namespace has but the allowlist omits is a silently unusable feature.
-    Keeping them in sync is what makes the refusal message truthful."""
+    Keeping them in sync is what makes the refusal message truthful.
+    """
     from agenticgraphs.harness import _SAFE
 
     callable_safe = {k for k, v in _SAFE.items() if callable(v) and not isinstance(v, bool)}
-    assert safeexpr._CALLABLE_NAMES <= callable_safe
+    assert callable_safe >= safeexpr._CALLABLE_NAMES
 
 
 def test_emitted_guard_and_module_guard_share_one_callable_allowlist():
     src = emit_langgraph(load(find_graph("incident-triage-router")))
     guard = src[src.index("import ast as _ast"): src.index("from langgraph.graph")]
     ns: dict = {}
-    exec(compile(guard, "<guard>", "exec"), ns)  # noqa: S102 — the artifact under test
+    exec(compile(guard, "<guard>", "exec"), ns)
     assert ns["_CALLABLE_NAMES"] == set(safeexpr._CALLABLE_NAMES)

@@ -41,7 +41,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 # `shape` and `sha` live in the registry core, not here: which parts of a graph a
 # recording depends on is a fact about the registry, and a second copy in a script
 # is exactly the duplication M11 exists to remove.
-from agenticgraphs.registry import live_dir, sha, shape  # noqa: E402
+from agenticgraphs.registry import live_dir, sha, shape
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -192,7 +192,7 @@ def main() -> int:
     for f in sorted(flips, key=lambda x: (x["graph"], x["model"])):
         print(f"     {f['graph']:36s} {f['model']:18s} {f['case']:26s} {f['verdict']}")
 
-    print(f"\n   stale recordings by model:")
+    print("\n   stale recordings by model:")
     for m, c in Counter(r["model"] for r in shaped).most_common():
         tot = sum(1 for r in rows if r["model"] == m)
         print(f"     {m:22s} {c:4d} / {tot:4d}")

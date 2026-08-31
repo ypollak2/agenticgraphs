@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import glob
 import json
+import pathlib
 
 import pytest
 
@@ -110,7 +111,7 @@ def test_no_child_node_in_the_recordings_produced_parent_keys():
             if "assert" in v and not v.get("phase"):
                 parent_keys |= asserted_keys(v["assert"])
         for f in glob.glob(str(live_dir(doc["name"]) / "*.json")):
-            for nid, out in json.load(open(f))["node_outputs"].items():
+            for nid, out in json.loads(pathlib.Path(f).read_text())["node_outputs"].items():
                 if "." not in nid or not isinstance(out, dict):
                     continue
                 inner = out.get("output")

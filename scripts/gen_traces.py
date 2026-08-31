@@ -15,10 +15,10 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from agenticgraphs.evalcmd import eval_graph  # noqa: E402
-from agenticgraphs.harness import MockRunner  # noqa: E402
-from agenticgraphs.inspect import to_mermaid  # noqa: E402
-from agenticgraphs.registry import ROOT, cases_path, iter_graphs, load  # noqa: E402
+from agenticgraphs.evalcmd import eval_graph
+from agenticgraphs.harness import MockRunner
+from agenticgraphs.inspect import to_mermaid
+from agenticgraphs.registry import ROOT, cases_path, iter_graphs, load
 
 TRACES_DIR = ROOT / "docs" / "traces"
 
@@ -32,7 +32,7 @@ def case_steps(doc: dict, node_outputs: dict, trace: list[str]) -> list[tuple[st
 
 def verification_lines(doc: dict, assert_failures: list[str], skipped_commands: int) -> list[str]:
     lines = []
-    failed_prefixes = [f for f in assert_failures]
+    failed_prefixes = list(assert_failures)
     for v in doc.get("verification", []):
         if "assert" in v:
             expr = v["assert"]

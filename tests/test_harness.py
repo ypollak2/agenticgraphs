@@ -4,7 +4,7 @@ import yaml
 from agenticgraphs.evalcmd import eval_graph
 from agenticgraphs.harness import MockRunner, run_graph, safe_eval
 from agenticgraphs.inspect import find_graph
-from agenticgraphs.registry import ROOT, cases_path, load
+from agenticgraphs.registry import cases_path, load
 
 #: Every graph declares `goal.required` as of v1.8, so a direct `run_graph` must
 #: supply one or the graph refuses before scheduling a node — which is the gate

@@ -8,7 +8,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from .registry import ROOT, graph_dir, iter_graphs, iter_yaml, load
+from .registry import ROOT, graph_dir, iter_yaml, load
 
 RISK_ORDER = {"read": 0, "write": 1, "execute": 2}
 

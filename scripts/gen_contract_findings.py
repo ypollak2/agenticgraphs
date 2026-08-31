@@ -11,10 +11,10 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from agenticgraphs.evalcmd import eval_graph  # noqa: E402
-from agenticgraphs.registry import ROOT, iter_graphs, load  # noqa: E402
-from agenticgraphs.subgraphs import expand, has_subgraphs  # noqa: E402
-from agenticgraphs.validate import provenance_gaps  # noqa: E402
+from agenticgraphs.evalcmd import eval_graph
+from agenticgraphs.registry import ROOT, iter_graphs, load
+from agenticgraphs.subgraphs import expand, has_subgraphs
+from agenticgraphs.validate import provenance_gaps
 
 OUT = ROOT / "docs" / "contract-findings.md"
 

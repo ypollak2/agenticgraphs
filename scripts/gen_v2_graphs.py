@@ -17,7 +17,7 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from agenticgraphs.subgraphs import expand  # noqa: E402
+from agenticgraphs.subgraphs import expand
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -67,9 +67,9 @@ def g(name, domain, motif, summary, phases, edges, checks, final, contract, step
     a plausible type but not a value that steers a branch (a gate contract needs
     `signed_off: true`, not the string `"signed_off-value"`).
     """
-    G.append(dict(name=name, domain=domain, motif=motif, summary=summary, phases=phases,
-                  edges=edges, checks=checks, final=final, contract=contract, steps=steps,
-                  state_inputs=list(state_inputs), seed=dict(seed or {})))
+    G.append({"name": name, "domain": domain, "motif": motif, "summary": summary, "phases": phases,
+                  "edges": edges, "checks": checks, "final": final, "contract": contract, "steps": steps,
+                  "state_inputs": list(state_inputs), "seed": dict(seed or {})})
 
 
 # ---- Tier A: flagship composites -------------------------------------------

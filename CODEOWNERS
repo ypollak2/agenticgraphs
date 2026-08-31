@@ -1,0 +1,7 @@
+# The spec, the evaluator, and the security boundary change together.
+/spec/                          @ypollak2
+/src/agenticgraphs/safeexpr.py  @ypollak2
+/src/agenticgraphs/harness.py   @ypollak2
+/src/agenticgraphs/validate.py  @ypollak2
+/SECURITY.md                    @ypollak2
+/.github/workflows/             @ypollak2

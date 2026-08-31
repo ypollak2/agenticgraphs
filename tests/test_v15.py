@@ -207,7 +207,8 @@ def test_whole_registry_still_passes_its_golden_cases():
 @pytest.mark.parametrize("motif_node", ["map", "work", "execute"])
 def test_template_worker_nodes_declare_a_result(motif_node):
     """20 nodes across map-reduce, parallel-swarm and PEV declared nothing and had
-    a `{}` fixture — the shape was copied before anyone asked what it hands on."""
+    a `{}` fixture — the shape was copied before anyone asked what it hands on.
+    """
     for gp in iter_graphs():
         doc = load(gp)
         node = next((n for n in doc["nodes"] if n["id"] == motif_node), None)

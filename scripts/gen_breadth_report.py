@@ -11,9 +11,9 @@ from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from agenticgraphs.evalcmd import eval_graph  # noqa: E402
-from agenticgraphs.registry import ROOT, iter_graphs, load  # noqa: E402
-from agenticgraphs.subgraphs import expand, has_subgraphs  # noqa: E402
+from agenticgraphs.evalcmd import eval_graph
+from agenticgraphs.registry import ROOT, iter_graphs, load
+from agenticgraphs.subgraphs import expand, has_subgraphs
 
 OUT = ROOT / "docs" / "live-coverage.md"
 
@@ -75,7 +75,7 @@ def main() -> int:
         md.append("")
     if unsat:
         md += ["## 🚫 Satisfied by no model", "", "| Graph | Shape |", "|---|---|"]
-        for d, lv in unsat:
+        for d, _lv in unsat:
             shape = next(s for dd, s, _ in lived if dd["name"] == d["name"])
             md.append(f"| `{d['name']}` | {shape} |")
         md.append("")

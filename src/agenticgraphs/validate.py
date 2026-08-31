@@ -18,7 +18,9 @@ import jsonschema
 
 from . import safeexpr
 from .registry import ROOT, SPEC_VERSION, iter_yaml, load, load_schema
-from .shapes import ShapeError, names as _out_names, parse as _parse_shape
+from .shapes import ShapeError
+from .shapes import names as _out_names
+from .shapes import parse as _parse_shape
 from .subgraphs import entry_nodes
 
 #: Node/edge/graph keys introduced in AGR v1.1.
@@ -265,14 +267,13 @@ def _lint_v11(doc: dict, root: Path) -> list[str]:
     # consumed-but-undeclared.
     goal = doc.get("goal") or {}
     supplied_keys = set((doc.get("state") or {}).get("inputs") or [])
-    if goal:
-        # Deliberately NOT added to `used`: that set drives the v1.1 gate, and a
-        # goal is not a v1.1 feature. Its own gate is the line below.
-        if doc.get("apiVersion") != SPEC_VERSION:
-            errors.append(
-                f"lint: declares a goal but apiVersion is '{doc.get('apiVersion')}' — "
-                f"bump to '{SPEC_VERSION}'"
-            )
+    # Deliberately NOT added to `used`: that set drives the v1.1 gate, and a
+    # goal is not a v1.1 feature. Its own gate is the line below.
+    if goal and doc.get("apiVersion") != SPEC_VERSION:
+        errors.append(
+            f"lint: declares a goal but apiVersion is '{doc.get('apiVersion')}' — "
+            f"bump to '{SPEC_VERSION}'"
+        )
     if goal.get("required"):
         if "goal" not in supplied_keys:
             errors.append(
@@ -337,8 +338,8 @@ def _lint_v11(doc: dict, root: Path) -> list[str]:
         for n in doc.get("nodes", []):
             if n["id"] in chained:
                 continue
-            if any(risks.get(a) == "execute" for a in n.get("abilities") or []):
-                if n["id"] not in compensating:
+            if (any(risks.get(a) == "execute" for a in n.get("abilities") or [])
+                    and n["id"] not in compensating):
                     errors.append(
                         f"lint: saga node '{n['id']}' has an execute-risk ability but no "
                         "compensate edge — the step cannot be undone"

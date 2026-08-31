@@ -9,6 +9,8 @@
 check: test regen clean-check
 
 test:
+	uv run --all-extras ruff check .
+	uv run --all-extras mypy
 	uv run --all-extras agr validate
 	uv run --all-extras python scripts/audit_usecases.py
 	uv run --all-extras pytest -q

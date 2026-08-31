@@ -9,8 +9,8 @@ from __future__ import annotations
 
 import json
 import os
-import re
 import random
+import re
 import shlex
 import subprocess
 import time
@@ -19,19 +19,23 @@ import urllib.request
 from collections import defaultdict
 from copy import deepcopy
 from dataclasses import dataclass, field
+from pathlib import Path
 
 from . import shapes as _shapes
+from .registry import ROOT as _REGISTRY_ROOT
 from .safeexpr import UnsafeExpression, compile_expr
-from pathlib import Path
 
 _ORDER = {"trivial": -1, "low": 0, "simple": 0, "medium": 1, "moderate": 1,
           "high": 2, "complex": 2, "critical": 3}
 
 
 def _backoff(attempt: int) -> None:
-    """Exponential backoff with jitter. Jitter matters when re-recording the
-    registry: 83 graphs firing at one endpoint retry in lockstep without it."""
-    time.sleep(min(2 ** attempt, 8) * (0.5 + random.random()))
+    """Exponential backoff with jitter.
+
+    The jitter matters when re-recording the registry: 83 graphs firing at one
+    endpoint would otherwise retry in lockstep.
+    """
+    time.sleep(min(2 ** attempt, 8) * (0.5 + random.random()))  # noqa: S311 — backoff jitter, not a secret
 
 
 class Level:
@@ -43,7 +47,7 @@ class Level:
     def _v(self, o):
         return o.v if isinstance(o, Level) else _ORDER.get(o)
 
-    def __eq__(self, o):  # noqa: D105
+    def __eq__(self, o):
         return self._v(o) == self.v
 
     def __le__(self, o):
@@ -243,7 +247,7 @@ class RunReport:
 
     @property
     def grounded(self) -> bool:
-        """Did any claim in this run trace to a real tool call?
+        """Report whether any claim in this run traces to a real tool call.
 
         The distinction `assert-grounded` rests on: an assert that held because a
         command exited 0 is evidence; the same assert holding because a model said
@@ -324,7 +328,8 @@ class MockRunner:
     name = "mock"
 
     def __init__(self, node_outputs: dict):
-        self.node_outputs, self.visits = node_outputs, defaultdict(int)
+        self.node_outputs = node_outputs
+        self.visits: defaultdict[str, int] = defaultdict(int)
 
     def run(self, node: dict, bb: dict) -> dict:
         out = self.node_outputs.get(node["id"], {})
@@ -352,6 +357,11 @@ class LLMRunner:
 
     def __init__(self):
         self.base = os.environ["AGR_LLM_BASE_URL"].rstrip("/")
+        # Checked once, here, so every `urlopen` below can state why it is safe.
+        # `file:` and custom schemes are exactly what S310 warns about, and an
+        # endpoint URL is operator config that no graph can influence.
+        if not self.base.startswith(("http://", "https://")):
+            raise ValueError(f"AGR_LLM_BASE_URL must be http(s), got {self.base!r}")
         self.model = os.environ["AGR_LLM_MODEL"]
         self.key = os.environ.get("AGR_LLM_API_KEY", "")
         self.name = f"llm:{self.model}"
@@ -375,9 +385,11 @@ class LLMRunner:
                    **({"Authorization": f"Bearer {self.key}"} if self.key else {})}
         last: Exception | None = None
         for attempt in range(self.MAX_ATTEMPTS):
-            req = urllib.request.Request(f"{self.base}/chat/completions",
-                                         data=data, headers=headers)
+            req = urllib.request.Request(  # noqa: S310 — base URL validated as http(s) in __init__
+                f"{self.base}/chat/completions", data=data, headers=headers)
             try:
+                # S310: the base URL is operator config validated as http(s) in
+                # __init__, and no graph can influence it.
                 with urllib.request.urlopen(req, timeout=180) as r:  # noqa: S310
                     body = json.load(r)
             except urllib.error.HTTPError as ex:
@@ -587,9 +599,20 @@ class ToolRunner(LLMRunner):
 
     MAX_TOOL_ROUNDS = 4
 
-    def __init__(self, root=None, allow_mutating: bool = False, report=None):
+    def __init__(self, root=None, allow_mutating: bool = False, report=None,
+                 registry_root=None):
+        """`root` is where commands run; `registry_root` is where abilities live.
+
+        These were one attribute, and the natural use — point the runner at the
+        repository you want it to work on — silently broke ability lookup: the
+        registry was searched under the target checkout, `available()` found no
+        `abilities/*.yaml`, `bind_for` returned nothing, and every node quietly
+        degraded to the ungrounded runner. No error, just a run whose asserts all
+        became model claims again. They are two different roots and now say so.
+        """
         super().__init__()
         self.root = Path(root) if root else Path.cwd()
+        self.registry_root = Path(registry_root) if registry_root else _REGISTRY_ROOT
         self.allow_mutating = allow_mutating
         self.report = report
         self.name = f"tools:{self.model}"
@@ -603,11 +626,10 @@ class ToolRunner(LLMRunner):
     def run(self, node: dict, bb: dict) -> dict:
         from . import bindings
 
-        bound = bindings.bind_for(node, self.allow_mutating, self.root)
+        bound = bindings.bind_for(node, self.allow_mutating, self.registry_root)
         if not bound:
             return super().run(node, bb)  # nothing to ground; behave as before
 
-        base = super()._prompt(node, bb) if hasattr(super(), "_prompt") else None
         messages = [{"role": "user", "content": self._prompt_text(node, bb, bound)}]
         tools = bindings.as_openai_tools(bound)
 
@@ -624,7 +646,7 @@ class ToolRunner(LLMRunner):
                 except json.JSONDecodeError:
                     args = {}
                 rec = bindings.invoke(fn["name"], args, self.root,
-                                      self.allow_mutating, self.root)
+                                      self.allow_mutating, self.registry_root)
                 if self.report is not None:
                     self.report.tool_calls.append(rec)
                 messages.append({
@@ -805,8 +827,8 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
     # node, and reports what it needed. `supplied_by_trigger` exempts graphs whose
     # firing event carries the subject — the requirement is on manual invocation.
     goal = doc.get("goal") or {}
-    if goal.get("required") and not seed.get("goal"):
-        if not (goal.get("supplied_by_trigger") and doc.get("triggers")):
+    if (goal.get("required") and not seed.get("goal")
+            and not (goal.get("supplied_by_trigger") and doc.get("triggers"))):
             # Deliberately NOT written to `rep.trace`: that field means "nodes that
             # executed", and callers compare it against node ids (the adapter parity
             # test does exactly this). A refusal executed nothing, so the trace stays
@@ -1106,7 +1128,7 @@ def _search(node: dict, bb: dict, runner, rep: RunReport, visit: int) -> dict:
                     score = safe_eval(spec["score"], {**ctx, **out})
                 except UnsafeExpression:
                     raise
-                except Exception:
+                except Exception:  # noqa: S112 — the reason IS the control flow
                     continue  # unscoreable candidate is not a candidate
                 # A score that cannot be ordered is no more usable than one that
                 # cannot be computed. A real model returned a string here and the

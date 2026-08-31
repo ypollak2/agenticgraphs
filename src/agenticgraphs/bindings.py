@@ -59,7 +59,7 @@ def _run_command(args: dict, cwd: Path, rep_calls: list) -> dict:
     if not cmd:
         raise BindingError("run_command needs a 'command'")
     try:
-        proc = subprocess.run(  # noqa: S603 — authored in the graph, opt-in by the caller
+        proc = subprocess.run(
             shlex.split(cmd), cwd=cwd, capture_output=True, text=True,
             timeout=120, check=False,
         )
@@ -80,7 +80,7 @@ def _read_diff(args: dict, cwd: Path, rep_calls: list) -> dict:
     cmd = ["git", "diff", "--unified=0", ref]
     if path:
         cmd += ["--", path]
-    proc = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, check=False)  # noqa: S603
+    proc = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, check=False)
     hunks, current = [], None
     for line in proc.stdout.splitlines():
         if line.startswith("+++ b/"):
@@ -110,10 +110,10 @@ def _web_search(args: dict, cwd: Path, rep_calls: list) -> dict:
     try:
         with urllib.request.urlopen(req, timeout=20) as r:  # noqa: S310
             body = r.read(200_000).decode("utf-8", "replace")
-    except Exception as ex:  # noqa: BLE001 — a failed fetch is a result, not a crash
+    except Exception as ex:
         return {"results": [], "error": f"{type(ex).__name__}: {ex}"}
-    from datetime import date
     import re
+    from datetime import date
 
     found, seen = [], set()
     for m in re.finditer(r'href="(https?://[^"?]+)"', body):
@@ -180,7 +180,7 @@ def invoke(ability: str, args: dict, cwd: Path, allow_mutating: bool = False,
         evidence = BUILTINS[ability](args, cwd, [])
     except BindingError as ex:
         return ToolCall(ability, args, False, str(ex))
-    except Exception as ex:  # noqa: BLE001
+    except Exception as ex:
         return ToolCall(ability, args, False, f"{type(ex).__name__}: {ex}")
     return ToolCall(ability, args, True, "ok", evidence)
 

@@ -105,7 +105,12 @@ def check(expr: str) -> list[str]:
     # Dedupe while keeping order: one malformed expression should read as one
     # finding per distinct cause, not once per occurrence.
     seen: set[str] = set()
-    return [r for r in reasons if not (r in seen or seen.add(r))]
+    out: list[str] = []
+    for r in reasons:
+        if r not in seen:
+            seen.add(r)
+            out.append(r)
+    return out
 
 
 def is_safe(expr: str) -> bool:

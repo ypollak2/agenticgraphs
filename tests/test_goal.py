@@ -13,7 +13,7 @@ import yaml
 
 from agenticgraphs.evalcmd import case_inputs
 from agenticgraphs.harness import MockRunner, run_graph
-from agenticgraphs.registry import ROOT, SPEC_VERSION, cases_path, iter_graphs, load
+from agenticgraphs.registry import SPEC_VERSION, cases_path, iter_graphs, load
 from agenticgraphs.validate import lint_graph
 
 

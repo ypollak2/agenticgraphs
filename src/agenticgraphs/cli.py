@@ -57,9 +57,12 @@ def main(argv: list[str] | None = None) -> int:
     gp.add_argument("--run-commands", action="store_true",
                     help="actually execute verification[].command entries")
     ip = sub.add_parser("infuse", help="add an ability to a node, gate-checked + lineage-logged (M2)")
-    ip.add_argument("name"); ip.add_argument("node"); ip.add_argument("ability")
+    ip.add_argument("name")
+    ip.add_argument("node")
+    ip.add_argument("ability")
     op = sub.add_parser("optimize", help="v0 structural optimizer: dry-run by default (M2)")
-    op.add_argument("name"); op.add_argument("--apply", action="store_true")
+    op.add_argument("name")
+    op.add_argument("--apply", action="store_true")
     op.add_argument("--autonomous", action="store_true",
                     help="allow --apply to run unattended (also honors AGR_AUTONOMOUS=1); see docs/autonomy.md")
     ap = sub.add_parser("adapt", help="compile a graph to framework source (M3)")
@@ -172,7 +175,7 @@ def main(argv: list[str] | None = None) -> int:
             if args.mode == "subgraph":
                 doc = compose_by_reference(_need(args.graph_a), _need(args.graph_b),
                                            name=args.name)
-                warnings = []
+                warnings: list[str] = []
             else:
                 doc, warnings = compose(_need(args.graph_a), _need(args.graph_b),
                                         name=args.name, allow_gaps=args.allow_gaps)
@@ -208,14 +211,16 @@ def main(argv: list[str] | None = None) -> int:
         for kind, dirname in (("speciality", "specialities"), ("ability", "abilities")):
             for f in iter_yaml(dirname):
                 errs = validate_schema(load(f), kind)
-                for e in errs:
-                    print(f"FAIL {f.name}: {e}")
+                for err in errs:
+                    print(f"FAIL {f.name}: {err}")
                 failures += len(errs)
-        for gp in paths:
-            errs = validate_graph_file(Path(gp))
-            print(("OK  " if not errs else "FAIL") + f" {gp}")
-            for e in errs:
-                print(f"     {e}")
+        # `gp`/`e` are the parser and except names elsewhere in this function;
+        # reusing them here is what made mypy report reading a deleted variable.
+        for graph_path in paths:
+            errs = validate_graph_file(Path(graph_path))
+            print(("OK  " if not errs else "FAIL") + f" {graph_path}")
+            for err in errs:
+                print(f"     {err}")
             failures += len(errs)
         return 1 if failures else 0
     return 2

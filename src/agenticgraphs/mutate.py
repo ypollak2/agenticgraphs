@@ -80,10 +80,12 @@ def infuse(name: str, node_id: str, ability: str, root: Path = ROOT) -> dict:
 
 
 def infuse_autonomous(name: str, node_id: str, ability: str, root: Path = ROOT) -> dict:
-    """Like `infuse`, but for unattended runs: requires AGR_AUTONOMOUS=1, caps
-    execute-risk abilities behind AGR_AUTONOMOUS_ALLOW_EXECUTE=1, and — on a
-    real change — commits the mutated graph + lineage onto `auto/mutations`
-    (never `main`, never pushed). Raises AutonomyError if the gate is closed.
+    """Infuse an ability under the autonomy gate, for unattended runs.
+
+    Requires AGR_AUTONOMOUS=1, caps execute-risk abilities behind
+    AGR_AUTONOMOUS_ALLOW_EXECUTE=1, and — on a real change — commits the mutated
+    graph and its lineage onto `auto/mutations` (never `main`, never pushed).
+    Raises AutonomyError if the gate is closed.
     """
     require_autonomous()
     ability_doc = next((load(p) for p in iter_yaml("abilities", root) if load(p)["name"] == ability), None)
@@ -92,6 +94,8 @@ def infuse_autonomous(name: str, node_id: str, ability: str, root: Path = ROOT) 
     result = infuse(name, node_id, ability, root)
     if result.get("changed"):
         gpath = find_graph(name, root)
+        if gpath is None:  # unreachable via `infuse`, which resolves first — but a
+            raise SystemExit(f"no graph named '{name}'")  # None here would AttributeError
         commit = commit_autonomous_mutation(
             root,
             [gpath, gpath.parent / "lineage.yaml"],

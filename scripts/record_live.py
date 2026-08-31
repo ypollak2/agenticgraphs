@@ -24,10 +24,10 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from agenticgraphs.evalcmd import case_inputs  # noqa: E402
-from agenticgraphs.harness import LLMRunner, ToolRunner, run_graph  # noqa: E402
-from agenticgraphs.inspect import find_graph  # noqa: E402
-from agenticgraphs.registry import ROOT, cases_path, live_dir, load  # noqa: E402
+from agenticgraphs.evalcmd import case_inputs
+from agenticgraphs.harness import LLMRunner, ToolRunner, run_graph
+from agenticgraphs.inspect import find_graph
+from agenticgraphs.registry import ROOT, cases_path, live_dir, load
 
 
 class RecordingRunner:
@@ -146,7 +146,7 @@ def main() -> int:
         for i in range(samples):
             try:
                 r = record(name, sample=i)
-            except Exception as ex:  # noqa: BLE001 — a failed recording is a result, not a crash
+            except Exception as ex:
                 r = {"graph": name, "error": f"{type(ex).__name__}: {ex}"}
             # Reported as it happens, not accumulated. A 249-run sweep that batches
             # its output loses every result if the process is killed — which is

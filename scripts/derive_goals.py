@@ -27,7 +27,7 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from agenticgraphs.registry import ROOT, SPEC_VERSION, cases_path, iter_graphs, load  # noqa: E402
+from agenticgraphs.registry import ROOT, SPEC_VERSION, cases_path, iter_graphs, load
 
 # name -> (what the caller must state, a concrete instance for the golden cases)
 #
@@ -252,7 +252,7 @@ def migrate_graph(doc: dict) -> bool:
     state = doc.setdefault("state", {})
     inputs = list(state.get("inputs") or [])
     if "goal" not in inputs:
-        state["inputs"] = ["goal"] + inputs
+        state["inputs"] = ["goal", *inputs]
     return True
 
 

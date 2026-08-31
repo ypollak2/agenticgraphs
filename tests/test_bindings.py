@@ -8,15 +8,10 @@ the tools are taken away. A graph that passes without its tool did not earn it.
 """
 from __future__ import annotations
 
-import json
-
-import pytest
-
 from agenticgraphs import bindings
 from agenticgraphs.evalcmd import verification_depth
 from agenticgraphs.harness import MockRunner, RunReport, run_graph
 from agenticgraphs.registry import ROOT
-
 
 # ------------------------------------------------------------------ risk gating
 
