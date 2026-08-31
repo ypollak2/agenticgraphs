@@ -11,6 +11,9 @@ cases:
       output:
         query_executes: true
         row_count_sane: true
+    execute: &id001
+      row_count: 12
+      exit_code: 0
   goal: monthly active accounts by plan, against the warehouse schema
 - id: revised-after-rejection
   node_outputs:
@@ -27,4 +30,5 @@ cases:
       output:
         query_executes: true
         row_count_sane: true
+    execute: *id001
   goal: monthly active accounts by plan, against the warehouse schema

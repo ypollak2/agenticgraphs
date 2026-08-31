@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-077` | customer-support-sales | **router** | 4 | 4 | 1 | 1 | 12 | write |
+| `AGR-077` | customer-support-sales | **router** | 5 | 6 | 1 | 1 | 12 | write |
 
 > 🎯 **Requires a goal** — the tickets to triage and the queue ownership map to route by. Without one the graph refuses and runs no node.
 
@@ -14,13 +14,16 @@
 ```mermaid
 flowchart LR
     N0[/"route<br/><i>dispatcher</i>"/]
-    N1["branch-simple<br/><i>producer</i>"]
-    N2["branch-complex<br/><i>producer</i>"]
-    N3{{"verify<br/><i>critic</i>"}}
-    N0 -->|complexity <= moderate| N1
-    N0 -->|complexity > moderate| N2
-    N1 --> N3
-    N2 --> N3
+    N1["branch-sentiment<br/><i>analyst</i>"]
+    N2["branch-simple<br/><i>producer</i>"]
+    N3["branch-complex<br/><i>producer</i>"]
+    N4{{"verify<br/><i>critic</i>"}}
+    N0 -->|complexity <= moderate| N2
+    N0 -->|complexity > moderate| N3
+    N2 --> N4
+    N3 --> N4
+    N0 --> N1
+    N1 --> N4
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -59,6 +62,7 @@ To evolve it: `uv run agr infuse ticket-triage-swarm <node> <ability>` — every
 | Node | Speciality | Kind | Abilities |
 |---|---|---|---|
 | `route` | dispatcher | router | dispatch |
+| `branch-sentiment` | analyst | agent | analyze |
 | `branch-simple` | producer | agent | generate |
 | `branch-complex` | producer | agent | generate |
 | `verify` | critic | verifier | critique |
@@ -71,6 +75,8 @@ To evolve it: `uv run agr infuse ticket-triage-swarm <node> <ability>` — every
 | `route` | `branch-complex` | complexity > moderate |
 | `branch-simple` | `verify` | always |
 | `branch-complex` | `verify` | always |
+| `route` | `branch-sentiment` | always |
+| `branch-sentiment` | `verify` | always |
 
 ## Optional use-cases
 

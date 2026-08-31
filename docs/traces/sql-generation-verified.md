@@ -11,23 +11,26 @@
 flowchart LR
     N0["intake<br/><i>analyst</i>"]
     N1["generate<br/><i>producer</i>"]
-    N2{{"critique<br/><i>critic</i>"}}
+    N2["execute<br/><i>executor</i>"]
+    N3{{"critique<br/><i>critic</i>"}}
     N0 --> N1
     N1 --> N2
-    N2 -->|rejected and attempts < 3| N1
+    N2 --> N3
+    N3 -->|rejected and attempts < 3| N1
 ```
 
 ## Cases
 
 ### `generated-and-approved` — ✅ passed
 
-**Route** (3 step(s)): `intake` → `generate` → `critique`
+**Route** (4 step(s)): `intake` → `generate` → `execute` → `critique`
 
 | # | Node | Output |
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
 | 2 | `generate` | `draft='v1'` |
-| 3 | `critique` | `rejected=False, attempts=1, output={'query_executes': True, 'row_count_sane': True}` |
+| 3 | `execute` | `row_count=12, exit_code=0` |
+| 4 | `critique` | `rejected=False, attempts=1, output={'query_executes': True, 'row_count_sane': True}` |
 
 **Verification checked:**
 
@@ -35,15 +38,17 @@ flowchart LR
 
 ### `revised-after-rejection` — ✅ passed
 
-**Route** (5 step(s)): `intake` → `generate` → `critique` → `generate` → `critique`
+**Route** (7 step(s)): `intake` → `generate` → `execute` → `critique` → `generate` → `execute` → `critique`
 
 | # | Node | Output |
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
 | 2 | `generate` | `draft='v1'` |
-| 3 | `critique` | `rejected=True, attempts=1` |
-| 4 | `generate` | `draft='v2'` |
-| 5 | `critique` | `rejected=False, attempts=2, output={'query_executes': True, 'row_count_sane': True}` |
+| 3 | `execute` | `row_count=12, exit_code=0` |
+| 4 | `critique` | `rejected=True, attempts=1` |
+| 5 | `generate` | `draft='v2'` |
+| 6 | `execute` | `row_count=12, exit_code=0` |
+| 7 | `critique` | `rejected=False, attempts=2, output={'query_executes': True, 'row_count_sane': True}` |
 
 **Verification checked:**
 

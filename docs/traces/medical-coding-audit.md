@@ -11,23 +11,26 @@
 flowchart LR
     N0["plan<br/><i>planner</i>"]
     N1["work<br/><i>worker</i>"]
-    N2{{"verify<br/><i>verifier</i>"}}
+    N2["recode<br/><i>compensator</i>"]
+    N3{{"verify<br/><i>verifier</i>"}}
     N0 --> N1
     N1 --> N2
-    N2 -->|verify_failed and attempts < 3| N1
+    N2 --> N3
+    N3 -->|verify_failed and attempts < 3| N1
 ```
 
 ## Cases
 
 ### `first-attempt-verified` — ✅ passed
 
-**Route** (3 step(s)): `plan` → `work` → `verify`
+**Route** (4 step(s)): `plan` → `work` → `recode` → `verify`
 
 | # | Node | Output |
 |---|---|---|
 | 1 | `plan` | `steps=['decompose goal'], tasks=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `work` | `work_result=[{'id': 1, 'status': 'done'}]` |
-| 3 | `verify` | `verify_failed=False, attempts=1, output={'codes': [{'code': 'J45.909', 'note_span': 'pt has asthma, wheezing on exam'}]}` |
+| 3 | `recode` | `corrections=[{'from': 'J18.9', 'to': 'J15.9'}]` |
+| 4 | `verify` | `verify_failed=False, attempts=1, output={'codes': [{'code': 'J45.909', 'note_span': 'pt has asthma, wheezing on exam'}]}` |
 
 **Verification checked:**
 
@@ -35,15 +38,17 @@ flowchart LR
 
 ### `retry-then-verified` — ✅ passed
 
-**Route** (5 step(s)): `plan` → `work` → `verify` → `work` → `verify`
+**Route** (7 step(s)): `plan` → `work` → `recode` → `verify` → `work` → `recode` → `verify`
 
 | # | Node | Output |
 |---|---|---|
 | 1 | `plan` | `steps=['decompose goal'], tasks=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `work` | `work_result=[{'id': 1, 'status': 'done'}]` |
-| 3 | `verify` | `verify_failed=True, attempts=1` |
-| 4 | `work` | `work_result=[{'id': 1, 'status': 'done'}]` |
-| 5 | `verify` | `verify_failed=False, attempts=2, output={'codes': [{'code': 'J45.909', 'note_span': 'pt has asthma, wheezing on exam'}]}` |
+| 3 | `recode` | `corrections=[{'from': 'J18.9', 'to': 'J15.9'}]` |
+| 4 | `verify` | `verify_failed=True, attempts=1` |
+| 5 | `work` | `work_result=[{'id': 1, 'status': 'done'}]` |
+| 6 | `recode` | `corrections=[{'from': 'J18.9', 'to': 'J15.9'}]` |
+| 7 | `verify` | `verify_failed=False, attempts=2, output={'codes': [{'code': 'J45.909', 'note_span': 'pt has asthma, wheezing on exam'}]}` |
 
 **Verification checked:**
 

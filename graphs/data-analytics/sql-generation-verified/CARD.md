@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-018` | data-analytics | **generator-critic** | 3 | 3 | 1 | 0 | 10 | write |
+| `AGR-018` | data-analytics | **generator-critic** | 4 | 4 | 1 | 0 | 10 | execute |
 
 > 🎯 **Requires a goal** — the question to answer in SQL and the schema to answer it against. Without one the graph refuses and runs no node.
 
@@ -15,10 +15,12 @@
 flowchart LR
     N0["intake<br/><i>analyst</i>"]
     N1["generate<br/><i>producer</i>"]
-    N2{{"critique<br/><i>critic</i>"}}
+    N2["execute<br/><i>executor</i>"]
+    N3{{"critique<br/><i>critic</i>"}}
     N0 --> N1
     N1 --> N2
-    N2 -->|rejected and attempts < 3| N1
+    N2 --> N3
+    N3 -->|rejected and attempts < 3| N1
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -57,6 +59,7 @@ To evolve it: `uv run agr infuse sql-generation-verified <node> <ability>` — e
 |---|---|---|---|
 | `intake` | analyst | agent | analyze |
 | `generate` | producer | agent | generate |
+| `execute` | executor | agent | execute_step, run_command |
 | `critique` | critic | verifier | critique |
 
 ## Edge logic
@@ -64,7 +67,8 @@ To evolve it: `uv run agr infuse sql-generation-verified <node> <ability>` — e
 | From | To | Condition |
 |---|---|---|
 | `intake` | `generate` | always |
-| `generate` | `critique` | always |
+| `generate` | `execute` | always |
+| `execute` | `critique` | always |
 | `critique` | `generate` | rejected and attempts < 3 |
 
 ## Optional use-cases

@@ -15,11 +15,20 @@ def test_compose_compatible_pair_validates_and_runs():
     assert validate_schema(doc, "graph") == []
     assert lint_graph(doc) == []
 
-    # all four node ids collide between the two source graphs, so every id
-    # should have been namespaced
+    # These two graphs share most of their node ids, so composing them must
+    # namespace every id rather than silently merge two different `verify` nodes.
+    #
+    # The set is derived, not hardcoded. It was a literal listing "all four node
+    # ids" back when `ticket-triage-swarm` was byte-identical to
+    # `incident-triage-router` — and the v1.8 de-cloning, which gave the swarm the
+    # parallel sentiment branch that makes it a swarm, broke the literal. A
+    # namespacing test should assert namespacing, not the shape of its inputs.
     ids = {n["id"] for n in doc["nodes"]}
-    assert ids == {"a-route", "a-branch-simple", "a-branch-complex", "a-verify",
-                   "b-route", "b-branch-simple", "b-branch-complex", "b-verify"}
+    collide = {n["id"] for n in a["nodes"]} & {n["id"] for n in b["nodes"]}
+    assert collide, "this test is only meaningful while the two graphs share ids"
+    expected = {(f"a-{n['id']}" if n["id"] in collide else n["id"]) for n in a["nodes"]}
+    expected |= {(f"b-{n['id']}" if n["id"] in collide else n["id"]) for n in b["nodes"]}
+    assert ids == expected
     assert any("namespaced colliding node ids" in w for w in warnings)
 
     # A's sole terminal (a-verify) bridges into B's sole entry (b-route)

@@ -13,6 +13,8 @@ cases:
     review:
       revision_requested: false
       attempts: 1
+    dedupe-search: &id001
+      existing_articles: []
   goal: ticket 79004, written for self-serve customers
 - id: retry-then-resolved
   node_outputs:
@@ -34,4 +36,5 @@ cases:
       attempts: 1
     - revision_requested: false
       attempts: 2
+    dedupe-search: *id001
   goal: ticket 79004, written for self-serve customers

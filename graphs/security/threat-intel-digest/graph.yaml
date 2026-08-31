@@ -19,6 +19,16 @@ nodes:
     on_partial: continue
   outputs:
   - shard_result
+- id: estate-match
+  speciality: analyst
+  abilities:
+  - analyze
+  inputs:
+  - shard_result
+  outputs:
+  - affected_assets
+  criteria: Each advisory is matched against the estate actually run, so severity is reported as exposure
+    rather than as the vendor's CVSS in isolation.
 - id: reduce
   speciality: reducer
   abilities:
@@ -34,6 +44,8 @@ edges:
 - from: partition
   to: map
 - from: map
+  to: estate-match
+- from: estate-match
   to: reduce
 termination:
   max_steps: 20

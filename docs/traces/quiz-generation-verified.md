@@ -11,23 +11,26 @@
 flowchart LR
     N0["intake<br/><i>analyst</i>"]
     N1["generate<br/><i>producer</i>"]
-    N2{{"critique<br/><i>critic</i>"}}
+    N2["blind-solve<br/><i>worker</i>"]
+    N3{{"critique<br/><i>critic</i>"}}
     N0 --> N1
     N1 --> N2
-    N2 -->|rejected and attempts < 3| N1
+    N2 --> N3
+    N3 -->|rejected and attempts < 3| N1
 ```
 
 ## Cases
 
 ### `generated-and-approved` — ✅ passed
 
-**Route** (3 step(s)): `intake` → `generate` → `critique`
+**Route** (4 step(s)): `intake` → `generate` → `blind-solve` → `critique`
 
 | # | Node | Output |
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
 | 2 | `generate` | `draft='v1'` |
-| 3 | `critique` | `rejected=False, attempts=1, output={'entries': [{'answer_matches_key': True, 'distractors_plausible': True}]}` |
+| 3 | `blind-solve` | `blind_answers=[{'item': 1, 'answer': 'b'}]` |
+| 4 | `critique` | `rejected=False, attempts=1, output={'entries': [{'answer_matches_key': True, 'distractors_plausible': True}]}` |
 
 **Verification checked:**
 
@@ -35,15 +38,17 @@ flowchart LR
 
 ### `revised-after-rejection` — ✅ passed
 
-**Route** (5 step(s)): `intake` → `generate` → `critique` → `generate` → `critique`
+**Route** (7 step(s)): `intake` → `generate` → `blind-solve` → `critique` → `generate` → `blind-solve` → `critique`
 
 | # | Node | Output |
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
 | 2 | `generate` | `draft='v1'` |
-| 3 | `critique` | `rejected=True, attempts=1` |
-| 4 | `generate` | `draft='v2'` |
-| 5 | `critique` | `rejected=False, attempts=2, output={'entries': [{'answer_matches_key': True, 'distractors_plausible': True}]}` |
+| 3 | `blind-solve` | `blind_answers=[{'item': 1, 'answer': 'b'}]` |
+| 4 | `critique` | `rejected=True, attempts=1` |
+| 5 | `generate` | `draft='v2'` |
+| 6 | `blind-solve` | `blind_answers=[{'item': 1, 'answer': 'b'}]` |
+| 7 | `critique` | `rejected=False, attempts=2, output={'entries': [{'answer_matches_key': True, 'distractors_plausible': True}]}` |
 
 **Verification checked:**
 

@@ -11,6 +11,10 @@ cases:
     review:
       revision_requested: false
       attempts: 1
+    playbook-lookup: &id001
+      playbook_positions:
+      - clause: indemnity
+        position: mutual
   goal: the Meridian MSA, against the 2026 commercial playbook
 - id: retry-then-resolved
   node_outputs:
@@ -30,4 +34,5 @@ cases:
       attempts: 1
     - revision_requested: false
       attempts: 2
+    playbook-lookup: *id001
   goal: the Meridian MSA, against the 2026 commercial playbook

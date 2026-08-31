@@ -9,6 +9,17 @@ nodes:
   - analyze
   outputs:
   - summary
+- id: playbook-lookup
+  speciality: researcher
+  abilities:
+  - web_search
+  inputs:
+  - summary
+  outputs:
+  - playbook_positions
+  criteria: Each flagged clause is matched to the playbook position that governs it, including the fallback
+    the business has already agreed to accept. A clause with no retrieved position is escalated, not negotiated
+    from first principles.
 - id: produce
   speciality: producer
   abilities:
@@ -26,6 +37,8 @@ nodes:
     creates. A stylistic edit with no playbook reference is noise in a negotiation.
 edges:
 - from: intake
+  to: playbook-lookup
+- from: playbook-lookup
   to: produce
 - from: produce
   to: review

@@ -2,8 +2,8 @@
   "name": "kyc-document-processing",
   "category": "finance",
   "structural": {
-    "nodes": 3,
-    "edges": 3,
+    "nodes": 4,
+    "edges": 4,
     "verifier_nodes": 1,
     "router_nodes": 0,
     "parallel_groups": 0,
@@ -22,14 +22,15 @@
     "cases": 2,
     "passed": 2,
     "pass_rate": 1.0,
-    "mean_steps": 4.0,
+    "mean_steps": 5.0,
     "results": [
       {
         "id": "happy-path",
         "passed": true,
-        "steps": 3,
+        "steps": 4,
         "trace": [
           "intake",
+          "sanctions-screen",
           "produce",
           "review"
         ],
@@ -49,9 +50,10 @@
       {
         "id": "retry-then-resolved",
         "passed": true,
-        "steps": 5,
+        "steps": 6,
         "trace": [
           "intake",
+          "sanctions-screen",
           "produce",
           "review",
           "produce",
@@ -80,7 +82,7 @@
     "cases": 8,
     "passed": 4,
     "pass_rate": 0.5,
-    "mean_steps": 3.0,
+    "mean_steps": 4.0,
     "results": [
       {
         "id": "happy-path",
@@ -88,9 +90,10 @@
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
         "passed": false,
-        "steps": 3,
+        "steps": 4,
         "trace": [
           "intake",
+          "sanctions-screen",
           "produce",
           "review"
         ],
@@ -115,9 +118,10 @@
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
         "passed": false,
-        "steps": 3,
+        "steps": 4,
         "trace": [
           "intake",
+          "sanctions-screen",
           "produce",
           "review"
         ],
@@ -142,9 +146,10 @@
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
         "passed": false,
-        "steps": 3,
+        "steps": 4,
         "trace": [
           "intake",
+          "sanctions-screen",
           "produce",
           "review"
         ],
@@ -169,9 +174,10 @@
         "recorded": "2026-08-09",
         "gate_auto_approved": false,
         "passed": true,
-        "steps": 3,
+        "steps": 4,
         "trace": [
           "intake",
+          "sanctions-screen",
           "produce",
           "review"
         ],
@@ -194,9 +200,10 @@
         "recorded": "2026-08-09",
         "gate_auto_approved": false,
         "passed": true,
-        "steps": 3,
+        "steps": 4,
         "trace": [
           "intake",
+          "sanctions-screen",
           "produce",
           "review"
         ],
@@ -219,9 +226,10 @@
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
         "passed": true,
-        "steps": 3,
+        "steps": 4,
         "trace": [
           "intake",
+          "sanctions-screen",
           "produce",
           "review"
         ],
@@ -244,9 +252,10 @@
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
         "passed": false,
-        "steps": 3,
+        "steps": 4,
         "trace": [
           "intake",
+          "sanctions-screen",
           "produce",
           "review"
         ],
@@ -271,9 +280,10 @@
         "recorded": "2026-08-11",
         "gate_auto_approved": false,
         "passed": true,
-        "steps": 3,
+        "steps": 4,
         "trace": [
           "intake",
+          "sanctions-screen",
           "produce",
           "review"
         ],

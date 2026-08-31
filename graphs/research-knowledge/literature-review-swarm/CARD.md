@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-026` | research-knowledge | **parallel-swarm** | 3 | 3 | 1 | 0 | 30 | execute |
+| `AGR-026` | research-knowledge | **parallel-swarm** | 4 | 4 | 1 | 0 | 30 | execute |
 
 > 🎯 **Requires a goal** — the research question to review and the inclusion criteria for screening. Without one the graph refuses and runs no node.
 
@@ -14,11 +14,13 @@
 ```mermaid
 flowchart LR
     N0["plan<br/><i>planner</i>"]
-    N1["work<br/><i>worker</i>"]
-    N2{{"verify<br/><i>verifier</i>"}}
+    N1["screen<br/><i>screener</i>"]
+    N2["work<br/><i>worker</i>"]
+    N3{{"verify<br/><i>verifier</i>"}}
     N0 --> N1
     N1 --> N2
-    N2 -->|verify_failed and attempts < 3| N1
+    N2 --> N3
+    N3 -->|verify_failed and attempts < 3| N2
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -56,6 +58,7 @@ To evolve it: `uv run agr infuse literature-review-swarm <node> <ability>` — e
 | Node | Speciality | Kind | Abilities |
 |---|---|---|---|
 | `plan` | planner | agent | decompose_goal |
+| `screen` | screener | agent | screen |
 | `work` | worker | agent | run_command, edit_files |
 | `verify` | verifier | verifier | run_command |
 
@@ -63,7 +66,8 @@ To evolve it: `uv run agr infuse literature-review-swarm <node> <ability>` — e
 
 | From | To | Condition |
 |---|---|---|
-| `plan` | `work` | always |
+| `plan` | `screen` | always |
+| `screen` | `work` | always |
 | `work` | `verify` | always |
 | `verify` | `work` | verify_failed and attempts < 3 |
 

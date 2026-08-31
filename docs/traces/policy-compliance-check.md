@@ -10,24 +10,27 @@
 ```mermaid
 flowchart LR
     N0["intake<br/><i>analyst</i>"]
-    N1["produce<br/><i>producer</i>"]
-    N2{{"review<br/><i>critic</i>"}}
+    N1["clause-map<br/><i>mapper</i>"]
+    N2["produce<br/><i>producer</i>"]
+    N3{{"review<br/><i>critic</i>"}}
     N0 --> N1
     N1 --> N2
-    N2 -->|revision_requested and attempts < 2| N1
+    N2 --> N3
+    N3 -->|revision_requested and attempts < 2| N2
 ```
 
 ## Cases
 
 ### `happy-path` — ✅ passed
 
-**Route** (3 step(s)): `intake` → `produce` → `review`
+**Route** (4 step(s)): `intake` → `clause-map` → `produce` → `review`
 
 | # | Node | Output |
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
-| 2 | `produce` | `output={'findings': [{'issue': 'missing encryption at rest', 'clause_id': 'POL-3.2'}]}` |
-| 3 | `review` | `revision_requested=False, attempts=1` |
+| 2 | `clause-map` | `clause_shards=[{'clause_id': 'C-1', 'spans': ['s1']}]` |
+| 3 | `produce` | `output={'findings': [{'issue': 'missing encryption at rest', 'clause_id': 'POL-3.2'}]}` |
+| 4 | `review` | `revision_requested=False, attempts=1` |
 
 **Verification checked:**
 
@@ -35,15 +38,16 @@ flowchart LR
 
 ### `retry-then-resolved` — ✅ passed
 
-**Route** (5 step(s)): `intake` → `produce` → `review` → `produce` → `review`
+**Route** (6 step(s)): `intake` → `clause-map` → `produce` → `review` → `produce` → `review`
 
 | # | Node | Output |
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
-| 2 | `produce` | `output={'findings': [{'issue': 'missing encryption at rest', 'clause_id': ''}]}` |
-| 3 | `review` | `revision_requested=True, attempts=1` |
-| 4 | `produce` | `output={'findings': [{'issue': 'missing encryption at rest', 'clause_id': 'POL-3.2'}]}` |
-| 5 | `review` | `revision_requested=False, attempts=2` |
+| 2 | `clause-map` | `clause_shards=[{'clause_id': 'C-1', 'spans': ['s1']}]` |
+| 3 | `produce` | `output={'findings': [{'issue': 'missing encryption at rest', 'clause_id': ''}]}` |
+| 4 | `review` | `revision_requested=True, attempts=1` |
+| 5 | `produce` | `output={'findings': [{'issue': 'missing encryption at rest', 'clause_id': 'POL-3.2'}]}` |
+| 6 | `review` | `revision_requested=False, attempts=2` |
 
 **Verification checked:**
 

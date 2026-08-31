@@ -12,6 +12,10 @@ cases:
         entries:
         - answer_matches_key: true
           distractors_plausible: true
+    blind-solve: &id001
+      blind_answers:
+      - item: 1
+        answer: b
   goal: chapter 4 on photosynthesis, for year 9
 - id: revised-after-rejection
   node_outputs:
@@ -29,4 +33,5 @@ cases:
         entries:
         - answer_matches_key: true
           distractors_plausible: true
+    blind-solve: *id001
   goal: chapter 4 on photosynthesis, for year 9

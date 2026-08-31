@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-052` | finance | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
+| `AGR-052` | finance | **pipeline** | 4 | 4 | 1 | 0 | 12 | write |
 
 > 🎯 **Requires a goal** — the customer documents to process and the jurisdiction's KYC requirements. Without one the graph refuses and runs no node.
 
@@ -14,11 +14,13 @@
 ```mermaid
 flowchart LR
     N0["intake<br/><i>analyst</i>"]
-    N1["produce<br/><i>producer</i>"]
-    N2{{"review<br/><i>critic</i>"}}
+    N1["sanctions-screen<br/><i>screener</i>"]
+    N2["produce<br/><i>producer</i>"]
+    N3{{"review<br/><i>critic</i>"}}
     N0 --> N1
     N1 --> N2
-    N2 -->|revision_requested and attempts < 2| N1
+    N2 --> N3
+    N3 -->|revision_requested and attempts < 2| N2
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -56,6 +58,7 @@ To evolve it: `uv run agr infuse kyc-document-processing <node> <ability>` — e
 | Node | Speciality | Kind | Abilities |
 |---|---|---|---|
 | `intake` | analyst | agent | analyze |
+| `sanctions-screen` | screener | agent | screen |
 | `produce` | producer | agent | generate |
 | `review` | critic | verifier | critique |
 
@@ -63,7 +66,8 @@ To evolve it: `uv run agr infuse kyc-document-processing <node> <ability>` — e
 
 | From | To | Condition |
 |---|---|---|
-| `intake` | `produce` | always |
+| `intake` | `sanctions-screen` | always |
+| `sanctions-screen` | `produce` | always |
 | `produce` | `review` | always |
 | `review` | `produce` | revision_requested and attempts < 2 |
 

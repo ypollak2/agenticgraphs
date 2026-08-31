@@ -15,6 +15,16 @@ nodes:
   - generate
   outputs:
   - draft
+- id: blind-solve
+  speciality: worker
+  abilities:
+  - run_command
+  inputs:
+  - draft
+  outputs:
+  - blind_answers
+  criteria: Each item is answered without sight of the key. An answer produced by a step that could see
+    the key measures nothing about whether the item is solvable.
 - id: critique
   speciality: critic
   abilities:
@@ -29,6 +39,8 @@ edges:
 - from: intake
   to: generate
 - from: generate
+  to: blind-solve
+- from: blind-solve
   to: critique
 - from: critique
   to: generate

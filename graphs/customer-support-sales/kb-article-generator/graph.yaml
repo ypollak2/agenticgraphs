@@ -9,6 +9,16 @@ nodes:
   - analyze
   outputs:
   - summary
+- id: dedupe-search
+  speciality: researcher
+  abilities:
+  - web_search
+  inputs:
+  - summary
+  outputs:
+  - existing_articles
+  criteria: The existing knowledge base is searched for the same symptom before anything is written. A
+    near-duplicate is an article to update, not a second article to publish.
 - id: produce
   speciality: producer
   abilities:
@@ -27,6 +37,8 @@ nodes:
     \ \u2014 and the article does not duplicate an existing one covering the same symptom."
 edges:
 - from: intake
+  to: dedupe-search
+- from: dedupe-search
   to: produce
 - from: produce
   to: review

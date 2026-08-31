@@ -10,6 +10,17 @@ nodes:
   kind: router
   outputs:
   - complexity
+- id: branch-sentiment
+  speciality: analyst
+  abilities:
+  - analyze
+  inputs:
+  - complexity
+  outputs:
+  - assigned_queue
+  criteria: Sentiment is assessed independently of complexity, because an angry customer with a simple
+    problem and a calm one with an outage need different queues and the routing rule cannot see both from
+    one classification.
 - id: branch-simple
   speciality: producer
   abilities:
@@ -43,6 +54,10 @@ edges:
 - from: branch-simple
   to: verify
 - from: branch-complex
+  to: verify
+- from: route
+  to: branch-sentiment
+- from: branch-sentiment
   to: verify
 termination:
   max_steps: 12

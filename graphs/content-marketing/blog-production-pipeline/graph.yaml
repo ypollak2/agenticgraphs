@@ -9,6 +9,16 @@ nodes:
   - analyze
   outputs:
   - summary
+- id: outline
+  speciality: planner
+  abilities:
+  - decompose_goal
+  inputs:
+  - summary
+  outputs:
+  - outline
+  criteria: The outline states the claim each section makes and the evidence it will use, so the draft
+    has an argument to write rather than a topic to fill.
 - id: produce
   speciality: producer
   abilities:
@@ -27,6 +37,8 @@ nodes:
     passage matches published text beyond an incidental phrase.
 edges:
 - from: intake
+  to: outline
+- from: outline
   to: produce
 - from: produce
   to: review

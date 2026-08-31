@@ -10,13 +10,16 @@
 ```mermaid
 flowchart LR
     N0[/"route<br/><i>dispatcher</i>"/]
-    N1["branch-simple<br/><i>producer</i>"]
-    N2["branch-complex<br/><i>producer</i>"]
-    N3{{"verify<br/><i>critic</i>"}}
-    N0 -->|complexity <= moderate| N1
-    N0 -->|complexity > moderate| N2
-    N1 --> N3
-    N2 --> N3
+    N1["branch-sentiment<br/><i>analyst</i>"]
+    N2["branch-simple<br/><i>producer</i>"]
+    N3["branch-complex<br/><i>producer</i>"]
+    N4{{"verify<br/><i>critic</i>"}}
+    N0 -->|complexity <= moderate| N2
+    N0 -->|complexity > moderate| N3
+    N2 --> N4
+    N3 --> N4
+    N0 --> N1
+    N1 --> N4
 ```
 
 ## Cases

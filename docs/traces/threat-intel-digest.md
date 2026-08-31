@@ -11,22 +11,25 @@
 flowchart LR
     N0["partition<br/><i>analyst</i>"]
     N1["map<br/><i>mapper</i>"]
-    N2{{"reduce<br/><i>reducer</i>"}}
+    N2["estate-match<br/><i>analyst</i>"]
+    N3{{"reduce<br/><i>reducer</i>"}}
     N0 --> N1
     N1 --> N2
+    N2 --> N3
 ```
 
 ## Cases
 
 ### `single-item` — ✅ passed
 
-**Route** (3 step(s)): `partition` → `map` → `reduce`
+**Route** (4 step(s)): `partition` → `map` → `estate-match` → `reduce`
 
 | # | Node | Output |
 |---|---|---|
 | 1 | `partition` | `shard_count=1, shards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `map` | `shard_result=[{'id': 1, 'finding': 'ok'}]` |
-| 3 | `reduce` | `output={'entries': [{'advisory_url': 'https://vendor.example/advisory/1', 'cve_ids': ['CVE-2026-1']}]}` |
+| 3 | `estate-match` | `affected_assets=[{'cve': 'CVE-2026-1', 'assets': ['api-1']}]` |
+| 4 | `reduce` | `output={'entries': [{'advisory_url': 'https://vendor.example/advisory/1', 'cve_ids': ['CVE-2026-1']}]}` |
 
 **Verification checked:**
 
@@ -34,13 +37,14 @@ flowchart LR
 
 ### `multi-item` — ✅ passed
 
-**Route** (3 step(s)): `partition` → `map` → `reduce`
+**Route** (4 step(s)): `partition` → `map` → `estate-match` → `reduce`
 
 | # | Node | Output |
 |---|---|---|
 | 1 | `partition` | `shard_count=2, shards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `map` | `shard_result=[{'id': 1, 'finding': 'ok'}]` |
-| 3 | `reduce` | `output={'entries': [{'advisory_url': 'https://vendor.example/advisory/1', 'cve_ids': ['CVE-2026-1']}, {'advisory_url': 'https://vendor.example/advisory/2', 'cve_ids': ['CVE-2026-2', 'CVE-2026-3']}]}` |
+| 3 | `estate-match` | `affected_assets=[{'cve': 'CVE-2026-1', 'assets': ['api-1']}]` |
+| 4 | `reduce` | `output={'entries': [{'advisory_url': 'https://vendor.example/advisory/1', 'cve_ids': ['CVE-2026-1']}, {'advisory_url': 'https://vendor.example/advisory/2', 'cve_ids': ['CVE-2026-2', 'CVE-2026-3']}]}` |
 
 **Verification checked:**
 

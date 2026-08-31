@@ -11,6 +11,8 @@ cases:
       output:
         assigned_queue: billing-tier2
         expected_queue: billing-tier2
+    branch-sentiment: &id001
+      assigned_queue: billing-tier2
   goal: the overnight queue, against the 2026-Q3 ownership map
   inputs:
     ownership_map: <ownership_map supplied by the caller>
@@ -26,6 +28,7 @@ cases:
       output:
         assigned_queue: billing-tier2
         expected_queue: billing-tier2
+    branch-sentiment: *id001
   goal: the overnight queue, against the 2026-Q3 ownership map
   inputs:
     ownership_map: <ownership_map supplied by the caller>

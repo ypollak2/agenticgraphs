@@ -11,6 +11,11 @@ cases:
     review:
       revision_requested: false
       attempts: 1
+    clause-map: &id001
+      clause_shards:
+      - clause_id: C-1
+        spans:
+        - s1
   goal: the vendor onboarding runbook, against InfoSec policy v4
 - id: retry-then-resolved
   node_outputs:
@@ -30,4 +35,5 @@ cases:
       attempts: 1
     - revision_requested: false
       attempts: 2
+    clause-map: *id001
   goal: the vendor onboarding runbook, against InfoSec policy v4

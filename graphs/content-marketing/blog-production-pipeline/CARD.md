@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-034` | content-marketing | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
+| `AGR-034` | content-marketing | **pipeline** | 4 | 4 | 1 | 0 | 12 | write |
 
 > 🎯 **Requires a goal** — the content brief to develop and the audience it targets. Without one the graph refuses and runs no node.
 
@@ -14,11 +14,13 @@
 ```mermaid
 flowchart LR
     N0["intake<br/><i>analyst</i>"]
-    N1["produce<br/><i>producer</i>"]
-    N2{{"review<br/><i>critic</i>"}}
+    N1["outline<br/><i>planner</i>"]
+    N2["produce<br/><i>producer</i>"]
+    N3{{"review<br/><i>critic</i>"}}
     N0 --> N1
     N1 --> N2
-    N2 -->|revision_requested and attempts < 2| N1
+    N2 --> N3
+    N3 -->|revision_requested and attempts < 2| N2
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -56,6 +58,7 @@ To evolve it: `uv run agr infuse blog-production-pipeline <node> <ability>` — 
 | Node | Speciality | Kind | Abilities |
 |---|---|---|---|
 | `intake` | analyst | agent | analyze |
+| `outline` | planner | agent | decompose_goal |
 | `produce` | producer | agent | generate |
 | `review` | critic | verifier | critique |
 
@@ -63,7 +66,8 @@ To evolve it: `uv run agr infuse blog-production-pipeline <node> <ability>` — 
 
 | From | To | Condition |
 |---|---|---|
-| `intake` | `produce` | always |
+| `intake` | `outline` | always |
+| `outline` | `produce` | always |
 | `produce` | `review` | always |
 | `review` | `produce` | revision_requested and attempts < 2 |
 

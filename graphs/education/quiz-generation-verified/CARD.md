@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-071` | education | **generator-critic** | 3 | 3 | 1 | 0 | 10 | write |
+| `AGR-071` | education | **generator-critic** | 4 | 4 | 1 | 0 | 10 | execute |
 
 > 🎯 **Requires a goal** — the source material to quiz on and the level of the learners. Without one the graph refuses and runs no node.
 
@@ -15,10 +15,12 @@
 flowchart LR
     N0["intake<br/><i>analyst</i>"]
     N1["generate<br/><i>producer</i>"]
-    N2{{"critique<br/><i>critic</i>"}}
+    N2["blind-solve<br/><i>worker</i>"]
+    N3{{"critique<br/><i>critic</i>"}}
     N0 --> N1
     N1 --> N2
-    N2 -->|rejected and attempts < 3| N1
+    N2 --> N3
+    N3 -->|rejected and attempts < 3| N1
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -57,6 +59,7 @@ To evolve it: `uv run agr infuse quiz-generation-verified <node> <ability>` — 
 |---|---|---|---|
 | `intake` | analyst | agent | analyze |
 | `generate` | producer | agent | generate |
+| `blind-solve` | worker | agent | run_command |
 | `critique` | critic | verifier | critique |
 
 ## Edge logic
@@ -64,7 +67,8 @@ To evolve it: `uv run agr infuse quiz-generation-verified <node> <ability>` — 
 | From | To | Condition |
 |---|---|---|
 | `intake` | `generate` | always |
-| `generate` | `critique` | always |
+| `generate` | `blind-solve` | always |
+| `blind-solve` | `critique` | always |
 | `critique` | `generate` | rejected and attempts < 3 |
 
 ## Optional use-cases

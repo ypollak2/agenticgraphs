@@ -25,17 +25,18 @@ flowchart LR
 
 ### `happy-path` — ✅ passed
 
-**Route** (7 step(s)): `intake` → `redline.intake` → `redline.produce` → `redline.review` → `risk-assess` → `counsel-approval` → `execute`
+**Route** (8 step(s)): `intake` → `redline.intake` → `redline.playbook-lookup` → `redline.produce` → `redline.review` → `risk-assess` → `counsel-approval` → `execute`
 
 | # | Node | Output |
 |---|---|---|
 | 1 | `intake` | `clauses=[]` |
 | 2 | `redline.intake` | `summary='intake complete'` |
-| 3 | `redline.produce` | `output={'redlines': [{'clause': 'limitation of liability', 'playbook_ref': 'PB-4'}]}` |
-| 4 | `redline.review` | `redlines=[{'clause': 7, 'playbook_ref': 'value'}], revision_requested=False, attempts=1` |
-| 5 | `risk-assess` | `residual_risk='low'` |
-| 6 | `counsel-approval` | `signed_off=True` |
-| 7 | `execute` | `executed=True, output={'residual_risk_level': 'low', 'signed_off': True, 'executed': True}` |
+| 3 | `redline.playbook-lookup` | *(no fixture — empty output)* |
+| 4 | `redline.produce` | `output={'redlines': [{'clause': 'limitation of liability', 'playbook_ref': 'PB-4'}]}` |
+| 5 | `redline.review` | `redlines=[{'clause': 7, 'playbook_ref': 'value'}], revision_requested=False, attempts=1` |
+| 6 | `risk-assess` | `residual_risk='low'` |
+| 7 | `counsel-approval` | `signed_off=True` |
+| 8 | `execute` | `executed=True, output={'residual_risk_level': 'low', 'signed_off': True, 'executed': True}` |
 
 **Verification checked:**
 

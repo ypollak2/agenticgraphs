@@ -9,6 +9,18 @@ nodes:
   - decompose_goal
   outputs:
   - tasks
+- id: screen
+  speciality: screener
+  abilities:
+  - screen
+  inputs:
+  - tasks
+  outputs:
+  - included
+  - excluded
+  criteria: Each paper is included or excluded against the stated criteria, with the reason recorded.
+    An unexplained exclusion cannot be audited, which is the difference between a review and a reading
+    list.
 - id: work
   speciality: worker
   abilities:
@@ -32,6 +44,8 @@ nodes:
     not where in it stops the next reader from verifying anything.
 edges:
 - from: plan
+  to: screen
+- from: screen
   to: work
 - from: work
   to: verify

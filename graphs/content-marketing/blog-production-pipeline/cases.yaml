@@ -10,6 +10,11 @@ cases:
     review:
       revision_requested: false
       attempts: 1
+    outline: &id001
+      outline:
+      - section: why
+        claim: c
+        evidence: e
   goal: the 'observability for small teams' brief, for platform engineers
 - id: retry-then-resolved
   node_outputs:
@@ -27,4 +32,5 @@ cases:
       attempts: 1
     - revision_requested: false
       attempts: 2
+    outline: *id001
   goal: the 'observability for small teams' brief, for platform engineers

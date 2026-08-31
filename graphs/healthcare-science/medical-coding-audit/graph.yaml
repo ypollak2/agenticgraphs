@@ -20,6 +20,17 @@ nodes:
     on_partial: continue
   outputs:
   - work_result
+- id: recode
+  speciality: compensator
+  abilities:
+  - rollback
+  - backfill
+  inputs:
+  - work_result
+  outputs:
+  - corrections
+  criteria: Every disputed code is paired with the code the documentation does support, so the finding
+    tells the coder what to change it to rather than only that it is wrong.
 - id: verify
   speciality: verifier
   abilities:
@@ -34,6 +45,8 @@ edges:
 - from: plan
   to: work
 - from: work
+  to: recode
+- from: recode
   to: verify
 - from: verify
   to: work

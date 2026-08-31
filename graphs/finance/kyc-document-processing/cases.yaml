@@ -12,6 +12,8 @@ cases:
     review:
       revision_requested: false
       attempts: 1
+    sanctions-screen: &id001
+      screen_hits: []
   goal: a UK sole-trader onboarding pack, under FCA rules
 - id: retry-then-resolved
   node_outputs:
@@ -33,4 +35,5 @@ cases:
       attempts: 1
     - revision_requested: false
       attempts: 2
+    sanctions-screen: *id001
   goal: a UK sole-trader onboarding pack, under FCA rules
