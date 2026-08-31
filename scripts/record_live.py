@@ -89,12 +89,34 @@ def record(name: str, sample: int = 0) -> list[dict]:
     gpath = find_graph(name)
     doc = load(gpath)
     cases = yaml.safe_load((cases_path(name)).read_text())["cases"]
-    return [_record_case(name, doc, case, sample) for case in cases]
+    return [r for case in cases
+            if (r := _record_case(name, doc, case, sample)) is not None]
 
 
-def _record_case(name: str, doc: dict, case: dict, sample: int) -> dict:
+def _record_case(name: str, doc: dict, case: dict, sample: int) -> dict | None:
+    """Record one case at one sample index, or skip if that index already exists.
+
+    Without the skip, deepening is impossible. `AGR_SAMPLES=1` always yields
+    sample 0, whose filename carries no `#N`, so every re-run overwrites the same
+    file — a 35-minute pass over 70 graphs produced no second sample at all and
+    the coverage count never moved. Making each index a separate, skippable unit
+    is what turns a sweep into something that accumulates.
+    """
     # AGR_TOOLS=1 binds each node's declared abilities; AGR_ALLOW_MUTATING=1 also
     # permits risk: write/execute, the same gate `agr eval --run-commands` uses.
+    # Cheap check before any model call: an index already recorded at the current
+    # spec is done, and re-running it costs a minute of inference to overwrite an
+    # identical file.
+    model_tag = _model_dir(name, os.environ["AGR_LLM_MODEL"])
+    suffix = f"@{model_tag}" + (f"#{sample}" if sample else "")
+    out_dir = live_dir(name)
+    for candidate in (out_dir / f"{case['id']}{suffix}.json",
+                      out_dir / f"{case['id']}{suffix}~{SPEC_VERSION.split('/')[-1]}.json"):
+        if candidate.exists():
+            doc_c = json.loads(candidate.read_text())
+            if not doc_c.get("superseded_by") and doc_c.get("spec") == SPEC_VERSION:
+                return None
+
     if os.environ.get("AGR_TOOLS") == "1":
         inner = ToolRunner(root=ROOT,
                            allow_mutating=os.environ.get("AGR_ALLOW_MUTATING") == "1")
