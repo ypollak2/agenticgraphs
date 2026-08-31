@@ -37,3 +37,9 @@ termination:
   contract: bias-term lint clean; requirements deduplicated
 verification:
 - assert: output.bias_lint_clean and output.requirements_deduped
+goal:
+  required: true
+  description: the role to describe and the level and team it sits in
+state:
+  inputs:
+  - goal

@@ -38,3 +38,9 @@ termination:
   contract: every item links source advisory with CVE ids
 verification:
 - assert: all(i.advisory_url and i.cve_ids for i in output.entries)
+goal:
+  required: true
+  description: the feeds to digest and the estate the brief is written for
+state:
+  inputs:
+  - goal

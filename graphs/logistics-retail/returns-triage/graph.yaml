@@ -46,3 +46,9 @@ termination:
   contract: routing agrees with policy decision table
 verification:
 - assert: output.matches_policy_table
+goal:
+  required: true
+  description: the return request to route and the policy table that governs it
+state:
+  inputs:
+  - goal

@@ -20,6 +20,7 @@ cases:
         - text: effect size is moderate
           paper: Smith2024
           section: '3.2'
+  goal: does spaced repetition improve retention, RCTs since 2015
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -42,3 +43,4 @@ cases:
         - text: effect size is moderate
           paper: Smith2024
           section: '3.2'
+  goal: does spaced repetition improve retention, RCTs since 2015

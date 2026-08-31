@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-084` | security | **map-reduce** | 3 | 2 | 1 | 0 | 20 | write |
 
+> 🎯 **Requires a goal** — the feeds to digest and the estate the brief is written for. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

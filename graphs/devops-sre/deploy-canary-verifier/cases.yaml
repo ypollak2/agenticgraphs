@@ -1,15 +1,33 @@
 cases:
-  - id: meets-target-first-try
-    node_outputs:
-      intake: {summary: "intake complete"}
-      attempt: {output: {'error_rate': 0.05, 'threshold': 0.01, 'rollback_fired': True}}
-      measure: {below_target: false, attempts: 1}
-  - id: retry-then-meets-target
-    node_outputs:
-      intake: {summary: "intake complete"}
-      attempt:
-        - {output: {'error_rate': 0.05, 'threshold': 0.01, 'rollback_fired': False}}
-        - {output: {'error_rate': 0.05, 'threshold': 0.01, 'rollback_fired': True}}
-      measure:
-        - {below_target: true, attempts: 1}
-        - {below_target: false, attempts: 2}
+- id: meets-target-first-try
+  node_outputs:
+    intake:
+      summary: intake complete
+    attempt:
+      output:
+        error_rate: 0.05
+        threshold: 0.01
+        rollback_fired: true
+    measure:
+      below_target: false
+      attempts: 1
+  goal: api v2.14.0 at 5%, on p99 latency and 5xx rate
+- id: retry-then-meets-target
+  node_outputs:
+    intake:
+      summary: intake complete
+    attempt:
+    - output:
+        error_rate: 0.05
+        threshold: 0.01
+        rollback_fired: false
+    - output:
+        error_rate: 0.05
+        threshold: 0.01
+        rollback_fired: true
+    measure:
+    - below_target: true
+      attempts: 1
+    - below_target: false
+      attempts: 2
+  goal: api v2.14.0 at 5%, on p99 latency and 5xx rate

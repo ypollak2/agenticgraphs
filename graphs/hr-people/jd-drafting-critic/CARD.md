@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-091` | hr-people | **generator-critic** | 3 | 3 | 1 | 0 | 10 | write |
 
+> 🎯 **Requires a goal** — the role to describe and the level and team it sits in. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

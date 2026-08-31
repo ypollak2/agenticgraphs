@@ -1,11 +1,23 @@
 cases:
-  - id: simple-branch
-    node_outputs:
-      route: {complexity: low}
-      branch-simple: {handled_by: "simple"}
-      verify: {output: {'routing_correct': True, 'ticket_id': 'T-1'}}
-  - id: complex-branch
-    node_outputs:
-      route: {complexity: high}
-      branch-complex: {handled_by: "complex"}
-      verify: {output: {'routing_correct': True, 'ticket_id': 'T-1'}}
+- id: simple-branch
+  node_outputs:
+    route:
+      complexity: low
+    branch-simple:
+      handled_by: simple
+    verify:
+      output:
+        routing_correct: true
+        ticket_id: T-1
+  goal: the overnight queue, against the 2026-Q3 ownership map
+- id: complex-branch
+  node_outputs:
+    route:
+      complexity: high
+    branch-complex:
+      handled_by: complex
+    verify:
+      output:
+        routing_correct: true
+        ticket_id: T-1
+  goal: the overnight queue, against the 2026-Q3 ownership map

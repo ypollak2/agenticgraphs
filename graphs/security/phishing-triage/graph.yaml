@@ -46,3 +46,9 @@ termination:
   contract: verdicts benchmarked against labeled corpus
 verification:
 - assert: output.matches_labeled_corpus
+goal:
+  required: true
+  description: the reported email to classify and the organisation's sender baseline
+state:
+  inputs:
+  - goal

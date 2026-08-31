@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-056` | legal-compliance | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
 
+> 🎯 **Requires a goal** — the contract to redline and the playbook of acceptable positions. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

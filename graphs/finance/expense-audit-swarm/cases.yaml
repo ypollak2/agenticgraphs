@@ -19,6 +19,7 @@ cases:
         violations:
         - line_id: L-12
           policy_rule: T&E-4
+  goal: August EMEA reports, against the 2026 travel policy
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -40,3 +41,4 @@ cases:
         violations:
         - line_id: L-12
           policy_rule: T&E-4
+  goal: August EMEA reports, against the 2026 travel policy

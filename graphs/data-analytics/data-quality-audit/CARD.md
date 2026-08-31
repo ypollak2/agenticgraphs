@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-020` | data-analytics | **parallel-swarm** | 3 | 3 | 1 | 0 | 30 | execute |
 
+> 🎯 **Requires a goal** — the dataset to profile and the quality rules it must satisfy. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

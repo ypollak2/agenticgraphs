@@ -36,3 +36,9 @@ termination:
   contract: each verdict carries source URL and quote span
 verification:
 - assert: all(v.source_url and v.quote_span for v in output.verdicts)
+goal:
+  required: true
+  description: the claims to check and the sources they may be checked against
+state:
+  inputs:
+  - goal

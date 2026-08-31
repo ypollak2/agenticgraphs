@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-055` | finance | **parallel-swarm** | 3 | 3 | 1 | 0 | 30 | execute |
 
+> 🎯 **Requires a goal** — the expense reports to audit and the policy that governs them. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

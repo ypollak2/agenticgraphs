@@ -14,6 +14,7 @@ cases:
       output:
         actual_rows: 10000
         expected_rows: 10000
+  goal: Stripe events into the warehouse, daily revenue by plan
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -30,3 +31,4 @@ cases:
       output:
         actual_rows: 10000
         expected_rows: 10000
+  goal: Stripe events into the warehouse, daily revenue by plan

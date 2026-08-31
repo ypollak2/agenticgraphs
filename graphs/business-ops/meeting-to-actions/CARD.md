@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-043` | business-ops | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
 
+> 🎯 **Requires a goal** — the meeting transcript to convert and the team it belongs to. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

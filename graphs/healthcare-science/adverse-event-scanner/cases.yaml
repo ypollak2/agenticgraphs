@@ -19,6 +19,7 @@ cases:
           - R1
           - R2
           count: 2
+  goal: the August case reports, for compound RX-114
 - id: multi-item
   node_outputs:
     partition:
@@ -41,3 +42,4 @@ cases:
           report_ids:
           - R3
           count: 1
+  goal: the August case reports, for compound RX-114

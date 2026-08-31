@@ -38,3 +38,9 @@ termination:
   contract: every finding links a dated public source
 verification:
 - assert: all(f.source_url and f.source_date for f in output.findings)
+goal:
+  required: true
+  description: the competitors to profile and the decision the brief informs
+state:
+  inputs:
+  - goal

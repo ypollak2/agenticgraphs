@@ -74,4 +74,4 @@ state:
   - target
 goal:
   required: true
-  description: the target to harden and what counts as a successful bypass
+  description: the system to harden and the threat model to harden it against

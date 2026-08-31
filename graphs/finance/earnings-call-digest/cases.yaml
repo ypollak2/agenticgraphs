@@ -1,15 +1,39 @@
 cases:
-  - id: happy-path
-    node_outputs:
-      intake: {summary: "intake complete"}
-      produce: {output: {'figures': [{'label': 'revenue', 'value': 4200000, 'matches_transcript': True}], 'invented_numbers': False}}
-      review: {revision_requested: false, attempts: 1}
-  - id: retry-then-resolved
-    node_outputs:
-      intake: {summary: "intake complete"}
-      produce:
-        - {output: {'figures': [{'label': 'revenue', 'value': 4200000, 'matches_transcript': False}], 'invented_numbers': True}}
-        - {output: {'figures': [{'label': 'revenue', 'value': 4200000, 'matches_transcript': True}], 'invented_numbers': False}}
-      review:
-        - {revision_requested: true, attempts: 1}
-        - {revision_requested: false, attempts: 2}
+- id: happy-path
+  node_outputs:
+    intake:
+      summary: intake complete
+    produce:
+      output:
+        figures:
+        - label: revenue
+          value: 4200000
+          matches_transcript: true
+        invented_numbers: false
+    review:
+      revision_requested: false
+      attempts: 1
+  goal: the Q2 2026 call, against the guidance given in Q1
+- id: retry-then-resolved
+  node_outputs:
+    intake:
+      summary: intake complete
+    produce:
+    - output:
+        figures:
+        - label: revenue
+          value: 4200000
+          matches_transcript: false
+        invented_numbers: true
+    - output:
+        figures:
+        - label: revenue
+          value: 4200000
+          matches_transcript: true
+        invented_numbers: false
+    review:
+    - revision_requested: true
+      attempts: 1
+    - revision_requested: false
+      attempts: 2
+  goal: the Q2 2026 call, against the guidance given in Q1

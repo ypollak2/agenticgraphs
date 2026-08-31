@@ -39,3 +39,9 @@ termination:
   contract: back-translation similarity above threshold; glossary respected
 verification:
 - assert: output.similarity >= output.threshold and not output.glossary_violations
+goal:
+  required: true
+  description: the source content to translate and the locales to translate it into
+state:
+  inputs:
+  - goal

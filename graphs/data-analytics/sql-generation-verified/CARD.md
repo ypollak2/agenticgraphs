@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-018` | data-analytics | **generator-critic** | 3 | 3 | 1 | 0 | 10 | write |
 
+> 🎯 **Requires a goal** — the question to answer in SQL and the schema to answer it against. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-071` | education | **generator-critic** | 3 | 3 | 1 | 0 | 10 | write |
 
+> 🎯 **Requires a goal** — the source material to quiz on and the level of the learners. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

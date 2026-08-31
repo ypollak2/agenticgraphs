@@ -1,11 +1,23 @@
 cases:
-  - id: simple-branch
-    node_outputs:
-      route: {complexity: low}
-      branch-simple: {handled_by: "simple"}
-      verify: {output: {'label': 'RCT', 'matches_validated_set': True}}
-  - id: complex-branch
-    node_outputs:
-      route: {complexity: high}
-      branch-complex: {handled_by: "complex"}
-      verify: {output: {'label': 'RCT', 'matches_validated_set': True}}
+- id: simple-branch
+  node_outputs:
+    route:
+      complexity: low
+    branch-simple:
+      handled_by: simple
+    verify:
+      output:
+        label: RCT
+        matches_validated_set: true
+  goal: 142 new papers on SGLT2 inhibitors, by GRADE
+- id: complex-branch
+  node_outputs:
+    route:
+      complexity: high
+    branch-complex:
+      handled_by: complex
+    verify:
+      output:
+        label: RCT
+        matches_validated_set: true
+  goal: 142 new papers on SGLT2 inhibitors, by GRADE

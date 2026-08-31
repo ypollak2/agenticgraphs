@@ -15,6 +15,7 @@ cases:
     review:
       revision_requested: false
       attempts: 1
+  goal: INC-2291, declared SEV2
 - id: retry-then-resolved
   node_outputs:
     intake:
@@ -38,3 +39,4 @@ cases:
       attempts: 1
     - revision_requested: false
       attempts: 2
+  goal: INC-2291, declared SEV2

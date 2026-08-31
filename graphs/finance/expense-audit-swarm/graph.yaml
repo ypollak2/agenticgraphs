@@ -41,3 +41,9 @@ termination:
   contract: violations carry line id and policy rule
 verification:
 - assert: all(v.line_id and v.policy_rule for v in output.violations)
+goal:
+  required: true
+  description: the expense reports to audit and the policy that governs them
+state:
+  inputs:
+  - goal

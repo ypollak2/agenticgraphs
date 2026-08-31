@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-006` | software-engineering | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
 
+> 🎯 **Requires a goal** — the dependencies to upgrade and the suite that must stay green. Its trigger supplies this when it fires on schedule.
+
 ## The graph
 
 ```mermaid

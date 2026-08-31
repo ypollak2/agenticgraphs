@@ -41,3 +41,9 @@ termination:
   contract: violations emitted as machine-readable rules with counts
 verification:
 - assert: all(v.rule_id and v.count >= 0 for v in output.violations)
+goal:
+  required: true
+  description: the dataset to profile and the quality rules it must satisfy
+state:
+  inputs:
+  - goal

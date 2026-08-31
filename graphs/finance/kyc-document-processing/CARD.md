@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-052` | finance | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
 
+> 🎯 **Requires a goal** — the customer documents to process and the jurisdiction's KYC requirements. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

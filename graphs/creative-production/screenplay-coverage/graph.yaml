@@ -66,4 +66,4 @@ state:
   - screenplay
 goal:
   required: true
-  description: the screenplay to cover and the mandate it is being read against
+  description: the screenplay to cover and the market it is being read for

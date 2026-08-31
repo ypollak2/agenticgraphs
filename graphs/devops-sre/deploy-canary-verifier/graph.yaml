@@ -45,3 +45,10 @@ budget:
 durability:
   checkpoint: every_node
   resume: true
+goal:
+  required: true
+  description: the canary release to watch and the metrics that decide promotion
+  supplied_by_trigger: true
+state:
+  inputs:
+  - goal

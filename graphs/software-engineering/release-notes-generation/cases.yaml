@@ -17,6 +17,7 @@ cases:
         - text: fixed login bug
           pr_url: https://github.com/org/repo/pull/1
         orphan_claims: []
+  goal: the 41 PRs merged since v2.13, for v2.14.0
 - id: multi-item
   node_outputs:
     partition:
@@ -35,3 +36,4 @@ cases:
         - text: improved perf
           pr_url: https://github.com/org/repo/pull/2
         orphan_claims: []
+  goal: the 41 PRs merged since v2.13, for v2.14.0

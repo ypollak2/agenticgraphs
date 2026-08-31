@@ -16,6 +16,7 @@ cases:
         similarity: 0.92
         threshold: 0.85
         glossary_violations: []
+  goal: the onboarding guide, into de-DE, ja-JP and pt-BR
 - id: multi-item
   node_outputs:
     partition:
@@ -31,3 +32,4 @@ cases:
         similarity: 0.9
         threshold: 0.85
         glossary_violations: []
+  goal: the onboarding guide, into de-DE, ja-JP and pt-BR

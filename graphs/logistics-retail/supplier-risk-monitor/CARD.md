@@ -7,7 +7,7 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-100` | logistics-retail | **map-reduce** | 4 | 3 | 1 | 0 | 25 | read |
 
-> 🎯 **Requires a goal** — the supplier portfolio to score. Its trigger supplies this when it fires on schedule.
+> 🎯 **Requires a goal** — the supplier portfolio to monitor and the risk thresholds that matter. Its trigger supplies this when it fires on schedule.
 
 ## The graph
 

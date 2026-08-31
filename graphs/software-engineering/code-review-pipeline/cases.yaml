@@ -1,16 +1,28 @@
-# Golden cases: fixture node outputs; asserts from graph.yaml must hold on the result.
 cases:
-  - id: low-risk-clean-approve
-    node_outputs:
-      triage: {risk: low}
-      style-review: {style_findings: []}
-      synthesize: {output: {verdict: approve, findings: []}}
-  - id: high-risk-blocks-with-located-findings
-    node_outputs:
-      triage: {risk: high}
-      security-review: {sec_hits: 1}
-      style-review: {style_findings: []}
-      synthesize:
-        output:
-          verdict: request_changes
-          findings: [{file: app.py, line: 42, note: hardcoded secret}]
+- id: low-risk-clean-approve
+  node_outputs:
+    triage:
+      risk: low
+    style-review:
+      style_findings: []
+    synthesize:
+      output:
+        verdict: approve
+        findings: []
+  goal: PR 812 in the payments service
+- id: high-risk-blocks-with-located-findings
+  node_outputs:
+    triage:
+      risk: high
+    security-review:
+      sec_hits: 1
+    style-review:
+      style_findings: []
+    synthesize:
+      output:
+        verdict: request_changes
+        findings:
+        - file: app.py
+          line: 42
+          note: hardcoded secret
+  goal: PR 812 in the payments service

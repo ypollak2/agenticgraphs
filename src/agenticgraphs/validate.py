@@ -16,6 +16,7 @@ from pathlib import Path
 
 import jsonschema
 
+from . import safeexpr
 from .registry import ROOT, SPEC_VERSION, iter_yaml, load, load_schema
 from .shapes import ShapeError, names as _out_names, parse as _parse_shape
 from .subgraphs import entry_nodes
@@ -87,6 +88,92 @@ def unconnected_keys(doc: dict) -> set[str]:
         if "assert" in v:
             needed |= asserted_keys(v["assert"])
     return needed - produced
+
+
+def _lint_expressions(doc: dict) -> list[str]:
+    """Refuse any `when` / `assert` / approval contract the evaluator would refuse.
+
+    The runtime allowlist (`safeexpr`) is the security boundary; this is the same
+    boundary moved forward to `agr validate`, so CI and a reviewer see the
+    rejection before an interpreter does.
+    """
+    errors: list[str] = []
+    for e in doc.get("edges", []):
+        for reason in safeexpr.check(e.get("when") or ""):
+            errors.append(f"unsafe expression on edge {e['from']}->{e['to']}: {reason}")
+    for v in doc.get("verification", []):
+        for reason in safeexpr.check(v.get("assert") or ""):
+            errors.append(f"unsafe verification assert: {reason}")
+    for n in doc.get("nodes", []):
+        contract = (n.get("approval") or {}).get("contract", "")
+        for reason in safeexpr.check(contract):
+            errors.append(f"unsafe approval contract on '{n['id']}': {reason}")
+        for reason in safeexpr.check((n.get("search") or {}).get("score", "")):
+            errors.append(f"unsafe search score on '{n['id']}': {reason}")
+    return errors
+
+
+def _bare_truthy_key(expr: str) -> str | None:
+    """The key an assert reads if it is *only* a truthiness check, else None.
+
+    Matches `output.x`, `output.x == true`, `x`, `x == True` — the shapes that
+    assert nothing beyond "the graph said so".
+    """
+    try:
+        tree = ast.parse(expr, mode="eval").body
+    except SyntaxError:
+        return None
+    if isinstance(tree, ast.Compare) and len(tree.ops) == 1 and isinstance(tree.ops[0], ast.Eq):
+        rhs = tree.comparators[0]
+        lit = getattr(rhs, "value", getattr(rhs, "id", None))
+        if lit is True or (isinstance(lit, str) and lit.lower() == "true"):
+            tree = tree.left
+        else:
+            return None
+    if isinstance(tree, ast.Attribute) and isinstance(tree.value, ast.Name) and tree.value.id == "output":
+        return tree.attr
+    if isinstance(tree, ast.Name):
+        return tree.id
+    return None
+
+
+def _lint_self_graded(doc: dict) -> list[str]:
+    """A contract a verifier node grades itself on is not verification.
+
+    `verify` declares `outputs: [matches_ownership_map]`; the contract asserts
+    `output.matches_ownership_map`. The model writes the flag and the flag is the
+    pass criterion, so the check holds whenever the model claims it does — which
+    is every time. Six graphs in the registry were built this way, and 31 of 117
+    asserts are a bare truthy read of *something*.
+
+    The fix a graph author has is to assert on a fact an upstream node produced
+    and this node had to reconcile, or to add a `verification[].command` that
+    checks the claim outside the model. Both are real work; that is the point.
+    """
+    verifier_outputs: dict[str, str] = {}
+    for n in doc.get("nodes", []):
+        if n.get("kind") != "verifier":
+            continue
+        for o in _out_names(n):
+            verifier_outputs[o] = n["id"]
+    msgs: list[str] = []
+    for v in doc.get("verification") or []:
+        key = _bare_truthy_key(v.get("assert") or "")
+        if key and key in verifier_outputs:
+            msgs.append(
+                f"self-graded contract: assert '{v['assert']}' reads a key that node "
+                f"'{verifier_outputs[key]}' (kind: verifier) produces itself — the model "
+                f"writes the flag it is scored on. Assert on a fact an upstream node "
+                f"produced, or add a verification[].command."
+            )
+    # Armed at v1.8, the same way `_lint_provenance` armed at v1.6: the rule
+    # ships with the spec version whose graphs are expected to satisfy it, so a
+    # v1.7 registry is not retroactively failed by a rule written after it. The
+    # 16 graphs this currently finds are tracked in `reports/self-graded.json`
+    # and migrated one at a time, each with a real check replacing the flag.
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    return msgs
 
 
 def _parses(expr: str) -> bool:
@@ -309,6 +396,13 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
     for v in doc.get("verification", []):
         if "assert" in v and not _parses(v["assert"]):
             errors.append(f"lint: verification assert is not a parseable expression: {v['assert']!r}")
+
+    # Every expression the runtime will evaluate must survive the same allowlist
+    # the runtime applies. A graph is a downloaded artifact: catching a hostile
+    # expression at the gate is the difference between a rejected contribution
+    # and code running on whoever typed `agr eval`.
+    errors.extend(_lint_expressions(doc))
+    errors.extend(_lint_self_graded(doc))
 
     # speciality / ability resolution
     specs = {load(p)["name"]: load(p) for p in iter_yaml("specialities", root)}

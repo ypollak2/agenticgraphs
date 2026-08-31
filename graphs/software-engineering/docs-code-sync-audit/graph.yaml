@@ -51,3 +51,10 @@ budget:
 durability:
   checkpoint: every_node
   resume: true
+goal:
+  required: true
+  description: the documentation to audit and the codebase it describes
+  supplied_by_trigger: true
+state:
+  inputs:
+  - goal

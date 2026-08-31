@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-010` | software-engineering | **parallel-swarm** | 3 | 3 | 1 | 0 | 30 | execute |
 
+> 🎯 **Requires a goal** — the documentation to audit and the codebase it describes. Its trigger supplies this when it fires on schedule.
+
 ## The graph
 
 ```mermaid

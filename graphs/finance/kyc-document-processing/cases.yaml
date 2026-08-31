@@ -1,15 +1,36 @@
 cases:
-  - id: happy-path
-    node_outputs:
-      intake: {summary: "intake complete"}
-      produce: {output: {'fields': [{'name': 'date_of_birth', 'value': '1990-01-01', 'validated': True}]}}
-      review: {revision_requested: false, attempts: 1}
-  - id: retry-then-resolved
-    node_outputs:
-      intake: {summary: "intake complete"}
-      produce:
-        - {output: {'fields': [{'name': 'date_of_birth', 'value': '1990-01-01', 'validated': False}]}}
-        - {output: {'fields': [{'name': 'date_of_birth', 'value': '1990-01-01', 'validated': True}]}}
-      review:
-        - {revision_requested: true, attempts: 1}
-        - {revision_requested: false, attempts: 2}
+- id: happy-path
+  node_outputs:
+    intake:
+      summary: intake complete
+    produce:
+      output:
+        fields:
+        - name: date_of_birth
+          value: '1990-01-01'
+          validated: true
+    review:
+      revision_requested: false
+      attempts: 1
+  goal: a UK sole-trader onboarding pack, under FCA rules
+- id: retry-then-resolved
+  node_outputs:
+    intake:
+      summary: intake complete
+    produce:
+    - output:
+        fields:
+        - name: date_of_birth
+          value: '1990-01-01'
+          validated: false
+    - output:
+        fields:
+        - name: date_of_birth
+          value: '1990-01-01'
+          validated: true
+    review:
+    - revision_requested: true
+      attempts: 1
+    - revision_requested: false
+      attempts: 2
+  goal: a UK sole-trader onboarding pack, under FCA rules

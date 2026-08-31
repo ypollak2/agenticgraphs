@@ -59,4 +59,4 @@ state:
   - case_notes
 goal:
   required: true
-  description: the case to work up and the question the clinician needs answered
+  description: the presenting case and the history available to reason from

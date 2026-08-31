@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-023` | data-analytics | **router** | 4 | 4 | 1 | 1 | 12 | write |
 
+> 🎯 **Requires a goal** — the metric anomaly to investigate and the window it appeared in. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

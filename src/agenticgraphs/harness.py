@@ -10,18 +10,28 @@ from __future__ import annotations
 import json
 import os
 import re
+import random
 import shlex
 import subprocess
+import time
+import urllib.error
 import urllib.request
 from collections import defaultdict
 from copy import deepcopy
 from dataclasses import dataclass, field
 
 from . import shapes as _shapes
+from .safeexpr import UnsafeExpression, compile_expr
 from pathlib import Path
 
 _ORDER = {"trivial": -1, "low": 0, "simple": 0, "medium": 1, "moderate": 1,
           "high": 2, "complex": 2, "critical": 3}
+
+
+def _backoff(attempt: int) -> None:
+    """Exponential backoff with jitter. Jitter matters when re-recording the
+    registry: 83 graphs firing at one endpoint retry in lockstep without it."""
+    time.sleep(min(2 ** attempt, 8) * (0.5 + random.random()))
 
 
 class Level:
@@ -114,10 +124,23 @@ _SAFE = {"len": len, "all": all, "any": any, "sum": sum, "min": min, "max": max,
 
 
 def safe_eval(expr: str, bb: dict):
+    """Evaluate a graph expression against the blackboard.
+
+    Two defences, and the first one is the one that matters. `compile_expr`
+    refuses any construct outside the allowlist, so `().__class__.__bases__` —
+    the escape every `{"__builtins__": {}}` sandbox has — never compiles. The
+    closed namespace then decides what the surviving expression can see.
+
+    Raising rather than returning False is deliberate: an expression this
+    rejects is a hostile or malformed graph, and `edge_true` catching it into a
+    silently-untaken edge would let a rejected graph run to a plausible-looking
+    verdict. Callers that must not fail closed catch UnsafeExpression by name.
+    """
+    code = compile_expr(expr)
     ns = {**_SAFE, **wrap(dict(bb))}
     # `output` is the one name whose lookup falls through to the blackboard.
     ns["output"] = OutputView(bb.get("output"), dict(bb))
-    return eval(expr, {"__builtins__": {}}, ns)  # noqa: S307 — namespace is closed
+    return eval(code, {"__builtins__": {}}, ns)  # noqa: S307 — allowlisted + closed ns
 
 
 def edge_true(when: str | None, bb: dict) -> bool:
@@ -125,6 +148,8 @@ def edge_true(when: str | None, bb: dict) -> bool:
         return True
     try:
         return bool(safe_eval(when, bb))
+    except UnsafeExpression:
+        raise  # a refused expression is a bad graph, not an untaken edge
     except Exception:
         return False  # unresolvable condition = edge not taken
 
@@ -227,6 +252,9 @@ class RunReport:
         return any(c.ok for c in self.tool_calls)
     lessons: list[dict] = field(default_factory=list)
     budget_exhausted: str = ""
+    #: Real token counts and priced cost when the runner supplied them.
+    #: Absent on a mock run, which is how a reader tells the two apart.
+    usage: dict = field(default_factory=dict)
     journal: list[dict] = field(default_factory=list)
     resumed_nodes: list[str] = field(default_factory=list)
     state_violations: list[str] = field(default_factory=list)
@@ -309,11 +337,72 @@ class MockRunner:
 class LLMRunner:
     """Live runner against any OpenAI-compatible endpoint (env-configured)."""
 
+    #: Sampling is pinned, not left to the provider. The registry's own variance
+    #: analysis reports 50 of 83 graphs where one model both passed and failed
+    #: across samples — under a provider-default temperature, an unknown share of
+    #: that is sampling noise being attributed to the graph. A seed and t=0 make
+    #: a recording a fact about the model instead of a draw from it.
+    SAMPLING = {"temperature": 0, "seed": 7, "max_tokens": 2048}
+
+    #: Retries exist so a 429 is not recorded as a contract failure. A rate limit
+    #: says nothing about whether the graph works, and a registry that cannot tell
+    #: those apart publishes the difference as quality.
+    RETRY_STATUS = frozenset({408, 409, 429, 500, 502, 503, 504})
+    MAX_ATTEMPTS = 4
+
     def __init__(self):
         self.base = os.environ["AGR_LLM_BASE_URL"].rstrip("/")
         self.model = os.environ["AGR_LLM_MODEL"]
         self.key = os.environ.get("AGR_LLM_API_KEY", "")
         self.name = f"llm:{self.model}"
+        #: Real token counts, accumulated across every call this runner makes.
+        #: `_EST_USD_PER_NODE` used to stand in for this with a hardcoded 0.002 —
+        #: a number that could halt a run on `budget.usd_max` while bearing no
+        #: relation to what the run cost. Every OpenAI-compatible response
+        #: carries `usage`; it was being read and discarded.
+        self.usage = {"prompt_tokens": 0, "completion_tokens": 0, "calls": 0}
+
+    def _post(self, payload: dict) -> dict:
+        """One chat completion: pinned sampling, retried transport, counted usage.
+
+        Every live call in this module goes through here so that determinism,
+        backoff, and accounting cannot drift apart between the plain runner and
+        the tool-using one.
+        """
+        payload = {**self.SAMPLING, **payload}
+        data = json.dumps(payload).encode()
+        headers = {"Content-Type": "application/json",
+                   **({"Authorization": f"Bearer {self.key}"} if self.key else {})}
+        last: Exception | None = None
+        for attempt in range(self.MAX_ATTEMPTS):
+            req = urllib.request.Request(f"{self.base}/chat/completions",
+                                         data=data, headers=headers)
+            try:
+                with urllib.request.urlopen(req, timeout=180) as r:  # noqa: S310
+                    body = json.load(r)
+            except urllib.error.HTTPError as ex:
+                last = ex
+                if ex.code == 400 and "response_format" in str(payload):
+                    # Not every OpenAI-compatible endpoint implements JSON mode.
+                    # Dropping it is a capability fallback, not a retry: the
+                    # `extract_json` repair layer covers what it costs us.
+                    payload.pop("response_format", None)
+                    data = json.dumps(payload).encode()
+                    continue
+                if ex.code not in self.RETRY_STATUS:
+                    raise
+            except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as ex:
+                last = ex
+            else:
+                u = body.get("usage") or {}
+                self.usage["prompt_tokens"] += u.get("prompt_tokens", 0)
+                self.usage["completion_tokens"] += u.get("completion_tokens", 0)
+                self.usage["calls"] += 1
+                return body
+            _backoff(attempt)
+        raise RuntimeError(
+            f"{self.MAX_ATTEMPTS} attempts to {self.base} failed; last: {last!r}"
+        )
 
     def contract_for(self, node: dict) -> dict:
         """The slice of the contract this node is actually responsible for.
@@ -397,29 +486,32 @@ class LLMRunner:
         scoped = self.contract_for(node) if hasattr(self, "verification") else {
             "checks": getattr(self, "checks", []), "keys": getattr(self, "asserted", set())
         }
-        checks = scoped["checks"]
+        # v1.8 — the assert TEXT no longer reaches the model. Handing a node
+        # `["output.matches_ownership_map"]` and then scoring it on
+        # `output.matches_ownership_map` measures whether a model can echo a flag
+        # it was just shown, not whether the workflow works: 31 of 117 asserts in
+        # the registry are a bare truthy read, and for 6 of them the key is
+        # declared as an output of the graph's own verifier. Every pass rate
+        # recorded before this change was contaminated by it.
+        #
+        # What survives is the *keys* (via `_assembly_hint`) and the exit
+        # contract — a node is entitled to know what it must produce and what the
+        # workflow is for. It is not entitled to the marking scheme.
         prompt = (
             f"You are node '{node['id']}' (speciality: {node['speciality']}) in a workflow. "
             f"Abilities: {', '.join(node.get('abilities', []))}.\n"
             + _goal_line(bb)
             + f"Blackboard so far: {json.dumps(bb, default=str)}\n"
             + (f"The workflow's exit contract is: {contract}\n" if contract else "")
-            + (f"Downstream assertions that must hold: {json.dumps(checks)}\n" if checks else "")
             + wants
             + _shapes.describe(node)
             + self._assembly_hint(declared, scoped["keys"])
             + "Reply with ONLY a JSON object. No prose, no markdown fence."
         )
-        req = urllib.request.Request(
-            f"{self.base}/chat/completions",
-            data=json.dumps({"model": self.model,
-                             "messages": [{"role": "user", "content": prompt}]}).encode(),
-            headers={"Content-Type": "application/json",
-                     **({"Authorization": f"Bearer {self.key}"} if self.key else {})},
-        )
-        with urllib.request.urlopen(req, timeout=120) as r:  # noqa: S310
-            text = json.load(r)["choices"][0]["message"]["content"]
-        return extract_json(text)
+        body = self._post({"model": self.model,
+                           "messages": [{"role": "user", "content": prompt}],
+                           "response_format": {"type": "json_object"}})
+        return extract_json(body["choices"][0]["message"]["content"])
 
     def approve(self, node: dict, bb: dict, auto_approve: bool = False) -> dict:
         """Refuse to sign a human gate — a model must not approve its own work.
@@ -506,13 +598,7 @@ class ToolRunner(LLMRunner):
         payload = {"model": self.model, "messages": messages}
         if tools:
             payload["tools"] = tools
-        req = urllib.request.Request(
-            f"{self.base}/chat/completions", data=json.dumps(payload).encode(),
-            headers={"Content-Type": "application/json",
-                     **({"Authorization": f"Bearer {self.key}"} if self.key else {})},
-        )
-        with urllib.request.urlopen(req, timeout=180) as r:  # noqa: S310
-            return json.load(r)["choices"][0]["message"]
+        return self._post(payload)["choices"][0]["message"]
 
     def run(self, node: dict, bb: dict) -> dict:
         from . import bindings
@@ -666,11 +752,32 @@ def _run_command(cmd: str, cwd, rep: RunReport) -> None:
         rep.command_failures.append(f"{cmd} (exit {proc.returncode}: {tail[0]})")
 
 
-#: Rough per-node cost used only to make `budget.usd_max` enforceable without a
-#: billing integration. Deliberately crude and deliberately NOT presented as a
-#: price: it exists so a cap can halt a run, which beats a cap that is recorded
-#: and ignored — the pattern v1.3 exists to stop repeating.
+#: USD per 1M tokens, (prompt, completion). Live runs price from the `usage` the
+#: endpoint returns, so `budget.usd_max` halts on what the run actually cost.
+#: An unlisted model falls back to `_EST_USD_PER_NODE` and the report says so —
+#: a guessed price must be labelled as one, never averaged in beside a measured one.
+_TOKEN_PRICES: dict[str, tuple[float, float]] = {
+    "gpt-4o": (2.50, 10.00),
+    "gpt-4o-mini": (0.15, 0.60),
+}
+
+#: Fallback for a mock run or an unpriced model: there are no token counts to
+#: price, so the cap needs *something* to enforce against. Deliberately crude and
+#: deliberately not presented as a price — a cap that is recorded and ignored is
+#: the pattern v1.3 exists to stop repeating.
 _EST_USD_PER_NODE = 0.002
+
+
+def _spend(runner, steps: int) -> tuple[float, bool]:
+    """(cost so far, whether it was measured). Measured beats estimated, always."""
+    usage = getattr(runner, "usage", None)
+    if not usage or not usage.get("calls"):
+        return steps * _EST_USD_PER_NODE, False
+    model = getattr(runner, "model", "")
+    price = _TOKEN_PRICES.get(model) or _TOKEN_PRICES.get(model.split(":")[0])
+    if price is None:
+        return steps * _EST_USD_PER_NODE, False
+    return (usage["prompt_tokens"] * price[0] + usage["completion_tokens"] * price[1]) / 1e6, True
 
 
 def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
@@ -773,12 +880,15 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
                 f"steps_max={budget['steps_max']} reached; halted before step {rep.steps + 1}"
             )
             break
-        if budget.get("usd_max") and (rep.steps + 1) * _EST_USD_PER_NODE > budget["usd_max"]:
-            rep.budget_exhausted = (
-                f"usd_max=${budget['usd_max']:.4f} would be exceeded by step {rep.steps + 1} "
-                f"(estimated ${(rep.steps + 1) * _EST_USD_PER_NODE:.4f})"
-            )
-            break
+        if budget.get("usd_max"):
+            spent, measured = _spend(runner, rep.steps + 1)
+            if spent > budget["usd_max"]:
+                how = "measured" if measured else "estimated"
+                rep.budget_exhausted = (
+                    f"usd_max=${budget['usd_max']:.4f} would be exceeded by step "
+                    f"{rep.steps + 1} ({how} ${spent:.4f})"
+                )
+                break
         pick = next((i for i, nid in enumerate(pending) if rdy.ready(nid)), None)
         if pick is None:
             # Nothing is ready. Distinguish two cases: a node whose incoming
@@ -873,6 +983,11 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
         scope = {**bb, **rep.phase_frame(v["phase"])} if v.get("phase") else bb
         try:
             ok = bool(safe_eval(v["assert"], scope))
+        except UnsafeExpression:
+            # A refused expression is a rejected graph. Recording it as one more
+            # failed assert would let a hostile contribution read as merely a
+            # low-scoring one, which is exactly the signal that must not blend in.
+            raise
         except Exception as ex:
             ok, ex_note = False, f" ({type(ex).__name__}: {ex})"
         else:
@@ -880,6 +995,10 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
         if not ok:
             label = f"[{v['phase']}] " if v.get("phase") else ""
             rep.assert_failures.append(label + v["assert"] + ex_note)
+    usage = getattr(runner, "usage", None)
+    if usage and usage.get("calls"):
+        spent, measured = _spend(runner, rep.steps)
+        rep.usage = {**usage, "usd": round(spent, 6), "usd_measured": measured}
     return rep
 
 
@@ -985,6 +1104,8 @@ def _search(node: dict, bb: dict, runner, rep: RunReport, visit: int) -> dict:
                                    "branch": b, "out": out})
                 try:
                     score = safe_eval(spec["score"], {**ctx, **out})
+                except UnsafeExpression:
+                    raise
                 except Exception:
                     continue  # unscoreable candidate is not a candidate
                 # A score that cannot be ordered is no more usable than one that
@@ -1157,6 +1278,8 @@ def _run_gate(node: dict, bb: dict, runner, auto_approve: bool, rep: RunReport) 
     contract = node["approval"]["contract"]
     try:
         ok = bool(safe_eval(contract, merged))
+    except UnsafeExpression:
+        raise  # an approval gate is the last place to fail quietly
     except Exception:
         ok = False
     rep.approvals.append((node["id"], ok))

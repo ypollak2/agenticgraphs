@@ -113,4 +113,4 @@ state:
   - source_schema
 goal:
   required: true
-  description: the source schema and the target shape it must reach
+  description: the current schema, the target schema, and the table that must stay live

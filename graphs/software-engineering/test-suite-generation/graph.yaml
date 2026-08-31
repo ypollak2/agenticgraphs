@@ -39,3 +39,9 @@ termination:
   contract: coverage delta positive; mutation score above baseline
 verification:
 - assert: output.coverage_delta > 0 and output.mutation_score > output.mutation_baseline
+goal:
+  required: true
+  description: the module to test and the coverage or mutation bar it must clear
+state:
+  inputs:
+  - goal

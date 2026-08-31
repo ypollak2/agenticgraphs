@@ -1,15 +1,39 @@
 cases:
-  - id: happy-path
-    node_outputs:
-      intake: {summary: "intake complete"}
-      produce: {output: {'verdicts': [{'claim': 'unemployment fell', 'verdict': 'true', 'source_url': 'https://example.gov/data', 'quote_span': 'unemployment fell to 3.9%'}]}}
-      review: {revision_requested: false, attempts: 1}
-  - id: retry-then-resolved
-    node_outputs:
-      intake: {summary: "intake complete"}
-      produce:
-        - {output: {'verdicts': [{'claim': 'unemployment fell', 'verdict': 'unverifiable', 'source_url': '', 'quote_span': ''}]}}
-        - {output: {'verdicts': [{'claim': 'unemployment fell', 'verdict': 'true', 'source_url': 'https://example.gov/data', 'quote_span': 'unemployment fell to 3.9%'}]}}
-      review:
-        - {revision_requested: true, attempts: 1}
-        - {revision_requested: false, attempts: 2}
+- id: happy-path
+  node_outputs:
+    intake:
+      summary: intake complete
+    produce:
+      output:
+        verdicts:
+        - claim: unemployment fell
+          verdict: 'true'
+          source_url: https://example.gov/data
+          quote_span: unemployment fell to 3.9%
+    review:
+      revision_requested: false
+      attempts: 1
+  goal: the twelve claims in the launch post, against primary sources
+- id: retry-then-resolved
+  node_outputs:
+    intake:
+      summary: intake complete
+    produce:
+    - output:
+        verdicts:
+        - claim: unemployment fell
+          verdict: unverifiable
+          source_url: ''
+          quote_span: ''
+    - output:
+        verdicts:
+        - claim: unemployment fell
+          verdict: 'true'
+          source_url: https://example.gov/data
+          quote_span: unemployment fell to 3.9%
+    review:
+    - revision_requested: true
+      attempts: 1
+    - revision_requested: false
+      attempts: 2
+  goal: the twelve claims in the launch post, against primary sources

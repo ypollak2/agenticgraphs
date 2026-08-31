@@ -37,3 +37,9 @@ termination:
   contract: benchmark under target with no test regressions
 verification:
 - assert: output.benchmark_ms <= output.target_ms and not output.test_regressions
+goal:
+  required: true
+  description: the workload to optimize and the latency or throughput target
+state:
+  inputs:
+  - goal

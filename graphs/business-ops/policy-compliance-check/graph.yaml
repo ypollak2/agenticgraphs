@@ -35,3 +35,9 @@ termination:
   contract: findings map to specific policy clause ids
 verification:
 - assert: all(f.clause_id for f in output.findings)
+goal:
+  required: true
+  description: the internal documents to check and the policy set to check them against
+state:
+  inputs:
+  - goal

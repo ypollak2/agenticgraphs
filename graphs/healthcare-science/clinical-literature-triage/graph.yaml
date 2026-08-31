@@ -46,3 +46,9 @@ termination:
   contract: labels match a validated sample set
 verification:
 - assert: output.matches_validated_set
+goal:
+  required: true
+  description: the papers to triage and the evidence hierarchy to rank them by
+state:
+  inputs:
+  - goal

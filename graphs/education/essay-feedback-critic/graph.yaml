@@ -36,3 +36,9 @@ termination:
   contract: every comment quotes essay text; rubric ids cited
 verification:
 - assert: all(c.quote and c.rubric_id for c in output.comments)
+goal:
+  required: true
+  description: the essay to critique and the assignment brief it answers
+state:
+  inputs:
+  - goal

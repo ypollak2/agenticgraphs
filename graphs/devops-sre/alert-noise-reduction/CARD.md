@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-013` | devops-sre | **map-reduce** | 3 | 2 | 1 | 0 | 20 | write |
 
+> 🎯 **Requires a goal** — the alert history to cluster and the window it covers. Its trigger supplies this when it fires on schedule.
+
 ## The graph
 
 ```mermaid

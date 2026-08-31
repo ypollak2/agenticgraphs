@@ -46,3 +46,10 @@ budget:
 durability:
   checkpoint: every_node
   resume: true
+goal:
+  required: true
+  description: the alert history to cluster and the window it covers
+  supplied_by_trigger: true
+state:
+  inputs:
+  - goal

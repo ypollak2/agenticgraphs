@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-110` | creative-production | **map-reduce** | 3 | 2 | 1 | 0 | 20 | write |
 
+> 🎯 **Requires a goal** — the interview notes to synthesize and the research question behind them. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

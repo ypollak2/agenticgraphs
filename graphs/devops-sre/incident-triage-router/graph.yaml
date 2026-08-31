@@ -46,3 +46,9 @@ termination:
   contract: routing matches on-call ownership map
 verification:
 - assert: output.matches_ownership_map
+goal:
+  required: true
+  description: the incident to route and the on-call ownership map to route it by
+state:
+  inputs:
+  - goal

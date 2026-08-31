@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-004` | software-engineering | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
 
+> 🎯 **Requires a goal** — the code to refactor and the test suite that must stay green. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

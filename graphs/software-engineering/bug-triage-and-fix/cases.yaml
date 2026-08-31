@@ -14,6 +14,7 @@ cases:
       output:
         test_failed_before_patch: true
         test_passes_after_patch: true
+  goal: issue 481, reproducing in the checkout service
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -30,3 +31,4 @@ cases:
       output:
         test_failed_before_patch: true
         test_passes_after_patch: true
+  goal: issue 481, reproducing in the checkout service

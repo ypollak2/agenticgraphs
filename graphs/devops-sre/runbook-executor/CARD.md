@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-012` | devops-sre | **planner-executor-verifier** | 3 | 3 | 1 | 0 | 25 | execute |
 
+> 🎯 **Requires a goal** — the runbook to execute and the environment to execute it in. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

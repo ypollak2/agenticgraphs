@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-028` | research-knowledge | **map-reduce** | 3 | 2 | 1 | 0 | 20 | write |
 
+> 🎯 **Requires a goal** — the competitors to profile and the decision the brief informs. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

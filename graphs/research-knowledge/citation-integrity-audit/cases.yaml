@@ -20,6 +20,7 @@ cases:
         - id: C1
           resolves: true
         mismatches: []
+  goal: the systematic review draft and its 96 references
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -42,3 +43,4 @@ cases:
         - id: C1
           resolves: true
         mismatches: []
+  goal: the systematic review draft and its 96 references

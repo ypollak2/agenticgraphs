@@ -71,5 +71,5 @@ durability:
   resume: true
 goal:
   required: true
-  description: the supplier portfolio to score
+  description: the supplier portfolio to monitor and the risk thresholds that matter
   supplied_by_trigger: true

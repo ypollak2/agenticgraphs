@@ -14,4 +14,4 @@ cases:
         segments_scored: 6
         variance: 0.14
         final_score: 78
-  goal: score the Acme discovery call against the MEDDIC rubric
+  goal: the Northwind discovery call, against the MEDDIC rubric

@@ -36,3 +36,9 @@ termination:
   contract: brief covers all unresolved asks; quotes traceable
 verification:
 - assert: output.all_asks_covered and all(a.quote for a in output.asks)
+goal:
+  required: true
+  description: the support thread to summarize and the tier receiving it
+state:
+  inputs:
+  - goal

@@ -7,7 +7,7 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-093` | hr-people | **planner-executor-verifier** | 4 | 5 | 1 | 0 | 25 | write |
 
-> 🎯 **Requires a goal** — the role and team the 30/60/90 plan is for. Without one the graph refuses and runs no node.
+> 🎯 **Requires a goal** — the new hire's role and the team they are joining. Without one the graph refuses and runs no node.
 
 ## The graph
 

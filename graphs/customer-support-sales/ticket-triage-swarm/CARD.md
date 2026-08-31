@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-077` | customer-support-sales | **router** | 4 | 4 | 1 | 1 | 12 | write |
 
+> 🎯 **Requires a goal** — the tickets to triage and the queue ownership map to route by. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

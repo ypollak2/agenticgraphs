@@ -87,4 +87,4 @@ state:
   - manuscript
 goal:
   required: true
-  description: the manuscript to edit and the editorial brief it must meet
+  description: the manuscript to edit and the house style it must follow

@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-002` | software-engineering | **planner-executor-verifier** | 3 | 3 | 1 | 0 | 25 | execute |
 
+> 🎯 **Requires a goal** — the bug report to fix and the repository it reproduces in. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

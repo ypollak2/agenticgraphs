@@ -76,4 +76,4 @@ state:
   - recording
 goal:
   required: true
-  description: the recording to publish and the episode's intended audience
+  description: the episode transcript to work from and the show it belongs to

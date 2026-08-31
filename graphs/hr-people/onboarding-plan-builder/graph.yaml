@@ -69,4 +69,4 @@ state:
   - team
 goal:
   required: true
-  description: the role and team the 30/60/90 plan is for
+  description: the new hire's role and the team they are joining

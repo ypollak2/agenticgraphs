@@ -37,3 +37,9 @@ termination:
   contract: conclusion supported by query results attached
 verification:
 - assert: len(output.query_results) > 0 and output.conclusion
+goal:
+  required: true
+  description: the alert to investigate and the telemetry available to investigate it
+state:
+  inputs:
+  - goal

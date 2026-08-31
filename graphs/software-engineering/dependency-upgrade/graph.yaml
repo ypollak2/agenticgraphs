@@ -45,3 +45,10 @@ budget:
 durability:
   checkpoint: every_node
   resume: true
+goal:
+  required: true
+  description: the dependencies to upgrade and the suite that must stay green
+  supplied_by_trigger: true
+state:
+  inputs:
+  - goal

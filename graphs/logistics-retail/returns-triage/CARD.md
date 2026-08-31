@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-102` | logistics-retail | **router** | 4 | 4 | 1 | 1 | 12 | write |
 
+> 🎯 **Requires a goal** — the return request to route and the policy table that governs it. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

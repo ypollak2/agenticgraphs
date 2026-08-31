@@ -41,3 +41,9 @@ termination:
   contract: code assignments justified by note spans
 verification:
 - assert: all(c.note_span for c in output.codes)
+goal:
+  required: true
+  description: the assigned codes to audit and the clinical documentation behind them
+state:
+  inputs:
+  - goal

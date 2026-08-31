@@ -1,11 +1,23 @@
 cases:
-  - id: simple-branch
-    node_outputs:
-      route: {complexity: low}
-      branch-simple: {handled_by: "simple"}
-      verify: {output: {'decision': 'refund', 'matches_policy_table': True}}
-  - id: complex-branch
-    node_outputs:
-      route: {complexity: high}
-      branch-complex: {handled_by: "complex"}
-      verify: {output: {'decision': 'refund', 'matches_policy_table': True}}
+- id: simple-branch
+  node_outputs:
+    route:
+      complexity: low
+    branch-simple:
+      handled_by: simple
+    verify:
+      output:
+        decision: refund
+        matches_policy_table: true
+  goal: return R-55910, against the 2026 returns policy
+- id: complex-branch
+  node_outputs:
+    route:
+      complexity: high
+    branch-complex:
+      handled_by: complex
+    verify:
+      output:
+        decision: refund
+        matches_policy_table: true
+  goal: return R-55910, against the 2026 returns policy

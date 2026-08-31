@@ -36,3 +36,9 @@ termination:
   contract: stats recomputed from raw data reproduce claimed effect
 verification:
 - assert: abs(output.recomputed_effect - output.claimed_effect) < 0.01
+goal:
+  required: true
+  description: the experiment's raw data and the effect the analysis claims
+state:
+  inputs:
+  - goal

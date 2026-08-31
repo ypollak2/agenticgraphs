@@ -8,7 +8,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
-      - run: uv sync --all-extras
+      # --frozen installs exactly what uv.lock pins. Without it CI re-resolved
+      # every dependency on every run, which is the wrong posture for a repo
+      # whose publish job holds `id-token: write` against PyPI.
+      - run: uv sync --all-extras --frozen
       - run: uv run --all-extras agr validate
       - run: uv run --all-extras python scripts/audit_usecases.py
       - run: uv run --all-extras pytest -q

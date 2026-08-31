@@ -36,3 +36,9 @@ termination:
   contract: style guide lint passes; plagiarism scan clean
 verification:
 - assert: output.lint_passed and output.plagiarism_clean
+goal:
+  required: true
+  description: the content brief to develop and the audience it targets
+state:
+  inputs:
+  - goal

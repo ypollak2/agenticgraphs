@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-063` | healthcare-science | **router** | 4 | 4 | 1 | 1 | 12 | write |
 
+> 🎯 **Requires a goal** — the papers to triage and the evidence hierarchy to rank them by. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-011` | devops-sre | **router** | 4 | 4 | 1 | 1 | 12 | write |
 
+> 🎯 **Requires a goal** — the incident to route and the on-call ownership map to route it by. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

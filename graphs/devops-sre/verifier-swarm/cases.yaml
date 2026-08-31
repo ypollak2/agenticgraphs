@@ -16,6 +16,7 @@ cases:
       output:
         verified: true
         escalated: false
+  goal: make tests/integration pass; proven by `pytest tests/integration`
 - id: retry-then-verified
   node_outputs:
     planner:
@@ -36,6 +37,7 @@ cases:
       output:
         verified: true
         escalated: false
+  goal: make tests/integration pass; proven by `pytest tests/integration`
 - id: three-failures-escalates
   node_outputs:
     planner:
@@ -59,3 +61,4 @@ cases:
       output:
         verified: false
         escalated: true
+  goal: make tests/integration pass; proven by `pytest tests/integration`

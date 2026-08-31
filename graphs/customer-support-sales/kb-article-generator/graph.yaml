@@ -36,3 +36,9 @@ termination:
   contract: steps reproduce resolution; duplicates deduped
 verification:
 - assert: output.reproduces_resolution and output.duplicates_deduped
+goal:
+  required: true
+  description: the resolved ticket to write up and the audience for the article
+state:
+  inputs:
+  - goal

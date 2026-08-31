@@ -51,3 +51,9 @@ termination:
   contract: synthesizer output cites >=1 source per claim; unverifiable claims are labeled
 verification:
 - assert: all(c.sources for c in output.claims)
+goal:
+  required: true
+  description: the research question to answer and the confidence bar an answer must clear
+state:
+  inputs:
+  - goal

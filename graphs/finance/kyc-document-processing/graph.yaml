@@ -35,3 +35,9 @@ termination:
   contract: extracted fields validate against document images
 verification:
 - assert: all(f.validated for f in output.fields)
+goal:
+  required: true
+  description: the customer documents to process and the jurisdiction's KYC requirements
+state:
+  inputs:
+  - goal

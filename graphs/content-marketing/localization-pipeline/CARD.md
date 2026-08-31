@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-038` | content-marketing | **map-reduce** | 3 | 2 | 1 | 0 | 20 | write |
 
+> 🎯 **Requires a goal** — the source content to translate and the locales to translate it into. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

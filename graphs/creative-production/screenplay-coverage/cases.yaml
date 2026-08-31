@@ -24,4 +24,4 @@ cases:
       output:
         recommendation: consider
         comps: *id001
-  goal: cover the 110-page contained sci-fi thriller against a low-budget mandate
+  goal: the 104-page Longwater draft, for a mid-budget indie slate

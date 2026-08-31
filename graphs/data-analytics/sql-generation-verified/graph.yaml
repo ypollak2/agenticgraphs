@@ -37,3 +37,9 @@ termination:
   contract: query executes; result passes row-count sanity assertions
 verification:
 - assert: output.query_executes and output.row_count_sane
+goal:
+  required: true
+  description: the question to answer in SQL and the schema to answer it against
+state:
+  inputs:
+  - goal

@@ -15,6 +15,7 @@ cases:
         steps:
         - id: s1
           exit_code: 0
+  goal: the certificate rotation runbook, in staging
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -32,3 +33,4 @@ cases:
         steps:
         - id: s1
           exit_code: 0
+  goal: the certificate rotation runbook, in staging

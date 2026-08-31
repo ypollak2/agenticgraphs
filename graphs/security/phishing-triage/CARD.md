@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-085` | security | **router** | 4 | 4 | 1 | 1 | 12 | write |
 
+> 🎯 **Requires a goal** — the reported email to classify and the organisation's sender baseline. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

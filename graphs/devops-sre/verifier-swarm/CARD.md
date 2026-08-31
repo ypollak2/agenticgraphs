@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-114` | devops-sre | **parallel-swarm** | 3 | 3 | 1 | 0 | 30 | execute |
 
+> 🎯 **Requires a goal** — the goal to decompose and the command that proves it done. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

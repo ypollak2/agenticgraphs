@@ -14,6 +14,7 @@ from pathlib import Path
 import yaml
 
 from .autonomy import commit_autonomous_mutation, require_autonomous, require_execute_allowed
+from .evalcmd import case_inputs
 from .harness import MockRunner, run_graph
 from .inspect import find_graph
 from .registry import ROOT, cases_path, iter_yaml, load
@@ -36,11 +37,22 @@ def _write_checked(gpath: Path, doc: dict, original: str) -> list[str]:
 
 
 def _cases_still_pass(name: str, doc: dict, root: Path = ROOT) -> bool:
+    """Replay the golden cases against a mutated doc, exactly as `eval_graph` would.
+
+    Seeding `case_inputs` is not optional. Every graph declares `goal.required`
+    as of v1.8, so a replay that omits the case's goal makes the graph refuse
+    before it schedules a node — every case "fails", every operator is reverted,
+    and `optimize` silently proposes nothing on a registry where it previously
+    worked. A safety check that rejects everything is indistinguishable from one
+    that is broken, which is why this shares `case_inputs` with the evaluator
+    rather than rebuilding the seed.
+    """
     cf = cases_path(name, root)
     if not cf.exists():
         return True
     for case in yaml.safe_load(cf.read_text())["cases"]:
-        if not run_graph(doc, MockRunner(case["node_outputs"])).passed:
+        rep = run_graph(doc, MockRunner(case["node_outputs"]), inputs=case_inputs(case))
+        if not rep.passed:
             return False
     return True
 

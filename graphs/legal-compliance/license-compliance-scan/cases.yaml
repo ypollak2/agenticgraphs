@@ -17,6 +17,7 @@ cases:
         - name: foo
           spdx: MIT
         copyleft_conflicts: []
+  goal: the production lockfile, against the no-copyleft policy
 - id: multi-item
   node_outputs:
     partition:
@@ -35,3 +36,4 @@ cases:
         - name: bar
           spdx: GPL-3.0
         copyleft_conflicts: []
+  goal: the production lockfile, against the no-copyleft policy

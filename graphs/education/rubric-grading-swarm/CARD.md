@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-075` | education | **parallel-swarm** | 3 | 3 | 1 | 0 | 30 | execute |
 
+> 🎯 **Requires a goal** — the submissions to grade and the rubric to grade them against. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

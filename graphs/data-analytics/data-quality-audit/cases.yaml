@@ -19,6 +19,7 @@ cases:
         violations:
         - rule_id: null-check
           count: 3
+  goal: the customers table, against the CDM completeness rules
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -40,3 +41,4 @@ cases:
         violations:
         - rule_id: null-check
           count: 3
+  goal: the customers table, against the CDM completeness rules

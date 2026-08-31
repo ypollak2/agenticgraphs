@@ -57,4 +57,4 @@ state:
   - transcript
 goal:
   required: true
-  description: the call transcript to score and the rubric it is judged on
+  description: the call transcript to score and the rubric to score it against

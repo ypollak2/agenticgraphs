@@ -1,15 +1,33 @@
 cases:
-  - id: meets-target-first-try
-    node_outputs:
-      intake: {summary: "intake complete"}
-      attempt: {output: {'benchmark_ms': 120, 'target_ms': 150, 'test_regressions': []}}
-      measure: {below_target: false, attempts: 1}
-  - id: retry-then-meets-target
-    node_outputs:
-      intake: {summary: "intake complete"}
-      attempt:
-        - {output: {'benchmark_ms': 200, 'target_ms': 150, 'test_regressions': []}}
-        - {output: {'benchmark_ms': 120, 'target_ms': 150, 'test_regressions': []}}
-      measure:
-        - {below_target: true, attempts: 1}
-        - {below_target: false, attempts: 2}
+- id: meets-target-first-try
+  node_outputs:
+    intake:
+      summary: intake complete
+    attempt:
+      output:
+        benchmark_ms: 120
+        target_ms: 150
+        test_regressions: []
+    measure:
+      below_target: false
+      attempts: 1
+  goal: the search endpoint, to p95 under 200ms
+- id: retry-then-meets-target
+  node_outputs:
+    intake:
+      summary: intake complete
+    attempt:
+    - output:
+        benchmark_ms: 200
+        target_ms: 150
+        test_regressions: []
+    - output:
+        benchmark_ms: 120
+        target_ms: 150
+        test_regressions: []
+    measure:
+    - below_target: true
+      attempts: 1
+    - below_target: false
+      attempts: 2
+  goal: the search endpoint, to p95 under 200ms

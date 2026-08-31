@@ -38,3 +38,9 @@ termination:
   contract: every figure matches transcript; no invented numbers
 verification:
 - assert: all(f.matches_transcript for f in output.figures) and not output.invented_numbers
+goal:
+  required: true
+  description: the earnings call to digest and the prior guidance to compare against
+state:
+  inputs:
+  - goal

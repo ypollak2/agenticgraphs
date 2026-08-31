@@ -17,6 +17,7 @@ cases:
         - advisory_url: https://vendor.example/advisory/1
           cve_ids:
           - CVE-2026-1
+  goal: this week's CISA and vendor feeds, for a Kubernetes estate
 - id: multi-item
   node_outputs:
     partition:
@@ -37,3 +38,4 @@ cases:
           cve_ids:
           - CVE-2026-2
           - CVE-2026-3
+  goal: this week's CISA and vendor feeds, for a Kubernetes estate

@@ -36,3 +36,9 @@ termination:
   contract: critic answers match keys; distractors plausible
 verification:
 - assert: all(i.answer_matches_key and i.distractors_plausible for i in output.entries)
+goal:
+  required: true
+  description: the source material to quiz on and the level of the learners
+state:
+  inputs:
+  - goal

@@ -1,15 +1,34 @@
 cases:
-  - id: happy-path
-    node_outputs:
-      intake: {summary: "intake complete"}
-      produce: {output: {'lockfile_updated': True, 'tests_pass': True, 'new_deprecations': []}}
-      review: {revision_requested: false, attempts: 1}
-  - id: retry-then-resolved
-    node_outputs:
-      intake: {summary: "intake complete"}
-      produce:
-        - {output: {'lockfile_updated': True, 'tests_pass': False, 'new_deprecations': ['foo() is deprecated']}}
-        - {output: {'lockfile_updated': True, 'tests_pass': True, 'new_deprecations': []}}
-      review:
-        - {revision_requested: true, attempts: 1}
-        - {revision_requested: false, attempts: 2}
+- id: happy-path
+  node_outputs:
+    intake:
+      summary: intake complete
+    produce:
+      output:
+        lockfile_updated: true
+        tests_pass: true
+        new_deprecations: []
+    review:
+      revision_requested: false
+      attempts: 1
+  goal: the minor-version bumps in the lockfile, keeping tests/ green
+- id: retry-then-resolved
+  node_outputs:
+    intake:
+      summary: intake complete
+    produce:
+    - output:
+        lockfile_updated: true
+        tests_pass: false
+        new_deprecations:
+        - foo() is deprecated
+    - output:
+        lockfile_updated: true
+        tests_pass: true
+        new_deprecations: []
+    review:
+    - revision_requested: true
+      attempts: 1
+    - revision_requested: false
+      attempts: 2
+  goal: the minor-version bumps in the lockfile, keeping tests/ green

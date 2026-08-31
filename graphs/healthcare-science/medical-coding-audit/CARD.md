@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-065` | healthcare-science | **parallel-swarm** | 3 | 3 | 1 | 0 | 30 | execute |
 
+> 🎯 **Requires a goal** — the assigned codes to audit and the clinical documentation behind them. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

@@ -18,7 +18,7 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-08-11",
+    "date": "2026-08-31",
     "cases": 2,
     "passed": 2,
     "pass_rate": 1.0,
@@ -74,7 +74,7 @@
     "runner": "llm-replay:devstral:24b,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-08-11",
+    "date": "2026-08-31",
     "cases": 6,
     "passed": 4,
     "pass_rate": 0.667,
@@ -240,7 +240,7 @@
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-11",
-    "age_days": 0,
+    "age_days": 20,
     "per_model_pass_rate": {
       "devstral:24b": 0.333,
       "qwen3-coder:30b": 1.0

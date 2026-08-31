@@ -19,6 +19,7 @@ cases:
         agreement: 0.85
         threshold: 0.8
         escalated: false
+  goal: 34 essays, against the AP argumentation rubric
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -40,3 +41,4 @@ cases:
         agreement: 0.85
         threshold: 0.8
         escalated: false
+  goal: 34 essays, against the AP argumentation rubric

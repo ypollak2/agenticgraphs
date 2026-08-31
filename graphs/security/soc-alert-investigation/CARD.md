@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-087` | security | **planner-executor-verifier** | 3 | 3 | 1 | 0 | 25 | execute |
 
+> 🎯 **Requires a goal** — the alert to investigate and the telemetry available to investigate it. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

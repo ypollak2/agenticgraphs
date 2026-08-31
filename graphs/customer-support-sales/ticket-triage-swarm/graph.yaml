@@ -46,3 +46,9 @@ termination:
   contract: routing accuracy measured on labeled backlog
 verification:
 - assert: output.routing_correct
+goal:
+  required: true
+  description: the tickets to triage and the queue ownership map to route by
+state:
+  inputs:
+  - goal

@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-001` | software-engineering | **pipeline** | 4 | 4 | 1 | 0 | 12 | read |
 
+> 🎯 **Requires a goal** — the change to review and the repository it lands in. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

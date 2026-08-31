@@ -37,3 +37,9 @@ termination:
   contract: repro test fails before patch and passes after
 verification:
 - assert: output.test_failed_before_patch and output.test_passes_after_patch
+goal:
+  required: true
+  description: the bug report to fix and the repository it reproduces in
+state:
+  inputs:
+  - goal

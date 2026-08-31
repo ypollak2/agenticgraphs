@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-003` | software-engineering | **generator-critic** | 3 | 3 | 1 | 0 | 10 | execute |
 
+> 🎯 **Requires a goal** — the module to test and the coverage or mutation bar it must clear. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

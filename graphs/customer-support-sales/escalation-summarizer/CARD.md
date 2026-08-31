@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-079` | customer-support-sales | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
 
+> 🎯 **Requires a goal** — the support thread to summarize and the tier receiving it. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

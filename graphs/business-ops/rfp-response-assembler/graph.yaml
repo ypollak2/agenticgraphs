@@ -39,3 +39,9 @@ termination:
   contract: every requirement answered or flagged; page limit met
 verification:
 - assert: all(r.answered or r.flagged for r in output.requirements) and output.page_count <= output.page_limit
+goal:
+  required: true
+  description: the RFP to answer and the knowledge base to answer it from
+state:
+  inputs:
+  - goal

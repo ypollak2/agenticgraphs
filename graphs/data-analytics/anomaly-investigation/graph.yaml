@@ -46,3 +46,9 @@ termination:
   contract: classification agrees with holdout labels
 verification:
 - assert: output.matches_holdout
+goal:
+  required: true
+  description: the metric anomaly to investigate and the window it appeared in
+state:
+  inputs:
+  - goal

@@ -47,3 +47,9 @@ termination:
   contract: recall on seeded relevant set above threshold
 verification:
 - assert: output.recall >= output.threshold
+goal:
+  required: true
+  description: the document set to triage and the matter that defines relevance
+state:
+  inputs:
+  - goal

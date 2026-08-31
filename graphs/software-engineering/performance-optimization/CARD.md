@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-008` | software-engineering | **loop** | 3 | 3 | 1 | 0 | 15 | write |
 
+> 🎯 **Requires a goal** — the workload to optimize and the latency or throughput target. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

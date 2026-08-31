@@ -16,6 +16,7 @@ cases:
         query_results:
         - query: failed logins by ip
           result: 42 attempts from 1.2.3.4
+  goal: an impossible-travel alert, with 30 days of auth logs
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -34,3 +35,4 @@ cases:
         query_results:
         - query: failed logins by ip
           result: 42 attempts from 1.2.3.4
+  goal: an impossible-travel alert, with 30 days of auth logs

@@ -35,3 +35,9 @@ termination:
   contract: each action has owner and date; quotes traceable
 verification:
 - assert: all(a.owner and a.date and a.quote for a in output.actions)
+goal:
+  required: true
+  description: the meeting transcript to convert and the team it belongs to
+state:
+  inputs:
+  - goal

@@ -35,3 +35,9 @@ termination:
   contract: every redline cites a playbook position
 verification:
 - assert: all(r.playbook_ref for r in output.redlines)
+goal:
+  required: true
+  description: the contract to redline and the playbook of acceptable positions
+state:
+  inputs:
+  - goal

@@ -51,3 +51,9 @@ termination:
 verification:
 - assert: output.verdict in ['approve','request_changes']
 - assert: all(f.file and f.line for f in output.findings)
+goal:
+  required: true
+  description: the change to review and the repository it lands in
+state:
+  inputs:
+  - goal

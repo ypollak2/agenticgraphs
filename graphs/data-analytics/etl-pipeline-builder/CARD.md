@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-019` | data-analytics | **planner-executor-verifier** | 3 | 3 | 1 | 0 | 25 | execute |
 
+> 🎯 **Requires a goal** — the source and destination systems and the transformation the pipeline owes. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

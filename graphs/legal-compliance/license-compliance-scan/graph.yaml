@@ -38,3 +38,9 @@ termination:
   contract: SPDX ids resolved; copyleft conflicts flagged
 verification:
 - assert: all(p.spdx for p in output.packages) and not output.copyleft_conflicts
+goal:
+  required: true
+  description: the dependency set to scan and the licence policy it must satisfy
+state:
+  inputs:
+  - goal

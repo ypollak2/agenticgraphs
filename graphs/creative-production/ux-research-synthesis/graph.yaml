@@ -37,3 +37,9 @@ termination:
   contract: every insight cites at least two participants
 verification:
 - assert: all(i.participant_ids[1:] for i in output.insights)
+goal:
+  required: true
+  description: the interview notes to synthesize and the research question behind them
+state:
+  inputs:
+  - goal

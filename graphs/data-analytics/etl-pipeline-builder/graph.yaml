@@ -37,3 +37,9 @@ termination:
   contract: end-to-end run loads expected row counts
 verification:
 - assert: output.actual_rows == output.expected_rows
+goal:
+  required: true
+  description: the source and destination systems and the transformation the pipeline owes
+state:
+  inputs:
+  - goal

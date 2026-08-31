@@ -7,6 +7,8 @@
 |---|---|---|---|---|---|---|---|---|
 | `AGR-035` | content-marketing | **loop** | 3 | 3 | 1 | 0 | 15 | write |
 
+> 🎯 **Requires a goal** — the page to optimize and the queries it should rank for. Without one the graph refuses and runs no node.
+
 ## The graph
 
 ```mermaid

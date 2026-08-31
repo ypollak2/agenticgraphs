@@ -39,3 +39,9 @@ termination:
   contract: every note links a merged PR; no orphan claims
 verification:
 - assert: all(n.pr_url for n in output.notes) and not output.orphan_claims
+goal:
+  required: true
+  description: the merged pull requests to summarize and the release they ship in
+state:
+  inputs:
+  - goal

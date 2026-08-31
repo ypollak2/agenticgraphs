@@ -44,3 +44,9 @@ termination:
 verification:
 - assert: output.verified == true or output.escalated == true
 - command: user-supplied verify command must exit 0
+goal:
+  required: true
+  description: the goal to decompose and the command that proves it done
+state:
+  inputs:
+  - goal

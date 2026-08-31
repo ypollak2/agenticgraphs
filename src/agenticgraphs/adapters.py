@@ -28,7 +28,50 @@ def _fn(node_id: str) -> str:
     return "node_" + node_id.replace("-", "_").replace(".", "_")
 
 
-_PRELUDE = '''\
+#: The emitted module is self-contained by design, so the allowlist that
+#: `agenticgraphs.safeexpr` applies at eval time is inlined here rather than
+#: imported. Without it, every generated LangGraph/CrewAI/AutoGen app shipped
+#: the escape `{"__builtins__": {}}` never closed.
+_EMITTED_GUARD = '''\
+import ast as _ast
+
+_ALLOWED_NODES = {
+    "Expression", "BoolOp", "And", "Or", "UnaryOp", "Not", "IfExp", "Compare",
+    "Eq", "NotEq", "Lt", "LtE", "Gt", "GtE", "Is", "IsNot", "In", "NotIn",
+    "BinOp", "Add", "Sub", "Mult", "Div", "Mod", "Name", "Load", "Attribute",
+    "Constant", "Subscript", "Slice", "List", "Tuple", "Set", "Dict", "Call",
+    "GeneratorExp", "ListComp", "SetComp", "comprehension", "Store",
+}
+_CALLABLE_NAMES = {"len", "all", "any", "sum", "min", "max", "abs", "round"}
+
+
+def _safe_expr(expr: str):
+    """Compile `expr` only if every node is allowlisted. Returns None otherwise."""
+    try:
+        tree = _ast.parse(expr, mode="eval")
+    except SyntaxError:
+        return None
+    for node in _ast.walk(tree):
+        if type(node).__name__ not in _ALLOWED_NODES:
+            return None
+        if isinstance(node, _ast.Attribute) and node.attr.startswith("_"):
+            return None
+        if isinstance(node, _ast.Name) and node.id.startswith("_"):
+            return None
+        if isinstance(node, _ast.Call):
+            fn = node.func
+            if isinstance(fn, _ast.Attribute):
+                if fn.attr != "get":
+                    return None
+            elif isinstance(fn, _ast.Name):
+                if fn.id not in _CALLABLE_NAMES:
+                    return None
+            else:
+                return None
+    return compile(tree, "<agr-expr>", "eval")
+'''
+
+_PRELUDE = _EMITTED_GUARD + '''\
 from langgraph.graph import END, START, StateGraph
 
 _ORDER = {"trivial": -1, "low": 0, "simple": 0, "medium": 1, "moderate": 1,
@@ -50,8 +93,11 @@ def _cond(expr: str, state: dict) -> bool:
 
     ns = {"true": True, "false": False, "len": len, "all": all, "any": any,
           **{k: _L(k) for k in _ORDER}, **state}
+    code = _safe_expr(expr)
+    if code is None:
+        return False  # refused by the allowlist: not a condition, not taken
     try:
-        return bool(eval(expr, {"__builtins__": {}}, ns))
+        return bool(eval(code, {"__builtins__": {}}, ns))
     except Exception:
         return False
 '''
@@ -147,7 +193,7 @@ def emit_crewai(doc: dict) -> str:
     return "\n".join(out)
 
 
-_AUTOGEN_COND = '''\
+_AUTOGEN_COND = _EMITTED_GUARD + '''\
 def _cond(expr: str, state: dict) -> bool:
     class _L:
         def __init__(self, s): self.v = _ORDER[s]
@@ -163,8 +209,11 @@ def _cond(expr: str, state: dict) -> bool:
 
     ns = {"true": True, "false": False, "len": len, "all": all, "any": any,
           **{k: _L(k) for k in _ORDER}, **state}
+    code = _safe_expr(expr)
+    if code is None:
+        return False  # refused by the allowlist: not a condition, not taken
     try:
-        return bool(eval(expr, {"__builtins__": {}}, ns))
+        return bool(eval(code, {"__builtins__": {}}, ns))
     except Exception:
         return False
 '''

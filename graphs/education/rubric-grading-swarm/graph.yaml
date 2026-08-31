@@ -43,3 +43,9 @@ termination:
   contract: inter-rater agreement above threshold or escalated
 verification:
 - assert: output.agreement >= output.threshold or output.escalated
+goal:
+  required: true
+  description: the submissions to grade and the rubric to grade them against
+state:
+  inputs:
+  - goal
