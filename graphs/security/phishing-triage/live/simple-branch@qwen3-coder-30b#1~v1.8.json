@@ -1,0 +1,36 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "labeled_corpus": {
+      "invoice-from-known-vendor": "benign",
+      "password-expiry-lookalike-domain": "phish",
+      "ceo-gift-card-request": "phish"
+    },
+    "goal": "the reported email 'invoice-from-known-vendor', against the labelled corpus"
+  },
+  "node_outputs": {
+    "route": {
+      "complexity": "low"
+    },
+    "branch-simple": {
+      "assigned_verdict": "benign"
+    },
+    "verify": {
+      "expected_verdict": "benign",
+      "assigned_verdict": "benign",
+      "output": {
+        "assigned_verdict": "benign",
+        "expected_verdict": "benign"
+      }
+    }
+  },
+  "tool_calls": []
+}

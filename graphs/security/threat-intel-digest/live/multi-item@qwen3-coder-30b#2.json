@@ -1,0 +1,90 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "this week's CISA and vendor feeds, for a Kubernetes estate"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "source": "CISA",
+          "advisory": "2024-156789",
+          "cve_ids": [
+            "CVE-2024-12345"
+          ]
+        },
+        {
+          "source": "Vendor",
+          "advisory": "VULN-2024-67890",
+          "cve_ids": [
+            "CVE-2024-54321"
+          ]
+        }
+      ]
+    },
+    "map": [
+      {
+        "shard_result": {
+          "source": "CISA",
+          "advisory": "2024-156789",
+          "cve_ids": [
+            "CVE-2024-12345"
+          ]
+        }
+      },
+      {
+        "shard_result": {
+          "source": "Vendor",
+          "advisory": "VULN-2024-67890",
+          "cve_ids": [
+            "CVE-2024-54321"
+          ]
+        }
+      }
+    ],
+    "estate-match": {
+      "affected_assets": []
+    },
+    "reduce": {
+      "entries": [
+        {
+          "advisory_url": "2024-156789",
+          "cve_ids": [
+            "CVE-2024-12345"
+          ]
+        },
+        {
+          "advisory_url": "VULN-2024-67890",
+          "cve_ids": [
+            "CVE-2024-54321"
+          ]
+        }
+      ],
+      "output": {
+        "entries": [
+          {
+            "advisory_url": "2024-156789",
+            "cve_ids": [
+              "CVE-2024-12345"
+            ]
+          },
+          {
+            "advisory_url": "VULN-2024-67890",
+            "cve_ids": [
+              "CVE-2024-54321"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": []
+}

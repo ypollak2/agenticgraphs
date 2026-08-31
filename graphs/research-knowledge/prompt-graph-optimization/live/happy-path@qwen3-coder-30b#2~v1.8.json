@@ -1,0 +1,90 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "optimize the support-triage graph for accuracy on the held-out set"
+  },
+  "node_outputs": {
+    "baseline": {
+      "baseline_score": 0.823,
+      "eval_set": "support_tickets_v2_holdout"
+    },
+    "search": [
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2.1",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.847
+      },
+      {
+        "variant": "triage_graph_v2_optimized",
+        "score": 0.847
+      }
+    ],
+    "confirm": {
+      "holdout_score": 0.847,
+      "output": {
+        "baseline_score": 0.823,
+        "holdout_score": 0.847
+      }
+    }
+  },
+  "tool_calls": []
+}

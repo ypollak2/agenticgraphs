@@ -62,11 +62,91 @@
     "provisional": false,
     "verification_depth": "command",
     "date": "2026-08-31",
-    "cases": 1,
+    "cases": 3,
     "passed": 0,
     "pass_rate": 0.0,
     "mean_steps": 8.0,
     "results": [
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": true,
+        "passed": false,
+        "steps": 8,
+        "trace": [
+          "ingest",
+          "prioritize.intake",
+          "prioritize.produce",
+          "prioritize.review",
+          "reproduce",
+          "patch",
+          "prove",
+          "disclose-approval"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [
+          "disclose"
+        ],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [
+          "output.repro_exit_code_before == 0 and output.repro_exit_code_after != 0",
+          "output.advisory_url and output.cve_id (AttributeError: advisory_url)"
+        ],
+        "skipped_command_checks": 1,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [
+          "disclose-approval"
+        ],
+        "auto_approved": true,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": true,
+        "passed": false,
+        "steps": 8,
+        "trace": [
+          "ingest",
+          "prioritize.intake",
+          "prioritize.produce",
+          "prioritize.review",
+          "reproduce",
+          "patch",
+          "prove",
+          "disclose-approval"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [
+          "disclose"
+        ],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [
+          "output.repro_exit_code_before == 0 and output.repro_exit_code_after != 0",
+          "output.advisory_url and output.cve_id (AttributeError: advisory_url)"
+        ],
+        "skipped_command_checks": 1,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [
+          "disclose-approval"
+        ],
+        "auto_approved": true,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
@@ -120,7 +200,7 @@
     "fails_every_model": true,
     "flaky_models": [],
     "samples_per_model": {
-      "qwen3-coder:30b": 1
+      "qwen3-coder:30b": 3
     },
     "gate_auto_approved": true
   }

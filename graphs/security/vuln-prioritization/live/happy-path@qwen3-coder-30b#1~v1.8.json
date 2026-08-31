@@ -1,0 +1,55 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the weekly scanner output, against the prod asset map"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Scanned assets show 15 new entries not present in prod map, 8 existing assets have updated IP addresses, and 3 assets marked as decommissioned in scanner but still listed in prod map. Highest priority action needed for 2 assets with conflicting DNS records and 1 asset showing unauthorized port 22 open."
+    },
+    "produce": {
+      "ranking": [
+        {
+          "asset_map_ref": "192.168.1.101",
+          "scanner_evidence": "conflicting DNS records"
+        },
+        {
+          "asset_map_ref": "10.0.0.42",
+          "scanner_evidence": "unauthorized port 22 open"
+        },
+        {
+          "asset_map_ref": "172.16.3.25",
+          "scanner_evidence": "decommissioned in scanner but still in prod map"
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "ranking": [
+          {
+            "asset_map_ref": "192.168.1.101",
+            "scanner_evidence": "conflicting DNS records"
+          },
+          {
+            "asset_map_ref": "10.0.0.42",
+            "scanner_evidence": "unauthorized port 22 open"
+          },
+          {
+            "asset_map_ref": "172.16.3.25",
+            "scanner_evidence": "decommissioned in scanner but still in prod map"
+          }
+        ]
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": []
+}

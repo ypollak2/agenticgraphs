@@ -85,13 +85,137 @@
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-31",
-    "cases": 2,
+    "cases": 6,
     "passed": 0,
     "pass_rate": 0.0,
     "mean_steps": 4.0,
     "results": [
       {
         "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 4,
+        "trace": [
+          "intake",
+          "dedupe-search",
+          "produce",
+          "review"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [
+          "len(output.near_duplicates) == 0"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 4,
+        "trace": [
+          "intake",
+          "dedupe-search",
+          "produce",
+          "review"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [
+          "len(output.near_duplicates) == 0"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 4,
+        "trace": [
+          "intake",
+          "dedupe-search",
+          "produce",
+          "review"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [
+          "len(output.near_duplicates) == 0"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "retry-then-resolved",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 4,
+        "trace": [
+          "intake",
+          "dedupe-search",
+          "produce",
+          "review"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [
+          "len(output.near_duplicates) == 0"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "retry-then-resolved",
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-31",
         "gate_auto_approved": false,
@@ -165,7 +289,7 @@
     "fails_every_model": true,
     "flaky_models": [],
     "samples_per_model": {
-      "qwen3-coder:30b": 2
+      "qwen3-coder:30b": 6
     },
     "gate_auto_approved": false
   }

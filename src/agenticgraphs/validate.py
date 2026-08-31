@@ -455,6 +455,67 @@ def _lint_flow_keys(doc: dict) -> list[str]:
     return errors
 
 
+def _lint_stall(doc: dict) -> list[str]:
+    """A bounded retry must have somewhere to go when the bound is reached.
+
+    The registry's decision points share one shape:
+
+        confirm -> mitigate   when: not impact_cleared and attempts < 3
+        confirm -> postmortem when: impact_cleared
+
+    Retry while failing with attempts left; advance when it worked. Nothing covers
+    still-failing-and-out-of-attempts, so the run stops — not failed, not
+    escalated, just stopped, with the contract reporting a missing key from a node
+    that was never reached.
+
+    Detected structurally rather than by evaluating conditions: a node with a
+    back-edge guarded on `attempts < N` needs a third outgoing edge, one that is
+    neither the retry nor the sole success path. What that edge does is the
+    author's business; that one exists is not.
+    """
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    order = {n["id"]: i for i, n in enumerate(doc.get("nodes", []))}
+    out: dict[str, list[dict]] = {}
+    for e in doc.get("edges", []):
+        out.setdefault(e["from"], []).append(e)
+    errors: list[str] = []
+    for nid, edges in out.items():
+        if any(e.get("kind") in ("compensate", "error") for e in edges):
+            continue  # a failure path already exists, whatever it is guarded on
+        retry = [e for e in edges
+                 if "attempts <" in (e.get("when") or "")
+                 and order.get(e["to"], 0) <= order.get(nid, 0)]
+        forward = [e for e in edges
+                   if e not in retry and order.get(e["to"], 0) > order.get(nid, 0)]
+        # No forward edge means this node IS a terminal that happens to loop. The
+        # run ending there when the bound is reached is the correct outcome, not a
+        # stall — counting those turned 11 real findings into 51.
+        if not forward:
+            continue
+        if len(forward) >= 2:
+            continue  # a fork with alternatives; whether they are exhaustive is
+            # `_lint_flow_keys`' business, not this rule's
+        if not forward[0].get("when"):
+            continue  # an unconditional way forward always exists
+        if retry:
+            errors.append(
+                f"node '{nid}' retries while `{retry[0]['when']}` and has one way "
+                f"forward (`{forward[0]['when']}`) — nothing covers the retry bound "
+                f"being reached, so an exhausted loop stalls mid-graph instead of "
+                f"escalating"
+            )
+        else:
+            # The same hole without even a retry: the only way on is success, so
+            # failure is unrepresentable rather than merely unhandled.
+            errors.append(
+                f"node '{nid}' has exactly one way forward (`{forward[0]['when']}`) "
+                f"and no path for the condition being false — the graph cannot "
+                f"express this step failing"
+            )
+    return errors
+
+
 def _parses(expr: str) -> bool:
     try:
         ast.parse(expr, mode="eval")

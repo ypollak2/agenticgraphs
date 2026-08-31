@@ -1,0 +1,51 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the public API, against an authenticated-tenant attacker"
+  },
+  "node_outputs": {
+    "scope": {
+      "surface": "public API endpoints",
+      "rules_of_engagement": "target authenticated-tenant access points with credential validation"
+    },
+    "attack": [
+      {
+        "bypass": "sast_scan",
+        "severity": "high"
+      },
+      {
+        "bypass": "sast_scan",
+        "severity": "high"
+      },
+      {
+        "bypass": "sast_scan on tenant authentication module revealing hardcoded credentials in public API endpoint",
+        "severity": "high"
+      },
+      {
+        "bypass": "sast_scan",
+        "severity": "high"
+      }
+    ],
+    "defend": {
+      "mitigation": "execute_step('validate_tenant_credentials', {'endpoint': '/api/v1/tenant/auth', 'method': 'POST', 'payload': {'token': '{{auth_token}}'}}) && execute_step('restrict_access_by_tenant', {'endpoint': '/api/v1/tenant/resource', 'method': 'GET', 'headers': {'Authorization': 'Bearer {{auth_token}}'}, 'tenant_id': '{{tenant_id}}'})"
+    },
+    "retest": {
+      "bypasses": [],
+      "output": {
+        "bypasses": [],
+        "unmitigated": false
+      },
+      "unmitigated": false,
+      "attacker_exhausted": true
+    }
+  },
+  "tool_calls": []
+}

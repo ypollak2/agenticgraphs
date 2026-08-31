@@ -1,0 +1,76 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "ticket 79004, written for self-serve customers"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Customer reported issue with self-serve portal not allowing ticket submission. After analysis, determined that the problem was caused by a temporary server overload during peak hours, which has since been resolved. Customer was advised to retry their submission and provided with a workaround in case of future occurrences."
+    },
+    "dedupe-search": {
+      "existing_articles": [
+        "How to Submit a Ticket via Self-Serve Portal",
+        "Troubleshooting Self-Serve Portal Issues",
+        "Self-Serve Portal Not Accepting Submissions"
+      ]
+    },
+    "produce": {
+      "near_duplicates": [
+        "How to Submit a Ticket via Self-Serve Portal",
+        "Troubleshooting Self-Serve Portal Issues"
+      ],
+      "steps": [
+        {
+          "action": "generate",
+          "expected": "Step-by-step instructions for submitting tickets through the self-serve portal with specific troubleshooting tips for common issues"
+        },
+        {
+          "action": "generate",
+          "expected": "A workaround procedure for customers to follow when the self-serve portal is experiencing high traffic or temporary unavailability"
+        }
+      ]
+    },
+    "review": {
+      "near_duplicates": [
+        "How to Submit a Ticket via Self-Serve Portal",
+        "Troubleshooting Self-Serve Portal Issues"
+      ],
+      "output": {
+        "near_duplicates": [
+          "How to Submit a Ticket via Self-Serve Portal",
+          "Troubleshooting Self-Serve Portal Issues"
+        ],
+        "steps": [
+          {
+            "action": "generate",
+            "expected": "Step-by-step instructions for submitting tickets through the self-serve portal with specific troubleshooting tips for common issues"
+          },
+          {
+            "action": "generate",
+            "expected": "A workaround procedure for customers to follow when the self-serve portal is experiencing high traffic or temporary unavailability"
+          }
+        ]
+      },
+      "steps": [
+        {
+          "action": "generate",
+          "expected": "Step-by-step instructions for submitting tickets through the self-serve portal with specific troubleshooting tips for common issues"
+        },
+        {
+          "action": "generate",
+          "expected": "A workaround procedure for customers to follow when the self-serve portal is experiencing high traffic or temporary unavailability"
+        }
+      ],
+      "revision_requested": false
+    }
+  },
+  "tool_calls": []
+}

@@ -61,11 +61,81 @@
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-31",
-    "cases": 1,
+    "cases": 3,
     "passed": 0,
     "pass_rate": 0.0,
     "mean_steps": 8.0,
     "results": [
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": true,
+        "passed": false,
+        "steps": 8,
+        "trace": [
+          "intake",
+          "redline.intake",
+          "redline.playbook-lookup",
+          "redline.produce",
+          "redline.review",
+          "risk-assess",
+          "counsel-approval",
+          "execute"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [
+          "all(s.party and s.dated for s in output.signatures)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": true,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": true,
+        "passed": false,
+        "steps": 8,
+        "trace": [
+          "intake",
+          "redline.intake",
+          "redline.playbook-lookup",
+          "redline.produce",
+          "redline.review",
+          "risk-assess",
+          "counsel-approval",
+          "execute"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [
+          "all(s.party and s.dated for s in output.signatures)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": true,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
@@ -114,7 +184,7 @@
     "fails_every_model": true,
     "flaky_models": [],
     "samples_per_model": {
-      "qwen3-coder:30b": 1
+      "qwen3-coder:30b": 3
     },
     "gate_auto_approved": true
   }

@@ -56,11 +56,71 @@
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-31",
-    "cases": 1,
+    "cases": 3,
     "passed": 0,
     "pass_rate": 0.0,
     "mean_steps": 3.0,
     "results": [
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 3,
+        "trace": [
+          "frame",
+          "design",
+          "judge"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [
+          "output.designs_scored >= 3"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 3,
+        "trace": [
+          "frame",
+          "design",
+          "judge"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [
+          "output.designs_scored >= 3"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
@@ -104,7 +164,7 @@
     "fails_every_model": true,
     "flaky_models": [],
     "samples_per_model": {
-      "qwen3-coder:30b": 1
+      "qwen3-coder:30b": 3
     },
     "gate_auto_approved": false
   }

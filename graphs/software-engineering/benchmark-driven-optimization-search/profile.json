@@ -56,11 +56,67 @@
     "provisional": false,
     "verification_depth": "command",
     "date": "2026-08-31",
-    "cases": 1,
-    "passed": 1,
+    "cases": 3,
+    "passed": 3,
     "pass_rate": 1.0,
     "mean_steps": 3.0,
     "results": [
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "profile",
+          "explore",
+          "verify"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [],
+        "skipped_command_checks": 1,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "profile",
+          "explore",
+          "verify"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [],
+        "skipped_command_checks": 1,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
@@ -102,7 +158,7 @@
     "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
-      "qwen3-coder:30b": 1
+      "qwen3-coder:30b": 3
     },
     "gate_auto_approved": false
   }

@@ -26,7 +26,7 @@ the registry.
 - 🎲 **1** where one model both passed and failed across samples
 - 🚫 **25** satisfied by no model
 
-Samples per graph+model cell: {1: 25, 2: 43, 3: 9, 6: 7}. A cell with one
+Samples per graph+model cell: {1: 1, 3: 30, 6: 50, 9: 3}. A cell with one
 sample cannot distinguish a graph that passes from one that passed by luck; 🎲
 is what that looks like once there is more than one.
 
@@ -34,7 +34,7 @@ is what that looks like once there is more than one.
 
 | Graph | Model | Pass rate across samples |
 |---|---|---|
-| `rubric-grading-swarm` | `qwen3-coder:30b` | 50% of 2 |
+| `rubric-grading-swarm` | `qwen3-coder:30b` | 50% of 6 |
 
 ## 🚫 Satisfied by no model
 

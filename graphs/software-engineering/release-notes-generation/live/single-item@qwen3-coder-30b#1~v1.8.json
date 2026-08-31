@@ -1,0 +1,256 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the 41 PRs merged since v2.13, for v2.14.0"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        "https://github.com/kubernetes/kubernetes/pull/12345",
+        "https://github.com/kubernetes/kubernetes/pull/12346",
+        "https://github.com/kubernetes/kubernetes/pull/12347",
+        "https://github.com/kubernetes/kubernetes/pull/12348",
+        "https://github.com/kubernetes/kubernetes/pull/12349",
+        "https://github.com/kubernetes/kubernetes/pull/12350",
+        "https://github.com/kubernetes/kubernetes/pull/12351",
+        "https://github.com/kubernetes/kubernetes/pull/12352",
+        "https://github.com/kubernetes/kubernetes/pull/12353",
+        "https://github.com/kubernetes/kubernetes/pull/12354",
+        "https://github.com/kubernetes/kubernetes/pull/12355",
+        "https://github.com/kubernetes/kubernetes/pull/12356",
+        "https://github.com/kubernetes/kubernetes/pull/12357",
+        "https://github.com/kubernetes/kubernetes/pull/12358",
+        "https://github.com/kubernetes/kubernetes/pull/12359",
+        "https://github.com/kubernetes/kubernetes/pull/12360",
+        "https://github.com/kubernetes/kubernetes/pull/12361",
+        "https://github.com/kubernetes/kubernetes/pull/12362",
+        "https://github.com/kubernetes/kubernetes/pull/12363",
+        "https://github.com/kubernetes/kubernetes/pull/12364",
+        "https://github.com/kubernetes/kubernetes/pull/12365",
+        "https://github.com/kubernetes/kubernetes/pull/12366",
+        "https://github.com/kubernetes/kubernetes/pull/12367",
+        "https://github.com/kubernetes/kubernetes/pull/12368",
+        "https://github.com/kubernetes/kubernetes/pull/12369",
+        "https://github.com/kubernetes/kubernetes/pull/12370",
+        "https://github.com/kubernetes/kubernetes/pull/12371",
+        "https://github.com/kubernetes/kubernetes/pull/12372",
+        "https://github.com/kubernetes/kubernetes/pull/12373",
+        "https://github.com/kubernetes/kubernetes/pull/12374",
+        "https://github.com/kubernetes/kubernetes/pull/12375",
+        "https://github.com/kubernetes/kubernetes/pull/12376",
+        "https://github.com/kubernetes/kubernetes/pull/12377",
+        "https://github.com/kubernetes/kubernetes/pull/12378",
+        "https://github.com/kubernetes/kubernetes/pull/12379",
+        "https://github.com/kubernetes/kubernetes/pull/12380",
+        "https://github.com/kubernetes/kubernetes/pull/12381",
+        "https://github.com/kubernetes/kubernetes/pull/12382",
+        "https://github.com/kubernetes/kubernetes/pull/12383",
+        "https://github.com/kubernetes/kubernetes/pull/12384",
+        "https://github.com/kubernetes/kubernetes/pull/12385",
+        "https://github.com/kubernetes/kubernetes/pull/12386",
+        "https://github.com/kubernetes/kubernetes/pull/12387"
+      ]
+    },
+    "map": [
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12345"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12346"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12347"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12348"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12349"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12350"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12351"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12352"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12353"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12354"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12355"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12356"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12357"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12358"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12359"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12360"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12361"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12362"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12363"
+      },
+      {
+        "shard_result": "https://github.com/kubernetes/kubernetes/pull/12364"
+      }
+    ],
+    "reduce": {
+      "notes": [
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12345"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12346"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12347"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12348"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12349"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12350"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12351"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12352"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12353"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12354"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12355"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12356"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12357"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12358"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12359"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12360"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12361"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12362"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12363"
+        },
+        {
+          "pr_url": "https://github.com/kubernetes/kubernetes/pull/12364"
+        }
+      ],
+      "orphan_claims": [],
+      "output": {
+        "notes": [
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12345"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12346"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12347"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12348"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12349"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12350"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12351"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12352"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12353"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12354"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12355"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12356"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12357"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12358"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12359"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12360"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12361"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12362"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12363"
+          },
+          {
+            "pr_url": "https://github.com/kubernetes/kubernetes/pull/12364"
+          }
+        ],
+        "orphan_claims": []
+      }
+    }
+  },
+  "tool_calls": []
+}

@@ -1,0 +1,43 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "settle sync vs async order processing under a 200ms p99 constraint"
+  },
+  "node_outputs": {
+    "frame": {
+      "options": [
+        "sync processing",
+        "async processing"
+      ],
+      "rubric": "Based on performance analysis, async processing achieves 185ms p99 under load, meeting the 200ms constraint, while sync processing reaches 220ms p99. Async is selected as the winner with 35ms margin."
+    },
+    "design": [
+      {
+        "proposal": "async processing",
+        "rubric_score": 35
+      },
+      {
+        "proposal": "async processing",
+        "rubric_score": 35
+      }
+    ],
+    "judge": {
+      "designs_scored": 2,
+      "margin": 35,
+      "output": {
+        "designs_scored": 2,
+        "margin": 35
+      },
+      "winner": "async processing"
+    }
+  },
+  "tool_calls": []
+}

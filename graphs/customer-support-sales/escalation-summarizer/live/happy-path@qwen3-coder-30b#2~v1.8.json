@@ -1,0 +1,39 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "ticket 84120, escalating to tier 3"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Ticket 84120 requires escalation to Tier 3 support due to unresolved issues with system integration failures and persistent API timeouts that have exceeded standard troubleshooting protocols."
+    },
+    "produce": {
+      "all_asks_covered": true,
+      "asks": [
+        {
+          "quote": "Ticket 84120 requires escalation to Tier 3 support due to unresolved issues with system integration failures and persistent API timeouts that have exceeded standard troubleshooting protocols."
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "all_asks_covered": true,
+        "asks": [
+          {
+            "quote": "Ticket 84120 requires escalation to Tier 3 support due to unresolved issues with system integration failures and persistent API timeouts that have exceeded standard troubleshooting protocols."
+          }
+        ]
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": []
+}

@@ -1,0 +1,105 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "a 54-year-old with acute dyspnoea and a cardiac history"
+  },
+  "node_outputs": {
+    "intake": {
+      "presentations": [
+        "54-year-old male presenting with acute onset dyspnoea",
+        "History of cardiac disease",
+        "Need for urgent cardiovascular evaluation"
+      ]
+    },
+    "diagnose": [
+      {
+        "ranking": [
+          {
+            "clinician_id": "cardiology_attending"
+          },
+          {
+            "clinician_id": "pulmonologist"
+          },
+          {
+            "clinician_id": "emergency_medicine_physician"
+          }
+        ]
+      },
+      {
+        "ranking": [
+          {
+            "clinician_id": "cardiology_attending"
+          },
+          {
+            "clinician_id": "emergency_medicine_physician"
+          },
+          {
+            "clinician_id": "pulmonology_fellow"
+          }
+        ]
+      },
+      {
+        "ranking": [
+          {
+            "clinician_id": "cardiology_attending"
+          },
+          {
+            "clinician_id": "emergency_medicine_physician"
+          },
+          {
+            "clinician_id": "pulmonology_fellow"
+          }
+        ]
+      }
+    ],
+    "adjudicate": {
+      "consensus": [
+        "54-year-old male presenting with acute onset dyspnoea",
+        "History of cardiac disease",
+        "Need for urgent cardiovascular evaluation"
+      ],
+      "dissent": [],
+      "output": {
+        "consensus": [
+          "54-year-old male presenting with acute onset dyspnoea",
+          "History of cardiac disease",
+          "Need for urgent cardiovascular evaluation"
+        ],
+        "dissent": [],
+        "ranking": [
+          {
+            "clinician_id": "cardiology_attending"
+          },
+          {
+            "clinician_id": "emergency_medicine_physician"
+          },
+          {
+            "clinician_id": "pulmonology_fellow"
+          }
+        ],
+        "represented": 3
+      },
+      "ranking": [
+        {
+          "clinician_id": "cardiology_attending"
+        },
+        {
+          "clinician_id": "emergency_medicine_physician"
+        },
+        {
+          "clinician_id": "pulmonology_fellow"
+        }
+      ],
+      "represented": 3
+    }
+  },
+  "tool_calls": []
+}

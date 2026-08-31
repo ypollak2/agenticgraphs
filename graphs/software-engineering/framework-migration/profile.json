@@ -60,11 +60,79 @@
     "provisional": false,
     "verification_depth": "command",
     "date": "2026-08-31",
-    "cases": 1,
+    "cases": 3,
     "passed": 0,
     "pass_rate": 0.0,
     "mean_steps": 7.0,
     "results": [
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 7,
+        "trace": [
+          "inventory",
+          "supervise",
+          "port-slice.intake",
+          "port-slice.produce",
+          "port-slice.review",
+          "integrate",
+          "sign-off"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [
+          "output.slices_remaining == 0"
+        ],
+        "skipped_command_checks": 2,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 7,
+        "trace": [
+          "inventory",
+          "supervise",
+          "port-slice.intake",
+          "port-slice.produce",
+          "port-slice.review",
+          "integrate",
+          "sign-off"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [
+          "output.slices_remaining == 0"
+        ],
+        "skipped_command_checks": 2,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
@@ -112,7 +180,7 @@
     "fails_every_model": true,
     "flaky_models": [],
     "samples_per_model": {
-      "qwen3-coder:30b": 1
+      "qwen3-coder:30b": 3
     },
     "gate_auto_approved": false
   }

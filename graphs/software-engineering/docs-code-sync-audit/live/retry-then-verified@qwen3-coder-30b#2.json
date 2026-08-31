@@ -1,0 +1,47 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "docs/ against src/ at the current HEAD"
+  },
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "doc": "Compare docs/ directory with src/ directory at current HEAD",
+          "snippet": "git diff HEAD -- docs/ src/"
+        }
+      ]
+    },
+    "work": {
+      "doc": "Compare docs/ directory with src/ directory at current HEAD",
+      "command": "git diff HEAD -- docs/ src/",
+      "exit_code": 0
+    },
+    "verify": {
+      "examples": [
+        {
+          "doc": "Compare docs/ directory with src/ directory at current HEAD",
+          "exit_code": 0
+        }
+      ],
+      "output": {
+        "examples": [
+          {
+            "doc": "Compare docs/ directory with src/ directory at current HEAD",
+            "exit_code": 0
+          }
+        ]
+      },
+      "verify_failed": false
+    }
+  },
+  "tool_calls": []
+}

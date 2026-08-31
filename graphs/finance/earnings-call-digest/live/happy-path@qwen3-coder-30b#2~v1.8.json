@@ -1,0 +1,45 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the Q2 2026 call, against the guidance given in Q1"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Q2 2026 guidance exceeded Q1 guidance for revenue and EPS, with strong performance in cloud services and enterprise growth, though operating margin declined slightly year-over-year"
+    },
+    "produce": {
+      "figures": [
+        {
+          "matches_transcript": true
+        }
+      ],
+      "invented_numbers": []
+    },
+    "review": {
+      "figures": [
+        {
+          "matches_transcript": true
+        }
+      ],
+      "invented_numbers": [],
+      "output": {
+        "figures": [
+          {
+            "matches_transcript": true
+          }
+        ],
+        "invented_numbers": []
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": []
+}

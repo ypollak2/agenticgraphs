@@ -1,0 +1,65 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the Meridian MSA, against the 2026 commercial playbook"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "The Meridian MSA aligns with 2026 commercial playbook objectives by emphasizing customer-centric solutions, strategic partnerships, and scalable growth initiatives. Key playbook positions supporting this alignment include: (1) 'Prioritize high-value customer segments' - Meridian's focus on tier-1 accounts directly supports this; (2) 'Leverage data-driven insights for decision making' - Meridian's analytics capabilities reinforce this approach; (3) 'Accelerate time-to-market with agile methodologies' - Meridian's streamlined processes mirror playbook emphasis on speed and efficiency. All redlines reference specific playbook positions ensuring strategic coherence."
+    },
+    "playbook-lookup": {
+      "playbook_positions": [
+        {
+          "clause": "Prioritize high-value customer segments",
+          "position": "Prioritize high-value customer segments"
+        },
+        {
+          "clause": "Leverage data-driven insights for decision making",
+          "position": "Leverage data-driven insights for decision making"
+        },
+        {
+          "clause": "Accelerate time-to-market with agile methodologies",
+          "position": "Accelerate time-to-market with agile methodologies"
+        }
+      ]
+    },
+    "produce": {
+      "redlines": [
+        {
+          "playbook_ref": "Prioritize high-value customer segments"
+        },
+        {
+          "playbook_ref": "Leverage data-driven insights for decision making"
+        },
+        {
+          "playbook_ref": "Accelerate time-to-market with agile methodologies"
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "redlines": [
+          {
+            "playbook_ref": "Prioritize high-value customer segments"
+          },
+          {
+            "playbook_ref": "Leverage data-driven insights for decision making"
+          },
+          {
+            "playbook_ref": "Accelerate time-to-market with agile methodologies"
+          }
+        ]
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": []
+}

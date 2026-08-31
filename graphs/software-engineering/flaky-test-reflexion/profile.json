@@ -57,11 +57,95 @@
     "provisional": false,
     "verification_depth": "command",
     "date": "2026-08-31",
-    "cases": 1,
+    "cases": 3,
     "passed": 0,
     "pass_rate": 0.0,
     "mean_steps": 13.0,
     "results": [
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 13,
+        "trace": [
+          "reproduce",
+          "hypothesise",
+          "test-fix",
+          "evaluate",
+          "hypothesise",
+          "test-fix",
+          "evaluate",
+          "hypothesise",
+          "test-fix",
+          "evaluate",
+          "hypothesise",
+          "test-fix",
+          "evaluate"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [
+          "state does not satisfy state/lessons.schema.json: 'test_checkout_timeout failed on attempt 1 with timeout error' is not of type 'object'"
+        ],
+        "assert_failures": [
+          "output.consecutive_green >= 3"
+        ],
+        "skipped_command_checks": 1,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 13,
+        "trace": [
+          "reproduce",
+          "hypothesise",
+          "test-fix",
+          "evaluate",
+          "hypothesise",
+          "test-fix",
+          "evaluate",
+          "hypothesise",
+          "test-fix",
+          "evaluate",
+          "hypothesise",
+          "test-fix",
+          "evaluate"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [
+          "state does not satisfy state/lessons.schema.json: 'test_checkout_timeout failed on attempt 1 with timeout error' is not of type 'object'"
+        ],
+        "assert_failures": [
+          "output.consecutive_green >= 3"
+        ],
+        "skipped_command_checks": 1,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
@@ -117,7 +201,7 @@
     "fails_every_model": true,
     "flaky_models": [],
     "samples_per_model": {
-      "qwen3-coder:30b": 1
+      "qwen3-coder:30b": 3
     },
     "gate_auto_approved": false
   }
