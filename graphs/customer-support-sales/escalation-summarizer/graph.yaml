@@ -23,6 +23,7 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - revision_requested: bool
   criteria: Every unresolved customer ask appears in the brief with a verbatim quote and its current state.
     An ask the thread left hanging is exactly what the receiving tier must not have to rediscover.
 edges:

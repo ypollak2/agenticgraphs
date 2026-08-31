@@ -29,12 +29,13 @@ flowchart LR
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
 | 2 | `dedupe-search` | `existing_articles=[]` |
-| 3 | `produce` | `output={'steps': ['restart service', 'clear cache'], 'reproduces_resolution': True, 'duplicates_deduped': True}` |
-| 4 | `review` | `revision_requested=False, attempts=1` |
+| 3 | `produce` | `output={'steps': ['restart service', 'clear cache'], 'reproduces_resolution': True, 'duplicates_deduped': True}, steps=[{'action': 'clear cache', 'expected': 'login succeeds'}], near_duplicates=[]` |
+| 4 | `review` | `revision_requested=False, attempts=1, steps=[{'action': 'clear cache', 'expected': 'login succeeds'}], near_duplicates=[], output={'steps': [{'action': 'clear cache', 'expected': 'login succeeds'}], 'near_duplicates': []}` |
 
 **Verification checked:**
 
-- ✅ `output.reproduces_resolution and output.duplicates_deduped`
+- ✅ `all(s.action and s.expected for s in output.steps)`
+- ✅ `len(output.near_duplicates) == 0`
 
 ### `retry-then-resolved` — ✅ passed
 
@@ -44,14 +45,15 @@ flowchart LR
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
 | 2 | `dedupe-search` | `existing_articles=[]` |
-| 3 | `produce` | `output={'steps': [], 'reproduces_resolution': False, 'duplicates_deduped': False}` |
-| 4 | `review` | `revision_requested=True, attempts=1` |
-| 5 | `produce` | `output={'steps': ['restart service', 'clear cache'], 'reproduces_resolution': True, 'duplicates_deduped': True}` |
-| 6 | `review` | `revision_requested=False, attempts=2` |
+| 3 | `produce` | `output={'steps': [], 'reproduces_resolution': False, 'duplicates_deduped': False}, steps=[{'action': 'clear cache', 'expected': 'login succeeds'}], near_duplicates=[]` |
+| 4 | `review` | `revision_requested=True, attempts=1, steps=[{'action': 'clear cache', 'expected': 'login succeeds'}], near_duplicates=[], output={'steps': [{'action': 'clear cache', 'expected': 'login succeeds'}], 'near_duplicates': []}` |
+| 5 | `produce` | `output={'steps': ['restart service', 'clear cache'], 'reproduces_resolution': True, 'duplicates_deduped': True}, steps=[{'action': 'clear cache', 'expected': 'login succeeds'}], near_duplicates=[]` |
+| 6 | `review` | `revision_requested=False, attempts=2, steps=[{'action': 'clear cache', 'expected': 'login succeeds'}], near_duplicates=[], output={'steps': [{'action': 'clear cache', 'expected': 'login succeeds'}], 'near_duplicates': []}` |
 
 **Verification checked:**
 
-- ✅ `output.reproduces_resolution and output.duplicates_deduped`
+- ✅ `all(s.action and s.expected for s in output.steps)`
+- ✅ `len(output.near_duplicates) == 0`
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/customer-support-sales/kb-article-generator/CARD.md)*

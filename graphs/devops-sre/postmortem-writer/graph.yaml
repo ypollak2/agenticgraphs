@@ -22,6 +22,7 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - revision_requested: bool
   criteria: Every timeline event cites the log line or chat message id it came from, and the narrative
     attributes cause to systems and decisions rather than to people.
 edges:

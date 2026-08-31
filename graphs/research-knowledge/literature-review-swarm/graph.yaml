@@ -42,6 +42,7 @@ nodes:
   outputs:
   - claims: list[{paper:any, section:any}]
   - output
+  - verify_failed: bool
   criteria: Every claim cites the specific paper and the section within it. A claim citing a paper but
     not where in it stops the next reader from verifying anything.
   retries:

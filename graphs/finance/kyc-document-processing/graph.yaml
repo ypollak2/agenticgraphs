@@ -32,6 +32,7 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - revision_requested: bool
   criteria: Every extracted field validates against the document image it came from, and a field that
     could not be read is flagged as a gap rather than inferred from the rest of the pack.
 edges:

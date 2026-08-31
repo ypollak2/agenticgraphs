@@ -31,7 +31,7 @@ flowchart LR
 |---|---|---|
 | 1 | `define-role.intake` | `summary='intake complete'` |
 | 2 | `define-role.generate` | `draft='v1'` |
-| 3 | `define-role.critique` | `jd='jd-value', rejected=False, attempts=1, output={'bias_lint_clean': True, 'requirements_deduped': True}` |
+| 3 | `define-role.critique` | `jd='jd-value', rejected=False, attempts=1, output={'bias_lint_clean': True, 'requirements_deduped': True, 'bias_terms': [], 'requirements': ['python'], 'unique_requirements': ['python']}, bias_terms=[], requirements=['python'], unique_requirements=['python']` |
 | 4 | `screen` | `shortlist=[{'c': 'a'}]` |
 | 5 | `interview` | `scorecards=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 6 | `panel-decision` | `signed_off=True` |

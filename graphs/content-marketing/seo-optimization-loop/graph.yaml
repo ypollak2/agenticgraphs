@@ -24,6 +24,7 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - below_target: bool
   criteria: 'The page clears the score threshold for its target queries while still reading naturally:
     keyword density that trips a stuffing flag fails even at a passing score.'
 edges:

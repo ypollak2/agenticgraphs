@@ -35,6 +35,7 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - revision_requested: bool
   criteria: Every redline cites the playbook position it enforces and says what risk the original language
     creates. A stylistic edit with no playbook reference is noise in a negotiation.
 edges:

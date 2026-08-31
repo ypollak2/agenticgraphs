@@ -35,9 +35,10 @@ nodes:
   - critique
   kind: verifier
   outputs:
+  - exit_code: int
   - output
-  - query_executes: any
-  - row_count_sane: any
+  - row_count: int
+  - rejected: bool
   criteria: The query executes against the real schema and its result passes row-count sanity. A query
     returning zero rows from a populated table, or every row where a filter was asked for, is wrong even
     though it ran.
@@ -55,7 +56,11 @@ termination:
   max_steps: 10
   contract: query executes; result passes row-count sanity assertions
 verification:
-- assert: output.query_executes and output.row_count_sane
+- describe: the query ran, read off the exit code the `execute` node recorded
+  assert: output.exit_code == 0
+- describe: "the result is not vacuous \u2014 a query returning nothing from a populated table is wrong\
+    \ even though it ran"
+  assert: output.row_count > 0
 - describe: the query is executed against the real schema
   command: psql -v ON_ERROR_STOP=1 -f {query_path}
 goal:

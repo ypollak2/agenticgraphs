@@ -44,7 +44,7 @@ Migrate a schema in four reversible steps, compensating back to consistency on a
 Every forward step that writes has a paired compensator reachable by a `kind: compensate` edge, so a failure unwinds to a consistent state instead of leaving the system half-migrated. Lint refuses a saga whose execute-risk step has no compensator — the failure mode is caught at author time, not in prod.
 
 - **Exit contract** — every forward step has a compensator; the saga ends verified or fully unwound
-- **Machine-checked** — `output.parity_verified == true or output.consistent == true`
+- **Machine-checked** — `output.source_rows == output.target_rows or output.compensated_steps == output.executed_steps`
 - **Command-checked** — `alembic upgrade head`
 - **Bounded** — hard stop after 40 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval schema-migration-saga` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)

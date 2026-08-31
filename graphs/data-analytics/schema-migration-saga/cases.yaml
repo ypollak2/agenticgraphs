@@ -11,9 +11,11 @@ cases:
       cutover_done: cutover_done-value
     verify:
       parity_verified: true
-      output: &id001
+      output:
         parity_verified: true
         consistent: false
+      source_rows: 1000
+      target_rows: 1000
     undo-cutover:
       cutover_undone: cutover_undone-value
     undo-backfill:
@@ -21,5 +23,15 @@ cases:
     undo-shadow:
       shadow_undone: shadow_undone-value
       consistent: false
-      output: *id001
+      output:
+        parity_verified: true
+        consistent: false
+        source_rows: 1000
+        target_rows: 1000
+        compensated_steps: 0
+        executed_steps: 3
+      source_rows: 1000
+      target_rows: 1000
+      compensated_steps: 0
+      executed_steps: 3
   goal: orders v3 to v4, keeping orders readable throughout

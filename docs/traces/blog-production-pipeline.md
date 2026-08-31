@@ -29,12 +29,13 @@ flowchart LR
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
 | 2 | `outline` | `outline=[{'section': 'why', 'claim': 'c', 'evidence': 'e'}]` |
-| 3 | `produce` | `output={'lint_passed': True, 'plagiarism_clean': True}` |
-| 4 | `review` | `revision_requested=False, attempts=1` |
+| 3 | `produce` | `output={'lint_passed': True, 'plagiarism_clean': True}, style_violations=[], max_match_ratio=0.02` |
+| 4 | `review` | `revision_requested=False, attempts=1, style_violations=[], max_match_ratio=0.02, output={'style_violations': [], 'max_match_ratio': 0.02}` |
 
 **Verification checked:**
 
-- ✅ `output.lint_passed and output.plagiarism_clean`
+- ✅ `len(output.style_violations) == 0`
+- ✅ `output.max_match_ratio < 0.15`
 
 ### `retry-then-resolved` — ✅ passed
 
@@ -44,14 +45,15 @@ flowchart LR
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
 | 2 | `outline` | `outline=[{'section': 'why', 'claim': 'c', 'evidence': 'e'}]` |
-| 3 | `produce` | `output={'lint_passed': False, 'plagiarism_clean': False}` |
-| 4 | `review` | `revision_requested=True, attempts=1` |
-| 5 | `produce` | `output={'lint_passed': True, 'plagiarism_clean': True}` |
-| 6 | `review` | `revision_requested=False, attempts=2` |
+| 3 | `produce` | `output={'lint_passed': False, 'plagiarism_clean': False}, style_violations=[], max_match_ratio=0.02` |
+| 4 | `review` | `revision_requested=True, attempts=1, style_violations=[], max_match_ratio=0.02, output={'style_violations': [], 'max_match_ratio': 0.02}` |
+| 5 | `produce` | `output={'lint_passed': True, 'plagiarism_clean': True}, style_violations=[], max_match_ratio=0.02` |
+| 6 | `review` | `revision_requested=False, attempts=2, style_violations=[], max_match_ratio=0.02, output={'style_violations': [], 'max_match_ratio': 0.02}` |
 
 **Verification checked:**
 
-- ✅ `output.lint_passed and output.plagiarism_clean`
+- ✅ `len(output.style_violations) == 0`
+- ✅ `output.max_match_ratio < 0.15`
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/content-marketing/blog-production-pipeline/CARD.md)*

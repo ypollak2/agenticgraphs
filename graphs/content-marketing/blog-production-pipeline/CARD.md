@@ -34,7 +34,8 @@ Brief to outline to draft to edit to publish-ready post.
 Staged specialists each own one narrow concern, so quality problems are localized to the stage that produced them instead of being smeared across a single mega-prompt. Output only leaves the graph through the exit contract.
 
 - **Exit contract** — style guide lint passes; plagiarism scan clean
-- **Machine-checked** — `output.lint_passed and output.plagiarism_clean`
+- **Machine-checked** — `len(output.style_violations) == 0`
+- **Machine-checked** — `output.max_match_ratio < 0.15`
 - **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval blog-production-pipeline` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/blog-production-pipeline.md)

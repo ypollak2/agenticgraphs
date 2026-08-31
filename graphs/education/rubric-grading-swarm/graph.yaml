@@ -32,6 +32,7 @@ nodes:
   - escalated: any
   - output
   - threshold: float
+  - verify_failed: bool
   criteria: Inter-rater agreement clears the threshold, or the submission escalates to a human. Averaging
     graders who disagree produces a defensible-looking number from an undefended judgement.
   retries:

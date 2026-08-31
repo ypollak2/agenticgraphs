@@ -11,7 +11,7 @@
     "loops": 1,
     "loops_bounded": true,
     "max_steps": 12,
-    "verification_asserts": 2,
+    "verification_asserts": 3,
     "risk_surface": "write"
   },
   "measured": {

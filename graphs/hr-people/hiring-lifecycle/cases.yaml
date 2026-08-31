@@ -12,6 +12,16 @@ cases:
       output:
         bias_lint_clean: true
         requirements_deduped: true
+        bias_terms: []
+        requirements:
+        - python
+        unique_requirements:
+        - python
+      bias_terms: []
+      requirements:
+      - python
+      unique_requirements:
+      - python
     screen:
       shortlist:
       - c: a

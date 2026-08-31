@@ -30,13 +30,12 @@ flowchart LR
 | 1 | `collect` | `failures='failures-value'` |
 | 2 | `classify` | `cause='cause-value', known='known-value'` |
 | 3 | `repair` | `repair_applied='repair_applied-value'` |
-| 4 | `confirm` | `pipeline_green=True, lessons=[{'tried': 'cache clear'}], output={'pipeline_green': True, 'escalated': False, 'lessons': [{'tried': 'cache clear'}]}` |
+| 4 | `confirm` | `pipeline_green=True, lessons=[{'tried': 'clear cache', 'ruled_out': 'stale artifacts'}], output={'pipeline_green': True, 'escalated': False, 'lessons': [{'tried': 'clear cache', 'ruled_out': 'stale artifacts'}]}, escalated=False` |
 
 **Verification checked:**
 
-- ✅ `output.pipeline_green == true or output.escalated == true`
-- ✅ `len(output.lessons) >= 1`
 - ⏭️ `pytest -q` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
+- ✅ `len(output.lessons) >= 1 and output.attempts <= 3`
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/devops-sre/self-healing-ci/CARD.md)*

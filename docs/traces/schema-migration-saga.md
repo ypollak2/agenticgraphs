@@ -41,11 +41,11 @@ flowchart LR
 | 2 | `shadow-write` | `shadow_active=True` |
 | 3 | `backfill` | `backfill_complete='backfill_complete-value'` |
 | 4 | `cutover` | `cutover_done='cutover_done-value'` |
-| 5 | `verify` | `parity_verified=True, output={'parity_verified': True, 'consistent': False}` |
+| 5 | `verify` | `parity_verified=True, output={'parity_verified': True, 'consistent': False}, source_rows=1000, target_rows=1000` |
 
 **Verification checked:**
 
-- ✅ `output.parity_verified == true or output.consistent == true`
+- ✅ `output.source_rows == output.target_rows or output.compensated_steps == output.executed_steps`
 - ⏭️ `alembic upgrade head` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---

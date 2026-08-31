@@ -14,16 +14,20 @@ nodes:
   abilities:
   - generate
   outputs:
-  - lockfile_updated: any
-  - new_deprecations
-  - tests_pass: any
+  - lockfile_sha_after
+  - lockfile_sha_before
+  - new_deprecations: list
 - id: review
   speciality: critic
   abilities:
   - critique
   kind: verifier
   outputs:
+  - lockfile_sha_after
+  - lockfile_sha_before
+  - new_deprecations: list
   - output
+  - revision_requested: bool
   criteria: The lockfile is updated, the suite passes, and no new deprecation warning was introduced.
     A green suite that emits deprecations has deferred the breakage to the next upgrade, not avoided it.
 edges:
@@ -38,7 +42,11 @@ termination:
   max_steps: 12
   contract: lockfile updated; tests pass; no new deprecation warnings
 verification:
-- assert: output.lockfile_updated and output.tests_pass and not output.new_deprecations
+- describe: "the lockfile actually changed \u2014 a digest before and after, not a claim that it was updated"
+  assert: output.lockfile_sha_before != output.lockfile_sha_after
+- describe: no new deprecation was introduced; a green suite that emits them has deferred the breakage,
+    not avoided it
+  assert: len(output.new_deprecations) == 0
 - describe: the suite passes against the upgraded lockfile
   command: pytest -q
 triggers:

@@ -22,6 +22,7 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - revision_requested: bool
   criteria: Each action names one accountable person rather than a team, a calendar date rather than a
     relative phrase like 'next week', and a verbatim transcript quote showing the commitment was actually
     made. Discussion that never became a commitment is not an action.

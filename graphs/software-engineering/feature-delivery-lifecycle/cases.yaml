@@ -21,6 +21,10 @@ cases:
       output:
         test_failed_before_patch: true
         test_passes_after_patch: true
+        exit_before: 1
+        exit_after: 0
+      exit_before: 1
+      exit_after: 0
     test.intake: {}
     test.generate: {}
     test.critique:
@@ -91,6 +95,10 @@ cases:
       output:
         test_failed_before_patch: true
         test_passes_after_patch: true
+        exit_before: 1
+        exit_after: 0
+      exit_before: 1
+      exit_after: 0
     test.intake: {}
     test.generate: {}
     test.critique:
@@ -172,6 +180,10 @@ cases:
       output:
         test_failed_before_patch: true
         test_passes_after_patch: true
+        exit_before: 1
+        exit_after: 0
+      exit_before: 1
+      exit_after: 0
     test.intake: {}
     test.generate: {}
     test.critique:

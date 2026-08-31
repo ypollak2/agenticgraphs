@@ -43,6 +43,7 @@ nodes:
   - access_requests: list[{system:any, requested_on:any}]
   - output
   - plan_30_60_90: list[{milestone:any}]
+  - milestones_covered: bool
   join: all
   criteria: Each 30/60/90 checkpoint carries a milestone an observer could mark done or not done, and
     every system the role needs on day one is requested before the start date. 'Get up to speed' is not

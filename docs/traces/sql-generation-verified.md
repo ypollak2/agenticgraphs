@@ -30,11 +30,12 @@ flowchart LR
 | 1 | `intake` | `summary='intake complete'` |
 | 2 | `generate` | `draft='v1'` |
 | 3 | `execute` | `row_count=12, exit_code=0` |
-| 4 | `critique` | `rejected=False, attempts=1, output={'query_executes': True, 'row_count_sane': True}` |
+| 4 | `critique` | `rejected=False, attempts=1, output={'query_executes': True, 'row_count_sane': True, 'exit_code': 0, 'row_count': 12}, exit_code=0, row_count=12` |
 
 **Verification checked:**
 
-- ✅ `output.query_executes and output.row_count_sane`
+- ✅ `output.exit_code == 0`
+- ✅ `output.row_count > 0`
 - ⏭️ `psql -v ON_ERROR_STOP=1 -f {query_path}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `revised-after-rejection` — ✅ passed
@@ -46,14 +47,15 @@ flowchart LR
 | 1 | `intake` | `summary='intake complete'` |
 | 2 | `generate` | `draft='v1'` |
 | 3 | `execute` | `row_count=12, exit_code=0` |
-| 4 | `critique` | `rejected=True, attempts=1` |
+| 4 | `critique` | `rejected=True, attempts=1, exit_code=0, row_count=12, output={'exit_code': 0, 'row_count': 12}` |
 | 5 | `generate` | `draft='v2'` |
 | 6 | `execute` | `row_count=12, exit_code=0` |
-| 7 | `critique` | `rejected=False, attempts=2, output={'query_executes': True, 'row_count_sane': True}` |
+| 7 | `critique` | `rejected=False, attempts=2, output={'query_executes': True, 'row_count_sane': True, 'exit_code': 0, 'row_count': 12}, exit_code=0, row_count=12` |
 
 **Verification checked:**
 
-- ✅ `output.query_executes and output.row_count_sane`
+- ✅ `output.exit_code == 0`
+- ✅ `output.row_count > 0`
 - ⏭️ `psql -v ON_ERROR_STOP=1 -f {query_path}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---

@@ -26,12 +26,13 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
-| 2 | `produce` | `output={'lockfile_updated': True, 'tests_pass': True, 'new_deprecations': []}` |
-| 3 | `review` | `revision_requested=False, attempts=1` |
+| 2 | `produce` | `output={'lockfile_updated': True, 'tests_pass': True, 'new_deprecations': []}, lockfile_sha_before='aaa', lockfile_sha_after='bbb', new_deprecations=[]` |
+| 3 | `review` | `revision_requested=False, attempts=1, lockfile_sha_before='aaa', lockfile_sha_after='bbb', new_deprecations=[], output={'lockfile_sha_before': 'aaa', 'lockfile_sha_after': 'bbb', 'new_deprecations': []}` |
 
 **Verification checked:**
 
-- ✅ `output.lockfile_updated and output.tests_pass and not output.new_deprecations`
+- ✅ `output.lockfile_sha_before != output.lockfile_sha_after`
+- ✅ `len(output.new_deprecations) == 0`
 - ⏭️ `pytest -q` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `retry-then-resolved` — ✅ passed
@@ -41,14 +42,15 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
-| 2 | `produce` | `output={'lockfile_updated': True, 'tests_pass': False, 'new_deprecations': ['foo() is deprecated']}` |
-| 3 | `review` | `revision_requested=True, attempts=1` |
-| 4 | `produce` | `output={'lockfile_updated': True, 'tests_pass': True, 'new_deprecations': []}` |
-| 5 | `review` | `revision_requested=False, attempts=2` |
+| 2 | `produce` | `output={'lockfile_updated': True, 'tests_pass': False, 'new_deprecations': ['foo() is deprecated']}, lockfile_sha_before='aaa', lockfile_sha_after='bbb', new_deprecations=[]` |
+| 3 | `review` | `revision_requested=True, attempts=1, lockfile_sha_before='aaa', lockfile_sha_after='bbb', new_deprecations=[], output={'lockfile_sha_before': 'aaa', 'lockfile_sha_after': 'bbb', 'new_deprecations': []}` |
+| 4 | `produce` | `output={'lockfile_updated': True, 'tests_pass': True, 'new_deprecations': []}, lockfile_sha_before='aaa', lockfile_sha_after='bbb', new_deprecations=[]` |
+| 5 | `review` | `revision_requested=False, attempts=2, lockfile_sha_before='aaa', lockfile_sha_after='bbb', new_deprecations=[], output={'lockfile_sha_before': 'aaa', 'lockfile_sha_after': 'bbb', 'new_deprecations': []}` |
 
 **Verification checked:**
 
-- ✅ `output.lockfile_updated and output.tests_pass and not output.new_deprecations`
+- ✅ `output.lockfile_sha_before != output.lockfile_sha_after`
+- ✅ `len(output.new_deprecations) == 0`
 - ⏭️ `pytest -q` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---

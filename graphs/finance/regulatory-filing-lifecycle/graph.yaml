@@ -22,6 +22,7 @@ nodes:
   - variance
   - filing_total
   - ledger_total
+  - reconciled: bool
 - id: controller-signoff
   speciality: approver
   kind: human
@@ -45,6 +46,7 @@ nodes:
   outputs:
   - filed: any
   - confirmation_id
+  - file_failed: bool
 - id: retain
   speciality: producer
   abilities:

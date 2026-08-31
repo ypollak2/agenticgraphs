@@ -31,6 +31,7 @@ nodes:
   - work_result
   outputs:
   - corrections
+  - recode_failed: bool
   criteria: Every disputed code is paired with the code the documentation does support, so the finding
     tells the coder what to change it to rather than only that it is wrong.
 - id: verify
@@ -41,6 +42,7 @@ nodes:
   outputs:
   - codes: list[{note_span:any}]
   - output
+  - verify_failed: bool
   criteria: Every assigned code points at the note span that documents it. A code the chart supports only
     by inference is an unsupported code, however clinically likely.
   retries:

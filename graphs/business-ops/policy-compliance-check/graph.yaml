@@ -32,6 +32,7 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - revision_requested: bool
   criteria: Each finding cites the specific policy clause id it breaches and quotes the document text
     that breaches it. A finding that restates a policy without pointing at non-compliant text is not a
     finding.

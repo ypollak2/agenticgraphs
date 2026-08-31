@@ -20,6 +20,7 @@ nodes:
   - migration_plan
   outputs:
   - shadow_active
+  - shadow_failed: bool
 - id: backfill
   speciality: migrator
   abilities:
@@ -29,6 +30,7 @@ nodes:
   - shadow_active
   outputs:
   - backfill_complete
+  - backfill_failed: bool
 - id: cutover
   speciality: migrator
   abilities:
@@ -37,6 +39,7 @@ nodes:
   - backfill_complete
   outputs:
   - cutover_done
+  - cutover_failed: bool
 - id: verify
   speciality: verifier
   abilities:
@@ -45,7 +48,9 @@ nodes:
   inputs:
   - cutover_done
   outputs:
-  - parity_verified: any
+  - source_rows: int
+  - target_rows: int
+  - parity_verified: bool
   criteria: 'The saga ends in one of two consistent states: forward-complete with source and target parity
     verified, or fully unwound with every executed step compensated. A partially applied migration is
     the outcome this graph exists to prevent.'
@@ -74,9 +79,11 @@ nodes:
   inputs:
   - shadow_active
   outputs:
-  - consistent: any
+  - compensated_steps: int
+  - executed_steps: int
   - output
-  - shadow_undone
+  - source_rows: int
+  - target_rows: int
 edges:
 - from: plan
   to: shadow-write
@@ -110,10 +117,10 @@ termination:
   max_steps: 40
   contract: every forward step has a compensator; the saga ends verified or fully unwound
 verification:
-- describe: "the migration either verified or fully unwound \u2014 never partial"
-  assert: output.parity_verified == true or output.consistent == true
-- describe: the migration and its compensator both run, so the saga's reversibility is demonstrated rather
-    than asserted
+- describe: "either the migration reached parity \u2014 two row counts agreeing, not a model reporting\
+    \ that they do \u2014 or every executed step was compensated back"
+  assert: output.source_rows == output.target_rows or output.compensated_steps == output.executed_steps
+- describe: the migration and its compensator both run, so reversibility is demonstrated rather than asserted
   command: alembic upgrade head
 state:
   inputs:

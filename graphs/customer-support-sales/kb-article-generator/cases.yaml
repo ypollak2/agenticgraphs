@@ -10,10 +10,23 @@ cases:
         - clear cache
         reproduces_resolution: true
         duplicates_deduped: true
+      steps: &id001
+      - action: clear cache
+        expected: login succeeds
+      near_duplicates: &id002 []
     review:
       revision_requested: false
       attempts: 1
-    dedupe-search: &id001
+      steps: &id003
+      - action: clear cache
+        expected: login succeeds
+      near_duplicates: &id004 []
+      output:
+        steps: &id005
+        - action: clear cache
+          expected: login succeeds
+        near_duplicates: &id006 []
+    dedupe-search: &id007
       existing_articles: []
   goal: ticket 79004, written for self-serve customers
 - id: retry-then-resolved
@@ -25,16 +38,30 @@ cases:
         steps: []
         reproduces_resolution: false
         duplicates_deduped: false
+      steps: *id001
+      near_duplicates: *id002
     - output:
         steps:
         - restart service
         - clear cache
         reproduces_resolution: true
         duplicates_deduped: true
+      steps: *id001
+      near_duplicates: *id002
     review:
     - revision_requested: true
       attempts: 1
+      steps: *id003
+      near_duplicates: *id004
+      output:
+        steps: *id005
+        near_duplicates: *id006
     - revision_requested: false
       attempts: 2
-    dedupe-search: *id001
+      steps: *id003
+      near_duplicates: *id004
+      output:
+        steps: *id005
+        near_duplicates: *id006
+    dedupe-search: *id007
   goal: ticket 79004, written for self-serve customers

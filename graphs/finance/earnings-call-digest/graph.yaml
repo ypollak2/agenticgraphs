@@ -25,6 +25,7 @@ nodes:
   - figures
   - invented_numbers
   - output
+  - revision_requested: bool
   criteria: Every figure in the digest appears in the transcript. A number that is directionally right
     but never stated is an invented number.
 edges:

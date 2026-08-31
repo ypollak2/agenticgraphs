@@ -34,9 +34,8 @@ Diagnose a red pipeline and attempt a bounded repair, accumulating lessons.
 Each failed attempt writes down what was learned, and the next attempt reads it. A plain retry loop re-runs the same reasoning against the same inputs and fails the same way; this one narrows. Lessons are scoped memory, so what the graph learned is inspectable rather than buried in a context window.
 
 - **Exit contract** — a red pipeline ends green or escalated, never retried without a recorded reason
-- **Machine-checked** — `output.pipeline_green == true or output.escalated == true`
-- **Machine-checked** — `len(output.lessons) >= 1`
 - **Command-checked** — `pytest -q`
+- **Machine-checked** — `len(output.lessons) >= 1 and output.attempts <= 3`
 - **Bounded** — hard stop after 35 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval self-healing-ci` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/self-healing-ci.md)

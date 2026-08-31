@@ -53,6 +53,7 @@ nodes:
   outputs:
   - repro_exit_code_after
   - repro_exit_code_before
+  - exploit_blocked: bool
   criteria: The recorded proof-of-concept no longer succeeds against the patched build, demonstrated by
     re-running it rather than by inspecting the diff. Nothing is disclosed before that re-run passes and
     a human has signed off.

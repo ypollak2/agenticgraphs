@@ -24,6 +24,7 @@ nodes:
   - actual_rows: any
   - expected_rows: any
   - output
+  - verify_failed: bool
   criteria: An end-to-end run loads exactly the expected row count, and a second run loads no duplicates.
   retries:
     max: 2

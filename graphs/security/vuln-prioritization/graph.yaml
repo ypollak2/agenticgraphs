@@ -22,6 +22,7 @@ nodes:
   kind: verifier
   outputs:
   - output
+  - revision_requested: bool
   criteria: Every ranked item cites the scanner evidence and the asset-map reference that give it exposure.
     A CVSS score without an asset map ranks a vulnerability nobody can reach above one on the perimeter.
 edges:

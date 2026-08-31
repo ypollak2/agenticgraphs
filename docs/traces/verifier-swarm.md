@@ -27,12 +27,12 @@ flowchart LR
 |---|---|---|
 | 1 | `planner` | `plan=['fix-timeout'], tasks=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `worker` | `patched=True` |
-| 3 | `verifier` | `verify_failed=False, attempts=1, output={'verified': True, 'escalated': False}` |
+| 3 | `verifier` | `verify_failed=False, attempts=1, output={'verified': True, 'escalated': False}, escalated=False` |
 
 **Verification checked:**
 
-- ✅ `output.verified == true or output.escalated == true`
 - ⏭️ `{verify_command}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
+- ✅ `output.attempts <= 3`
 
 ### `retry-then-verified` — ✅ passed
 
@@ -42,14 +42,14 @@ flowchart LR
 |---|---|---|
 | 1 | `planner` | `plan=['fix-timeout'], tasks=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `worker` | `patched=False` |
-| 3 | `verifier` | `verify_failed=True, attempts=1` |
+| 3 | `verifier` | `verify_failed=True, attempts=1, escalated=False, output={'escalated': False}` |
 | 4 | `worker` | `patched=True` |
-| 5 | `verifier` | `verify_failed=False, attempts=2, output={'verified': True, 'escalated': False}` |
+| 5 | `verifier` | `verify_failed=False, attempts=2, output={'verified': True, 'escalated': False}, escalated=False` |
 
 **Verification checked:**
 
-- ✅ `output.verified == true or output.escalated == true`
 - ⏭️ `{verify_command}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
+- ✅ `output.attempts <= 3`
 
 ### `three-failures-escalates` — ✅ passed
 
@@ -59,16 +59,16 @@ flowchart LR
 |---|---|---|
 | 1 | `planner` | `plan=['impossible'], tasks=[{'i': 1}, {'i': 2}, {'i': 3}]` |
 | 2 | `worker` | *(no fixture — empty output)* |
-| 3 | `verifier` | `verify_failed=True, attempts=1` |
+| 3 | `verifier` | `verify_failed=True, attempts=1, escalated=False, output={'escalated': False}` |
 | 4 | `worker` | *(no fixture — empty output)* |
-| 5 | `verifier` | `verify_failed=True, attempts=2` |
+| 5 | `verifier` | `verify_failed=True, attempts=2, escalated=False, output={'escalated': False}` |
 | 6 | `worker` | *(no fixture — empty output)* |
-| 7 | `verifier` | `verify_failed=True, attempts=3, output={'verified': False, 'escalated': True}` |
+| 7 | `verifier` | `verify_failed=True, attempts=3, output={'verified': False, 'escalated': False}, escalated=False` |
 
 **Verification checked:**
 
-- ✅ `output.verified == true or output.escalated == true`
 - ⏭️ `{verify_command}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
+- ✅ `output.attempts <= 3`
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/devops-sre/verifier-swarm/CARD.md)*

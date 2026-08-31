@@ -41,6 +41,7 @@ nodes:
   - slice_ported
   outputs:
   - ported_slices
+  - suite_green: bool
   criteria: The build and the full suite are green on the target stack with no slice left unported. A
     partially migrated codebase that passes because the unported half is untested is the outcome the slice
     count exists to prevent.

@@ -30,6 +30,7 @@ nodes:
   outputs:
   - output
   - violations: list[{line_id:any, policy_rule:any}]
+  - verify_failed: bool
   criteria: Every violation names the expense line id and the specific policy rule it breaches, so the
     claimant can see what to fix rather than that something was wrong.
   retries:

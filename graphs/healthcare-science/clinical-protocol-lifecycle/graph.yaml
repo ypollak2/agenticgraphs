@@ -51,6 +51,7 @@ nodes:
   - output
   - registered
   - registry_id: any
+  - register_failed: bool
 - id: amend-registration
   speciality: compensator
   abilities:

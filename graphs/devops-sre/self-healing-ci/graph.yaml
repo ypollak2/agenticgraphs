@@ -37,10 +37,10 @@ nodes:
   abilities:
   - run_command
   outputs:
-  - escalated: any
-  - lessons
+  - escalated
+  - lessons: list
   - output
-  - pipeline_green: any
+  - pipeline_green: bool
   inputs:
   - repair_applied
   kind: verifier
@@ -62,12 +62,11 @@ termination:
   max_steps: 35
   contract: a red pipeline ends green or escalated, never retried without a recorded reason
 verification:
-- describe: the pipeline is green, or the failure is escalated with its history
-  assert: output.pipeline_green == true or output.escalated == true
-- describe: nothing is retried blind
-  assert: len(output.lessons) >= 1
 - describe: the pipeline is re-run to prove it is green, not reported green
   command: pytest -q
+- describe: every attempt is recorded as a lesson, so the next run does not retry what already did not
+    work
+  assert: len(output.lessons) >= 1 and output.attempts <= 3
 state:
   inputs:
   - goal

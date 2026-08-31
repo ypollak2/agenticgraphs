@@ -69,6 +69,10 @@ def asserted_keys(expr: str) -> set[str]:
     return keys
 
 
+#: Names the runtime owns, so a guard may read them without any node declaring them.
+_RUNTIME_KEYS = frozenset({"attempts", "shards_failed"})
+
+
 def unconnected_keys(doc: dict) -> set[str]:
     """Keys the contract asserts on that nothing in the graph is declared to produce.
 
@@ -80,6 +84,11 @@ def unconnected_keys(doc: dict) -> set[str]:
     """
     produced = {o for n in doc.get("nodes", []) for o in _out_names(n)}
     produced |= set((doc.get("state") or {}).get("inputs") or [])
+    # The runtime publishes these; `_lint_runtime_keys` refuses a node that also
+    # declares one. Two lints disagreeing about who owns `attempts` would make one
+    # of them unsatisfiable — a contract reading the real retry counter would be
+    # reported as asserting on a key nothing produces.
+    produced |= _RUNTIME_KEYS
     # No early return for graphs that declare nothing. An earlier draft excused
     # them — "a node that declares nothing makes no promise to break" — and that
     # escape hatch swallowed exactly the case it most needed to catch:
@@ -368,6 +377,84 @@ def _lint_motif(doc: dict, root: Path = ROOT) -> list[str]:
     return []
 
 
+def _flow_names(expr: str) -> set[str]:
+    """Bare names an edge guard or approval contract depends on."""
+    try:
+        tree = ast.parse(expr, mode="eval")
+    except SyntaxError:
+        return set()
+    bound = {t.id for n in ast.walk(tree) if isinstance(n, ast.comprehension)
+             for t in ast.walk(n.target) if isinstance(t, ast.Name)}
+    return {
+        n.id for n in ast.walk(tree)
+        if isinstance(n, ast.Name) and n.id not in _ASSERT_LITERALS
+        and n.id not in bound and n.id not in _RUNTIME_KEYS
+    }
+
+
+def _lint_runtime_keys(doc: dict) -> list[str]:
+    """A node may not declare a key the runtime owns.
+
+    `attempts` is published by `run_graph` before each node runs, as the visit
+    count. A node that also declares it lets a fixture — or a model — pin it to a
+    constant, and `verify_failed and attempts < 3` then never terminates:
+    `verifier-swarm` ran its retry loop to the step cap the moment the guard
+    started working, because the fixture said `attempts: 1` forever.
+
+    Nothing needs to declare it. `output.attempts` resolves through `OutputView`'s
+    fall-through to the blackboard, so a contract can read the real counter while
+    no node claims to produce it.
+    """
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    return [
+        f"node '{n['id']}' declares '{key}', which the runtime owns — declaring it "
+        f"lets a fixture pin the value and a bounded loop never terminate"
+        for n in doc.get("nodes", [])
+        for key in sorted(set(_out_names(n)) & _RUNTIME_KEYS)
+    ]
+
+
+def _lint_flow_keys(doc: dict) -> list[str]:
+    """A guard reading a key nothing produces is a dead edge, and it fails SILENTLY.
+
+    `edge_true` catches any exception and returns False, so a condition naming an
+    undeclared key is not an error — it is an edge that is never taken. That is
+    the correct behaviour for an unresolvable condition at run time and a
+    catastrophe at authoring time: the retry never retries, the compensator never
+    compensates, the escalation never escalates, and every golden case still
+    passes because the fixture happens to supply the key by hand.
+
+    v1.7 found exactly this for `attempts` — 48 guards read it and nothing
+    produced it — and fixed that one name by publishing it from the runtime. The
+    same hole was left open for every OTHER guard key: `verify_failed`,
+    `revision_requested`, `rejected`, `<node>_failed`. No node in the registry
+    declared any of them.
+
+    `unconnected_keys` has applied this rule to verification asserts since v1.4.
+    Control flow deserves it more: a broken assert reports a failure, a broken
+    guard reports nothing at all.
+    """
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    produced = {o for n in doc.get("nodes", []) for o in _out_names(n)}
+    produced |= set((doc.get("state") or {}).get("inputs") or [])
+    errors: list[str] = []
+    for e in doc.get("edges", []):
+        for name in sorted(_flow_names(e.get("when") or "") - produced):
+            errors.append(
+                f"edge {e['from']}->{e['to']} is guarded on '{name}', which no node "
+                f"declares as an output — the edge can never be taken, silently"
+            )
+    for n in doc.get("nodes", []):
+        contract = (n.get("approval") or {}).get("contract", "")
+        for name in sorted(_flow_names(contract) - produced):
+            errors.append(
+                f"approval on '{n['id']}' depends on '{name}', which no node declares"
+            )
+    return errors
+
+
 def _parses(expr: str) -> bool:
     try:
         ast.parse(expr, mode="eval")
@@ -598,6 +685,8 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
     errors.extend(_lint_commands(doc))
     errors.extend(_lint_irreversible(doc))
     errors.extend(_lint_motif(doc, root))
+    errors.extend(_lint_flow_keys(doc))
+    errors.extend(_lint_runtime_keys(doc))
 
     # speciality / ability resolution
     specs = {load(p)["name"]: load(p) for p in iter_yaml("specialities", root)}

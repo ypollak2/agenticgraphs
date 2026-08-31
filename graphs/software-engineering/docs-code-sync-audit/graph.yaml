@@ -31,6 +31,7 @@ nodes:
   outputs:
   - examples: list[{doc:str, exit_code:int}]
   - output
+  - verify_failed: bool
   criteria: Every code example extracted from the docs was actually executed and exited zero. An example
     that was read and judged plausible has not been checked.
   retries:

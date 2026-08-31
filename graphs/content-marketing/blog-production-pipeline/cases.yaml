@@ -7,10 +7,17 @@ cases:
       output:
         lint_passed: true
         plagiarism_clean: true
+      style_violations: &id001 []
+      max_match_ratio: 0.02
     review:
       revision_requested: false
       attempts: 1
-    outline: &id001
+      style_violations: &id002 []
+      max_match_ratio: 0.02
+      output:
+        style_violations: &id003 []
+        max_match_ratio: 0.02
+    outline: &id004
       outline:
       - section: why
         claim: c
@@ -24,13 +31,27 @@ cases:
     - output:
         lint_passed: false
         plagiarism_clean: false
+      style_violations: *id001
+      max_match_ratio: 0.02
     - output:
         lint_passed: true
         plagiarism_clean: true
+      style_violations: *id001
+      max_match_ratio: 0.02
     review:
     - revision_requested: true
       attempts: 1
+      style_violations: *id002
+      max_match_ratio: 0.02
+      output:
+        style_violations: *id003
+        max_match_ratio: 0.02
     - revision_requested: false
       attempts: 2
-    outline: *id001
+      style_violations: *id002
+      max_match_ratio: 0.02
+      output:
+        style_violations: *id003
+        max_match_ratio: 0.02
+    outline: *id004
   goal: the 'observability for small teams' brief, for platform engineers

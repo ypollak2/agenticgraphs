@@ -106,6 +106,7 @@ nodes:
   outputs:
   - released: any
   - release_tag
+  - release_failed: bool
   on_error: rollback
 - id: rollback
   speciality: compensator

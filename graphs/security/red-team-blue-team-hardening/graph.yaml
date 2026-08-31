@@ -49,6 +49,7 @@ nodes:
   - bypasses: list[{mitigation_ref:any}]
   - output
   - unmitigated
+  - attacker_exhausted: bool
   inputs:
   - mitigation
   kind: verifier

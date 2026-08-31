@@ -35,8 +35,8 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from agenticgraphs.inspect import find_graph  # noqa: E402
-from agenticgraphs.registry import cases_path, load  # noqa: E402
+from agenticgraphs.inspect import find_graph
+from agenticgraphs.registry import cases_path, load
 
 # graph -> (new verification list, {node: outputs}, {node: case outputs})
 FIXES: dict[str, tuple] = {
@@ -48,9 +48,10 @@ FIXES: dict[str, tuple] = {
          {"describe": "the retry loop is bounded: three failures escalate rather than "
                       "becoming a fourth attempt",
           "assert": "output.attempts <= 3"}],
-        {"verifier": [{"attempts": "int"}, "escalated", "output"]},
-        {"verifier": {"attempts": 1, "escalated": False,
-                      "output": {"attempts": 1, "escalated": False}}},
+        # `attempts` is deliberately NOT declared: the runtime publishes it, and a
+        # node declaring it lets the fixture pin the counter so the loop never ends.
+        {"verifier": ["escalated", "output"]},
+        {"verifier": {"escalated": False, "output": {"escalated": False}}},
     ),
     "self-healing-ci": (
         [{"describe": "the pipeline is re-run to prove it is green, not reported green",
@@ -58,9 +59,9 @@ FIXES: dict[str, tuple] = {
          {"describe": "every attempt is recorded as a lesson, so the next run does not "
                       "retry what already did not work",
           "assert": "len(output.lessons) >= 1 and output.attempts <= 3"}],
-        {"confirm": [{"attempts": "int"}, "escalated", {"lessons": "list"}, "output"]},
-        {"confirm": {"attempts": 1, "escalated": False, "lessons": ["cache was stale"],
-                     "output": {"attempts": 1, "lessons": ["cache was stale"]}}},
+        {"confirm": ["escalated", {"lessons": "list"}, "output"]},
+        {"confirm": {"escalated": False, "lessons": [{"tried": "clear cache", "ruled_out": "stale artifacts"}],
+                     "output": {"lessons": [{"tried": "clear cache", "ruled_out": "stale artifacts"}]}}},
     ),
     "bug-triage-and-fix": (
         [{"describe": "the regression test is run before and after the patch; the exit "
@@ -168,6 +169,52 @@ FIXES: dict[str, tuple] = {
 }
 
 
+#: A composite embeds a child graph and inherits its phase-tagged asserts, so
+#: rewriting a child's contract rewrites every parent that references it. The
+#: parent's fixtures carry the child's node outputs under the phase prefix.
+COMPOSITE_PHASES: dict[str, dict] = {
+    "hiring-lifecycle": {          # embeds jd-drafting-critic as `define-role`
+        "define-role.critique": {
+            "bias_terms": [], "requirements": ["python"],
+            "unique_requirements": ["python"],
+            "output": {"bias_terms": [], "requirements": ["python"],
+                       "unique_requirements": ["python"]},
+        },
+    },
+    "feature-delivery-lifecycle": {  # embeds bug-triage-and-fix as `implement`
+        "implement.verify": {
+            "exit_before": 1, "exit_after": 0,
+            "output": {"exit_before": 1, "exit_after": 0},
+        },
+    },
+}
+
+
+def _fix_composite_phases() -> int:
+    n = 0
+    for name, phases in COMPOSITE_PHASES.items():
+        cpath = cases_path(name)
+        data = yaml.safe_load(cpath.read_text())
+        for case in data["cases"]:
+            for nid, outs in phases.items():
+                existing = case["node_outputs"].get(nid) or {}
+                if isinstance(existing, list):
+                    case["node_outputs"][nid] = [
+                        {**v, **outs, "output": {**(v.get("output") or {}),
+                                                 **(outs.get("output") or {})}}
+                        for v in existing
+                    ]
+                else:
+                    case["node_outputs"][nid] = {
+                        **existing, **outs,
+                        "output": {**(existing.get("output") or {}),
+                                   **(outs.get("output") or {})},
+                    }
+                n += 1
+        cpath.write_text(yaml.safe_dump(data, sort_keys=False, width=100))
+    return n
+
+
 def main() -> int:
     changed = []
     for name, spec in FIXES.items():
@@ -187,13 +234,25 @@ def main() -> int:
         for case in data["cases"]:
             for nid, outs in case_outputs.items():
                 existing = case["node_outputs"].get(nid) or {}
+                # A retry fixture is a LIST — successive visits of one node. Merge
+                # into each visit rather than flattening it, or the loop the guard
+                # now enables loses the outputs that make it terminate.
+                if isinstance(existing, list):
+                    case["node_outputs"][nid] = [
+                        {**v, **outs, "output": {**(v.get("output") or {}),
+                                                 **(outs.get("output") or {})}}
+                        for v in existing
+                    ]
+                    continue
                 merged = {**existing, **outs}
                 merged["output"] = {**(existing.get("output") or {}),
                                     **(outs.get("output") or {})}
                 case["node_outputs"][nid] = merged
         cpath.write_text(yaml.safe_dump(data, sort_keys=False, width=100))
         changed.append(name)
+    phases = _fix_composite_phases()
     print(f"replaced {len(changed)} compound self-graded contracts: {changed}")
+    print(f"realigned {phases} composite phase fixtures that embed a rewritten child")
     print("re-record these — their prior recordings measured the contract they replace")
     return 0
 

@@ -35,6 +35,7 @@ nodes:
   outputs:
   - entries: list[{answer_matches_key:any, distractors_plausible:any}]
   - output
+  - rejected: bool
   criteria: "The critic, solving each item without seeing the key, arrives at the keyed answer \u2014\
     \ and each distractor is wrong for a reason a learner could plausibly hold, not obviously absurd."
 edges:

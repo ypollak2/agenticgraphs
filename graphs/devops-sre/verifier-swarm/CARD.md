@@ -32,8 +32,8 @@ Independent verifiers check an artifact in parallel; disagreement blocks release
 Independent workers cover disjoint slices of the input at the same time. Because they cannot see each other's drafts, agreement is evidence and disagreement surfaces blind spots; the aggregator merges with explicit rules. Wall-clock time is roughly the slowest worker, not the sum.
 
 - **Exit contract** — verifier command exits 0, or 3 failed attempts escalate to human
-- **Machine-checked** — `output.verified == true or output.escalated == true`
 - **Command-checked** — `{verify_command}`
+- **Machine-checked** — `output.attempts <= 3`
 - **Bounded** — hard stop after 30 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval verifier-swarm` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/verifier-swarm.md)

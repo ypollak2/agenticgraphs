@@ -43,7 +43,7 @@ flowchart LR
 | 2 | `plan` | `plan=['slice a', 'slice b'], acceptance_criteria=['p95 < 200ms']` |
 | 3 | `implement.plan` | `steps=['decompose goal']` |
 | 4 | `implement.execute` | *(no fixture — empty output)* |
-| 5 | `implement.verify` | `verify_failed=False, attempts=1, patch='diff --git a/app.py', output={'test_failed_before_patch': True, 'test_passes_after_patch': True}` |
+| 5 | `implement.verify` | `verify_failed=False, attempts=1, patch='diff --git a/app.py', output={'test_failed_before_patch': True, 'test_passes_after_patch': True, 'exit_before': 1, 'exit_after': 0}, exit_before=1, exit_after=0` |
 | 6 | `test.intake` | *(no fixture — empty output)* |
 | 7 | `test.generate` | *(no fixture — empty output)* |
 | 8 | `test.critique` | `revision_requested=False, test_report={'passed': 12, 'failed': 0}, output={'coverage_delta': 4, 'mutation_score': 0.82, 'mutation_baseline': 0.6}` |
@@ -70,7 +70,7 @@ flowchart LR
 | 2 | `plan` | `plan=['slice a'], acceptance_criteria=['no regressions']` |
 | 3 | `implement.plan` | `steps=['decompose goal']` |
 | 4 | `implement.execute` | *(no fixture — empty output)* |
-| 5 | `implement.verify` | `verify_failed=False, attempts=1, patch='diff v1', output={'test_failed_before_patch': True, 'test_passes_after_patch': True}` |
+| 5 | `implement.verify` | `verify_failed=False, attempts=1, patch='diff v1', output={'test_failed_before_patch': True, 'test_passes_after_patch': True, 'exit_before': 1, 'exit_after': 0}, exit_before=1, exit_after=0` |
 | 6 | `test.intake` | *(no fixture — empty output)* |
 | 7 | `test.generate` | *(no fixture — empty output)* |
 | 8 | `test.critique` | `revision_requested=False, test_report={'passed': 8, 'failed': 0}, output={'coverage_delta': 2, 'mutation_score': 0.75, 'mutation_baseline': 0.6}` |
@@ -102,7 +102,7 @@ flowchart LR
 | 2 | `plan` | `plan=['slice a'], acceptance_criteria=['no regressions']` |
 | 3 | `implement.plan` | `steps=['decompose goal']` |
 | 4 | `implement.execute` | *(no fixture — empty output)* |
-| 5 | `implement.verify` | `verify_failed=False, attempts=1, patch='diff v1', output={'test_failed_before_patch': True, 'test_passes_after_patch': True}` |
+| 5 | `implement.verify` | `verify_failed=False, attempts=1, patch='diff v1', output={'test_failed_before_patch': True, 'test_passes_after_patch': True, 'exit_before': 1, 'exit_after': 0}, exit_before=1, exit_after=0` |
 | 6 | `test.intake` | *(no fixture — empty output)* |
 | 7 | `test.generate` | *(no fixture — empty output)* |
 | 8 | `test.critique` | `revision_requested=False, test_report={'passed': 8, 'failed': 0}, output={'coverage_delta': 2, 'mutation_score': 0.75, 'mutation_baseline': 0.6}` |

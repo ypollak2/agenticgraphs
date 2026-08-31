@@ -30,6 +30,7 @@ nodes:
   outputs:
   - output
   - violations: list[{count:int, rule_id:any}]
+  - verify_failed: bool
   criteria: Every violation is a machine-readable rule id with the row count that breaks it, so the report
     can be re-run and diffed rather than re-read.
   retries:

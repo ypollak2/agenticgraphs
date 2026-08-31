@@ -30,6 +30,7 @@ nodes:
   outputs:
   - citations: list[{resolves:bool}]
   - output
+  - verify_failed: bool
   criteria: Every citation resolves to a real, reachable source, and the cited passage actually supports
     the claim it is attached to. A resolving link under a claim it does not support is the harder failure
     and the one this node exists for.

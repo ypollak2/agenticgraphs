@@ -32,7 +32,8 @@ Upgrade pinned deps, scan changelogs for breakage, run suite.
 Staged specialists each own one narrow concern, so quality problems are localized to the stage that produced them instead of being smeared across a single mega-prompt. Output only leaves the graph through the exit contract.
 
 - **Exit contract** — lockfile updated; tests pass; no new deprecation warnings
-- **Machine-checked** — `output.lockfile_updated and output.tests_pass and not output.new_deprecations`
+- **Machine-checked** — `output.lockfile_sha_before != output.lockfile_sha_after`
+- **Machine-checked** — `len(output.new_deprecations) == 0`
 - **Command-checked** — `pytest -q`
 - **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval dependency-upgrade` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)

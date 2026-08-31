@@ -24,6 +24,7 @@ nodes:
   - conclusion: any
   - output
   - query_results
+  - verify_failed: bool
   criteria: The conclusion is supported by the query results attached to it, and the queries were driven
     by a stated hypothesis rather than assembled after the answer was chosen.
   retries:
