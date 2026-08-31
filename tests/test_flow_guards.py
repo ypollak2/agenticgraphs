@@ -224,3 +224,32 @@ def test_an_exhausted_retry_now_reaches_an_escalation_terminal():
         f"an unreconcilable filing stalled instead of being abandoned: {rep.trace}"
     )
     assert rep.unreached_terminals == [], "the run reached a terminal"
+
+
+def test_a_refused_approval_is_not_reported_as_a_stall():
+    """The gate saying no is an answer, not a missing edge.
+
+    `vuln-remediation-lifecycle` reached `disclose-approval`, which refused to sign
+    because the recorded exit codes did not show the exploit blocked. The run
+    correctly stopped. Calling that "stopped short" sends a reader looking for a
+    topology bug when a check simply said no.
+    """
+    from agenticgraphs.evalcmd import case_inputs
+    from agenticgraphs.registry import ROOT, cases_path
+
+    doc = load(next(g for g in iter_graphs()
+                    if load(g)["name"] == "vuln-remediation-lifecycle"))
+    case = yaml.safe_load(cases_path("vuln-remediation-lifecycle").read_text())["cases"][0]
+    outs = {k: (dict(v) if isinstance(v, dict) else v)
+            for k, v in case["node_outputs"].items()}
+    # Reaches the gate (`exploit_blocked` routes it there) carrying evidence that
+    # does not support disclosure: the PoC still succeeds after the patch, so the
+    # approval contract on those exit codes cannot hold.
+    outs["prove"] = {"exploit_blocked": True,
+                     "repro_exit_code_before": 0, "repro_exit_code_after": 0}
+    rep = run_graph(doc, MockRunner(outs), root=ROOT, auto_approve=True,
+                    inputs=case_inputs(case))
+    assert any(not ok for _, ok in rep.approvals), "the gate should have refused"
+    assert rep.unreached_terminals == [], (
+        "a refused approval was reported as a stall"
+    )

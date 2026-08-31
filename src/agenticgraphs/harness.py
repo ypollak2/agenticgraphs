@@ -1064,7 +1064,13 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
         and not any(e["from"] == n["id"] and e.get("kind") not in _FAILURE_EDGES
                     for e in edges)
     ]
-    if terminal and rep.trace and not (set(terminal) & set(rep.trace)):
+    # A rejected approval is not a stall. `vuln-remediation-lifecycle` reached its
+    # human gate, the gate refused to sign because the exit codes did not support
+    # disclosure, and the run correctly went no further. That is the gate doing its
+    # job — reporting it as "stopped short" would tell a reader to look for a
+    # missing edge when the answer is that a check said no.
+    refused = any(not ok for _, ok in rep.approvals)
+    if terminal and rep.trace and not refused and not (set(terminal) & set(rep.trace)):
         rep.unreached_terminals = sorted(terminal)
 
     _check_state(doc, bb, root, rep)

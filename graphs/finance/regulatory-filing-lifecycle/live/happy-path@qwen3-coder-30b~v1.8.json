@@ -1,0 +1,52 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "file Q1 2026 under the SEC regime with reconciled figures"
+  },
+  "node_outputs": {
+    "collect": [
+      {
+        "figures": "Q1 2026 SEC reconciliation pending source figure alignment and controller signature"
+      },
+      {
+        "figures": "Q1 2026 SEC reconciliation pending source figure alignment and controller signature"
+      },
+      {
+        "figures": "Q1 2026 SEC reconciliation pending source figure alignment and controller signature"
+      }
+    ],
+    "reconcile": [
+      {
+        "variance": 0,
+        "filing_total": 0,
+        "ledger_total": 0,
+        "reconciled": false
+      },
+      {
+        "variance": 0,
+        "filing_total": 0,
+        "ledger_total": 0,
+        "reconciled": false
+      },
+      {
+        "variance": 0,
+        "filing_total": 0,
+        "ledger_total": 0,
+        "reconciled": false
+      }
+    ],
+    "abandon-filing": {
+      "escalated": true,
+      "escalation_reason": "Q1 2026 filing cannot proceed due to unreconciled figures and missing controller signature; formal abandonment required per workflow exit contract"
+    }
+  },
+  "tool_calls": []
+}

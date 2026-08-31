@@ -1,0 +1,80 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "hire a senior backend engineer who can own our payments service"
+  },
+  "node_outputs": {
+    "define-role.intake": {
+      "summary": "Need to identify and hire a senior backend engineer with expertise in payments systems, microservices architecture, and financial software development. Must evaluate candidates on technical skills, problem-solving abilities, and experience with payment gateways, fraud detection, and compliance requirements."
+    },
+    "define-role.generate": {
+      "draft": "Senior Backend Engineer - Payments Service\n\nPosition Overview:\nWe are seeking a Senior Backend Engineer to lead our payments service development. This role requires deep expertise in payment systems, microservices architecture, and financial software development.\n\nKey Responsibilities:\n- Design, implement, and maintain our core payments service\n- Collaborate with cross-functional teams to integrate payment solutions\n- Ensure compliance with financial regulations and security standards\n- Lead technical decisions around payment gateways, fraud detection, and transaction processing\n- Mentor junior engineers and contribute to system architecture\n\nRequired Skills:\n- 5+ years of backend development experience with Java/Go/Python\n- Deep understanding of payment systems and financial software\n- Experience with microservices architecture and distributed systems\n- Knowledge of PCI DSS, fraud detection, and compliance requirements\n- Strong problem-solving abilities and system design skills\n\nPreferred:\n- Experience with AWS/GCP cloud platforms\n- Background in fintech or e-commerce payments\n- Knowledge of blockchain or cryptocurrency payment systems\n\nCompensation: Competitive salary + equity + comprehensive benefits package"
+    },
+    "define-role.critique": {
+      "bias_lint_clean": true,
+      "bias_terms": [],
+      "jd": "Senior Backend Engineer - Payments Service\n\nPosition Overview:\nWe are seeking a Senior Backend Engineer to lead our payments service development. This role requires deep expertise in payment systems, microservices architecture, and financial software development.\n\nKey Responsibilities:\n- Design, implement, and maintain our core payments service\n- Collaborate with cross-functional teams to integrate payment solutions\n- Ensure compliance with financial regulations and security standards\n- Lead technical decisions around payment gateways, fraud detection, and transaction processing\n- Mentor junior engineers and contribute to system architecture\n\nRequired Skills:\n- 5+ years of backend development experience with Java/Go/Python\n- Deep understanding of payment systems and financial software\n- Experience with microservices architecture and distributed systems\n- Knowledge of PCI DSS, fraud detection, and compliance requirements\n- Strong problem-solving abilities and system design skills\n\nPreferred:\n- Experience with AWS/GCP cloud platforms\n- Background in fintech or e-commerce payments\n- Knowledge of blockchain or cryptocurrency payment systems\n\nCompensation: Competitive salary + equity + comprehensive benefits package",
+      "output": "The job description is clean of gendered and coded bias terms. Requirements are deduplicated and clearly separated into must-have and nice-to-have categories. No inflated requirements that unnecessarily narrow the candidate pool.",
+      "rejected": false,
+      "requirements": [
+        "5+ years of backend development experience with Java/Go/Python",
+        "Deep understanding of payment systems and financial software",
+        "Experience with microservices architecture and distributed systems",
+        "Knowledge of PCI DSS, fraud detection, and compliance requirements",
+        "Strong problem-solving abilities and system design skills",
+        "Experience with AWS/GCP cloud platforms",
+        "Background in fintech or e-commerce payments",
+        "Knowledge of blockchain or cryptocurrency payment systems"
+      ],
+      "requirements_deduped": [
+        "5+ years of backend development experience with Java/Go/Python",
+        "Deep understanding of payment systems and financial software",
+        "Experience with microservices architecture and distributed systems",
+        "Knowledge of PCI DSS, fraud detection, and compliance requirements",
+        "Strong problem-solving abilities and system design skills",
+        "Experience with AWS/GCP cloud platforms",
+        "Background in fintech or e-commerce payments",
+        "Knowledge of blockchain or cryptocurrency payment systems"
+      ],
+      "unique_requirements": [
+        "5+ years of backend development experience with Java/Go/Python",
+        "Deep understanding of payment systems and financial software",
+        "Experience with microservices architecture and distributed systems",
+        "Knowledge of PCI DSS, fraud detection, and compliance requirements",
+        "Strong problem-solving abilities and system design skills",
+        "Experience with AWS/GCP cloud platforms",
+        "Background in fintech or e-commerce payments",
+        "Knowledge of blockchain or cryptocurrency payment systems"
+      ]
+    },
+    "screen": [
+      {
+        "shortlist": []
+      },
+      {
+        "shortlist": []
+      }
+    ],
+    "interview": [
+      {
+        "scorecards": []
+      },
+      {
+        "scorecards": []
+      }
+    ],
+    "escalate-hiring": {
+      "escalated": false,
+      "escalation_reason": "Shortlist and scorecards are incomplete. At least three structured scorecards are required to make a decision, but none have been collected yet."
+    }
+  },
+  "tool_calls": []
+}
