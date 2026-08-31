@@ -42,6 +42,8 @@ termination:
   contract: coverage delta positive; mutation score above baseline
 verification:
 - assert: output.coverage_delta > 0 and output.mutation_score > output.mutation_baseline
+- describe: the generated tests run, and the mutation score is measured rather than claimed
+  command: pytest -q
 goal:
   required: true
   description: the module to test and the coverage or mutation bar it must clear

@@ -12,6 +12,7 @@ asserts that parse, and a guard against using v1.1 features under an
 from __future__ import annotations
 
 import ast
+import shlex
 from pathlib import Path
 
 import jsonschema
@@ -195,6 +196,57 @@ def _lint_criteria(doc: dict) -> list[str]:
         for n in doc.get("nodes", [])
         if n.get("kind") == "verifier" and not (n.get("criteria") or "").strip()
     ]
+
+
+#: Function words. A command line does not contain them as bare tokens.
+_PROSE_WORDS = frozenset({
+    "must", "should", "shall", "the", "a", "an", "is", "are", "be", "was", "were",
+    "that", "this", "which", "and", "or", "not", "with", "from", "when", "if",
+})
+
+
+def _lint_commands(doc: dict) -> list[str]:
+    """A `verification[].command` must be runnable, not a description of one.
+
+    `verifier-swarm` shipped `command: "user-supplied verify command must exit 0"`
+    — prose in the field whose entire purpose is that the exit code, not a claim
+    about it, is the fact. Under `--run-commands` that would have tried to execute
+    the program `user-supplied` and recorded a command_failure that looked like a
+    failing check rather than a malformed graph.
+
+    The heuristic is deliberately narrow: several bare words, none of which looks
+    like a flag, a path, or a placeholder, is a sentence. Anything a real command
+    line contains — `-q`, `tests/`, `{suite}`, `./x` — passes.
+    """
+    errors: list[str] = []
+    for v in doc.get("verification") or []:
+        cmd = v.get("command")
+        if not cmd:
+            continue
+        try:
+            argv = shlex.split(cmd)
+        except ValueError as ex:
+            errors.append(f"verification command is not parseable: {cmd!r} ({ex})")
+            continue
+        if not argv:
+            errors.append("verification command is empty")
+            continue
+        looks_like_argv = any(
+            t.startswith(("-", "/", "./", "{")) or "/" in t or "." in t or "=" in t
+            for t in argv
+        )
+        # Counting tokens was the first attempt and it called `alembic upgrade head`
+        # prose. What actually separates a sentence from a command line is function
+        # words: no CLI has a bare `must` or `the` in it. A command that legitimately
+        # passes one as an argument will also carry a flag, path or placeholder, and
+        # `looks_like_argv` clears it.
+        reads_as_prose = bool({t.lower() for t in argv} & _PROSE_WORDS)
+        if reads_as_prose and not looks_like_argv:
+            errors.append(
+                f"verification command reads as prose, not a command line: {cmd!r} — "
+                f"name the program to run, or use a {{placeholder}} the caller fills"
+            )
+    return errors
 
 
 def _parses(expr: str) -> bool:
@@ -424,6 +476,7 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
     errors.extend(_lint_expressions(doc))
     errors.extend(_lint_self_graded(doc))
     errors.extend(_lint_criteria(doc))
+    errors.extend(_lint_commands(doc))
 
     # speciality / ability resolution
     specs = {load(p)["name"]: load(p) for p in iter_yaml("specialities", root)}

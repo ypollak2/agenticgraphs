@@ -32,6 +32,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `output.benchmark_ms <= output.target_ms and not output.test_regressions`
+- ⏭️ `pytest -q --benchmark-only` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `retry-then-meets-target` — ✅ passed
 
@@ -48,6 +49,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `output.benchmark_ms <= output.target_ms and not output.test_regressions`
+- ⏭️ `pytest -q --benchmark-only` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/software-engineering/performance-optimization/CARD.md)*

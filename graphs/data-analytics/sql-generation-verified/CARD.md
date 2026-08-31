@@ -35,6 +35,7 @@ The generator optimizes for recall, the critic for precision. Nothing is accepte
 
 - **Exit contract** — query executes; result passes row-count sanity assertions
 - **Machine-checked** — `output.query_executes and output.row_count_sane`
+- **Command-checked** — `psql -v ON_ERROR_STOP=1 -f {query_path}`
 - **Bounded** — hard stop after 10 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval sql-generation-verified` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/sql-generation-verified.md)

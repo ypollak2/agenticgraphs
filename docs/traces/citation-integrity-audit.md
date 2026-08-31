@@ -32,6 +32,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `all(c.resolves for c in output.citations)`
+- ⏭️ `linkchecker --no-warnings {document_path}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `retry-then-verified` — ✅ passed
 
@@ -48,6 +49,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `all(c.resolves for c in output.citations)`
+- ⏭️ `linkchecker --no-warnings {document_path}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/research-knowledge/citation-integrity-audit/CARD.md)*

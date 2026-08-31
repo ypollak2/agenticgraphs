@@ -38,6 +38,9 @@ termination:
   contract: behavior snapshot tests unchanged before and after
 verification:
 - assert: output.snapshot_before == output.snapshot_after
+- describe: "the characterization suite is green after the refactor \u2014 a refactor that changes behaviour\
+    \ was a rewrite"
+  command: pytest -q
 goal:
   required: true
   description: the code to refactor and the test suite that must stay green

@@ -42,6 +42,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `output.controls_total == output.controls_evidenced + len(output.uncovered)`
+- ⏭️ 1 command check(s) skipped by the mock runner
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/security/compliance-evidence-collector/CARD.md)*

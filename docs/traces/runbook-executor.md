@@ -32,6 +32,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `all(s.exit_code == 0 for s in output.steps)`
+- ⏭️ `pytest -q {postcondition_path}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `retry-then-verified` — ✅ passed
 
@@ -48,6 +49,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `all(s.exit_code == 0 for s in output.steps)`
+- ⏭️ `pytest -q {postcondition_path}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/devops-sre/runbook-executor/CARD.md)*

@@ -39,6 +39,8 @@ termination:
   contract: lockfile updated; tests pass; no new deprecation warnings
 verification:
 - assert: output.lockfile_updated and output.tests_pass and not output.new_deprecations
+- describe: the suite passes against the upgraded lockfile
+  command: pytest -q
 triggers:
 - 'on': schedule
   cron: 23 4 * * 1

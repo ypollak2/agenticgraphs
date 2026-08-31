@@ -35,6 +35,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `output.query_executes and output.row_count_sane`
+- ⏭️ `psql -v ON_ERROR_STOP=1 -f {query_path}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `revised-after-rejection` — ✅ passed
 
@@ -53,6 +54,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `output.query_executes and output.row_count_sane`
+- ⏭️ `psql -v ON_ERROR_STOP=1 -f {query_path}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/data-analytics/sql-generation-verified/CARD.md)*

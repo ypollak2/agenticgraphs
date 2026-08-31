@@ -39,9 +39,12 @@ termination:
   contract: repro test fails before patch and passes after
 verification:
 - assert: output.test_failed_before_patch and output.test_passes_after_patch
+- describe: the regression test fails on the unpatched tree and passes on the patched one
+  command: pytest -q {test_path}
 goal:
   required: true
   description: the bug report to fix and the repository it reproduces in
 state:
   inputs:
   - goal
+  - test_path

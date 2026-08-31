@@ -46,10 +46,13 @@ termination:
   contract: verifier command exits 0, or 3 failed attempts escalate to human
 verification:
 - assert: output.verified == true or output.escalated == true
-- command: user-supplied verify command must exit 0
+- command: '{verify_command}'
+  describe: "the caller's own verification command exits 0 \u2014 the exit code is the fact, and nothing\
+    \ merges before it"
 goal:
   required: true
   description: the goal to decompose and the command that proves it done
 state:
   inputs:
   - goal
+  - verify_command

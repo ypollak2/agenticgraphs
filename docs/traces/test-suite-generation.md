@@ -32,6 +32,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `output.coverage_delta > 0 and output.mutation_score > output.mutation_baseline`
+- ⏭️ `pytest -q` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `revised-after-rejection` — ✅ passed
 
@@ -48,6 +49,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `output.coverage_delta > 0 and output.mutation_score > output.mutation_baseline`
+- ⏭️ `pytest -q` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/software-engineering/test-suite-generation/CARD.md)*

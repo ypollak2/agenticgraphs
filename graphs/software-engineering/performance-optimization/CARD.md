@@ -33,6 +33,7 @@ A bounded improve-and-measure cycle: each iteration must beat the last measured 
 
 - **Exit contract** — benchmark under target with no test regressions
 - **Machine-checked** — `output.benchmark_ms <= output.target_ms and not output.test_regressions`
+- **Command-checked** — `pytest -q --benchmark-only`
 - **Bounded** — hard stop after 15 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval performance-optimization` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/performance-optimization.md)

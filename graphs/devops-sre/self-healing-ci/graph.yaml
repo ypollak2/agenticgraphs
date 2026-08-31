@@ -62,6 +62,8 @@ verification:
   assert: output.pipeline_green == true or output.escalated == true
 - describe: nothing is retried blind
   assert: len(output.lessons) >= 1
+- describe: the pipeline is re-run to prove it is green, not reported green
+  command: pytest -q
 state:
   inputs:
   - goal

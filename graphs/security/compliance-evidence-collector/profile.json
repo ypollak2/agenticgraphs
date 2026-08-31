@@ -43,7 +43,7 @@
         ],
         "goal_missing": "",
         "assert_failures": [],
-        "skipped_command_checks": 0,
+        "skipped_command_checks": 1,
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,

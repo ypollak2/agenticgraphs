@@ -33,6 +33,7 @@ The plan makes intent inspectable before anything touches the world, the executo
 
 - **Exit contract** — each step post-condition command exits zero
 - **Machine-checked** — `all(s.exit_code == 0 for s in output.steps)`
+- **Command-checked** — `pytest -q {postcondition_path}`
 - **Bounded** — hard stop after 25 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval runbook-executor` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/runbook-executor.md)

@@ -32,6 +32,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `output.test_failed_before_patch and output.test_passes_after_patch`
+- ⏭️ `pytest -q {test_path}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `retry-then-verified` — ✅ passed
 
@@ -48,6 +49,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `output.test_failed_before_patch and output.test_passes_after_patch`
+- ⏭️ `pytest -q {test_path}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/software-engineering/bug-triage-and-fix/CARD.md)*

@@ -33,6 +33,7 @@ The plan makes intent inspectable before anything touches the world, the executo
 
 - **Exit contract** — repro test fails before patch and passes after
 - **Machine-checked** — `output.test_failed_before_patch and output.test_passes_after_patch`
+- **Command-checked** — `pytest -q {test_path}`
 - **Bounded** — hard stop after 25 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval bug-triage-and-fix` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/bug-triage-and-fix.md)

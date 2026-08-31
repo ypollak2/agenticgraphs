@@ -36,6 +36,7 @@ flowchart LR
 
 - ✅ `output.consecutive_green >= 3`
 - ✅ `len(output.lessons) >= 1`
+- ⏭️ `pytest -q --count=5 {test_path}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/software-engineering/flaky-test-reflexion/CARD.md)*

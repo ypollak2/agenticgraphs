@@ -71,10 +71,13 @@ verification:
   assert: all(b.mitigation_ref for b in output.bypasses)
 - describe: nothing is left unmitigated
   assert: output.unmitigated == 0
+- describe: the recorded bypasses are replayed against the hardened build
+  command: pytest -q {exploit_suite}
 state:
   inputs:
   - goal
   - target
+  - exploit_suite
 goal:
   required: true
   description: the system to harden and the threat model to harden it against

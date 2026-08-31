@@ -36,6 +36,7 @@ flowchart LR
 
 - ✅ `output.pipeline_green == true or output.escalated == true`
 - ✅ `len(output.lessons) >= 1`
+- ⏭️ `pytest -q` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/devops-sre/self-healing-ci/CARD.md)*

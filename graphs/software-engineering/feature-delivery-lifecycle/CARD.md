@@ -50,6 +50,7 @@ A multi-phase workflow where each phase is itself a motif and hand-offs are expl
 - **Machine-checked** — `output.docs_updated == true`
 - **Machine-checked** — `output.signed_off == true`
 - **Machine-checked** — `output.released == true or output.rolled_back == true`
+- **Command-checked** — `pytest -q`
 - **Bounded** — hard stop after 60 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval feature-delivery-lifecycle` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/feature-delivery-lifecycle.md)

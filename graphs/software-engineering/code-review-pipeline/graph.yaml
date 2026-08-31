@@ -53,6 +53,8 @@ termination:
 verification:
 - assert: output.verdict in ['approve','request_changes']
 - assert: all(f.file and f.line for f in output.findings)
+- describe: the secret scanner runs over the diff rather than the reviewer eyeballing it
+  command: gitleaks detect --no-banner --redact
 goal:
   required: true
   description: the change to review and the repository it lands in

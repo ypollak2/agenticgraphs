@@ -32,6 +32,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `all(e.exit_code == 0 for e in output.examples)`
+- ⏭️ `pytest -q --doctest-glob=*.md {docs_path}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `retry-then-verified` — ✅ passed
 
@@ -48,6 +49,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `all(e.exit_code == 0 for e in output.examples)`
+- ⏭️ `pytest -q --doctest-glob=*.md {docs_path}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/software-engineering/docs-code-sync-audit/CARD.md)*

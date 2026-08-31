@@ -32,7 +32,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `output.verified == true or output.escalated == true`
-- ⏭️ `user-supplied verify command must exit 0` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
+- ⏭️ `{verify_command}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `retry-then-verified` — ✅ passed
 
@@ -49,7 +49,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `output.verified == true or output.escalated == true`
-- ⏭️ `user-supplied verify command must exit 0` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
+- ⏭️ `{verify_command}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `three-failures-escalates` — ✅ passed
 
@@ -68,7 +68,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `output.verified == true or output.escalated == true`
-- ⏭️ `user-supplied verify command must exit 0` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
+- ⏭️ `{verify_command}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/devops-sre/verifier-swarm/CARD.md)*

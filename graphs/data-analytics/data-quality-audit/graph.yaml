@@ -43,9 +43,12 @@ termination:
   contract: violations emitted as machine-readable rules with counts
 verification:
 - assert: all(v.rule_id and v.count >= 0 for v in output.violations)
+- describe: the quality rules are executed against the dataset
+  command: dbt test --select {model_name}
 goal:
   required: true
   description: the dataset to profile and the quality rules it must satisfy
 state:
   inputs:
   - goal
+  - model_name

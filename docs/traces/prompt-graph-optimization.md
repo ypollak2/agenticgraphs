@@ -31,6 +31,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `output.holdout_score > output.baseline_score`
+- ⏭️ `agr eval {candidate_graph} --live` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/research-knowledge/prompt-graph-optimization/CARD.md)*

@@ -51,10 +51,13 @@ termination:
 verification:
 - describe: the winner is confirmed on held-out data, not the set it was tuned on
   assert: output.holdout_score > output.baseline_score
+- describe: the winning variant is scored on the held-out set by running it
+  command: agr eval {candidate_graph} --live
 state:
   inputs:
   - goal
   - graph_under_test
+  - candidate_graph
 goal:
   required: true
   description: the graph to optimize and the metric that decides a winner

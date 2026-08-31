@@ -46,6 +46,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `output.parity_verified == true or output.consistent == true`
+- ⏭️ `alembic upgrade head` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/data-analytics/schema-migration-saga/CARD.md)*

@@ -36,6 +36,7 @@ flowchart LR
 
 - ✅ `all(b.mitigation_ref for b in output.bypasses)`
 - ✅ `output.unmitigated == 0`
+- ⏭️ `pytest -q {exploit_suite}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/security/red-team-blue-team-hardening/CARD.md)*

@@ -48,6 +48,7 @@ flowchart LR
 - ✅ `output.repro_exit_code_before == 0 and output.repro_exit_code_after != 0`
 - ✅ `output.signed_off == true`
 - ✅ `output.advisory_published == true`
+- ⏭️ `pytest -q {repro_path}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/security/vuln-remediation-lifecycle/CARD.md)*

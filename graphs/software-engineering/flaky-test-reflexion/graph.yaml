@@ -63,10 +63,13 @@ verification:
   assert: output.consecutive_green >= 3
 - describe: each failed attempt left a lesson behind
   assert: len(output.lessons) >= 1
+- describe: the suspect test is re-run enough times for three consecutive greens to mean something
+  command: pytest -q --count=5 {test_path}
 state:
   inputs:
   - goal
   - test_id
+  - test_path
   schema: state/lessons.schema.json
 memory:
   scope: graph

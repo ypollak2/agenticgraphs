@@ -32,6 +32,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `output.actual_rows == output.expected_rows`
+- ⏭️ `dbt build --select {model_name}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `retry-then-verified` — ✅ passed
 
@@ -48,6 +49,7 @@ flowchart LR
 **Verification checked:**
 
 - ✅ `output.actual_rows == output.expected_rows`
+- ⏭️ `dbt build --select {model_name}` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/data-analytics/etl-pipeline-builder/CARD.md)*

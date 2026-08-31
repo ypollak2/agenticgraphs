@@ -154,6 +154,8 @@ verification:
   assert: output.signed_off == true
 - describe: "the release either completed or was rolled back \u2014 never partial"
   assert: output.released == true or output.rolled_back == true
+- describe: the feature's tests pass in the repository it was delivered to
+  command: pytest -q
 goal:
   required: true
   description: the feature to deliver and the repository to deliver it in

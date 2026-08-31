@@ -110,6 +110,9 @@ termination:
 verification:
 - describe: "the migration either verified or fully unwound \u2014 never partial"
   assert: output.parity_verified == true or output.consistent == true
+- describe: the migration and its compensator both run, so the saga's reversibility is demonstrated rather
+    than asserted
+  command: alembic upgrade head
 state:
   inputs:
   - goal

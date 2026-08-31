@@ -54,9 +54,12 @@ termination:
   contract: query executes; result passes row-count sanity assertions
 verification:
 - assert: output.query_executes and output.row_count_sane
+- describe: the query is executed against the real schema
+  command: psql -v ON_ERROR_STOP=1 -f {query_path}
 goal:
   required: true
   description: the question to answer in SQL and the schema to answer it against
 state:
   inputs:
   - goal
+  - query_path

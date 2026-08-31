@@ -44,6 +44,8 @@ termination:
   contract: all documented examples run exit zero
 verification:
 - assert: all(e.exit_code == 0 for e in output.examples)
+- describe: every code example in the docs is executed; an example judged plausible has not been checked
+  command: pytest -q --doctest-glob=*.md {docs_path}
 triggers:
 - 'on': webhook
   source: github
@@ -60,3 +62,4 @@ goal:
 state:
   inputs:
   - goal
+  - docs_path

@@ -45,6 +45,7 @@ Every forward step that writes has a paired compensator reachable by a `kind: co
 
 - **Exit contract** — every forward step has a compensator; the saga ends verified or fully unwound
 - **Machine-checked** — `output.parity_verified == true or output.consistent == true`
+- **Command-checked** — `alembic upgrade head`
 - **Bounded** — hard stop after 40 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval schema-migration-saga` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/schema-migration-saga.md)

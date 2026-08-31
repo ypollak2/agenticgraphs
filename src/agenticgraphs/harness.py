@@ -775,13 +775,40 @@ class _Readiness:
         return n_taken >= 1  # "any" — v1 behavior
 
 
-def _run_command(cmd: str, cwd, rep: RunReport) -> None:
+#: `{key}` in a command is filled from the blackboard. Some checks are only the
+#: caller's to name — `verifier-swarm` exists to run whatever command proves the
+#: caller's goal done — and before this the graph expressed that as the literal
+#: string "user-supplied verify command must exit 0", which `shlex.split` would
+#: have tried to execute as the program `user-supplied`. A placeholder makes the
+#: same intent runnable, and `_lint_commands` refuses prose.
+_PLACEHOLDER = re.compile(r"\{([A-Za-z_][A-Za-z_0-9]*)\}")
+
+
+def resolve_command(cmd: str, bb: dict) -> str:
+    """Fill `{key}` placeholders from the blackboard.
+
+    A placeholder with no value raises rather than running a half-substituted
+    command: `pytest {suite}` with no `suite` would otherwise run the whole
+    suite and report a pass for a check that never happened.
+    """
+    missing = [m.group(1) for m in _PLACEHOLDER.finditer(cmd) if m.group(1) not in bb]
+    if missing:
+        raise KeyError(f"command needs {missing} which the blackboard does not supply")
+    return _PLACEHOLDER.sub(lambda m: str(bb[m.group(1)]), cmd)
+
+
+def _run_command(cmd: str, cwd, rep: RunReport, bb: dict | None = None) -> None:
     """Execute a `verification[].command` and record its exit status.
 
     Opt-in only. A verification command runs real code on the real machine, so
     the default stays `skipped` — counted and reported, never silently treated
     as passing.
     """
+    try:
+        cmd = resolve_command(cmd, bb or {})
+    except KeyError as ex:
+        rep.command_failures.append(f"{cmd} ({ex})")
+        return
     try:
         proc = subprocess.run(  # noqa: S603 — command is authored in the graph, opt-in by the caller
             shlex.split(cmd), cwd=cwd, capture_output=True, text=True, timeout=300, check=False
@@ -1013,7 +1040,7 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
     for v in doc.get("verification", []):
         if "command" in v:
             if run_commands:
-                _run_command(v["command"], root, rep)
+                _run_command(v["command"], root, rep, bb)
             else:
                 rep.skipped_commands += 1
             continue

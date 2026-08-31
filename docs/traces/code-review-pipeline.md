@@ -35,6 +35,7 @@ flowchart LR
 
 - ✅ `output.verdict in ['approve','request_changes']`
 - ✅ `all(f.file and f.line for f in output.findings)`
+- ⏭️ `gitleaks detect --no-banner --redact` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `high-risk-blocks-with-located-findings` — ✅ passed
 
@@ -51,6 +52,7 @@ flowchart LR
 
 - ✅ `output.verdict in ['approve','request_changes']`
 - ✅ `all(f.file and f.line for f in output.findings)`
+- ⏭️ `gitleaks detect --no-banner --redact` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/software-engineering/code-review-pipeline/CARD.md)*

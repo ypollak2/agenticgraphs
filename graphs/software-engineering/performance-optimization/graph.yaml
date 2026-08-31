@@ -40,6 +40,8 @@ termination:
   contract: benchmark under target with no test regressions
 verification:
 - assert: output.benchmark_ms <= output.target_ms and not output.test_regressions
+- describe: the benchmark is executed, not estimated
+  command: pytest -q --benchmark-only
 goal:
   required: true
   description: the workload to optimize and the latency or throughput target

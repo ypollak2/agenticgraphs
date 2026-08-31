@@ -33,7 +33,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 
 - **Exit contract** — verifier command exits 0, or 3 failed attempts escalate to human
 - **Machine-checked** — `output.verified == true or output.escalated == true`
-- **Command-checked** — `user-supplied verify command must exit 0`
+- **Command-checked** — `{verify_command}`
 - **Bounded** — hard stop after 30 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval verifier-swarm` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/verifier-swarm.md)

@@ -37,9 +37,12 @@ termination:
   contract: each step post-condition command exits zero
 verification:
 - assert: all(s.exit_code == 0 for s in output.steps)
+- describe: each step's post-condition is executed; a skipped check is not a passed step
+  command: pytest -q {postcondition_path}
 goal:
   required: true
   description: the runbook to execute and the environment to execute it in
 state:
   inputs:
   - goal
+  - postcondition_path

@@ -204,7 +204,7 @@ pie showData title Graphs per domain
 | Depth | What actually happened |
 |---|---|
 | `describe-only` | prose; nothing machine-checked |
-| `assert-fixture` | assert held against a mock fixture — **80 of 83 graphs sit here** |
+| `assert-fixture` | assert held against a mock fixture — **61 of 83 graphs sit here** |
 | `assert-live` | assert held against real model output (`agr eval --live`) |
 | `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |
 
@@ -231,17 +231,17 @@ pie showData title Graphs per domain
 | `ticket-triage-swarm` | customer-support-sales | 2 | 100% | `assert-fixture` | — | 3 | 2 |
 | `ab-test-analysis` | data-analytics | 2 | 100% | `assert-fixture` | — | 3 | 1 |
 | `anomaly-investigation` | data-analytics | 2 | 100% | `assert-fixture` | — | 3 | 2 |
-| `data-quality-audit` | data-analytics | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `etl-pipeline-builder` | data-analytics | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `schema-migration-saga` | data-analytics | 1 | 100% | `assert-fixture` | — | 5 | 1 |
-| `sql-generation-verified` | data-analytics | 2 | 100% | `assert-fixture` | — | 5.5 | 2 |
+| `data-quality-audit` | data-analytics | 2 | 100% | `command` | — | 4 | 2 |
+| `etl-pipeline-builder` | data-analytics | 2 | 100% | `command` | — | 4 | 2 |
+| `schema-migration-saga` | data-analytics | 1 | 100% | `command` | — | 5 | 1 |
+| `sql-generation-verified` | data-analytics | 2 | 100% | `command` | — | 5.5 | 2 |
 | `alert-noise-reduction` | devops-sre | 2 | 100% | `assert-fixture` | — | 3 | 1 |
 | `deploy-canary-verifier` | devops-sre | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `incident-lifecycle` | devops-sre | 1 | 100% | `assert-fixture` | — | 10 | 1 |
 | `incident-triage-router` | devops-sre | 2 | 100% | `assert-fixture` | — | 3 | 2 |
 | `postmortem-writer` | devops-sre | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `runbook-executor` | devops-sre | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `self-healing-ci` | devops-sre | 1 | 100% | `assert-fixture` | — | 4 | 1 |
+| `runbook-executor` | devops-sre | 2 | 100% | `command` | — | 4 | 2 |
+| `self-healing-ci` | devops-sre | 1 | 100% | `command` | — | 4 | 1 |
 | `verifier-swarm` | devops-sre | 3 | 100% | `command` | — | 5 | 3 |
 | `essay-feedback-critic` | education | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `quiz-generation-verified` | education | 2 | 100% | `assert-fixture` | — | 5.5 | 2 |
@@ -268,33 +268,33 @@ pie showData title Graphs per domain
 | `product-listing-pipeline` | logistics-retail | 1 | 100% | `assert-fixture` | — | 7 | 1 |
 | `returns-triage` | logistics-retail | 2 | 100% | `assert-fixture` | — | 3 | 2 |
 | `supplier-risk-monitor` | logistics-retail | 1 | 100% | `assert-fixture` | — | 6 | 1 |
-| `citation-integrity-audit` | research-knowledge | 2 | 100% | `assert-fixture` | — | 4 | 2 |
+| `citation-integrity-audit` | research-knowledge | 2 | 100% | `command` | — | 4 | 2 |
 | `competitive-intelligence` | research-knowledge | 2 | 100% | `assert-fixture` | — | 3 | 1 |
 | `cost-routed-research` | research-knowledge | 3 | 100% | `assert-fixture` | — | 3.33 | 3 |
 | `fact-check-pipeline` | research-knowledge | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `literature-review-swarm` | research-knowledge | 2 | 100% | `assert-fixture` | — | 5 | 2 |
-| `prompt-graph-optimization` | research-knowledge | 1 | 100% | `assert-fixture` | — | 3 | 1 |
+| `prompt-graph-optimization` | research-knowledge | 1 | 100% | `command` | — | 3 | 1 |
 | `compliance-evidence-collector` | security | 1 | 100% | `assert-fixture` | — | 11 | 1 |
 | `forensic-investigation-blackboard` | security | 1 | 100% | `assert-fixture` | — | 3 | 1 |
 | `phishing-triage` | security | 2 | 100% | `assert-fixture` | — | 3 | 2 |
-| `red-team-blue-team-hardening` | security | 1 | 100% | `assert-fixture` | — | 4 | 1 |
+| `red-team-blue-team-hardening` | security | 1 | 100% | `command` | — | 4 | 1 |
 | `soc-alert-investigation` | security | 2 | 100% | `assert-fixture` | — | 4 | 2 |
 | `threat-intel-digest` | security | 2 | 100% | `assert-fixture` | — | 4 | 1 |
 | `vuln-prioritization` | security | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `vuln-remediation-lifecycle` | security | 1 | 100% | `assert-fixture` | — | 9 | 1 |
+| `vuln-remediation-lifecycle` | security | 1 | 100% | `command` | — | 9 | 1 |
 | `architecture-decision-tournament` | software-engineering | 1 | 100% | `assert-fixture` | — | 3 | 1 |
 | `benchmark-driven-optimization-search` | software-engineering | 1 | 100% | `command` | — | 3 | 1 |
-| `bug-triage-and-fix` | software-engineering | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `code-review-pipeline` | software-engineering | 2 | 100% | `assert-fixture` | — | 3.5 | 2 |
-| `dependency-upgrade` | software-engineering | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `docs-code-sync-audit` | software-engineering | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `feature-delivery-lifecycle` | software-engineering | 3 | 100% | `assert-fixture` | — | 16 | 3 |
-| `flaky-test-reflexion` | software-engineering | 1 | 100% | `assert-fixture` | — | 4 | 1 |
+| `bug-triage-and-fix` | software-engineering | 2 | 100% | `command` | — | 4 | 2 |
+| `code-review-pipeline` | software-engineering | 2 | 100% | `command` | — | 3.5 | 2 |
+| `dependency-upgrade` | software-engineering | 2 | 100% | `command` | — | 4 | 2 |
+| `docs-code-sync-audit` | software-engineering | 2 | 100% | `command` | — | 4 | 2 |
+| `feature-delivery-lifecycle` | software-engineering | 3 | 100% | `command` | — | 16 | 3 |
+| `flaky-test-reflexion` | software-engineering | 1 | 100% | `command` | — | 4 | 1 |
 | `framework-migration` | software-engineering | 1 | 100% | `command` | — | 7 | 1 |
-| `legacy-refactor` | software-engineering | 2 | 100% | `assert-fixture` | — | 4 | 2 |
-| `performance-optimization` | software-engineering | 2 | 100% | `assert-fixture` | — | 4 | 2 |
+| `legacy-refactor` | software-engineering | 2 | 100% | `command` | — | 4 | 2 |
+| `performance-optimization` | software-engineering | 2 | 100% | `command` | — | 4 | 2 |
 | `release-notes-generation` | software-engineering | 2 | 100% | `assert-fixture` | — | 3 | 1 |
-| `test-suite-generation` | software-engineering | 2 | 100% | `assert-fixture` | — | 4 | 2 |
+| `test-suite-generation` | software-engineering | 2 | 100% | `command` | — | 4 | 2 |
 
 **Contract connection (v1.4):** 83 of 83 graphs have every key their verification asserts on declared as some node's output. This was 60 of 183 keys connected when v1.4 began — the gap is why four contracts could be structurally valid, pass the whole suite, and be satisfiable by no model. No graph is disconnected.
 

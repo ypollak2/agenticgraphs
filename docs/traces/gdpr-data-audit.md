@@ -40,6 +40,7 @@ flowchart LR
 
 - ✅ `output.unclassified_stores == 0`
 - ✅ `all(gp.owner and gp.due for gp in output.gaps)`
+- ⏭️ 1 command check(s) skipped by the mock runner
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/legal-compliance/gdpr-data-audit/CARD.md)*

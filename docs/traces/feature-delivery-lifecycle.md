@@ -60,6 +60,7 @@ flowchart LR
 - ✅ `output.docs_updated == true`
 - ✅ `output.signed_off == true`
 - ✅ `output.released == true or output.rolled_back == true`
+- ⏭️ `pytest -q` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `audit-requests-changes-then-approves` — ✅ passed
 
@@ -93,6 +94,7 @@ flowchart LR
 - ✅ `output.docs_updated == true`
 - ✅ `output.signed_off == true`
 - ✅ `output.released == true or output.rolled_back == true`
+- ⏭️ `pytest -q` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ### `failed-release-is-compensated` — ✅ passed
 
@@ -122,6 +124,7 @@ flowchart LR
 - ✅ `output.docs_updated == true`
 - ✅ `output.signed_off == true`
 - ✅ `output.released == true or output.rolled_back == true`
+- ⏭️ `pytest -q` — command checks are skipped by the mock runner (run with `--live` against a real environment to exercise them)
 
 ---
 *Regenerate: `uv run python scripts/gen_traces.py` · [Trace gallery index](README.md) · [Graph card](../../graphs/software-engineering/feature-delivery-lifecycle/CARD.md)*
