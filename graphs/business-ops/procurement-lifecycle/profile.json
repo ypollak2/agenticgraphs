@@ -18,7 +18,7 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-08-31",
+    "date": "2026-09-01",
     "cases": 1,
     "passed": 1,
     "pass_rate": 1.0,
@@ -56,15 +56,56 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:qwen3-coder:30b",
+    "runner": "llm-replay:lfm2.5:8b,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-08-31",
-    "cases": 3,
+    "date": "2026-09-01",
+    "cases": 4,
     "passed": 3,
-    "pass_rate": 1.0,
+    "pass_rate": 0.75,
     "mean_steps": 7.0,
     "results": [
+      {
+        "id": "happy-path",
+        "model": "lfm2.5:8b",
+        "recorded": "2026-09-01",
+        "gate_auto_approved": true,
+        "passed": false,
+        "steps": 7,
+        "trace": [
+          "rfp.partition",
+          "rfp.map",
+          "rfp.reduce",
+          "score",
+          "negotiate",
+          "budget-approval",
+          "award"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [
+          "rfp.reduce.requirements: missing 'answered' at [0]",
+          "rfp.reduce.requirements: missing 'flagged' at [0]",
+          "rfp.reduce.requirements: missing 'answered' at [1]",
+          "rfp.reduce.requirements: missing 'flagged' at [1]",
+          "rfp.reduce.requirements: missing 'answered' at [2]"
+        ],
+        "state_violations": [],
+        "assert_failures": [
+          "output.scored_vendors >= 3 (TypeError: '>=' not supported between instances of 'list' and 'int')",
+          "[rfp] all(r.answered or r.flagged for r in output.requirements) and output.page_count <= output.page_limit (AttributeError: answered)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": true,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
@@ -163,17 +204,20 @@
       }
     ],
     "models": [
+      "lfm2.5:8b",
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-31",
-    "age_days": 0,
+    "age_days": 1,
     "per_model_pass_rate": {
+      "lfm2.5:8b": 0.0,
       "qwen3-coder:30b": 1.0
     },
-    "models_disagree": false,
+    "models_disagree": true,
     "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
+      "lfm2.5:8b": 1,
       "qwen3-coder:30b": 3
     },
     "gate_auto_approved": true

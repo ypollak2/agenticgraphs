@@ -1,0 +1,46 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the vendor onboarding runbook, against InfoSec policy v4"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "the vendor onboarding runbook, against InfoSec policy v4"
+    },
+    "clause-map": {
+      "clause_shards": []
+    },
+    "produce": {
+      "findings": [
+        {
+          "clause_id": "POL-001"
+        },
+        {
+          "clause_id": "POL-045"
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "findings": [
+          {
+            "clause_id": "POL-001"
+          },
+          {
+            "clause_id": "POL-045"
+          }
+        ]
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": []
+}

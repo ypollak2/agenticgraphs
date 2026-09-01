@@ -18,7 +18,7 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-08-31",
+    "date": "2026-09-01",
     "cases": 2,
     "passed": 2,
     "pass_rate": 1.0,
@@ -77,15 +77,46 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:qwen3-coder:30b,qwen3.5:latest",
+    "runner": "llm-replay:lfm2.5:8b,qwen3-coder:30b,qwen3.5:latest",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-08-31",
-    "cases": 7,
-    "passed": 6,
-    "pass_rate": 0.857,
-    "mean_steps": 2.71,
+    "date": "2026-09-01",
+    "cases": 9,
+    "passed": 7,
+    "pass_rate": 0.778,
+    "mean_steps": 2.56,
     "results": [
+      {
+        "id": "simple-branch",
+        "model": "lfm2.5:8b",
+        "recorded": "2026-09-01",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 1,
+        "trace": [
+          "route"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [
+          "verify"
+        ],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [
+          "output.assigned_team == output.expected_team (AttributeError: assigned_team)",
+          "len(output.expected_team) > 0 (AttributeError: expected_team)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "simple-branch",
         "model": "qwen3-coder:30b",
@@ -203,6 +234,34 @@
       },
       {
         "id": "complex-branch",
+        "model": "lfm2.5:8b",
+        "recorded": "2026-09-01",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "route",
+          "branch-complex",
+          "verify"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "complex-branch",
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-31",
         "gate_auto_approved": false,
@@ -287,19 +346,24 @@
       }
     ],
     "models": [
+      "lfm2.5:8b",
       "qwen3-coder:30b",
       "qwen3.5:latest"
     ],
     "recorded": "2026-08-31",
-    "age_days": 0,
+    "age_days": 1,
     "per_model_pass_rate": {
+      "lfm2.5:8b": 0.5,
       "qwen3-coder:30b": 1.0,
       "qwen3.5:latest": 0.0
     },
     "models_disagree": true,
     "fails_every_model": false,
-    "flaky_models": [],
+    "flaky_models": [
+      "lfm2.5:8b"
+    ],
     "samples_per_model": {
+      "lfm2.5:8b": 2,
       "qwen3-coder:30b": 6,
       "qwen3.5:latest": 1
     },

@@ -208,15 +208,15 @@ pie showData title Graphs per domain
 | `assert-live` | assert held against real model output (`agr eval --live`) |
 | `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |
 
-**Real-model evidence:** 83 graphs carry checked-in recordings of actual model runs across 2 models (`graphs/<domain>/<graph>/live/`); **56 of 83** satisfy their contract on every model, and **25 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
+**Real-model evidence:** 83 graphs carry checked-in recordings of actual model runs across 3 models (`graphs/<domain>/<graph>/live/`); **55 of 83** satisfy their contract on every model, and **25 satisfy it on none** (🚫 — a contract no model delivers is a bad contract, not a bad model). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
 
 | Graph | Domain | Cases | Pass rate | Depth | Live (real model) | Mean steps | Routes |
 |---|---|---|---|---|---|---|---|
-| `invoice-reconciliation` | business-ops | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 4 | 1 |
-| `meeting-to-actions` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
-| `policy-compliance-check` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 5 | 2 |
-| `procurement-lifecycle` | business-ops | 1 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 7 | 1 |
-| `rfp-response-assembler` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 1 |
+| `invoice-reconciliation` | business-ops | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-08-31 | 4 | 1 |
+| `meeting-to-actions` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-31 | 4 | 2 |
+| `policy-compliance-check` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-31 | 5 | 2 |
+| `procurement-lifecycle` | business-ops | 1 | 100% | `assert-fixture` | ⚠️ 0%/100% · 2026-08-31 | 7 | 1 |
+| `rfp-response-assembler` | business-ops | 2 | 100% | `assert-fixture` | ✅ 100%/100% · 2026-08-31 | 3 | 1 |
 | `vendor-comparison-matrix` | business-ops | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 6 | 1 |
 | `blog-production-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 5 | 2 |
 | `localization-pipeline` | content-marketing | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 3 | 1 |
@@ -238,7 +238,7 @@ pie showData title Graphs per domain
 | `alert-noise-reduction` | devops-sre | 2 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 3 | 1 |
 | `deploy-canary-verifier` | devops-sre | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
 | `incident-lifecycle` | devops-sre | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 10 | 1 |
-| `incident-triage-router` | devops-sre | 2 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-08-31 | 3 | 2 |
+| `incident-triage-router` | devops-sre | 2 | 100% | `assert-fixture` | 🎲 50%/100%/0% · 2026-08-31 | 3 | 2 |
 | `postmortem-writer` | devops-sre | 2 | 100% | `assert-fixture` | ✅ 100% · 2026-08-31 | 4 | 2 |
 | `runbook-executor` | devops-sre | 2 | 100% | `command` | ✅ 100% · 2026-08-31 | 4 | 2 |
 | `self-healing-ci` | devops-sre | 1 | 100% | `command` | 🚫 0% · 2026-08-31 | 4 | 1 |
@@ -285,7 +285,7 @@ pie showData title Graphs per domain
 | `architecture-decision-tournament` | software-engineering | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-08-31 | 3 | 1 |
 | `benchmark-driven-optimization-search` | software-engineering | 1 | 100% | `command` | ✅ 100% · 2026-08-31 | 3 | 1 |
 | `bug-triage-and-fix` | software-engineering | 2 | 100% | `command` | 🚫 0% · 2026-08-31 | 4 | 2 |
-| `code-review-pipeline` | software-engineering | 2 | 100% | `command` | ✅ 100% · 2026-08-31 | 3.5 | 2 |
+| `code-review-pipeline` | software-engineering | 2 | 100% | `command` | ✅ 100%/100% · 2026-08-31 | 3.5 | 2 |
 | `dependency-upgrade` | software-engineering | 2 | 100% | `command` | ✅ 100% · 2026-08-31 | 4 | 2 |
 | `docs-code-sync-audit` | software-engineering | 2 | 100% | `command` | 🚫 0% · 2026-08-31 | 4 | 2 |
 | `feature-delivery-lifecycle` | software-engineering | 3 | 100% | `command` | 🚫 0% · 2026-08-31 | 16 | 3 |
