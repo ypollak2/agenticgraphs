@@ -1,0 +1,32 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the 41 PRs merged since v2.13, for v2.14.0"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": []
+    },
+    "reduce": {
+      "notes": [
+        {
+          "pr_url": "https://github.com/old-repo/pull/1234"
+        }
+      ],
+      "orphan_claims": [],
+      "output": [
+        "notes",
+        "orphan_claims"
+      ]
+    }
+  },
+  "tool_calls": []
+}

@@ -79,21 +79,21 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:qwen3-coder:30b",
+    "runner": "llm-replay:lfm2.5:8b,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "command",
     "date": "2026-09-01",
-    "cases": 6,
-    "passed": 0,
-    "pass_rate": 0.0,
+    "cases": 8,
+    "passed": 2,
+    "pass_rate": 0.25,
     "mean_steps": 3.0,
     "results": [
       {
         "id": "first-attempt-verified",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
+        "model": "lfm2.5:8b",
+        "recorded": "2026-09-01",
         "gate_auto_approved": false,
-        "passed": false,
+        "passed": true,
         "steps": 3,
         "trace": [
           "plan",
@@ -102,9 +102,7 @@
         ],
         "goal_missing": "",
         "unreached_terminals": [],
-        "shape_violations": [
-          "work.work_result: expected an object at [0], got NoneType"
-        ],
+        "shape_violations": [],
         "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 1,
@@ -165,6 +163,64 @@
         "shape_violations": [
           "work.work_result: expected an object at [0], got NoneType"
         ],
+        "state_violations": [],
+        "assert_failures": [],
+        "skipped_command_checks": 1,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "first-attempt-verified",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 3,
+        "trace": [
+          "plan",
+          "work",
+          "verify"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [
+          "work.work_result: expected an object at [0], got NoneType"
+        ],
+        "state_violations": [],
+        "assert_failures": [],
+        "skipped_command_checks": 1,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "retry-then-verified",
+        "model": "lfm2.5:8b",
+        "recorded": "2026-09-01",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 3,
+        "trace": [
+          "plan",
+          "work",
+          "verify"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
         "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 1,
@@ -270,17 +326,20 @@
       }
     ],
     "models": [
+      "lfm2.5:8b",
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-31",
     "age_days": 1,
     "per_model_pass_rate": {
+      "lfm2.5:8b": 1.0,
       "qwen3-coder:30b": 0.0
     },
-    "models_disagree": false,
-    "fails_every_model": true,
+    "models_disagree": true,
+    "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
+      "lfm2.5:8b": 2,
       "qwen3-coder:30b": 6
     },
     "gate_auto_approved": false

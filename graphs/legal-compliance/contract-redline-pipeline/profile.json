@@ -81,19 +81,19 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:qwen3-coder:30b",
+    "runner": "llm-replay:lfm2.5:8b,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-09-01",
-    "cases": 6,
-    "passed": 6,
+    "cases": 8,
+    "passed": 8,
     "pass_rate": 1.0,
-    "mean_steps": 5.0,
+    "mean_steps": 4.75,
     "results": [
       {
         "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
+        "model": "lfm2.5:8b",
+        "recorded": "2026-09-01",
         "gate_auto_approved": false,
         "passed": true,
         "steps": 4,
@@ -152,6 +152,64 @@
         "id": "happy-path",
         "model": "qwen3-coder:30b",
         "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 4,
+        "trace": [
+          "intake",
+          "playbook-lookup",
+          "produce",
+          "review"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 4,
+        "trace": [
+          "intake",
+          "playbook-lookup",
+          "produce",
+          "review"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "retry-then-resolved",
+        "model": "lfm2.5:8b",
+        "recorded": "2026-09-01",
         "gate_auto_approved": false,
         "passed": true,
         "steps": 4,
@@ -272,17 +330,20 @@
       }
     ],
     "models": [
+      "lfm2.5:8b",
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-31",
     "age_days": 1,
     "per_model_pass_rate": {
+      "lfm2.5:8b": 1.0,
       "qwen3-coder:30b": 1.0
     },
     "models_disagree": false,
     "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
+      "lfm2.5:8b": 2,
       "qwen3-coder:30b": 6
     },
     "gate_auto_approved": false

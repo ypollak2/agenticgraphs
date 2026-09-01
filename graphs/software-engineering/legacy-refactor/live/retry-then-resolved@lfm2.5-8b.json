@@ -1,0 +1,31 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the billing module, keeping tests/billing green"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "the billing module, keeping tests/billing green"
+    },
+    "produce": {
+      "snapshot_before": "null",
+      "snapshot_after": "null"
+    },
+    "review": {
+      "output": {
+        "snapshot_after": null,
+        "snapshot_before": null
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": []
+}

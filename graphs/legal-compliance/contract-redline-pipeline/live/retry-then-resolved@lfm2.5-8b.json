@@ -1,0 +1,36 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the Meridian MSA, against the 2026 commercial playbook"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Analyzed Meridian MSA against the 2026 commercial playbook"
+    },
+    "playbook-lookup": {
+      "playbook_positions": []
+    },
+    "produce": {
+      "redlines": [
+        {
+          "playbook_ref": "Meridian MSA - 2026 commercial playbook"
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "redlines": []
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": []
+}

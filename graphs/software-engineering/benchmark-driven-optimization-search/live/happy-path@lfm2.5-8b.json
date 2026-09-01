@@ -1,0 +1,111 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "optimize the parser repo against the throughput benchmark"
+  },
+  "node_outputs": {
+    "profile": {
+      "hotspot": 42.0,
+      "baseline_ms": 100.0
+    },
+    "explore": [
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "benchmark",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      },
+      {
+        "patch": "bench_ms",
+        "bench_ms": 42.0
+      }
+    ],
+    "verify": {
+      "baseline_ms": 100.0,
+      "bench_ms": 42.0,
+      "output": [
+        "100.0",
+        "42.0"
+      ]
+    }
+  },
+  "tool_calls": []
+}

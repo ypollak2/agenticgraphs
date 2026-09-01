@@ -1,0 +1,31 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "does spaced repetition improve retention, RCTs since 2015"
+  },
+  "node_outputs": {
+    "plan": {
+      "tasks": []
+    },
+    "screen": {
+      "included": false,
+      "excluded": true
+    },
+    "verify": {
+      "claims": [],
+      "output": {
+        "claims": []
+      },
+      "verify_failed": false
+    }
+  },
+  "tool_calls": []
+}

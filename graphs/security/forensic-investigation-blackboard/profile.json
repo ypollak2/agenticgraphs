@@ -52,15 +52,52 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:qwen3-coder:30b",
+    "runner": "llm-replay:lfm2.5:8b,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-09-01",
-    "cases": 3,
+    "cases": 4,
     "passed": 3,
-    "pass_rate": 1.0,
+    "pass_rate": 0.75,
     "mean_steps": 7.0,
     "results": [
+      {
+        "id": "happy-path",
+        "model": "lfm2.5:8b",
+        "recorded": "2026-09-01",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 7,
+        "trace": [
+          "seed",
+          "investigate",
+          "assess",
+          "investigate",
+          "assess",
+          "investigate",
+          "assess"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [
+          "assess.uncited_claims: expected int, got list",
+          "assess.uncited_claims: expected int, got list"
+        ],
+        "state_violations": [],
+        "assert_failures": [
+          "output.uncited_claims == 0"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
@@ -159,17 +196,20 @@
       }
     ],
     "models": [
+      "lfm2.5:8b",
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-31",
     "age_days": 1,
     "per_model_pass_rate": {
+      "lfm2.5:8b": 0.0,
       "qwen3-coder:30b": 1.0
     },
-    "models_disagree": false,
+    "models_disagree": true,
     "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
+      "lfm2.5:8b": 1,
       "qwen3-coder:30b": 3
     },
     "gate_auto_approved": false

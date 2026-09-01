@@ -1,0 +1,31 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the custodian mailboxes, for the Meridian breach-of-contract matter"
+  },
+  "node_outputs": {
+    "route": {
+      "complexity": "high"
+    },
+    "branch-complex": {
+      "handled_by": [
+        "branch-complex"
+      ]
+    },
+    "verify": {
+      "output": {
+        "recall": 0.85,
+        "threshold": 0.9
+      }
+    }
+  },
+  "tool_calls": []
+}

@@ -1,0 +1,37 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "what drives churn in usage-based pricing, cited to primary sources"
+  },
+  "node_outputs": {
+    "router": {
+      "complexity": "high"
+    },
+    "deep-researcher": {
+      "confidence": "high"
+    },
+    "synthesizer": {
+      "claims": [
+        {
+          "sources": [
+            "source1"
+          ]
+        },
+        {
+          "sources": [
+            "source2"
+          ]
+        }
+      ]
+    }
+  },
+  "tool_calls": []
+}

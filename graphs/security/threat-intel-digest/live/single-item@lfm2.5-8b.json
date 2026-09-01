@@ -1,0 +1,27 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "this week's CISA and vendor feeds, for a Kubernetes estate"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": []
+    },
+    "estate-match": {
+      "affected_assets": []
+    },
+    "reduce": {
+      "entries": [],
+      "output": []
+    }
+  },
+  "tool_calls": []
+}

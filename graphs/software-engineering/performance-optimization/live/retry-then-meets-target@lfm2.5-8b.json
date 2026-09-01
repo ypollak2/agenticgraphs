@@ -1,0 +1,93 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the search endpoint, to p95 under 200ms"
+  },
+  "node_outputs": {
+    "intake": {
+      "intake": {
+        "goal": "the search endpoint, to p95 under 200ms",
+        "attempts": 1,
+        "summary": "benchmark under target with no test regressions"
+      }
+    },
+    "attempt": [
+      {
+        "benchmark_ms": 185.5,
+        "target_ms": 200.0,
+        "test_regressions": 0
+      },
+      {
+        "benchmark_ms": 185.5,
+        "target_ms": 200.0,
+        "test_regressions": 0
+      },
+      {
+        "benchmark_ms": 185.5,
+        "target_ms": 200.0,
+        "test_regressions": 0
+      },
+      {
+        "benchmark_ms": 185.5,
+        "target_ms": 200.0,
+        "test_regressions": 0
+      },
+      {
+        "benchmark_ms": 185.5,
+        "target_ms": 200.0,
+        "test_regressions": 0
+      }
+    ],
+    "measure": [
+      {
+        "output": {
+          "benchmark_ms": 185.5,
+          "target_ms": 200.0,
+          "test_regressions": 0
+        },
+        "below_target": true
+      },
+      {
+        "output": {
+          "benchmark_ms": 185.5,
+          "target_ms": 200.0,
+          "test_regressions": 0
+        },
+        "below_target": true
+      },
+      {
+        "output": {
+          "benchmark_ms": 185.5,
+          "target_ms": 200.0,
+          "test_regressions": 0
+        },
+        "below_target": true
+      },
+      {
+        "output": {
+          "benchmark_ms": 185.5,
+          "target_ms": 200.0,
+          "test_regressions": 0
+        },
+        "below_target": true
+      },
+      {
+        "output": {
+          "benchmark_ms": 185.5,
+          "target_ms": 200.0,
+          "test_regressions": 0
+        },
+        "below_target": true
+      }
+    ]
+  },
+  "tool_calls": []
+}

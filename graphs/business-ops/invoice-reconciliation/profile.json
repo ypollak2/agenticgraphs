@@ -57,11 +57,47 @@
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-09-01",
-    "cases": 4,
+    "cases": 5,
     "passed": 0,
     "pass_rate": 0.0,
     "mean_steps": 4.0,
     "results": [
+      {
+        "id": "happy-path",
+        "model": "lfm2.5:8b",
+        "recorded": "2026-09-01",
+        "gate_auto_approved": true,
+        "passed": false,
+        "steps": 4,
+        "trace": [
+          "auto-match.plan",
+          "auto-match.work",
+          "auto-match.verify",
+          "fuzzy-match"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [
+          "post"
+        ],
+        "shape_violations": [
+          "auto-match.verify.matched: expected list, got bool"
+        ],
+        "state_violations": [],
+        "assert_failures": [
+          "output.unreviewed_exceptions == 0 (AttributeError: unreviewed_exceptions)",
+          "all(m.invoice_id and m.po_id and m.receipt_id for m in output.matched) (TypeError: 'bool' object is not iterable)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
       {
         "id": "happy-path",
         "model": "lfm2.5:8b",
@@ -212,7 +248,7 @@
     "fails_every_model": true,
     "flaky_models": [],
     "samples_per_model": {
-      "lfm2.5:8b": 1,
+      "lfm2.5:8b": 2,
       "qwen3-coder:30b": 3
     },
     "gate_auto_approved": true

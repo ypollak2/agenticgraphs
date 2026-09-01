@@ -1,0 +1,53 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the public API, against an authenticated-tenant attacker"
+  },
+  "node_outputs": {
+    "scope": {
+      "surface": "public API",
+      "rules_of_engagement": [
+        "analyze"
+      ]
+    },
+    "attack": [
+      {
+        "bypass": "true",
+        "severity": "high"
+      },
+      {
+        "bypass": "true",
+        "severity": "high"
+      },
+      {
+        "bypass": "true",
+        "severity": "high"
+      },
+      {
+        "bypass": "true",
+        "severity": "high"
+      }
+    ],
+    "defend": {
+      "mitigation": "Implement rate limiting on public API endpoints and enforce strict authentication/authorization checks to prevent unauthorized access attempts."
+    },
+    "retest": {
+      "bypasses": [],
+      "output": {
+        "bypasses": [],
+        "unmitigated": false
+      },
+      "attacker_exhausted": true,
+      "surface": "public API"
+    }
+  },
+  "tool_calls": []
+}

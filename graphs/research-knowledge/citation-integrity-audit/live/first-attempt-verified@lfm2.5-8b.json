@@ -1,0 +1,31 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the systematic review draft and its 96 references"
+  },
+  "node_outputs": {
+    "plan": {
+      "tasks": []
+    },
+    "verify": {
+      "citations": [
+        {
+          "resolves": true
+        }
+      ],
+      "output": {
+        "citations": []
+      },
+      "verify_failed": false
+    }
+  },
+  "tool_calls": []
+}

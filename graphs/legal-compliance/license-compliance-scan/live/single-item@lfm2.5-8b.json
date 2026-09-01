@@ -1,0 +1,32 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the production lockfile, against the no-copyleft policy"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": []
+    },
+    "reduce": {
+      "copyleft_conflicts": [],
+      "output": {
+        "spdx_ids": [],
+        "conflicts": []
+      },
+      "packages": [],
+      "attempts": 1,
+      "shards_processed": 0,
+      "shards_failed": 0,
+      "shard_result": []
+    }
+  },
+  "tool_calls": []
+}

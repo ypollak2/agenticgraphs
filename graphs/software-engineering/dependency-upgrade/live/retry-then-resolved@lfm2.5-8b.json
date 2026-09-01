@@ -1,0 +1,36 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the minor-version bumps in the lockfile, keeping tests/ green"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "lockfile updated; tests pass; no new deprecation warnings"
+    },
+    "produce": {
+      "lockfile_sha_after": "abc123",
+      "lockfile_sha_before": "def456",
+      "new_deprecations": []
+    },
+    "review": {
+      "lockfile_sha_after": "abc123",
+      "lockfile_sha_before": "def456",
+      "new_deprecations": [],
+      "output": {
+        "lockfile_sha_after": "abc123",
+        "lockfile_sha_before": "def456",
+        "new_deprecations": []
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": []
+}

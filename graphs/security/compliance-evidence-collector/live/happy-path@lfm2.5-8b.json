@@ -1,0 +1,57 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "collect SOC 2 Type II evidence for the 2026 audit period"
+  },
+  "node_outputs": {
+    "enumerate": {
+      "controls": []
+    },
+    "collect.plan": {
+      "steps": [
+        {
+          "exit_code": 0
+        },
+        {
+          "exit_code": 0
+        }
+      ]
+    },
+    "collect.execute": {
+      "step_result": "[result]"
+    },
+    "collect.verify": {
+      "evidence": [],
+      "output": "",
+      "steps": [
+        {
+          "exit_code": 0
+        }
+      ],
+      "verify_failed": false
+    },
+    "assess": {
+      "coverage": "SOC 2 Type II evidence for the 2026 audit period",
+      "uncovered": []
+    },
+    "report": {
+      "controls_evidenced": 0,
+      "controls_total": 5,
+      "evidence_report": [],
+      "output": {
+        "controls_evidenced": 0,
+        "controls_total": 5,
+        "uncovered": []
+      }
+    }
+  },
+  "tool_calls": []
+}

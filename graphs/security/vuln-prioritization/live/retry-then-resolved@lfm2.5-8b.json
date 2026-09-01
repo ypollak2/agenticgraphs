@@ -1,0 +1,39 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the weekly scanner output, against the prod asset map"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Weekly scanner output compared to production asset map"
+    },
+    "produce": {
+      "ranking": [
+        {
+          "asset_map_ref": "prod_asset_map_v1",
+          "scanner_evidence": "Weekly scanner output shows X units of asset A, Y units of asset B"
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "ranking": [
+          {
+            "asset_map_ref": "prod_asset_map_v1",
+            "scanner_evidence": "Weekly scanner output shows X units of asset A, Y units of asset B"
+          }
+        ]
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": []
+}

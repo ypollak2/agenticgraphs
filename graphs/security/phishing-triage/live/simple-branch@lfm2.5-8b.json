@@ -1,0 +1,25 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "labeled_corpus": {
+      "invoice-from-known-vendor": "benign",
+      "password-expiry-lookalike-domain": "phish",
+      "ceo-gift-card-request": "phish"
+    },
+    "goal": "the reported email 'invoice-from-known-vendor', against the labelled corpus"
+  },
+  "node_outputs": {
+    "route": {
+      "complexity": 0
+    }
+  },
+  "tool_calls": []
+}

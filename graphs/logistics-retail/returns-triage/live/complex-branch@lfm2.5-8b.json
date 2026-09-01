@@ -1,0 +1,26 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "policy_table": {
+      "arrived damaged": "refund",
+      "changed mind, 40 days": "reject",
+      "wrong size": "exchange",
+      "third return this month": "fraud-review"
+    },
+    "goal": "return R-55911, reason 'changed mind, 40 days', against the 2026 returns policy"
+  },
+  "node_outputs": {
+    "route": {
+      "complexity": "changed mind, 40 days"
+    }
+  },
+  "tool_calls": []
+}

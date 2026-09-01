@@ -1,0 +1,90 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "optimize the support-triage graph for accuracy on the held-out set"
+  },
+  "node_outputs": {
+    "baseline": {
+      "baseline_score": 0.85,
+      "eval_set": "held_out"
+    },
+    "search": [
+      {
+        "variant": "variant",
+        "score": 0.85
+      },
+      {
+        "variant": "variant",
+        "score": 0.85
+      },
+      {
+        "variant": "variant",
+        "score": 0.85
+      },
+      {
+        "variant": "variant",
+        "score": 0.85
+      },
+      {
+        "variant": "variant",
+        "score": 0.85
+      },
+      {
+        "variant": "variant",
+        "score": 0.85
+      },
+      {
+        "variant": "variant",
+        "score": 0.85
+      },
+      {
+        "variant": "variant",
+        "score": 0.85
+      },
+      {
+        "variant": "variant",
+        "score": 0.85
+      },
+      {
+        "variant": "variant",
+        "score": 0.85
+      },
+      {
+        "variant": "variant",
+        "score": 0.85
+      },
+      {
+        "variant": "variant",
+        "score": 0.85
+      },
+      {
+        "variant": "variant",
+        "score": 0.85
+      },
+      {
+        "variant": "variant",
+        "score": 0.85
+      },
+      {
+        "variant": "variant",
+        "score": 0.85
+      }
+    ],
+    "confirm": {
+      "holdout_score": 0.85,
+      "output": {
+        "baseline_score": 0.85,
+        "holdout_score": 0.85
+      }
+    }
+  },
+  "tool_calls": []
+}

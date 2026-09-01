@@ -1,0 +1,57 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "list the spring hardware line on Amazon under its claims policy"
+  },
+  "node_outputs": {
+    "extract": {
+      "attributes": []
+    },
+    "write": {
+      "listing_copy": "[Concrete value]"
+    },
+    "claim-check.intake": {
+      "summary": "[Concrete value]"
+    },
+    "policy-check": {
+      "policy_violations": []
+    },
+    "claim-check.produce": {
+      "verdicts": [
+        {
+          "quote_span": "Spring hardware line on Amazon under its claims policy",
+          "source_url": "https://www.amazon.com/s?k=Spring+hardware"
+        }
+      ]
+    },
+    "claim-check.review": {
+      "output": {
+        "policy_violations": []
+      },
+      "revision_requested": false,
+      "unsupported_claims": [],
+      "verdicts": [
+        {
+          "quote_span": "Spring hardware line on Amazon under its claims policy",
+          "source_url": "https://www.amazon.com/s?k=Spring+hardware"
+        }
+      ]
+    },
+    "publish": {
+      "listings_published": [],
+      "output": {
+        "policy_violations": [],
+        "unsupported_claims": []
+      }
+    }
+  },
+  "tool_calls": []
+}

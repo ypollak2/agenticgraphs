@@ -1,0 +1,43 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "settle sync vs async order processing under a 200ms p99 constraint"
+  },
+  "node_outputs": {
+    "frame": {
+      "options": [
+        "sync-first",
+        "async-first"
+      ],
+      "rubric": "decision names runner-up and margin for revisit on evidence"
+    },
+    "design": [
+      {
+        "proposal": "sync-first",
+        "rubric_score": 0.85
+      },
+      {
+        "proposal": "async-first",
+        "rubric_score": 0.85
+      }
+    ],
+    "judge": {
+      "designs_scored": 2,
+      "margin": 0.85,
+      "output": {
+        "designs_scored": 2,
+        "margin": 0.85
+      },
+      "winner": "sync-first"
+    }
+  },
+  "tool_calls": []
+}
