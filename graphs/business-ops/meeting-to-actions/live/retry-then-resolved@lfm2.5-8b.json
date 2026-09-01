@@ -1,0 +1,43 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the 2026-08-14 platform sync transcript, for the infra team"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": [
+        "Analyzed the 2026-08-14 platform sync transcript for the infrastructure team."
+      ]
+    },
+    "produce": {
+      "actions": [
+        {
+          "date": "2026-08-14",
+          "owner": "produce",
+          "quote": "Analyzed the 2026-08-14 platform sync transcript for the infrastructure team."
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "actions": [
+          {
+            "date": "2026-08-14",
+            "owner": "produce",
+            "quote": "Analyzed the 2026-08-14 platform sync transcript for the infrastructure team."
+          }
+        ]
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": []
+}

@@ -7,7 +7,8 @@
 # one, and the breadth report already grades a cell by its width.
 cd /Users/yaliandrona/Projects/agenticgraphs
 export AGR_LLM_BASE_URL=http://localhost:11434/v1
-export AGR_LLM_MODEL=qwen3-coder:30b
+: "${AGR_LLM_MODEL:=qwen3-coder:30b}"   # override to record a second family
+export AGR_LLM_MODEL
 S=/private/tmp/claude-501/-Users-yaliandrona/0caf6bfb-ebc7-450c-98aa-62f983fd7244/scratchpad
 for target in 1 2 3; do
   export AGR_TARGET_SAMPLES=$target

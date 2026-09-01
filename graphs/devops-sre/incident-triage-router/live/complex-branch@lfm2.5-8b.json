@@ -1,0 +1,33 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "ownership_map": {
+      "checkout": "payments-oncall",
+      "search": "discovery-oncall",
+      "image-resize": "platform-oncall",
+      "billing": "payments-oncall"
+    },
+    "goal": "the image-resize latency page, against the 2026-Q3 ownership map"
+  },
+  "node_outputs": {
+    "route": {
+      "complexity": "high"
+    },
+    "branch-complex": {
+      "assigned_team": "platform-oncall"
+    },
+    "verify": {
+      "expected_team": "platform-oncall",
+      "assigned_team": "platform-oncall"
+    }
+  },
+  "tool_calls": []
+}

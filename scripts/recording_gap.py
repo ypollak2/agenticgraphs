@@ -12,6 +12,11 @@ baseline says something about all 83 graphs; a three-sample baseline over the fi
 n=2 and n=3.
 
     AGR_TARGET_SAMPLES=1 uv run python scripts/recording_gap.py
+    AGR_LLM_MODEL=lfm2.5:8b uv run python scripts/recording_gap.py
+
+Coverage is counted PER MODEL. One model cannot tell a weak model from a bad
+contract — only disagreement between families can — so "recorded" has to mean
+"recorded by the model you are about to run", not "recorded by somebody".
 """
 from __future__ import annotations
 
@@ -32,13 +37,19 @@ from agenticgraphs.registry import (
 )
 
 
-def missing(target: int) -> list[str]:
+def _model_tag(model: str) -> str:
+    """The filename fragment `record_live.py` writes for a model."""
+    return model.replace(":", "-").replace("/", "-")
+
+
+def missing(target: int, model: str | None = None) -> list[str]:
     """Graphs with any case short of `target` recordings at the current spec.
 
     Per CASE, not per graph. `record_live.py` recorded `cases[0]` only for the
     whole life of the project, so a graph with one deep case and one unrecorded
     case reads as covered unless the count is taken case by case.
     """
+    tag = _model_tag(model) if model else None
     todo: list[str] = []
     for gpath in iter_graphs():
         name = load(gpath)["name"]
@@ -47,6 +58,8 @@ def missing(target: int) -> list[str]:
         for p in live_dir(name).glob("*.json"):
             doc = json.loads(p.read_text())
             if doc.get("superseded_by") or doc.get("spec") != SPEC_VERSION:
+                continue
+            if tag and f"@{tag}" not in p.name:
                 continue
             for case_id in cases:
                 if p.name.startswith(case_id + "@"):
@@ -64,7 +77,8 @@ def main() -> int:
     list — every "1 remaining" was really 0, and the waiters watching for `-eq 0`
     never fired. A tool that reports progress must be able to report completion.
     """
-    todo = missing(int(os.environ.get("AGR_TARGET_SAMPLES", "1")))
+    todo = missing(int(os.environ.get("AGR_TARGET_SAMPLES", "1")),
+                   os.environ.get("AGR_LLM_MODEL"))
     if todo:
         print("\n".join(todo))
     return 0

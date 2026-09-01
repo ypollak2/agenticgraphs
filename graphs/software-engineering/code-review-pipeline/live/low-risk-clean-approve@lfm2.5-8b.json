@@ -1,0 +1,30 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "PR 812 in the payments service"
+  },
+  "node_outputs": {
+    "triage": {
+      "risk": "high"
+    },
+    "security-review": {
+      "sec_hits": []
+    },
+    "style-review": {
+      "style_findings": []
+    },
+    "synthesize": {
+      "findings": [],
+      "verdict": "approve"
+    }
+  },
+  "tool_calls": []
+}
