@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-116` | devops-sre | **lifecycle** | 6 | 6 | 1 | 0 | 45 | execute |
+| `AGR-116` | devops-sre | **lifecycle** | 7 | 7 | 1 | 0 | 45 | execute |
 
 > 🎯 **Requires a goal** — the alert to work and what 'resolved' means for this service. Without one the graph refuses and runs no node.
 
@@ -19,12 +19,14 @@ flowchart LR
     N3{{"confirm<br/><i>verifier</i>"}}
     N4["postmortem<br/><i>supervisor</i>"]
     N5["action-items<br/><i>planner</i>"]
+    N6["escalate-incident<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N2 --> N3
     N3 -->|not impact_cleared and attempts < 3| N2
     N3 -->|impact_cleared| N4
     N4 --> N5
+    N3 -->|not impact_cleared and attempts >= 3| N6
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -68,6 +70,7 @@ To evolve it: `uv run agr infuse incident-lifecycle <node> <ability>` — every 
 | `confirm` | verifier | verifier | run_command |
 | `postmortem` | supervisor | subgraph | — |
 | `action-items` | planner | agent | decompose_goal |
+| `escalate-incident` | escalator | agent | escalate |
 
 ## Edge logic
 
@@ -79,6 +82,7 @@ To evolve it: `uv run agr infuse incident-lifecycle <node> <ability>` — every 
 | `confirm` | `mitigate` | not impact_cleared and attempts < 3 |
 | `confirm` | `postmortem` | impact_cleared |
 | `postmortem` | `action-items` | always |
+| `confirm` | `escalate-incident` | not impact_cleared and attempts >= 3 |
 
 ## Optional use-cases
 

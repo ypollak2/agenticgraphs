@@ -26,4 +26,5 @@ cases:
       filing_total: 1000
       ledger_total: 1000
     withdraw-filing: {}
+    abandon-filing: {}
   goal: file Q1 2026 under the SEC regime with reconciled figures

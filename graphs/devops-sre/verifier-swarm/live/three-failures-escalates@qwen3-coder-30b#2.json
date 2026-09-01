@@ -1,0 +1,46 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "make tests/integration pass; proven by `pytest tests/integration`"
+  },
+  "node_outputs": {
+    "planner": {
+      "tasks": [
+        "run pytest tests/integration to identify failing tests",
+        "analyze the first failing test to determine root cause",
+        "fix the identified issue in the codebase",
+        "re-run pytest tests/integration to verify fix"
+      ]
+    },
+    "worker": [
+      {
+        "patched": false
+      },
+      {
+        "patched": false
+      },
+      {
+        "patched": false
+      },
+      {
+        "patched": false
+      }
+    ],
+    "verifier": {
+      "escalated": false,
+      "output": {
+        "attempts": 1
+      },
+      "verify_failed": false
+    }
+  },
+  "tool_calls": []
+}

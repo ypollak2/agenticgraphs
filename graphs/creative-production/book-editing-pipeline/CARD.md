@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-109` | creative-production | **pipeline** | 6 | 6 | 0 | 0 | 35 | execute |
+| `AGR-109` | creative-production | **pipeline** | 7 | 7 | 0 | 0 | 35 | execute |
 
 > 🎯 **Requires a goal** — the manuscript to edit and the house style it must follow. Without one the graph refuses and runs no node.
 
@@ -19,12 +19,14 @@ flowchart LR
     N3["copy-edit<br/><i>critic</i>"]
     N4["author-signoff<br/><i>approver</i>"]
     N5["typeset<br/><i>executor</i>"]
+    N6["escalate-manuscript<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N2 --> N3
     N3 -->|len(style_violations) > 0 and attempts < 2| N2
     N3 -->|len(style_violations) == 0| N4
     N4 --> N5
+    N3 -->|len(style_violations) > 0 and attempts >= 2| N6
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -68,6 +70,7 @@ To evolve it: `uv run agr infuse book-editing-pipeline <node> <ability>` — eve
 | `copy-edit` | critic | agent | critique |
 | `author-signoff` | approver | human | approve |
 | `typeset` | executor | agent | execute_step |
+| `escalate-manuscript` | escalator | agent | escalate |
 
 ## Edge logic
 
@@ -79,6 +82,7 @@ To evolve it: `uv run agr infuse book-editing-pipeline <node> <ability>` — eve
 | `copy-edit` | `line-edit` | len(style_violations) > 0 and attempts < 2 |
 | `copy-edit` | `author-signoff` | len(style_violations) == 0 |
 | `author-signoff` | `typeset` | always |
+| `copy-edit` | `escalate-manuscript` | len(style_violations) > 0 and attempts >= 2 |
 
 ## Optional use-cases
 

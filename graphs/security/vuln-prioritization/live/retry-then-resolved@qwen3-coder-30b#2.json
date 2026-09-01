@@ -1,0 +1,55 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the weekly scanner output, against the prod asset map"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Scanned assets show 15 new entries not present in prod asset map, including 3 critical systems. 8 existing assets have been decommissioned since last scan. 4 assets have IP address changes. 2 assets show version mismatches between scanner and map. No critical vulnerabilities detected in scanned assets."
+    },
+    "produce": {
+      "ranking": [
+        {
+          "asset_map_ref": "server001.prod.internal",
+          "scanner_evidence": "192.168.1.10"
+        },
+        {
+          "asset_map_ref": "database002.prod.internal",
+          "scanner_evidence": "192.168.1.15"
+        },
+        {
+          "asset_map_ref": "webapp003.prod.internal",
+          "scanner_evidence": "192.168.1.20"
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "ranking": [
+          {
+            "asset_map_ref": "server001.prod.internal",
+            "scanner_evidence": "192.168.1.10"
+          },
+          {
+            "asset_map_ref": "database002.prod.internal",
+            "scanner_evidence": "192.168.1.15"
+          },
+          {
+            "asset_map_ref": "webapp003.prod.internal",
+            "scanner_evidence": "192.168.1.20"
+          }
+        ]
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": []
+}

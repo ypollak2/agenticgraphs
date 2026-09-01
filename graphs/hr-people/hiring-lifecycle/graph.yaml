@@ -53,6 +53,16 @@ nodes:
   - output
   - scorecard_count: int
   - structured
+- id: escalate-hiring
+  speciality: escalator
+  abilities:
+  - escalate
+  inputs: []
+  outputs:
+  - escalated: bool
+  - escalation_reason
+  criteria: The role is escalated with the shortlist and the scorecards actually collected. Fewer than
+    three assessments is a decision that cannot be made, not a decision to reject.
 edges:
 - from: define-role
   to: screen
@@ -66,6 +76,9 @@ edges:
   when: len(scorecards) >= 3
 - from: panel-decision
   to: offer
+- from: interview
+  to: escalate-hiring
+  when: len(scorecards) < 3 and attempts >= 2
 termination:
   max_steps: 35
   contract: an offer requires at least three structured scorecards and a panel signature

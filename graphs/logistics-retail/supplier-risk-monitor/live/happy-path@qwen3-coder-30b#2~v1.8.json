@@ -1,0 +1,206 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the 240 tier-1 suppliers, on single-source and concentration"
+  },
+  "node_outputs": {
+    "ingest.partition": {
+      "shards": [
+        {
+          "supplier_id": "S001",
+          "single_source": true,
+          "concentration": 0.85
+        },
+        {
+          "supplier_id": "S002",
+          "single_source": false,
+          "concentration": 0.45
+        },
+        {
+          "supplier_id": "S003",
+          "single_source": true,
+          "concentration": 0.92
+        },
+        {
+          "supplier_id": "S004",
+          "single_source": false,
+          "concentration": 0.38
+        },
+        {
+          "supplier_id": "S005",
+          "single_source": true,
+          "concentration": 0.78
+        }
+      ]
+    },
+    "ingest.map": [
+      {
+        "shard_result": "continue"
+      },
+      {
+        "shard_result": "continue"
+      },
+      {
+        "shard_result": "accept"
+      },
+      {
+        "shard_result": "continue"
+      },
+      {
+        "shard_result": "continue"
+      }
+    ],
+    "ingest.reduce": {
+      "findings": [
+        {
+          "source_date": "2023-06-15",
+          "source_url": "https://example.com/supplier-s001-analysis"
+        },
+        {
+          "source_date": "2023-08-22",
+          "source_url": "https://example.com/supplier-s003-analysis"
+        }
+      ],
+      "output": "accept",
+      "supplier_signals": [
+        {
+          "supplier_id": "S001",
+          "single_source": true,
+          "concentration": 0.85
+        },
+        {
+          "supplier_id": "S003",
+          "single_source": true,
+          "concentration": 0.92
+        }
+      ]
+    },
+    "score": [
+      {
+        "risk_scores": [
+          {
+            "supplier_id": "S001",
+            "risk_score": 0.85,
+            "mitigation_owner": null
+          },
+          {
+            "supplier_id": "S002",
+            "risk_score": 0.45,
+            "mitigation_owner": null
+          },
+          {
+            "supplier_id": "S003",
+            "risk_score": 0.92,
+            "mitigation_owner": null
+          },
+          {
+            "supplier_id": "S004",
+            "risk_score": 0.38,
+            "mitigation_owner": null
+          },
+          {
+            "supplier_id": "S005",
+            "risk_score": 0.78,
+            "mitigation_owner": null
+          }
+        ]
+      },
+      {
+        "risk_scores": [
+          {
+            "supplier_id": "S001",
+            "risk_score": 0.85
+          },
+          {
+            "supplier_id": "S002",
+            "risk_score": 0.45
+          },
+          {
+            "supplier_id": "S003",
+            "risk_score": 0.92
+          },
+          {
+            "supplier_id": "S004",
+            "risk_score": 0.38
+          },
+          {
+            "supplier_id": "S005",
+            "risk_score": 0.78
+          }
+        ]
+      }
+    ],
+    "concentrate": {
+      "concentration": [
+        {
+          "single_source": true,
+          "supplier_count": 3
+        },
+        {
+          "single_source": false,
+          "supplier_count": 2
+        }
+      ]
+    },
+    "mitigate": {
+      "above_appetite": [
+        {
+          "supplier_id": "S001",
+          "risk_score": 0.85,
+          "mitigation_owner": null
+        },
+        {
+          "supplier_id": "S003",
+          "risk_score": 0.92,
+          "mitigation_owner": null
+        }
+      ],
+      "concentration": [
+        {
+          "single_source": true,
+          "supplier_count": 3
+        },
+        {
+          "single_source": false,
+          "supplier_count": 2
+        }
+      ],
+      "mitigations": [],
+      "mitigations_planned": 0,
+      "output": {
+        "above_appetite": [
+          {
+            "supplier_id": "S001",
+            "risk_score": 0.85,
+            "mitigation_owner": null
+          },
+          {
+            "supplier_id": "S003",
+            "risk_score": 0.92,
+            "mitigation_owner": null
+          }
+        ],
+        "concentration": [
+          {
+            "single_source": true,
+            "supplier_count": 3
+          },
+          {
+            "single_source": false,
+            "supplier_count": 2
+          }
+        ],
+        "mitigations_planned": 0
+      }
+    }
+  },
+  "tool_calls": []
+}

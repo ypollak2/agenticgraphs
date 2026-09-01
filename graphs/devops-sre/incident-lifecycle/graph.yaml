@@ -67,6 +67,16 @@ nodes:
   outputs:
   - actions: list[{owner:any, task:any}]
   - output
+- id: escalate-incident
+  speciality: escalator
+  abilities:
+  - escalate
+  inputs: []
+  outputs:
+  - escalated: bool
+  - escalation_reason
+  criteria: The incident is handed on with the mitigations tried and the signal that is still out of bounds.
+    An incident nobody could clear is escalated, not closed.
 edges:
 - from: detect
   to: triage
@@ -82,6 +92,9 @@ edges:
   when: impact_cleared
 - from: postmortem
   to: action-items
+- from: confirm
+  to: escalate-incident
+  when: not impact_cleared and attempts >= 3
 termination:
   max_steps: 45
   contract: mitigation is proven effective before the postmortem is written; every postmortem yields owned

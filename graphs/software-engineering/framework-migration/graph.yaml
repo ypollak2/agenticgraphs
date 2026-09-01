@@ -56,6 +56,16 @@ nodes:
   - output
   - slices_remaining: int
   join: all
+- id: escalate-migration
+  speciality: escalator
+  abilities:
+  - escalate
+  inputs: []
+  outputs:
+  - escalated: bool
+  - escalation_reason
+  criteria: The migration halts with the failing slice named and the suite output attached, so the next
+    attempt starts from what broke rather than from zero.
 edges:
 - from: inventory
   to: supervise
@@ -69,6 +79,9 @@ edges:
 - from: integrate
   to: sign-off
   when: suite_green
+- from: integrate
+  to: escalate-migration
+  when: not suite_green and attempts >= 3
 termination:
   max_steps: 60
   contract: build and full test suite green on the target stack with no slice left behind

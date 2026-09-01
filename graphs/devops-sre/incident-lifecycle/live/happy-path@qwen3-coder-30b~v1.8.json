@@ -91,7 +91,7 @@
         "residual_blast_radius": "all checkout service instances",
         "blast_radius": "all checkout service instances"
       },
-      "postmortem": "Mitigation executed by restarting all checkout service instances in response to p99 latency at 450ms. System behavior indicated potential memory leaks causing performance degradation. Impact was cleared post-restart, but p99 remains above target threshold of 400ms. Monitoring required to confirm sustained resolution.",
+      "postmortem": "Mitigation executed by restarting all checkout service instances in response to p99 latency at 450ms. System behavior attributed to potential memory leaks causing performance degradation. Impact cleared, but p99 remains above target threshold of 400ms. Monitoring required to confirm resolution.",
       "revision_requested": false,
       "timeline": [
         {
@@ -116,14 +116,22 @@
       "actions": [
         {
           "owner": "checkout-optimization-squad",
-          "task": "Monitor p99 checkout latency to confirm it returns under 400ms threshold"
+          "task": "Analyze memory leak patterns in checkout service instances to identify root cause of persistent p99 latency above 400ms"
+        },
+        {
+          "owner": "checkout-optimization-squad",
+          "task": "Implement code-level optimizations to address identified memory leaks and performance bottlenecks"
         }
       ],
       "output": {
         "actions": [
           {
             "owner": "checkout-optimization-squad",
-            "task": "Monitor p99 checkout latency to confirm it returns under 400ms threshold"
+            "task": "Analyze memory leak patterns in checkout service instances to identify root cause of persistent p99 latency above 400ms"
+          },
+          {
+            "owner": "checkout-optimization-squad",
+            "task": "Implement code-level optimizations to address identified memory leaks and performance bottlenecks"
           }
         ],
         "blast_radius": "all checkout service instances",

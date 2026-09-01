@@ -86,8 +86,9 @@
       ]
     },
     "normalize": {
-      "criteria_grid": {
-        "Snowflake": {
+      "criteria_grid": [
+        {
+          "platform": "Snowflake",
           "performance": "High",
           "scalability": "Excellent",
           "cost": "Moderate to High",
@@ -95,7 +96,8 @@
           "integration": "Excellent",
           "storage": "High"
         },
-        "BigQuery": {
+        {
+          "platform": "BigQuery",
           "performance": "High",
           "scalability": "Excellent",
           "cost": "Low to Moderate",
@@ -103,7 +105,8 @@
           "integration": "Good",
           "storage": "High"
         },
-        "Redshift": {
+        {
+          "platform": "Redshift",
           "performance": "Moderate",
           "scalability": "Good",
           "cost": "Moderate",
@@ -111,7 +114,7 @@
           "integration": "Good",
           "storage": "Moderate"
         }
-      }
+      ]
     },
     "fill": [
       {
@@ -162,15 +165,7 @@
               "integration",
               "storage"
             ],
-            "vendor": "Snowflake",
-            "values": [
-              "High",
-              "Excellent",
-              "Moderate to High",
-              "High",
-              "Excellent",
-              "High"
-            ]
+            "vendor": "Snowflake"
           },
           {
             "criteria": [
@@ -181,15 +176,7 @@
               "integration",
               "storage"
             ],
-            "vendor": "BigQuery",
-            "values": [
-              "High",
-              "Excellent",
-              "Low to Moderate",
-              "Moderate",
-              "Good",
-              "High"
-            ]
+            "vendor": "BigQuery"
           },
           {
             "criteria": [
@@ -200,15 +187,7 @@
               "integration",
               "storage"
             ],
-            "vendor": "Redshift",
-            "values": [
-              "Moderate",
-              "Good",
-              "Moderate",
-              "Moderate",
-              "Good",
-              "Moderate"
-            ]
+            "vendor": "Redshift"
           }
         ]
       },
@@ -251,8 +230,9 @@
       }
     ],
     "cite-check": {
-      "criteria_grid": {
-        "Snowflake": {
+      "criteria_grid": [
+        {
+          "platform": "Snowflake",
           "performance": "High",
           "scalability": "Excellent",
           "cost": "Moderate to High",
@@ -260,7 +240,8 @@
           "integration": "Excellent",
           "storage": "High"
         },
-        "BigQuery": {
+        {
+          "platform": "BigQuery",
           "performance": "High",
           "scalability": "Excellent",
           "cost": "Low to Moderate",
@@ -268,7 +249,8 @@
           "integration": "Good",
           "storage": "High"
         },
-        "Redshift": {
+        {
+          "platform": "Redshift",
           "performance": "Moderate",
           "scalability": "Good",
           "cost": "Moderate",
@@ -276,7 +258,7 @@
           "integration": "Good",
           "storage": "Moderate"
         }
-      },
+      ],
       "matrix": [
         [
           {
@@ -323,15 +305,7 @@
               "integration",
               "storage"
             ],
-            "vendor": "Snowflake",
-            "values": [
-              "High",
-              "Excellent",
-              "Moderate to High",
-              "High",
-              "Excellent",
-              "High"
-            ]
+            "vendor": "Snowflake"
           },
           {
             "criteria": [
@@ -342,15 +316,7 @@
               "integration",
               "storage"
             ],
-            "vendor": "BigQuery",
-            "values": [
-              "High",
-              "Excellent",
-              "Low to Moderate",
-              "Moderate",
-              "Good",
-              "High"
-            ]
+            "vendor": "BigQuery"
           },
           {
             "criteria": [
@@ -361,15 +327,7 @@
               "integration",
               "storage"
             ],
-            "vendor": "Redshift",
-            "values": [
-              "Moderate",
-              "Good",
-              "Moderate",
-              "Moderate",
-              "Good",
-              "Moderate"
-            ]
+            "vendor": "Redshift"
           }
         ],
         [
@@ -409,8 +367,9 @@
         ]
       ],
       "output": {
-        "criteria_grid": {
-          "Snowflake": {
+        "criteria_grid": [
+          {
+            "platform": "Snowflake",
             "performance": "High",
             "scalability": "Excellent",
             "cost": "Moderate to High",
@@ -418,7 +377,8 @@
             "integration": "Excellent",
             "storage": "High"
           },
-          "BigQuery": {
+          {
+            "platform": "BigQuery",
             "performance": "High",
             "scalability": "Excellent",
             "cost": "Low to Moderate",
@@ -426,7 +386,8 @@
             "integration": "Good",
             "storage": "High"
           },
-          "Redshift": {
+          {
+            "platform": "Redshift",
             "performance": "Moderate",
             "scalability": "Good",
             "cost": "Moderate",
@@ -434,7 +395,7 @@
             "integration": "Good",
             "storage": "Moderate"
           }
-        },
+        ],
         "matrix": [
           [
             {
@@ -481,15 +442,7 @@
                 "integration",
                 "storage"
               ],
-              "vendor": "Snowflake",
-              "values": [
-                "High",
-                "Excellent",
-                "Moderate to High",
-                "High",
-                "Excellent",
-                "High"
-              ]
+              "vendor": "Snowflake"
             },
             {
               "criteria": [
@@ -500,15 +453,7 @@
                 "integration",
                 "storage"
               ],
-              "vendor": "BigQuery",
-              "values": [
-                "High",
-                "Excellent",
-                "Low to Moderate",
-                "Moderate",
-                "Good",
-                "High"
-              ]
+              "vendor": "BigQuery"
             },
             {
               "criteria": [
@@ -519,15 +464,7 @@
                 "integration",
                 "storage"
               ],
-              "vendor": "Redshift",
-              "values": [
-                "Moderate",
-                "Good",
-                "Moderate",
-                "Moderate",
-                "Good",
-                "Moderate"
-              ]
+              "vendor": "Redshift"
             }
           ],
           [

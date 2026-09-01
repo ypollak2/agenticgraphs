@@ -1,0 +1,49 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the production lockfile, against the no-copyleft policy"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "node": "partition",
+          "task": "analyze_lockfile",
+          "input": "production_lockfile.json",
+          "output": "resolved_spdx_ids"
+        },
+        {
+          "node": "partition",
+          "task": "check_copyleft_compliance",
+          "input": "resolved_spdx_ids",
+          "output": "copyleft_conflicts_flagged"
+        }
+      ]
+    },
+    "map": [
+      {
+        "shard_result": "resolved_spdx_ids"
+      },
+      {
+        "shard_result": "copyleft_conflicts_flagged"
+      }
+    ],
+    "reduce": {
+      "copyleft_conflicts": "copyleft_conflicts_flagged",
+      "output": {
+        "copyleft_conflicts": "copyleft_conflicts_flagged",
+        "packages": "resolved_spdx_ids"
+      },
+      "packages": "resolved_spdx_ids"
+    }
+  },
+  "tool_calls": []
+}

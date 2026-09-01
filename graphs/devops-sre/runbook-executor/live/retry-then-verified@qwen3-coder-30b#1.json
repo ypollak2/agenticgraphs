@@ -1,0 +1,37 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the certificate rotation runbook, in staging"
+  },
+  "node_outputs": {
+    "plan": {
+      "steps": [
+        {
+          "exit_code": 0
+        }
+      ]
+    },
+    "execute": {
+      "step_result": "completed"
+    },
+    "verify": {
+      "output": {
+        "steps": [
+          {
+            "exit_code": 0
+          }
+        ]
+      },
+      "verify_failed": false
+    }
+  },
+  "tool_calls": []
+}

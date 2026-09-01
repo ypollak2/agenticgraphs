@@ -1,0 +1,53 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the Northwind discovery call, against the MEDDIC rubric"
+  },
+  "node_outputs": {
+    "segment": {
+      "segments": [
+        {
+          "node": "segment",
+          "ability": "map_shard",
+          "input": {
+            "goal": "the Northwind discovery call, against the MEDDIC rubric",
+            "attempts": 1
+          },
+          "output": {
+            "score": {
+              "spread": 0,
+              "median": 0
+            }
+          }
+        }
+      ]
+    },
+    "score-pass": {
+      "rubric_score": {
+        "spread": 0,
+        "median": 0
+      }
+    },
+    "consolidate": {
+      "final_score": {
+        "spread": 0,
+        "median": 0
+      },
+      "output": {
+        "segments_scored": 1,
+        "variance": 0
+      },
+      "segments_scored": 1,
+      "variance": 0
+    }
+  },
+  "tool_calls": []
+}

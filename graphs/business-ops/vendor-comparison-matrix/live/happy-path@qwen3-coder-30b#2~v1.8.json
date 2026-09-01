@@ -21,7 +21,7 @@
           "cost": "Moderate to High",
           "ease_of_use": "High",
           "integration": "Excellent",
-          "data_security": "High"
+          "storage": "High"
         },
         {
           "platform": "BigQuery",
@@ -30,7 +30,7 @@
           "cost": "Low to Moderate",
           "ease_of_use": "Moderate",
           "integration": "Good",
-          "data_security": "High"
+          "storage": "High"
         },
         {
           "platform": "Redshift",
@@ -39,49 +39,49 @@
           "cost": "Moderate",
           "ease_of_use": "Moderate",
           "integration": "Good",
-          "data_security": "High"
+          "storage": "Moderate"
         }
       ]
     },
     "collect.map": [
       {
-        "shard_result": "Snowflake offers high performance and excellent scalability with strong data security, making it ideal for complex analytics workloads. While costs are moderate to high, its excellent integration capabilities and ease of use provide significant operational advantages. BigQuery provides cost-effective scaling with good performance at lower to moderate costs, though ease of use is rated as moderate. Redshift delivers solid performance and scalability at moderate costs with good integration and security, but lacks the advanced features and ease of use found in Snowflake and BigQuery."
+        "shard_result": "Snowflake offers high performance and excellent scalability with high ease of use and storage capabilities, though at moderate to high cost, making it suitable for organizations prioritizing performance and ease of integration over cost efficiency."
       },
       {
-        "shard_result": "BigQuery offers high performance and excellent scalability at low to moderate cost, making it a strong contender for warehouse migration with good integration and high data security, though ease of use is only moderate"
+        "shard_result": "BigQuery offers high performance and excellent scalability at low to moderate cost, making it a strong contender for warehouse migration with good integration capabilities and high storage capacity, though ease of use is only moderate compared to Snowflake's high ease of use."
       },
       {
-        "shard_result": "Redshift offers moderate performance and good scalability at moderate cost, with moderate ease of use and good integration capabilities, maintaining high data security standards."
+        "shard_result": "Redshift offers moderate performance and scalability with moderate costs, making it a balanced but not exceptional choice compared to Snowflake's excellent performance and BigQuery's low to moderate costs. Integration and storage capabilities are good across all platforms, but Snowflake leads in ease of use and BigQuery in cost efficiency."
       }
     ],
     "collect.reduce": {
       "findings": [
         {
           "source_date": "2023-06-15",
-          "source_url": "https://www.snowflake.com/blog/snowflake-performance-scalability-analysis/"
+          "source_url": "https://www.snowflake.com/blog/snowflake-performance-scalability-benchmark/"
         },
         {
           "source_date": "2023-08-22",
-          "source_url": "https://cloud.google.com/bigquery/docs/performance-scalability-costs"
+          "source_url": "https://cloud.google.com/bigquery/pricing"
         },
         {
           "source_date": "2023-07-10",
-          "source_url": "https://aws.amazon.com/redshift/whats-new/"
+          "source_url": "https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"
         }
       ],
-      "output": "Snowflake offers high performance and excellent scalability with strong data security, making it ideal for complex analytics workloads. While costs are moderate to high, its excellent integration capabilities and ease of use provide significant operational advantages. BigQuery provides cost-effective scaling with good performance at lower to moderate costs, though ease of use is rated as moderate. Redshift delivers solid performance and scalability at moderate costs with good integration and security, but lacks the advanced features and ease of use found in Snowflake and BigQuery.",
+      "output": "Snowflake offers high performance and excellent scalability with high ease of use and storage capabilities, though at moderate to high cost, making it suitable for organizations prioritizing performance and ease of integration over cost efficiency. BigQuery offers high performance and excellent scalability at low to moderate cost, making it a strong contender for warehouse migration with good integration capabilities and high storage capacity, though ease of use is only moderate compared to Snowflake's high ease of use. Redshift offers moderate performance and scalability with moderate costs, making it a balanced but not exceptional choice compared to Snowflake's excellent performance and BigQuery's low to moderate costs. Integration and storage capabilities are good across all platforms, but Snowflake leads in ease of use and BigQuery in cost efficiency.",
       "vendor_docs": [
         {
           "source_date": "2023-06-15",
-          "source_url": "https://www.snowflake.com/blog/snowflake-performance-scalability-analysis/"
+          "source_url": "https://www.snowflake.com/blog/snowflake-performance-scalability-benchmark/"
         },
         {
           "source_date": "2023-08-22",
-          "source_url": "https://cloud.google.com/bigquery/docs/performance-scalability-costs"
+          "source_url": "https://cloud.google.com/bigquery/pricing"
         },
         {
           "source_date": "2023-07-10",
-          "source_url": "https://aws.amazon.com/redshift/whats-new/"
+          "source_url": "https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"
         }
       ]
     },
@@ -94,7 +94,7 @@
           "cost": "Moderate to High",
           "ease_of_use": "High",
           "integration": "Excellent",
-          "data_security": "High"
+          "storage": "High"
         },
         {
           "platform": "BigQuery",
@@ -103,7 +103,7 @@
           "cost": "Low to Moderate",
           "ease_of_use": "Moderate",
           "integration": "Good",
-          "data_security": "High"
+          "storage": "High"
         },
         {
           "platform": "Redshift",
@@ -112,7 +112,7 @@
           "cost": "Moderate",
           "ease_of_use": "Moderate",
           "integration": "Good",
-          "data_security": "High"
+          "storage": "Moderate"
         }
       ]
     },
@@ -126,7 +126,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "Snowflake"
           },
@@ -137,7 +137,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "BigQuery"
           },
@@ -148,7 +148,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "Redshift"
           }
@@ -163,7 +163,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "Snowflake"
           },
@@ -174,7 +174,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "BigQuery"
           },
@@ -185,7 +185,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "Redshift"
           }
@@ -200,7 +200,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "Snowflake"
           },
@@ -211,7 +211,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "BigQuery"
           },
@@ -222,7 +222,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "Redshift"
           }
@@ -238,7 +238,7 @@
           "cost": "Moderate to High",
           "ease_of_use": "High",
           "integration": "Excellent",
-          "data_security": "High"
+          "storage": "High"
         },
         {
           "platform": "BigQuery",
@@ -247,7 +247,7 @@
           "cost": "Low to Moderate",
           "ease_of_use": "Moderate",
           "integration": "Good",
-          "data_security": "High"
+          "storage": "High"
         },
         {
           "platform": "Redshift",
@@ -256,7 +256,7 @@
           "cost": "Moderate",
           "ease_of_use": "Moderate",
           "integration": "Good",
-          "data_security": "High"
+          "storage": "Moderate"
         }
       ],
       "matrix": [
@@ -268,7 +268,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "Snowflake"
           },
@@ -279,7 +279,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "BigQuery"
           },
@@ -290,7 +290,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "Redshift"
           }
@@ -303,7 +303,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "Snowflake"
           },
@@ -314,7 +314,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "BigQuery"
           },
@@ -325,7 +325,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "Redshift"
           }
@@ -338,7 +338,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "Snowflake"
           },
@@ -349,7 +349,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "BigQuery"
           },
@@ -360,7 +360,7 @@
               "cost",
               "ease_of_use",
               "integration",
-              "data_security"
+              "storage"
             ],
             "vendor": "Redshift"
           }
@@ -375,7 +375,7 @@
             "cost": "Moderate to High",
             "ease_of_use": "High",
             "integration": "Excellent",
-            "data_security": "High"
+            "storage": "High"
           },
           {
             "platform": "BigQuery",
@@ -384,7 +384,7 @@
             "cost": "Low to Moderate",
             "ease_of_use": "Moderate",
             "integration": "Good",
-            "data_security": "High"
+            "storage": "High"
           },
           {
             "platform": "Redshift",
@@ -393,7 +393,7 @@
             "cost": "Moderate",
             "ease_of_use": "Moderate",
             "integration": "Good",
-            "data_security": "High"
+            "storage": "Moderate"
           }
         ],
         "matrix": [
@@ -405,7 +405,7 @@
                 "cost",
                 "ease_of_use",
                 "integration",
-                "data_security"
+                "storage"
               ],
               "vendor": "Snowflake"
             },
@@ -416,7 +416,7 @@
                 "cost",
                 "ease_of_use",
                 "integration",
-                "data_security"
+                "storage"
               ],
               "vendor": "BigQuery"
             },
@@ -427,7 +427,7 @@
                 "cost",
                 "ease_of_use",
                 "integration",
-                "data_security"
+                "storage"
               ],
               "vendor": "Redshift"
             }
@@ -440,7 +440,7 @@
                 "cost",
                 "ease_of_use",
                 "integration",
-                "data_security"
+                "storage"
               ],
               "vendor": "Snowflake"
             },
@@ -451,7 +451,7 @@
                 "cost",
                 "ease_of_use",
                 "integration",
-                "data_security"
+                "storage"
               ],
               "vendor": "BigQuery"
             },
@@ -462,7 +462,7 @@
                 "cost",
                 "ease_of_use",
                 "integration",
-                "data_security"
+                "storage"
               ],
               "vendor": "Redshift"
             }
@@ -475,7 +475,7 @@
                 "cost",
                 "ease_of_use",
                 "integration",
-                "data_security"
+                "storage"
               ],
               "vendor": "Snowflake"
             },
@@ -486,7 +486,7 @@
                 "cost",
                 "ease_of_use",
                 "integration",
-                "data_security"
+                "storage"
               ],
               "vendor": "BigQuery"
             },
@@ -497,7 +497,7 @@
                 "cost",
                 "ease_of_use",
                 "integration",
-                "data_security"
+                "storage"
               ],
               "vendor": "Redshift"
             }

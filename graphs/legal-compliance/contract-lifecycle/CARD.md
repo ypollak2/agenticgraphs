@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-120` | legal-compliance | **human-gate** | 5 | 5 | 0 | 0 | 35 | execute |
+| `AGR-120` | legal-compliance | **human-gate** | 6 | 6 | 0 | 0 | 35 | execute |
 
 > 🎯 **Requires a goal** — the contract to review and the risk posture to hold it to. Without one the graph refuses and runs no node.
 
@@ -18,11 +18,13 @@ flowchart LR
     N2["risk-assess<br/><i>counsel</i>"]
     N3["counsel-approval<br/><i>approver</i>"]
     N4["execute<br/><i>executor</i>"]
+    N5["escalate-contract<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N2 -->|residual_risk > medium and attempts < 2| N1
     N2 -->|residual_risk <= medium| N3
     N3 --> N4
+    N2 -->|residual_risk > medium and attempts >= 2| N5
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -66,6 +68,7 @@ To evolve it: `uv run agr infuse contract-lifecycle <node> <ability>` — every 
 | `risk-assess` | counsel | agent | critique, analyze |
 | `counsel-approval` | approver | human | approve |
 | `execute` | executor | agent | execute_step |
+| `escalate-contract` | escalator | agent | escalate |
 
 ## Edge logic
 
@@ -76,6 +79,7 @@ To evolve it: `uv run agr infuse contract-lifecycle <node> <ability>` — every 
 | `risk-assess` | `redline` | residual_risk > medium and attempts < 2 |
 | `risk-assess` | `counsel-approval` | residual_risk <= medium |
 | `counsel-approval` | `execute` | always |
+| `risk-assess` | `escalate-contract` | residual_risk > medium and attempts >= 2 |
 
 ## Optional use-cases
 

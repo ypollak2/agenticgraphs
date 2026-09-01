@@ -15,12 +15,14 @@ flowchart LR
     N3["copy-edit<br/><i>critic</i>"]
     N4["author-signoff<br/><i>approver</i>"]
     N5["typeset<br/><i>executor</i>"]
+    N6["escalate-manuscript<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N2 --> N3
     N3 -->|len(style_violations) > 0 and attempts < 2| N2
     N3 -->|len(style_violations) == 0| N4
     N4 --> N5
+    N3 -->|len(style_violations) > 0 and attempts >= 2| N6
 ```
 
 ## Cases

@@ -2,12 +2,12 @@
   "name": "regulatory-filing-lifecycle",
   "category": "finance",
   "structural": {
-    "nodes": 6,
-    "edges": 6,
+    "nodes": 7,
+    "edges": 7,
     "verifier_nodes": 0,
     "router_nodes": 0,
     "parallel_groups": 0,
-    "max_fan_out": 2,
+    "max_fan_out": 3,
     "loops": 1,
     "loops_bounded": true,
     "max_steps": 35,
@@ -36,6 +36,9 @@
           "retain"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -55,10 +58,10 @@
     "provisional": false,
     "verification_depth": "assert-live",
     "date": "2026-08-31",
-    "cases": 1,
+    "cases": 3,
     "passed": 0,
     "pass_rate": 0.0,
-    "mean_steps": 6.0,
+    "mean_steps": 7.0,
     "results": [
       {
         "id": "happy-path",
@@ -66,16 +69,90 @@
         "recorded": "2026-08-31",
         "gate_auto_approved": true,
         "passed": false,
-        "steps": 6,
+        "steps": 7,
         "trace": [
           "collect",
           "reconcile",
           "collect",
           "reconcile",
           "collect",
-          "reconcile"
+          "reconcile",
+          "abandon-filing"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [
+          "output.signed_off == true (AttributeError: signed_off)",
+          "output.evidence_pack is not None (AttributeError: evidence_pack)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": true,
+        "passed": false,
+        "steps": 7,
+        "trace": [
+          "collect",
+          "reconcile",
+          "collect",
+          "reconcile",
+          "collect",
+          "reconcile",
+          "abandon-filing"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [
+          "output.signed_off == true (AttributeError: signed_off)",
+          "output.evidence_pack is not None (AttributeError: evidence_pack)"
+        ],
+        "skipped_command_checks": 0,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": false,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-08-31",
+        "gate_auto_approved": true,
+        "passed": false,
+        "steps": 7,
+        "trace": [
+          "collect",
+          "reconcile",
+          "collect",
+          "reconcile",
+          "collect",
+          "reconcile",
+          "abandon-filing"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "output.signed_off == true (AttributeError: signed_off)",
           "output.evidence_pack is not None (AttributeError: evidence_pack)"
@@ -104,7 +181,7 @@
     "fails_every_model": true,
     "flaky_models": [],
     "samples_per_model": {
-      "qwen3-coder:30b": 1
+      "qwen3-coder:30b": 3
     },
     "gate_auto_approved": true
   }

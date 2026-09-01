@@ -1,0 +1,96 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "a staff platform engineer on the infra team"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Analyze requirements for Staff Platform Engineer role on Infrastructure team including technical skills, experience level, and platform expertise needed"
+    },
+    "generate": {
+      "draft": {
+        "title": "Staff Platform Engineer - Infrastructure Team",
+        "description": "Lead platform engineering for infrastructure team with focus on scalable systems and developer experience",
+        "requirements": [
+          "10+ years software engineering experience with 5+ years in infrastructure/platform engineering",
+          "Strong expertise in cloud platforms (AWS, Azure, GCP) and container orchestration (Kubernetes, Docker)",
+          "Experience designing and implementing large-scale distributed systems",
+          "Proficiency in Go, Python, or similar languages for platform tooling",
+          "Knowledge of CI/CD pipelines, monitoring, and observability tools",
+          "Leadership experience mentoring junior engineers and driving technical initiatives",
+          "Bachelor's degree in Computer Science or related technical field",
+          "Experience with infrastructure as code (Terraform, Ansible)",
+          "Strong problem-solving skills and ability to work across teams"
+        ],
+        "skills": [
+          "Platform architecture design",
+          "Infrastructure automation",
+          "Developer tooling and experience",
+          "System reliability and performance optimization",
+          "Team leadership and technical mentorship",
+          "Cross-functional collaboration"
+        ]
+      }
+    },
+    "critique": {
+      "bias_terms": [],
+      "output": {
+        "bias_terms": [],
+        "requirements": [
+          "10+ years software engineering experience with 5+ years in infrastructure/platform engineering",
+          "Strong expertise in cloud platforms (AWS, Azure, GCP) and container orchestration (Kubernetes, Docker)",
+          "Experience designing and implementing large-scale distributed systems",
+          "Proficiency in Go, Python, or similar languages for platform tooling",
+          "Knowledge of CI/CD pipelines, monitoring, and observability tools",
+          "Leadership experience mentoring junior engineers and driving technical initiatives",
+          "Bachelor's degree in Computer Science or related technical field",
+          "Experience with infrastructure as code (Terraform, Ansible)",
+          "Strong problem-solving skills and ability to work across teams"
+        ],
+        "unique_requirements": [
+          "10+ years software engineering experience with 5+ years in infrastructure/platform engineering",
+          "Strong expertise in cloud platforms (AWS, Azure, GCP) and container orchestration (Kubernetes, Docker)",
+          "Experience designing and implementing large-scale distributed systems",
+          "Proficiency in Go, Python, or similar languages for platform tooling",
+          "Knowledge of CI/CD pipelines, monitoring, and observability tools",
+          "Leadership experience mentoring junior engineers and driving technical initiatives",
+          "Bachelor's degree in Computer Science or related technical field",
+          "Experience with infrastructure as code (Terraform, Ansible)",
+          "Strong problem-solving skills and ability to work across teams"
+        ]
+      },
+      "requirements": [
+        "10+ years software engineering experience with 5+ years in infrastructure/platform engineering",
+        "Strong expertise in cloud platforms (AWS, Azure, GCP) and container orchestration (Kubernetes, Docker)",
+        "Experience designing and implementing large-scale distributed systems",
+        "Proficiency in Go, Python, or similar languages for platform tooling",
+        "Knowledge of CI/CD pipelines, monitoring, and observability tools",
+        "Leadership experience mentoring junior engineers and driving technical initiatives",
+        "Bachelor's degree in Computer Science or related technical field",
+        "Experience with infrastructure as code (Terraform, Ansible)",
+        "Strong problem-solving skills and ability to work across teams"
+      ],
+      "unique_requirements": [
+        "10+ years software engineering experience with 5+ years in infrastructure/platform engineering",
+        "Strong expertise in cloud platforms (AWS, Azure, GCP) and container orchestration (Kubernetes, Docker)",
+        "Experience designing and implementing large-scale distributed systems",
+        "Proficiency in Go, Python, or similar languages for platform tooling",
+        "Knowledge of CI/CD pipelines, monitoring, and observability tools",
+        "Leadership experience mentoring junior engineers and driving technical initiatives",
+        "Bachelor's degree in Computer Science or related technical field",
+        "Experience with infrastructure as code (Terraform, Ansible)",
+        "Strong problem-solving skills and ability to work across teams"
+      ],
+      "rejected": false
+    }
+  },
+  "tool_calls": []
+}

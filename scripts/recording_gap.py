@@ -58,7 +58,15 @@ def missing(target: int) -> list[str]:
 
 
 def main() -> int:
-    print("\n".join(missing(int(os.environ.get("AGR_TARGET_SAMPLES", "1")))))
+    """Print one graph name per line, and NOTHING when there is nothing to do.
+
+    `print("\n".join([]))` emits a blank line, so `wc -l` reported 1 for an empty
+    list — every "1 remaining" was really 0, and the waiters watching for `-eq 0`
+    never fired. A tool that reports progress must be able to report completion.
+    """
+    todo = missing(int(os.environ.get("AGR_TARGET_SAMPLES", "1")))
+    if todo:
+        print("\n".join(todo))
     return 0
 
 

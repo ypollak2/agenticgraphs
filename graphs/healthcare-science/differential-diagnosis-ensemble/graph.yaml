@@ -33,7 +33,7 @@ nodes:
   - dissent
   - output
   - ranking: list[{clinician_id:any}]
-  - represented
+  - represented: list
   inputs:
   - ranking
   join: quorum(1)

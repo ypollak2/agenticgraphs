@@ -35,6 +35,9 @@
           "review"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -60,6 +63,9 @@
           "review"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -98,6 +104,9 @@
           "review"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "output.max_match_ratio < 0.15"
         ],
@@ -126,6 +135,9 @@
           "review"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "output.max_match_ratio < 0.15"
         ],
@@ -154,6 +166,9 @@
           "review"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "output.max_match_ratio < 0.15"
         ],
@@ -182,6 +197,9 @@
           "review"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "output.max_match_ratio < 0.15"
         ],
@@ -210,6 +228,9 @@
           "review"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "output.max_match_ratio < 0.15"
         ],
@@ -238,6 +259,9 @@
           "review"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "output.max_match_ratio < 0.15"
         ],

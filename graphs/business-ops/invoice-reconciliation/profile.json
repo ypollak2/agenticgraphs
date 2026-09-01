@@ -35,6 +35,9 @@
           "post"
         ],
         "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -73,6 +76,11 @@
           "fuzzy-match"
         ],
         "goal_missing": "",
+        "unreached_terminals": [
+          "post"
+        ],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "output.unreviewed_exceptions == 0 (AttributeError: unreviewed_exceptions)"
         ],
@@ -101,6 +109,11 @@
           "fuzzy-match"
         ],
         "goal_missing": "",
+        "unreached_terminals": [
+          "post"
+        ],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "output.unreviewed_exceptions == 0 (AttributeError: unreviewed_exceptions)"
         ],
@@ -129,6 +142,11 @@
           "fuzzy-match"
         ],
         "goal_missing": "",
+        "unreached_terminals": [
+          "post"
+        ],
+        "shape_violations": [],
+        "state_violations": [],
         "assert_failures": [
           "output.unreviewed_exceptions == 0 (AttributeError: unreviewed_exceptions)"
         ],

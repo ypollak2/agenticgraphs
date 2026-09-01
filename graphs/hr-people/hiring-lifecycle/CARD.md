@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-122` | hr-people | **human-gate** | 5 | 5 | 0 | 0 | 35 | execute |
+| `AGR-122` | hr-people | **human-gate** | 6 | 6 | 0 | 0 | 35 | execute |
 
 > 🎯 **Requires a goal** — the role to fill and what a successful hire must be able to do. Without one the graph refuses and runs no node.
 
@@ -18,11 +18,13 @@ flowchart LR
     N2["interview<br/><i>analyst</i>"]
     N3["panel-decision<br/><i>approver</i>"]
     N4["offer<br/><i>executor</i>"]
+    N5["escalate-hiring<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N2 -->|len(shortlist) == 0 and attempts < 2| N1
     N2 -->|len(scorecards) >= 3| N3
     N3 --> N4
+    N2 -->|len(scorecards) < 3 and attempts >= 2| N5
 ```
 
 Legend: `[/…/]` router · `{{…}}` verifier · `[…]` worker/agent node.
@@ -65,6 +67,7 @@ To evolve it: `uv run agr infuse hiring-lifecycle <node> <ability>` — every mu
 | `interview` | analyst | agent | analyze |
 | `panel-decision` | approver | human | approve |
 | `offer` | executor | agent | execute_step |
+| `escalate-hiring` | escalator | agent | escalate |
 
 ## Edge logic
 
@@ -75,6 +78,7 @@ To evolve it: `uv run agr infuse hiring-lifecycle <node> <ability>` — every mu
 | `interview` | `screen` | len(shortlist) == 0 and attempts < 2 |
 | `interview` | `panel-decision` | len(scorecards) >= 3 |
 | `panel-decision` | `offer` | always |
+| `interview` | `escalate-hiring` | len(scorecards) < 3 and attempts >= 2 |
 
 ## Optional use-cases
 

@@ -15,12 +15,14 @@ flowchart LR
     N3{{"confirm<br/><i>verifier</i>"}}
     N4["postmortem<br/><i>supervisor</i>"]
     N5["action-items<br/><i>planner</i>"]
+    N6["escalate-incident<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N2 --> N3
     N3 -->|not impact_cleared and attempts < 3| N2
     N3 -->|impact_cleared| N4
     N4 --> N5
+    N3 -->|not impact_cleared and attempts >= 3| N6
 ```
 
 ## Cases

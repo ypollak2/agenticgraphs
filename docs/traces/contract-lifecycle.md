@@ -14,11 +14,13 @@ flowchart LR
     N2["risk-assess<br/><i>counsel</i>"]
     N3["counsel-approval<br/><i>approver</i>"]
     N4["execute<br/><i>executor</i>"]
+    N5["escalate-contract<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N2 -->|residual_risk > medium and attempts < 2| N1
     N2 -->|residual_risk <= medium| N3
     N3 --> N4
+    N2 -->|residual_risk > medium and attempts >= 2| N5
 ```
 
 ## Cases

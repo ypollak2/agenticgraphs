@@ -41,6 +41,16 @@ nodes:
   - uncited_claims: int
   criteria: Every statement cites the self, peer or manager input it came from, and no recency or halo
     bias flag survives calibration. An uncited claim in a performance summary is hearsay.
+- id: escalate-review
+  speciality: escalator
+  abilities:
+  - escalate
+  inputs: []
+  outputs:
+  - escalated: bool
+  - escalation_reason
+  criteria: The review goes to a human with the surviving bias flags named. A summary that could not be
+    de-biased must not be published as if it had been.
 edges:
 - from: gather
   to: synthesize
@@ -52,6 +62,9 @@ edges:
 - from: bias-check
   to: calibrate
   when: len(bias_flags) == 0
+- from: bias-check
+  to: escalate-review
+  when: len(bias_flags) > 0 and attempts >= 2
 termination:
   max_steps: 25
   contract: every statement cites an input and no bias flag survives calibration

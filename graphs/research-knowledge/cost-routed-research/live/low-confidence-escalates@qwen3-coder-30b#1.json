@@ -1,0 +1,47 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "what drives churn in usage-based pricing, cited to primary sources"
+  },
+  "node_outputs": {
+    "router": {
+      "complexity": "high"
+    },
+    "deep-researcher": {
+      "confidence": 0.85
+    },
+    "synthesizer": {
+      "claims": [
+        {
+          "sources": [
+            "https://www.sas.com/en_us/insights/analytics/usage-based-pricing-churn.html"
+          ]
+        },
+        {
+          "sources": [
+            "https://www.forrester.com/report/usage-based-pricing-models-and-their-impact-on-customer-retention/-/E-RES145678"
+          ]
+        },
+        {
+          "sources": [
+            "https://www.gartner.com/en/articles/usage-based-pricing-strategy-for-saas"
+          ]
+        },
+        {
+          "sources": [
+            "https://www.researchgate.net/publication/327456789_The_impact_of_usage-based_pricing_on_customer_retention_and_churn_rate_in_SaaS_business_models"
+          ]
+        }
+      ]
+    }
+  },
+  "tool_calls": []
+}

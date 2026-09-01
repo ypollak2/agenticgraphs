@@ -47,4 +47,5 @@ cases:
       output:
         impact_cleared: true
         actions: *id001
+    escalate-incident: {}
   goal: work the checkout-latency page; resolved means p99 back under 400ms

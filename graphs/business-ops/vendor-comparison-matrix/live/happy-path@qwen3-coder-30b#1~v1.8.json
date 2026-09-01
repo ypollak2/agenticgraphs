@@ -88,7 +88,7 @@
     "normalize": {
       "criteria_grid": [
         {
-          "platform": "Snowflake",
+          "vendor": "Snowflake",
           "performance": "High",
           "scalability": "Excellent",
           "cost": "Moderate to High",
@@ -97,7 +97,7 @@
           "data_security": "High"
         },
         {
-          "platform": "BigQuery",
+          "vendor": "BigQuery",
           "performance": "High",
           "scalability": "Excellent",
           "cost": "Low to Moderate",
@@ -106,7 +106,7 @@
           "data_security": "High"
         },
         {
-          "platform": "Redshift",
+          "vendor": "Redshift",
           "performance": "Moderate",
           "scalability": "Good",
           "cost": "Moderate",
@@ -232,7 +232,7 @@
     "cite-check": {
       "criteria_grid": [
         {
-          "platform": "Snowflake",
+          "vendor": "Snowflake",
           "performance": "High",
           "scalability": "Excellent",
           "cost": "Moderate to High",
@@ -241,7 +241,7 @@
           "data_security": "High"
         },
         {
-          "platform": "BigQuery",
+          "vendor": "BigQuery",
           "performance": "High",
           "scalability": "Excellent",
           "cost": "Low to Moderate",
@@ -250,7 +250,7 @@
           "data_security": "High"
         },
         {
-          "platform": "Redshift",
+          "vendor": "Redshift",
           "performance": "Moderate",
           "scalability": "Good",
           "cost": "Moderate",
@@ -369,7 +369,7 @@
       "output": {
         "criteria_grid": [
           {
-            "platform": "Snowflake",
+            "vendor": "Snowflake",
             "performance": "High",
             "scalability": "Excellent",
             "cost": "Moderate to High",
@@ -378,7 +378,7 @@
             "data_security": "High"
           },
           {
-            "platform": "BigQuery",
+            "vendor": "BigQuery",
             "performance": "High",
             "scalability": "Excellent",
             "cost": "Low to Moderate",
@@ -387,7 +387,7 @@
             "data_security": "High"
           },
           {
-            "platform": "Redshift",
+            "vendor": "Redshift",
             "performance": "Moderate",
             "scalability": "Good",
             "cost": "Moderate",

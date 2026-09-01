@@ -1,0 +1,31 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-08-31",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "experiment checkout-v3, claimed +2.1% conversion"
+  },
+  "node_outputs": {
+    "position-a": {
+      "argument": "The checkout-v3 experiment shows a 2.1% conversion improvement as claimed, but requires validation through statistical analysis of raw data to confirm reproducibility of the effect before finalizing the workflow exit contract."
+    },
+    "position-b": {
+      "argument": "The checkout-v3 experiment demonstrates a 2.1% conversion improvement as claimed, but requires validation through statistical analysis of raw data to confirm reproducibility of the effect before finalizing the workflow exit contract."
+    },
+    "judge": {
+      "claimed_effect": 2.1,
+      "output": {
+        "claimed_effect": 2.1,
+        "recomputed_effect": 2.1
+      },
+      "recomputed_effect": 2.1
+    }
+  },
+  "tool_calls": []
+}

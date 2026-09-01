@@ -14,11 +14,13 @@ flowchart LR
     N2["interview<br/><i>analyst</i>"]
     N3["panel-decision<br/><i>approver</i>"]
     N4["offer<br/><i>executor</i>"]
+    N5["escalate-hiring<br/><i>escalator</i>"]
     N0 --> N1
     N1 --> N2
     N2 -->|len(shortlist) == 0 and attempts < 2| N1
     N2 -->|len(scorecards) >= 3| N3
     N3 --> N4
+    N2 -->|len(scorecards) < 3 and attempts >= 2| N5
 ```
 
 ## Cases

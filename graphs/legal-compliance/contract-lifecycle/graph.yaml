@@ -50,6 +50,16 @@ nodes:
   - output
   - residual_risk_level
   - signatures: list[{party:any, dated:any}]
+- id: escalate-contract
+  speciality: escalator
+  abilities:
+  - escalate
+  inputs: []
+  outputs:
+  - escalated: bool
+  - escalation_reason
+  criteria: The contract escalates with the residual risk that redlining could not reduce. Risk above
+    appetite is a decision for counsel, not a blocked graph.
 edges:
 - from: intake
   to: redline
@@ -63,6 +73,9 @@ edges:
   when: residual_risk <= medium
 - from: counsel-approval
   to: execute
+- from: risk-assess
+  to: escalate-contract
+  when: residual_risk > medium and attempts >= 2
 termination:
   max_steps: 35
   contract: a contract executes only at or below medium residual risk with counsel signature

@@ -15,12 +15,14 @@ flowchart LR
     N3["file<br/><i>controller</i>"]
     N4["retain<br/><i>producer</i>"]
     N5["withdraw-filing<br/><i>compensator</i>"]
+    N6["abandon-filing<br/><i>escalator</i>"]
     N0 --> N1
     N1 -->|not reconciled and attempts < 3| N0
     N1 -->|reconciled| N2
     N2 --> N3
     N3 --> N4
     N3 -->|file_failed| N5
+    N1 -->|not reconciled and attempts >= 3| N6
 ```
 
 ## Cases
