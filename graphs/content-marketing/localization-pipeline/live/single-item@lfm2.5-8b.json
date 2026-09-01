@@ -1,0 +1,40 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the onboarding guide, into de-DE, ja-JP and pt-BR"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": []
+    },
+    "reduce": {
+      "glossary_violations": [],
+      "output": {
+        "glossary_violations": [],
+        "similarity": 0.92,
+        "threshold": 0.85
+      },
+      "shards_processed": 0,
+      "shards_failed": 0,
+      "goal": "the onboarding guide, into de-DE, ja-JP and pt-BR",
+      "attempts": 1,
+      "blackboard": {
+        "goal": "the onboarding guide, into de-DE, ja-JP and pt-BR",
+        "attempts": 1,
+        "shards": [],
+        "shard_result": [],
+        "shards_processed": 0,
+        "shards_failed": 0
+      }
+    }
+  },
+  "tool_calls": []
+}

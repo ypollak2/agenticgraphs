@@ -1,0 +1,25 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "validated_labels": {
+      "PMID-30011": "1b",
+      "PMID-30012": "2b",
+      "PMID-30013": "4"
+    },
+    "goal": "PMID-30011, against the validated evidence-level sample"
+  },
+  "node_outputs": {
+    "route": {
+      "complexity": "1b"
+    }
+  },
+  "tool_calls": []
+}

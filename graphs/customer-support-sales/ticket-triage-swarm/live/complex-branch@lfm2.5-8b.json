@@ -1,0 +1,37 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "ownership_map": {
+      "refund not received": "billing-tier2",
+      "cannot log in": "identity-tier1",
+      "invoice wrong amount": "billing-tier2",
+      "app crashes on upload": "mobile-tier2"
+    },
+    "goal": "the ticket 'cannot log in', against the queue ownership map"
+  },
+  "node_outputs": {
+    "route": {
+      "complexity": 1
+    },
+    "branch-sentiment": {
+      "assigned_queue": "identity-tier1"
+    },
+    "verify": {
+      "expected_queue": "identity-tier1",
+      "assigned_queue": "identity-tier1",
+      "output": [
+        "identity-tier1",
+        "identity-tier1"
+      ]
+    }
+  },
+  "tool_calls": []
+}

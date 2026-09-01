@@ -1,0 +1,98 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "work the checkout-latency page; resolved means p99 back under 400ms"
+  },
+  "node_outputs": {
+    "detect": {
+      "signal": "p99 latency < 400ms",
+      "blast_radius": "checkout-latency page"
+    },
+    "triage.route": {
+      "complexity": "high"
+    },
+    "triage.branch-complex": {
+      "assigned_team": "triage.branch-complex"
+    },
+    "triage.verify": {
+      "assigned_team": "triage.branch-complex",
+      "expected_team": "triage.branch-complex",
+      "matches_ownership_map": true,
+      "output": "resolved means p99 back under 400ms",
+      "owner": "triage.verify",
+      "severity": "high"
+    },
+    "mitigate": {
+      "mitigation": "mitigate",
+      "mitigated": "checkout-latency page"
+    },
+    "confirm": {
+      "blast_radius": "checkout-latency page",
+      "residual_blast_radius": "p99 latency < 400ms",
+      "impact_cleared": true
+    },
+    "postmortem.intake": {
+      "summary": "p99 latency < 400ms"
+    },
+    "postmortem.produce": {
+      "timeline": [
+        {
+          "log_id": "log_1",
+          "message_id": "msg_1"
+        },
+        {
+          "log_id": "log_2",
+          "message_id": "msg_2"
+        }
+      ]
+    },
+    "postmortem.review": {
+      "output": {
+        "residual_blast_radius": "p99 latency < 400ms",
+        "blast_radius": "checkout-latency page"
+      },
+      "postmortem": {
+        "goal": "work the checkout-latency page; resolved means p99 back under 400ms",
+        "attempts": 1,
+        "signal": "p99 latency < 400ms",
+        "complexity": "high",
+        "summary": "p99 latency < 400ms"
+      },
+      "revision_requested": false,
+      "timeline": [
+        {
+          "log_id": "log_1",
+          "message_id": "msg_1"
+        },
+        {
+          "log_id": "log_2",
+          "message_id": "msg_2"
+        }
+      ]
+    },
+    "action-items": {
+      "actions": [
+        {
+          "owner": "triage.verify",
+          "task": "action-items"
+        }
+      ],
+      "output": {
+        "actions": [
+          "work the checkout-latency page"
+        ],
+        "blast_radius": "checkout-latency page",
+        "residual_blast_radius": "p99 latency < 400ms"
+      }
+    }
+  },
+  "tool_calls": []
+}

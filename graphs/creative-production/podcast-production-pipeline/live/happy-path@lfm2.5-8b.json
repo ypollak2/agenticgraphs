@@ -1,0 +1,53 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "episode 112 of Systems People"
+  },
+  "node_outputs": {
+    "transcribe": {
+      "transcribe": "episode 112 of Systems People"
+    },
+    "edit-plan": {
+      "cut_list": []
+    },
+    "show-notes": {
+      "show_notes": [],
+      "timestamps": []
+    },
+    "rights-check": {
+      "clearances": [
+        {
+          "license_ref": "N/A"
+        }
+      ],
+      "rights_clear": "N/A"
+    },
+    "publish": {
+      "clearances": [
+        {
+          "license_ref": "N/A"
+        }
+      ],
+      "output": {
+        "clearances": [
+          {
+            "start": 0,
+            "end": 112
+          }
+        ],
+        "timestamps": []
+      },
+      "published": false,
+      "timestamps": []
+    }
+  },
+  "tool_calls": []
+}

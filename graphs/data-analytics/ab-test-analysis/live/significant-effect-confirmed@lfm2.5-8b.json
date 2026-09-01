@@ -1,0 +1,34 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "experiment checkout-v3, claimed +2.1% conversion"
+  },
+  "node_outputs": {
+    "position-a": {
+      "argument": [
+        "experiment checkout-v3, claimed +2.1% conversion"
+      ]
+    },
+    "position-b": {
+      "argument": [
+        "experiment checkout-v3, claimed +2.1% conversion"
+      ]
+    },
+    "judge": {
+      "claimed_effect": 2.1,
+      "output": {
+        "claimed_effect": 2.1,
+        "recomputed_effect": 2.1
+      }
+    }
+  },
+  "tool_calls": []
+}

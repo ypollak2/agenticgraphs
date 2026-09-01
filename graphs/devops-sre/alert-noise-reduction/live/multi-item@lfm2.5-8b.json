@@ -1,0 +1,28 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the last 30 days of paging alerts"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": []
+    },
+    "reduce": {
+      "dedupe_ratio": 0,
+      "missed_paging_alerts": 0,
+      "output": {
+        "dedupe_ratio": 0,
+        "missed_paging_alerts": 0
+      }
+    }
+  },
+  "tool_calls": []
+}

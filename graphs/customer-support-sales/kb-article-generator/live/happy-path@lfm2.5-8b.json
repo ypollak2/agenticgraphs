@@ -1,0 +1,41 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "ticket 79004, written for self-serve customers"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "ticket 79004, written for self-serve customers"
+    },
+    "dedupe-search": {
+      "existing_articles": []
+    },
+    "produce": {
+      "near_duplicates": [],
+      "steps": []
+    },
+    "review": {
+      "near_duplicates": [],
+      "output": {
+        "near_duplicates": [],
+        "steps": [
+          {
+            "action": "review",
+            "expected": "ticket 79004 resolution steps for self-serve customers"
+          }
+        ]
+      },
+      "revision_requested": false,
+      "steps": []
+    }
+  },
+  "tool_calls": []
+}

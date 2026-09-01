@@ -1,0 +1,30 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "34 essays, against the AP argumentation rubric"
+  },
+  "node_outputs": {
+    "plan": {
+      "tasks": []
+    },
+    "verify": {
+      "agreement": 0.0,
+      "escalated": false,
+      "output": {
+        "agreement": 34,
+        "escalated": false,
+        "threshold": 34
+      },
+      "verify_failed": false
+    }
+  },
+  "tool_calls": []
+}

@@ -1,0 +1,47 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the Q2 2026 call, against the guidance given in Q1"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "the Q2 2026 call, against the guidance given in Q1"
+    },
+    "produce": {
+      "figures": [
+        {
+          "matches_transcript": true
+        },
+        {
+          "matches_transcript": true
+        }
+      ],
+      "invented_numbers": []
+    },
+    "review": {
+      "figures": [
+        {
+          "matches_transcript": true
+        },
+        {
+          "matches_transcript": true
+        }
+      ],
+      "invented_numbers": [],
+      "output": [
+        "matches_transcript",
+        "matches_transcript"
+      ],
+      "revision_requested": false
+    }
+  },
+  "tool_calls": []
+}

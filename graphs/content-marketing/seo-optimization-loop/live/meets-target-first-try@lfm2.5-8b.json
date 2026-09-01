@@ -1,0 +1,33 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "/pricing, for 'agent workflow pricing'"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Pricing analysis completed"
+    },
+    "attempt": {
+      "seo_score": 85.5,
+      "stuffing_flags": [],
+      "threshold": 80.0
+    },
+    "measure": {
+      "output": {
+        "seo_score": 85.5,
+        "stuffing_flags": [],
+        "threshold": 80.0
+      },
+      "below_target": false
+    }
+  },
+  "tool_calls": []
+}

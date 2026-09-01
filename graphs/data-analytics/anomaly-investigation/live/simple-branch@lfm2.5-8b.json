@@ -1,0 +1,36 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "holdout_labels": {
+      "friday-signup-dip": "seasonal",
+      "null-spike-2026-08-12": "data-bug",
+      "eu-latency-step": "real-change"
+    },
+    "goal": "the friday-signup-dip anomaly, against the labelled holdout"
+  },
+  "node_outputs": {
+    "route": {
+      "complexity": "high"
+    },
+    "branch-complex": {
+      "assigned_class": "seasonal"
+    },
+    "verify": {
+      "expected_class": "seasonal",
+      "assigned_class": "seasonal",
+      "output": [
+        "seasonal",
+        "seasonal"
+      ]
+    }
+  },
+  "tool_calls": []
+}

@@ -1,0 +1,36 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the 'observability for small teams' brief, for platform engineers"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Observability for small teams brief"
+    },
+    "outline": {
+      "outline": "the 'observability for small teams' brief, for platform engineers"
+    },
+    "produce": {
+      "max_match_ratio": 0.85,
+      "style_violations": []
+    },
+    "review": {
+      "max_match_ratio": 0.85,
+      "output": {
+        "max_match_ratio": 0.85,
+        "style_violations": []
+      },
+      "style_violations": [],
+      "revision_requested": false
+    }
+  },
+  "tool_calls": []
+}

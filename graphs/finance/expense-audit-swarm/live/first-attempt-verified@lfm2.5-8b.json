@@ -1,0 +1,36 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "August EMEA reports, against the 2026 travel policy"
+  },
+  "node_outputs": {
+    "plan": {
+      "tasks": []
+    },
+    "verify": {
+      "output": {
+        "violations": [
+          {
+            "line_id": "EXP-2026-045",
+            "policy_rule": "Travel expenses must be pre-approved for EMEA regions"
+          },
+          {
+            "line_id": "EXP-2026-078",
+            "policy_rule": "No personal expense reimbursements without manager sign-off"
+          }
+        ],
+        "verify_failed": false,
+        "shards_processed": 0
+      }
+    }
+  },
+  "tool_calls": []
+}

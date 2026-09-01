@@ -1,0 +1,35 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the July inpatient DRG assignments and their charts"
+  },
+  "node_outputs": {
+    "plan": {
+      "tasks": []
+    },
+    "recode": {
+      "corrections": [],
+      "recode_failed": false
+    },
+    "verify": {
+      "codes": [
+        {
+          "note_span": "assigned code points at the note span that documents it"
+        }
+      ],
+      "output": {
+        "codes": []
+      },
+      "verify_failed": false
+    }
+  },
+  "tool_calls": []
+}

@@ -1,0 +1,35 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "draft a phase II protocol for drug X in treatment-resistant patients"
+  },
+  "node_outputs": {
+    "draft": {
+      "protocol": "Phase II protocol for drug X in treatment-resistant patients"
+    },
+    "critique": {
+      "deviations": []
+    },
+    "register": {
+      "output": {
+        "deviations": [],
+        "registry_id": "",
+        "signed_off": true
+      },
+      "registered": false,
+      "register_failed": true
+    },
+    "amend-registration": {
+      "amend_registration_filed": []
+    }
+  },
+  "tool_calls": []
+}

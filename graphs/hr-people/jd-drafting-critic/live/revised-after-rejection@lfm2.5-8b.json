@@ -1,0 +1,36 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "a staff platform engineer on the infra team"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Analyst"
+    },
+    "generate": {
+      "draft": ""
+    },
+    "critique": {
+      "bias_terms": [],
+      "output": [
+        {
+          "bias_terms": []
+        },
+        {
+          "requirements": [],
+          "unique_requirements": [],
+          "rejected": false
+        }
+      ]
+    }
+  },
+  "tool_calls": []
+}

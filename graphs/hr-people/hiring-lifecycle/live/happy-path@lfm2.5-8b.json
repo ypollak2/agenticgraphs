@@ -1,0 +1,69 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "hire a senior backend engineer who can own our payments service"
+  },
+  "node_outputs": {
+    "define-role.intake": {
+      "summary": "hire a senior backend engineer who can own our payments service"
+    },
+    "define-role.generate": {
+      "draft": []
+    },
+    "define-role.critique": {
+      "bias_lint_clean": true,
+      "bias_terms": [],
+      "jd": "The description is clean of gendered and coded bias terms, and requirements are deduplicated and separated into must-have and nice-to-have.",
+      "output": "hire a senior backend engineer who can own our payments service",
+      "rejected": false,
+      "requirements": [
+        "must-have: experience with payment gateways, strong understanding of transaction security, ability to design scalable systems",
+        "nice-to-have: familiarity with blockchain, knowledge of PCI DSS compliance"
+      ],
+      "requirements_deduped": [
+        "experience with payment gateways",
+        "strong understanding of transaction security",
+        "ability to design scalable systems",
+        "familiarity with blockchain",
+        "knowledge of PCI DSS compliance"
+      ],
+      "unique_requirements": [
+        "must-have: experience with payment gateways",
+        "nice-to-have: familiarity with blockchain"
+      ]
+    },
+    "screen": [
+      {
+        "shortlist": []
+      },
+      {
+        "shortlist": []
+      }
+    ],
+    "interview": [
+      {
+        "scorecards": [
+          "hire a senior backend engineer who can own our payments service"
+        ]
+      },
+      {
+        "scorecards": [
+          "hire a senior backend engineer who can own our payments service"
+        ]
+      }
+    ],
+    "escalate-hiring": {
+      "escalated": true,
+      "escalation_reason": "The workflow requires at least three structured scorecards and panel signature for hiring decision; current shortlist is empty, making the decision cannot be made."
+    }
+  },
+  "tool_calls": []
+}

@@ -1,0 +1,30 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the 90k-word Ridgeline draft, against the Kestrel style guide"
+  },
+  "node_outputs": {
+    "assess": {
+      "dev_notes": "Assessing the Ridgeline draft against Kestrel style guide"
+    },
+    "dev-edit": {
+      "dev_draft": "the 90k-word Ridgeline draft, against the Kestrel style guide"
+    },
+    "line-edit": {
+      "line_draft": "the 90k-word Ridgeline draft, against the Kestrel style guide"
+    },
+    "copy-edit": {
+      "copy_clean": true,
+      "style_violations": 0
+    }
+  },
+  "tool_calls": []
+}

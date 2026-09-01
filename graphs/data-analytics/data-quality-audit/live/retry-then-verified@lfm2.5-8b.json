@@ -1,0 +1,37 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the customers table, against the CDM completeness rules"
+  },
+  "node_outputs": {
+    "plan": {
+      "tasks": []
+    },
+    "verify": {
+      "output": {
+        "violations": [
+          {
+            "count": 0,
+            "rule_id": "CDM_COMPLETENESS_VIOLATION"
+          }
+        ]
+      },
+      "violations": [
+        {
+          "count": 0,
+          "rule_id": "CDM_COMPLETENESS_VIOLATION"
+        }
+      ],
+      "verify_failed": false
+    }
+  },
+  "tool_calls": []
+}

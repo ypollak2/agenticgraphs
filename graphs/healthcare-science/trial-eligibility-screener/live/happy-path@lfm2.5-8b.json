@@ -1,0 +1,24 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "screen the oncology cohort against NCT-12345 eligibility criteria"
+  },
+  "node_outputs": {
+    "prefilter": {
+      "obvious_excludes": []
+    },
+    "criteria-match": {
+      "matched": true,
+      "ambiguous": false
+    }
+  },
+  "tool_calls": []
+}

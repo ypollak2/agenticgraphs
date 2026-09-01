@@ -1,0 +1,40 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "summarize the H1 2026 cycle for a senior engineer on the infra team"
+  },
+  "node_outputs": {
+    "gather": {
+      "inputs": [
+        {
+          "name": "h1_2026_cycle",
+          "type": "summary",
+          "target_audience": "senior engineer on the infra team"
+        }
+      ]
+    },
+    "synthesize": {
+      "draft_summary": "H1 2026 cycle summary for senior infra engineer"
+    },
+    "bias-check": {
+      "bias_flags": []
+    },
+    "calibrate": {
+      "calibrated_summary": "H1 2026 cycle summary for senior infra engineer",
+      "output": {
+        "bias_flags": [],
+        "uncited_claims": []
+      },
+      "uncited_claims": []
+    }
+  },
+  "tool_calls": []
+}

@@ -1,0 +1,42 @@
+{
+  "model": "qwen3.8:latest",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "the 2026-08-14 platform sync transcript, for the infra team"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Intake analysis for the 2026-08-14 platform sync (infra team): transcript scope confirmed as a single-session infra coordination meeting dated 2026-08-14. Expected deliverable structure per exit contract: (1) every action item must carry an explicit owner (named engineer or sub-team) and a due date; (2) all quoted statements must be traceable to a speaker and timestamp within the transcript. No transcript text was present in the blackboard at intake; the record is flagged for source-document attachment before downstream nodes (extraction, verification) can validate owner/date fields and quote provenance. Status: blocked on source ingestion; no actions, owners, or dates can be confirmed until the raw transcript is loaded."
+    },
+    "produce": [
+      {
+        "actions": []
+      },
+      {
+        "actions": []
+      }
+    ],
+    "review": [
+      {
+        "output": {
+          "actions": []
+        },
+        "revision_requested": true
+      },
+      {
+        "output": {
+          "actions": []
+        },
+        "revision_requested": true
+      }
+    ]
+  },
+  "tool_calls": []
+}

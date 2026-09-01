@@ -1,0 +1,39 @@
+{
+  "model": "lfm2.5:8b",
+  "recorded": "2026-09-01",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.8",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "goal": "INC-2291, declared SEV2"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "INC-2291, declared SEV2"
+    },
+    "produce": {
+      "timeline": [
+        {
+          "log_id": "INC-2291",
+          "message_id": "SEV2"
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "timeline": [
+          {
+            "log_id": "INC-2291",
+            "message_id": "SEV2"
+          }
+        ]
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": []
+}
