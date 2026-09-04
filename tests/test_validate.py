@@ -42,3 +42,12 @@ def test_lint_catches_missing_required_ability():
     bad = copy.deepcopy(doc)
     bad["nodes"][0]["abilities"] = []
     assert any("missing required abilities" in e for e in lint_graph(bad))
+
+
+def test_schema_title_names_the_newest_api_version():
+    """The schema's own title lagged one version behind its enum (2026-09-04 audit, D1-06)."""
+    import json
+    from pathlib import Path
+    doc = json.loads((Path(__file__).parents[1] / "spec" / "agr-graph.schema.json").read_text())
+    newest = sorted(doc["properties"]["apiVersion"]["enum"], key=lambda v: [int(x) for x in v.split("/v")[1].split(".")])[-1]
+    assert doc["title"].endswith(newest.split("/")[1]), (doc["title"], newest)
