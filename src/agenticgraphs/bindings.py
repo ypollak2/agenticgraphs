@@ -80,7 +80,13 @@ def _read_diff(args: dict, cwd: Path, rep_calls: list) -> dict:
     cmd = ["git", "diff", "--unified=0", ref]
     if path:
         cmd += ["--", path]
-    proc = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, check=False)
+    try:
+        proc = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True,
+                              timeout=120, check=False)
+    except (OSError, subprocess.SubprocessError) as ex:
+        # Same contract as `_run_command`: a hung or missing git is a fact the
+        # caller gets back, not a run that never returns (2026-09-04 audit, D3-02).
+        return {"hunks": [], "files": [], "error": f"{type(ex).__name__}: {ex}"}
     hunks, current = [], None
     for line in proc.stdout.splitlines():
         if line.startswith("+++ b/"):
