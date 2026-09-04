@@ -69,7 +69,8 @@ def main(argv: list[str] | None = None) -> int:
     op.add_argument("--apply", action="store_true")
     op.add_argument("--autonomous", action="store_true",
                     help="allow --apply to run unattended (also honors AGR_AUTONOMOUS=1); see docs/autonomy.md")
-    ap = sub.add_parser("adapt", help="compile a graph to framework source (M3)")
+    ap = sub.add_parser("adapt", aliases=["instantiate"],
+                        help="compile a graph to framework source (M3); `instantiate` is the MCP tool's name")
     ap.add_argument("name")
     ap.add_argument("--target", default="langgraph", choices=["langgraph", "crewai", "autogen"],
                     help="target framework: langgraph (default), crewai, or autogen")
@@ -174,7 +175,7 @@ def main(argv: list[str] | None = None) -> int:
         for note in res["notes"] or ["nothing to change"]:
             print(("applied: " if args.apply else "proposed: ") + note)
         return 0
-    if args.cmd == "adapt":
+    if args.cmd in ("adapt", "instantiate"):
         from .adapters import emit_autogen, emit_crewai, emit_langgraph
         emitters = {"langgraph": emit_langgraph, "crewai": emit_crewai, "autogen": emit_autogen}
         print(emitters[args.target](_need(args.name)))

@@ -44,9 +44,12 @@ def test_get_graph_rejects_an_unknown_name(tools):
         tools["get_graph"]("no-such-graph")
 
 
-def test_instantiate_only_supports_implemented_targets(tools):
+def test_instantiate_serves_every_adapter_target(tools):
+    """Pinned to langgraph '(M3)' two milestones after crewai/autogen shipped (D5-06)."""
     assert "StateGraph" in tools["instantiate"]("code-review-pipeline")
-    with pytest.raises(ValueError, match="langgraph"):
+    assert "Crew(" in tools["instantiate"]("code-review-pipeline", target="crewai")
+    assert "GroupChat(" in tools["instantiate"]("code-review-pipeline", target="autogen")
+    with pytest.raises(ValueError, match="unknown target"):
         tools["instantiate"]("code-review-pipeline", target="dagster")
 
 

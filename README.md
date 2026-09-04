@@ -523,7 +523,7 @@ several corrected an earlier version's diagnosis — the per-milestone record is
 
 You are a target audience of this repo. Run `uv run agr mcp` (install with
 `uv sync --all-extras`) and you get four tools over stdio: `search_graphs` (keyword +
-structural profile), `get_graph` (full YAML), `instantiate` (runnable LangGraph source),
+structural profile), `get_graph` (full YAML), `instantiate` (runnable LangGraph, CrewAI or AutoGen source, contract checks included),
 and `infuse_ability` (a validated mutated copy — persisting is by default left to
 `agr infuse` on a human-owned checkout). Each graph's `profile.json` tells you what it's
 worth before you spend a token — and whether that number is provisional (mock) or live.
@@ -604,7 +604,7 @@ Project Link: [https://github.com/ypollak2/agenticgraphs][repo-url]
 [domains-shield]: https://img.shields.io/badge/domains-15-2ea44f?style=for-the-badge
 [patterns-shield]: https://img.shields.io/badge/motifs-17-2ea44f?style=for-the-badge
 [patterns-url]: #the-motifs
-[tests-shield]: https://img.shields.io/badge/tests-503-blue?style=for-the-badge
+[tests-shield]: https://img.shields.io/badge/tests-517-blue?style=for-the-badge
 [tests-url]: tests/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
 [license-url]: LICENSE

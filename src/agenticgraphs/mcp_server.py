@@ -19,7 +19,7 @@ import sys
 
 import yaml
 
-from .adapters import emit_langgraph
+from .adapters import emit_autogen, emit_crewai, emit_langgraph
 from .autonomy import AutonomyError, is_autonomous
 from .inspect import find_graph
 from .registry import Registry, iter_yaml, load
@@ -68,13 +68,20 @@ def create_server():
 
     @mcp.tool()
     def instantiate(name: str, target: str = "langgraph") -> str:
-        """Compile a graph to runnable framework source (targets: langgraph)."""
-        if target != "langgraph":
-            raise ValueError("only target='langgraph' is implemented (M3)")
+        """Compile a graph to runnable framework source.
+
+        targets: langgraph (default), crewai, autogen — the same three
+        `agr adapt --target` serves. The tool was pinned to langgraph with an
+        '(M3)' note two milestones after the others shipped (2026-09-04 audit,
+        D5-06).
+        """
+        emitters = {"langgraph": emit_langgraph, "crewai": emit_crewai, "autogen": emit_autogen}
+        if target not in emitters:
+            raise ValueError(f"unknown target '{target}'; choose from {sorted(emitters)}")
         g = find_graph(name)
         if g is None:
             raise ValueError(f"no graph named '{name}'")
-        return emit_langgraph(load(g))
+        return emitters[target](load(g))
 
     @mcp.tool()
     def infuse_ability(name: str, node_id: str, ability: str, persist: bool = False) -> str:
