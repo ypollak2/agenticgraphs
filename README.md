@@ -42,7 +42,7 @@
     <li><a href="#-usage">Usage</a>
       <ul>
         <li><a href="#concepts">Concepts</a></li>
-        <li><a href="#the-nineteen-motifs">The Nineteen Motifs</a></li>
+        <li><a href="#the-motifs">The Motifs</a></li>
         <li><a href="#what-a-real-model-actually-did">What a Real Model Actually Did</a></li>
         <li><a href="#composites-reference-they-dont-copy">Composites Reference, They Don't Copy</a></li>
         <li><a href="#the-library-at-a-glance">The Library at a Glance</a></li>
@@ -129,11 +129,11 @@ it lacks the abilities for.
 <!-- graph-of-graphs:begin -->
 ## 🗺️ The graph of graphs
 
-Every shipped graph is one of nineteen verified motifs. Full per-graph cards (diagram, contract, node roster, use-cases) live in [CARDS.md](CARDS.md).
+Every shipped graph is one of 17 verified motifs, and every graph is either a **primitive** (69) or a **composite** (14) that references primitives by `kind: subgraph`. Full per-graph cards (diagram, contract, node roster, use-cases) live in [CARDS.md](CARDS.md).
 
 ```mermaid
 flowchart TD
-    ROOT(("🕸️ agenticgraphs<br/>83 graphs · 15 domains"))
+    ROOT(("🕸️ agenticgraphs<br/>83 graphs · 15 domains · 17 motifs<br/>69 primitives · 14 composites"))
     ROOT --> P0[/"pipeline ×20"/]
     P0 --> E0["e.g. code-review-pipeline"]
     ROOT --> P1[/"map-reduce ×11"/]
@@ -409,11 +409,13 @@ uv run python scripts/audit_usecases.py      # use cases, domains, AUDIT PASSED
 | **Human gate** | `nodes[].kind: human` + `approval` | An approval contract the live runner refuses to sign itself (v1.1) |
 | **Compensation** | `edges[].kind: compensate` | The undo path for a step that writes; lint-required in a saga (v1.1) |
 
-### The Nineteen Motifs
+### The Motifs
 
 The library is two-tier. **Primitives** are the smallest useful units of agentic
 control flow — 2–4 nodes, one concern each. **Composites** (AGR v1.1) assemble
 primitives into multi-phase workflows, referencing them rather than restating them.
+The counts live in the generated graph-of-graphs above and in `agr list --json`
+(`tier`); the tables below name every motif at least one shipped graph implements.
 
 **Primitives** — the component library:
 
@@ -434,9 +436,7 @@ primitives into multi-phase workflows, referencing them rather than restating th
 |---|---|---|
 | `lifecycle` | N phases, each a motif; phases may reference whole graphs | `feature-delivery-lifecycle` |
 | `human-gate` | approval barrier no model may sign; blocks flow until satisfied | `regulatory-filing-lifecycle` |
-| `supervisor-hierarchy` | supervisor delegates slices to subordinate graphs | `framework-migration` |
 | `saga` | every writing step paired with a compensator | `schema-migration-saga` |
-| `escalation-ladder` | cheapest tier first, terminating at a human | `invoice-reconciliation` |
 
 **Deep motifs** (AGR v1.2) — graphs that search or learn rather than follow a path:
 
@@ -602,9 +602,9 @@ Project Link: [https://github.com/ypollak2/agenticgraphs][repo-url]
 [usecases-shield]: https://img.shields.io/badge/use--case_catalog-131-2ea44f?style=for-the-badge
 [usecases-url]: usecases/catalog.yaml
 [domains-shield]: https://img.shields.io/badge/domains-15-2ea44f?style=for-the-badge
-[patterns-shield]: https://img.shields.io/badge/motifs-19-2ea44f?style=for-the-badge
-[patterns-url]: #the-eight-patterns
-[tests-shield]: https://img.shields.io/badge/tests-204%2F204-blue?style=for-the-badge
+[patterns-shield]: https://img.shields.io/badge/motifs-17-2ea44f?style=for-the-badge
+[patterns-url]: #the-motifs
+[tests-shield]: https://img.shields.io/badge/tests-438-blue?style=for-the-badge
 [tests-url]: tests/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
 [license-url]: LICENSE
