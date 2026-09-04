@@ -1,5 +1,36 @@
 # Changelog
 
+## [Unreleased] — the gap audit, remediated
+
+Fifty findings from a five-auditor read-only audit (`docs/plans/audit-gaps-2026-09-04.md`),
+forty-eight remediation items in seven phases, all landed. The headline gaps and what
+closed them:
+
+- **The README was the one artifact "quality is measured not claimed" did not cover.**
+  `scripts/check_readme_counts.py` owns every badge and count; `check_doc_currency.py`
+  refuses a spec bump without a milestone entry and superseded banners; `reports/`
+  and `docs/contract-findings.md` are regenerated and diffed in CI; `profile.json`
+  is written only when its content changes.
+- **Abilities were narrated, not bound.** `binding.ref` resolves or fails validate;
+  a node whose execute/world-write ability has no binding must say `unbound_ok`
+  (38 graphs do); a retried non-idempotent ability must say `reissue_effects`.
+- **The self-graded lint had been evaded by rewording.** It now asks who produces
+  each side of a comparison; the 16 graphs it recovered were fixed by declaring the
+  caller's reference as input, moving thresholds to `state.inputs`, or moving the
+  reference upstream. A node can no longer overwrite what the caller supplied.
+- **Composites promised what their children never produced.** `maps` declares the
+  rename and `_lint_phase_contract` checks it; `expand` carries `goal`, `state` and
+  `memory` up; `agr compose --scaffold` writes an evaluable bundle.
+- **Generated code dropped the contract.** LangGraph/CrewAI/AutoGen modules carry
+  `check_contract`, fan-out, retries, and marked human gates.
+- **Runtime truth.** Parse failures, refused gates and timeouts are `RunReport`
+  fields; `timeout_s` bounds a node; `parallel_group` runs concurrently (`rounds`);
+  a failed shard no longer crashes `median`/`best`.
+- **Safety.** `AGR_MCP_TOKEN` guards the HTTP transport and is mandatory when
+  autonomous; `optimize --autonomous` commits to `auto/mutations` like every other
+  unattended write; six MCP tools (`validate_graph`, `run_graph`, `list_abilities`,
+  `list_specialities`, `get_profile`, `diff_graphs`).
+
 ## [0.9.4] — the claims get checked, and the evidence gets thrown away
 
 Two things happened. A security audit found the evaluator was not a sandbox, and

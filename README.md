@@ -507,14 +507,28 @@ several corrected an earlier version's diagnosis — the per-milestone record is
 [docs/milestones.md](docs/milestones.md), and the current spec is
 [docs/agr-v1.8.md](docs/agr-v1.8.md).
 
+**Done in the 2026-09-04 gap audit** ([findings](docs/plans/audit-gaps-2026-09-04.md) ·
+[plan](docs/plans/audit-gaps-remediation-2026-09-04.md)): every number in this file is
+generated and CI-checked; the documented onboarding path passes as written; a spec
+bump cannot leave the record behind; parse failures, refused gates and timeouts are
+typed outcomes; abilities with no binding are declared as narration per node; a
+self-graded contract is caught by provenance, not syntax; a phase promises only what
+its child produces; generated LangGraph/CrewAI/AutoGen code carries the contract;
+parallel groups run concurrently; and the MCP surface can validate, run, list, profile
+and diff.
+
 **Next, in order:**
 
-1. **Re-record the evidence base.** v1.8 superseded all 560 recordings at once;
-   until someone points `scripts/record_live.py` at a real endpoint, the registry has
-   no live evidence. This is the only item here a checkout cannot do for itself.
-2. **Depth.** The median graph is 4 nodes. These are motif demonstrations with real
+1. **Re-record the evidence base.** The current recordings predate the audit's
+   contract fixes, and every node carrying `unbound_ok` still narrates an effect the
+   runtime cannot execute; both need a real endpoint. This is the only item here a checkout cannot do for
+   itself.
+2. **Bind the narrated abilities.** `edit_files`, `run_suite`, `rollback`,
+   `execute_step` first — each binding retires `unbound_ok` declarations and turns
+   narration into evidence.
+3. **Depth.** The median graph is 4 nodes. These are motif demonstrations with real
    contracts, not production workflows, and the composites are where the thesis lives.
-3. **Executable checks beyond 20 of 83.** Every contract still settled by an assert is
+4. **Executable checks beyond 20 of 83.** Every contract still settled by an assert is
    settled by the model's account of itself.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -604,7 +618,7 @@ Project Link: [https://github.com/ypollak2/agenticgraphs][repo-url]
 [domains-shield]: https://img.shields.io/badge/domains-15-2ea44f?style=for-the-badge
 [patterns-shield]: https://img.shields.io/badge/motifs-17-2ea44f?style=for-the-badge
 [patterns-url]: #the-motifs
-[tests-shield]: https://img.shields.io/badge/tests-517-blue?style=for-the-badge
+[tests-shield]: https://img.shields.io/badge/tests-527-blue?style=for-the-badge
 [tests-url]: tests/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
 [license-url]: LICENSE

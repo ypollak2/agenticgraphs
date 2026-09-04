@@ -95,11 +95,16 @@ The README keeps the current state and a pointer here.
       does not have. All 560 recordings were retired because none said which spec they
       were scored against. Spec: [agr-v1.8.md](agr-v1.8.md) ·
       Changelog: [0.9.4](../CHANGELOG.md).
-- [ ] **M12 — the gap audit.** Five read-only auditors, ten dimensions, 50 findings at
-      `aa486fc`; 48 remediation items in seven phases with a dependency graph. Phases
-      0-1 (onboarding, crashes, safety, change-gated evidence writes) and 2 (every
-      README number generated and CI-checked; doc currency enforced by
-      `scripts/check_doc_currency.py`) are landed on `audit-remediation`.
+- [x] **M12 — the gap audit.** Five read-only auditors, ten dimensions, 50 findings at
+      `aa486fc`; 48 remediation items in seven phases, all landed on `audit-remediation`
+      (42 commits). Onboarding passes as documented; every README number is generated
+      and CI-checked and a spec bump cannot leave the record behind; profile writes
+      are change-gated; parse/gate/timeout are typed outcomes; `binding.ref` is
+      load-bearing and unbound world-effects are declared per node; self-grading is
+      caught by provenance and 16 evaded contracts were fixed structurally; a phase
+      promises only what its child produces (`maps`) and inherits its child's needs;
+      generated code carries the contract, fan-out, retries and gates; parallel groups
+      run concurrently; the MCP surface gained six tools and a bearer token.
       Audit: [audit-gaps-2026-09-04.md](plans/audit-gaps-2026-09-04.md) ·
       Plan: [audit-gaps-remediation-2026-09-04.md](plans/audit-gaps-remediation-2026-09-04.md).
 

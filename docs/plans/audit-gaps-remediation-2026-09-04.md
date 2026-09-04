@@ -27,7 +27,26 @@ on branch `audit-remediation`, one commit per item, review checkpoint before Pha
   fresh date. They now use `write=False`. Without this, R1-04's change-gating still
   left one `profile.json` date-dirty after every suite run.
 
-Next: review, then Phase 2 (R2-01..R2-11).
+**Status 2026-09-04, later: all seven phases landed** on `audit-remediation` (42
+commits, 526 tests, 92% coverage, `make check` clean, a4 audit passing with zero
+verdict flips). Deviations from the plan, each deliberate:
+
+- **R3-04** narrows "narration" to execute-risk and world-writing abilities;
+  board-only writes (`generate`, `reduce_merge`, `write_docs`) are what a model does.
+  38 graphs carry `unbound_ok`, not ~80.
+- **R3-05** uses `retries.reissue_effects: true` (the node accepts a repeated
+  effect) rather than an idempotency claim, because a bulk claim of safety would be
+  the pattern the audit exists to refuse.
+- **R3-06** recovered exactly the 16 graphs the stale report listed and fixed them
+  structurally; the runtime now also refuses a node overwriting a caller input.
+- **R4-01** adds explicit `maps` rather than renaming fifteen composites by guess;
+  `fact-check-pipeline` gained a real `unsupported_claims` output because no child key
+  meant that. `audit_recordings.py` now reports a verdict that moved with the shape as
+  stale rather than as a flip, or every contract fix would have failed CI.
+- **R6-03** keeps `steps` as node executions (the v1 trace lock depends on it) and
+  adds `rounds` for scheduler passes; concurrency is observable as `rounds < steps`.
+- Phase 2's `agr eval --journal` (R2-10) found that nothing had ever written the
+  file `--resume-from` reads.
 
 | # | Finding | Question | Recommended | If chosen, unlocks |
 |---|---|---|---|---|
