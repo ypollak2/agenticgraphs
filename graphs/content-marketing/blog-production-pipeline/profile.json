@@ -18,7 +18,7 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-09-01",
+    "date": "2026-09-04",
     "cases": 2,
     "passed": 2,
     "pass_rate": 1.0,
@@ -43,6 +43,10 @@
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -71,6 +75,10 @@
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -84,7 +92,7 @@
     "runner": "llm-replay:lfm2.5:8b,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-09-01",
+    "date": "2026-09-04",
     "cases": 8,
     "passed": 0,
     "pass_rate": 0.0,
@@ -114,6 +122,12 @@
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [
+          "assert"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -145,6 +159,12 @@
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [
+          "assert"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -176,6 +196,12 @@
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [
+          "assert"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -207,6 +233,12 @@
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [
+          "assert"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -238,6 +270,12 @@
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [
+          "assert"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -269,6 +307,12 @@
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [
+          "assert"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -300,6 +344,12 @@
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [
+          "assert"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -331,6 +381,12 @@
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [
+          "assert"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -344,7 +400,7 @@
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-31",
-    "age_days": 1,
+    "age_days": 4,
     "per_model_pass_rate": {
       "lfm2.5:8b": 0.0,
       "qwen3-coder:30b": 0.0

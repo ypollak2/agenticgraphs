@@ -10,6 +10,7 @@ by hand is a label that can be set to make a number look better.
 - ⚠️ **26** are satisfied by some models and not others
 - 🚫 **19** are satisfied by no model, but *could* be
 - 🔌 **0** are unsatisfiable **by construction** — their evidence has no source in this repo
+- 🧩 **0** have at least one recorded sample whose model reply did not parse (counted as a failed sample, not dropped)
 
 ## 🚫 Satisfied by no model
 

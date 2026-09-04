@@ -157,6 +157,13 @@ def _record_case(name: str, doc: dict, case: dict, sample: int) -> dict | None:
             {"ability": c.ability, "args": c.args, "ok": c.ok, "detail": c.detail}
             for c in rep.tool_calls
         ],
+        # The failure taxonomy (2026-09-04 audit, D3-03). A reply that did not
+        # parse used to escape as an exception and write NO file, so the cell
+        # vanished from the denominator instead of counting as a failure.
+        "failure_kinds": rep.failure_kinds,
+        "parse_failures": rep.parse_failures,
+        "gate_refused": rep.gate_refused,
+        "timeouts": rep.timeouts,
     }
     model_tag = _model_dir(name, os.environ["AGR_LLM_MODEL"])
     # A second sample of the same graph+model is a different observation, not a
@@ -175,6 +182,7 @@ def _record_case(name: str, doc: dict, case: dict, sample: int) -> dict | None:
     dest.write_text(json.dumps(payload, indent=2) + "\n")
     return {"graph": name, "case": case["id"], "passed": rep.passed,
             "steps": rep.steps, "failures": rep.assert_failures,
+            "kinds": rep.failure_kinds,
             "tool_calls": len(rep.tool_calls),
             "grounded": rep.grounded}
 
@@ -185,7 +193,8 @@ def _report(r: dict) -> None:
     else:
         mark = "PASS" if r["passed"] else "FAIL"
         tools = f" [{r.get('tool_calls', 0)} tool calls{', grounded' if r.get('grounded') else ''}]"
-        print(f"{mark}    {r['graph']} ({r['steps']} steps){tools} {r['failures'] or ''}",
+        kinds = f" <{','.join(r['kinds'])}>" if r.get("kinds") else ""
+        print(f"{mark}    {r['graph']} ({r['steps']} steps){tools}{kinds} {r['failures'] or ''}",
               flush=True)
 
 
@@ -200,7 +209,10 @@ def main() -> int:
             try:
                 results = record(name, sample=i)
             except Exception as ex:
-                results = [{"graph": name, "error": f"{type(ex).__name__}: {ex}"}]
+                # Parse failures and refused gates no longer reach here (they are
+                # fields on the report); what does is a transport or harness crash.
+                results = [{"graph": name, "error": f"{type(ex).__name__}: {ex}",
+                            "error_kind": type(ex).__name__}]
             # Reported as it happens, not accumulated. A 249-run sweep that batches
             # its output loses every result if the process is killed — which is
             # exactly what happened, and the recordings on disk were the only

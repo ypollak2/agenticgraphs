@@ -180,6 +180,28 @@ but never the enclosing locals — so every **nested** quantifier raised
 their outermost iterable is evaluated eagerly in the enclosing scope. No contract
 in the registry could quantify two levels deep until now.
 
+### The failure taxonomy, and `timeout_s`
+
+A run used to fail in three ways the report could not name: a model reply with no
+JSON object escaped as `ValueError`, a human gate nobody could sign escaped as
+`HumanGateRequired`, and a node could run for close to an hour with nothing to
+stop it. The recorder collapsed the first two into one string and wrote no
+recording, so the cell vanished from every denominator (2026-09-04 audit, D3-03,
+D3-02). `RunReport` now carries:
+
+| field | set when | effect |
+|---|---|---|
+| `parse_failures` | a reply had no JSON object | node yields `error: parse`, so `retries` and error edges apply |
+| `gate_refused` | a `kind: human` gate had no signer | the run stops; `passed` is False |
+| `timeouts` | a node exceeded `timeout_s` (or the run-wide `node_timeout`) | node yields `error: timeout`; retries and error edges apply |
+
+`failure_kinds` summarises them (`parse`, `gate`, `timeout`, `assert`, `command`,
+`stall`, `budget`) and is written into every recording and profile, which is what
+lets `contract-findings.md` count unparseable samples instead of dropping them.
+
+`nodes[].timeout_s` is a per-node wall-clock deadline in seconds, enforced by the
+reference runtime; unset means unbounded.
+
 ### Durability and the journal
 
 `durability.checkpoint: every_node` (v1.3) makes a run journal one record per

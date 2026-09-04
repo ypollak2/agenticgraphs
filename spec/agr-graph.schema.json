@@ -88,6 +88,11 @@
             ],
             "default": "agent"
           },
+          "timeout_s": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Wall-clock deadline for one execution of this node, in seconds. Enforced: on expiry the node yields `error: timeout`, `retries` and error edges apply, and the report lists it under `timeouts`. Unset means unbounded (the reference runtime's `run_graph(node_timeout=...)` supplies a run-wide default)."
+          },
           "parallel_group": {
             "type": "string"
           },

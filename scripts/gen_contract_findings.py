@@ -45,6 +45,11 @@ def main() -> int:
              and not lv.get("fails_every_model")]
     clean = [(d, lv) for d, lv in rows if lv["pass_rate"] == 1.0]
     models = sorted({m for _, lv in rows for m in lv.get("models", [])})
+    # Cells whose model reply did not parse, counted rather than dropped. Before
+    # the failure taxonomy a sample that failed to parse wrote no recording and
+    # shrank the denominator (2026-09-04 audit, D3-03 / D6-05).
+    unparseable = [(d, lv) for d, lv in rows
+                   if any(r.get("parse_failures") for r in lv.get("results", []))]
 
     md = [
         "# Contract findings",
@@ -61,6 +66,8 @@ def main() -> int:
         f"- 🚫 **{len(by_model)}** are satisfied by no model, but *could* be",
         f"- 🔌 **{len(by_construction)}** are unsatisfiable **by construction** — their "
         "evidence has no source in this repo",
+        f"- 🧩 **{len(unparseable)}** have at least one recorded sample whose model reply did "
+        "not parse (counted as a failed sample, not dropped)",
         "",
         "## 🚫 Satisfied by no model",
         "",
