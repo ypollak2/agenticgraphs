@@ -14,6 +14,9 @@
     "verification_asserts": 2,
     "risk_surface": "execute"
   },
+  "refs": {
+    "software-engineering/legacy-refactor": "f550a3741c48"
+  },
   "measured": {
     "runner": "mock",
     "provisional": true,

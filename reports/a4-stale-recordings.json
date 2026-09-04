@@ -2046,7 +2046,7 @@
       "model": "lfm2.5:8b",
       "case": "happy-path",
       "commit": "aa486fc1",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "stable"
     },
@@ -2066,7 +2066,7 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "9fb6d2f9",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -2086,7 +2086,7 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "9fb6d2f9",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -2106,7 +2106,7 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "7bc47f0a",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -4296,8 +4296,8 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -4316,8 +4316,8 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -4336,8 +4336,8 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "68514bce",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -4346,8 +4346,8 @@
       "model": "qwen3-coder:30b",
       "case": "retry-then-resolved",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -4356,8 +4356,8 @@
       "model": "qwen3-coder:30b",
       "case": "retry-then-resolved",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -4366,8 +4366,8 @@
       "model": "qwen3-coder:30b",
       "case": "retry-then-resolved",
       "commit": "68514bce",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -4377,7 +4377,7 @@
       "case": "audit-requests-changes-then-approves",
       "commit": "aa486fc1",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "stable"
     },
     {
@@ -4387,7 +4387,7 @@
       "case": "audit-requests-changes-then-approves",
       "commit": "9fb6d2f9",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -4397,7 +4397,7 @@
       "case": "audit-requests-changes-then-approves",
       "commit": "9fb6d2f9",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -4407,7 +4407,7 @@
       "case": "audit-requests-changes-then-approves",
       "commit": "7bc47f0a",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -4457,7 +4457,7 @@
       "case": "clean-path-releases",
       "commit": "aa486fc1",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "stable"
     },
     {
@@ -4467,7 +4467,7 @@
       "case": "clean-path-releases",
       "commit": "9fb6d2f9",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -4477,7 +4477,7 @@
       "case": "clean-path-releases",
       "commit": "9fb6d2f9",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -4497,7 +4497,7 @@
       "case": "clean-path-releases",
       "commit": "7bc47f0a",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -4507,7 +4507,7 @@
       "case": "failed-release-is-compensated",
       "commit": "aa486fc1",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "stable"
     },
     {
@@ -4517,7 +4517,7 @@
       "case": "failed-release-is-compensated",
       "commit": "9fb6d2f9",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -4527,7 +4527,7 @@
       "case": "failed-release-is-compensated",
       "commit": "9fb6d2f9",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -4537,7 +4537,7 @@
       "case": "failed-release-is-compensated",
       "commit": "7bc47f0a",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -4906,7 +4906,7 @@
       "model": "lfm2.5:8b",
       "case": "happy-path",
       "commit": "aa486fc1",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "stable"
     },
@@ -4926,7 +4926,7 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "9fb6d2f9",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -4946,7 +4946,7 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "9fb6d2f9",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -4966,7 +4966,7 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "68514bce",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -5007,7 +5007,7 @@
       "case": "happy-path",
       "commit": "a5e4be5c",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5027,7 +5027,7 @@
       "case": "happy-path",
       "commit": "0c402d5b",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5047,7 +5047,7 @@
       "case": "happy-path",
       "commit": "0c402d5b",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5067,7 +5067,7 @@
       "case": "happy-path",
       "commit": "0c402d5b",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5117,7 +5117,7 @@
       "case": "happy-path",
       "commit": "a5e4be5c",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5137,7 +5137,7 @@
       "case": "happy-path",
       "commit": "0c402d5b",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5157,7 +5157,7 @@
       "case": "happy-path",
       "commit": "0c402d5b",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5177,7 +5177,7 @@
       "case": "happy-path",
       "commit": "0c402d5b",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9216,7 +9216,7 @@
       "model": "lfm2.5:8b",
       "case": "happy-path",
       "commit": "a5e4be5c",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -9226,7 +9226,7 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "3ce728dc",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -9236,7 +9236,7 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "fd32bdc9",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -9246,7 +9246,7 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "3ce728dc",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -9256,7 +9256,7 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "fd32bdc9",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -9266,7 +9266,7 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "3ce728dc",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -9276,7 +9276,7 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "fd32bdc9",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -10596,7 +10596,7 @@
       "model": "lfm2.5:8b",
       "case": "happy-path",
       "commit": "a5e4be5c",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -10616,7 +10616,7 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "0c402d5b",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -10636,7 +10636,7 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "0c402d5b",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -10656,7 +10656,7 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "0c402d5b",
-      "content": "same",
+      "content": "changed",
       "shape": "same",
       "verdict": "not-comparable"
     },
@@ -11027,7 +11027,7 @@
       "case": "happy-path",
       "commit": "aa486fc1",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "stable"
     },
     {
@@ -11047,7 +11047,7 @@
       "case": "happy-path",
       "commit": "0c402d5b",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -11067,7 +11067,7 @@
       "case": "happy-path",
       "commit": "0c402d5b",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -11087,7 +11087,7 @@
       "case": "happy-path",
       "commit": "0c402d5b",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     }
   ],
@@ -11098,10 +11098,10 @@
     "flaky": 2
   },
   "tier_without_stale": {
-    "unsatisfiable": 21,
-    "satisfied-all": 32,
-    "models-disagree": 11,
-    "null": 19
+    "unsatisfiable": 18,
+    "satisfied-all": 31,
+    "models-disagree": 10,
+    "null": 24
   },
   "tier_moved": [
     {
@@ -11159,6 +11159,12 @@
       "dropped": 6
     },
     {
+      "graph": "incident-lifecycle",
+      "published": "unsatisfiable",
+      "without_stale": null,
+      "dropped": 4
+    },
+    {
       "graph": "incident-triage-router",
       "published": "flaky",
       "without_stale": null,
@@ -11187,6 +11193,12 @@
       "published": "unsatisfiable",
       "without_stale": null,
       "dropped": 3
+    },
+    {
+      "graph": "hiring-lifecycle",
+      "published": "unsatisfiable",
+      "without_stale": null,
+      "dropped": 4
     },
     {
       "graph": "jd-drafting-critic",
@@ -11231,6 +11243,12 @@
       "dropped": 3
     },
     {
+      "graph": "fact-check-pipeline",
+      "published": "satisfied-all",
+      "without_stale": null,
+      "dropped": 6
+    },
+    {
       "graph": "prompt-graph-optimization",
       "published": "models-disagree",
       "without_stale": "unsatisfiable",
@@ -11247,6 +11265,18 @@
       "published": "models-disagree",
       "without_stale": null,
       "dropped": 8
+    },
+    {
+      "graph": "vuln-remediation-lifecycle",
+      "published": "unsatisfiable",
+      "without_stale": null,
+      "dropped": 4
+    },
+    {
+      "graph": "feature-delivery-lifecycle",
+      "published": "models-disagree",
+      "without_stale": null,
+      "dropped": 12
     },
     {
       "graph": "legacy-refactor",

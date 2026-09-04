@@ -13,6 +13,8 @@ nodes:
   outputs:
   - findings: list[{source_date:any, source_url:any}]
   - supplier_signals
+  maps:
+    supplier_signals: findings
 - id: score
   speciality: analyst
   abilities:

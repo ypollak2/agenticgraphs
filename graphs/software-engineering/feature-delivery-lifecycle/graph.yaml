@@ -40,8 +40,8 @@ nodes:
   - plan
   outputs:
   - patch
-  - test_failed_before_patch: any
-  - test_passes_after_patch: any
+  maps:
+    patch: step_result
 - id: test
   speciality: supervisor
   kind: subgraph
@@ -54,6 +54,8 @@ nodes:
   - mutation_baseline: float
   - mutation_score: float
   - test_report
+  maps:
+    test_report: summary
 - id: audit
   speciality: supervisor
   kind: subgraph

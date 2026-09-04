@@ -14,6 +14,11 @@
     "verification_asserts": 3,
     "risk_surface": "execute"
   },
+  "refs": {
+    "software-engineering/bug-triage-and-fix": "ebd34bb893d7",
+    "software-engineering/test-suite-generation": "6524e581bfbb",
+    "software-engineering/code-review-pipeline": "6830b07daa11"
+  },
   "measured": {
     "runner": "mock",
     "provisional": true,

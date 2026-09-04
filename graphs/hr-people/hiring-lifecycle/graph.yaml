@@ -11,9 +11,9 @@ nodes:
   inputs:
   - role_brief
   outputs:
-  - bias_lint_clean: any
   - jd
-  - requirements_deduped: any
+  maps:
+    jd: draft
 - id: screen
   speciality: recruiter
   abilities:

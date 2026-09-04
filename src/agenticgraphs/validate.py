@@ -885,6 +885,45 @@ def _lint_retry_reissue(doc: dict, abilities: dict[str, dict]) -> list[str]:
     return errors
 
 
+def _lint_phase_contract(doc: dict, root: Path) -> list[str]:
+    """A phase may only promise what its child produces, or an explicit rename of it.
+
+    15 of 17 registry phases declared outputs the referenced graph never
+    mentioned; expansion contracted the child's terminal to produce them and the
+    fixture supplied them (2026-09-04 audit, D4-01). Now: every phase output is
+    either produced by some node of the child (or supplied to it via its
+    `state.inputs`), or is `maps`-declared from a key that is.
+    """
+    errors: list[str] = []
+    for n in doc.get("nodes", []):
+        if n.get("kind") != "subgraph":
+            continue
+        gp = root / "graphs" / n.get("ref", "") / "graph.yaml"
+        if not gp.exists():
+            continue  # the ref-resolves check reports it
+        child = load(gp)
+        produced = {o for c in child.get("nodes", []) for o in _out_names(c)}
+        produced |= set((child.get("state") or {}).get("inputs") or [])
+        maps = n.get("maps") or {}
+        phase_outs = set(_out_names(n))
+        for pk, ck in maps.items():
+            if pk not in phase_outs:
+                errors.append(f"lint: phase '{n['id']}' maps '{pk}' but does not declare it as an output")
+            if ck not in produced:
+                errors.append(
+                    f"lint: phase '{n['id']}' maps '{pk}' from '{ck}', which '{n['ref']}' does not "
+                    f"produce (it produces {sorted(produced - {'output'})})"
+                )
+        for pk in sorted(phase_outs - {"output"}):
+            if pk not in produced and pk not in maps:
+                errors.append(
+                    f"lint: phase '{n['id']}' declares output '{pk}' but '{n['ref']}' produces no "
+                    f"such key (it produces {sorted(produced - {'output'})}) — declare "
+                    f"`maps: {{{pk}: <child key>}}` or drop it"
+                )
+    return errors
+
+
 def _lint_ref_graph(doc: dict, root: Path) -> list[str]:
     """Walk `kind: subgraph` refs without executing anything.
 
@@ -972,6 +1011,7 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
 
     if any(n.get("kind") == "subgraph" for n in doc.get("nodes", [])):
         errors.extend(_lint_ref_graph(doc, root))
+        errors.extend(_lint_phase_contract(doc, root))
 
     # verification required for graphs with a verifier node
     if any(n.get("kind") == "verifier" for n in doc.get("nodes", [])) and not doc.get("verification"):

@@ -14,6 +14,9 @@
     "verification_asserts": 2,
     "risk_surface": "read"
   },
+  "refs": {
+    "data-analytics/data-quality-audit": "9b9b4e917c2d"
+  },
   "measured": {
     "runner": "mock",
     "provisional": true,

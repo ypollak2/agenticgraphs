@@ -14,6 +14,9 @@
     "verification_asserts": 2,
     "risk_surface": "read"
   },
+  "refs": {
+    "research-knowledge/competitive-intelligence": "9753d03162ec"
+  },
   "measured": {
     "runner": "mock",
     "provisional": true,

@@ -20,9 +20,11 @@ nodes:
   inputs:
   - signal
   outputs:
-  - matches_ownership_map
   - owner
   - severity
+  maps:
+    severity: complexity
+    owner: assigned_team
 - id: mitigate
   speciality: sre
   abilities:
@@ -60,6 +62,8 @@ nodes:
   outputs:
   - postmortem
   - timeline: list[{log_id:any, message_id:any}]
+  maps:
+    postmortem: summary
 - id: action-items
   speciality: planner
   abilities:

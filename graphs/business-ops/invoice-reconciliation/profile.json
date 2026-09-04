@@ -14,6 +14,9 @@
     "verification_asserts": 2,
     "risk_surface": "write"
   },
+  "refs": {
+    "finance/expense-audit-swarm": "0162aeeb70e2"
+  },
   "measured": {
     "runner": "mock",
     "provisional": true,

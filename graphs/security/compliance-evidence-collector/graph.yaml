@@ -22,6 +22,8 @@ nodes:
   - steps: list[{exit_code:int}]
   fan_out:
     over: controls
+  maps:
+    evidence: step_result
 - id: assess
   speciality: reducer
   abilities:

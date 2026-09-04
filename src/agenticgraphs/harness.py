@@ -948,6 +948,11 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
 
     rep = RunReport()
     seed = dict(inputs or {})
+    # Expansion first (R4-02): a child's `goal.required` and `state.inputs` are
+    # part of what this run needs, and the gate below must see them.
+    if has_subgraphs(doc):
+        doc = expand(doc, root) if root else expand(doc)
+        rep.expanded = True
     # The goal gate runs before anything is scheduled. A graph that cannot know
     # what it is working on does not guess at it: it refuses, having executed no
     # node, and reports what it needed. `supplied_by_trigger` exempts graphs whose
@@ -976,9 +981,6 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
         rep.tool_calls.append(
             ToolCall(rec["ability"], rec.get("args", {}), rec["ok"], rec.get("detail", ""))
         )
-    if has_subgraphs(doc):
-        doc = expand(doc, root) if root else expand(doc)
-        rep.expanded = True
     doc = _normalize(doc)
 
     nodes = {n["id"]: n for n in doc["nodes"]}
@@ -1121,6 +1123,9 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
             out = {"error": f"timeout: node '{nid}' exceeded {deadline}s"}
         if timed_out or out.get("error", "").startswith("parse:"):
             rep.frames.append({"node": nid, "visit": visits[nid], "out": out})
+        for parent_key, child_key in (node.get("aliases") or {}).items():
+            if child_key in out:
+                out[parent_key] = out[child_key]
         for k in protected & out.keys():
             if out[k] != bb.get(k):
                 rep.overwritten_inputs.append(f"{nid}: tried to overwrite caller input '{k}'")

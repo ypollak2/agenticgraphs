@@ -32,6 +32,8 @@ nodes:
   - slice_ported
   - snapshot_after: any
   - snapshot_before: any
+  maps:
+    slice_ported: snapshot_after
 - id: integrate
   speciality: qa-lead
   abilities:

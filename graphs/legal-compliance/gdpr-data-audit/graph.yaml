@@ -13,6 +13,8 @@ nodes:
   outputs:
   - data_map
   - violations: list[{count:int, rule_id:any}]
+  maps:
+    data_map: work_result
 - id: classify
   speciality: analyst
   abilities:

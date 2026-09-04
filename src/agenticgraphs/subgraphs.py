@@ -98,6 +98,10 @@ def expand(doc: dict, root: Path = ROOT, _depth: int = 0, _path: tuple[str, ...]
     edges: list[dict] = list(doc["edges"])
     verification: list[dict] = list(doc.get("verification") or [])
     extra_steps = 0
+    inherited_goal: dict = {}
+    inherited_inputs: list[str] = []
+    inherited_schema: str | None = None
+    inherited_scope: str | None = None
 
     for node in doc["nodes"]:
         if node.get("kind") != "subgraph":
@@ -142,6 +146,11 @@ def expand(doc: dict, root: Path = ROOT, _depth: int = 0, _path: tuple[str, ...]
                     k if shape is None else {k: shape}
                     for k, shape in sorted(merged.items())
                 ]
+            if cn["id"] in child_terminals and node.get("maps"):
+                # R4-01: the phase's vocabulary is a declared rename of the
+                # child's, applied at run time — not a second key the child's
+                # terminal is silently contracted to invent.
+                cn["aliases"] = {**(cn.get("aliases") or {}), **node["maps"]}
             nodes.append(cn)
         for ce in child["edges"]:
             e = dict(ce)
@@ -184,8 +193,48 @@ def expand(doc: dict, root: Path = ROOT, _depth: int = 0, _path: tuple[str, ...]
         # declaring what that phase must have achieved. `lint: subgraph without
         # verification` enforces that the parent does not simply stay silent.
         extra_steps += child.get("termination", {}).get("max_steps", 0)
+        # R4-02: a child's own requirements travel with it. Before this, `goal`,
+        # `state` and `memory` were dropped on expansion and nine composites
+        # hand-duplicated `goal.required` to compensate; nothing enforced it.
+        cgoal = child.get("goal") or {}
+        if cgoal.get("required"):
+            inherited_goal["required"] = True
+            inherited_goal.setdefault("description", cgoal.get("description", ""))
+        cstate = child.get("state") or {}
+        for k in cstate.get("inputs") or []:
+            if k not in inherited_inputs:
+                inherited_inputs.append(k)
+        if cstate.get("schema"):
+            if inherited_schema not in (None, cstate["schema"]):
+                raise SubgraphError(
+                    f"subgraph '{ref}' declares state.schema {cstate['schema']!r} but an "
+                    f"earlier phase declared {inherited_schema!r} — one blackboard, one schema"
+                )
+            inherited_schema = cstate["schema"]
+        cscope = (child.get("memory") or {}).get("scope")
+        if cscope == "graph":
+            inherited_scope = "graph"
 
     out = dict(doc)
+    pgoal = dict(doc.get("goal") or {})
+    if inherited_goal.get("required") and not pgoal.get("required"):
+        pgoal["required"] = True
+        pgoal.setdefault("description", inherited_goal.get("description", ""))
+    if pgoal:
+        out["goal"] = pgoal
+    pstate = dict(doc.get("state") or {})
+    merged_inputs = list(pstate.get("inputs") or [])
+    for k in inherited_inputs:
+        if k not in merged_inputs:
+            merged_inputs.append(k)
+    if merged_inputs:
+        pstate["inputs"] = merged_inputs
+    if inherited_schema and not pstate.get("schema"):
+        pstate["schema"] = inherited_schema
+    if pstate:
+        out["state"] = pstate
+    if inherited_scope == "graph":
+        out["memory"] = {**(doc.get("memory") or {}), "scope": "graph"}
     # Expansion emits phase-tagged verification, which is a v1.2 feature —
     # the expanded doc must declare the version whose surface it actually uses.
     # That is a FLOOR, not a ceiling: when the source already uses a later

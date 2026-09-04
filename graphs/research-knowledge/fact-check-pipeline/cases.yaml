@@ -13,6 +13,7 @@ cases:
     review:
       revision_requested: false
       attempts: 1
+      unsupported_claims: []
   goal: the twelve claims in the launch post, against primary sources
 - id: retry-then-resolved
   node_outputs:
@@ -34,6 +35,8 @@ cases:
     review:
     - revision_requested: true
       attempts: 1
+      unsupported_claims: []
     - revision_requested: false
       attempts: 2
+      unsupported_claims: []
   goal: the twelve claims in the launch post, against primary sources

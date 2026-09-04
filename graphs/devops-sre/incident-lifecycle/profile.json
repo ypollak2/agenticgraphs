@@ -14,6 +14,10 @@
     "verification_asserts": 2,
     "risk_surface": "execute"
   },
+  "refs": {
+    "devops-sre/incident-triage-router": "8db6c0eb0076",
+    "devops-sre/postmortem-writer": "2e20e36df3af"
+  },
   "measured": {
     "runner": "mock",
     "provisional": true,

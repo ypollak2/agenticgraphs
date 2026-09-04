@@ -181,14 +181,22 @@ def main() -> int:
     rows = res["rows"]
     changed = [r for r in rows if r["content"] == "changed"]
     shaped = [r for r in rows if r["shape"] == "changed"]
-    flips = [r for r in rows if r["verdict"] not in ("stable", "not-comparable")]
+    moved = [r for r in rows if r["verdict"] not in ("stable", "not-comparable")]
+    # A verdict that changed because the graph's SHAPE changed is stale evidence
+    # awaiting a re-record — the row is already in `shaped` and the tier-without-
+    # stale numbers below. A flip is a verdict that changed with the shape held
+    # constant: the harness or the fixtures moved under a recording, silently.
+    # Conflating the two made every contract fix a CI failure (R4-01).
+    flips = [r for r in moved if r["shape"] != "changed"]
+    stale_flips = [r for r in moved if r["shape"] == "changed"]
 
     print(f"recordings: {len(rows)}")
     print(f"1. graph.yaml changed since the recording:   {len(changed):4d}"
           f"  ({len(changed) / len(rows) * 100:.0f}%)")
     print(f"2. SHAPE changed (evidence is stale):        {len(shaped):4d}"
           f"  ({len(shaped) / len(rows) * 100:.0f}%)")
-    print(f"3. VERDICT flipped without re-recording:     {len(flips):4d}")
+    print(f"3. VERDICT flipped without re-recording:     {len(flips):4d}"
+          f"   (+{len(stale_flips)} moved with the shape: stale, re-record)")
     for f in sorted(flips, key=lambda x: (x["graph"], x["model"])):
         print(f"     {f['graph']:36s} {f['model']:18s} {f['case']:26s} {f['verdict']}")
 

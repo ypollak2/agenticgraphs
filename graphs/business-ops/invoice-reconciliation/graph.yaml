@@ -14,6 +14,9 @@ nodes:
   - exceptions
   - matched: list[{invoice_id:any, po_id:any, receipt_id:any}]
   - violations: list[{line_id:any, policy_rule:any}]
+  maps:
+    matched: work_result
+    exceptions: violations
 - id: fuzzy-match
   speciality: escalator
   abilities:

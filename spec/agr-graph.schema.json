@@ -88,6 +88,16 @@
             ],
             "default": "agent"
           },
+          "maps": {
+            "type": "object",
+            "additionalProperties": {"type": "string"},
+            "description": "kind: subgraph only. Explicit renames from the child's vocabulary to this graph's: {parent_key: child_key}. Every phase output the child does not itself produce must be mapped here from a key it does, and the lint checks both sides against the referenced graph (2026-09-04 audit, D4-01). Before this, a phase could declare any output and expansion simply contracted the child's terminal to produce it."
+          },
+          "aliases": {
+            "type": "object",
+            "additionalProperties": {"type": "string"},
+            "description": "Runtime-only: set by subgraphs.expand on a child's terminal from the phase's `maps`; after the node runs, out[parent_key] = out[child_key]. Not for authoring."
+          },
           "unbound_ok": {
             "type": "string",
             "minLength": 10,

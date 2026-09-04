@@ -19,9 +19,10 @@ nodes:
   inputs:
   - advisory
   outputs:
-  - exploitability
   - priority
   - ranking: list[{asset_map_ref:any, scanner_evidence:any}]
+  maps:
+    priority: ranking
 - id: reproduce
   speciality: worker
   abilities:
