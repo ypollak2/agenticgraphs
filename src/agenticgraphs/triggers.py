@@ -102,4 +102,7 @@ def emit(doc: dict, target: str) -> str:
         raise TriggerError(
             f"'{doc['name']}' declares no triggers — it is a request/response graph"
         )
+    if target not in EMITTERS:
+        # The CLI catches TriggerError; a KeyError here was a traceback (R3-09).
+        raise TriggerError(f"unknown target '{target}' — choose from {sorted(EMITTERS)}")
     return EMITTERS[target](doc)
