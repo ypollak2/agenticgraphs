@@ -170,12 +170,15 @@ the node-level `error` flag is set only under `on_partial: fail`. `aggregate` wi
 errors are published as `shard_errors`, next to the runtime-owned `shards_processed`
 and `shards_failed`, which a guard or assert may read without any node declaring them.
 
-**`parallel_group` declares independence, not concurrency.** Members of a group may
-run in any order or at the same time because nothing in the group depends on
-another member. The reference runtime in `harness.py` schedules them serially, one
-ready node per step. `_lint_motif` requires a two-member group or a `fan_out` for
-`parallel-swarm` and `map-reduce` because the *shape* is what the motif claims;
-a concurrent scheduler is a runtime property, tracked as remediation item R6-03.
+**`parallel_group` members that are ready together run together.** A group
+declares that its members do not depend on one another; the reference runtime
+now runs every ready member of a group concurrently in one scheduler round
+(`RunReport.rounds`), each against a snapshot of the blackboard, and merges their
+outputs in declaration order so the result equals the serial one whenever the
+declaration is true. `steps` still counts node executions, which is what
+`termination.max_steps` and the v1 trace lock mean by it. Before the 2026-09-04
+audit the runtime scheduled one node at a time and the lint vouched for a
+property nothing delivered (R6-03, owner decision Q2).
 
 **A `kind: verifier` node must be reachable on the flow path.** Reachability in
 general counts `error` and `compensate` edges, because a rollback handler is a real
