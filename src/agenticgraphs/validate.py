@@ -22,7 +22,7 @@ from .registry import ROOT, SPEC_VERSION, iter_yaml, load, load_schema
 from .shapes import ShapeError
 from .shapes import names as _out_names
 from .shapes import parse as _parse_shape
-from .subgraphs import entry_nodes
+from .subgraphs import MAX_DEPTH, entry_nodes
 
 #: Node/edge/graph keys introduced in AGR v1.1.
 _V11_NODE_KEYS = {"ref", "join", "inputs", "outputs", "on_error", "retries", "approval"}
@@ -70,7 +70,7 @@ def asserted_keys(expr: str) -> set[str]:
 
 
 #: Names the runtime owns, so a guard may read them without any node declaring them.
-_RUNTIME_KEYS = frozenset({"attempts", "shards_failed"})
+_RUNTIME_KEYS = frozenset({"attempts", "shards_failed", "shards_processed"})
 
 
 def unconnected_keys(doc: dict) -> set[str]:
@@ -354,8 +354,9 @@ def _lint_motif(doc: dict, root: Path = ROOT) -> list[str]:
         return fail("no node routes: none is `kind: router` and none has two "
                     "conditional out-edges")
     if pattern in ("parallel-swarm", "map-reduce") and not (has_fan_out or has_group):
-        return fail("nothing runs in parallel: no node declares `fan_out` and no "
-                    "`parallel_group` has two members")
+        return fail("nothing is declared independent: no node declares `fan_out` and no "
+                    "`parallel_group` has two members (a group declares that its members "
+                    "may run concurrently; the reference runtime schedules them serially)")
     if pattern in ("debate", "ensemble-quorum") and max_in < 2 and not has_fan_out:
         return fail("only one contribution reaches the adjudicator — there is "
                     "nobody to disagree with")
@@ -690,6 +691,44 @@ def validate_schema(doc: dict, kind: str) -> list[str]:
     return [f"schema: {e.message}" for e in v.iter_errors(doc)]
 
 
+def _lint_ref_graph(doc: dict, root: Path) -> list[str]:
+    """Walk `kind: subgraph` refs without executing anything.
+
+    `subgraphs.expand` raises on a cycle or on nesting past MAX_DEPTH, but
+    `agr validate` never called it, so a composite that referenced itself
+    through another graph linted clean and only failed at run time
+    (2026-09-04 audit, D4-02). The walk is the static half of that guard.
+    """
+    errors: list[str] = []
+    seen_cycles: set[tuple[str, ...]] = set()
+
+    def walk(d: dict, path: tuple[str, ...]) -> None:
+        for n in d.get("nodes", []):
+            if n.get("kind") != "subgraph":
+                continue
+            ref = n.get("ref", "")
+            if ref in path:
+                cyc = (*path[path.index(ref):], ref)
+                if cyc not in seen_cycles:
+                    seen_cycles.add(cyc)
+                    errors.append(f"lint: subgraph cycle {' -> '.join(cyc)}")
+                continue
+            if len(path) >= MAX_DEPTH:
+                errors.append(
+                    f"lint: subgraph nesting exceeds MAX_DEPTH={MAX_DEPTH} at "
+                    f"{' -> '.join((*path, ref))}"
+                )
+                continue
+            gp = root / "graphs" / ref / "graph.yaml"
+            if not gp.exists():
+                continue  # reported by the ref-resolves check
+            walk(load(gp), (*path, ref))
+
+    start = f"{doc.get('category', '?')}/{doc.get('name', '?')}"
+    walk(doc, (start,))
+    return errors
+
+
 def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
     errors: list[str] = []
     node_ids = [n["id"] for n in doc.get("nodes", [])]
@@ -717,6 +756,28 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
     unreachable = set(node_ids) - seen
     if unreachable:
         errors.append(f"lint: unreachable nodes {sorted(unreachable)}")
+
+    # A verifier that only the failure path reaches never runs on the happy path,
+    # so the graph's proof would fire only when something had already gone wrong.
+    # The walk above counts error/compensate edges as reachability on purpose
+    # (a rollback handler is a real node); this narrower check is for verifiers
+    # (2026-09-04 audit, D1-05). No registry graph relied on it at the time.
+    flow_seen, frontier = set(entries), list(entries)
+    while frontier:
+        cur = frontier.pop()
+        for e in doc.get("edges", []):
+            if e["from"] == cur and e.get("kind", "flow") == "flow" and e["to"] not in flow_seen:
+                flow_seen.add(e["to"])
+                frontier.append(e["to"])
+    for n in doc.get("nodes", []):
+        if n.get("kind") == "verifier" and n["id"] in seen and n["id"] not in flow_seen:
+            errors.append(
+                f"lint: verifier '{n['id']}' is reachable only through error/compensate "
+                "edges — it never runs on the path the contract is about"
+            )
+
+    if any(n.get("kind") == "subgraph" for n in doc.get("nodes", [])):
+        errors.extend(_lint_ref_graph(doc, root))
 
     # verification required for graphs with a verifier node
     if any(n.get("kind") == "verifier" for n in doc.get("nodes", [])) and not doc.get("verification"):
