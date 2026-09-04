@@ -11,7 +11,7 @@ jobs:
     permissions:
       id-token: write   # OIDC — PyPI trusted publishing, no API token stored
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --all-extras --frozen
       - name: Gate before publishing
