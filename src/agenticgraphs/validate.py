@@ -829,6 +829,19 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
         unknown = declared - abilities
         if unknown:
             errors.append(f"lint: node '{n['id']}' unknown abilities {sorted(unknown)}")
+        # `optional_abilities` was declared by 12 specialities and read by nothing
+        # (2026-09-04 audit, D2-03). A speciality that lists what it may optionally
+        # do has drawn a boundary; an ability outside it on a node of that
+        # speciality is either a missing declaration or a role the node is not.
+        if "optional_abilities" in s:
+            allowed = set(s["requires_abilities"]) | set(s["optional_abilities"])
+            outside = declared - allowed
+            if outside:
+                errors.append(
+                    f"lint: node '{n['id']}' declares {sorted(outside)} but speciality "
+                    f"'{n['speciality']}' allows only {sorted(allowed)} — add it to the "
+                    "speciality's optional_abilities or pick the speciality that does this"
+                )
 
     return (errors + _lint_v11(doc, root) + _lint_v14(doc) + _lint_v15(doc)
             + _lint_shapes(doc) + _lint_provenance(doc, root))

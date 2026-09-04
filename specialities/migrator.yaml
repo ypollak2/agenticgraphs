@@ -4,3 +4,7 @@ requires_abilities:
 - execute_step
 optional_abilities:
 - rollback
+# A migration that cannot shadow-write and backfill is not a saga step; both are
+# one-way effects the compensate edge must name (schema-migration-saga).
+- shadow_write
+- backfill
