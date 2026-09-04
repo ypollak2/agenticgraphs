@@ -82,6 +82,81 @@ def _safe_expr(expr: str):
     return compile(tree, "<agr-expr>", "eval")
 '''
 
+#: Contract checking, retries and the `output.` view, shared by every emitter
+#: that can execute state. Emitted alongside the guard so the generated module
+#: carries the graph's verification instead of only a prose docstring
+#: (2026-09-04 audit, D5-01 / D5-03).
+_CONTRACT_BLOCK = '''\
+
+
+def _wrap(v):
+    if isinstance(v, dict):
+        return _View(v)
+    if isinstance(v, list):
+        return [_wrap(x) for x in v]
+    return v
+
+
+class _View:
+    """`output.x` in an assert reads blackboard key `x`, and `f.file` reads a record
+    field — the harness's OutputView semantics, so an assert means the same thing
+    in generated code as in `agr eval`."""
+    def __init__(self, s): self._s = s
+    def __getattr__(self, k): return _wrap(self._s.get(k))
+    def __getitem__(self, k): return _wrap(self._s[k])
+    def __contains__(self, k): return k in self._s
+    def __iter__(self): return iter(self._s)
+    def __len__(self): return len(self._s)
+    def __bool__(self): return bool(self._s)
+    def __eq__(self, o): return self._s == (o._s if isinstance(o, _View) else o)
+    def __hash__(self): return id(self)
+
+
+def check_contract(state: dict) -> list:
+    """Evaluate every `verification[].assert` against `state`; return the failures.
+
+    Phase-scoped asserts (from subgraph children) are evaluated against the
+    final state here, which the reference runtime scopes per phase; treat a
+    phase-tagged failure as advisory. `CONTRACT_COMMANDS` are the checks that
+    must run outside the model (a shell command, exit code is the fact); they
+    are listed, not executed, by generated code.
+    """
+    failures = []
+    for describe, expr, phase in CONTRACT:
+        if not _cond(expr, {**{k: _wrap(v) for k, v in state.items()}, "output": _View(state)}):
+            failures.append((f"[{phase}] " if phase else "") + (describe or expr))
+    return failures
+
+
+def _checked(fn):
+    """Wrap a terminal node so the contract is checked when flow leaves it."""
+    def run(state: dict) -> dict:
+        out = fn(state) or {}
+        failures = check_contract({**state, **out})
+        return {**out, "contract_failures": failures,
+                "failure_kinds": (["assert"] if failures else [])}
+    run.__name__, run.__doc__ = fn.__name__, fn.__doc__
+    return run
+
+
+def _with_retries(fn, max_attempts: int, reissue_effects: bool):
+    """Re-run a node whose output carries `error`, up to `retries.max` times.
+
+    `reissue_effects` is the node's own declaration that a re-run may repeat a
+    non-idempotent effect; it is carried here so the implementer sees it.
+    """
+    def run(state: dict) -> dict:
+        out = fn(state) or {}
+        attempts = 0
+        while out.get("error") and attempts < max_attempts:
+            attempts += 1
+            out = fn({**state, "attempts": attempts}) or {}
+        return {**out, "attempts": attempts}
+    run.__name__, run.__doc__ = fn.__name__, fn.__doc__
+    run.reissue_effects = reissue_effects
+    return run
+'''
+
 _PRELUDE = _EMITTED_GUARD + '''\
 from langgraph.graph import END, START, StateGraph
 
@@ -114,46 +189,122 @@ def _cond(expr: str, state: dict) -> bool:
 '''
 
 
+def _contract_lines(doc: dict) -> list[str]:
+    asserts = [(v.get("describe", ""), v["assert"], v.get("phase", ""))
+               for v in doc.get("verification") or [] if "assert" in v]
+    commands = [(v.get("describe", ""), v["command"])
+                for v in doc.get("verification") or [] if "command" in v]
+    out = ["#: (describe, assert, phase) — the graph's verification, evaluated by check_contract().",
+           "CONTRACT = ["]
+    out += [f"    ({d!r}, {a!r}, {ph!r})," for d, a, ph in asserts]
+    out += ["]", "#: (describe, command) — checks that run outside the model; listed, not executed.",
+            "CONTRACT_COMMANDS = ["]
+    out += [f"    ({d!r}, {c!r})," for d, c in commands]
+    out += ["]"]
+    return out
+
+
+def _kind_doc(n: dict) -> list[str]:
+    """The lines that tell whoever binds this node what kind of node it is.
+
+    `kind: human` and `kind: verifier` compiled to the same stub shape as an
+    ordinary LLM node (2026-09-04 audit, D5-04); nothing said 'do not bind a
+    model here'.
+    """
+    if n.get("kind") == "human":
+        contract = (n.get("approval") or {}).get("contract", "")
+        return ["HUMAN GATE — a person signs this, never a model.",
+                f"approval contract: {contract}",
+                f"on_timeout: {(n.get('approval') or {}).get('on_timeout', 'reject')}"]
+    if n.get("kind") == "verifier":
+        return ["VERIFIER — grades the work; its criteria below are what it judges, not what it is scored on."]
+    if n.get("kind") == "router":
+        return ["ROUTER — first matching out-edge wins."]
+    return []
+
+
 def emit_langgraph(doc: dict) -> str:
     doc = _executable(doc)
+    order = {n["id"]: i for i, n in enumerate(doc["nodes"])}
+    fanned = {n["id"]: n["fan_out"] for n in doc["nodes"] if n.get("fan_out")}
     out = [f'"""LangGraph build of AGR graph `{doc["name"]}` — generated by `agr adapt`.',
            "", f'Contract: {doc["termination"]["contract"]}', '"""', _PRELUDE]
+    if fanned:
+        out += ["try:", "    from langgraph.types import Send", "except ImportError:  # older langgraph",
+                "    from langgraph.constants import Send", ""]
+    out += [*_contract_lines(doc), _CONTRACT_BLOCK]
+    has_out: dict[str, list] = {}
+    for e in doc["edges"]:
+        has_out.setdefault(e["from"], []).append(e)
+    terminals = {n["id"] for n in doc["nodes"]
+                 if not any(e.get("kind", "flow") == "flow" and order.get(e["to"], 0) > order[n["id"]]
+                            for e in has_out.get(n["id"], []))}
     for n in doc["nodes"]:
         abilities = ", ".join(n.get("abilities", []))
         # The stub is where a human or an agent binds behavior, so it is exactly
         # where the rubric has to arrive. Emitting only the speciality handed the
         # implementer a role label and left the domain knowledge in a YAML file
         # they were not reading.
-        doc_lines = [f'speciality: {n["speciality"]} | abilities: {abilities}']
+        doc_lines = [*_kind_doc(n), f'speciality: {n["speciality"]} | abilities: {abilities}']
         if n.get("criteria"):
             doc_lines += ["", f'Must judge: {n["criteria"]}']
+        if n.get("unbound_ok"):
+            doc_lines += ["", f'narrated in the reference runtime: {n["unbound_ok"]}']
+        if n.get("fan_out"):
+            fo = n["fan_out"]
+            doc_lines += ["", f"fan_out: runs once per item of state['{fo['over']}'] (max {fo.get('max', 40)}, "
+                              f"on_partial: {fo.get('on_partial', 'continue')}); each call sees "
+                              "state['shard'], ['shard_index'], ['shard_count']"]
         body = "\n    ".join(doc_lines)
-        out += [f"def {_fn(n['id'])}(state: dict) -> dict:",
-                f'    """{body}"""',
-                f"    raise NotImplementedError(\"bind speciality '{n['speciality']}'"
-                f" (abilities: {abilities})\")", ""]
+        fn = _fn(n["id"])
+        if n.get("kind") == "human":
+            raise_line = (f"    raise PermissionError(\"human approval gate '{n['id']}' requires a person; "
+                          f"contract: {(n.get('approval') or {}).get('contract', '')}\")")
+        else:
+            raise_line = (f"    raise NotImplementedError(\"bind speciality '{n['speciality']}'"
+                          f" (abilities: {abilities})\")")
+        out += [f"def {fn}(state: dict) -> dict:", f'    """{body}"""', raise_line, ""]
+        r = n.get("retries") or {}
+        if r.get("max"):
+            out += [f"{fn} = _with_retries({fn}, {int(r['max'])}, {bool(r.get('reissue_effects'))})", ""]
+        if n["id"] in terminals:
+            out += [f"{fn} = _checked({fn})", ""]
     out += ["g = StateGraph(dict)"]
     for n in doc["nodes"]:
         out.append(f'g.add_node("{n["id"]}", {_fn(n["id"])})')
     has_in = {e["to"] for e in doc["edges"]}
-    has_out: dict[str, list] = {}
-    for e in doc["edges"]:
-        has_out.setdefault(e["from"], []).append(e)
     for n in doc["nodes"]:
         if n["id"] not in has_in:
             out.append(f'g.add_edge(START, "{n["id"]}")')
     for n in doc["nodes"]:
         edges = has_out.get(n["id"], [])
+        fan_targets = [e["to"] for e in edges if e["to"] in fanned and not e.get("when")]
+        approval = (n.get("approval") or {}).get("contract") if n.get("kind") == "human" else None
         if not edges:
             out.append(f'g.add_edge("{n["id"]}", END)')
-        elif all(not e.get("when") for e in edges):
+        elif len(edges) == 1 and fan_targets:
+            # R5-04: a map over the fanned-out key, one Send per shard.
+            t = fan_targets[0]
+            fo = fanned[t]
+            ff = "_fan_" + _fn(t)[5:]
+            out += [f"def {ff}(state: dict):",
+                    f'    items = list(state.get("{fo["over"]}") or [])[: {int(fo.get("max", 40))}]',
+                    f'    return [Send("{t}", {{**state, "shard": s, "shard_index": i, '
+                    f'"shard_count": len(items)}}) for i, s in enumerate(items)] or END',
+                    f'g.add_conditional_edges("{n["id"]}", {ff})']
+        elif all(not e.get("when") for e in edges) and not approval:
             out += [f'g.add_edge("{n["id"]}", "{e["to"]}")' for e in edges]
         else:
             rf = "_route_" + _fn(n["id"])[5:]
             pairs = ", ".join(f'("{e["to"]}", {e.get("when")!r})' for e in edges)
             first_match = n.get("kind") == "router"
-            out += [f"def {rf}(state: dict):",
-                    f"    hits = [t for t, w in [{pairs}] if w is None or _cond(w, state)]",
+            out += [f"def {rf}(state: dict):"]
+            if approval:
+                # R5-05: the approval contract is a guard on leaving the gate.
+                out += [f"    if not _cond({approval!r}, state):",
+                        f"        return END  # approval not satisfied (on_timeout: "
+                        f"{(n.get('approval') or {}).get('on_timeout', 'reject')})"]
+            out += [f"    hits = [t for t, w in [{pairs}] if w is None or _cond(w, state)]",
                     ("    return hits[0] if hits else END" if first_match
                      else "    return hits or END"),
                     f'g.add_conditional_edges("{n["id"]}", {rf})']
@@ -162,7 +313,6 @@ def emit_langgraph(doc: dict) -> str:
 
 
 def emit_crewai(doc: dict) -> str:
-    doc = _executable(doc)
     """Compile an AGR graph into runnable-shaped CrewAI source.
 
     Nodes become Agents (speciality -> role; abilities left as a TODO tool
@@ -170,23 +320,34 @@ def emit_crewai(doc: dict) -> str:
     Tasks, with any `when` conditions surfaced as conditional-routing notes
     in the task description (CrewAI's sequential Process has no native
     branching primitive). The termination contract becomes the
-    `expected_output` of the graph's terminal task(s).
+    `expected_output` of the graph's terminal task(s). Human gates are Tasks
+    with `human_input=True`; loop-back edges the sequential process cannot
+    take are flagged, never silently dropped (2026-09-04 audit, D5-05); the
+    graph's asserts are emitted as `check_contract()` for `run()` to apply.
     """
+    doc = _executable(doc)
+    order = {n["id"]: i for i, n in enumerate(doc["nodes"])}
     contract = doc.get("termination", {}).get("contract") or f"completion of {doc['name']}"
     out = [f'"""CrewAI build of AGR graph `{doc["name"]}` — generated by `agr adapt --target crewai`.',
            "", f"Contract: {contract}", '"""',
-           "from crewai import Agent, Crew, Process, Task", ""]
+           "from crewai import Agent, Crew, Process, Task", "",
+           _AUTOGEN_COND, *_contract_lines(doc), _CONTRACT_BLOCK]
 
     for n in doc["nodes"]:
         var = _fn(n["id"])
         abilities = ", ".join(n.get("abilities", [])) or "none declared"
+        r = n.get("retries") or {}
         out += [f"{var}_agent = Agent(",
                 f'    role="{n["speciality"]}",',
                 (f'    goal="{_criteria(n)}",' if _criteria(n)
                  else f'    goal="perform the \'{n["id"]}\' step of {doc["name"]}",'),
                 f'    backstory="specialised in {n["speciality"]}",',
                 f"    tools=[],  # TODO: bind abilities ({abilities}) to real CrewAI tools",
-                "    allow_delegation=False,", ")", ""]
+                "    allow_delegation=False,"]
+        if r.get("max"):
+            out.append(f"    max_retry_limit={int(r['max'])},  # retries.max"
+                       + ("; reissue_effects: true" if r.get("reissue_effects") else ""))
+        out += [")", ""]
 
     has_out: dict[str, list] = {}
     for e in doc["edges"]:
@@ -196,20 +357,39 @@ def emit_crewai(doc: dict) -> str:
     for n in doc["nodes"]:
         var = _fn(n["id"])
         edges = has_out.get(n["id"], [])
+        for e in edges:
+            if order.get(e["to"], 0) <= order[n["id"]]:
+                out.append(f"# NOTE: CrewAI's sequential process cannot re-enter '{e['to']}' from "
+                           f"'{n['id']}' (when: {e.get('when')!r}); this loop is dropped — hand-wire it "
+                           "or use a hierarchical process.")
+        if n.get("fan_out"):
+            out.append(f"# NOTE: fan_out over '{n['fan_out']['over']}' is not expressible as one sequential "
+                       "Task; the agent receives the whole list and must iterate itself.")
         routes = "; ".join(f'-> {e["to"]} when {e["when"]}' if e.get("when") else f'-> {e["to"]}' for e in edges)
-        desc = f"execute '{n['id']}' ({n['speciality']})."
+        marker = {"human": "HUMAN GATE", "verifier": "VERIFIER", "router": "ROUTER"}.get(n.get("kind", ""), "")
+        desc = (f"{marker}: " if marker else "") + f"execute '{n['id']}' ({n['speciality']})."
+        if n.get("kind") == "human":
+            desc += f" Approval contract: {(n.get('approval') or {}).get('contract', '')}."
         if routes:
             desc += f" Conditional routing: {routes}."
         expected = contract if n["id"] in terminals else f"structured output consumed by the next step in {doc['name']}"
         out += [f"{var}_task = Task(",
                 f'    description="{desc}",',
                 f'    expected_output="{expected}",',
-                f"    agent={var}_agent,", ")", ""]
+                f"    agent={var}_agent,"]
+        if n.get("kind") == "human":
+            out.append("    human_input=True,  # a person answers this task; never auto-bind a model")
+        out += [")", ""]
 
     agents = ", ".join(f"{_fn(n['id'])}_agent" for n in doc["nodes"])
     tasks = ", ".join(f"{_fn(n['id'])}_task" for n in doc["nodes"])
     out += ["crew = Crew(", f"    agents=[{agents}],", f"    tasks=[{tasks}],",
-            "    process=Process.sequential,", ")", ""]
+            "    process=Process.sequential,", ")", "",
+            "", "def run(inputs: dict):",
+            '    """kickoff, then apply the graph\'s contract to what came back."""',
+            "    result = crew.kickoff(inputs=inputs)",
+            '    state = {**inputs, **(getattr(result, "json_dict", None) or {})}',
+            "    return result, check_contract(state)", ""]
     return "\n".join(out)
 
 
@@ -289,6 +469,7 @@ def emit_autogen(doc: dict) -> str:
             "            return agents.get(to)",
             "    return None", ""]
     out.append(_AUTOGEN_COND)
+    out += [*_contract_lines(doc), _CONTRACT_BLOCK]
 
     agent_vars = ", ".join(_fn(n["id"]) for n in doc["nodes"])
     max_steps = doc.get("termination", {}).get("max_steps", 10)
