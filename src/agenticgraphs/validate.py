@@ -190,8 +190,9 @@ def _lint_self_graded(doc: dict) -> list[str]:
     # Armed at v1.8, the same way `_lint_provenance` armed at v1.6: the rule
     # ships with the spec version whose graphs are expected to satisfy it, so a
     # v1.7 registry is not retroactively failed by a rule written after it. The
-    # 16 graphs this currently finds are tracked in `reports/self-graded.json`
-    # and migrated one at a time, each with a real check replacing the flag.
+    # graphs it currently finds are written to `reports/self-graded.json` by
+    # scripts/gen_self_graded.py (regenerated in `make regen`, diffed in CI) and
+    # migrated one at a time, each with a real check replacing the flag.
     if doc.get("apiVersion", "") < "agr/v1.8":
         return []
     return msgs
