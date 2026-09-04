@@ -316,7 +316,7 @@ pie showData title Graphs per domain
 **Use it** — the registry ships inside the package, so there's nothing to clone:
 
 ```sh
-uvx --from "vitruvian-graphs[mcp]" agr list     # 52 graphs, zero setup
+uvx --from "vitruvian-graphs[mcp]" agr list     # every registry graph, zero setup
 pip install "vitruvian-graphs[mcp]"             # or install it properly
 ```
 
@@ -330,9 +330,9 @@ pip install "vitruvian-graphs[mcp]"             # or install it properly
    ```sh
    git clone https://github.com/ypollak2/agenticgraphs.git && cd agenticgraphs
    ```
-2. Install dependencies
+2. Install dependencies (the `adapters` and `mcp` extras are needed for the full suite)
    ```sh
-   uv sync
+   uv sync --all-extras
    ```
 3. Verify everything
    ```sh
@@ -344,7 +344,7 @@ pip install "vitruvian-graphs[mcp]"             # or install it properly
 ## 🧰 Usage
 
 ```sh
-uv run agr list                # browse all 52 graphs
+uv run agr list                # browse every graph
 uv run agr search triage      # find graphs by keyword
 uv run agr validate           # full registry: JSON Schema + MAST structural lint
 uv run agr show verifier-swarm       # full graph definition
@@ -391,8 +391,8 @@ or autogen package is required to run `agr adapt` itself, only to run what it em
 Every number in this README is checkable:
 
 ```sh
-uv run agr list | wc -l                      # 52 graphs
-uv run python scripts/audit_usecases.py      # 112 use cases, 15 domains, AUDIT PASSED
+uv run agr list | wc -l                      # graph count (matches the badge above)
+uv run python scripts/audit_usecases.py      # use cases, domains, AUDIT PASSED
 ```
 
 ### Concepts
@@ -402,7 +402,7 @@ uv run python scripts/audit_usecases.py      # 112 use cases, 15 domains, AUDIT 
 | **Graph** | `graphs/<domain>/<name>/graph.yaml` | Nodes + edges + termination contract + verification asserts |
 | **Speciality** | `specialities/*.yaml` | A role a node plays (e.g. `security-auditor`), with required abilities |
 | **Ability** | `abilities/*.yaml` | An atomic capability (e.g. `sast_scan`) with a risk level; MCP-bindable |
-| **Use case** | `usecases/catalog.yaml` | Demand-side backlog: 123 audited entries that graduate into graphs |
+| **Use case** | `usecases/catalog.yaml` | Demand-side backlog of audited entries that graduate into graphs |
 | **Spec** | `spec/*.schema.json` | AGR v1.8 JSON Schemas ([v1.1](docs/agr-v1.1.md) · [v1.2](docs/agr-v1.2.md) · [v1.4](docs/agr-v1.4.md) · [v1.5](docs/agr-v1.5.md) · [v1.7](docs/agr-v1.7.md) · [**v1.8**](docs/agr-v1.8.md)) |
 | **Subgraph** | `nodes[].kind: subgraph` + `ref` | A phase that *is* another registry graph, inlined at load (v1.1) |
 | **Join** | `nodes[].join` | `any` (default) · `all` · `quorum(n)` — when a multi-predecessor node is ready (v1.1) |
@@ -415,7 +415,7 @@ The library is two-tier. **Primitives** are the smallest useful units of agentic
 control flow — 2–4 nodes, one concern each. **Composites** (AGR v1.1) assemble
 primitives into multi-phase workflows, referencing them rather than restating them.
 
-**Primitives** — the component library (52 graphs, mean 3.2 nodes):
+**Primitives** — the component library:
 
 | Motif | Shape | Canonical example |
 |---|---|---|
@@ -428,7 +428,7 @@ primitives into multi-phase workflows, referencing them rather than restating th
 | `planner-executor-verifier` | plan, execute with effects, prove post-conditions | `runbook-executor` |
 | `loop` | attempt → measure → retry until target or budget | `performance-optimization` |
 
-**Composites** — assembled from the above (22 graphs, mean 6.9 nodes):
+**Composites** — assembled from the above:
 
 | Motif | Shape | Canonical example |
 |---|---|---|
@@ -485,17 +485,14 @@ every composite auditing a change gets the fix — which text-splicing can never
 
 ### The Library at a Glance
 
-**74 graphs** across all 15 domains: software-engineering (10), devops-sre (7),
-business-ops / data-analytics / security (6 each), healthcare-science /
-legal-compliance / research-knowledge (5 each), creative-production / finance /
-hr-people (4 each), content-marketing / customer-support-sales / education /
-logistics-retail (3 each).
+Every graph, across all 15 domains — the generated graph-of-graphs above is the
+per-domain breakdown, and the badges at the top of this file are the counts.
 
-Behind them, a [123-entry use-case catalog](usecases/catalog.yaml) whose invariants
+Behind them, a [use-case catalog](usecases/catalog.yaml) whose invariants
 (≥100 entries, ≥10 domains, unique ids, a verification clause on *every* entry) are
 enforced by an executable audit wired into pytest.
 
-**On the eval numbers:** 74/74 graphs pass their golden cases, but 73 of 74 do so at
+**On the eval numbers:** every graph passes its golden cases, but all but one do so at
 `assert-fixture` depth — the assert held against a mock written alongside the graph.
 That proves the topology routes values correctly; it does not prove a claim was
 earned. The scoreboard grades every graph so the weak level is visible rather than

@@ -32,3 +32,13 @@ jobs:
             echo "::error::Generated docs are stale — run scripts/gen_cards.py, scripts/gen_scoreboard.py, and scripts/gen_traces.py, then commit the result.";
             exit 1;
           }
+  # The path README "Getting Started" documents, run verbatim. The gate job above
+  # always installs --all-extras, so it can never notice when the documented
+  # commands stop working for a new contributor (2026-09-04 audit, D9-1).
+  onboarding:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --all-extras
+      - run: uv run agr validate && uv run pytest -q
