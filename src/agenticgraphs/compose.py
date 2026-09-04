@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import ast
 
+from .registry import SPEC_VERSION
 from .validate import lint_graph, validate_schema
 
 # Level-vocabulary literals (see harness.Level._ORDER) and builtins that show
@@ -160,8 +161,24 @@ def compose_by_reference(doc_a: dict, doc_b: dict, name: str | None = None) -> d
     composed_name = (name or f"{a_id}-then-{b_id}")[:64]
     contracts = [d.get("termination", {}).get("contract") for d in (doc_a, doc_b)]
     contract = "; then ".join(c for c in contracts if c)
-    return {
-        "apiVersion": "agr/v1.1",
+    # Child verification does not survive expansion (see subgraphs.expand), so a
+    # composite that declares nothing verifies nothing — and the linter says so.
+    # This function returned exactly such a graph and never checked it
+    # (2026-09-04 audit, D4-04). Each child's checks come along phase-scoped, so
+    # the harness evaluates them against the frame that phase actually produced.
+    verification = [
+        {**v, "phase": d["name"]}
+        for d in (doc_a, doc_b)
+        for v in (d.get("verification") or [])
+    ]
+
+    def _ver(v: str) -> tuple[int, ...]:
+        return tuple(int(x) for x in v.split("/v")[1].split("."))
+
+    api = max((doc_a.get("apiVersion", SPEC_VERSION), doc_b.get("apiVersion", SPEC_VERSION),
+               SPEC_VERSION), key=_ver)
+    composed = {
+        "apiVersion": api,
         "name": composed_name,
         "description": f"Two-phase composite: {a_id} then {b_id}, each referenced as a subgraph.",
         "category": cat_a,
@@ -175,7 +192,20 @@ def compose_by_reference(doc_a: dict, doc_b: dict, name: str | None = None) -> d
             "max_steps": sum(d.get("termination", {}).get("max_steps", 0) for d in (doc_a, doc_b)),
             **({"contract": contract} if contract else {}),
         },
+        **({"verification": verification} if verification else {}),
     }
+    goal = doc_a.get("goal") or doc_b.get("goal")
+    if goal:
+        composed["goal"] = goal
+    state_inputs = sorted({k for d in (doc_a, doc_b) for k in (d.get("state") or {}).get("inputs", [])})
+    if state_inputs:
+        composed["state"] = {"inputs": state_inputs}
+    errors = validate_schema(composed, "graph")
+    if not errors:
+        errors = lint_graph(composed)
+    if errors:
+        raise ComposeError("composed graph failed validation:\n" + "\n".join(f"  - {e}" for e in errors))
+    return composed
 
 
 def _namespace(nodes: list[dict], edges: list[dict], prefix: str, collisions: set[str]) -> tuple[list[dict], list[dict], dict[str, str]]:
