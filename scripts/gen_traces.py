@@ -123,9 +123,11 @@ def gen_index(rows: list[dict]) -> str:
         f"Per-case execution traces for all {len(rows)} graphs: the route taken through the graph, "
         "what each visited node emitted, and which verification asserts were checked. Rendered from "
         "the eval harness's own `RunReport.trace`, so a trace can never claim a route the interpreter "
-        "did not actually walk.",
+        "did not actually walk. Every trace here comes from the `mock` runner: the pass rate "
+        "measures graph and contract mechanics, not model quality, and is provisional until a "
+        "live recording exists for the case.",
         "",
-        "| Graph | Domain | Cases | Pass rate | Trace |",
+        "| Graph | Domain | Cases | Pass rate (mock, provisional) | Trace |",
         "|---|---|---|---|---|",
     ]
     for r in sorted(rows, key=lambda x: (x["category"], x["name"])):
