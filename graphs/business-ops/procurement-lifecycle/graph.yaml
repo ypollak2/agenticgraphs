@@ -55,6 +55,8 @@ nodes:
   - awarded
   - output
   - scored_vendors: int
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: rfp
   to: score

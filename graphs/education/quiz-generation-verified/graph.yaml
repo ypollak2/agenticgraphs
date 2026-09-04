@@ -27,6 +27,7 @@ nodes:
     the key measures nothing about whether the item is solvable.
   retries:
     max: 2
+    reissue_effects: true
 - id: critique
   speciality: critic
   abilities:

@@ -1,3 +1,5 @@
 name: approve
 description: Record a human sign-off decision against an approval contract.
 risk: write
+# Re-running repeats the effect; a node that retries this must say so.
+idempotent: false

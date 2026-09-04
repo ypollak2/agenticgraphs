@@ -152,3 +152,105 @@ def test_the_schema_accepts_timeout_s_and_validate_reports_it():
     assert validate_schema(doc, "graph") == []
     doc["nodes"][0]["timeout_s"] = 0
     assert validate_schema(doc, "graph")
+
+
+# ------------------------------------------------------------------ D2-02 / R3-03
+
+
+def test_binding_ref_is_resolved_not_decorative():
+    """`abilities/run_command.yaml` pointed at a symbol that did not exist and
+    nothing read it (D2-02). Now `available()` resolves `binding.ref`."""
+    from agenticgraphs import bindings
+    from agenticgraphs.registry import iter_yaml
+    from agenticgraphs.registry import load as _load
+
+    for path in iter_yaml("abilities"):
+        adoc = _load(path)
+        if adoc.get("binding"):
+            assert bindings.resolve_binding(adoc) is not None, adoc["name"]
+    assert bindings.available(allow_mutating=True)["run_command"]["fn"] is bindings.run_command
+
+
+def test_a_binding_ref_that_does_not_resolve_fails_agr_validate():
+    from agenticgraphs.validate import lint_ability
+
+    bad = {"name": "x", "description": "d", "risk": "read",
+           "binding": {"kind": "builtin", "ref": "agenticgraphs.bindings:no_such_symbol"}}
+    errs = lint_ability(bad)
+    assert errs and "does not resolve" in errs[0]
+    assert lint_ability({"name": "y", "description": "d"}) == []
+    unsupported = {"name": "z", "description": "d",
+                   "binding": {"kind": "mcp_tool", "ref": "srv/tool"}}
+    assert any("no resolver" in e for e in lint_ability(unsupported))
+
+
+# ------------------------------------------------------------------ D2-01 / R3-04
+
+
+def test_an_unbound_world_effect_must_be_declared_narrated():
+    from agenticgraphs.validate import lint_graph
+
+    doc = _g()
+    doc["nodes"][1] = {"id": "b", "speciality": "release-manager", "abilities": ["cut_release"],
+                       "outputs": ["y"]}
+    doc["edges"].append({"from": "b", "to": "a", "kind": "compensate"})
+    errs = [e for e in lint_graph(doc) if "no binding" in e]
+    assert errs and "cut_release" in errs[0] and "unbound_ok" in errs[0]
+    doc["nodes"][1]["unbound_ok"] = "narrated: the release is described, not cut, in this runtime"
+    assert not [e for e in lint_graph(doc) if "no binding" in e]
+
+
+def test_board_only_writes_are_not_narration():
+    """`generate` is risk: write but writes to the blackboard; producing text is
+    what a model does, so it needs no binding and no declaration."""
+    from agenticgraphs.validate import lint_graph
+
+    assert not [e for e in lint_graph(_g()) if "no binding" in e]
+
+
+def test_every_registry_narration_is_on_the_record():
+    """38 graphs narrate an unbound effect; each says so per node, and the count
+    is a number to burn down, not a silent default."""
+    import yaml
+
+    from agenticgraphs.registry import iter_graphs, load
+
+    narrated = [load(g)["name"] for g in iter_graphs()
+                if any(n.get("unbound_ok") for n in load(g)["nodes"])]
+    assert narrated, "no graph declares unbound_ok — the migration did not run"
+    for g in iter_graphs():
+        for n in yaml.safe_load(g.read_text())["nodes"]:
+            if n.get("unbound_ok"):
+                assert n["unbound_ok"].startswith("narrated:"), (g, n["id"])
+
+
+# ------------------------------------------------------------------ D1-02 / R3-05
+
+
+def test_retrying_a_non_idempotent_ability_needs_an_explicit_acceptance():
+    from agenticgraphs.validate import lint_graph
+
+    doc = _g()
+    doc["nodes"][0] = {"id": "a", "speciality": "executor", "abilities": ["execute_step"],
+                       "outputs": ["x"], "retries": {"max": 2},
+                       "unbound_ok": "narrated: execute_step is the model's account here"}
+    errs = [e for e in lint_graph(doc) if "not idempotent" in e]
+    assert errs and "execute_step" in errs[0] and "reissue_effects" in errs[0]
+    doc["nodes"][0]["retries"]["reissue_effects"] = True
+    assert not [e for e in lint_graph(doc) if "not idempotent" in e]
+
+
+def test_retrying_an_idempotent_ability_needs_nothing():
+    from agenticgraphs.validate import lint_graph
+
+    doc = _g()
+    doc["nodes"][0]["retries"] = {"max": 2}  # analyze: idempotent by default
+    assert not [e for e in lint_graph(doc) if "not idempotent" in e]
+
+
+def test_the_abilities_that_repeat_their_effect_say_so():
+    from agenticgraphs.registry import iter_yaml, load
+
+    flagged = {load(p)["name"] for p in iter_yaml("abilities") if load(p).get("idempotent") is False}
+    assert {"run_command", "edit_files", "execute_step", "file_record", "cut_release",
+            "shadow_write", "backfill", "escalate", "approve"} <= flagged

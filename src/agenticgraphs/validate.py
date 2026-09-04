@@ -692,6 +692,103 @@ def validate_schema(doc: dict, kind: str) -> list[str]:
     return [f"schema: {e.message}" for e in v.iter_errors(doc)]
 
 
+def lint_ability(doc: dict) -> list[str]:
+    """An ability's declared binding must resolve.
+
+    An unbound write/execute ability is allowed but is *narration* until a node
+    says so (see `_lint_unbound`).
+    """
+    from .bindings import BindingError, resolve_binding
+
+    if not doc.get("binding"):
+        return []
+    try:
+        fn = resolve_binding(doc)
+    except BindingError as ex:
+        return [f"lint: {ex}"]
+    if fn is None:
+        return [f"lint: {doc['name']}: binding.kind {doc['binding'].get('kind')!r} has no "
+                "resolver in this runtime — declare kind: builtin or drop the binding"]
+    return []
+
+
+def _bindable(abilities: dict[str, dict]) -> set[str]:
+    from .bindings import BUILTINS, BindingError, resolve_binding
+
+    out = set()
+    for name, adoc in abilities.items():
+        try:
+            fn = resolve_binding(adoc) if adoc.get("binding") else BUILTINS.get(name)
+        except BindingError:
+            fn = None
+        if fn is not None:
+            out.add(name)
+    return out
+
+
+def _lint_unbound(doc: dict, abilities: dict[str, dict]) -> list[str]:
+    """A write/execute ability with no binding is the model narrating an effect.
+
+    29 of 32 abilities, every irreversible one included, fell back to the plain
+    LLM runner: a node declaring `cut_release` cut nothing and its JSON was the
+    whole fact (2026-09-04 audit, D2-01; owner decision Q1: lint first, bind
+    later). The node may keep the ability, but must say `unbound_ok: <why>` so
+    the narration is declared rather than implicit.
+    """
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    bindable = _bindable(abilities)
+
+    def _world_effect(a: dict) -> bool:
+        # `generate`, `reduce_merge`, `write_docs` are `risk: write` but write to
+        # the blackboard: producing text IS what a model does, not narration of an
+        # effect elsewhere. What needs a binding is an effect outside the run —
+        # every execute-risk ability, and a write-risk one that repeats its effect
+        # (`edit_files`, `escalate`, `approve`).
+        risk = a.get("risk", "read")
+        return risk == "execute" or (risk == "write" and a.get("idempotent", True) is False)
+
+    errors = []
+    for n in doc.get("nodes", []):
+        if n.get("kind") in ("subgraph", "human"):
+            continue
+        narrated = sorted(a for a in n.get("abilities") or []
+                          if a in abilities and _world_effect(abilities[a]) and a not in bindable)
+        if narrated and not n.get("unbound_ok"):
+            errors.append(
+                f"lint: node '{n['id']}' declares {narrated} with no binding — its effect is "
+                "the model's account of it. Bind the ability, or declare "
+                "`unbound_ok: <why narration is acceptable here>` on the node"
+            )
+    return errors
+
+
+def _lint_retry_reissue(doc: dict, abilities: dict[str, dict]) -> list[str]:
+    """A retry re-runs the node; with a non-idempotent ability it re-issues the effect.
+
+    39 nodes retried `run_command`/`edit_files` with no concept of idempotency
+    anywhere (2026-09-04 audit, D1-02). The ability declares `idempotent: false`;
+    the node must then declare `retries.reissue_effects: true` to say it accepts
+    a repeated effect, or drop the retry.
+    """
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    errors = []
+    for n in doc.get("nodes", []):
+        r = n.get("retries") or {}
+        if not r.get("max"):
+            continue
+        risky = sorted(a for a in n.get("abilities") or []
+                       if a in abilities and abilities[a].get("idempotent", True) is False)
+        if risky and not r.get("reissue_effects"):
+            errors.append(
+                f"lint: node '{n['id']}' retries up to {r['max']}x but {risky} is not "
+                "idempotent — a retry re-issues the effect. Declare "
+                "`retries.reissue_effects: true` to accept that, or remove the retry"
+            )
+    return errors
+
+
 def _lint_ref_graph(doc: dict, root: Path) -> list[str]:
     """Walk `kind: subgraph` refs without executing anything.
 
@@ -814,7 +911,10 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
 
     # speciality / ability resolution
     specs = {load(p)["name"]: load(p) for p in iter_yaml("specialities", root)}
-    abilities = {load(p)["name"] for p in iter_yaml("abilities", root)}
+    ability_docs = {load(p)["name"]: load(p) for p in iter_yaml("abilities", root)}
+    abilities = set(ability_docs)
+    errors.extend(_lint_unbound(doc, ability_docs))
+    errors.extend(_lint_retry_reissue(doc, ability_docs))
     for n in doc.get("nodes", []):
         s = specs.get(n["speciality"])
         if s is None:

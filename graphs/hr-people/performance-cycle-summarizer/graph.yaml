@@ -51,6 +51,8 @@ nodes:
   - escalation_reason
   criteria: The review goes to a human with the surviving bias flags named. A summary that could not be
     de-biased must not be published as if it had been.
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: gather
   to: synthesize

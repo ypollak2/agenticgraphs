@@ -22,6 +22,9 @@ nodes:
   - work_result
   retries:
     max: 2
+    reissue_effects: true
+  unbound_ok: 'narrated: edit_files has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: recode
   speciality: compensator
   abilities:
@@ -34,6 +37,8 @@ nodes:
   - recode_failed: bool
   criteria: Every disputed code is paired with the code the documentation does support, so the finding
     tells the coder what to change it to rather than only that it is wrong.
+  unbound_ok: 'narrated: backfill, rollback has no binding in this runtime; the effect is the model''s
+    account of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: verify
   speciality: verifier
   abilities:
@@ -47,6 +52,7 @@ nodes:
     by inference is an unsupported code, however clinically likely.
   retries:
     max: 2
+    reissue_effects: true
 - id: reverse-claim
   speciality: compensator
   abilities:
@@ -56,6 +62,8 @@ nodes:
   - reverse_claim_filed
   criteria: A resubmitted code has already been claimed against. Undoing it means issuing the reversing
     adjustment, so the payer's ledger and the chart agree.
+  unbound_ok: 'narrated: rollback has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: plan
   to: work

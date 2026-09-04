@@ -21,6 +21,8 @@ nodes:
   outputs:
   - shadow_active
   - shadow_failed: bool
+  unbound_ok: 'narrated: execute_step, shadow_write has no binding in this runtime; the effect is the
+    model''s account of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: backfill
   speciality: migrator
   abilities:
@@ -31,6 +33,8 @@ nodes:
   outputs:
   - backfill_complete
   - backfill_failed: bool
+  unbound_ok: 'narrated: backfill, execute_step has no binding in this runtime; the effect is the model''s
+    account of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: cutover
   speciality: migrator
   abilities:
@@ -40,6 +44,8 @@ nodes:
   outputs:
   - cutover_done
   - cutover_failed: bool
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: verify
   speciality: verifier
   abilities:
@@ -56,6 +62,7 @@ nodes:
     the outcome this graph exists to prevent.'
   retries:
     max: 2
+    reissue_effects: true
 - id: undo-cutover
   speciality: compensator
   abilities:
@@ -64,6 +71,8 @@ nodes:
   - cutover_done
   outputs:
   - cutover_undone
+  unbound_ok: 'narrated: rollback has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 - id: undo-backfill
   speciality: compensator
   abilities:
@@ -72,6 +81,8 @@ nodes:
   - backfill_complete
   outputs:
   - backfill_undone
+  unbound_ok: 'narrated: rollback has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 - id: undo-shadow
   speciality: compensator
   abilities:
@@ -84,6 +95,8 @@ nodes:
   - output
   - source_rows: int
   - target_rows: int
+  unbound_ok: 'narrated: rollback has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: plan
   to: shadow-write

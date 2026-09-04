@@ -47,6 +47,8 @@ nodes:
   - filed: any
   - confirmation_id
   - file_failed: bool
+  unbound_ok: 'narrated: file_record has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: retain
   speciality: producer
   abilities:
@@ -67,6 +69,8 @@ nodes:
   - withdraw_filing_filed
   criteria: A filing is received the moment it is submitted. Undoing it is a formal withdrawal or amendment
     on the record, not a deletion, and the amendment must cite the filing it corrects.
+  unbound_ok: 'narrated: rollback has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 - id: abandon-filing
   speciality: escalator
   abilities:
@@ -77,6 +81,8 @@ nodes:
   - escalation_reason
   criteria: The filing is formally abandoned with the unreconciled variance recorded. A filing that cannot
     be reconciled must be visibly not-filed, never silently unfiled.
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: collect
   to: reconcile

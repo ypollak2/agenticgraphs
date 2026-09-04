@@ -53,6 +53,8 @@ nodes:
   - published
   - timestamps: list[{start:int, end:int}]
   join: all
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: escalate-rights
   speciality: escalator
   abilities:
@@ -63,6 +65,8 @@ nodes:
   - escalation_reason
   criteria: 'The episode is held with the clips whose licensing could not be confirmed. This node had
     no failure path at all: unclear rights stopped the graph, which looks identical to rights being clear.'
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: transcribe
   to: edit-plan

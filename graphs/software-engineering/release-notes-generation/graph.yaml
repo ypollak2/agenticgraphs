@@ -33,6 +33,7 @@ nodes:
     An orphan claim in release notes becomes a support ticket.
   retries:
     max: 2
+    reissue_effects: true
 edges:
 - from: partition
   to: map

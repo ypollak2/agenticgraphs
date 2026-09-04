@@ -23,6 +23,8 @@ nodes:
   - exceptions
   outputs:
   - still_open
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 - id: ap-review
   speciality: approver
   kind: human

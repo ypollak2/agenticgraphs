@@ -1,3 +1,5 @@
 name: file_record
 description: Submit a record to an external registry or regulator.
 risk: execute
+# Re-running repeats the effect; a node that retries this must say so.
+idempotent: false

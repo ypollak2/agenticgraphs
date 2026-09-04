@@ -88,6 +88,11 @@
             ],
             "default": "agent"
           },
+          "unbound_ok": {
+            "type": "string",
+            "minLength": 10,
+            "description": "Why it is acceptable that this node's write/execute abilities have no binding in this runtime, i.e. that the effect is the model's narration of it. Required by `_lint_unbound` whenever such an ability is declared; absent on a node whose effects are actually executed."
+          },
           "timeout_s": {
             "type": "number",
             "exclusiveMinimum": 0,
@@ -145,6 +150,10 @@
                 "minimum": 0,
                 "maximum": 5,
                 "description": "Re-runs on error before error edges fire. Enforced."
+              },
+              "reissue_effects": {
+                "type": "boolean",
+                "description": "The node accepts that a retry re-runs an ability declared `idempotent: false`, repeating its effect. Required by `_lint_retry_reissue` when such an ability is retried."
               }
             },
             "required": [

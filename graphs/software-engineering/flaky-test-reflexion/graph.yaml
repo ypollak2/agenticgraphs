@@ -14,6 +14,7 @@ nodes:
   - test_id
   retries:
     max: 2
+    reissue_effects: true
 - id: hypothesise
   speciality: analyst
   abilities:
@@ -32,6 +33,8 @@ nodes:
   - candidate_fix
   inputs:
   - hypothesis
+  unbound_ok: 'narrated: edit_files, execute_step has no binding in this runtime; the effect is the model''s
+    account of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: evaluate
   speciality: evaluator
   abilities:
@@ -49,6 +52,7 @@ nodes:
     is recorded with what it ruled out so the next attempt does not repeat it.
   retries:
     max: 2
+    reissue_effects: true
 edges:
 - from: reproduce
   to: hypothesise

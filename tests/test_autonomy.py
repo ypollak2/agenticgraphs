@@ -104,7 +104,9 @@ def test_infuse_autonomous_persists_and_commits_on_auto_mutations_branch(monkeyp
         capture_output=True, text=True, check=True,
     ).stdout.strip()
 
-    result = infuse_autonomous("code-review-pipeline", "style-review", "edit_files", root=repo_clone)
+    # web_search is bound (read risk). An unbound world-effect like edit_files is
+    # now refused by _lint_unbound (R3-04) — see the test below.
+    result = infuse_autonomous("code-review-pipeline", "style-review", "web_search", root=repo_clone)
 
     assert result["changed"] is True
     assert result["branch"] == "auto/mutations"
@@ -299,3 +301,13 @@ def test_cli_mcp_http_flag_with_custom_port(monkeypatch):
     monkeypatch.setattr("agenticgraphs.mcp_server.main", lambda **kw: calls.append(kw))
     assert main(["mcp", "--http", "--port", "9999"]) == 0
     assert calls == [{"http": True, "port": 9999}]
+
+
+def test_infuse_autonomous_refuses_an_unbound_world_effect(monkeypatch, repo_clone):
+    """An unattended write must not add an effect the runtime cannot execute:
+    the node would narrate `edit_files` and nothing would edit (R3-04)."""
+    import pytest
+
+    monkeypatch.setenv("AGR_AUTONOMOUS", "1")
+    with pytest.raises(SystemExit, match="no binding"):
+        infuse_autonomous("code-review-pipeline", "style-review", "edit_files", root=repo_clone)

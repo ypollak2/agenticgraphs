@@ -15,6 +15,8 @@ nodes:
   - execute_step
   outputs:
   - step_result
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: verify
   speciality: verifier
   abilities:
@@ -28,6 +30,7 @@ nodes:
   criteria: An end-to-end run loads exactly the expected row count, and a second run loads no duplicates.
   retries:
     max: 2
+    reissue_effects: true
 edges:
 - from: plan
   to: execute

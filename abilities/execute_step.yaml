@@ -1,3 +1,5 @@
 name: execute_step
 description: Carry out one plan step with side effects.
 risk: execute
+# Re-running repeats the effect; a node that retries this must say so.
+idempotent: false

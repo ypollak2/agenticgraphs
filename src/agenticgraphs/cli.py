@@ -225,9 +225,12 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "validate":
         paths = args.paths or iter_graphs()
         failures = 0
+        from .validate import lint_ability
+
         for kind, dirname in (("speciality", "specialities"), ("ability", "abilities")):
             for f in iter_yaml(dirname):
-                errs = validate_schema(load(f), kind)
+                adoc = load(f)
+                errs = validate_schema(adoc, kind) or (lint_ability(adoc) if kind == "ability" else [])
                 for err in errs:
                     print(f"FAIL {f.name}: {err}")
                 failures += len(errs)

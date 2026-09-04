@@ -1,3 +1,5 @@
 name: shadow_write
 description: Dual-write to a new target without serving reads from it.
 risk: execute
+# Re-running repeats the effect; a node that retries this must say so.
+idempotent: false

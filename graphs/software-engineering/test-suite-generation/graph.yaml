@@ -32,6 +32,7 @@ nodes:
     score exists to detect.
   retries:
     max: 2
+    reissue_effects: true
 edges:
 - from: intake
   to: generate

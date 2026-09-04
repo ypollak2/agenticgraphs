@@ -74,6 +74,8 @@ nodes:
   outputs:
   - patch
   - audit_rounds
+  unbound_ok: 'narrated: edit_files, execute_step has no binding in this runtime; the effect is the model''s
+    account of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: docs
   speciality: docs-writer
   abilities:
@@ -108,6 +110,8 @@ nodes:
   - release_tag
   - release_failed: bool
   on_error: rollback
+  unbound_ok: 'narrated: cut_release has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: rollback
   speciality: compensator
   abilities:
@@ -118,6 +122,8 @@ nodes:
   - doc_changes: list[{file:any, pr_url:any}]
   - output
   - rolled_back
+  unbound_ok: 'narrated: rollback has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: research
   to: plan

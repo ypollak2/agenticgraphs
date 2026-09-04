@@ -53,6 +53,8 @@ nodes:
   - output
   - scorecard_count: int
   - structured
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: escalate-hiring
   speciality: escalator
   abilities:
@@ -63,6 +65,8 @@ nodes:
   - escalation_reason
   criteria: The role is escalated with the shortlist and the scorecards actually collected. Fewer than
     three assessments is a decision that cannot be made, not a decision to reject.
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: define-role
   to: screen
