@@ -321,3 +321,65 @@ def compose(doc_a: dict, doc_b: dict, name: str | None = None, allow_gaps: bool 
         raise ComposeError("composed graph failed validation:\n" + "\n".join(f"  - {e}" for e in errors))
 
     return composed, warnings
+
+
+def scaffold(doc: dict, children: list[dict], out_dir, root=None) -> list:
+    """Write a composed graph as a registry-shaped bundle a human can finish.
+
+    `agr compose -o file.yaml` produced a graph that validated and could never
+    earn an eval verdict: no `cases.yaml`, no `usecase.yaml`, no `live/`
+    (2026-09-04 audit, D4-05). This writes all four, deriving one golden case
+    from each child's first case with node ids remapped to the composed graph,
+    so `agr eval <name>` runs immediately and `agr validate` passes. The
+    use-case row is a stub the author must complete; `audit_usecases.py` says
+    what is missing.
+    """
+    from pathlib import Path
+
+    import yaml as _yaml
+
+    from .registry import ROOT, cases_path
+    from .subgraphs import expand, has_subgraphs
+
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "graph.yaml").write_text(_yaml.safe_dump(doc, sort_keys=False, width=120))
+    expanded = expand(doc, root or ROOT) if has_subgraphs(doc) else doc
+    ids = {n["id"] for n in expanded["nodes"]}
+
+    def remap(child: dict, nid: str) -> str | None:
+        for cand in (f"{child['name']}.{nid}", nid, f"a-{nid}", f"b-{nid}"):
+            if cand in ids:
+                return cand
+        return None
+
+    node_outputs: dict = {}
+    goals: list[str] = []
+    inputs: dict = {}
+    for child in children:
+        cp = cases_path(child["name"], root or ROOT)
+        if not cp.exists():
+            continue
+        first = _yaml.safe_load(cp.read_text())["cases"][0]
+        for nid, out in first.get("node_outputs", {}).items():
+            target = remap(child, nid)
+            if target is not None:
+                node_outputs[target] = out
+        if first.get("goal"):
+            goals.append(first["goal"])
+        inputs.update(first.get("inputs") or {})
+    case = {"id": "happy-path", "node_outputs": node_outputs}
+    if goals:
+        case["goal"] = "; then ".join(goals)
+    if inputs:
+        case["inputs"] = inputs
+    (out_dir / "cases.yaml").write_text(_yaml.safe_dump({"cases": [case]}, sort_keys=False, width=120))
+    (out_dir / "usecase.yaml").write_text(_yaml.safe_dump({
+        "id": "uc-TODO",
+        "pattern": "lifecycle",
+        "summary": doc["description"].split("\n")[0][:120],
+        "verification": (doc.get("termination") or {}).get("contract", "TODO: state the check"),
+    }, sort_keys=False))
+    (out_dir / "live").mkdir(exist_ok=True)
+    (out_dir / "live" / ".gitkeep").write_text("")
+    return sorted(p.relative_to(out_dir) for p in out_dir.rglob("*") if p.is_file())

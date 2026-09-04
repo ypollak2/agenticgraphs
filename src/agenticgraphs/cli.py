@@ -80,6 +80,9 @@ def main(argv: list[str] | None = None) -> int:
     cp.add_argument("--name", help="name for the composed graph (default: '<a>-then-<b>')")
     cp.add_argument("--allow-gaps", action="store_true",
                     help="proceed even if graph-b needs blackboard keys graph-a doesn't appear to produce")
+    cp.add_argument("--scaffold", type=Path, metavar="DIR",
+                    help="write a registry-shaped bundle (graph.yaml, cases.yaml, usecase.yaml, "
+                         "live/) to DIR so the composite can be evaluated and onboarded")
     cp.add_argument("--mode", choices=["inline", "subgraph"], default="inline",
                     help="inline: splice both graphs' nodes (v1). subgraph: emit a two-phase "
                          "parent that references each graph by ref (v1.1, edits to children propagate)")
@@ -194,6 +197,14 @@ def main(argv: list[str] | None = None) -> int:
         for w in warnings:
             print(w, file=sys.stderr)
         text = yaml.safe_dump(doc, sort_keys=False, width=120)
+        if args.scaffold:
+            from .compose import scaffold
+
+            files = scaffold(doc, [_need(args.graph_a), _need(args.graph_b)], args.scaffold)
+            print(f"scaffolded {args.scaffold}: " + ", ".join(str(f) for f in files))
+            print("next: complete usecase.yaml, then `agr validate` and `agr eval` the bundle "
+                  "from a registry root that contains it")
+            return 0
         if args.output:
             args.output.write_text(text)
             print(f"wrote {args.output}")
