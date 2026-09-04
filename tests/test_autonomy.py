@@ -131,11 +131,11 @@ def test_infuse_autonomous_persists_and_commits_on_auto_mutations_branch(monkeyp
          f"{commit}:graphs/software-engineering/code-review-pipeline/graph.yaml"],
         capture_output=True, text=True, check=True,
     ).stdout
-    assert "edit_files" in committed_graph
+    assert "web_search" in committed_graph
 
     # The mutation was written to the working tree too (that's what got staged).
     on_disk = (repo_clone / "graphs/software-engineering/code-review-pipeline/graph.yaml").read_text()
-    assert "edit_files" in on_disk
+    assert "web_search" in on_disk
 
 
 # ---------------------------------------------------------------------------

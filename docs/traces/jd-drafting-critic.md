@@ -26,7 +26,7 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
-| 2 | `generate` | `draft='v1'` |
+| 2 | `generate` | `draft='v1', requirements=['python']` |
 | 3 | `critique` | `rejected=False, attempts=1, output={'bias_lint_clean': True, 'requirements_deduped': True, 'bias_terms': [], 'requirements': ['python'], 'unique_requirements': ['python']}, bias_terms=[], requirements=['python'], unique_requirements=['python']` |
 
 **Verification checked:**
@@ -41,7 +41,7 @@ flowchart LR
 | # | Node | Output |
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
-| 2 | `generate` | `draft='v1'` |
+| 2 | `generate` | `draft='v1', requirements=['python']` |
 | 3 | `critique` | `rejected=True, attempts=1, bias_terms=[], requirements=['python'], unique_requirements=['python'], output={'bias_terms': [], 'requirements': ['python'], 'unique_requirements': ['python']}` |
 | 4 | `generate` | `draft='v2'` |
 | 5 | `critique` | `rejected=False, attempts=2, output={'bias_lint_clean': True, 'requirements_deduped': True, 'bias_terms': [], 'requirements': ['python'], 'unique_requirements': ['python']}, bias_terms=[], requirements=['python'], unique_requirements=['python']` |
