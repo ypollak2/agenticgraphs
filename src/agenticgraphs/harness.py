@@ -836,6 +836,14 @@ def _run_command(cmd: str, cwd, rep: RunReport, bb: dict | None = None) -> None:
 _TOKEN_PRICES: dict[str, tuple[float, float]] = {
     "gpt-4o": (2.50, 10.00),
     "gpt-4o-mini": (0.15, 0.60),
+    # The models the evidence base is actually recorded on run locally under
+    # Ollama: measured usage, zero marginal price. Listing them at 0 makes
+    # `budget.usd_max` a measured fact for those runs instead of a flat
+    # per-node guess (2026-09-04 audit, D3-06). Keyed by family so any tag matches.
+    "qwen3-coder": (0.0, 0.0),
+    "qwen2.5-coder": (0.0, 0.0),
+    "devstral": (0.0, 0.0),
+    "hermes3": (0.0, 0.0),
 }
 
 #: Fallback for a mock run or an unpriced model: there are no token counts to
@@ -1146,6 +1154,13 @@ def _aggregate(node: dict, bb: dict) -> None:
     values = bb.get(spec["over"])
     if not isinstance(values, list):
         return
+    # A fanned-out list carries `None` for every shard that failed or did not
+    # produce the key (`on_partial: continue`). `median`/`best` over a None used to
+    # raise TypeError and take the whole run down — two shipped graphs did exactly
+    # that on their first failed shard (2026-09-04 audit, D1-01). `continue` means
+    # "aggregate over the shards that succeeded", so drop them here, visibly.
+    if spec["op"] in ("median", "best"):
+        values = [v for v in values if v is not None]
     bb[spec["over"]] = _AGG[spec["op"]](values)
 
 
@@ -1176,10 +1191,17 @@ def _fan_out(node: dict, bb: dict, runner, rep: RunReport, visit: int) -> dict:
         results.append(out)
     errs = [r for r in results if r.get("error")]
     on_partial = spec.get("on_partial", "continue")
-    keys = set(_shapes.names(node)) | {k for r in results for k in r}
+    # `error` is the node-level failure flag the scheduler reads. Merging it like
+    # any other key produced a list such as `[None, "shard 2 blew up", None]` —
+    # truthy — so one failed shard under `on_partial: continue` failed the whole
+    # node anyway (found while fixing D1-01, 2026-09-04). Per-shard errors keep
+    # their own key; the node-level flag is set only when the policy says so.
+    keys = (set(_shapes.names(node)) | {k for r in results for k in r}) - {"error"}
     merged: dict = {k: [r.get(k) for r in results] for k in keys}
     merged["shards_processed"] = len(results)
     merged["shards_failed"] = len(errs)
+    if errs:
+        merged["shard_errors"] = [r.get("error") for r in results]
     if errs and on_partial == "fail":
         merged["error"] = f"{len(errs)} of {len(results)} shards failed"
     return merged
