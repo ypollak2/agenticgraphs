@@ -88,7 +88,12 @@ def test_mcp_tools_registered():
     from agenticgraphs.mcp_server import create_server
 
     tools = asyncio.run(create_server().list_tools())
-    assert {t.name for t in tools} == {"search_graphs", "get_graph", "instantiate", "infuse_ability"}
+    assert {t.name for t in tools} == {
+        "search_graphs", "get_graph", "instantiate", "infuse_ability",
+        # R6-01: what the CLI could do and the MCP surface could not
+        "validate_graph", "run_graph", "list_abilities", "list_specialities", "get_profile",
+        "diff_graphs",
+    }
 
 
 def test_compiled_topology_matches_executed_topology():

@@ -14,6 +14,7 @@ does not distinguish the intended caller from any other local process.
 from __future__ import annotations
 
 import hmac
+import json
 import os
 import sys
 
@@ -121,6 +122,89 @@ def create_server():
         if errs:
             raise ValueError("mutation violates schema/lint: " + "; ".join(errs))
         return yaml.safe_dump(doc, sort_keys=False)
+
+    # ---- R6-01: what the CLI could do and the MCP surface could not ----
+
+    @mcp.tool()
+    def validate_graph(graph_yaml: str) -> list[str]:
+        """Schema + lint a candidate AGR graph (YAML text). Empty list means valid."""
+        doc = yaml.safe_load(graph_yaml)
+        if not isinstance(doc, dict):
+            return ["not a mapping"]
+        return validate_schema(doc, "graph") or lint_graph(doc)
+
+    @mcp.tool()
+    def run_graph(name: str, goal: str = "", inputs: dict | None = None,
+                  live: bool = False, run_commands: bool = False) -> dict:
+        """Run a graph's golden cases and return the measured block.
+
+        Mock fixtures by default (mechanics, not model quality). `live=True`
+        uses AGR_LLM_BASE_URL/AGR_LLM_MODEL and requires AGR_MCP_TOKEN to be set,
+        so an unauthenticated loopback caller cannot spend on the endpoint.
+        `run_commands=True` executes verification[].command entries and requires
+        AGR_AUTONOMOUS_ALLOW_EXECUTE=1, the same cap as an execute-risk persist.
+        Nothing is written to the registry.
+        """
+        from .autonomy import execute_allowed
+        from .evalcmd import eval_graph
+
+        if live and not os.environ.get(TOKEN_ENV):
+            raise ValueError(f"live runs over MCP require {TOKEN_ENV} to be set")
+        if run_commands and not execute_allowed():
+            raise ValueError("run_commands over MCP requires AGR_AUTONOMOUS_ALLOW_EXECUTE=1")
+        if find_graph(name) is None:
+            raise ValueError(f"no graph named '{name}'")
+        profile = eval_graph(name, live=live, run_commands=run_commands, goal=goal or None,
+                             write=False, replay=not live)
+        block = dict(profile["measured"])
+        if inputs:
+            block["note"] = "inputs are supplied by the graph's golden cases; use `goal` to set the subject"
+        return block
+
+    @mcp.tool()
+    def list_abilities() -> list[dict]:
+        """Every ability with its risk, idempotency and whether this runtime binds it."""
+        from .bindings import BindingError, resolve_binding
+
+        rows = []
+        for p in iter_yaml("abilities"):
+            adoc = load(p)
+            try:
+                bound = resolve_binding(adoc) is not None if adoc.get("binding") else False
+            except BindingError:
+                bound = False
+            rows.append({"name": adoc["name"], "risk": adoc.get("risk", "read"),
+                         "idempotent": adoc.get("idempotent", True), "bound": bound,
+                         "description": adoc["description"]})
+        return rows
+
+    @mcp.tool()
+    def list_specialities() -> list[dict]:
+        """Every speciality with the abilities it requires and may optionally hold."""
+        return [{"name": d["name"], "requires": d["requires_abilities"],
+                 "optional": d.get("optional_abilities", []), "description": d["description"]}
+                for d in (load(p) for p in iter_yaml("specialities"))]
+
+    @mcp.tool()
+    def get_profile(name: str) -> dict:
+        """The graph's profile.json: structural facts, mock and live evidence, tier."""
+        g = find_graph(name)
+        if g is None:
+            raise ValueError(f"no graph named '{name}'")
+        pf = g.parent / "profile.json"
+        return json.loads(pf.read_text()) if pf.exists() else {"error": "no profile yet; run agr eval"}
+
+    @mcp.tool()
+    def diff_graphs(a: str, b: str) -> str:
+        """Unified diff of two registry graphs' YAML, `a` -> `b`."""
+        import difflib
+
+        ga, gb = find_graph(a), find_graph(b)
+        if ga is None or gb is None:
+            raise ValueError(f"no graph named '{a if ga is None else b}'")
+        return "".join(difflib.unified_diff(
+            ga.read_text().splitlines(True), gb.read_text().splitlines(True),
+            fromfile=f"{a}/graph.yaml", tofile=f"{b}/graph.yaml"))
 
     return mcp
 
