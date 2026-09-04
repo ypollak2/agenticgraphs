@@ -78,6 +78,31 @@ The README keeps the current state and a pointer here.
       Spec: [agr-v1.7.md](docs/agr-v1.7.md) ·
       Plan + outcome: [v11-goal.md](docs/plans/v11-goal.md).
 
+- [x] **AGR v1.6 — provenance (skipped by the registry).** One lint, armed per graph:
+      an assert that demands a citation, log id or file+line from nodes with no bound
+      ability that could obtain one is a graph-authoring defect, not a model failure.
+      No shipped graph declares `agr/v1.6`; the gap is reported through
+      [contract-findings](contract-findings.md) instead of enforced. Spec, written after
+      the fact in the 2026-09-04 audit: [agr-v1.6.md](agr-v1.6.md).
+- [x] **M11 / AGR v1.8 — the claim.** The assert evaluator reached `eval()` with an
+      empty `__builtins__`, which is not a sandbox: a downloaded graph could run code on
+      `agr eval`, and `agr adapt` inlined the same hole into every generated module.
+      Closed with an AST allow-list applied at validate time, at run time, and in the
+      emitted prelude. Found on the way: the runner had been handing every node the
+      assertions it was scored on. Now refused: a contract any model-driven node grades
+      itself on (`_lint_self_graded`), a verifier with no `criteria`, prose in a
+      `command`, a one-way effect with no compensating path, and a motif the topology
+      does not have. All 560 recordings were retired because none said which spec they
+      were scored against. Spec: [agr-v1.8.md](agr-v1.8.md) ·
+      Changelog: [0.9.4](../CHANGELOG.md).
+- [ ] **M12 — the gap audit.** Five read-only auditors, ten dimensions, 50 findings at
+      `aa486fc`; 48 remediation items in seven phases with a dependency graph. Phases
+      0-1 (onboarding, crashes, safety, change-gated evidence writes) and 2 (every
+      README number generated and CI-checked; doc currency enforced by
+      `scripts/check_doc_currency.py`) are landed on `audit-remediation`.
+      Audit: [audit-gaps-2026-09-04.md](plans/audit-gaps-2026-09-04.md) ·
+      Plan: [audit-gaps-remediation-2026-09-04.md](plans/audit-gaps-remediation-2026-09-04.md).
+
 **Known limits, stated rather than buried:**
 
 - **A graph+model cell frequently returns a different verdict on identical input** —

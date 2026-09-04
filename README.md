@@ -403,7 +403,7 @@ uv run python scripts/audit_usecases.py      # use cases, domains, AUDIT PASSED
 | **Speciality** | `specialities/*.yaml` | A role a node plays (e.g. `security-auditor`), with required abilities |
 | **Ability** | `abilities/*.yaml` | An atomic capability (e.g. `sast_scan`) with a risk level; MCP-bindable |
 | **Use case** | `usecases/catalog.yaml` | Demand-side backlog of audited entries that graduate into graphs |
-| **Spec** | `spec/*.schema.json` | AGR v1.8 JSON Schemas ([v1.1](docs/agr-v1.1.md) · [v1.2](docs/agr-v1.2.md) · [v1.4](docs/agr-v1.4.md) · [v1.5](docs/agr-v1.5.md) · [v1.7](docs/agr-v1.7.md) · [**v1.8**](docs/agr-v1.8.md)) |
+| **Spec** | `spec/*.schema.json` | AGR v1.8 JSON Schemas ([v1.1](docs/agr-v1.1.md) · [v1.2](docs/agr-v1.2.md) · [v1.3](docs/agr-v1.3.md) · [v1.4](docs/agr-v1.4.md) · [v1.5](docs/agr-v1.5.md) · [v1.6](docs/agr-v1.6.md) · [v1.7](docs/agr-v1.7.md) · [**v1.8**](docs/agr-v1.8.md)); every superseded page carries a generated banner |
 | **Subgraph** | `nodes[].kind: subgraph` + `ref` | A phase that *is* another registry graph, inlined at load (v1.1) |
 | **Join** | `nodes[].join` | `any` (default) · `all` · `quorum(n)` — when a multi-predecessor node is ready (v1.1) |
 | **Human gate** | `nodes[].kind: human` + `approval` | An approval contract the live runner refuses to sign itself (v1.1) |
@@ -604,7 +604,7 @@ Project Link: [https://github.com/ypollak2/agenticgraphs][repo-url]
 [domains-shield]: https://img.shields.io/badge/domains-15-2ea44f?style=for-the-badge
 [patterns-shield]: https://img.shields.io/badge/motifs-17-2ea44f?style=for-the-badge
 [patterns-url]: #the-motifs
-[tests-shield]: https://img.shields.io/badge/tests-438-blue?style=for-the-badge
+[tests-shield]: https://img.shields.io/badge/tests-444-blue?style=for-the-badge
 [tests-url]: tests/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
 [license-url]: LICENSE
