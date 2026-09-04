@@ -84,9 +84,45 @@ def case_inputs(case: dict, goal: str | None = None) -> dict:
     return seed
 
 
+def _without_clock(profile: dict) -> dict:
+    """The profile minus the fields that change with the calendar and nothing else."""
+    out = json.loads(json.dumps(profile))
+    for block in ("measured", "measured_live"):
+        if isinstance(out.get(block), dict):
+            out[block].pop("date", None)
+            out[block].pop("age_days", None)
+    return out
+
+
+def write_profile(gpath: Path, profile: dict) -> bool:
+    """Write `profile.json` next to the graph, but only when its content changed.
+
+    Returns True if a write happened. Before this, every caller of `eval_graph` —
+    including the report generators — rewrote all 83 files with today's date, so
+    `date` could never mean "when this evidence was captured" and a read-only
+    audit had a hidden write side effect on the evidence store (2026-09-04 audit,
+    D6-04). Now the date moves only when the profile behind it does.
+    """
+    target = gpath.parent / "profile.json"
+    if target.exists():
+        try:
+            if _without_clock(json.loads(target.read_text())) == _without_clock(profile):
+                return False
+        except (ValueError, TypeError):
+            pass  # unreadable on disk: rewrite it
+    target.write_text(json.dumps(profile, indent=2) + "\n")
+    return True
+
+
 def eval_graph(name: str, root: Path = ROOT, live: bool = False,
                auto_approve: bool = False, run_commands: bool = False,
-               replay: bool = True, resume_from=None, goal: str | None = None) -> dict:
+               replay: bool = True, resume_from=None, goal: str | None = None,
+               write: bool = True) -> dict:
+    """Run a graph's golden cases and return its profile.
+
+    `write=True` persists the profile via `write_profile` (change-gated);
+    `write=False` is a pure computation for report generators.
+    """
     gpath = find_graph(name, root)
     if gpath is None:
         raise SystemExit(f"no graph named '{name}'")
@@ -198,5 +234,6 @@ def eval_graph(name: str, root: Path = ROOT, live: bool = False,
             block["gate_auto_approved"] = any(r.get("gate_auto_approved") for r in live_results)
             profile["measured_live"] = block
 
-    (gpath.parent / "profile.json").write_text(json.dumps(profile, indent=2) + "\n")
+    if write:
+        write_profile(gpath, profile)
     return profile

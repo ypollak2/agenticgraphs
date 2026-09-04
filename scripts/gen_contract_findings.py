@@ -23,7 +23,7 @@ def main() -> int:
     rows = []
     for gp in iter_graphs():
         doc = load(gp)
-        live = eval_graph(doc["name"]).get("measured_live")
+        live = eval_graph(doc["name"], write=False).get("measured_live")
         if not live:
             continue
         rows.append((doc, live))
