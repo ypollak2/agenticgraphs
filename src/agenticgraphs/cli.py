@@ -203,7 +203,16 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.cmd == "mcp":
         from .mcp_server import main as serve
-        serve(http=args.http, port=args.port)
+
+        try:
+            serve(http=args.http, port=args.port)
+        except ImportError as e:
+            # The `mcp` package is imported lazily inside create_server(), so a bare
+            # `uv sync` reaches here rather than failing at module import.
+            print(f"mcp: the MCP server needs the `mcp` extra ({e}).\n"
+                  "     install it with: uv sync --all-extras   "
+                  "(or: pip install 'vitruvian-graphs[mcp]')", file=sys.stderr)
+            return 2
         return 0
     if args.cmd == "validate":
         paths = args.paths or iter_graphs()

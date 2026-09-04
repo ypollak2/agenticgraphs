@@ -67,3 +67,22 @@ def test_no_command_is_a_usage_error():
     with pytest.raises(SystemExit) as e:
         main([])
     assert e.value.code != 0
+
+
+def test_mcp_without_the_extra_says_how_to_install_it(capsys, monkeypatch):
+    """A bare `uv sync` has no `mcp` package; the command must say so instead of
+    tracebacking (2026-09-04 audit, D9-7)."""
+    import builtins
+    real_import = builtins.__import__
+
+    def no_mcp(name, *a, **kw):
+        if name == "mcp" or name.startswith("mcp."):
+            raise ImportError("No module named 'mcp'")
+        return real_import(name, *a, **kw)
+
+    monkeypatch.setattr(builtins, "__import__", no_mcp)
+    monkeypatch.delitem(__import__("sys").modules, "agenticgraphs.mcp_server", raising=False)
+    code = main(["mcp"])
+    err = capsys.readouterr().err
+    assert code == 2
+    assert "uv sync --all-extras" in err
