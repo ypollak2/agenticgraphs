@@ -12,6 +12,8 @@ cases:
       below_target: false
       attempts: 1
   goal: /pricing, for 'agent workflow pricing'
+  inputs:
+    threshold: 75
 - id: retry-then-meets-target
   node_outputs:
     intake:
@@ -31,3 +33,5 @@ cases:
     - below_target: false
       attempts: 2
   goal: /pricing, for 'agent workflow pricing'
+  inputs:
+    threshold: 75

@@ -7,6 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # audit_recordings.py attributes every recording to the commit that
+          # introduced it; a shallow clone resolves them all to HEAD and the
+          # committed reports/a4-stale-recordings.json can never match.
+          fetch-depth: 0
       - uses: astral-sh/setup-uv@v5
       # --frozen installs exactly what uv.lock pins. Without it CI re-resolved
       # every dependency on every run, which is the wrong posture for a repo
@@ -16,19 +21,36 @@ jobs:
       - run: uv run --all-extras mypy
       - run: uv run --all-extras agr validate
       - run: uv run --all-extras python scripts/audit_usecases.py
+      - run: uv run --all-extras python scripts/check_readme_counts.py
+      - run: uv run --all-extras python scripts/check_doc_currency.py
       - run: uv run --all-extras pytest -q
       - run: uv run --all-extras python scripts/gen_cards.py
       - run: uv run --all-extras python scripts/gen_scoreboard.py
       - run: uv run --all-extras python scripts/gen_traces.py
+      - run: uv run --all-extras python scripts/check_readme_counts.py --fix
+      - run: uv run --all-extras python scripts/gen_contract_findings.py
+      - run: uv run --all-extras python scripts/gen_clone_report.py
+      - run: uv run --all-extras python scripts/gen_self_graded.py
+      # Exits 1 on a verdict that flipped without a re-recording; that is a gate.
+      - run: uv run --all-extras python scripts/audit_recordings.py --json reports/a4-stale-recordings.json
+      - run: uv run --all-extras python scripts/gen_spec_banners.py
       - name: fail if generated docs are stale
         run: |
-          # gen_scoreboard.py / gen_traces.py re-run every graph's golden cases (via
-          # eval_graph) and rewrite graphs/**/profile.json as a side effect. That file
-          # embeds `date: <today>`, so it is never byte-stable across days even with zero
-          # semantic change — it is deliberately excluded from this check. What must stay
-          # byte-identical to what's committed is the generated *documentation* derived
-          # from graph.yaml / evals/*/cases.yaml, so diff that instead.
-          git diff --exit-code -- README.md CARDS.md 'graphs/**/CARD.md' 'docs/traces/**' || {
-            echo "::error::Generated docs are stale — run scripts/gen_cards.py, scripts/gen_scoreboard.py, and scripts/gen_traces.py, then commit the result.";
+          # Every file a regen script writes must be byte-identical to what is
+          # committed. profile.json is on the list since R1-04 made its writes
+          # change-gated: a diff there means the evidence actually moved.
+          git diff --exit-code -- README.md CARDS.md 'graphs/**/CARD.md' 'graphs/**/profile.json' \
+            'docs/traces/**' docs/contract-findings.md 'reports/*.json' 'docs/agr-v*.md' || {
+            echo "::error::Generated artifacts are stale — run 'make regen' and commit the result.";
             exit 1;
           }
+  # The path README "Getting Started" documents, run verbatim. The gate job above
+  # always installs --all-extras, so it can never notice when the documented
+  # commands stop working for a new contributor (2026-09-04 audit, D9-1).
+  onboarding:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --all-extras
+      - run: uv run agr validate && uv run pytest -q

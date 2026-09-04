@@ -273,8 +273,10 @@ def graph_of_graphs(rows: list[dict]) -> str:
     example = {}
     for r in sorted(rows, key=lambda x: x["cid"]):
         example.setdefault(r["pattern"], r["name"])
+    tiers = Counter(r["tier"] for r in rows)
     g = ["```mermaid", "flowchart TD",
-         f'    ROOT(("🕸️ agenticgraphs<br/>{len(rows)} graphs · {len(dom)} domains"))']
+         f'    ROOT(("🕸️ agenticgraphs<br/>{len(rows)} graphs · {len(dom)} domains · '
+         f'{len(pat)} motifs<br/>{tiers["primitive"]} primitives · {tiers["composite"]} composites"))']
     for i, (p, c) in enumerate(pat.most_common()):
         g.append(f'    ROOT --> P{i}[/"{p} ×{c}"/]')
         g.append(f'    P{i} --> E{i}["e.g. {example[p]}"]')
@@ -287,8 +289,11 @@ def graph_of_graphs(rows: list[dict]) -> str:
         BEGIN,
         "## 🗺️ The graph of graphs",
         "",
-        "Every shipped graph is one of nineteen verified motifs. Full per-graph cards "
-        "(diagram, contract, node roster, use-cases) live in [CARDS.md](CARDS.md).",
+        f"Every shipped graph is one of {len(pat)} verified motifs, and every graph is "
+        f"either a **primitive** ({tiers['primitive']}) or a **composite** "
+        f"({tiers['composite']}) that references primitives by `kind: subgraph`. Full "
+        "per-graph cards (diagram, contract, node roster, use-cases) live in "
+        "[CARDS.md](CARDS.md).",
         "",
         *g, "",
         "<details><summary>Distribution by domain</summary>", "",
@@ -312,6 +317,8 @@ def main() -> int:
         (gpath.parent / "CARD.md").write_text(gen_card(doc, entry, catalog, has_evals))
         rows.append({"cid": card_id(entry), "name": doc["name"], "domain": doc["category"],
                      "pattern": entry["pattern"], "contract": doc["termination"]["contract"],
+                     "tier": "composite" if any(n.get("kind") == "subgraph" for n in doc["nodes"])
+                     else "primitive",
                      "path": f"graphs/{doc['category']}/{doc['name']}/CARD.md"})
     (ROOT / "CARDS.md").write_text(gen_index(rows) + "\n")
     readme = ROOT / "README.md"

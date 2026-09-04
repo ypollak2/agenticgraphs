@@ -42,6 +42,8 @@ nodes:
   kind: verifier
   criteria: The retained candidate is measurably faster than baseline on the real benchmark with the suite
     green. A candidate that is faster because it stopped doing the work is the failure this node catches.
+  unbound_ok: 'narrated: run_suite has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: profile
   to: explore

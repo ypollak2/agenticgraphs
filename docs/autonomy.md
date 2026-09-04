@@ -48,8 +48,15 @@ mutated *copy* of the graph YAML — nothing is written.
 With `persist=true`:
 
 ```
-AGR_AUTONOMOUS=1 agr mcp --http --port 8765
+AGR_MCP_TOKEN=$(openssl rand -hex 32) AGR_AUTONOMOUS=1 agr mcp --http --port 8765
 ```
+
+Over HTTP the token is mandatory once `AGR_AUTONOMOUS=1` is set: `agr mcp --http`
+refuses to start without it. Loopback-only binding stops remote callers, not the
+other processes on the same machine, and an unattended server that can commit is
+exactly the one that must know who is calling. Clients send
+`Authorization: Bearer <token>`; anything else gets `401`. Over stdio the parent
+process *is* the caller, so no token applies.
 
 ...and then a call to `infuse_ability(name="code-review-pipeline", node_id="triage",
 ability="edit_files", persist=true)` will, if the gate passes:
@@ -79,12 +86,10 @@ Without `--autonomous` (and without `AGR_AUTONOMOUS=1` in the environment):
 
 With `--autonomous` or `AGR_AUTONOMOUS=1`, `--apply` runs straight through, no prompt.
 
-Note: `agr optimize` does not currently go through `commit_autonomous_mutation` — it
-writes to the human's checkout via the same `_write_checked` path every `optimize --apply`
-has always used. The autonomy gate here governs *whether it's allowed to run unattended
-at all*, not where it commits. If you need optimizer output to land on `auto/mutations`
-too, run it through a checkout dedicated to that branch, or drive it via the MCP
-`infuse_ability` path instead.
+`agr optimize --apply --autonomous` goes through `commit_autonomous_mutation` exactly
+like an MCP persist: the change lands on `auto/mutations`, never on the checked-out
+branch, and is never pushed. (Until the 2026-09-04 audit the optimizer wrote straight
+into the live checkout under the same flag — one switch, two blast radii.)
 
 ## Execute-risk cap on autonomous persist
 
@@ -134,7 +139,8 @@ autonomy gate produces a reviewable branch, not a fait accompli on `main`.
 - [`scripts/install_service.sh`](../scripts/install_service.sh) — always-on `agr mcp --http`
   as a macOS LaunchAgent (separate from, and not gated by, autonomy — it just serves the
   read-only tools plus `persist=false` infusion unless you *also* export `AGR_AUTONOMOUS=1`
-  in the LaunchAgent's environment).
+  **and** `AGR_MCP_TOKEN` in the LaunchAgent's environment — the server will not start
+  autonomous over HTTP without a token).
 - [`scripts/headless_run.sh`](../scripts/headless_run.sh) — a non-interactive `claude -p`
   recipe scoped to `Bash(uv run agr *)`, deliberately not touching the autonomy gate at
   all (it only searches/evals, never infuses or optimizes).

@@ -32,6 +32,8 @@ nodes:
   - slice_ported
   - snapshot_after: any
   - snapshot_before: any
+  maps:
+    slice_ported: snapshot_after
 - id: integrate
   speciality: qa-lead
   abilities:
@@ -45,6 +47,8 @@ nodes:
   criteria: The build and the full suite are green on the target stack with no slice left unported. A
     partially migrated codebase that passes because the unported half is untested is the outcome the slice
     count exists to prevent.
+  unbound_ok: 'narrated: run_suite has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: sign-off
   speciality: tech-lead
   abilities:
@@ -66,6 +70,8 @@ nodes:
   - escalation_reason
   criteria: The migration halts with the failing slice named and the suite output attached, so the next
     attempt starts from what broke rather than from zero.
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: inventory
   to: supervise

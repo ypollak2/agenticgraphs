@@ -41,6 +41,8 @@ nodes:
   - mitigation
   inputs:
   - bypass
+  unbound_ok: 'narrated: edit_files, execute_step has no binding in this runtime; the effect is the model''s
+    account of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: retest
   speciality: verifier
   abilities:
@@ -58,6 +60,7 @@ nodes:
     stopped early.
   retries:
     max: 2
+    reissue_effects: true
 edges:
 - from: scope
   to: attack

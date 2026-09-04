@@ -18,9 +18,21 @@ def run(capsys, *argv) -> tuple[int, str]:
 
 
 def test_list_names_every_graph(capsys):
+    """Exact, cross-surface: the CLI lists what the registry holds, no more, no
+    less. A `>= 83` lower bound let the count drift in either direction (D8-06)."""
+    from agenticgraphs.registry import iter_graphs
+
     code, out = run(capsys, "list")
     assert code == 0
-    assert len([ln for ln in out.splitlines() if ln.strip()]) >= 83
+    assert len([ln for ln in out.splitlines() if ln.strip()]) == len(iter_graphs())
+
+
+def test_list_json_carries_the_derived_tier(capsys):
+    code, out = run(capsys, "list", "--json")
+    rows = [json.loads(ln) for ln in out.splitlines() if ln.strip()]
+    assert code == 0 and {r["tier"] for r in rows} == {"primitive", "composite"}
+    fdl = next(r for r in rows if r["name"] == "feature-delivery-lifecycle")
+    assert fdl["tier"] == "composite"
 
 
 def test_show_emits_the_definition(capsys):
@@ -67,3 +79,22 @@ def test_no_command_is_a_usage_error():
     with pytest.raises(SystemExit) as e:
         main([])
     assert e.value.code != 0
+
+
+def test_mcp_without_the_extra_says_how_to_install_it(capsys, monkeypatch):
+    """A bare `uv sync` has no `mcp` package; the command must say so instead of
+    tracebacking (2026-09-04 audit, D9-7)."""
+    import builtins
+    real_import = builtins.__import__
+
+    def no_mcp(name, *a, **kw):
+        if name == "mcp" or name.startswith("mcp."):
+            raise ImportError("No module named 'mcp'")
+        return real_import(name, *a, **kw)
+
+    monkeypatch.setattr(builtins, "__import__", no_mcp)
+    monkeypatch.delitem(__import__("sys").modules, "agenticgraphs.mcp_server", raising=False)
+    code = main(["mcp"])
+    err = capsys.readouterr().err
+    assert code == 2
+    assert "uv sync --all-extras" in err

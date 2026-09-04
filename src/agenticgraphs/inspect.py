@@ -79,8 +79,24 @@ def structural_profile(doc: dict, root: Path = ROOT,
             "verification_asserts": len(doc.get("verification", [])),
             "risk_surface": max(risks, key=lambda r: RISK_ORDER[r], default="read"),
         },
+        # R4-01: the shape hash of every referenced child, so a composite's
+        # evidence is invalidated when a child changes underneath it (the same
+        # A4 mechanism `audit_recordings.py` uses for the graph's own shape).
+        **({"refs": _ref_shapes(doc, root)} if any(n.get("kind") == "subgraph" for n in nodes) else {}),
         "measured": None,  # M1: eval harness fills quality/cost/robustness here
     }
+
+
+def _ref_shapes(doc: dict, root: Path) -> dict[str, str]:
+    from .registry import sha, shape
+
+    out = {}
+    for n in doc["nodes"]:
+        if n.get("kind") == "subgraph":
+            gp = root / "graphs" / n["ref"] / "graph.yaml"
+            if gp.exists():
+                out[n["ref"]] = sha(shape(load(gp)))
+    return out
 
 
 def render_profile(doc: dict, root: Path = ROOT) -> str:

@@ -26,6 +26,7 @@ nodes:
   outputs:
   - output
   - revision_requested: bool
+  - unsupported_claims: list
   criteria: Every verdict carries the source URL and the quoted span that settles it, so a reader can
     check the check. A verdict without a quote span is an assertion about an assertion.
 edges:

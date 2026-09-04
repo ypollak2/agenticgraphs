@@ -19,9 +19,10 @@ nodes:
   inputs:
   - advisory
   outputs:
-  - exploitability
   - priority
   - ranking: list[{asset_map_ref:any, scanner_evidence:any}]
+  maps:
+    priority: ranking
 - id: reproduce
   speciality: worker
   abilities:
@@ -34,6 +35,9 @@ nodes:
   - repro_exit_code_before
   retries:
     max: 2
+    reissue_effects: true
+  unbound_ok: 'narrated: edit_files has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: patch
   speciality: executor
   abilities:
@@ -43,6 +47,8 @@ nodes:
   - repro_confirmed
   outputs:
   - patch
+  unbound_ok: 'narrated: edit_files, execute_step has no binding in this runtime; the effect is the model''s
+    account of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: prove
   speciality: verifier
   abilities:
@@ -59,6 +65,7 @@ nodes:
     a human has signed off.
   retries:
     max: 2
+    reissue_effects: true
 - id: disclose-approval
   speciality: approver
   kind: human
@@ -92,6 +99,8 @@ nodes:
   - escalation_reason
   criteria: The vulnerability is escalated with every patch attempted and the proof-of-concept still succeeding.
     Nothing is disclosed on this path.
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: ingest
   to: prioritize

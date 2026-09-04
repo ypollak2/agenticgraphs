@@ -58,6 +58,8 @@ nodes:
   outputs:
   - output
   - typeset
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: escalate-manuscript
   speciality: escalator
   abilities:
@@ -68,6 +70,8 @@ nodes:
   - escalation_reason
   criteria: The manuscript returns to the editor with the violations that survived copy-editing, rather
     than reaching an author sign-off it has not earned.
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: assess
   to: dev-edit

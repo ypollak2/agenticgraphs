@@ -284,6 +284,25 @@ class RunReport:
     # refused rather than inventing a subject. Carries the graph's own
     # `goal.description`, which is what the refusal tells the caller to bring.
     goal_missing: str = ""
+    # 2026-09-04 audit, D3-03 — the failure taxonomy. A model reply that did not
+    # parse, a human gate nobody could sign, and a node that ran past its
+    # deadline used to leave `run_graph` as three bare exceptions, which the
+    # recorder collapsed into one untyped string and the scoreboard could not
+    # tell from "never ran". Each is now a field: queryable, replayable, counted.
+    parse_failures: list[str] = field(default_factory=list)   # "<node>: <why>"
+    gate_refused: str = ""                                     # the gate's own message
+    timeouts: list[str] = field(default_factory=list)         # "<node>: <seconds>s"
+    #: R3-06 — a node emitted a key the caller seeded via `state.inputs` with a
+    #: different value. The caller's value is kept; the attempt is recorded. A
+    #: model that "reports" the threshold it was handed would otherwise grade
+    #: itself against a number it chose.
+    overwritten_inputs: list[str] = field(default_factory=list)
+    #: R6-03 — scheduler rounds. `steps` counts node executions (the v1 trace
+    #: lock and `max_steps` depend on that meaning); a round is one pass of the
+    #: scheduler, in which every ready member of a `parallel_group` runs
+    #: concurrently. rounds < steps is the observable fact that concurrency
+    #: happened.
+    rounds: int = 0
 
     def frames_for(self, node_id: str) -> list[dict]:
         return [f for f in self.frames if f["node"] == node_id]
@@ -324,7 +343,27 @@ class RunReport:
                 and not self.state_violations and not self.budget_exhausted
                 and not self.shape_violations and not self.goal_missing
                 and not self.hit_step_cap and not self.deadlocked
-                and not self.unreached_terminals)
+                and not self.unreached_terminals and not self.gate_refused)
+
+    @property
+    def failure_kinds(self) -> list[str]:
+        """Which classes of failure this run exhibited, for a scoreboard column."""
+        kinds = []
+        if self.parse_failures:
+            kinds.append("parse")
+        if self.gate_refused:
+            kinds.append("gate")
+        if self.timeouts:
+            kinds.append("timeout")
+        if self.assert_failures:
+            kinds.append("assert")
+        if self.command_failures:
+            kinds.append("command")
+        if self.unreached_terminals or self.deadlocked or self.hit_step_cap:
+            kinds.append("stall")
+        if self.budget_exhausted:
+            kinds.append("budget")
+        return kinds
 
 
 def _goal_line(bb: dict) -> str:
@@ -836,6 +875,14 @@ def _run_command(cmd: str, cwd, rep: RunReport, bb: dict | None = None) -> None:
 _TOKEN_PRICES: dict[str, tuple[float, float]] = {
     "gpt-4o": (2.50, 10.00),
     "gpt-4o-mini": (0.15, 0.60),
+    # The models the evidence base is actually recorded on run locally under
+    # Ollama: measured usage, zero marginal price. Listing them at 0 makes
+    # `budget.usd_max` a measured fact for those runs instead of a flat
+    # per-node guess (2026-09-04 audit, D3-06). Keyed by family so any tag matches.
+    "qwen3-coder": (0.0, 0.0),
+    "qwen2.5-coder": (0.0, 0.0),
+    "devstral": (0.0, 0.0),
+    "hermes3": (0.0, 0.0),
 }
 
 #: Fallback for a mock run or an unpriced model: there are no token counts to
@@ -857,9 +904,39 @@ def _spend(runner, steps: int) -> tuple[float, bool]:
     return (usage["prompt_tokens"] * price[0] + usage["completion_tokens"] * price[1]) / 1e6, True
 
 
+def _with_deadline(fn, seconds: float | None):
+    """Run `fn()` with a wall-clock deadline. Returns (result, timed_out).
+
+    The work runs on a daemon thread; on expiry the caller gets a typed timeout
+    and the thread is abandoned. A node could previously run for ~51 minutes
+    (4 tool rounds x 4 HTTP attempts x 180s) with nothing in `run_graph` to bound
+    it (2026-09-04 audit, D3-02). No deadline configured means no thread.
+    """
+    if not seconds:
+        return fn(), False
+    import threading
+
+    box: dict = {}
+
+    def target():
+        try:
+            box["out"] = fn()
+        except BaseException as ex:
+            box["exc"] = ex
+
+    t = threading.Thread(target=target, daemon=True)
+    t.start()
+    t.join(seconds)
+    if t.is_alive():
+        return None, True
+    if "exc" in box:
+        raise box["exc"]
+    return box["out"], False
+
+
 def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
               run_commands: bool = False, resume_from=None,
-              inputs: dict | None = None) -> RunReport:
+              inputs: dict | None = None, node_timeout: float | None = None) -> RunReport:
     """Execute an AGR graph against a runner.
 
     v1.1 adds: subgraph expansion, join semantics, error/compensate edge kinds,
@@ -877,6 +954,11 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
 
     rep = RunReport()
     seed = dict(inputs or {})
+    # Expansion first (R4-02): a child's `goal.required` and `state.inputs` are
+    # part of what this run needs, and the gate below must see them.
+    if has_subgraphs(doc):
+        doc = expand(doc, root) if root else expand(doc)
+        rep.expanded = True
     # The goal gate runs before anything is scheduled. A graph that cannot know
     # what it is working on does not guess at it: it refuses, having executed no
     # node, and reports what it needed. `supplied_by_trigger` exempts graphs whose
@@ -905,9 +987,6 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
         rep.tool_calls.append(
             ToolCall(rec["ability"], rec.get("args", {}), rec["ok"], rec.get("detail", ""))
         )
-    if has_subgraphs(doc):
-        doc = expand(doc, root) if root else expand(doc)
-        rep.expanded = True
     doc = _normalize(doc)
 
     nodes = {n["id"]: n for n in doc["nodes"]}
@@ -933,6 +1012,10 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
     visits: dict[str, int] = defaultdict(int)
     attempts: dict[str, int] = defaultdict(int)
     bb: dict = seed
+    # Keys the caller supplied through `state.inputs` are the caller's for the
+    # whole run (R3-06). `goal` is included: a graph that rewrites its goal has
+    # changed the question.
+    protected = set((doc.get("state") or {}).get("inputs") or []) & set(seed)
     cap = doc["termination"]["max_steps"]
     budget = doc.get("budget") or {}
     # D3: resume is replay. v1.2 already journals every node execution, so a
@@ -989,7 +1072,25 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
             break
         nid = pending.pop(pick)
         node = nodes[nid]
+        # R6-03 (owner decision Q2): members of one `parallel_group` that are
+        # ready together run together, as one step. 89 graphs declared groups
+        # the runtime scheduled one node at a time; the lint vouched for a
+        # property nothing delivered. `steps` still counts node executions (the
+        # v1 trace lock holds); `rounds` counts scheduler passes.
+        group = node.get("parallel_group")
+        batch = [nid]
+        if group and not (nid in completed and visits[nid] == 1):
+            for other in list(pending):
+                if (nodes[other].get("parallel_group") == group and rdy.ready(other)
+                        and not (other in completed and visits[other] == 1)):
+                    pending.remove(other)
+                    batch.append(other)
+        if len(batch) > 1:
+            _run_batch(batch, nodes, bb, runner, rep, visits, attempts, protected, node_timeout,
+                       auto_approve, doc, out_edges, resolved, taken, forced, pending, ran)
+            continue
         rep.steps += 1
+        rep.rounds += 1
         rep.trace.append(nid)
         ran.add(nid)
         forced.discard(nid)
@@ -1012,17 +1113,47 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
             bb.update(out)
             _fire(nid, node, out, doc, out_edges, resolved, taken, forced, pending, bb, rep)
             continue
-        if node.get("kind") == "human":
-            out = _run_gate(node, bb, runner, auto_approve, rep)
-        elif node.get("fan_out"):
-            out = _fan_out(node, bb, runner, rep, visits[nid])
-        elif node.get("kind") == "search":
-            out = _search(node, bb, runner, rep, visits[nid])
-        else:
+        deadline = node.get("timeout_s") or node_timeout
+
+        def _execute(node=node, nid=nid):
+            if node.get("kind") == "human":
+                return _run_gate(node, bb, runner, auto_approve, rep)
+            if node.get("fan_out"):
+                return _fan_out(node, bb, runner, rep, visits[nid])
+            if node.get("kind") == "search":
+                return _search(node, bb, runner, rep, visits[nid])
             before = len(rep.tool_calls)
             out = _reconcile_output(node, runner.run(node, bb), runner, rep)
             _bind_evidence(bb, rep, before)
             rep.frames.append({"node": nid, "visit": visits[nid], "out": out})
+            return out
+
+        try:
+            out, timed_out = _with_deadline(_execute, deadline)
+        except HumanGateRequired as ex:
+            # Nobody can sign this gate. That is a typed outcome of the run, not
+            # a crash: the report says which gate and why, the run stops here,
+            # and `passed` is False.
+            rep.gate_refused = f"{nid}: {ex}"
+            break
+        except ValueError as ex:
+            # `extract_json` found no object in the model's reply. Recorded as a
+            # node error so `retries` and error edges apply, and counted so the
+            # scoreboard can show "unparseable" instead of losing the sample.
+            rep.parse_failures.append(f"{nid}: {ex}")
+            out, timed_out = {"error": f"parse: {ex}"}, False
+        if timed_out:
+            rep.timeouts.append(f"{nid}: {deadline}s")
+            out = {"error": f"timeout: node '{nid}' exceeded {deadline}s"}
+        if timed_out or out.get("error", "").startswith("parse:"):
+            rep.frames.append({"node": nid, "visit": visits[nid], "out": out})
+        for parent_key, child_key in (node.get("aliases") or {}).items():
+            if child_key in out:
+                out[parent_key] = out[child_key]
+        for k in protected & out.keys():
+            if out[k] != bb.get(k):
+                rep.overwritten_inputs.append(f"{nid}: tried to overwrite caller input '{k}'")
+                out = {kk: vv for kk, vv in out.items() if kk != k}
         bb.update(out)
         violations = _shapes.violations(node, out)
         if violations:
@@ -1146,6 +1277,13 @@ def _aggregate(node: dict, bb: dict) -> None:
     values = bb.get(spec["over"])
     if not isinstance(values, list):
         return
+    # A fanned-out list carries `None` for every shard that failed or did not
+    # produce the key (`on_partial: continue`). `median`/`best` over a None used to
+    # raise TypeError and take the whole run down — two shipped graphs did exactly
+    # that on their first failed shard (2026-09-04 audit, D1-01). `continue` means
+    # "aggregate over the shards that succeeded", so drop them here, visibly.
+    if spec["op"] in ("median", "best"):
+        values = [v for v in values if v is not None]
     bb[spec["over"]] = _AGG[spec["op"]](values)
 
 
@@ -1176,10 +1314,17 @@ def _fan_out(node: dict, bb: dict, runner, rep: RunReport, visit: int) -> dict:
         results.append(out)
     errs = [r for r in results if r.get("error")]
     on_partial = spec.get("on_partial", "continue")
-    keys = set(_shapes.names(node)) | {k for r in results for k in r}
+    # `error` is the node-level failure flag the scheduler reads. Merging it like
+    # any other key produced a list such as `[None, "shard 2 blew up", None]` —
+    # truthy — so one failed shard under `on_partial: continue` failed the whole
+    # node anyway (found while fixing D1-01, 2026-09-04). Per-shard errors keep
+    # their own key; the node-level flag is set only when the policy says so.
+    keys = (set(_shapes.names(node)) | {k for r in results for k in r}) - {"error"}
     merged: dict = {k: [r.get(k) for r in results] for k in keys}
     merged["shards_processed"] = len(results)
     merged["shards_failed"] = len(errs)
+    if errs:
+        merged["shard_errors"] = [r.get("error") for r in results]
     if errs and on_partial == "fail":
         merged["error"] = f"{len(errs)} of {len(results)} shards failed"
     return merged
@@ -1286,6 +1431,94 @@ def _persist_memory(doc: dict, bb: dict, root, rep: RunReport) -> None:
         with target.open("a") as fh:
             for lesson in rep.lessons:
                 fh.write(json.dumps({"graph": doc["name"], "lesson": lesson}) + "\n")
+
+
+def _execute_node(node, nid, bb, runner, rep, visits, auto_approve):
+    """One node's execution against `bb`, exactly as the serial path does it."""
+    if node.get("kind") == "human":
+        return _run_gate(node, bb, runner, auto_approve, rep)
+    if node.get("fan_out"):
+        return _fan_out(node, bb, runner, rep, visits[nid])
+    if node.get("kind") == "search":
+        return _search(node, bb, runner, rep, visits[nid])
+    before = len(rep.tool_calls)
+    out = _reconcile_output(node, runner.run(node, bb), runner, rep)
+    _bind_evidence(bb, rep, before)
+    rep.frames.append({"node": nid, "visit": visits[nid], "out": out})
+    return out
+
+
+def _run_batch(batch, nodes, bb, runner, rep, visits, attempts, protected, node_timeout,
+               auto_approve, doc, out_edges, resolved, taken, forced, pending, ran) -> None:
+    """Run every node in `batch` concurrently, then settle them in order.
+
+    Each node sees a snapshot of the blackboard taken before the batch, with its
+    own `attempts`. Outputs are merged in batch order afterwards, so the result
+    is the same as the serial path whenever the members are truly independent —
+    which is what `parallel_group` declares. A member that fails, times out or
+    does not parse is handled like any node: retries, error edges, the report.
+    """
+    from concurrent.futures import ThreadPoolExecutor
+
+    rep.steps += len(batch)   # node executions, as the trace lock and max_steps count them
+    rep.rounds += 1           # one scheduler round for the whole batch
+    snapshots = {}
+    for nid in batch:
+        rep.trace.append(nid)
+        ran.add(nid)
+        forced.discard(nid)
+        visits[nid] += 1
+        snap = dict(bb)
+        snap["attempts"] = visits[nid]
+        _aggregate(nodes[nid], snap)
+        snapshots[nid] = snap
+
+    def one(nid):
+        node = nodes[nid]
+        deadline = node.get("timeout_s") or node_timeout
+        try:
+            out, timed_out = _with_deadline(
+                lambda: _execute_node(node, nid, snapshots[nid], runner, rep, visits, auto_approve),
+                deadline)
+        except HumanGateRequired as ex:
+            return {"__gate__": f"{nid}: {ex}"}
+        except ValueError as ex:
+            rep.parse_failures.append(f"{nid}: {ex}")
+            out, timed_out = {"error": f"parse: {ex}"}, False
+        if timed_out:
+            rep.timeouts.append(f"{nid}: {deadline}s")
+            out = {"error": f"timeout: node '{nid}' exceeded {deadline}s"}
+        if timed_out or out.get("error", "").startswith("parse:"):
+            rep.frames.append({"node": nid, "visit": visits[nid], "out": out})
+        return out
+
+    with ThreadPoolExecutor(max_workers=len(batch)) as pool:
+        results = list(pool.map(one, batch))
+
+    for nid, out in zip(batch, results, strict=True):
+        node = nodes[nid]
+        if "__gate__" in out:
+            rep.gate_refused = out["__gate__"]
+            pending.clear()
+            return
+        for parent_key, child_key in (node.get("aliases") or {}).items():
+            if child_key in out:
+                out[parent_key] = out[child_key]
+        for k in protected & out.keys():
+            if out[k] != bb.get(k):
+                rep.overwritten_inputs.append(f"{nid}: tried to overwrite caller input '{k}'")
+                out = {kk: vv for kk, vv in out.items() if kk != k}
+        bb["attempts"] = visits[nid]
+        bb.update(out)
+        violations = _shapes.violations(node, out)
+        if violations:
+            rep.shape_violations += violations
+        if out.get("error") and attempts[nid] < node.get("retries", {}).get("max", 0):
+            attempts[nid] += 1
+            rep.retries_used += 1
+            pending.insert(0, nid)
+            continue
+        _fire(nid, node, out, doc, out_edges, resolved, taken, forced, pending, bb, rep)
 
 
 def _fire(nid, node, out, doc, out_edges, resolved, taken, forced, pending, bb, rep) -> None:

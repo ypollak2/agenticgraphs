@@ -1,3 +1,5 @@
+> **Superseded by [AGR v1.8](agr-v1.8.md).** This page describes an earlier version and is kept for the record; the current spec is agr-v1.8.md.
+
 # AGR v1.7 — the goal
 
 A graph now knows what it is working on, or refuses to work.

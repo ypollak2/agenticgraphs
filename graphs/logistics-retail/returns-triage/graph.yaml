@@ -33,6 +33,8 @@ nodes:
   - output
   criteria: The route agrees with the policy decision table for the stated reason code, and anything routed
     to fraud review cites the specific pattern that triggered it rather than a general suspicion.
+  inputs:
+  - policy_table
 edges:
 - from: route
   to: branch-simple

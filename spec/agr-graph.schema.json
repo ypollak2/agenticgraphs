@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://agenticgraphs.dev/spec/agr-graph.schema.json",
-  "title": "AGR Graph v1.7",
+  "title": "AGR Graph v1.8",
   "type": "object",
   "required": [
     "apiVersion",
@@ -88,6 +88,26 @@
             ],
             "default": "agent"
           },
+          "maps": {
+            "type": "object",
+            "additionalProperties": {"type": "string"},
+            "description": "kind: subgraph only. Explicit renames from the child's vocabulary to this graph's: {parent_key: child_key}. Every phase output the child does not itself produce must be mapped here from a key it does, and the lint checks both sides against the referenced graph (2026-09-04 audit, D4-01). Before this, a phase could declare any output and expansion simply contracted the child's terminal to produce it."
+          },
+          "aliases": {
+            "type": "object",
+            "additionalProperties": {"type": "string"},
+            "description": "Runtime-only: set by subgraphs.expand on a child's terminal from the phase's `maps`; after the node runs, out[parent_key] = out[child_key]. Not for authoring."
+          },
+          "unbound_ok": {
+            "type": "string",
+            "minLength": 10,
+            "description": "Why it is acceptable that this node's write/execute abilities have no binding in this runtime, i.e. that the effect is the model's narration of it. Required by `_lint_unbound` whenever such an ability is declared; absent on a node whose effects are actually executed."
+          },
+          "timeout_s": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Wall-clock deadline for one execution of this node, in seconds. Enforced: on expiry the node yields `error: timeout`, `retries` and error edges apply, and the report lists it under `timeouts`. Unset means unbounded (the reference runtime's `run_graph(node_timeout=...)` supplies a run-wide default)."
+          },
           "parallel_group": {
             "type": "string"
           },
@@ -140,6 +160,10 @@
                 "minimum": 0,
                 "maximum": 5,
                 "description": "Re-runs on error before error edges fire. Enforced."
+              },
+              "reissue_effects": {
+                "type": "boolean",
+                "description": "The node accepts that a retry re-runs an ability declared `idempotent: false`, repeating its effect. Required by `_lint_retry_reissue` when such an ability is retried."
               }
             },
             "required": [

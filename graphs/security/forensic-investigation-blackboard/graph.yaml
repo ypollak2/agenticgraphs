@@ -27,6 +27,7 @@ nodes:
     max: 8
   retries:
     max: 2
+    reissue_effects: true
 - id: assess
   speciality: judge
   abilities:

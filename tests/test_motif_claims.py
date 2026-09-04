@@ -1,7 +1,7 @@
 """Every graph declares a motif, and nothing ever checked it.
 
 `usecase.yaml` names the pattern each graph implements, and the README organises
-the whole registry around "the nineteen motifs". Ten graphs called themselves
+the whole registry around its motif tables. Ten graphs called themselves
 `parallel-swarm` while being a linear three-node chain, and four still did after
 the v1.8 topology work — including two `map-reduce` graphs that mapped over
 nothing. A motif nothing verifies is the same defect as a contract nothing
@@ -95,3 +95,22 @@ def test_the_rule_is_armed_at_v1_8_only():
     doc = {"apiVersion": "agr/v1.7", "__pattern__": "parallel-swarm",
            "nodes": [{"id": "a"}], "edges": []}
     assert _lint_motif(doc) == []
+
+
+def test_the_readme_motif_tables_name_exactly_the_shipped_motifs():
+    """Two motifs sat in the README with no graph behind them, shipped or
+    backlog (2026-09-04 audit, D0-2). The tables and the registry must agree
+    in both directions, and the count badge follows from that set."""
+    import re
+
+    from agenticgraphs.registry import ROOT
+
+    catalog = {e["name"]: e["pattern"]
+               for e in load(ROOT / "usecases" / "catalog.yaml")["entries"]}
+    shipped = {catalog[load(g)["name"]] for g in iter_graphs()}
+    readme = (ROOT / "README.md").read_text()
+    prose = re.sub(r"<!-- [a-z-]+:begin -->.*?<!-- [a-z-]+:end -->", "", readme, flags=re.S)
+    tabled = set(re.findall(r"^\| `([a-z0-9-]+)` \| .+ \| `[a-z0-9-]+` \|$", prose, flags=re.M))
+    assert tabled == shipped, (sorted(tabled - shipped), sorted(shipped - tabled))
+    badge = re.search(r"badge/motifs-(\d+)-", readme)
+    assert badge and int(badge.group(1)) == len(shipped)

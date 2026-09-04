@@ -13,6 +13,8 @@ nodes:
   outputs:
   - findings: list[{source_date:any, source_url:any}]
   - supplier_signals
+  maps:
+    supplier_signals: findings
 - id: score
   speciality: analyst
   abilities:
@@ -38,6 +40,7 @@ nodes:
   kind: verifier
   inputs:
   - concentration
+  - supplier_list
   outputs:
   - above_appetite
   - concentration: list[{single_source:bool, supplier_count:int}]

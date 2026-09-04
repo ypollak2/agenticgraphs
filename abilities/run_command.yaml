@@ -4,3 +4,5 @@ risk: execute
 binding:
   kind: builtin
   ref: agenticgraphs.bindings:run_command
+# Re-running repeats the effect; a node that retries this must say so.
+idempotent: false

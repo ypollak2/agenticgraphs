@@ -14,7 +14,12 @@
         "ref": {"type": "string"}
       }
     },
-    "risk": {"enum": ["read", "write", "execute"], "default": "read"}
+    "risk": {"enum": ["read", "write", "execute"], "default": "read"},
+    "idempotent": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether re-running the ability with the same inputs repeats its effect. false for commands, edits, filings, releases, notifications; a node that retries such an ability must declare retries.reissue_effects."
+    }
   },
   "additionalProperties": false
 }

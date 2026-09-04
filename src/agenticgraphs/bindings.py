@@ -80,7 +80,13 @@ def _read_diff(args: dict, cwd: Path, rep_calls: list) -> dict:
     cmd = ["git", "diff", "--unified=0", ref]
     if path:
         cmd += ["--", path]
-    proc = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, check=False)
+    try:
+        proc = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True,
+                              timeout=120, check=False)
+    except (OSError, subprocess.SubprocessError) as ex:
+        # Same contract as `_run_command`: a hung or missing git is a fact the
+        # caller gets back, not a run that never returns (2026-09-04 audit, D3-02).
+        return {"hunks": [], "files": [], "error": f"{type(ex).__name__}: {ex}"}
     hunks, current = [], None
     for line in proc.stdout.splitlines():
         if line.startswith("+++ b/"):
@@ -127,11 +133,48 @@ def _web_search(args: dict, cwd: Path, rep_calls: list) -> dict:
     return {"results": found}
 
 
+# Public names: what `abilities/*.yaml` `binding.ref` points at
+# (`agenticgraphs.bindings:run_command`). The refs pointed at symbols that did
+# not exist and nothing read them (2026-09-04 audit, D2-02).
+run_command = _run_command
+read_diff = _read_diff
+web_search = _web_search
+
+#: Name -> callable for the abilities this module implements. Since R3-03 the
+#: authoritative map is `resolve_binding()` over each ability's declared
+#: `binding.ref`; this table is what those refs resolve to and the fallback for a
+#: YAML that declares no binding at all.
 BUILTINS = {
     "run_command": _run_command,
     "read_diff": _read_diff,
     "web_search": _web_search,
 }
+
+
+def resolve_binding(doc: dict):
+    """The callable an ability's `binding` declares, or None.
+
+    `kind: builtin` refs are `module:attr` and are imported here, so a YAML that
+    names a symbol that does not exist fails loudly (`agr validate` runs this
+    through `lint_ability`). `mcp_tool` and `shell` have no resolver yet and
+    resolve to None: an ability that declares one is not bound, and says so.
+    """
+    b = doc.get("binding") or {}
+    if b.get("kind") != "builtin":
+        return None
+    ref = b.get("ref", "")
+    if ":" not in ref:
+        raise BindingError(f"{doc.get('name')}: binding.ref {ref!r} is not module:attr")
+    mod, attr = ref.split(":", 1)
+    import importlib
+
+    try:
+        target = getattr(importlib.import_module(mod), attr)
+    except (ImportError, AttributeError) as ex:
+        raise BindingError(f"{doc.get('name')}: binding.ref {ref!r} does not resolve ({ex})") from ex
+    if not callable(target):
+        raise BindingError(f"{doc.get('name')}: binding.ref {ref!r} is not callable")
+    return target
 
 #: JSON Schema fragments the model sees. Kept narrow — a node may only do what its
 #: ability says it does.
@@ -154,13 +197,14 @@ def available(allow_mutating: bool = False, root: Path = ROOT) -> dict[str, dict
     for path in iter_yaml("abilities", root):
         doc = load(path)
         name = doc["name"]
-        if name not in BUILTINS:
+        fn = resolve_binding(doc) if doc.get("binding") else BUILTINS.get(name)
+        if fn is None:
             continue
         risk = doc.get("risk", "read")
         if risk in MUTATING and not allow_mutating:
             continue
-        out[name] = {"risk": risk, "schema": SCHEMAS[name],
-                     "description": doc["description"]}
+        out[name] = {"risk": risk, "schema": SCHEMAS.get(name, {}),
+                     "description": doc["description"], "fn": fn}
     return out
 
 
@@ -173,11 +217,12 @@ def bind_for(node: dict, allow_mutating: bool = False, root: Path = ROOT) -> dic
 def invoke(ability: str, args: dict, cwd: Path, allow_mutating: bool = False,
            root: Path = ROOT) -> ToolCall:
     """Run one bound ability and return the call record."""
-    if ability not in available(allow_mutating, root):
+    bound = available(allow_mutating, root)
+    if ability not in bound:
         return ToolCall(ability, args, False,
                         f"'{ability}' is not bound (unknown, or its risk requires --allow-tools)")
     try:
-        evidence = BUILTINS[ability](args, cwd, [])
+        evidence = bound[ability]["fn"](args, cwd, [])
     except BindingError as ex:
         return ToolCall(ability, args, False, str(ex))
     except Exception as ex:

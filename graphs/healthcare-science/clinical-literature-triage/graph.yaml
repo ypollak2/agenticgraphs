@@ -33,6 +33,8 @@ nodes:
   - output
   criteria: The study-type and evidence-level labels agree with the validated sample, and the level reflects
     the study design as reported rather than the strength of its conclusions.
+  inputs:
+  - validated_labels
 edges:
 - from: route
   to: branch-simple

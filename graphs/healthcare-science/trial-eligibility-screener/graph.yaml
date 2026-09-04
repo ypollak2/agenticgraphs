@@ -29,6 +29,8 @@ nodes:
   - ambiguous
   outputs:
   - escalated_cases
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 - id: clinician-review
   speciality: approver
   kind: human
@@ -52,6 +54,8 @@ nodes:
   - output
   - unreviewed_ambiguous: int
   join: any
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: prefilter
   to: criteria-match

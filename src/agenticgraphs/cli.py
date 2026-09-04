@@ -24,7 +24,8 @@ def _need(name: str) -> dict:
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="agr", description="evolvable, quality-proven agentic graphs")
     sub = p.add_subparsers(dest="cmd", required=True)
-    sub.add_parser("list", help="list all graphs")
+    sub.add_parser("list", help="list all graphs").add_argument(
+        "--json", action="store_true", help="one JSON object per line: name, category, tier, motif")
     sub.add_parser("search", help="search graphs by term").add_argument("term")
     vp = sub.add_parser("validate", help="validate graph file(s), or all if none given")
     vp.add_argument("paths", nargs="*", type=Path)
@@ -34,6 +35,9 @@ def main(argv: list[str] | None = None) -> int:
     ep = sub.add_parser("eval", help="run golden cases, write profile.json (M1)")
     ep.add_argument("--resume-from", type=Path, metavar="JOURNAL",
                     help="resume a killed run from its journal (requires durability.resume)")
+    ep.add_argument("--journal", type=Path, metavar="DIR",
+                    help="write each case's journal to DIR/<case_id>.jsonl when the graph "
+                         "declares durability.checkpoint: every_node (what --resume-from reads)")
     ep.add_argument("--no-replay", action="store_true",
                     help="ignore checked-in real-model recordings in the graph's live/ "
                          "and use mock fixtures instead")
@@ -65,7 +69,8 @@ def main(argv: list[str] | None = None) -> int:
     op.add_argument("--apply", action="store_true")
     op.add_argument("--autonomous", action="store_true",
                     help="allow --apply to run unattended (also honors AGR_AUTONOMOUS=1); see docs/autonomy.md")
-    ap = sub.add_parser("adapt", help="compile a graph to framework source (M3)")
+    ap = sub.add_parser("adapt", aliases=["instantiate"],
+                        help="compile a graph to framework source (M3); `instantiate` is the MCP tool's name")
     ap.add_argument("name")
     ap.add_argument("--target", default="langgraph", choices=["langgraph", "crewai", "autogen"],
                     help="target framework: langgraph (default), crewai, or autogen")
@@ -76,6 +81,9 @@ def main(argv: list[str] | None = None) -> int:
     cp.add_argument("--name", help="name for the composed graph (default: '<a>-then-<b>')")
     cp.add_argument("--allow-gaps", action="store_true",
                     help="proceed even if graph-b needs blackboard keys graph-a doesn't appear to produce")
+    cp.add_argument("--scaffold", type=Path, metavar="DIR",
+                    help="write a registry-shaped bundle (graph.yaml, cases.yaml, usecase.yaml, "
+                         "live/) to DIR so the composite can be evaluated and onboarded")
     cp.add_argument("--mode", choices=["inline", "subgraph"], default="inline",
                     help="inline: splice both graphs' nodes (v1). subgraph: emit a two-phase "
                          "parent that references each graph by ref (v1.1, edits to children propagate)")
@@ -92,7 +100,11 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.cmd == "list":
         for e in Registry.load():
-            print(f"{e.category}/{e.name}: {e.description}")
+            if args.json:
+                print(json.dumps({"name": e.name, "category": e.category, "tier": e.tier,
+                                  "motif": e.motif, "description": e.description}))
+            else:
+                print(f"{e.category}/{e.name}: {e.description}")
         return 0
     if args.cmd == "search":
         # Now matches name + description + *category*, which is what the MCP
@@ -119,7 +131,7 @@ def main(argv: list[str] | None = None) -> int:
                              run_commands=args.run_commands,
                              replay=not args.no_replay,
                              resume_from=args.resume_from,
-                             goal=args.goal)
+                             goal=args.goal, journal_dir=args.journal)
         print(json.dumps(profile["measured"], indent=2))
         return 0 if profile["measured"]["pass_rate"] == 1.0 else 1
     if args.cmd == "goal":
@@ -159,11 +171,18 @@ def main(argv: list[str] | None = None) -> int:
                     file=sys.stderr,
                 )
                 return 1
-        res = optimize(args.name, apply=args.apply)
+        if args.apply and autonomous:
+            from .mutate import optimize_autonomous
+
+            res = optimize_autonomous(args.name)
+        else:
+            res = optimize(args.name, apply=args.apply)
         for note in res["notes"] or ["nothing to change"]:
             print(("applied: " if args.apply else "proposed: ") + note)
+        if res.get("commit"):
+            print(f"committed {res['commit'][:8]} on {res['branch']} (not pushed)")
         return 0
-    if args.cmd == "adapt":
+    if args.cmd in ("adapt", "instantiate"):
         from .adapters import emit_autogen, emit_crewai, emit_langgraph
         emitters = {"langgraph": emit_langgraph, "crewai": emit_crewai, "autogen": emit_autogen}
         print(emitters[args.target](_need(args.name)))
@@ -186,6 +205,14 @@ def main(argv: list[str] | None = None) -> int:
         for w in warnings:
             print(w, file=sys.stderr)
         text = yaml.safe_dump(doc, sort_keys=False, width=120)
+        if args.scaffold:
+            from .compose import scaffold
+
+            files = scaffold(doc, [_need(args.graph_a), _need(args.graph_b)], args.scaffold)
+            print(f"scaffolded {args.scaffold}: " + ", ".join(str(f) for f in files))
+            print("next: complete usecase.yaml, then `agr validate` and `agr eval` the bundle "
+                  "from a registry root that contains it")
+            return 0
         if args.output:
             args.output.write_text(text)
             print(f"wrote {args.output}")
@@ -203,14 +230,26 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.cmd == "mcp":
         from .mcp_server import main as serve
-        serve(http=args.http, port=args.port)
+
+        try:
+            serve(http=args.http, port=args.port)
+        except ImportError as e:
+            # The `mcp` package is imported lazily inside create_server(), so a bare
+            # `uv sync` reaches here rather than failing at module import.
+            print(f"mcp: the MCP server needs the `mcp` extra ({e}).\n"
+                  "     install it with: uv sync --all-extras   "
+                  "(or: pip install 'vitruvian-graphs[mcp]')", file=sys.stderr)
+            return 2
         return 0
     if args.cmd == "validate":
         paths = args.paths or iter_graphs()
         failures = 0
+        from .validate import lint_ability
+
         for kind, dirname in (("speciality", "specialities"), ("ability", "abilities")):
             for f in iter_yaml(dirname):
-                errs = validate_schema(load(f), kind)
+                adoc = load(f)
+                errs = validate_schema(adoc, kind) or (lint_ability(adoc) if kind == "ability" else [])
                 for err in errs:
                     print(f"FAIL {f.name}: {err}")
                 failures += len(errs)

@@ -4,7 +4,9 @@
 # human keeping a terminal open.
 #
 # The agent runs: uv --directory <repo> run agr mcp --http --port 8765
-# bound to 127.0.0.1 only (see src/agenticgraphs/mcp_server.py). It is NOT
+# bound to 127.0.0.1 only (see src/agenticgraphs/mcp_server.py). Export
+# AGR_MCP_TOKEN in the plist's EnvironmentVariables to require a bearer token;
+# it is mandatory if you also export AGR_AUTONOMOUS=1. It is NOT
 # started by this script automatically running anything privileged — it only
 # writes the plist and asks launchd to bootstrap it (RunAtLoad + KeepAlive).
 #

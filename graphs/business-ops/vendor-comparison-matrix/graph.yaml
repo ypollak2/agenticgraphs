@@ -12,6 +12,8 @@ nodes:
   outputs:
   - findings: list[{source_date:any, source_url:any}]
   - vendor_docs
+  maps:
+    vendor_docs: findings
 - id: normalize
   speciality: analyst
   abilities:

@@ -5,6 +5,8 @@ cases:
       summary: intake complete
     generate:
       draft: v1
+      requirements: &id001
+      - python
     critique:
       rejected: false
       attempts: 1
@@ -16,9 +18,8 @@ cases:
         - python
         unique_requirements: &id006
         - python
-      bias_terms: &id001 []
-      requirements: &id002
-      - python
+      bias_terms: &id002 []
+      requirements: *id001
       unique_requirements: &id003
       - python
   goal: a staff platform engineer on the infra team
@@ -28,12 +29,13 @@ cases:
       summary: intake complete
     generate:
     - draft: v1
+      requirements: *id001
     - draft: v2
     critique:
     - rejected: true
       attempts: 1
-      bias_terms: *id001
-      requirements: *id002
+      bias_terms: *id002
+      requirements: *id001
       unique_requirements: *id003
       output:
         bias_terms: *id004
@@ -47,7 +49,7 @@ cases:
         bias_terms: *id004
         requirements: *id005
         unique_requirements: *id006
-      bias_terms: *id001
-      requirements: *id002
+      bias_terms: *id002
+      requirements: *id001
       unique_requirements: *id003
   goal: a staff platform engineer on the infra team

@@ -1,3 +1,5 @@
 name: edit_files
 description: Modify files in a workspace.
 risk: write
+# Re-running repeats the effect; a node that retries this must say so.
+idempotent: false

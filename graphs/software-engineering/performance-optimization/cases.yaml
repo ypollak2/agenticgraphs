@@ -12,6 +12,8 @@ cases:
       below_target: false
       attempts: 1
   goal: the search endpoint, to p95 under 200ms
+  inputs:
+    target_ms: 150
 - id: retry-then-meets-target
   node_outputs:
     intake:
@@ -31,3 +33,5 @@ cases:
     - below_target: false
       attempts: 2
   goal: the search endpoint, to p95 under 200ms
+  inputs:
+    target_ms: 150

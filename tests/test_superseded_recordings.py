@@ -182,7 +182,8 @@ def test_the_live_scoring_path_still_works_when_a_valid_recording_exists(tmp_pat
             p = live_dir(name) / f"{case_id}@zz-{tag}.json"
             p.write_text(json.dumps(doc, indent=2))
             planted.append(p)
-        block = eval_graph(name)["measured_live"]
+        # write=False: a probe must never land in the committed evidence store.
+        block = eval_graph(name, write=False)["measured_live"]
         # Subset, not equality: real recordings now sit alongside the probes.
         assert {"model-good", "model-bad"} <= set(block["models"])
         assert block["per_model_pass_rate"]["model-good"] == 1.0
@@ -196,7 +197,6 @@ def test_the_live_scoring_path_still_works_when_a_valid_recording_exists(tmp_pat
     finally:
         for p in planted:
             p.unlink(missing_ok=True)
-        eval_graph(name)  # restore the committed profile
 
 
 def test_a_model_that_both_passes_and_fails_is_reported_as_flaky():
@@ -220,13 +220,12 @@ def test_a_model_that_both_passes_and_fails_is_reported_as_flaky():
                                          recorded="2026-08-01",
                                          node_outputs=node_outputs), indent=2))
             planted.append(p)
-        block = eval_graph(name)["measured_live"]
+        block = eval_graph(name, write=False)["measured_live"]
         assert "zz-coin" in block["flaky_models"]
         assert block["samples_per_model"]["zz-coin"] == 2
     finally:
         for p in planted:
             p.unlink(missing_ok=True)
-        eval_graph(name)
 
 
 def test_a_new_recording_never_overwrites_an_archived_one(tmp_path):

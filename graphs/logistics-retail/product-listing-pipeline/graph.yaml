@@ -52,6 +52,8 @@ nodes:
   - listings_published
   - output
   join: all
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: escalate-listing
   speciality: escalator
   abilities:
@@ -62,6 +64,8 @@ nodes:
   - escalation_reason
   criteria: The listing is held with the claims that could not be substantiated. An unsupported product
     claim is a regulatory exposure, not a copy defect.
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: extract
   to: write

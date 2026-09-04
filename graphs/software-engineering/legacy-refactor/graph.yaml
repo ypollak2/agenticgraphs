@@ -9,13 +9,13 @@ nodes:
   - analyze
   outputs:
   - summary
+  - snapshot_before: any
 - id: produce
   speciality: producer
   abilities:
   - generate
   outputs:
   - snapshot_after: any
-  - snapshot_before: any
 - id: review
   speciality: critic
   abilities:

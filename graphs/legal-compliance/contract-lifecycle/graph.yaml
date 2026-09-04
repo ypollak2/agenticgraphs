@@ -50,6 +50,8 @@ nodes:
   - output
   - residual_risk_level
   - signatures: list[{party:any, dated:any}]
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: escalate-contract
   speciality: escalator
   abilities:
@@ -60,6 +62,8 @@ nodes:
   - escalation_reason
   criteria: The contract escalates with the residual risk that redlining could not reduce. Risk above
     appetite is a decision for counsel, not a blocked graph.
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: intake
   to: redline

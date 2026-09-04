@@ -15,6 +15,7 @@ nodes:
   - generate
   outputs:
   - draft
+  - requirements: list
 - id: critique
   speciality: critic
   abilities:
@@ -23,7 +24,6 @@ nodes:
   outputs:
   - bias_terms: list
   - output
-  - requirements: list
   - unique_requirements: list
   - rejected: bool
   criteria: The description is clean of gendered and coded bias terms, and requirements are deduplicated

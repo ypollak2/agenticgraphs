@@ -14,6 +14,9 @@ nodes:
   - exceptions
   - matched: list[{invoice_id:any, po_id:any, receipt_id:any}]
   - violations: list[{line_id:any, policy_rule:any}]
+  maps:
+    matched: work_result
+    exceptions: violations
 - id: fuzzy-match
   speciality: escalator
   abilities:
@@ -23,6 +26,8 @@ nodes:
   - exceptions
   outputs:
   - still_open
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 - id: ap-review
   speciality: approver
   kind: human

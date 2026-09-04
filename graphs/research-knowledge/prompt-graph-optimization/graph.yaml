@@ -42,6 +42,7 @@ nodes:
     A winner selected on the set that selected it has measured its own search, not its quality.
   retries:
     max: 2
+    reissue_effects: true
 edges:
 - from: baseline
   to: search

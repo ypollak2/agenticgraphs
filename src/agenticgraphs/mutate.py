@@ -106,6 +106,28 @@ def infuse_autonomous(name: str, node_id: str, ability: str, root: Path = ROOT) 
     return result
 
 
+def optimize_autonomous(name: str, root: Path = ROOT) -> dict:
+    """`agr optimize --apply --autonomous`: the same isolation `infuse_autonomous` has.
+
+    The two paths shared one flag and had two blast radii: MCP persist landed
+    on `auto/mutations`, optimize wrote straight into the live checkout
+    (2026-09-04 audit, D7-02; owner decision Q6). Now an unattended optimize
+    commits its change onto `auto/mutations` like every other autonomous write.
+    """
+    require_autonomous()
+    result = optimize(name, apply=True, root=root)
+    if result.get("changed"):
+        gpath = find_graph(name, root)
+        if gpath is None:
+            raise SystemExit(f"no graph named '{name}'")
+        result["commit"] = commit_autonomous_mutation(
+            root, [gpath, gpath.parent / "lineage.yaml"],
+            f"auto: optimize {name} [autonomous]",
+        )
+        result["branch"] = "auto/mutations"
+    return result
+
+
 # ---- optimizer operators: each takes doc (+context) and returns list of change notes
 
 

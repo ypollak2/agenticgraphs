@@ -44,6 +44,8 @@ nodes:
   - output
   criteria: The queue each ticket was routed to matches the labeled backlog, and priority reflects the
     customer's stated impact rather than the tone they used to state it.
+  inputs:
+  - ownership_map
 edges:
 - from: route
   to: branch-simple

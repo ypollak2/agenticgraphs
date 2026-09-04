@@ -1,3 +1,5 @@
 name: cut_release
 description: Tag, publish and announce a release artifact.
 risk: execute
+# Re-running repeats the effect; a node that retries this must say so.
+idempotent: false

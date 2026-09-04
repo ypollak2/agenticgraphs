@@ -12,6 +12,8 @@ cases:
       below_target: false
       attempts: 1
   goal: api v2.14.0 at 5%, on p99 latency and 5xx rate
+  inputs:
+    threshold: 0.01
 - id: retry-then-meets-target
   node_outputs:
     intake:
@@ -31,3 +33,5 @@ cases:
     - below_target: false
       attempts: 2
   goal: api v2.14.0 at 5%, on p99 latency and 5xx rate
+  inputs:
+    threshold: 0.01

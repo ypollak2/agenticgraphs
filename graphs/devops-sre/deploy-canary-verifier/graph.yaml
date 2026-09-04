@@ -16,7 +16,8 @@ nodes:
   outputs:
   - error_rate: float
   - rollback_fired: any
-  - threshold: float
+  inputs:
+  - threshold
 - id: measure
   speciality: evaluator
   abilities:
@@ -55,3 +56,4 @@ goal:
 state:
   inputs:
   - goal
+  - threshold

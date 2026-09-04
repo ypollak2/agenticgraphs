@@ -22,7 +22,7 @@ from .registry import ROOT, SPEC_VERSION, iter_yaml, load, load_schema
 from .shapes import ShapeError
 from .shapes import names as _out_names
 from .shapes import parse as _parse_shape
-from .subgraphs import entry_nodes
+from .subgraphs import MAX_DEPTH, entry_nodes
 
 #: Node/edge/graph keys introduced in AGR v1.1.
 _V11_NODE_KEYS = {"ref", "join", "inputs", "outputs", "on_error", "retries", "approval"}
@@ -70,7 +70,7 @@ def asserted_keys(expr: str) -> set[str]:
 
 
 #: Names the runtime owns, so a guard may read them without any node declaring them.
-_RUNTIME_KEYS = frozenset({"attempts", "shards_failed"})
+_RUNTIME_KEYS = frozenset({"attempts", "shards_failed", "shards_processed"})
 
 
 def unconnected_keys(doc: dict) -> set[str]:
@@ -149,6 +149,101 @@ def _bare_truthy_key(expr: str) -> str | None:
     return None
 
 
+def _anchored_nodes(doc: dict, root: Path = ROOT) -> set[str]:
+    """Nodes whose output can rest on something outside the model's say-so.
+
+    A node is anchored when it declares `inputs` the caller supplies
+    (`state.inputs`), holds an ability with a real binding, or is `kind: human`.
+    Everything else is a model talking to a model.
+    """
+    external = set((doc.get("state") or {}).get("inputs") or [])
+    try:
+        ability_docs = {load(p)["name"]: load(p) for p in iter_yaml("abilities", root)}
+        bindable = _bindable(ability_docs)
+    except Exception:
+        bindable = set()
+    out = set()
+    for n in doc.get("nodes", []):
+        if n.get("kind") == "human" or set(n.get("inputs") or []) & external or set(n.get("abilities") or []) & bindable:
+            out.add(n["id"])
+    return out
+
+
+def _self_graded_by_provenance(doc: dict, root: Path = ROOT) -> list[str]:
+    """A comparison whose reference side one unanchored node invented is self-grading.
+
+    The bare-truthy rule above was evaded by rewording: `returns-triage` went from
+    `output.matches_policy` to `output.assigned_disposition ==
+    output.expected_disposition`, with the verifier the sole producer of
+    `expected_disposition` and no input from the policy table (2026-09-04 audit,
+    D6-01). The property is provenance, not syntax: in a comparison between two
+    blackboard values, if every key on one side is produced *only* by a
+    model-driven node with no external anchor, that side is the model's own
+    reference and the check holds whenever the model says so. Comparisons against
+    literals (`>= 1`, `in ['approve', ...]`) are not this: they are weak, and
+    graded as such elsewhere, but they are not circular.
+    """
+    anchored = _anchored_nodes(doc, root)
+    producers: dict[str, set[str]] = {}
+    for n in doc.get("nodes", []):
+        for o in _out_names(n):
+            producers.setdefault(o, set()).add(n["id"])
+
+    def producers_of(nid: str) -> set[str]:
+        return {k for k, owners in producers.items() if nid in owners}
+
+    def invented_by(keys: set[str]) -> str | None:
+        """The one unanchored node that solely produces every key, else None."""
+        owners = {k: producers.get(k, set()) for k in keys}
+        if not keys or any(len(v) != 1 for v in owners.values()):
+            return None
+        sole = {next(iter(v)) for v in owners.values()}
+        if len(sole) != 1:
+            return None
+        nid = next(iter(sole))
+        return None if nid in anchored else nid
+
+    msgs = []
+    for v in doc.get("verification") or []:
+        expr = v.get("assert") or ""
+        try:
+            tree = ast.parse(expr, mode="eval")
+        except SyntaxError:
+            continue
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.Compare):
+                continue
+            sides = [node.left, *node.comparators]
+            side_keys = [asserted_keys(ast.unparse(x)) - {"output"} - _RUNTIME_KEYS for x in sides]
+            if sum(1 for k in side_keys if k) < 2:
+                continue  # a literal on one side: weak, not circular
+            declared_by_all = [k for k in side_keys if k]
+            for k in side_keys:
+                nid = invented_by(k)
+                # The other side must ALSO pass through the same node: a node
+                # that emits both what was measured and what it is measured
+                # against is grading itself. A side the caller supplied
+                # (`state.inputs`, no producer) or that only upstream nodes
+                # produce is a real reference, however weak the measurement.
+                if nid and all(kk <= producers_of(nid) for kk in declared_by_all):
+                    msgs.append(
+                        f"self-graded contract: in '{expr}', the side reading {sorted(k)} is "
+                        f"produced only by node '{nid}', which declares no input from "
+                        f"state.inputs and no bound ability — the reference it compares "
+                        f"against is its own account. Give '{nid}' an `inputs:` entry from "
+                        f"state.inputs, or produce that side upstream."
+                    )
+                    break
+            else:
+                continue
+            break
+    return msgs
+
+
+def doc_node(doc: dict, nid: str) -> dict:
+    return next((n for n in doc.get("nodes", []) if n["id"] == nid), {})
+
+
 def _lint_self_graded(doc: dict) -> list[str]:
     """A contract a verifier node grades itself on is not verification.
 
@@ -187,11 +282,13 @@ def _lint_self_graded(doc: dict) -> list[str]:
                 f"writes the flag it is scored on. Assert on a fact an upstream node "
                 f"produced, or add a verification[].command."
             )
+    msgs += _self_graded_by_provenance(doc)
     # Armed at v1.8, the same way `_lint_provenance` armed at v1.6: the rule
     # ships with the spec version whose graphs are expected to satisfy it, so a
     # v1.7 registry is not retroactively failed by a rule written after it. The
-    # 16 graphs this currently finds are tracked in `reports/self-graded.json`
-    # and migrated one at a time, each with a real check replacing the flag.
+    # graphs it currently finds are written to `reports/self-graded.json` by
+    # scripts/gen_self_graded.py (regenerated in `make regen`, diffed in CI) and
+    # migrated one at a time, each with a real check replacing the flag.
     if doc.get("apiVersion", "") < "agr/v1.8":
         return []
     return msgs
@@ -355,7 +452,8 @@ def _lint_motif(doc: dict, root: Path = ROOT) -> list[str]:
                     "conditional out-edges")
     if pattern in ("parallel-swarm", "map-reduce") and not (has_fan_out or has_group):
         return fail("nothing runs in parallel: no node declares `fan_out` and no "
-                    "`parallel_group` has two members")
+                    "`parallel_group` has two members (members of a group that are ready "
+                    "together run together, as one step)")
     if pattern in ("debate", "ensemble-quorum") and max_in < 2 and not has_fan_out:
         return fail("only one contribution reaches the adjudicator — there is "
                     "nobody to disagree with")
@@ -690,6 +788,180 @@ def validate_schema(doc: dict, kind: str) -> list[str]:
     return [f"schema: {e.message}" for e in v.iter_errors(doc)]
 
 
+def lint_ability(doc: dict) -> list[str]:
+    """An ability's declared binding must resolve.
+
+    An unbound write/execute ability is allowed but is *narration* until a node
+    says so (see `_lint_unbound`).
+    """
+    from .bindings import BindingError, resolve_binding
+
+    if not doc.get("binding"):
+        return []
+    try:
+        fn = resolve_binding(doc)
+    except BindingError as ex:
+        return [f"lint: {ex}"]
+    if fn is None:
+        return [f"lint: {doc['name']}: binding.kind {doc['binding'].get('kind')!r} has no "
+                "resolver in this runtime — declare kind: builtin or drop the binding"]
+    return []
+
+
+def _bindable(abilities: dict[str, dict]) -> set[str]:
+    from .bindings import BUILTINS, BindingError, resolve_binding
+
+    out = set()
+    for name, adoc in abilities.items():
+        try:
+            fn = resolve_binding(adoc) if adoc.get("binding") else BUILTINS.get(name)
+        except BindingError:
+            fn = None
+        if fn is not None:
+            out.add(name)
+    return out
+
+
+def _lint_unbound(doc: dict, abilities: dict[str, dict]) -> list[str]:
+    """A write/execute ability with no binding is the model narrating an effect.
+
+    29 of 32 abilities, every irreversible one included, fell back to the plain
+    LLM runner: a node declaring `cut_release` cut nothing and its JSON was the
+    whole fact (2026-09-04 audit, D2-01; owner decision Q1: lint first, bind
+    later). The node may keep the ability, but must say `unbound_ok: <why>` so
+    the narration is declared rather than implicit.
+    """
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    bindable = _bindable(abilities)
+
+    def _world_effect(a: dict) -> bool:
+        # `generate`, `reduce_merge`, `write_docs` are `risk: write` but write to
+        # the blackboard: producing text IS what a model does, not narration of an
+        # effect elsewhere. What needs a binding is an effect outside the run —
+        # every execute-risk ability, and a write-risk one that repeats its effect
+        # (`edit_files`, `escalate`, `approve`).
+        risk = a.get("risk", "read")
+        return risk == "execute" or (risk == "write" and a.get("idempotent", True) is False)
+
+    errors = []
+    for n in doc.get("nodes", []):
+        if n.get("kind") in ("subgraph", "human"):
+            continue
+        narrated = sorted(a for a in n.get("abilities") or []
+                          if a in abilities and _world_effect(abilities[a]) and a not in bindable)
+        if narrated and not n.get("unbound_ok"):
+            errors.append(
+                f"lint: node '{n['id']}' declares {narrated} with no binding — its effect is "
+                "the model's account of it. Bind the ability, or declare "
+                "`unbound_ok: <why narration is acceptable here>` on the node"
+            )
+    return errors
+
+
+def _lint_retry_reissue(doc: dict, abilities: dict[str, dict]) -> list[str]:
+    """A retry re-runs the node; with a non-idempotent ability it re-issues the effect.
+
+    39 nodes retried `run_command`/`edit_files` with no concept of idempotency
+    anywhere (2026-09-04 audit, D1-02). The ability declares `idempotent: false`;
+    the node must then declare `retries.reissue_effects: true` to say it accepts
+    a repeated effect, or drop the retry.
+    """
+    if doc.get("apiVersion", "") < "agr/v1.8":
+        return []
+    errors = []
+    for n in doc.get("nodes", []):
+        r = n.get("retries") or {}
+        if not r.get("max"):
+            continue
+        risky = sorted(a for a in n.get("abilities") or []
+                       if a in abilities and abilities[a].get("idempotent", True) is False)
+        if risky and not r.get("reissue_effects"):
+            errors.append(
+                f"lint: node '{n['id']}' retries up to {r['max']}x but {risky} is not "
+                "idempotent — a retry re-issues the effect. Declare "
+                "`retries.reissue_effects: true` to accept that, or remove the retry"
+            )
+    return errors
+
+
+def _lint_phase_contract(doc: dict, root: Path) -> list[str]:
+    """A phase may only promise what its child produces, or an explicit rename of it.
+
+    15 of 17 registry phases declared outputs the referenced graph never
+    mentioned; expansion contracted the child's terminal to produce them and the
+    fixture supplied them (2026-09-04 audit, D4-01). Now: every phase output is
+    either produced by some node of the child (or supplied to it via its
+    `state.inputs`), or is `maps`-declared from a key that is.
+    """
+    errors: list[str] = []
+    for n in doc.get("nodes", []):
+        if n.get("kind") != "subgraph":
+            continue
+        gp = root / "graphs" / n.get("ref", "") / "graph.yaml"
+        if not gp.exists():
+            continue  # the ref-resolves check reports it
+        child = load(gp)
+        produced = {o for c in child.get("nodes", []) for o in _out_names(c)}
+        produced |= set((child.get("state") or {}).get("inputs") or [])
+        maps = n.get("maps") or {}
+        phase_outs = set(_out_names(n))
+        for pk, ck in maps.items():
+            if pk not in phase_outs:
+                errors.append(f"lint: phase '{n['id']}' maps '{pk}' but does not declare it as an output")
+            if ck not in produced:
+                errors.append(
+                    f"lint: phase '{n['id']}' maps '{pk}' from '{ck}', which '{n['ref']}' does not "
+                    f"produce (it produces {sorted(produced - {'output'})})"
+                )
+        for pk in sorted(phase_outs - {"output"}):
+            if pk not in produced and pk not in maps:
+                errors.append(
+                    f"lint: phase '{n['id']}' declares output '{pk}' but '{n['ref']}' produces no "
+                    f"such key (it produces {sorted(produced - {'output'})}) — declare "
+                    f"`maps: {{{pk}: <child key>}}` or drop it"
+                )
+    return errors
+
+
+def _lint_ref_graph(doc: dict, root: Path) -> list[str]:
+    """Walk `kind: subgraph` refs without executing anything.
+
+    `subgraphs.expand` raises on a cycle or on nesting past MAX_DEPTH, but
+    `agr validate` never called it, so a composite that referenced itself
+    through another graph linted clean and only failed at run time
+    (2026-09-04 audit, D4-02). The walk is the static half of that guard.
+    """
+    errors: list[str] = []
+    seen_cycles: set[tuple[str, ...]] = set()
+
+    def walk(d: dict, path: tuple[str, ...]) -> None:
+        for n in d.get("nodes", []):
+            if n.get("kind") != "subgraph":
+                continue
+            ref = n.get("ref", "")
+            if ref in path:
+                cyc = (*path[path.index(ref):], ref)
+                if cyc not in seen_cycles:
+                    seen_cycles.add(cyc)
+                    errors.append(f"lint: subgraph cycle {' -> '.join(cyc)}")
+                continue
+            if len(path) >= MAX_DEPTH:
+                errors.append(
+                    f"lint: subgraph nesting exceeds MAX_DEPTH={MAX_DEPTH} at "
+                    f"{' -> '.join((*path, ref))}"
+                )
+                continue
+            gp = root / "graphs" / ref / "graph.yaml"
+            if not gp.exists():
+                continue  # reported by the ref-resolves check
+            walk(load(gp), (*path, ref))
+
+    start = f"{doc.get('category', '?')}/{doc.get('name', '?')}"
+    walk(doc, (start,))
+    return errors
+
+
 def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
     errors: list[str] = []
     node_ids = [n["id"] for n in doc.get("nodes", [])]
@@ -717,6 +989,29 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
     unreachable = set(node_ids) - seen
     if unreachable:
         errors.append(f"lint: unreachable nodes {sorted(unreachable)}")
+
+    # A verifier that only the failure path reaches never runs on the happy path,
+    # so the graph's proof would fire only when something had already gone wrong.
+    # The walk above counts error/compensate edges as reachability on purpose
+    # (a rollback handler is a real node); this narrower check is for verifiers
+    # (2026-09-04 audit, D1-05). No registry graph relied on it at the time.
+    flow_seen, frontier = set(entries), list(entries)
+    while frontier:
+        cur = frontier.pop()
+        for e in doc.get("edges", []):
+            if e["from"] == cur and e.get("kind", "flow") == "flow" and e["to"] not in flow_seen:
+                flow_seen.add(e["to"])
+                frontier.append(e["to"])
+    for n in doc.get("nodes", []):
+        if n.get("kind") == "verifier" and n["id"] in seen and n["id"] not in flow_seen:
+            errors.append(
+                f"lint: verifier '{n['id']}' is reachable only through error/compensate "
+                "edges — it never runs on the path the contract is about"
+            )
+
+    if any(n.get("kind") == "subgraph" for n in doc.get("nodes", [])):
+        errors.extend(_lint_ref_graph(doc, root))
+        errors.extend(_lint_phase_contract(doc, root))
 
     # verification required for graphs with a verifier node
     if any(n.get("kind") == "verifier" for n in doc.get("nodes", [])) and not doc.get("verification"):
@@ -752,7 +1047,10 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
 
     # speciality / ability resolution
     specs = {load(p)["name"]: load(p) for p in iter_yaml("specialities", root)}
-    abilities = {load(p)["name"] for p in iter_yaml("abilities", root)}
+    ability_docs = {load(p)["name"]: load(p) for p in iter_yaml("abilities", root)}
+    abilities = set(ability_docs)
+    errors.extend(_lint_unbound(doc, ability_docs))
+    errors.extend(_lint_retry_reissue(doc, ability_docs))
     for n in doc.get("nodes", []):
         s = specs.get(n["speciality"])
         if s is None:
@@ -767,6 +1065,19 @@ def lint_graph(doc: dict, root: Path = ROOT) -> list[str]:
         unknown = declared - abilities
         if unknown:
             errors.append(f"lint: node '{n['id']}' unknown abilities {sorted(unknown)}")
+        # `optional_abilities` was declared by 12 specialities and read by nothing
+        # (2026-09-04 audit, D2-03). A speciality that lists what it may optionally
+        # do has drawn a boundary; an ability outside it on a node of that
+        # speciality is either a missing declaration or a role the node is not.
+        if "optional_abilities" in s:
+            allowed = set(s["requires_abilities"]) | set(s["optional_abilities"])
+            outside = declared - allowed
+            if outside:
+                errors.append(
+                    f"lint: node '{n['id']}' declares {sorted(outside)} but speciality "
+                    f"'{n['speciality']}' allows only {sorted(allowed)} — add it to the "
+                    "speciality's optional_abilities or pick the speciality that does this"
+                )
 
     return (errors + _lint_v11(doc, root) + _lint_v14(doc) + _lint_v15(doc)
             + _lint_shapes(doc) + _lint_provenance(doc, root))

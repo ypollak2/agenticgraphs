@@ -40,7 +40,7 @@ flowchart LR
 | 1 | `plan` | `migration_plan='migration_plan-value'` |
 | 2 | `shadow-write` | `shadow_active=True` |
 | 3 | `backfill` | `backfill_complete='backfill_complete-value'` |
-| 4 | `cutover` | `cutover_done='cutover_done-value'` |
+| 4 | `cutover` | `cutover_done='cutover_done-value', executed_steps=3` |
 | 5 | `verify` | `parity_verified=True, output={'parity_verified': True, 'consistent': False}, source_rows=1000, target_rows=1000` |
 
 **Verification checked:**

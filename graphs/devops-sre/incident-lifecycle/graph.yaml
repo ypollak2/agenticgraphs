@@ -20,9 +20,11 @@ nodes:
   inputs:
   - signal
   outputs:
-  - matches_ownership_map
   - owner
   - severity
+  maps:
+    severity: complexity
+    owner: assigned_team
 - id: mitigate
   speciality: sre
   abilities:
@@ -34,6 +36,7 @@ nodes:
   - mitigated
   retries:
     max: 2
+    reissue_effects: true
 - id: confirm
   speciality: verifier
   abilities:
@@ -49,6 +52,7 @@ nodes:
     \ a responder saying so \u2014 and the postmortem yields at least one action with a named owner."
   retries:
     max: 2
+    reissue_effects: true
 - id: postmortem
   speciality: supervisor
   kind: subgraph
@@ -58,6 +62,8 @@ nodes:
   outputs:
   - postmortem
   - timeline: list[{log_id:any, message_id:any}]
+  maps:
+    postmortem: summary
 - id: action-items
   speciality: planner
   abilities:
@@ -77,6 +83,8 @@ nodes:
   - escalation_reason
   criteria: The incident is handed on with the mitigations tried and the signal that is still out of bounds.
     An incident nobody could clear is escalated, not closed.
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: detect
   to: triage

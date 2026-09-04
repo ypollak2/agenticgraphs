@@ -22,6 +22,9 @@ nodes:
   - work_result
   retries:
     max: 2
+    reissue_effects: true
+  unbound_ok: 'narrated: edit_files has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: verify
   speciality: verifier
   abilities:
@@ -36,6 +39,7 @@ nodes:
     and the one this node exists for.
   retries:
     max: 2
+    reissue_effects: true
 edges:
 - from: plan
   to: work

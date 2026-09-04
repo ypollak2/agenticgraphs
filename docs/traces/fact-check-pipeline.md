@@ -27,7 +27,7 @@ flowchart LR
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
 | 2 | `produce` | `output={'verdicts': [{'claim': 'unemployment fell', 'verdict': 'true', 'source_url': 'https://example.gov/data', 'quote_span': 'unemployment fell to 3.9%'}]}` |
-| 3 | `review` | `revision_requested=False, attempts=1` |
+| 3 | `review` | `revision_requested=False, attempts=1, unsupported_claims=[]` |
 
 **Verification checked:**
 
@@ -41,9 +41,9 @@ flowchart LR
 |---|---|---|
 | 1 | `intake` | `summary='intake complete'` |
 | 2 | `produce` | `output={'verdicts': [{'claim': 'unemployment fell', 'verdict': 'unverifiable', 'source_url': '', 'quote_span': ''}]}` |
-| 3 | `review` | `revision_requested=True, attempts=1` |
+| 3 | `review` | `revision_requested=True, attempts=1, unsupported_claims=[]` |
 | 4 | `produce` | `output={'verdicts': [{'claim': 'unemployment fell', 'verdict': 'true', 'source_url': 'https://example.gov/data', 'quote_span': 'unemployment fell to 3.9%'}]}` |
-| 5 | `review` | `revision_requested=False, attempts=2` |
+| 5 | `review` | `revision_requested=False, attempts=2, unsupported_claims=[]` |
 
 **Verification checked:**
 

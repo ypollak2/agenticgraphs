@@ -32,6 +32,8 @@ nodes:
   - comps
   - findings: list[{source_date:any, source_url:any}]
   parallel_group: read-fanout
+  maps:
+    comps: findings
 - id: recommend
   speciality: judge
   abilities:

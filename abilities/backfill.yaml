@@ -1,3 +1,5 @@
 name: backfill
 description: Populate a new store from historical source data.
 risk: execute
+# Re-running repeats the effect; a node that retries this must say so.
+idempotent: false

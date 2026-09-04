@@ -14,11 +14,14 @@
     "verification_asserts": 4,
     "risk_surface": "execute"
   },
+  "refs": {
+    "security/vuln-prioritization": "f8787f08e412"
+  },
   "measured": {
     "runner": "mock",
     "provisional": true,
     "verification_depth": "command",
-    "date": "2026-09-01",
+    "date": "2026-09-04",
     "cases": 1,
     "passed": 1,
     "pass_rate": 1.0,
@@ -48,6 +51,11 @@
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [],
+        "overwritten_inputs": [],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": true,
@@ -61,7 +69,7 @@
     "runner": "llm-replay:lfm2.5:8b,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "command",
-    "date": "2026-09-01",
+    "date": "2026-09-04",
     "cases": 4,
     "passed": 0,
     "pass_rate": 0.0,
@@ -100,6 +108,13 @@
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [
+          "assert"
+        ],
+        "overwritten_inputs": [],
         "rejected_approvals": [
           "disclose-approval"
         ],
@@ -138,6 +153,13 @@
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [
+          "assert"
+        ],
+        "overwritten_inputs": [],
         "rejected_approvals": [
           "disclose-approval"
         ],
@@ -176,6 +198,13 @@
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [
+          "assert"
+        ],
+        "overwritten_inputs": [],
         "rejected_approvals": [
           "disclose-approval"
         ],
@@ -214,6 +243,13 @@
         "commands_run": 0,
         "command_failures": [],
         "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [
+          "assert"
+        ],
+        "overwritten_inputs": [],
         "rejected_approvals": [
           "disclose-approval"
         ],
@@ -229,7 +265,7 @@
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-31",
-    "age_days": 1,
+    "age_days": 4,
     "per_model_pass_rate": {
       "lfm2.5:8b": 0.0,
       "qwen3-coder:30b": 0.0

@@ -69,6 +69,25 @@ across fifteen graphs were built that way. They are replaced by:
   live system, the exit code is the fact. Commands went 1 → 20, and the one that
   existed was the string `"user-supplied verify command must exit 0"`.
 
+#### The provenance rule (2026-09-04 audit, D6-01)
+
+The bare-truthy rule above was evaded by rewording: `output.matches_policy`
+became `output.assigned_disposition == output.expected_disposition`, and the
+verifier still declared both keys with no input from the policy table. So the
+lint now asks about **provenance**, not syntax. In a comparison between two
+blackboard values, if one side is produced *only* by a model-driven node with no
+external anchor, and the other side passes through that same node, the node is
+grading itself. A node is anchored when it declares `inputs` the caller supplies
+(`state.inputs`), holds an ability with a real binding, or is `kind: human`.
+Comparisons against literals are weak, and graded as such, but not circular.
+
+The 16 graphs this recovered were fixed structurally: seven declare the caller's
+reference table as the verifier's input; six moved a threshold the model used to
+invent into `state.inputs` (the caller sets the bar); three moved the reference
+side to the node that actually establishes it. At run time a node may no longer
+overwrite a key the caller seeded: the caller's value is kept and the attempt is
+recorded on `RunReport.overwritten_inputs`.
+
 ### Everything else that now has to be true
 
 | Rule | Refuses |
@@ -139,6 +158,36 @@ Filled from the blackboard. A missing placeholder **raises** rather than running
 a half-substituted command: `pytest {suite}` with no `suite` would run the whole
 suite and report a pass for a check that never happened.
 
+### Runtime facts the linter used to imply and the runtime did not deliver
+
+Closed by the 2026-09-04 gap audit (`docs/plans/audit-gaps-2026-09-04.md`), stated
+here so the spec and the code say the same thing.
+
+**`fan_out.on_partial: continue` means "aggregate over the shards that succeeded".**
+A failed shard leaves `None` in the fanned-out list for every declared output, and
+the node-level `error` flag is set only under `on_partial: fail`. `aggregate` with
+`median` or `best` skips the `None`s; `union` and `majority` see them. Per-shard
+errors are published as `shard_errors`, next to the runtime-owned `shards_processed`
+and `shards_failed`, which a guard or assert may read without any node declaring them.
+
+**`parallel_group` members that are ready together run together.** A group
+declares that its members do not depend on one another; the reference runtime
+now runs every ready member of a group concurrently in one scheduler round
+(`RunReport.rounds`), each against a snapshot of the blackboard, and merges their
+outputs in declaration order so the result equals the serial one whenever the
+declaration is true. `steps` still counts node executions, which is what
+`termination.max_steps` and the v1 trace lock mean by it. Before the 2026-09-04
+audit the runtime scheduled one node at a time and the lint vouched for a
+property nothing delivered (R6-03, owner decision Q2).
+
+**A `kind: verifier` node must be reachable on the flow path.** Reachability in
+general counts `error` and `compensate` edges, because a rollback handler is a real
+node. A verifier that only a failure edge reaches never runs on the path the
+contract is about, so `lint_graph` refuses it.
+
+**`agr validate` walks `ref` chains.** A cycle between composites, or nesting past
+`MAX_DEPTH`, fails at validate time. Before, only `expand()` at run time saw it.
+
 ## Security
 
 `edges[].when` and `verification[].assert` reached `eval()` with
@@ -152,6 +201,110 @@ but never the enclosing locals — so every **nested** quantifier raised
 `NameError: name 'all' is not defined`. Single-level asserts hid it, because
 their outermost iterable is evaluated eagerly in the enclosing scope. No contract
 in the registry could quantify two levels deep until now.
+
+### Composites: `maps`, and what a phase inherits
+
+A `kind: subgraph` phase may declare as outputs only keys the referenced graph
+produces (or receives through its own `state.inputs`), or an explicit rename of
+one:
+
+```yaml
+- id: collect
+  kind: subgraph
+  ref: research-knowledge/competitive-intelligence
+  outputs: [vendor_docs]
+  maps: {vendor_docs: findings}     # this graph's word for the child's key
+```
+
+`_lint_phase_contract` checks both sides against the child on disk, so renaming
+a primitive's output breaks every composite that references it at `agr validate`
+time. Before this, 15 of 17 registry phases declared keys their child never
+mentioned; expansion contracted the child's terminal to invent them and the
+fixture supplied them (2026-09-04 audit, D4-01). At run time the rename is
+applied on the child's terminal (`aliases`, set by `expand`, not for authoring).
+A composite's `profile.json` carries `refs`: the shape hash of every child, so
+its evidence is invalidated when a child changes underneath it.
+
+Expansion now also carries the child's requirements up (D4-03): `goal.required`
+(any child requiring one makes the parent require one, and the goal gate runs
+after expansion so it sees it), `state.inputs` (union), `state.schema` (must
+agree across phases), and `memory.scope: graph` (widens the parent).
+
+`agr compose --scaffold DIR` writes the composed graph as a registry bundle —
+`graph.yaml`, one derived golden case in `cases.yaml`, a `usecase.yaml` stub, an
+empty `live/` — so a composition can be evaluated instead of only validated.
+
+### What `agr adapt` carries into generated code
+
+Every emitter used to drop the graph-level `verification:` block, `fan_out`,
+`retries` and `approval`, and compiled a human gate to the same stub as an LLM
+node (2026-09-04 audit, D5-01..D5-05). Generated modules now carry:
+
+| AGR | LangGraph | CrewAI | AutoGen |
+|---|---|---|---|
+| `verification[].assert` | `CONTRACT` + `check_contract(state)`, applied when flow leaves a terminal node | same, applied by `run(inputs)` after kickoff | same, `check_contract` exported |
+| `verification[].command` | `CONTRACT_COMMANDS`, listed not executed | same | same |
+| `fan_out` | one `Send()` per shard from the predecessor | a NOTE: not expressible sequentially | — |
+| `retries.max` (+`reissue_effects`) | `_with_retries` wrapper | `max_retry_limit` on the Agent | — |
+| `kind: human` + `approval` | stub raises `PermissionError`; the route out of the gate is guarded by the contract | `human_input=True` on the Task | `ConversableAgent` |
+| `kind: verifier` / `router` | marked in the stub docstring | marked in the task description | — |
+| loop-back edges | conditional edges | a NOTE naming the dropped loop (owner decision Q5) | speaker selection |
+
+The MCP `instantiate` tool serves all three targets, and `agr instantiate` is an
+alias of `agr adapt`, so the CLI and the tool share a verb.
+
+### The failure taxonomy, and `timeout_s`
+
+A run used to fail in three ways the report could not name: a model reply with no
+JSON object escaped as `ValueError`, a human gate nobody could sign escaped as
+`HumanGateRequired`, and a node could run for close to an hour with nothing to
+stop it. The recorder collapsed the first two into one string and wrote no
+recording, so the cell vanished from every denominator (2026-09-04 audit, D3-03,
+D3-02). `RunReport` now carries:
+
+| field | set when | effect |
+|---|---|---|
+| `parse_failures` | a reply had no JSON object | node yields `error: parse`, so `retries` and error edges apply |
+| `gate_refused` | a `kind: human` gate had no signer | the run stops; `passed` is False |
+| `timeouts` | a node exceeded `timeout_s` (or the run-wide `node_timeout`) | node yields `error: timeout`; retries and error edges apply |
+
+`failure_kinds` summarises them (`parse`, `gate`, `timeout`, `assert`, `command`,
+`stall`, `budget`) and is written into every recording and profile, which is what
+lets `contract-findings.md` count unparseable samples instead of dropping them.
+
+`nodes[].timeout_s` is a per-node wall-clock deadline in seconds, enforced by the
+reference runtime; unset means unbounded.
+
+### Durability and the journal
+
+`durability.checkpoint: every_node` (v1.3) makes a run journal one record per
+executed node. `agr eval --journal DIR` writes `DIR/<case_id>.jsonl`;
+`agr eval --resume-from FILE` reads it back, replays the recorded outputs, skips
+the nodes they complete, and routes every resumed node through the same edge
+resolution a fresh node takes.
+
+The record shape, pinned by `tests/test_journal_shape.py`:
+
+```json
+{"node": "<node id>", "out": {<the node's output dict>}}
+```
+
+One JSON object per line, execution order, exactly these two keys. A future
+version may **add** keys; it may not rename or drop `node` or `out`, because
+resume keys completion on the first and replays the second. Frames a resumed run
+replays are not re-journalled (`resumed: true` frames are excluded), so a journal
+written after a resume is the union of both runs.
+
+Before this section existed nothing produced the file `--resume-from` consumed
+(2026-09-04 audit, D3-04).
+
+### The HTTP transport
+
+`agr mcp --http` binds `127.0.0.1` only, which does not distinguish the intended
+caller from any other local process. With `AGR_MCP_TOKEN` set, every request must
+carry `Authorization: Bearer <token>` or is answered `401` before the server sees
+it. The token is **required** when `AGR_AUTONOMOUS=1`: an unattended server that can
+commit to `auto/mutations` must not accept writes from whoever finds the port.
 
 ## Migration
 

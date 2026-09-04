@@ -25,7 +25,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `intake` | `summary='intake complete'` |
+| 1 | `intake` | `summary='intake complete', snapshot_before='hash-abc123'` |
 | 2 | `produce` | `output={'snapshot_before': 'hash-abc123', 'snapshot_after': 'hash-abc123'}` |
 | 3 | `review` | `revision_requested=False, attempts=1` |
 
@@ -40,7 +40,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `intake` | `summary='intake complete'` |
+| 1 | `intake` | `summary='intake complete', snapshot_before='hash-abc123'` |
 | 2 | `produce` | `output={'snapshot_before': 'hash-abc123', 'snapshot_after': 'hash-def456'}` |
 | 3 | `review` | `revision_requested=True, attempts=1` |
 | 4 | `produce` | `output={'snapshot_before': 'hash-abc123', 'snapshot_after': 'hash-abc123'}` |

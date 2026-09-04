@@ -14,6 +14,7 @@ nodes:
   - pipeline_run
   retries:
     max: 2
+    reissue_effects: true
 - id: classify
   speciality: analyst
   abilities:
@@ -32,6 +33,8 @@ nodes:
   - repair_applied
   inputs:
   - cause
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: confirm
   speciality: verifier
   abilities:
@@ -48,6 +51,7 @@ nodes:
     \ repair is recorded with why it failed, so the next run does not retry what already did not work."
   retries:
     max: 2
+    reissue_effects: true
 edges:
 - from: collect
   to: classify

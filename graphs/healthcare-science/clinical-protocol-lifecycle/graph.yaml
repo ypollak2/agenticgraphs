@@ -52,6 +52,8 @@ nodes:
   - registered
   - registry_id: any
   - register_failed: bool
+  unbound_ok: 'narrated: file_record has no binding in this runtime; the effect is the model''s account
+    of it until the ability is bound (audit 2026-09-04, Q1)'
 - id: amend-registration
   speciality: compensator
   abilities:
@@ -61,6 +63,8 @@ nodes:
   - amend_registration_filed
   criteria: A trial registration is public and permanent. The compensating action is a posted amendment
     explaining the change, because a silently altered protocol is the thing registration exists to prevent.
+  unbound_ok: 'narrated: rollback has no binding in this runtime; the effect is the model''s account of
+    it until the ability is bound (audit 2026-09-04, Q1)'
 edges:
 - from: draft
   to: critique

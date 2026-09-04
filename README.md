@@ -42,7 +42,7 @@
     <li><a href="#-usage">Usage</a>
       <ul>
         <li><a href="#concepts">Concepts</a></li>
-        <li><a href="#the-nineteen-motifs">The Nineteen Motifs</a></li>
+        <li><a href="#the-motifs">The Motifs</a></li>
         <li><a href="#what-a-real-model-actually-did">What a Real Model Actually Did</a></li>
         <li><a href="#composites-reference-they-dont-copy">Composites Reference, They Don't Copy</a></li>
         <li><a href="#the-library-at-a-glance">The Library at a Glance</a></li>
@@ -129,11 +129,11 @@ it lacks the abilities for.
 <!-- graph-of-graphs:begin -->
 ## 🗺️ The graph of graphs
 
-Every shipped graph is one of nineteen verified motifs. Full per-graph cards (diagram, contract, node roster, use-cases) live in [CARDS.md](CARDS.md).
+Every shipped graph is one of 17 verified motifs, and every graph is either a **primitive** (69) or a **composite** (14) that references primitives by `kind: subgraph`. Full per-graph cards (diagram, contract, node roster, use-cases) live in [CARDS.md](CARDS.md).
 
 ```mermaid
 flowchart TD
-    ROOT(("🕸️ agenticgraphs<br/>83 graphs · 15 domains"))
+    ROOT(("🕸️ agenticgraphs<br/>83 graphs · 15 domains · 17 motifs<br/>69 primitives · 14 composites"))
     ROOT --> P0[/"pipeline ×20"/]
     P0 --> E0["e.g. code-review-pipeline"]
     ROOT --> P1[/"map-reduce ×11"/]
@@ -316,7 +316,7 @@ pie showData title Graphs per domain
 **Use it** — the registry ships inside the package, so there's nothing to clone:
 
 ```sh
-uvx --from "vitruvian-graphs[mcp]" agr list     # 52 graphs, zero setup
+uvx --from "vitruvian-graphs[mcp]" agr list     # every registry graph, zero setup
 pip install "vitruvian-graphs[mcp]"             # or install it properly
 ```
 
@@ -330,9 +330,9 @@ pip install "vitruvian-graphs[mcp]"             # or install it properly
    ```sh
    git clone https://github.com/ypollak2/agenticgraphs.git && cd agenticgraphs
    ```
-2. Install dependencies
+2. Install dependencies (the `adapters` and `mcp` extras are needed for the full suite)
    ```sh
-   uv sync
+   uv sync --all-extras
    ```
 3. Verify everything
    ```sh
@@ -344,7 +344,7 @@ pip install "vitruvian-graphs[mcp]"             # or install it properly
 ## 🧰 Usage
 
 ```sh
-uv run agr list                # browse all 52 graphs
+uv run agr list                # browse every graph
 uv run agr search triage      # find graphs by keyword
 uv run agr validate           # full registry: JSON Schema + MAST structural lint
 uv run agr show verifier-swarm       # full graph definition
@@ -391,8 +391,8 @@ or autogen package is required to run `agr adapt` itself, only to run what it em
 Every number in this README is checkable:
 
 ```sh
-uv run agr list | wc -l                      # 52 graphs
-uv run python scripts/audit_usecases.py      # 112 use cases, 15 domains, AUDIT PASSED
+uv run agr list | wc -l                      # graph count (matches the badge above)
+uv run python scripts/audit_usecases.py      # use cases, domains, AUDIT PASSED
 ```
 
 ### Concepts
@@ -402,20 +402,22 @@ uv run python scripts/audit_usecases.py      # 112 use cases, 15 domains, AUDIT 
 | **Graph** | `graphs/<domain>/<name>/graph.yaml` | Nodes + edges + termination contract + verification asserts |
 | **Speciality** | `specialities/*.yaml` | A role a node plays (e.g. `security-auditor`), with required abilities |
 | **Ability** | `abilities/*.yaml` | An atomic capability (e.g. `sast_scan`) with a risk level; MCP-bindable |
-| **Use case** | `usecases/catalog.yaml` | Demand-side backlog: 123 audited entries that graduate into graphs |
-| **Spec** | `spec/*.schema.json` | AGR v1.8 JSON Schemas ([v1.1](docs/agr-v1.1.md) · [v1.2](docs/agr-v1.2.md) · [v1.4](docs/agr-v1.4.md) · [v1.5](docs/agr-v1.5.md) · [v1.7](docs/agr-v1.7.md) · [**v1.8**](docs/agr-v1.8.md)) |
+| **Use case** | `usecases/catalog.yaml` | Demand-side backlog of audited entries that graduate into graphs |
+| **Spec** | `spec/*.schema.json` | AGR v1.8 JSON Schemas ([v1.1](docs/agr-v1.1.md) · [v1.2](docs/agr-v1.2.md) · [v1.3](docs/agr-v1.3.md) · [v1.4](docs/agr-v1.4.md) · [v1.5](docs/agr-v1.5.md) · [v1.6](docs/agr-v1.6.md) · [v1.7](docs/agr-v1.7.md) · [**v1.8**](docs/agr-v1.8.md)); every superseded page carries a generated banner |
 | **Subgraph** | `nodes[].kind: subgraph` + `ref` | A phase that *is* another registry graph, inlined at load (v1.1) |
 | **Join** | `nodes[].join` | `any` (default) · `all` · `quorum(n)` — when a multi-predecessor node is ready (v1.1) |
 | **Human gate** | `nodes[].kind: human` + `approval` | An approval contract the live runner refuses to sign itself (v1.1) |
 | **Compensation** | `edges[].kind: compensate` | The undo path for a step that writes; lint-required in a saga (v1.1) |
 
-### The Nineteen Motifs
+### The Motifs
 
 The library is two-tier. **Primitives** are the smallest useful units of agentic
 control flow — 2–4 nodes, one concern each. **Composites** (AGR v1.1) assemble
 primitives into multi-phase workflows, referencing them rather than restating them.
+The counts live in the generated graph-of-graphs above and in `agr list --json`
+(`tier`); the tables below name every motif at least one shipped graph implements.
 
-**Primitives** — the component library (52 graphs, mean 3.2 nodes):
+**Primitives** — the component library:
 
 | Motif | Shape | Canonical example |
 |---|---|---|
@@ -428,15 +430,13 @@ primitives into multi-phase workflows, referencing them rather than restating th
 | `planner-executor-verifier` | plan, execute with effects, prove post-conditions | `runbook-executor` |
 | `loop` | attempt → measure → retry until target or budget | `performance-optimization` |
 
-**Composites** — assembled from the above (22 graphs, mean 6.9 nodes):
+**Composites** — assembled from the above:
 
 | Motif | Shape | Canonical example |
 |---|---|---|
 | `lifecycle` | N phases, each a motif; phases may reference whole graphs | `feature-delivery-lifecycle` |
 | `human-gate` | approval barrier no model may sign; blocks flow until satisfied | `regulatory-filing-lifecycle` |
-| `supervisor-hierarchy` | supervisor delegates slices to subordinate graphs | `framework-migration` |
 | `saga` | every writing step paired with a compensator | `schema-migration-saga` |
-| `escalation-ladder` | cheapest tier first, terminating at a human | `invoice-reconciliation` |
 
 **Deep motifs** (AGR v1.2) — graphs that search or learn rather than follow a path:
 
@@ -485,17 +485,14 @@ every composite auditing a change gets the fix — which text-splicing can never
 
 ### The Library at a Glance
 
-**74 graphs** across all 15 domains: software-engineering (10), devops-sre (7),
-business-ops / data-analytics / security (6 each), healthcare-science /
-legal-compliance / research-knowledge (5 each), creative-production / finance /
-hr-people (4 each), content-marketing / customer-support-sales / education /
-logistics-retail (3 each).
+Every graph, across all 15 domains — the generated graph-of-graphs above is the
+per-domain breakdown, and the badges at the top of this file are the counts.
 
-Behind them, a [123-entry use-case catalog](usecases/catalog.yaml) whose invariants
+Behind them, a [use-case catalog](usecases/catalog.yaml) whose invariants
 (≥100 entries, ≥10 domains, unique ids, a verification clause on *every* entry) are
 enforced by an executable audit wired into pytest.
 
-**On the eval numbers:** 74/74 graphs pass their golden cases, but 73 of 74 do so at
+**On the eval numbers:** every graph passes its golden cases, but all but one do so at
 `assert-fixture` depth — the assert held against a mock written alongside the graph.
 That proves the topology routes values correctly; it does not prove a claim was
 earned. The scoreboard grades every graph so the weak level is visible rather than
@@ -510,14 +507,28 @@ several corrected an earlier version's diagnosis — the per-milestone record is
 [docs/milestones.md](docs/milestones.md), and the current spec is
 [docs/agr-v1.8.md](docs/agr-v1.8.md).
 
+**Done in the 2026-09-04 gap audit** ([findings](docs/plans/audit-gaps-2026-09-04.md) ·
+[plan](docs/plans/audit-gaps-remediation-2026-09-04.md)): every number in this file is
+generated and CI-checked; the documented onboarding path passes as written; a spec
+bump cannot leave the record behind; parse failures, refused gates and timeouts are
+typed outcomes; abilities with no binding are declared as narration per node; a
+self-graded contract is caught by provenance, not syntax; a phase promises only what
+its child produces; generated LangGraph/CrewAI/AutoGen code carries the contract;
+parallel groups run concurrently; and the MCP surface can validate, run, list, profile
+and diff.
+
 **Next, in order:**
 
-1. **Re-record the evidence base.** v1.8 superseded all 560 recordings at once;
-   until someone points `scripts/record_live.py` at a real endpoint, the registry has
-   no live evidence. This is the only item here a checkout cannot do for itself.
-2. **Depth.** The median graph is 4 nodes. These are motif demonstrations with real
+1. **Re-record the evidence base.** The current recordings predate the audit's
+   contract fixes, and every node carrying `unbound_ok` still narrates an effect the
+   runtime cannot execute; both need a real endpoint. This is the only item here a checkout cannot do for
+   itself.
+2. **Bind the narrated abilities.** `edit_files`, `run_suite`, `rollback`,
+   `execute_step` first — each binding retires `unbound_ok` declarations and turns
+   narration into evidence.
+3. **Depth.** The median graph is 4 nodes. These are motif demonstrations with real
    contracts, not production workflows, and the composites are where the thesis lives.
-3. **Executable checks beyond 20 of 83.** Every contract still settled by an assert is
+4. **Executable checks beyond 20 of 83.** Every contract still settled by an assert is
    settled by the model's account of itself.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -526,7 +537,7 @@ several corrected an earlier version's diagnosis — the per-milestone record is
 
 You are a target audience of this repo. Run `uv run agr mcp` (install with
 `uv sync --all-extras`) and you get four tools over stdio: `search_graphs` (keyword +
-structural profile), `get_graph` (full YAML), `instantiate` (runnable LangGraph source),
+structural profile), `get_graph` (full YAML), `instantiate` (runnable LangGraph, CrewAI or AutoGen source, contract checks included),
 and `infuse_ability` (a validated mutated copy — persisting is by default left to
 `agr infuse` on a human-owned checkout). Each graph's `profile.json` tells you what it's
 worth before you spend a token — and whether that number is provisional (mock) or live.
@@ -605,9 +616,9 @@ Project Link: [https://github.com/ypollak2/agenticgraphs][repo-url]
 [usecases-shield]: https://img.shields.io/badge/use--case_catalog-131-2ea44f?style=for-the-badge
 [usecases-url]: usecases/catalog.yaml
 [domains-shield]: https://img.shields.io/badge/domains-15-2ea44f?style=for-the-badge
-[patterns-shield]: https://img.shields.io/badge/motifs-19-2ea44f?style=for-the-badge
-[patterns-url]: #the-eight-patterns
-[tests-shield]: https://img.shields.io/badge/tests-204%2F204-blue?style=for-the-badge
+[patterns-shield]: https://img.shields.io/badge/motifs-17-2ea44f?style=for-the-badge
+[patterns-url]: #the-motifs
+[tests-shield]: https://img.shields.io/badge/tests-527-blue?style=for-the-badge
 [tests-url]: tests/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
 [license-url]: LICENSE
