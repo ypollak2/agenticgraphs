@@ -34,6 +34,8 @@ nodes:
   criteria: The classification into seasonal, data-bug or real-change agrees with the holdout labels,
     and cites the comparison window and series that distinguishes the three. Every anomaly looks real
     without the seasonal baseline beside it.
+  inputs:
+  - holdout_labels
 edges:
 - from: route
   to: branch-simple

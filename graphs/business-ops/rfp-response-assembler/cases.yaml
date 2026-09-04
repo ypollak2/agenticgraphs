@@ -23,6 +23,8 @@ cases:
         page_count: 8
         page_limit: 10
   goal: the Acme Health RFP, answered from the 2026 solutions library
+  inputs:
+    page_limit: 10
 - id: multi-item
   node_outputs:
     partition:
@@ -48,3 +50,5 @@ cases:
         page_count: 10
         page_limit: 10
   goal: the Acme Health RFP, answered from the 2026 solutions library
+  inputs:
+    page_limit: 10

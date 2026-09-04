@@ -16,7 +16,8 @@ nodes:
   outputs:
   - seo_score: float
   - stuffing_flags
-  - threshold: float
+  inputs:
+  - threshold
 - id: measure
   speciality: evaluator
   abilities:
@@ -46,3 +47,4 @@ goal:
 state:
   inputs:
   - goal
+  - threshold

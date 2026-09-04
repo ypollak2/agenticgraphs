@@ -30,9 +30,10 @@ nodes:
   outputs:
   - output
   - recall: float
-  - threshold: float
   criteria: 'Recall on the seeded relevant set clears the threshold, and privilege calls are conservative:
     a document wrongly released cannot be recalled, while one wrongly withheld can still be produced.'
+  inputs:
+  - threshold
 edges:
 - from: route
   to: branch-simple
@@ -55,3 +56,4 @@ goal:
 state:
   inputs:
   - goal
+  - threshold

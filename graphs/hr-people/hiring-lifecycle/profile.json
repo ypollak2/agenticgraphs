@@ -50,6 +50,7 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": true,
@@ -104,6 +105,7 @@
         "failure_kinds": [
           "assert"
         ],
+        "overwritten_inputs": [],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": true,
@@ -146,6 +148,7 @@
         "failure_kinds": [
           "assert"
         ],
+        "overwritten_inputs": [],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": true,
@@ -188,6 +191,7 @@
         "failure_kinds": [
           "assert"
         ],
+        "overwritten_inputs": [],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": true,
@@ -230,6 +234,7 @@
         "failure_kinds": [
           "assert"
         ],
+        "overwritten_inputs": [],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": true,

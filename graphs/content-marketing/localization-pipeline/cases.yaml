@@ -17,6 +17,8 @@ cases:
         threshold: 0.85
         glossary_violations: []
   goal: the onboarding guide, into de-DE, ja-JP and pt-BR
+  inputs:
+    threshold: 0.85
 - id: multi-item
   node_outputs:
     partition:
@@ -33,3 +35,5 @@ cases:
         threshold: 0.85
         glossary_violations: []
   goal: the onboarding guide, into de-DE, ja-JP and pt-BR
+  inputs:
+    threshold: 0.85

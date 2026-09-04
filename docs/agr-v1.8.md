@@ -69,6 +69,25 @@ across fifteen graphs were built that way. They are replaced by:
   live system, the exit code is the fact. Commands went 1 → 20, and the one that
   existed was the string `"user-supplied verify command must exit 0"`.
 
+#### The provenance rule (2026-09-04 audit, D6-01)
+
+The bare-truthy rule above was evaded by rewording: `output.matches_policy`
+became `output.assigned_disposition == output.expected_disposition`, and the
+verifier still declared both keys with no input from the policy table. So the
+lint now asks about **provenance**, not syntax. In a comparison between two
+blackboard values, if one side is produced *only* by a model-driven node with no
+external anchor, and the other side passes through that same node, the node is
+grading itself. A node is anchored when it declares `inputs` the caller supplies
+(`state.inputs`), holds an ability with a real binding, or is `kind: human`.
+Comparisons against literals are weak, and graded as such, but not circular.
+
+The 16 graphs this recovered were fixed structurally: seven declare the caller's
+reference table as the verifier's input; six moved a threshold the model used to
+invent into `state.inputs` (the caller sets the bar); three moved the reference
+side to the node that actually establishes it. At run time a node may no longer
+overwrite a key the caller seeded: the caller's value is kept and the attempt is
+recorded on `RunReport.overwritten_inputs`.
+
 ### Everything else that now has to be true
 
 | Rule | Refuses |

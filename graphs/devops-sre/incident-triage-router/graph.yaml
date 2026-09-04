@@ -33,6 +33,8 @@ nodes:
   - output
   criteria: The team the incident was routed to owns the affected service in the current on-call map,
     and the severity reflects observed customer impact rather than the reporter's urgency.
+  inputs:
+  - ownership_map
 edges:
 - from: route
   to: branch-simple

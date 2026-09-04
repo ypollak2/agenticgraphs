@@ -46,6 +46,7 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -75,6 +76,7 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -119,6 +121,7 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -151,6 +154,9 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [
+          "reduce: tried to overwrite caller input 'page_limit'"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -183,6 +189,9 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [
+          "reduce: tried to overwrite caller input 'page_limit'"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -215,6 +224,7 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -247,6 +257,7 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -279,6 +290,9 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [
+          "reduce: tried to overwrite caller input 'page_limit'"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -311,6 +325,9 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [
+          "reduce: tried to overwrite caller input 'page_limit'"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -343,6 +360,9 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [
+          "reduce: tried to overwrite caller input 'page_limit'"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,

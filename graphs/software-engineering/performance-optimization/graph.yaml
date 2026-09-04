@@ -15,8 +15,9 @@ nodes:
   - generate
   outputs:
   - benchmark_ms: float
-  - target_ms: float
   - test_regressions
+  inputs:
+  - target_ms
 - id: measure
   speciality: evaluator
   abilities:
@@ -49,3 +50,4 @@ goal:
 state:
   inputs:
   - goal
+  - target_ms

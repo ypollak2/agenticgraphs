@@ -292,6 +292,11 @@ class RunReport:
     parse_failures: list[str] = field(default_factory=list)   # "<node>: <why>"
     gate_refused: str = ""                                     # the gate's own message
     timeouts: list[str] = field(default_factory=list)         # "<node>: <seconds>s"
+    #: R3-06 — a node emitted a key the caller seeded via `state.inputs` with a
+    #: different value. The caller's value is kept; the attempt is recorded. A
+    #: model that "reports" the threshold it was handed would otherwise grade
+    #: itself against a number it chose.
+    overwritten_inputs: list[str] = field(default_factory=list)
 
     def frames_for(self, node_id: str) -> list[dict]:
         return [f for f in self.frames if f["node"] == node_id]
@@ -999,6 +1004,10 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
     visits: dict[str, int] = defaultdict(int)
     attempts: dict[str, int] = defaultdict(int)
     bb: dict = seed
+    # Keys the caller supplied through `state.inputs` are the caller's for the
+    # whole run (R3-06). `goal` is included: a graph that rewrites its goal has
+    # changed the question.
+    protected = set((doc.get("state") or {}).get("inputs") or []) & set(seed)
     cap = doc["termination"]["max_steps"]
     budget = doc.get("budget") or {}
     # D3: resume is replay. v1.2 already journals every node execution, so a
@@ -1112,6 +1121,10 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
             out = {"error": f"timeout: node '{nid}' exceeded {deadline}s"}
         if timed_out or out.get("error", "").startswith("parse:"):
             rep.frames.append({"node": nid, "visit": visits[nid], "out": out})
+        for k in protected & out.keys():
+            if out[k] != bb.get(k):
+                rep.overwritten_inputs.append(f"{nid}: tried to overwrite caller input '{k}'")
+                out = {kk: vv for kk, vv in out.items() if kk != k}
         bb.update(out)
         violations = _shapes.violations(node, out)
         if violations:

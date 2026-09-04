@@ -28,10 +28,11 @@ nodes:
   - glossary_violations
   - output
   - similarity: float
-  - threshold: float
   criteria: Each locale's back-translation stays above the similarity threshold against the source, and
     every glossary term uses its approved target-language equivalent. A fluent translation that renames
     the product is a failure.
+  inputs:
+  - threshold
 edges:
 - from: partition
   to: map
@@ -48,3 +49,4 @@ goal:
 state:
   inputs:
   - goal
+  - threshold

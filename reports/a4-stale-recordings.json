@@ -496,8 +496,8 @@
       "model": "lfm2.5:8b",
       "case": "complex-branch",
       "commit": "a5e4be5c",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -506,8 +506,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -516,8 +516,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -526,8 +526,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -536,8 +536,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -546,8 +546,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -556,8 +556,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -566,8 +566,8 @@
       "model": "lfm2.5:8b",
       "case": "simple-branch",
       "commit": "a5e4be5c",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -576,8 +576,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -586,8 +586,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -596,8 +596,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -606,8 +606,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -616,8 +616,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -626,8 +626,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -1456,8 +1456,8 @@
       "model": "lfm2.5:8b",
       "case": "complex-branch",
       "commit": "a5e4be5c",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -1466,8 +1466,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -1476,8 +1476,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -1486,8 +1486,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "68514bce",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -1496,8 +1496,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -1506,8 +1506,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -1516,8 +1516,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -1526,8 +1526,8 @@
       "model": "gpt-4o",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -1536,8 +1536,8 @@
       "model": "lfm2.5:8b",
       "case": "simple-branch",
       "commit": "a5e4be5c",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -1546,8 +1546,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -1556,8 +1556,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -1566,8 +1566,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -1576,8 +1576,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -1586,8 +1586,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -1596,8 +1596,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "68514bce",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -2926,8 +2926,8 @@
       "model": "qwen3-coder:30b",
       "case": "meets-target-first-try",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -2936,8 +2936,8 @@
       "model": "qwen3-coder:30b",
       "case": "meets-target-first-try",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -2946,8 +2946,8 @@
       "model": "qwen3-coder:30b",
       "case": "meets-target-first-try",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -2956,8 +2956,8 @@
       "model": "qwen3-coder:30b",
       "case": "meets-target-first-try",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -2966,8 +2966,8 @@
       "model": "qwen3-coder:30b",
       "case": "meets-target-first-try",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -2976,8 +2976,8 @@
       "model": "qwen3-coder:30b",
       "case": "meets-target-first-try",
       "commit": "68514bce",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -2986,8 +2986,8 @@
       "model": "qwen3-coder:30b",
       "case": "retry-then-meets-target",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -2996,8 +2996,8 @@
       "model": "qwen3-coder:30b",
       "case": "retry-then-meets-target",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -3006,8 +3006,8 @@
       "model": "qwen3-coder:30b",
       "case": "retry-then-meets-target",
       "commit": "68514bce",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -3456,8 +3456,8 @@
       "model": "lfm2.5:8b",
       "case": "complex-branch",
       "commit": "aa486fc1",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "stable"
     },
     {
@@ -3466,8 +3466,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -3476,8 +3476,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -3486,8 +3486,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "68514bce",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -3496,8 +3496,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -3506,8 +3506,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -3516,8 +3516,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -3526,8 +3526,8 @@
       "model": "lfm2.5:8b",
       "case": "simple-branch",
       "commit": "aa486fc1",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "stable"
     },
     {
@@ -3536,8 +3536,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -3546,8 +3546,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -3556,8 +3556,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -3566,8 +3566,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -3576,8 +3576,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -3586,8 +3586,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "68514bce",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5186,8 +5186,8 @@
       "model": "lfm2.5:8b",
       "case": "complex-branch",
       "commit": "3b35a336",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5196,8 +5196,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5206,8 +5206,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5216,8 +5216,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "68514bce",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5226,8 +5226,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5236,8 +5236,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5246,8 +5246,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5256,8 +5256,8 @@
       "model": "gpt-4o",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5266,8 +5266,8 @@
       "model": "lfm2.5:8b",
       "case": "simple-branch",
       "commit": "3b35a336",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5276,8 +5276,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5286,8 +5286,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5296,8 +5296,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5306,8 +5306,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5316,8 +5316,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5326,8 +5326,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "68514bce",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5336,8 +5336,8 @@
       "model": "qwen3.5:latest",
       "case": "simple-branch",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5506,8 +5506,8 @@
       "model": "lfm2.5:8b",
       "case": "generated-and-approved",
       "commit": "a5e4be5c",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5536,8 +5536,8 @@
       "model": "qwen3-coder:30b",
       "case": "generated-and-approved",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5556,8 +5556,8 @@
       "model": "qwen3-coder:30b",
       "case": "generated-and-approved",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5576,8 +5576,8 @@
       "model": "qwen3-coder:30b",
       "case": "generated-and-approved",
       "commit": "68514bce",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5586,8 +5586,8 @@
       "model": "lfm2.5:8b",
       "case": "revised-after-rejection",
       "commit": "a5e4be5c",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5596,8 +5596,8 @@
       "model": "qwen3-coder:30b",
       "case": "revised-after-rejection",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5606,8 +5606,8 @@
       "model": "qwen3-coder:30b",
       "case": "revised-after-rejection",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5616,8 +5616,8 @@
       "model": "qwen3-coder:30b",
       "case": "revised-after-rejection",
       "commit": "68514bce",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -5986,8 +5986,8 @@
       "model": "lfm2.5:8b",
       "case": "happy-path",
       "commit": "aa486fc1",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "stable"
     },
     {
@@ -6006,8 +6006,8 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6026,8 +6026,8 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6046,8 +6046,8 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "16121a28",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6056,8 +6056,8 @@
       "model": "lfm2.5:8b",
       "case": "retry-then-resolved",
       "commit": "aa486fc1",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "stable"
     },
     {
@@ -6066,8 +6066,8 @@
       "model": "qwen3-coder:30b",
       "case": "retry-then-resolved",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6076,8 +6076,8 @@
       "model": "qwen3-coder:30b",
       "case": "retry-then-resolved",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6086,8 +6086,8 @@
       "model": "qwen3-coder:30b",
       "case": "retry-then-resolved",
       "commit": "16121a28",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6386,8 +6386,8 @@
       "model": "lfm2.5:8b",
       "case": "multi-item",
       "commit": "a5e4be5c",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6396,8 +6396,8 @@
       "model": "qwen3-coder:30b",
       "case": "multi-item",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6406,8 +6406,8 @@
       "model": "qwen3-coder:30b",
       "case": "multi-item",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6416,8 +6416,8 @@
       "model": "qwen3-coder:30b",
       "case": "multi-item",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6426,8 +6426,8 @@
       "model": "devstral:24b",
       "case": "single-item",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6436,8 +6436,8 @@
       "model": "devstral:24b",
       "case": "single-item",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6446,8 +6446,8 @@
       "model": "devstral:24b",
       "case": "single-item",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6456,8 +6456,8 @@
       "model": "lfm2.5:8b",
       "case": "single-item",
       "commit": "a5e4be5c",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6466,8 +6466,8 @@
       "model": "qwen3-coder:30b",
       "case": "single-item",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6476,8 +6476,8 @@
       "model": "qwen3-coder:30b",
       "case": "single-item",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6486,8 +6486,8 @@
       "model": "qwen3-coder:30b",
       "case": "single-item",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6496,8 +6496,8 @@
       "model": "qwen3-coder:30b",
       "case": "single-item",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6506,8 +6506,8 @@
       "model": "qwen3-coder:30b",
       "case": "single-item",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -6516,8 +6516,8 @@
       "model": "qwen3-coder:30b",
       "case": "single-item",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7036,8 +7036,8 @@
       "model": "lfm2.5:8b",
       "case": "meets-target-first-try",
       "commit": "aa486fc1",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "stable"
     },
     {
@@ -7056,8 +7056,8 @@
       "model": "qwen3-coder:30b",
       "case": "meets-target-first-try",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7076,8 +7076,8 @@
       "model": "qwen3-coder:30b",
       "case": "meets-target-first-try",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7096,8 +7096,8 @@
       "model": "qwen3-coder:30b",
       "case": "meets-target-first-try",
       "commit": "7bc47f0a",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7106,8 +7106,8 @@
       "model": "lfm2.5:8b",
       "case": "retry-then-meets-target",
       "commit": "aa486fc1",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "stable"
     },
     {
@@ -7116,8 +7116,8 @@
       "model": "qwen3-coder:30b",
       "case": "retry-then-meets-target",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7126,8 +7126,8 @@
       "model": "qwen3-coder:30b",
       "case": "retry-then-meets-target",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7136,8 +7136,8 @@
       "model": "qwen3-coder:30b",
       "case": "retry-then-meets-target",
       "commit": "7bc47f0a",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7146,8 +7146,8 @@
       "model": "lfm2.5:8b",
       "case": "complex-branch",
       "commit": "aa486fc1",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "stable"
     },
     {
@@ -7156,8 +7156,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7166,8 +7166,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7176,8 +7176,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "7bc47f0a",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7186,8 +7186,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7196,8 +7196,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7206,8 +7206,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7216,8 +7216,8 @@
       "model": "lfm2.5:8b",
       "case": "simple-branch",
       "commit": "aa486fc1",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "stable"
     },
     {
@@ -7226,8 +7226,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7236,8 +7236,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7246,8 +7246,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7256,8 +7256,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7266,8 +7266,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -7276,8 +7276,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "7bc47f0a",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8446,8 +8446,8 @@
       "model": "lfm2.5:8b",
       "case": "complex-branch",
       "commit": "aa486fc1",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "stable"
     },
     {
@@ -8456,8 +8456,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8466,8 +8466,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8476,8 +8476,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "68514bce",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8486,8 +8486,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8496,8 +8496,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8506,8 +8506,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8516,8 +8516,8 @@
       "model": "lfm2.5:8b",
       "case": "simple-branch",
       "commit": "aa486fc1",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "stable"
     },
     {
@@ -8526,8 +8526,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8536,8 +8536,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8546,8 +8546,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8556,8 +8556,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8566,8 +8566,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8576,8 +8576,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "68514bce",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8586,8 +8586,8 @@
       "model": "lfm2.5:8b",
       "case": "multi-item",
       "commit": "1e99470f",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "stable"
     },
     {
@@ -8596,8 +8596,8 @@
       "model": "qwen3-coder:30b",
       "case": "multi-item",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8606,8 +8606,8 @@
       "model": "qwen3-coder:30b",
       "case": "multi-item",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8616,8 +8616,8 @@
       "model": "qwen3-coder:30b",
       "case": "multi-item",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8626,8 +8626,8 @@
       "model": "devstral:24b",
       "case": "single-item",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8636,8 +8636,8 @@
       "model": "devstral:24b",
       "case": "single-item",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8646,8 +8646,8 @@
       "model": "lfm2.5:8b",
       "case": "single-item",
       "commit": "1e99470f",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "stable"
     },
     {
@@ -8656,8 +8656,8 @@
       "model": "qwen3-coder:30b",
       "case": "single-item",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8666,8 +8666,8 @@
       "model": "qwen3-coder:30b",
       "case": "single-item",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8676,8 +8676,8 @@
       "model": "qwen3-coder:30b",
       "case": "single-item",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8686,8 +8686,8 @@
       "model": "qwen3-coder:30b",
       "case": "single-item",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8696,8 +8696,8 @@
       "model": "qwen3-coder:30b",
       "case": "single-item",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -8706,8 +8706,8 @@
       "model": "qwen3-coder:30b",
       "case": "single-item",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9117,7 +9117,7 @@
       "case": "happy-path",
       "commit": "a5e4be5c",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9127,7 +9127,7 @@
       "case": "happy-path",
       "commit": "3ce728dc",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9137,7 +9137,7 @@
       "case": "happy-path",
       "commit": "9fb6d2f9",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9147,7 +9147,7 @@
       "case": "happy-path",
       "commit": "3ce728dc",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9157,7 +9157,7 @@
       "case": "happy-path",
       "commit": "9fb6d2f9",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9167,7 +9167,7 @@
       "case": "happy-path",
       "commit": "3ce728dc",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9177,7 +9177,7 @@
       "case": "happy-path",
       "commit": "fd32bdc9",
       "content": "changed",
-      "shape": "same",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9426,8 +9426,8 @@
       "model": "lfm2.5:8b",
       "case": "meets-target-first-try",
       "commit": "a5e4be5c",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9436,8 +9436,8 @@
       "model": "qwen3-coder:30b",
       "case": "meets-target-first-try",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9446,8 +9446,8 @@
       "model": "qwen3-coder:30b",
       "case": "meets-target-first-try",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9456,8 +9456,8 @@
       "model": "qwen3-coder:30b",
       "case": "meets-target-first-try",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9466,8 +9466,8 @@
       "model": "qwen3-coder:30b",
       "case": "meets-target-first-try",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9476,8 +9476,8 @@
       "model": "qwen3-coder:30b",
       "case": "meets-target-first-try",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9486,8 +9486,8 @@
       "model": "qwen3-coder:30b",
       "case": "meets-target-first-try",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9496,8 +9496,8 @@
       "model": "lfm2.5:8b",
       "case": "retry-then-meets-target",
       "commit": "a5e4be5c",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9506,8 +9506,8 @@
       "model": "qwen3-coder:30b",
       "case": "retry-then-meets-target",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9516,8 +9516,8 @@
       "model": "qwen3-coder:30b",
       "case": "retry-then-meets-target",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9526,8 +9526,8 @@
       "model": "qwen3-coder:30b",
       "case": "retry-then-meets-target",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9866,8 +9866,8 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9886,8 +9886,8 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -9906,8 +9906,8 @@
       "model": "qwen3-coder:30b",
       "case": "happy-path",
       "commit": "68514bce",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -10196,8 +10196,8 @@
       "model": "lfm2.5:8b",
       "case": "complex-branch",
       "commit": "a5e4be5c",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -10206,8 +10206,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -10216,8 +10216,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -10226,8 +10226,8 @@
       "model": "qwen3-coder:30b",
       "case": "complex-branch",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -10236,8 +10236,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -10246,8 +10246,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -10256,8 +10256,8 @@
       "model": "devstral:24b",
       "case": "simple-branch",
       "commit": "37b687fb",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -10266,8 +10266,8 @@
       "model": "lfm2.5:8b",
       "case": "simple-branch",
       "commit": "a5e4be5c",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -10276,8 +10276,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -10286,8 +10286,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -10296,8 +10296,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -10306,8 +10306,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "9fb6d2f9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -10316,8 +10316,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "3ce728dc",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -10326,8 +10326,8 @@
       "model": "qwen3-coder:30b",
       "case": "simple-branch",
       "commit": "fd32bdc9",
-      "content": "same",
-      "shape": "same",
+      "content": "changed",
+      "shape": "changed",
       "verdict": "not-comparable"
     },
     {
@@ -11099,12 +11099,29 @@
   },
   "tier_without_stale": {
     "unsatisfiable": 21,
-    "satisfied-all": 39,
-    "models-disagree": 18,
-    "flaky": 1,
-    "null": 4
+    "satisfied-all": 32,
+    "models-disagree": 11,
+    "null": 19
   },
   "tier_moved": [
+    {
+      "graph": "rfp-response-assembler",
+      "published": "satisfied-all",
+      "without_stale": null,
+      "dropped": 8
+    },
+    {
+      "graph": "localization-pipeline",
+      "published": "satisfied-all",
+      "without_stale": null,
+      "dropped": 8
+    },
+    {
+      "graph": "seo-optimization-loop",
+      "published": "satisfied-all",
+      "without_stale": null,
+      "dropped": 8
+    },
     {
       "graph": "book-editing-pipeline",
       "published": "models-disagree",
@@ -11118,10 +11135,46 @@
       "dropped": 3
     },
     {
+      "graph": "ticket-triage-swarm",
+      "published": "satisfied-all",
+      "without_stale": null,
+      "dropped": 8
+    },
+    {
+      "graph": "anomaly-investigation",
+      "published": "satisfied-all",
+      "without_stale": null,
+      "dropped": 8
+    },
+    {
+      "graph": "schema-migration-saga",
+      "published": "models-disagree",
+      "without_stale": null,
+      "dropped": 4
+    },
+    {
+      "graph": "deploy-canary-verifier",
+      "published": "satisfied-all",
+      "without_stale": null,
+      "dropped": 6
+    },
+    {
+      "graph": "incident-triage-router",
+      "published": "flaky",
+      "without_stale": null,
+      "dropped": 9
+    },
+    {
       "graph": "rubric-grading-swarm",
       "published": "flaky",
       "without_stale": "satisfied-all",
       "dropped": 3
+    },
+    {
+      "graph": "clinical-literature-triage",
+      "published": "models-disagree",
+      "without_stale": null,
+      "dropped": 8
     },
     {
       "graph": "clinical-protocol-lifecycle",
@@ -11136,6 +11189,12 @@
       "dropped": 3
     },
     {
+      "graph": "jd-drafting-critic",
+      "published": "models-disagree",
+      "without_stale": null,
+      "dropped": 8
+    },
+    {
       "graph": "onboarding-plan-builder",
       "published": "satisfied-all",
       "without_stale": null,
@@ -11148,10 +11207,22 @@
       "dropped": 3
     },
     {
+      "graph": "ediscovery-triage",
+      "published": "models-disagree",
+      "without_stale": null,
+      "dropped": 8
+    },
+    {
       "graph": "gdpr-data-audit",
       "published": "models-disagree",
       "without_stale": "unsatisfiable",
       "dropped": 3
+    },
+    {
+      "graph": "returns-triage",
+      "published": "models-disagree",
+      "without_stale": null,
+      "dropped": 8
     },
     {
       "graph": "supplier-risk-monitor",
@@ -11170,6 +11241,24 @@
       "published": "models-disagree",
       "without_stale": "unsatisfiable",
       "dropped": 3
+    },
+    {
+      "graph": "phishing-triage",
+      "published": "models-disagree",
+      "without_stale": null,
+      "dropped": 8
+    },
+    {
+      "graph": "legacy-refactor",
+      "published": "models-disagree",
+      "without_stale": null,
+      "dropped": 8
+    },
+    {
+      "graph": "performance-optimization",
+      "published": "satisfied-all",
+      "without_stale": null,
+      "dropped": 8
     }
   ]
 }

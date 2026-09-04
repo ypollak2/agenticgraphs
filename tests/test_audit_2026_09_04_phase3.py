@@ -254,3 +254,71 @@ def test_the_abilities_that_repeat_their_effect_say_so():
     flagged = {load(p)["name"] for p in iter_yaml("abilities") if load(p).get("idempotent") is False}
     assert {"run_command", "edit_files", "execute_step", "file_record", "cut_release",
             "shadow_write", "backfill", "escalate", "approve"} <= flagged
+
+
+# ------------------------------------------------------------------ D6-01 / R3-06
+
+
+def _triage(verify_inputs=None, expected_from_verify=True):
+    doc = _g(
+        nodes=[{"id": "route", "speciality": "producer", "abilities": ["generate"],
+                "outputs": ["assigned"]},
+               {"id": "verify", "speciality": "critic", "abilities": ["critique"], "kind": "verifier",
+                "criteria": "the route agrees with the policy table the caller supplied",
+                "outputs": (["expected"] if expected_from_verify else []) + ["assigned", "output"],
+                **({"inputs": verify_inputs} if verify_inputs else {})}],
+        edges=[{"from": "route", "to": "verify"}],
+        verification=[{"assert": "output.assigned == output.expected"}],
+        state={"inputs": ["goal", "policy_table"]},
+    )
+    if not expected_from_verify:
+        # A separate node establishes the reference; the measured side comes
+        # from `route`. Neither node holds both sides, so nobody grades itself.
+        doc["nodes"].insert(1, {"id": "lookup", "speciality": "analyst", "abilities": ["analyze"],
+                                "outputs": ["expected"]})
+        doc["edges"] = [{"from": "route", "to": "lookup"}, {"from": "lookup", "to": "verify"}]
+    return doc
+
+
+def _sg(doc):
+    from agenticgraphs.validate import lint_graph
+
+    return [e for e in lint_graph(doc) if "self-graded" in e]
+
+
+def test_a_reworded_comparison_whose_reference_the_verifier_invents_is_refused():
+    errs = _sg(_triage())
+    assert errs and "expected" in errs[0] and "verify" in errs[0]
+
+
+def test_declaring_the_callers_reference_as_an_input_anchors_the_verifier():
+    assert _sg(_triage(verify_inputs=["policy_table"])) == []
+
+
+def test_a_reference_produced_upstream_is_not_self_graded():
+    assert _sg(_triage(expected_from_verify=False)) == []
+
+
+def test_a_comparison_against_a_literal_is_weak_but_not_circular():
+    doc = _triage()
+    doc["verification"] = [{"assert": "len(output.assigned) > 0"}]
+    assert _sg(doc) == []
+
+
+def test_the_sixteen_evaded_graphs_now_read_an_external_reference():
+    """The stale report listed 16; the provenance rule recovered exactly those,
+    and each was fixed structurally rather than reworded."""
+    from agenticgraphs.registry import iter_graphs, load
+
+    for gp in iter_graphs():
+        assert _sg(load(gp)) == [], gp
+
+
+def test_a_node_cannot_overwrite_what_the_caller_supplied():
+    doc = _g(state={"inputs": ["goal", "threshold"]})
+    doc["nodes"][0]["inputs"] = ["threshold"]
+    doc["verification"] = [{"assert": "output.x >= output.threshold"}]
+    rep = run_graph(doc, MockRunner({"a": {"x": 5, "threshold": 1}, "b": {"y": 2}}),
+                    inputs={**GOAL, "threshold": 10})
+    assert rep.overwritten_inputs == ["a: tried to overwrite caller input 'threshold'"]
+    assert not rep.passed, "the model's own threshold must not be the bar it is measured against"

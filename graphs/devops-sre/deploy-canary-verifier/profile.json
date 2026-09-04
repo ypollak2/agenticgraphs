@@ -46,6 +46,7 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -77,6 +78,7 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -129,6 +131,13 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [
+          "attempt: tried to overwrite caller input 'threshold'",
+          "attempt: tried to overwrite caller input 'threshold'",
+          "attempt: tried to overwrite caller input 'threshold'",
+          "attempt: tried to overwrite caller input 'threshold'",
+          "attempt: tried to overwrite caller input 'threshold'"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -169,6 +178,13 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [
+          "attempt: tried to overwrite caller input 'threshold'",
+          "attempt: tried to overwrite caller input 'threshold'",
+          "attempt: tried to overwrite caller input 'threshold'",
+          "attempt: tried to overwrite caller input 'threshold'",
+          "attempt: tried to overwrite caller input 'threshold'"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -209,6 +225,13 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [
+          "attempt: tried to overwrite caller input 'threshold'",
+          "attempt: tried to overwrite caller input 'threshold'",
+          "attempt: tried to overwrite caller input 'threshold'",
+          "attempt: tried to overwrite caller input 'threshold'",
+          "attempt: tried to overwrite caller input 'threshold'"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -241,6 +264,9 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [
+          "attempt: tried to overwrite caller input 'threshold'"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -273,6 +299,9 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [
+          "attempt: tried to overwrite caller input 'threshold'"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,
@@ -305,6 +334,9 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [],
+        "overwritten_inputs": [
+          "attempt: tried to overwrite caller input 'threshold'"
+        ],
         "rejected_approvals": [],
         "auto_approved": false,
         "subgraphs_expanded": false,

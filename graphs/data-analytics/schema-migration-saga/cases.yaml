@@ -9,6 +9,7 @@ cases:
       backfill_complete: backfill_complete-value
     cutover:
       cutover_done: cutover_done-value
+      executed_steps: 3
     verify:
       parity_verified: true
       output:

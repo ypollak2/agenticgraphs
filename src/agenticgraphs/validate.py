@@ -149,6 +149,101 @@ def _bare_truthy_key(expr: str) -> str | None:
     return None
 
 
+def _anchored_nodes(doc: dict, root: Path = ROOT) -> set[str]:
+    """Nodes whose output can rest on something outside the model's say-so.
+
+    A node is anchored when it declares `inputs` the caller supplies
+    (`state.inputs`), holds an ability with a real binding, or is `kind: human`.
+    Everything else is a model talking to a model.
+    """
+    external = set((doc.get("state") or {}).get("inputs") or [])
+    try:
+        ability_docs = {load(p)["name"]: load(p) for p in iter_yaml("abilities", root)}
+        bindable = _bindable(ability_docs)
+    except Exception:
+        bindable = set()
+    out = set()
+    for n in doc.get("nodes", []):
+        if n.get("kind") == "human" or set(n.get("inputs") or []) & external or set(n.get("abilities") or []) & bindable:
+            out.add(n["id"])
+    return out
+
+
+def _self_graded_by_provenance(doc: dict, root: Path = ROOT) -> list[str]:
+    """A comparison whose reference side one unanchored node invented is self-grading.
+
+    The bare-truthy rule above was evaded by rewording: `returns-triage` went from
+    `output.matches_policy` to `output.assigned_disposition ==
+    output.expected_disposition`, with the verifier the sole producer of
+    `expected_disposition` and no input from the policy table (2026-09-04 audit,
+    D6-01). The property is provenance, not syntax: in a comparison between two
+    blackboard values, if every key on one side is produced *only* by a
+    model-driven node with no external anchor, that side is the model's own
+    reference and the check holds whenever the model says so. Comparisons against
+    literals (`>= 1`, `in ['approve', ...]`) are not this: they are weak, and
+    graded as such elsewhere, but they are not circular.
+    """
+    anchored = _anchored_nodes(doc, root)
+    producers: dict[str, set[str]] = {}
+    for n in doc.get("nodes", []):
+        for o in _out_names(n):
+            producers.setdefault(o, set()).add(n["id"])
+
+    def producers_of(nid: str) -> set[str]:
+        return {k for k, owners in producers.items() if nid in owners}
+
+    def invented_by(keys: set[str]) -> str | None:
+        """The one unanchored node that solely produces every key, else None."""
+        owners = {k: producers.get(k, set()) for k in keys}
+        if not keys or any(len(v) != 1 for v in owners.values()):
+            return None
+        sole = {next(iter(v)) for v in owners.values()}
+        if len(sole) != 1:
+            return None
+        nid = next(iter(sole))
+        return None if nid in anchored else nid
+
+    msgs = []
+    for v in doc.get("verification") or []:
+        expr = v.get("assert") or ""
+        try:
+            tree = ast.parse(expr, mode="eval")
+        except SyntaxError:
+            continue
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.Compare):
+                continue
+            sides = [node.left, *node.comparators]
+            side_keys = [asserted_keys(ast.unparse(x)) - {"output"} - _RUNTIME_KEYS for x in sides]
+            if sum(1 for k in side_keys if k) < 2:
+                continue  # a literal on one side: weak, not circular
+            declared_by_all = [k for k in side_keys if k]
+            for k in side_keys:
+                nid = invented_by(k)
+                # The other side must ALSO pass through the same node: a node
+                # that emits both what was measured and what it is measured
+                # against is grading itself. A side the caller supplied
+                # (`state.inputs`, no producer) or that only upstream nodes
+                # produce is a real reference, however weak the measurement.
+                if nid and all(kk <= producers_of(nid) for kk in declared_by_all):
+                    msgs.append(
+                        f"self-graded contract: in '{expr}', the side reading {sorted(k)} is "
+                        f"produced only by node '{nid}', which declares no input from "
+                        f"state.inputs and no bound ability — the reference it compares "
+                        f"against is its own account. Give '{nid}' an `inputs:` entry from "
+                        f"state.inputs, or produce that side upstream."
+                    )
+                    break
+            else:
+                continue
+            break
+    return msgs
+
+
+def doc_node(doc: dict, nid: str) -> dict:
+    return next((n for n in doc.get("nodes", []) if n["id"] == nid), {})
+
+
 def _lint_self_graded(doc: dict) -> list[str]:
     """A contract a verifier node grades itself on is not verification.
 
@@ -187,6 +282,7 @@ def _lint_self_graded(doc: dict) -> list[str]:
                 f"writes the flag it is scored on. Assert on a fact an upstream node "
                 f"produced, or add a verification[].command."
             )
+    msgs += _self_graded_by_provenance(doc)
     # Armed at v1.8, the same way `_lint_provenance` armed at v1.6: the rule
     # ships with the spec version whose graphs are expected to satisfy it, so a
     # v1.7 registry is not retroactively failed by a rule written after it. The

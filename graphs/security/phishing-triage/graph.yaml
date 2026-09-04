@@ -34,6 +34,8 @@ nodes:
   criteria: "Verdicts agree with the labeled corpus, and anything confirmed as phishing cites the specific\
     \ indicator \u2014 sender mismatch, lookalike domain, credential-harvesting target \u2014 rather than\
     \ a general impression of suspicion."
+  inputs:
+  - labeled_corpus
 edges:
 - from: route
   to: branch-simple

@@ -3,6 +3,7 @@ cases:
   node_outputs:
     intake:
       summary: intake complete
+      snapshot_before: hash-abc123
     produce:
       output:
         snapshot_before: hash-abc123
@@ -15,6 +16,7 @@ cases:
   node_outputs:
     intake:
       summary: intake complete
+      snapshot_before: hash-abc123
     produce:
     - output:
         snapshot_before: hash-abc123

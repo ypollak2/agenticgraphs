@@ -38,6 +38,7 @@ nodes:
   kind: verifier
   inputs:
   - concentration
+  - supplier_list
   outputs:
   - above_appetite
   - concentration: list[{single_source:bool, supplier_count:int}]

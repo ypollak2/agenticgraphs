@@ -10,6 +10,8 @@ cases:
         recall: 0.95
         threshold: 0.9
   goal: the custodian mailboxes, for the Meridian breach-of-contract matter
+  inputs:
+    threshold: 0.9
 - id: complex-branch
   node_outputs:
     route:
@@ -21,3 +23,5 @@ cases:
         recall: 0.95
         threshold: 0.9
   goal: the custodian mailboxes, for the Meridian breach-of-contract matter
+  inputs:
+    threshold: 0.9
