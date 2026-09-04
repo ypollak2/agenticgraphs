@@ -171,9 +171,16 @@ def main(argv: list[str] | None = None) -> int:
                     file=sys.stderr,
                 )
                 return 1
-        res = optimize(args.name, apply=args.apply)
+        if args.apply and autonomous:
+            from .mutate import optimize_autonomous
+
+            res = optimize_autonomous(args.name)
+        else:
+            res = optimize(args.name, apply=args.apply)
         for note in res["notes"] or ["nothing to change"]:
             print(("applied: " if args.apply else "proposed: ") + note)
+        if res.get("commit"):
+            print(f"committed {res['commit'][:8]} on {res['branch']} (not pushed)")
         return 0
     if args.cmd in ("adapt", "instantiate"):
         from .adapters import emit_autogen, emit_crewai, emit_langgraph

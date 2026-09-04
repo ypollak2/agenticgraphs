@@ -86,12 +86,10 @@ Without `--autonomous` (and without `AGR_AUTONOMOUS=1` in the environment):
 
 With `--autonomous` or `AGR_AUTONOMOUS=1`, `--apply` runs straight through, no prompt.
 
-Note: `agr optimize` does not currently go through `commit_autonomous_mutation` — it
-writes to the human's checkout via the same `_write_checked` path every `optimize --apply`
-has always used. The autonomy gate here governs *whether it's allowed to run unattended
-at all*, not where it commits. If you need optimizer output to land on `auto/mutations`
-too, run it through a checkout dedicated to that branch, or drive it via the MCP
-`infuse_ability` path instead.
+`agr optimize --apply --autonomous` goes through `commit_autonomous_mutation` exactly
+like an MCP persist: the change lands on `auto/mutations`, never on the checked-out
+branch, and is never pushed. (Until the 2026-09-04 audit the optimizer wrote straight
+into the live checkout under the same flag — one switch, two blast radii.)
 
 ## Execute-risk cap on autonomous persist
 
