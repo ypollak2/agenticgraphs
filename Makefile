@@ -13,12 +13,14 @@ test:
 	uv run --all-extras mypy
 	uv run --all-extras agr validate
 	uv run --all-extras python scripts/audit_usecases.py
+	uv run --all-extras python scripts/check_readme_counts.py
 	uv run --all-extras pytest -q
 
 regen:
 	uv run --all-extras python scripts/gen_cards.py
 	uv run --all-extras python scripts/gen_scoreboard.py
 	uv run --all-extras python scripts/gen_traces.py
+	uv run --all-extras python scripts/check_readme_counts.py --fix
 
 # profile.json embeds today's date, so it is never byte-stable across days and is
 # excluded here for the same reason CI excludes it.

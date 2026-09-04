@@ -16,10 +16,12 @@ jobs:
       - run: uv run --all-extras mypy
       - run: uv run --all-extras agr validate
       - run: uv run --all-extras python scripts/audit_usecases.py
+      - run: uv run --all-extras python scripts/check_readme_counts.py
       - run: uv run --all-extras pytest -q
       - run: uv run --all-extras python scripts/gen_cards.py
       - run: uv run --all-extras python scripts/gen_scoreboard.py
       - run: uv run --all-extras python scripts/gen_traces.py
+      - run: uv run --all-extras python scripts/check_readme_counts.py --fix
       - name: fail if generated docs are stale
         run: |
           # gen_scoreboard.py / gen_traces.py re-run every graph's golden cases (via
