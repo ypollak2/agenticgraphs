@@ -199,6 +199,38 @@ but never the enclosing locals — so every **nested** quantifier raised
 their outermost iterable is evaluated eagerly in the enclosing scope. No contract
 in the registry could quantify two levels deep until now.
 
+### Composites: `maps`, and what a phase inherits
+
+A `kind: subgraph` phase may declare as outputs only keys the referenced graph
+produces (or receives through its own `state.inputs`), or an explicit rename of
+one:
+
+```yaml
+- id: collect
+  kind: subgraph
+  ref: research-knowledge/competitive-intelligence
+  outputs: [vendor_docs]
+  maps: {vendor_docs: findings}     # this graph's word for the child's key
+```
+
+`_lint_phase_contract` checks both sides against the child on disk, so renaming
+a primitive's output breaks every composite that references it at `agr validate`
+time. Before this, 15 of 17 registry phases declared keys their child never
+mentioned; expansion contracted the child's terminal to invent them and the
+fixture supplied them (2026-09-04 audit, D4-01). At run time the rename is
+applied on the child's terminal (`aliases`, set by `expand`, not for authoring).
+A composite's `profile.json` carries `refs`: the shape hash of every child, so
+its evidence is invalidated when a child changes underneath it.
+
+Expansion now also carries the child's requirements up (D4-03): `goal.required`
+(any child requiring one makes the parent require one, and the goal gate runs
+after expansion so it sees it), `state.inputs` (union), `state.schema` (must
+agree across phases), and `memory.scope: graph` (widens the parent).
+
+`agr compose --scaffold DIR` writes the composed graph as a registry bundle —
+`graph.yaml`, one derived golden case in `cases.yaml`, a `usecase.yaml` stub, an
+empty `live/` — so a composition can be evaluated instead of only validated.
+
 ### The failure taxonomy, and `timeout_s`
 
 A run used to fail in three ways the report could not name: a model reply with no
