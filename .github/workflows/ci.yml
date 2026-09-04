@@ -6,7 +6,7 @@ jobs:
   gate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           # audit_recordings.py attributes every recording to the commit that
           # introduced it; a shallow clone resolves them all to HEAD and the
@@ -50,7 +50,7 @@ jobs:
   onboarding:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --all-extras
       - run: uv run agr validate && uv run pytest -q
