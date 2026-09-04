@@ -297,6 +297,12 @@ class RunReport:
     #: model that "reports" the threshold it was handed would otherwise grade
     #: itself against a number it chose.
     overwritten_inputs: list[str] = field(default_factory=list)
+    #: R6-03 — scheduler rounds. `steps` counts node executions (the v1 trace
+    #: lock and `max_steps` depend on that meaning); a round is one pass of the
+    #: scheduler, in which every ready member of a `parallel_group` runs
+    #: concurrently. rounds < steps is the observable fact that concurrency
+    #: happened.
+    rounds: int = 0
 
     def frames_for(self, node_id: str) -> list[dict]:
         return [f for f in self.frames if f["node"] == node_id]
@@ -1066,7 +1072,25 @@ def run_graph(doc: dict, runner, root=None, auto_approve: bool = False,
             break
         nid = pending.pop(pick)
         node = nodes[nid]
+        # R6-03 (owner decision Q2): members of one `parallel_group` that are
+        # ready together run together, as one step. 89 graphs declared groups
+        # the runtime scheduled one node at a time; the lint vouched for a
+        # property nothing delivered. `steps` still counts node executions (the
+        # v1 trace lock holds); `rounds` counts scheduler passes.
+        group = node.get("parallel_group")
+        batch = [nid]
+        if group and not (nid in completed and visits[nid] == 1):
+            for other in list(pending):
+                if (nodes[other].get("parallel_group") == group and rdy.ready(other)
+                        and not (other in completed and visits[other] == 1)):
+                    pending.remove(other)
+                    batch.append(other)
+        if len(batch) > 1:
+            _run_batch(batch, nodes, bb, runner, rep, visits, attempts, protected, node_timeout,
+                       auto_approve, doc, out_edges, resolved, taken, forced, pending, ran)
+            continue
         rep.steps += 1
+        rep.rounds += 1
         rep.trace.append(nid)
         ran.add(nid)
         forced.discard(nid)
@@ -1407,6 +1431,94 @@ def _persist_memory(doc: dict, bb: dict, root, rep: RunReport) -> None:
         with target.open("a") as fh:
             for lesson in rep.lessons:
                 fh.write(json.dumps({"graph": doc["name"], "lesson": lesson}) + "\n")
+
+
+def _execute_node(node, nid, bb, runner, rep, visits, auto_approve):
+    """One node's execution against `bb`, exactly as the serial path does it."""
+    if node.get("kind") == "human":
+        return _run_gate(node, bb, runner, auto_approve, rep)
+    if node.get("fan_out"):
+        return _fan_out(node, bb, runner, rep, visits[nid])
+    if node.get("kind") == "search":
+        return _search(node, bb, runner, rep, visits[nid])
+    before = len(rep.tool_calls)
+    out = _reconcile_output(node, runner.run(node, bb), runner, rep)
+    _bind_evidence(bb, rep, before)
+    rep.frames.append({"node": nid, "visit": visits[nid], "out": out})
+    return out
+
+
+def _run_batch(batch, nodes, bb, runner, rep, visits, attempts, protected, node_timeout,
+               auto_approve, doc, out_edges, resolved, taken, forced, pending, ran) -> None:
+    """Run every node in `batch` concurrently, then settle them in order.
+
+    Each node sees a snapshot of the blackboard taken before the batch, with its
+    own `attempts`. Outputs are merged in batch order afterwards, so the result
+    is the same as the serial path whenever the members are truly independent —
+    which is what `parallel_group` declares. A member that fails, times out or
+    does not parse is handled like any node: retries, error edges, the report.
+    """
+    from concurrent.futures import ThreadPoolExecutor
+
+    rep.steps += len(batch)   # node executions, as the trace lock and max_steps count them
+    rep.rounds += 1           # one scheduler round for the whole batch
+    snapshots = {}
+    for nid in batch:
+        rep.trace.append(nid)
+        ran.add(nid)
+        forced.discard(nid)
+        visits[nid] += 1
+        snap = dict(bb)
+        snap["attempts"] = visits[nid]
+        _aggregate(nodes[nid], snap)
+        snapshots[nid] = snap
+
+    def one(nid):
+        node = nodes[nid]
+        deadline = node.get("timeout_s") or node_timeout
+        try:
+            out, timed_out = _with_deadline(
+                lambda: _execute_node(node, nid, snapshots[nid], runner, rep, visits, auto_approve),
+                deadline)
+        except HumanGateRequired as ex:
+            return {"__gate__": f"{nid}: {ex}"}
+        except ValueError as ex:
+            rep.parse_failures.append(f"{nid}: {ex}")
+            out, timed_out = {"error": f"parse: {ex}"}, False
+        if timed_out:
+            rep.timeouts.append(f"{nid}: {deadline}s")
+            out = {"error": f"timeout: node '{nid}' exceeded {deadline}s"}
+        if timed_out or out.get("error", "").startswith("parse:"):
+            rep.frames.append({"node": nid, "visit": visits[nid], "out": out})
+        return out
+
+    with ThreadPoolExecutor(max_workers=len(batch)) as pool:
+        results = list(pool.map(one, batch))
+
+    for nid, out in zip(batch, results, strict=True):
+        node = nodes[nid]
+        if "__gate__" in out:
+            rep.gate_refused = out["__gate__"]
+            pending.clear()
+            return
+        for parent_key, child_key in (node.get("aliases") or {}).items():
+            if child_key in out:
+                out[parent_key] = out[child_key]
+        for k in protected & out.keys():
+            if out[k] != bb.get(k):
+                rep.overwritten_inputs.append(f"{nid}: tried to overwrite caller input '{k}'")
+                out = {kk: vv for kk, vv in out.items() if kk != k}
+        bb["attempts"] = visits[nid]
+        bb.update(out)
+        violations = _shapes.violations(node, out)
+        if violations:
+            rep.shape_violations += violations
+        if out.get("error") and attempts[nid] < node.get("retries", {}).get("max", 0):
+            attempts[nid] += 1
+            rep.retries_used += 1
+            pending.insert(0, nid)
+            continue
+        _fire(nid, node, out, doc, out_edges, resolved, taken, forced, pending, bb, rep)
 
 
 def _fire(nid, node, out, doc, out_edges, resolved, taken, forced, pending, bb, rep) -> None:

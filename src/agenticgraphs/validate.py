@@ -451,9 +451,9 @@ def _lint_motif(doc: dict, root: Path = ROOT) -> list[str]:
         return fail("no node routes: none is `kind: router` and none has two "
                     "conditional out-edges")
     if pattern in ("parallel-swarm", "map-reduce") and not (has_fan_out or has_group):
-        return fail("nothing is declared independent: no node declares `fan_out` and no "
-                    "`parallel_group` has two members (a group declares that its members "
-                    "may run concurrently; the reference runtime schedules them serially)")
+        return fail("nothing runs in parallel: no node declares `fan_out` and no "
+                    "`parallel_group` has two members (members of a group that are ready "
+                    "together run together, as one step)")
     if pattern in ("debate", "ensemble-quorum") and max_in < 2 and not has_fan_out:
         return fail("only one contribution reaches the adjudicator — there is "
                     "nobody to disagree with")
