@@ -15,6 +15,20 @@ table, §5 what "done" means per phase.
 **Decided 2026-09-04 by the owner: Q1-Q6 all as recommended.** Execution: Phases 0+1
 on branch `audit-remediation`, one commit per item, review checkpoint before Phase 2.
 
+**Status 2026-09-04: Phases 0 and 1 done** (commits `10391ef`..`d25c7fa`, 12 commits,
+435 tests green, 91.8% coverage, `make check` clean). Two things found on the way:
+
+- **R1-01 uncovered a second bug in the same lines.** Under `on_partial: continue`
+  the merged `error` key became a truthy list of per-shard errors, so one failed
+  shard failed the whole node regardless of the aggregate. Fixed in the same commit;
+  per-shard errors now publish as `shard_errors`.
+- **Two tests wrote probes into the evidence store.** `test_superseded_recordings.py`
+  planted recordings, called `eval_graph` (which wrote), then "restored" with a
+  fresh date. They now use `write=False`. Without this, R1-04's change-gating still
+  left one `profile.json` date-dirty after every suite run.
+
+Next: review, then Phase 2 (R2-01..R2-11).
+
 | # | Finding | Question | Recommended | If chosen, unlocks |
 |---|---|---|---|---|
 | Q1 | D2-01 | Bind the 29 unbound abilities for real (L), or lint-refuse/downgrade `risk: execute\|write` abilities that have no binding (S)? | **Lint first, bind later.** The lint makes the gap visible in 80-odd graphs today; real bindings are a per-ability roadmap. | Phase 3 R3-04 |
