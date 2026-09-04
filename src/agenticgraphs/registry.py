@@ -269,6 +269,16 @@ class RegistryEntry:
     def description(self) -> str:
         return self.doc.get("description", "")
 
+    @property
+    def tier(self) -> str:
+        """`composite` if any node is `kind: subgraph`, else `primitive`.
+
+        The README claimed a primitives/composites split no field could
+        regenerate (2026-09-04 audit, D0-4). Derived, never declared.
+        """
+        return "composite" if any(n.get("kind") == "subgraph"
+                                  for n in self.doc.get("nodes", [])) else "primitive"
+
     # -- contract ---------------------------------------------------------
     @property
     def contract(self) -> str:

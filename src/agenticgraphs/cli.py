@@ -24,7 +24,8 @@ def _need(name: str) -> dict:
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="agr", description="evolvable, quality-proven agentic graphs")
     sub = p.add_subparsers(dest="cmd", required=True)
-    sub.add_parser("list", help="list all graphs")
+    sub.add_parser("list", help="list all graphs").add_argument(
+        "--json", action="store_true", help="one JSON object per line: name, category, tier, motif")
     sub.add_parser("search", help="search graphs by term").add_argument("term")
     vp = sub.add_parser("validate", help="validate graph file(s), or all if none given")
     vp.add_argument("paths", nargs="*", type=Path)
@@ -92,7 +93,11 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.cmd == "list":
         for e in Registry.load():
-            print(f"{e.category}/{e.name}: {e.description}")
+            if args.json:
+                print(json.dumps({"name": e.name, "category": e.category, "tier": e.tier,
+                                  "motif": e.motif, "description": e.description}))
+            else:
+                print(f"{e.category}/{e.name}: {e.description}")
         return 0
     if args.cmd == "search":
         # Now matches name + description + *category*, which is what the MCP

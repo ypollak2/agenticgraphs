@@ -53,6 +53,7 @@ def create_server():
              # get_graph or instantiate.
              "goal_required": e.goal_required,
              "goal_description": e.goal_description,
+             "tier": e.tier,
              "structural": e.structural}
             for e in Registry.load().search(term)
         ]

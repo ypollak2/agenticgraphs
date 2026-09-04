@@ -18,9 +18,21 @@ def run(capsys, *argv) -> tuple[int, str]:
 
 
 def test_list_names_every_graph(capsys):
+    """Exact, cross-surface: the CLI lists what the registry holds, no more, no
+    less. A `>= 83` lower bound let the count drift in either direction (D8-06)."""
+    from agenticgraphs.registry import iter_graphs
+
     code, out = run(capsys, "list")
     assert code == 0
-    assert len([ln for ln in out.splitlines() if ln.strip()]) >= 83
+    assert len([ln for ln in out.splitlines() if ln.strip()]) == len(iter_graphs())
+
+
+def test_list_json_carries_the_derived_tier(capsys):
+    code, out = run(capsys, "list", "--json")
+    rows = [json.loads(ln) for ln in out.splitlines() if ln.strip()]
+    assert code == 0 and {r["tier"] for r in rows} == {"primitive", "composite"}
+    fdl = next(r for r in rows if r["name"] == "feature-delivery-lifecycle")
+    assert fdl["tier"] == "composite"
 
 
 def test_show_emits_the_definition(capsys):
