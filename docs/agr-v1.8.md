@@ -231,6 +231,25 @@ agree across phases), and `memory.scope: graph` (widens the parent).
 `graph.yaml`, one derived golden case in `cases.yaml`, a `usecase.yaml` stub, an
 empty `live/` — so a composition can be evaluated instead of only validated.
 
+### What `agr adapt` carries into generated code
+
+Every emitter used to drop the graph-level `verification:` block, `fan_out`,
+`retries` and `approval`, and compiled a human gate to the same stub as an LLM
+node (2026-09-04 audit, D5-01..D5-05). Generated modules now carry:
+
+| AGR | LangGraph | CrewAI | AutoGen |
+|---|---|---|---|
+| `verification[].assert` | `CONTRACT` + `check_contract(state)`, applied when flow leaves a terminal node | same, applied by `run(inputs)` after kickoff | same, `check_contract` exported |
+| `verification[].command` | `CONTRACT_COMMANDS`, listed not executed | same | same |
+| `fan_out` | one `Send()` per shard from the predecessor | a NOTE: not expressible sequentially | — |
+| `retries.max` (+`reissue_effects`) | `_with_retries` wrapper | `max_retry_limit` on the Agent | — |
+| `kind: human` + `approval` | stub raises `PermissionError`; the route out of the gate is guarded by the contract | `human_input=True` on the Task | `ConversableAgent` |
+| `kind: verifier` / `router` | marked in the stub docstring | marked in the task description | — |
+| loop-back edges | conditional edges | a NOTE naming the dropped loop (owner decision Q5) | speaker selection |
+
+The MCP `instantiate` tool serves all three targets, and `agr instantiate` is an
+alias of `agr adapt`, so the CLI and the tool share a verb.
+
 ### The failure taxonomy, and `timeout_s`
 
 A run used to fail in three ways the report could not name: a model reply with no
