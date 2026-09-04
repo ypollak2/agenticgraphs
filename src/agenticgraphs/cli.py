@@ -35,6 +35,9 @@ def main(argv: list[str] | None = None) -> int:
     ep = sub.add_parser("eval", help="run golden cases, write profile.json (M1)")
     ep.add_argument("--resume-from", type=Path, metavar="JOURNAL",
                     help="resume a killed run from its journal (requires durability.resume)")
+    ep.add_argument("--journal", type=Path, metavar="DIR",
+                    help="write each case's journal to DIR/<case_id>.jsonl when the graph "
+                         "declares durability.checkpoint: every_node (what --resume-from reads)")
     ep.add_argument("--no-replay", action="store_true",
                     help="ignore checked-in real-model recordings in the graph's live/ "
                          "and use mock fixtures instead")
@@ -124,7 +127,7 @@ def main(argv: list[str] | None = None) -> int:
                              run_commands=args.run_commands,
                              replay=not args.no_replay,
                              resume_from=args.resume_from,
-                             goal=args.goal)
+                             goal=args.goal, journal_dir=args.journal)
         print(json.dumps(profile["measured"], indent=2))
         return 0 if profile["measured"]["pass_rate"] == 1.0 else 1
     if args.cmd == "goal":

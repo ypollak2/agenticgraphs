@@ -84,6 +84,20 @@ def case_inputs(case: dict, goal: str | None = None) -> dict:
     return seed
 
 
+#: The journal record. One JSON object per line, one line per executed node, in
+#: execution order. Exactly these keys; a version bump may add keys but may not
+#: rename or drop these two, because `run_graph(resume_from=...)` keys completion
+#: on `node` and replays `out`.
+JOURNAL_KEYS = ("node", "out")
+
+
+def write_journal(path: Path, journal: list[dict]) -> None:
+    """JSON-lines, the shape `run_graph(resume_from=...)` reads back."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    lines = [json.dumps({k: e[k] for k in JOURNAL_KEYS}, sort_keys=True) for e in journal]
+    path.write_text("\n".join(lines) + ("\n" if lines else ""))
+
+
 def _without_clock(profile: dict) -> dict:
     """The profile minus the fields that change with the calendar and nothing else."""
     out = json.loads(json.dumps(profile))
@@ -117,11 +131,14 @@ def write_profile(gpath: Path, profile: dict) -> bool:
 def eval_graph(name: str, root: Path = ROOT, live: bool = False,
                auto_approve: bool = False, run_commands: bool = False,
                replay: bool = True, resume_from=None, goal: str | None = None,
-               write: bool = True) -> dict:
+               write: bool = True, journal_dir: Path | None = None) -> dict:
     """Run a graph's golden cases and return its profile.
 
     `write=True` persists the profile via `write_profile` (change-gated);
-    `write=False` is a pure computation for report generators.
+    `write=False` is a pure computation for report generators. `journal_dir`
+    writes each case's journal to `<journal_dir>/<case_id>.jsonl` when the graph
+    checkpoints — the file `--resume-from` reads. Nothing wrote one before
+    (2026-09-04 audit, D3-04): resume existed with no producer.
     """
     gpath = find_graph(name, root)
     if gpath is None:
@@ -132,11 +149,14 @@ def eval_graph(name: str, root: Path = ROOT, live: bool = False,
     doc = load(gpath)
     cases = yaml.safe_load(cases_file.read_text())["cases"]
 
-    def _run(runner, approve: bool | None = None, inputs: dict | None = None):
+    def _run(runner, approve: bool | None = None, inputs: dict | None = None,
+             case_id: str = ""):
         rep = run_graph(doc, runner, root=root,
                         auto_approve=auto_approve if approve is None else approve,
                         run_commands=run_commands, resume_from=resume_from,
                         inputs=inputs)
+        if journal_dir is not None and rep.journal:
+            write_journal(journal_dir / f"{case_id}.jsonl", rep.journal)
         return {"passed": rep.passed, "steps": rep.steps, "trace": rep.trace,
                 "goal_missing": rep.goal_missing,
                 # Without this the diagnosis exists on the report and nowhere a
@@ -180,7 +200,8 @@ def eval_graph(name: str, root: Path = ROOT, live: bool = False,
     for case in cases:
         runner = LLMRunner() if live else MockRunner(case["node_outputs"])
         runner_name = runner.name
-        primary.append({"id": case["id"], **_run(runner, inputs=case_inputs(case, goal))})
+        primary.append({"id": case["id"],
+                        **_run(runner, inputs=case_inputs(case, goal), case_id=case["id"])})
 
     profile = structural_profile(doc, root)
     profile["measured"] = _block(primary, runner_name)

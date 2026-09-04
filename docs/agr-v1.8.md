@@ -180,6 +180,29 @@ but never the enclosing locals — so every **nested** quantifier raised
 their outermost iterable is evaluated eagerly in the enclosing scope. No contract
 in the registry could quantify two levels deep until now.
 
+### Durability and the journal
+
+`durability.checkpoint: every_node` (v1.3) makes a run journal one record per
+executed node. `agr eval --journal DIR` writes `DIR/<case_id>.jsonl`;
+`agr eval --resume-from FILE` reads it back, replays the recorded outputs, skips
+the nodes they complete, and routes every resumed node through the same edge
+resolution a fresh node takes.
+
+The record shape, pinned by `tests/test_journal_shape.py`:
+
+```json
+{"node": "<node id>", "out": {<the node's output dict>}}
+```
+
+One JSON object per line, execution order, exactly these two keys. A future
+version may **add** keys; it may not rename or drop `node` or `out`, because
+resume keys completion on the first and replays the second. Frames a resumed run
+replays are not re-journalled (`resumed: true` frames are excluded), so a journal
+written after a resume is the union of both runs.
+
+Before this section existed nothing produced the file `--resume-from` consumed
+(2026-09-04 audit, D3-04).
+
 ### The HTTP transport
 
 `agr mcp --http` binds `127.0.0.1` only, which does not distinguish the intended
