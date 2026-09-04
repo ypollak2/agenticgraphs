@@ -139,6 +139,33 @@ Filled from the blackboard. A missing placeholder **raises** rather than running
 a half-substituted command: `pytest {suite}` with no `suite` would run the whole
 suite and report a pass for a check that never happened.
 
+### Runtime facts the linter used to imply and the runtime did not deliver
+
+Closed by the 2026-09-04 gap audit (`docs/plans/audit-gaps-2026-09-04.md`), stated
+here so the spec and the code say the same thing.
+
+**`fan_out.on_partial: continue` means "aggregate over the shards that succeeded".**
+A failed shard leaves `None` in the fanned-out list for every declared output, and
+the node-level `error` flag is set only under `on_partial: fail`. `aggregate` with
+`median` or `best` skips the `None`s; `union` and `majority` see them. Per-shard
+errors are published as `shard_errors`, next to the runtime-owned `shards_processed`
+and `shards_failed`, which a guard or assert may read without any node declaring them.
+
+**`parallel_group` declares independence, not concurrency.** Members of a group may
+run in any order or at the same time because nothing in the group depends on
+another member. The reference runtime in `harness.py` schedules them serially, one
+ready node per step. `_lint_motif` requires a two-member group or a `fan_out` for
+`parallel-swarm` and `map-reduce` because the *shape* is what the motif claims;
+a concurrent scheduler is a runtime property, tracked as remediation item R6-03.
+
+**A `kind: verifier` node must be reachable on the flow path.** Reachability in
+general counts `error` and `compensate` edges, because a rollback handler is a real
+node. A verifier that only a failure edge reaches never runs on the path the
+contract is about, so `lint_graph` refuses it.
+
+**`agr validate` walks `ref` chains.** A cycle between composites, or nesting past
+`MAX_DEPTH`, fails at validate time. Before, only `expand()` at run time saw it.
+
 ## Security
 
 `edges[].when` and `verification[].assert` reached `eval()` with
@@ -152,6 +179,14 @@ but never the enclosing locals — so every **nested** quantifier raised
 `NameError: name 'all' is not defined`. Single-level asserts hid it, because
 their outermost iterable is evaluated eagerly in the enclosing scope. No contract
 in the registry could quantify two levels deep until now.
+
+### The HTTP transport
+
+`agr mcp --http` binds `127.0.0.1` only, which does not distinguish the intended
+caller from any other local process. With `AGR_MCP_TOKEN` set, every request must
+carry `Authorization: Bearer <token>` or is answered `401` before the server sees
+it. The token is **required** when `AGR_AUTONOMOUS=1`: an unattended server that can
+commit to `auto/mutations` must not accept writes from whoever finds the port.
 
 ## Migration
 
