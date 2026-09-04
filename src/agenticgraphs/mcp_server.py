@@ -7,17 +7,32 @@ docs/autonomy.md) to allow `infuse_ability(..., persist=True)` to write back,
 gate-checked and committed to a dedicated `auto/mutations` branch.
 
 Run with: `agr mcp` (stdio transport, default) or `agr mcp --http [--port 8765]`
-(binds 127.0.0.1 only).
+(binds 127.0.0.1 only). Over HTTP, set `AGR_MCP_TOKEN` to require a bearer token
+on every request; it is mandatory when `AGR_AUTONOMOUS=1`, because loopback alone
+does not distinguish the intended caller from any other local process.
 """
 from __future__ import annotations
+
+import hmac
+import os
+import sys
 
 import yaml
 
 from .adapters import emit_langgraph
-from .autonomy import AutonomyError
+from .autonomy import AutonomyError, is_autonomous
 from .inspect import find_graph
 from .registry import Registry, iter_yaml, load
-from .validate import validate_schema
+from .validate import lint_graph, validate_schema
+
+TOKEN_ENV = "AGR_MCP_TOKEN"  # noqa: S105 — the env var NAME, not a secret
+
+NO_TOKEN_WHILE_AUTONOMOUS_MSG = (
+    f"agr mcp --http refused: AGR_AUTONOMOUS=1 is set but {TOKEN_ENV} is not. "
+    "Binding to 127.0.0.1 does not stop another local process from calling "
+    "infuse_ability(persist=true); set a token so only the intended caller can. "
+    "See docs/autonomy.md."
+)
 
 
 def create_server():
@@ -91,19 +106,70 @@ def create_server():
             raise ValueError(f"no node '{node_id}' in '{name}'")
         if ability not in node.setdefault("abilities", []):
             node["abilities"].append(ability)
-        errs = validate_schema(doc, "graph")
+        # Same gate as the persist=True path (schema *and* lint). The preview
+        # branch used to run schema only, so the two branches of one tool applied
+        # different checks to the same mutation (2026-09-04 audit, D7-03).
+        errs = validate_schema(doc, "graph") or lint_graph(doc)
         if errs:
-            raise ValueError("mutation violates schema: " + "; ".join(errs))
+            raise ValueError("mutation violates schema/lint: " + "; ".join(errs))
         return yaml.safe_dump(doc, sort_keys=False)
 
     return mcp
 
 
+def bearer_guard(app, token: str):
+    """Wrap an ASGI app so every HTTP request must carry `Authorization: Bearer <token>`.
+
+    Constant-time comparison; anything else is answered 401 before the MCP app
+    sees the request. Non-HTTP scopes (lifespan) pass through untouched.
+    """
+    expected = token.encode()
+
+    async def guarded(scope, receive, send):
+        if scope.get("type") != "http":
+            await app(scope, receive, send)
+            return
+        header = next((v for k, v in scope.get("headers", []) if k == b"authorization"), b"")
+        ok = header.startswith(b"Bearer ") and hmac.compare_digest(header[7:], expected)
+        if not ok:
+            await send({"type": "http.response.start", "status": 401,
+                        "headers": [(b"content-type", b"text/plain"),
+                                    (b"www-authenticate", b"Bearer")]})
+            await send({"type": "http.response.body", "body": b"unauthorized\n"})
+            return
+        await app(scope, receive, send)
+
+    return guarded
+
+
+def http_token() -> str | None:
+    """The token HTTP callers must present, or None. Refuses to run autonomous without one."""
+    token = os.environ.get(TOKEN_ENV) or None
+    if is_autonomous() and not token:
+        raise SystemExit(NO_TOKEN_WHILE_AUTONOMOUS_MSG)
+    return token
+
+
 def run_server(server, http: bool = False, port: int = 8765) -> None:
-    """Run `server` over stdio (default) or HTTP/SSE bound to 127.0.0.1 only."""
+    """Run `server` over stdio (default) or HTTP bound to 127.0.0.1 only.
+
+    With `AGR_MCP_TOKEN` set the HTTP transport is wrapped in `bearer_guard`
+    (2026-09-04 audit, D7-01). Without it, and without AGR_AUTONOMOUS, the
+    server stays read-only over the registry, which is the pre-existing posture.
+    """
     if not http:
         server.run()
         return
+    token = http_token()
+    if token:
+        import uvicorn
+
+        app = bearer_guard(server.streamable_http_app(), token)
+        uvicorn.run(app, host="127.0.0.1", port=port)
+        return
+    print(f"agr mcp --http: no {TOKEN_ENV} set; any local process can reach this server "
+          "(read-only unless AGR_AUTONOMOUS=1, which then requires a token).",
+          file=sys.stderr)
     try:
         # mcp SDK >= 2.0: MCPServer.run(transport=..., **kwargs)
         server.run(transport="streamable-http", host="127.0.0.1", port=port)
