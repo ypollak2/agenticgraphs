@@ -1,3 +1,5 @@
+> **Superseded by [AGR v1.8](agr-v1.8.md).** This page describes an earlier version and is kept for the record; the current spec is agr-v1.8.md.
+
 # AGR v1.1 — composites
 
 Additive over AGR v1. Every v1 graph validates unchanged, and the scheduler was

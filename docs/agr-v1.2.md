@@ -1,3 +1,5 @@
+> **Superseded by [AGR v1.8](agr-v1.8.md).** This page describes an earlier version and is kept for the record; the current spec is agr-v1.8.md.
+
 # AGR v1.2 — depth
 
 Additive over v1.1. Every v1 and v1.1 graph validates and executes unchanged.

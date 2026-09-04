@@ -1,3 +1,5 @@
+> **Superseded by [AGR v1.8](agr-v1.8.md).** This page describes an earlier version and is kept for the record; the current spec is agr-v1.8.md.
+
 # AGR v1.5 — every node declares
 
 One enum value, one lint, one migration. Third version running where the fix was to
