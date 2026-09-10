@@ -1,0 +1,41 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "experiment": {
+      "name": "checkout-v3",
+      "claimed_effect": 0.021,
+      "control": {
+        "n": 48210,
+        "conversions": 4339
+      },
+      "variant": {
+        "n": 47980,
+        "conversions": 5327
+      },
+      "primary_metric": "conversion rate",
+      "run_days": 14
+    },
+    "goal": "experiment checkout-v3, claimed +2.1% conversion"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "position-b: no JSON object in model reply: ''",
+    "position-a: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

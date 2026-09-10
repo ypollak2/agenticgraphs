@@ -1,0 +1,54 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "pack": {
+      "entity_type": "UK sole trader",
+      "regime": "FCA",
+      "documents": [
+        {
+          "kind": "passport",
+          "fields": {
+            "name": "J Whitmore",
+            "dob": "1984-02-11",
+            "expiry": "2031-07-09"
+          }
+        },
+        {
+          "kind": "utility_bill",
+          "fields": {
+            "name": "J Whitmore",
+            "address": "12 Bridge St, Leeds",
+            "dated": "2026-07-02"
+          }
+        },
+        {
+          "kind": "hmrc_utr",
+          "fields": {
+            "utr": "1234567890",
+            "name": "J Whitmore"
+          }
+        }
+      ]
+    },
+    "goal": "a UK sole-trader onboarding pack, under FCA rules"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "intake: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

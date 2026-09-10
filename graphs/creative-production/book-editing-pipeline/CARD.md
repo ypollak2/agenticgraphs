@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-109` | creative-production | **pipeline** | 7 | 7 | 0 | 0 | 35 | execute |
+| `AGR-109` | creative-production | **pipeline** | 7 | 7 | 0 | 0 | 12 | execute |
 
 > 🎯 **Requires a goal** — the manuscript to edit and the house style it must follow. Without one the graph refuses and runs no node.
 
@@ -42,7 +42,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 - **Exit contract** — nothing typesets with open style violations or without author sign-off
 - **Machine-checked** — `len(output.style_violations) == 0`
 - **Machine-checked** — `output.signed_off == true`
-- **Bounded** — hard stop after 35 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval book-editing-pipeline` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/book-editing-pipeline.md)
 

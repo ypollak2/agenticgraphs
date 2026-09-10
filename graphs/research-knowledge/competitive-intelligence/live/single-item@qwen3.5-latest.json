@@ -1,0 +1,83 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "sources": [
+      {
+        "vendor": "Zapier",
+        "source_url": "https://zapier.com/pricing",
+        "source_date": "2026-08-01",
+        "note": "task-based tiers"
+      },
+      {
+        "vendor": "Make",
+        "source_url": "https://make.com/pricing",
+        "source_date": "2026-08-03",
+        "note": "operations-based tiers"
+      },
+      {
+        "vendor": "n8n",
+        "source_url": "https://n8n.io/pricing",
+        "source_date": "2026-08-05",
+        "note": "self-host option"
+      }
+    ],
+    "goal": "three workflow vendors, informing Q4 positioning"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "vendor": "Zapier",
+          "source_url": "https://zapier.com/pricing",
+          "source_date": "2026-08-01"
+        },
+        {
+          "vendor": "Make",
+          "source_url": "https://make.com/pricing",
+          "source_date": "2026-08-03"
+        },
+        {
+          "vendor": "n8n",
+          "source_url": "https://n8n.io/pricing",
+          "source_date": "2026-08-05"
+        }
+      ]
+    },
+    "map": [
+      {
+        "shard_result": {
+          "vendor": "Zapier",
+          "source_url": "https://zapier.com/pricing",
+          "source_date": "2026-08-01"
+        }
+      },
+      {
+        "shard_result": {
+          "vendor": "Make",
+          "source_url": "https://make.com/pricing",
+          "source_date": "2026-08-03",
+          "pricing_model": "operations-based tiers"
+        }
+      }
+    ]
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "map: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

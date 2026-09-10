@@ -1,0 +1,143 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "reports": [
+      {
+        "line_id": "L1",
+        "employee": "e1",
+        "amount": 420.0,
+        "category": "hotel",
+        "region": "EMEA",
+        "nights": 2
+      },
+      {
+        "line_id": "L2",
+        "employee": "e1",
+        "amount": 95.0,
+        "category": "meal",
+        "region": "EMEA",
+        "attendees": 1
+      },
+      {
+        "line_id": "L3",
+        "employee": "e2",
+        "amount": 1450.0,
+        "category": "flight",
+        "region": "EMEA",
+        "class": "business"
+      },
+      {
+        "line_id": "L4",
+        "employee": "e3",
+        "amount": 38.0,
+        "category": "taxi",
+        "region": "EMEA"
+      }
+    ],
+    "policy": {
+      "year": 2026,
+      "rules": [
+        {
+          "policy_rule": "TR-1",
+          "text": "meals capped at 60 EMEA"
+        },
+        {
+          "policy_rule": "TR-4",
+          "text": "economy only under 6 hours"
+        },
+        {
+          "policy_rule": "TR-9",
+          "text": "hotel capped at 180/night"
+        }
+      ]
+    },
+    "goal": "August EMEA reports, against the 2026 travel policy"
+  },
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "task_id": "T1",
+          "action": "decompose_goal",
+          "goal": "August EMEA reports, against the 2026 travel policy",
+          "subgoals": [
+            {
+              "subgoal_id": "SG1",
+              "description": "Evaluate each report line against the 2026 travel policy rules for EMEA"
+            }
+          ]
+        }
+      ]
+    },
+    "work": {
+      "work_result": [
+        {
+          "line_id": "L1",
+          "policy_rule": "TR-9",
+          "violation": true
+        },
+        {
+          "line_id": "L2",
+          "policy_rule": "TR-1",
+          "violation": true
+        },
+        {
+          "line_id": "L3",
+          "policy_rule": "TR-4",
+          "violation": true
+        },
+        {
+          "line_id": "L4",
+          "policy_rule": null,
+          "violation": false
+        }
+      ]
+    },
+    "verify": {
+      "output": {
+        "violations": [
+          {
+            "line_id": "L1",
+            "policy_rule": "TR-9"
+          },
+          {
+            "line_id": "L2",
+            "policy_rule": "TR-1"
+          },
+          {
+            "line_id": "L3",
+            "policy_rule": "TR-4"
+          }
+        ]
+      },
+      "violations": [
+        {
+          "line_id": "L1",
+          "policy_rule": "TR-9"
+        },
+        {
+          "line_id": "L2",
+          "policy_rule": "TR-1"
+        },
+        {
+          "line_id": "L3",
+          "policy_rule": "TR-4"
+        }
+      ],
+      "verify_failed": false
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

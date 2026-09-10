@@ -1,0 +1,69 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "role": {
+      "title": "Staff Platform Engineer",
+      "team": "infrastructure",
+      "draft_requirements": [
+        "10+ years experience",
+        "strong Kubernetes background",
+        "strong Kubernetes background",
+        "a cultural fit for our young dynamic team",
+        "on-call participation"
+      ]
+    },
+    "goal": "a staff platform engineer on the infra team"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Senior-level platform engineer role requiring 10+ years of experience with strong Kubernetes expertise, cultural alignment with a dynamic young team, and on-call responsibilities for infrastructure operations."
+    },
+    "generate": {
+      "draft": "Staff Platform Engineer - Infrastructure Team",
+      "requirements": [
+        "10+ years experience",
+        "strong Kubernetes background",
+        "cultural fit for young dynamic team",
+        "on-call participation"
+      ]
+    },
+    "critique": {
+      "bias_terms": [],
+      "output": {
+        "bias_terms": [],
+        "requirements": [
+          "10+ years experience",
+          "strong Kubernetes background",
+          "cultural fit for young dynamic team",
+          "on-call participation"
+        ],
+        "unique_requirements": [
+          "10+ years experience",
+          "strong Kubernetes background",
+          "cultural fit for young dynamic team",
+          "on-call participation"
+        ]
+      },
+      "unique_requirements": [
+        "10+ years experience",
+        "strong Kubernetes background",
+        "cultural fit for young dynamic team",
+        "on-call participation"
+      ],
+      "rejected": false
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

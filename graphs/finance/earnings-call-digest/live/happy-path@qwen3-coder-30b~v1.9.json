@@ -1,0 +1,71 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "transcript": {
+      "quarter": "Q2 2026",
+      "statements": [
+        {
+          "speaker": "CFO",
+          "text": "Revenue was 412 million, up 14 percent year over year."
+        },
+        {
+          "speaker": "CFO",
+          "text": "We now expect full-year margin of 21 to 22 percent."
+        },
+        {
+          "speaker": "CEO",
+          "text": "Net retention held at 118 percent."
+        }
+      ]
+    },
+    "prior_guidance": {
+      "quarter": "Q1 2026",
+      "revenue_guide_musd": 405,
+      "margin_guide": "20 to 22 percent"
+    },
+    "goal": "the Q2 2026 call, against the guidance given in Q1"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Q2 2026 revenue of $412 million exceeded Q1 guidance of $405 million, representing a 14% year-over-year increase. Full-year margin guidance was raised to 21-22%, up from the previous guidance of 20-22%. Net retention remained strong at 118%."
+    },
+    "produce": {
+      "figures": [
+        {
+          "matches_transcript": true
+        }
+      ],
+      "invented_numbers": []
+    },
+    "review": {
+      "figures": [
+        {
+          "matches_transcript": true
+        }
+      ],
+      "invented_numbers": [],
+      "output": {
+        "figures": [
+          {
+            "matches_transcript": true
+          }
+        ],
+        "invented_numbers": []
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

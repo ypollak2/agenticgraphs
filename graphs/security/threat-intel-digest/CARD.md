@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-084` | security | **map-reduce** | 4 | 3 | 1 | 0 | 20 | write |
+| `AGR-084` | security | **map-reduce** | 4 | 3 | 1 | 0 | 8 | write |
 
 > 🎯 **Requires a goal** — the feeds to digest and the estate the brief is written for. Without one the graph refuses and runs no node.
 
@@ -34,7 +34,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 
 - **Exit contract** — every item links source advisory with CVE ids
 - **Machine-checked** — `all(i.advisory_url and i.cve_ids for i in output.entries)`
-- **Bounded** — hard stop after 20 steps; the topology is acyclic
+- **Bounded** — hard stop after 8 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval threat-intel-digest` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/threat-intel-digest.md)
 

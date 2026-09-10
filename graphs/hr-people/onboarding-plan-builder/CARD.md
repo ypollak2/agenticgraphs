@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-093` | hr-people | **planner-executor-verifier** | 4 | 5 | 1 | 0 | 25 | write |
+| `AGR-093` | hr-people | **planner-executor-verifier** | 4 | 5 | 1 | 0 | 8 | write |
 
 > 🎯 **Requires a goal** — the new hire's role and the team they are joining. Without one the graph refuses and runs no node.
 
@@ -37,7 +37,7 @@ The plan makes intent inspectable before anything touches the world, the executo
 - **Exit contract** — every checkpoint carries a measurable milestone and day-one access is pre-requested
 - **Machine-checked** — `all(c.milestone for c in output.plan_30_60_90)`
 - **Machine-checked** — `all(a.system and a.requested_on for a in output.access_requests)`
-- **Bounded** — hard stop after 25 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 8 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval onboarding-plan-builder` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/onboarding-plan-builder.md)
 

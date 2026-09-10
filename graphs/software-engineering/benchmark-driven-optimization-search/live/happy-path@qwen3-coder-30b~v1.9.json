@@ -1,0 +1,134 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "repo": {
+      "name": "parser",
+      "entry": "src/parser.py",
+      "benchmark": {
+        "cmd": "pytest bench/ --benchmark-only",
+        "metric": "ms",
+        "baseline_ms": 184.0
+      },
+      "hot_paths": [
+        {
+          "fn": "tokenize",
+          "share": 0.61
+        },
+        {
+          "fn": "normalize",
+          "share": 0.22
+        }
+      ]
+    },
+    "goal": "optimize the parser repo against the throughput benchmark"
+  },
+  "node_outputs": {
+    "profile": {
+      "hotspot": "tokenize",
+      "baseline_ms": 184.0
+    },
+    "explore": [
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      },
+      {
+        "patch": "def tokenize(text):\n    tokens = []\n    i = 0\n    while i < len(text):\n        if text[i].isspace():\n            i += 1\n            continue\n        elif text[i] in '()[]{}':\n            tokens.append(text[i])\n            i += 1\n        else:\n            start = i\n            while i < len(text) and not text[i].isspace() and text[i] not in '()[]{}':\n                i += 1\n            tokens.append(text[start:i])\n    return tokens",
+        "bench_ms": 152.3
+      }
+    ],
+    "verify": {
+      "baseline_ms": 184.0,
+      "bench_ms": 152.3,
+      "output": {
+        "baseline_ms": 184.0,
+        "bench_ms": 152.3
+      }
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

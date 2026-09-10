@@ -62,5 +62,115 @@
         "tool_calls": []
       }
     ]
+  },
+  "measured_live": {
+    "runner": "llm-replay:qwen3-coder:30b,qwen3.5:latest",
+    "provisional": false,
+    "verification_depth": "assert-live",
+    "date": "2026-09-10",
+    "cases": 2,
+    "passed": 1,
+    "pass_rate": 0.5,
+    "mean_steps": 7.0,
+    "results": [
+      {
+        "id": "happy-path",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-09-10",
+        "gate_auto_approved": false,
+        "passed": true,
+        "steps": 7,
+        "trace": [
+          "discover.plan",
+          "discover.work",
+          "discover.verify",
+          "classify",
+          "gap-scan",
+          "remediate",
+          "attest"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [],
+        "skipped_command_checks": 1,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [],
+        "overwritten_inputs": [],
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      },
+      {
+        "id": "happy-path",
+        "model": "qwen3.5:latest",
+        "recorded": "2026-09-10",
+        "gate_auto_approved": false,
+        "passed": false,
+        "steps": 7,
+        "trace": [
+          "discover.plan",
+          "discover.work",
+          "discover.verify",
+          "classify",
+          "gap-scan",
+          "remediate",
+          "attest"
+        ],
+        "goal_missing": "",
+        "unreached_terminals": [],
+        "shape_violations": [],
+        "state_violations": [],
+        "assert_failures": [
+          "output.unclassified_stores == 0 (AttributeError: unclassified_stores)",
+          "all(gp.owner and gp.due for gp in output.gaps) (AttributeError: gaps)",
+          "[discover] all(v.rule_id and v.count >= 0 for v in output.violations) (AttributeError: violations)"
+        ],
+        "skipped_command_checks": 1,
+        "commands_run": 0,
+        "command_failures": [],
+        "deadlocked": false,
+        "parse_failures": [],
+        "gate_refused": "",
+        "timeouts": [],
+        "failure_kinds": [
+          "assert"
+        ],
+        "overwritten_inputs": [],
+        "rejected_approvals": [],
+        "auto_approved": false,
+        "subgraphs_expanded": true,
+        "truncations": [],
+        "grounded": false,
+        "tool_calls": []
+      }
+    ],
+    "models": [
+      "qwen3-coder:30b",
+      "qwen3.5:latest"
+    ],
+    "recorded": "2026-09-10",
+    "age_days": 0,
+    "per_model_pass_rate": {
+      "qwen3-coder:30b": 1.0,
+      "qwen3.5:latest": 0.0
+    },
+    "models_disagree": true,
+    "fails_every_model": false,
+    "flaky_models": [],
+    "samples_per_model": {
+      "qwen3-coder:30b": 1,
+      "qwen3.5:latest": 1
+    },
+    "gate_auto_approved": false
   }
 }

@@ -1,0 +1,48 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "cycle": {
+      "name": "H1 2026",
+      "level": "senior",
+      "team": "infrastructure",
+      "evidence": [
+        {
+          "src": "pr",
+          "ref": "PR-4412",
+          "note": "led the storage migration"
+        },
+        {
+          "src": "incident",
+          "ref": "INC-221",
+          "note": "IC on the March outage"
+        },
+        {
+          "src": "peer",
+          "ref": "feedback-7",
+          "note": "mentored two juniors through on-call"
+        }
+      ]
+    },
+    "goal": "summarize the H1 2026 cycle for a senior engineer on the infra team"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "gather: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

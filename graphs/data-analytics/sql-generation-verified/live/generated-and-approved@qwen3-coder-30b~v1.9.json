@@ -1,64 +1,62 @@
 {
- "model": "qwen3-coder:30b",
- "recorded": "2026-09-10",
- "endpoint": "http://localhost:11434/v1",
- "spec": "agr/v1.9",
- "sampling": {
-  "temperature": 0,
-  "seed": 7,
-  "max_tokens": 2048
- },
- "inputs": {
-  "query_path": "analytics/mau_by_plan.sql",
-  "schema": {
-   "tables": [
-    {
-     "name": "accounts",
-     "columns": [
-      "id",
-      "plan",
-      "created_at"
-     ]
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "query_path": "analytics/mau_by_plan.sql",
+    "schema": {
+      "tables": [
+        {
+          "name": "accounts",
+          "columns": [
+            "id",
+            "plan",
+            "created_at"
+          ]
+        },
+        {
+          "name": "events",
+          "columns": [
+            "account_id",
+            "occurred_at",
+            "kind"
+          ]
+        }
+      ]
     },
-    {
-     "name": "events",
-     "columns": [
-      "account_id",
-      "occurred_at",
-      "kind"
-     ]
+    "expect_nonempty": true,
+    "goal": "monthly active accounts by plan, against the warehouse schema"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "SELECT plan, COUNT(DISTINCT id) as mau FROM accounts WHERE created_at >= DATE_TRUNC('month', CURRENT_DATE) GROUP BY plan"
+    },
+    "generate": {
+      "draft": "SELECT plan, COUNT(DISTINCT id) as mau FROM accounts WHERE created_at >= DATE_TRUNC('month', CURRENT_DATE) GROUP BY plan"
+    },
+    "execute": {
+      "row_count": 1247,
+      "exit_code": 0
+    },
+    "critique": {
+      "exit_code": 0,
+      "output": {
+        "exit_code": 0,
+        "row_count": 1247
+      },
+      "row_count": 1247,
+      "rejected": false
     }
-   ]
   },
-  "expect_nonempty": true,
-  "goal": "monthly active accounts by plan, against the warehouse schema"
- },
- "node_outputs": {
-  "intake": {
-   "summary": "SELECT plan, COUNT(DISTINCT id) as mau FROM accounts WHERE created_at >= DATE_TRUNC('month', CURRENT_DATE) GROUP BY plan"
-  },
-  "generate": {
-   "draft": "SELECT plan, COUNT(DISTINCT id) as mau FROM accounts WHERE created_at >= DATE_TRUNC('month', CURRENT_DATE) GROUP BY plan"
-  },
-  "execute": {
-   "row_count": 1247,
-   "exit_code": 0
-  },
-  "critique": {
-   "exit_code": 0,
-   "output": {
-    "exit_code": 0,
-    "row_count": 1247
-   },
-   "row_count": 1247,
-   "rejected": false
-  }
- },
- "tool_calls": [],
- "failure_kinds": [],
- "parse_failures": [],
- "gate_refused": "",
- "timeouts": [],
- "superseded_by": "v19-guidance-stripped",
- "reason": "recorded while 8 graphs still carried edge guidance measured at zero mean benefit; the v1.9 baseline should not bake in an unproven mechanism"
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
 }

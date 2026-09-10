@@ -1,60 +1,58 @@
 {
- "model": "qwen3-coder:30b",
- "recorded": "2026-09-10",
- "endpoint": "http://localhost:11434/v1",
- "spec": "agr/v1.9",
- "sampling": {
-  "temperature": 0,
-  "seed": 7,
-  "max_tokens": 2048
- },
- "inputs": {
-  "threshold": 0.85,
-  "goal": "the onboarding guide, into de-DE, ja-JP and pt-BR"
- },
- "node_outputs": {
-  "partition": {
-   "shards": [
-    {
-     "language": "de-DE",
-     "content": "Willkommensanleitung f\u00fcr neue Benutzer"
-    },
-    {
-     "language": "ja-JP",
-     "content": "\u65b0\u898f\u30e6\u30fc\u30b6\u30fc\u5411\u3051\u30aa\u30f3\u30dc\u30fc\u30c7\u30a3\u30f3\u30b0\u30ac\u30a4\u30c9"
-    },
-    {
-     "language": "pt-BR",
-     "content": "Guia de integra\u00e7\u00e3o para novos usu\u00e1rios"
-    }
-   ]
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
   },
-  "map": [
-   {
-    "shard_result": "Willkommensanleitung f\u00fcr neue Benutzer"
-   },
-   {
-    "shard_result": "Willkommensanleitung f\u00fcr neue Benutzer"
-   },
-   {
-    "shard_result": "Guia de integra\u00e7\u00e3o para novos usu\u00e1rios"
-   }
-  ],
-  "reduce": {
-   "glossary_violations": [],
-   "output": {
-    "glossary_violations": [],
-    "similarity": 0.85,
-    "threshold": 0.85
-   },
-   "similarity": 0.85
-  }
- },
- "tool_calls": [],
- "failure_kinds": [],
- "parse_failures": [],
- "gate_refused": "",
- "timeouts": [],
- "superseded_by": "v19-guidance-stripped",
- "reason": "recorded while 8 graphs still carried edge guidance measured at zero mean benefit; the v1.9 baseline should not bake in an unproven mechanism"
+  "inputs": {
+    "threshold": 0.85,
+    "goal": "the onboarding guide, into de-DE, ja-JP and pt-BR"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "language": "de-DE",
+          "content": "Willkommensanleitung f\u00fcr neue Benutzer"
+        },
+        {
+          "language": "ja-JP",
+          "content": "\u65b0\u898f\u30e6\u30fc\u30b6\u30fc\u5411\u3051\u30aa\u30f3\u30dc\u30fc\u30c7\u30a3\u30f3\u30b0\u30ac\u30a4\u30c9"
+        },
+        {
+          "language": "pt-BR",
+          "content": "Guia de integra\u00e7\u00e3o para novos usu\u00e1rios"
+        }
+      ]
+    },
+    "map": [
+      {
+        "shard_result": "Willkommensanleitung f\u00fcr neue Benutzer"
+      },
+      {
+        "shard_result": "Willkommensanleitung f\u00fcr neue Benutzer"
+      },
+      {
+        "shard_result": "Guia de integra\u00e7\u00e3o para novos usu\u00e1rios"
+      }
+    ],
+    "reduce": {
+      "glossary_violations": [],
+      "output": {
+        "glossary_violations": [],
+        "similarity": 0.85,
+        "threshold": 0.85
+      },
+      "similarity": 0.85
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
 }

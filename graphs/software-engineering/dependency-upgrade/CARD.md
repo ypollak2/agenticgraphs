@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-006` | software-engineering | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
+| `AGR-006` | software-engineering | **pipeline** | 3 | 3 | 1 | 0 | 10 | write |
 
 > 🎯 **Requires a goal** — the dependencies to upgrade and the suite that must stay green. Its trigger supplies this when it fires on schedule.
 
@@ -35,7 +35,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 - **Machine-checked** — `output.lockfile_sha_before != output.lockfile_sha_after`
 - **Machine-checked** — `len(output.new_deprecations) == 0`
 - **Command-checked** — `pytest -q`
-- **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 10 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval dependency-upgrade` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/dependency-upgrade.md)
 

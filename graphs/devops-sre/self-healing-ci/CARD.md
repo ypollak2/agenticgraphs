@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-129` | devops-sre | **reflexion** | 4 | 4 | 1 | 0 | 35 | execute |
+| `AGR-129` | devops-sre | **reflexion** | 4 | 4 | 1 | 0 | 20 | execute |
 
 > 🎯 **Requires a goal** — the red pipeline run to diagnose and repair. Its trigger supplies this when it fires on schedule.
 
@@ -36,7 +36,7 @@ Each failed attempt writes down what was learned, and the next attempt reads it.
 - **Exit contract** — a red pipeline ends green or escalated, never retried without a recorded reason
 - **Command-checked** — `pytest -q`
 - **Machine-checked** — `len(output.lessons) >= 1 and output.attempts <= 3`
-- **Bounded** — hard stop after 35 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 20 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval self-healing-ci` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/self-healing-ci.md)
 

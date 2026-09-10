@@ -1,98 +1,96 @@
 {
- "model": "qwen3-coder:30b",
- "recorded": "2026-09-10",
- "endpoint": "http://localhost:11434/v1",
- "spec": "agr/v1.9",
- "sampling": {
-  "temperature": 0,
-  "seed": 7,
-  "max_tokens": 2048
- },
- "inputs": {
-  "page_limit": 10,
-  "goal": "the Acme Health RFP, answered from the 2026 solutions library"
- },
- "node_outputs": {
-  "partition": {
-   "shards": [
-    {
-     "requirement": "Solution Overview",
-     "status": "answered",
-     "content": "The 2026 solutions library provides comprehensive healthcare technology solutions including AI-powered diagnostic tools, telemedicine platforms, and patient management systems designed to enhance healthcare delivery and outcomes."
-    },
-    {
-     "requirement": "Compliance and Security",
-     "status": "answered",
-     "content": "All solutions in the 2026 library meet HIPAA, GDPR, and other relevant regulatory requirements with built-in encryption, access controls, and audit trails to ensure patient data protection."
-    },
-    {
-     "requirement": "Integration Capabilities",
-     "status": "answered",
-     "content": "Solutions offer seamless integration with existing EHR systems, medical devices, and third-party applications through standardized APIs and middleware solutions."
-    },
-    {
-     "requirement": "Scalability",
-     "status": "answered",
-     "content": "All platforms are designed for horizontal scaling to accommodate growing healthcare organizations from small clinics to large hospital networks."
-    },
-    {
-     "requirement": "Support and Maintenance",
-     "status": "answered",
-     "content": "Comprehensive 24/7 support with SLA guarantees, regular updates, and maintenance services included in all solution packages."
-    }
-   ]
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
   },
-  "map": [
-   {
-    "shard_result": "answered"
-   },
-   {
-    "shard_result": "The 2026 solutions library meets HIPAA, GDPR, and other regulatory requirements with built-in encryption, access controls, and audit trails to ensure patient data protection."
-   },
-   {
-    "shard_result": "map_shard"
-   },
-   {
-    "shard_result": "map_shard"
-   },
-   {
-    "shard_result": "The 2026 solutions library provides comprehensive healthcare technology solutions including AI-powered diagnostic tools, telemedicine platforms, and patient management systems designed to enhance healthcare delivery and outcomes."
-   }
-  ],
-  "reduce": {
-   "output": {
-    "page_count": 5.0,
+  "inputs": {
     "page_limit": 10,
-    "requirements": [
-     {
-      "answered": true,
-      "flagged": false
-     },
-     {
-      "answered": true,
-      "flagged": false
-     },
-     {
-      "answered": true,
-      "flagged": false
-     },
-     {
-      "answered": true,
-      "flagged": false
-     },
-     {
-      "answered": true,
-      "flagged": false
-     }
-    ]
-   }
-  }
- },
- "tool_calls": [],
- "failure_kinds": [],
- "parse_failures": [],
- "gate_refused": "",
- "timeouts": [],
- "superseded_by": "v19-guidance-stripped",
- "reason": "recorded while 8 graphs still carried edge guidance measured at zero mean benefit; the v1.9 baseline should not bake in an unproven mechanism"
+    "goal": "the Acme Health RFP, answered from the 2026 solutions library"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "requirement": "Solution Overview",
+          "status": "answered",
+          "content": "The 2026 solutions library provides comprehensive healthcare technology solutions including AI-powered diagnostic tools, telemedicine platforms, and patient data management systems designed to enhance Acme Health's operational efficiency and patient outcomes."
+        },
+        {
+          "requirement": "Technical Specifications",
+          "status": "answered",
+          "content": "All solutions in the 2026 library meet HIPAA compliance standards with end-to-end encryption, multi-factor authentication, and real-time monitoring capabilities. Integration APIs support seamless connection with existing EMR systems."
+        },
+        {
+          "requirement": "Implementation Timeline",
+          "status": "answered",
+          "content": "Standard deployment timeline is 90 days from contract signing, with optional accelerated phases available for urgent needs. Full system integration includes staff training and go-live support."
+        },
+        {
+          "requirement": "Cost Structure",
+          "status": "answered",
+          "content": "Pricing model includes annual licensing fees ranging from $250K to $1.2M depending on facility size and solution scope, plus implementation services at $75K per project. Volume discounts available for multiple facilities."
+        },
+        {
+          "requirement": "Support Services",
+          "status": "answered",
+          "content": "24/7 technical support included with all solutions, plus dedicated account managers, quarterly performance reviews, and continuous software updates to maintain compliance with evolving healthcare regulations."
+        }
+      ]
+    },
+    "map": [
+      {
+        "shard_result": "answered"
+      },
+      {
+        "shard_result": "map_shard"
+      },
+      {
+        "shard_result": "The Implementation Timeline requirement has been fully addressed in the 2026 solutions library response, detailing a standard 90-day deployment period with optional accelerated phases, staff training, and go-live support included."
+      },
+      {
+        "shard_result": "The 2026 solutions library offers a comprehensive range of healthcare technology solutions designed to enhance operational efficiency and patient outcomes. Key features include AI-powered diagnostic tools, telemedicine platforms, and patient data management systems. All solutions meet HIPAA compliance standards with end-to-end encryption, multi-factor authentication, and real-time monitoring capabilities. Integration APIs support seamless connection with existing EMR systems. The standard deployment timeline is 90 days from contract signing, with optional accelerated phases available. Pricing includes annual licensing fees ranging from $250K to $1.2M depending on facility size and solution scope, plus implementation services at $75K per project. Volume discounts are available for multiple facilities. Support services include 24/7 technical support, dedicated account managers, quarterly performance reviews, and continuous software updates to maintain compliance with evolving healthcare regulations."
+      },
+      {
+        "shard_result": "The 2026 solutions library offers comprehensive healthcare technology solutions including AI-powered diagnostic tools, telemedicine platforms, and patient data management systems designed to enhance Acme Health's operational efficiency and patient outcomes. All solutions meet HIPAA compliance standards with end-to-end encryption, multi-factor authentication, and real-time monitoring capabilities. Integration APIs support seamless connection with existing EMR systems. Standard deployment timeline is 90 days from contract signing, with optional accelerated phases available for urgent needs. Full system integration includes staff training and go-live support. Pricing model includes annual licensing fees ranging from $250K to $1.2M depending on facility size and solution scope, plus implementation services at $75K per project. Volume discounts available for multiple facilities. 24/7 technical support included with all solutions, plus dedicated account managers, quarterly performance reviews, and continuous software updates to maintain compliance with evolving healthcare regulations."
+      }
+    ],
+    "reduce": {
+      "output": {
+        "page_count": 1.0,
+        "page_limit": 10,
+        "requirements": [
+          {
+            "answered": true,
+            "flagged": false
+          },
+          {
+            "answered": true,
+            "flagged": false
+          },
+          {
+            "answered": true,
+            "flagged": false
+          },
+          {
+            "answered": true,
+            "flagged": false
+          },
+          {
+            "answered": true,
+            "flagged": false
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
 }

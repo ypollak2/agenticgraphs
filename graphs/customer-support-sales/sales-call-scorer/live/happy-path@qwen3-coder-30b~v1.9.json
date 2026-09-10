@@ -1,117 +1,115 @@
 {
- "model": "qwen3-coder:30b",
- "recorded": "2026-09-10",
- "endpoint": "http://localhost:11434/v1",
- "spec": "agr/v1.9",
- "sampling": {
-  "temperature": 0,
-  "seed": 7,
-  "max_tokens": 2048
- },
- "inputs": {
-  "transcript": {
-   "call": "Northwind discovery",
-   "duration_s": 1860,
-   "rubric": "MEDDIC",
-   "turns": [
-    {
-     "t": 0,
-     "speaker": "rep",
-     "text": "What's driving the evaluation now?"
-    },
-    {
-     "t": 18,
-     "speaker": "buyer",
-     "text": "Our warehouse spend doubled and finance wants it capped this quarter."
-    },
-    {
-     "t": 95,
-     "speaker": "rep",
-     "text": "Who signs off on a change like that?"
-    },
-    {
-     "t": 110,
-     "speaker": "buyer",
-     "text": "Our VP Finance, with the CTO as a technical approver."
-    },
-    {
-     "t": 400,
-     "speaker": "rep",
-     "text": "What happens if nothing changes by Q3?"
-    },
-    {
-     "t": 417,
-     "speaker": "buyer",
-     "text": "We'd have to shut off two dashboards and that's politically hard."
-    }
-   ]
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
   },
-  "goal": "the Northwind discovery call, against the MEDDIC rubric"
- },
- "node_outputs": {
-  "segment": {
-   "segments": [
-    {
-     "name": "Metrics",
-     "value": "Warehouse spend doubled, finance wants it capped this quarter"
+  "inputs": {
+    "transcript": {
+      "call": "Northwind discovery",
+      "duration_s": 1860,
+      "rubric": "MEDDIC",
+      "turns": [
+        {
+          "t": 0,
+          "speaker": "rep",
+          "text": "What's driving the evaluation now?"
+        },
+        {
+          "t": 18,
+          "speaker": "buyer",
+          "text": "Our warehouse spend doubled and finance wants it capped this quarter."
+        },
+        {
+          "t": 95,
+          "speaker": "rep",
+          "text": "Who signs off on a change like that?"
+        },
+        {
+          "t": 110,
+          "speaker": "buyer",
+          "text": "Our VP Finance, with the CTO as a technical approver."
+        },
+        {
+          "t": 400,
+          "speaker": "rep",
+          "text": "What happens if nothing changes by Q3?"
+        },
+        {
+          "t": 417,
+          "speaker": "buyer",
+          "text": "We'd have to shut off two dashboards and that's politically hard."
+        }
+      ]
     },
-    {
-     "name": "Evaluation",
-     "value": "VP Finance signs off on changes, CTO as technical approver"
-    },
-    {
-     "name": "Decision Criteria",
-     "value": "Q3 deadline, risk of shutting off two dashboards if no action"
-    },
-    {
-     "name": "Decision Process",
-     "value": "VP Finance + CTO approval required for change"
-    },
-    {
-     "name": "Identify Pain",
-     "value": "Warehouse spend doubled, politically difficult to shut dashboards"
-    },
-    {
-     "name": "Champion",
-     "value": "VP Finance (primary decision maker)"
-    }
-   ]
+    "goal": "the Northwind discovery call, against the MEDDIC rubric"
   },
-  "score-pass": [
-   {
-    "rubric_score": 0.6
-   },
-   {
-    "rubric_score": 0.6
-   },
-   {
-    "rubric_score": 0.6
-   },
-   {
-    "rubric_score": 0.6
-   },
-   {
-    "rubric_score": 0.6
-   },
-   {
-    "rubric_score": 0.6
-   }
-  ],
-  "consolidate": {
-   "final_score": 0.6,
-   "output": {
-    "segments_scored": 6,
-    "variance": 0
-   },
-   "segments_scored": 6,
-   "variance": 0
-  }
- },
- "tool_calls": [],
- "failure_kinds": [],
- "parse_failures": [],
- "gate_refused": "",
- "timeouts": [],
- "superseded_by": "v19-guidance-stripped",
- "reason": "recorded while 8 graphs still carried edge guidance measured at zero mean benefit; the v1.9 baseline should not bake in an unproven mechanism"
+  "node_outputs": {
+    "segment": {
+      "segments": [
+        {
+          "name": "Metrics",
+          "value": "Warehouse spend doubled, finance wants it capped this quarter"
+        },
+        {
+          "name": "Evaluation",
+          "value": "VP Finance signs off on changes, CTO as technical approver"
+        },
+        {
+          "name": "Decision Criteria",
+          "value": "Q3 deadline, risk of shutting off two dashboards if no action"
+        },
+        {
+          "name": "Decision Process",
+          "value": "VP Finance + CTO approval required for change"
+        },
+        {
+          "name": "Identify Pain",
+          "value": "Warehouse spend doubled, politically difficult to shut dashboards"
+        },
+        {
+          "name": "Champion",
+          "value": "VP Finance (primary decision maker)"
+        }
+      ]
+    },
+    "score-pass": [
+      {
+        "rubric_score": 0.6
+      },
+      {
+        "rubric_score": 0.6
+      },
+      {
+        "rubric_score": 0.6
+      },
+      {
+        "rubric_score": 0.6
+      },
+      {
+        "rubric_score": 0.6
+      },
+      {
+        "rubric_score": 0.6
+      }
+    ],
+    "consolidate": {
+      "final_score": 0.6,
+      "output": {
+        "segments_scored": 6,
+        "variance": 0
+      },
+      "segments_scored": 6,
+      "variance": 0
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
 }

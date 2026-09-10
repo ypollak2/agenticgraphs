@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-117` | security | **lifecycle** | 8 | 8 | 1 | 0 | 45 | execute |
+| `AGR-117` | security | **lifecycle** | 8 | 8 | 1 | 0 | 18 | execute |
 
 > 🎯 **Requires a goal** — the vulnerability to remediate and the affected estate. Without one the graph refuses and runs no node.
 
@@ -46,7 +46,7 @@ A multi-phase workflow where each phase is itself a motif and hand-offs are expl
 - **Machine-checked** — `output.signed_off == true`
 - **Machine-checked** — `output.advisory_url and output.cve_id`
 - **Command-checked** — `pytest -q {repro_path}`
-- **Bounded** — hard stop after 45 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 18 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval vuln-remediation-lifecycle` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/vuln-remediation-lifecycle.md)
 

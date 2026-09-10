@@ -1,0 +1,47 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "framework": {
+      "name": "SOC 2 Type II",
+      "period": "2026",
+      "controls": [
+        {
+          "id": "CC6.1",
+          "desc": "logical access",
+          "evidence_source": "idp export"
+        },
+        {
+          "id": "CC7.2",
+          "desc": "monitoring",
+          "evidence_source": "alerting config"
+        },
+        {
+          "id": "CC8.1",
+          "desc": "change management",
+          "evidence_source": "pr history"
+        }
+      ]
+    },
+    "goal": "collect SOC 2 Type II evidence for the 2026 audit period"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "enumerate: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

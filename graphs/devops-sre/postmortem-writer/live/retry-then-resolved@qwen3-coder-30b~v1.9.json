@@ -1,0 +1,94 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "incident": {
+      "id": "INC-2291",
+      "severity": "SEV2",
+      "service": "checkout",
+      "timeline": [
+        {
+          "ts": "09:01",
+          "log_id": "lg-1",
+          "event": "latency alert fires"
+        },
+        {
+          "ts": "09:06",
+          "message_id": "ms-2",
+          "event": "incident channel opened"
+        },
+        {
+          "ts": "09:24",
+          "log_id": "lg-3",
+          "event": "pool size increased"
+        },
+        {
+          "ts": "09:41",
+          "log_id": "lg-4",
+          "event": "latency back under SLO"
+        }
+      ]
+    },
+    "goal": "INC-2291, declared SEV2"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Incident INC-2291 (SEV2) in checkout service resolved. Latency alert fired at 09:01, incident channel opened at 09:06, pool size increased at 09:24, and latency returned under SLO at 09:41."
+    },
+    "produce": {
+      "timeline": [
+        {
+          "log_id": "lg-1",
+          "message_id": null
+        },
+        {
+          "log_id": null,
+          "message_id": "ms-2"
+        },
+        {
+          "log_id": "lg-3",
+          "message_id": null
+        },
+        {
+          "log_id": "lg-4",
+          "message_id": null
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "timeline": [
+          {
+            "log_id": "lg-1",
+            "message_id": null
+          },
+          {
+            "log_id": null,
+            "message_id": "ms-2"
+          },
+          {
+            "log_id": "lg-3",
+            "message_id": null
+          },
+          {
+            "log_id": "lg-4",
+            "message_id": null
+          }
+        ]
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

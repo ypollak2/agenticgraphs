@@ -1,0 +1,174 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "papers": [
+      {
+        "paper": "Cepeda 2006",
+        "section": "meta-analysis",
+        "design": "RCT review",
+        "year": 2006,
+        "finding": "spacing improves retention"
+      },
+      {
+        "paper": "Kornell 2009",
+        "section": "experiment 2",
+        "design": "RCT",
+        "year": 2009,
+        "finding": "spacing beats massing for concepts"
+      },
+      {
+        "paper": "Carpenter 2012",
+        "section": "discussion",
+        "design": "RCT",
+        "year": 2012,
+        "finding": "effect persists at 8 weeks"
+      }
+    ],
+    "inclusion": {
+      "design": "RCT",
+      "since_year": 2005
+    },
+    "goal": "does spaced repetition improve retention, RCTs since 2015"
+  },
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        "Search for RCTs on spaced repetition and retention published since 2015",
+        "Extract findings from identified papers specifically addressing retention improvement",
+        "Verify each claim cites a specific paper and section",
+        "Compile results into a structured summary"
+      ]
+    },
+    "screen": {
+      "included": [],
+      "excluded": [
+        {
+          "paper": "Cepeda 2006",
+          "reason": "Year 2006 is before the required cutoff of 2015"
+        },
+        {
+          "paper": "Kornell 2009",
+          "reason": "Year 2009 is before the required cutoff of 2015"
+        },
+        {
+          "paper": "Carpenter 2012",
+          "reason": "Year 2012 is before the required cutoff of 2015"
+        }
+      ]
+    },
+    "work": [
+      {
+        "work_result": "No RCTs on spaced repetition and retention published since 2015 were identified."
+      },
+      {
+        "work_result": []
+      },
+      {
+        "work_result": "No papers included in the current search results meet the criteria for RCTs on spaced repetition and retention published since 2015."
+      },
+      {
+        "work_result": "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria."
+      },
+      {
+        "work_result": [
+          "No RCTs on spaced repetition and retention published since 2015 were identified.",
+          "No papers included in the current search results meet the criteria for RCTs on spaced repetition and retention published since 2015.",
+          "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria.",
+          "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria."
+        ]
+      },
+      {
+        "work_result": [
+          "No RCTs on spaced repetition and retention published since 2015 were identified.",
+          "No papers included in the current search results meet the criteria for RCTs on spaced repetition and retention published since 2015.",
+          "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria.",
+          "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria."
+        ]
+      },
+      {
+        "work_result": [
+          "No RCTs on spaced repetition and retention published since 2015 were identified.",
+          "No papers included in the current search results meet the criteria for RCTs on spaced repetition and retention published since 2015.",
+          "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria.",
+          "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria."
+        ]
+      },
+      {
+        "work_result": [
+          "No RCTs on spaced repetition and retention published since 2015 were identified.",
+          "No papers included in the current search results meet the criteria for RCTs on spaced repetition and retention published since 2015.",
+          "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria.",
+          "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria."
+        ]
+      },
+      {
+        "work_result": [
+          "No RCTs on spaced repetition and retention published since 2015 were identified.",
+          "No papers included in the current search results meet the criteria for RCTs on spaced repetition and retention published since 2015.",
+          "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria.",
+          "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria."
+        ]
+      },
+      {
+        "work_result": [
+          "No RCTs on spaced repetition and retention published since 2015 were identified.",
+          "No papers included in the current search results meet the criteria for RCTs on spaced repetition and retention published since 2015.",
+          "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria.",
+          "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria."
+        ]
+      },
+      {
+        "work_result": [
+          "No RCTs on spaced repetition and retention published since 2015 were identified.",
+          "No papers included in the current search results meet the criteria for RCTs on spaced repetition and retention published since 2015.",
+          "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria.",
+          "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria."
+        ]
+      },
+      {
+        "work_result": [
+          "No RCTs on spaced repetition and retention published since 2015 were identified.",
+          "No papers included in the current search results meet the criteria for RCTs on spaced repetition and retention published since 2015.",
+          "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria.",
+          "No RCTs published since 2015 specifically addressing spaced repetition and retention were identified. The existing papers (Cepeda 2006, Kornell 2009, Carpenter 2012) have been excluded due to year constraints. Therefore, no new claims about retention improvement can be made based on the inclusion criteria."
+        ]
+      }
+    ],
+    "verify": [
+      {
+        "claims": [],
+        "output": {
+          "claims": []
+        },
+        "verify_failed": true
+      },
+      {
+        "claims": [],
+        "output": {
+          "claims": []
+        },
+        "verify_failed": true
+      },
+      {
+        "claims": [],
+        "output": {
+          "claims": []
+        },
+        "verify_failed": true
+      }
+    ]
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

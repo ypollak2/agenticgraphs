@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-043` | business-ops | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
+| `AGR-043` | business-ops | **pipeline** | 3 | 3 | 1 | 0 | 10 | write |
 
 > 🎯 **Requires a goal** — the meeting transcript to convert and the team it belongs to. Without one the graph refuses and runs no node.
 
@@ -33,7 +33,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 
 - **Exit contract** — each action has owner and date; quotes traceable
 - **Machine-checked** — `all(a.owner and a.date and a.quote for a in output.actions)`
-- **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 10 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval meeting-to-actions` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/meeting-to-actions.md)
 

@@ -1,0 +1,48 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "essay": {
+      "words": 1200,
+      "prompt": "causes of the Dust Bowl",
+      "paragraphs": [
+        "The Dust Bowl was caused mainly by drought that struck the plains.",
+        "Farmers also ploughed deep, which broke the grass that held the soil.",
+        "Government policy encouraged more planting than the land could bear."
+      ]
+    },
+    "rubric": [
+      {
+        "rubric_id": "r1",
+        "criterion": "thesis clarity"
+      },
+      {
+        "rubric_id": "r2",
+        "criterion": "use of evidence"
+      },
+      {
+        "rubric_id": "r3",
+        "criterion": "causal reasoning"
+      }
+    ],
+    "goal": "a 1200-word essay, against the 'causes of the Dust Bowl' brief"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "intake: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

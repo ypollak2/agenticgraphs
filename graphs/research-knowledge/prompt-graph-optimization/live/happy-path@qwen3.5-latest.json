@@ -1,0 +1,64 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "graph_under_test": "support-triage",
+    "candidate_graph": {
+      "name": "support-triage-v2",
+      "change": "add a dedupe step before routing"
+    },
+    "train_set": [
+      {
+        "id": "t1",
+        "label": "billing"
+      },
+      {
+        "id": "t2",
+        "label": "identity"
+      },
+      {
+        "id": "t3",
+        "label": "billing"
+      }
+    ],
+    "holdout_set": [
+      {
+        "id": "h1",
+        "label": "billing"
+      },
+      {
+        "id": "h2",
+        "label": "mobile"
+      },
+      {
+        "id": "h3",
+        "label": "identity"
+      },
+      {
+        "id": "h4",
+        "label": "billing"
+      }
+    ],
+    "baseline_score": 0.62,
+    "goal": "optimize the support-triage graph for accuracy on the held-out set"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "baseline: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

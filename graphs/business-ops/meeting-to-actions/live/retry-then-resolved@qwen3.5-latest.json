@@ -1,0 +1,47 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "transcript": {
+      "date": "2026-08-14",
+      "meeting": "platform sync",
+      "turns": [
+        {
+          "speaker": "ana",
+          "text": "I'll take the storage migration runbook and have it ready by the 21st."
+        },
+        {
+          "speaker": "raj",
+          "text": "I can own the alert cleanup, end of next week."
+        },
+        {
+          "speaker": "ana",
+          "text": "Sam, can you confirm the backup window by Friday?"
+        },
+        {
+          "speaker": "sam",
+          "text": "Yes, I'll confirm the backup window by Friday the 16th."
+        }
+      ]
+    },
+    "goal": "the 2026-08-14 platform sync transcript, for the infra team"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "intake: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

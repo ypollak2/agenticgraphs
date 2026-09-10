@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-042` | business-ops | **map-reduce** | 3 | 2 | 1 | 0 | 20 | write |
+| `AGR-042` | business-ops | **map-reduce** | 3 | 2 | 1 | 0 | 6 | write |
 
 > 🎯 **Requires a goal** — the RFP to answer and the knowledge base to answer it from. Without one the graph refuses and runs no node.
 
@@ -32,7 +32,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 
 - **Exit contract** — every requirement answered or flagged; page limit met
 - **Machine-checked** — `all(r.answered or r.flagged for r in output.requirements) and output.page_count <= output.page_limit`
-- **Bounded** — hard stop after 20 steps; the topology is acyclic
+- **Bounded** — hard stop after 6 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval rfp-response-assembler` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/rfp-response-assembler.md)
 

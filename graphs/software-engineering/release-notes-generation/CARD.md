@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-009` | software-engineering | **map-reduce** | 3 | 2 | 1 | 0 | 20 | execute |
+| `AGR-009` | software-engineering | **map-reduce** | 3 | 2 | 1 | 0 | 6 | execute |
 
 > 🎯 **Requires a goal** — the merged pull requests to summarize and the release they ship in. Without one the graph refuses and runs no node.
 
@@ -32,7 +32,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 
 - **Exit contract** — every note links a merged PR; no orphan claims
 - **Machine-checked** — `all(n.pr_url for n in output.notes) and not output.orphan_claims`
-- **Bounded** — hard stop after 20 steps; the topology is acyclic
+- **Bounded** — hard stop after 6 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval release-notes-generation` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/release-notes-generation.md)
 

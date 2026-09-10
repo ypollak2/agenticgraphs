@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-113` | research-knowledge | **router** | 4 | 5 | 1 | 1 | 20 | read |
+| `AGR-113` | research-knowledge | **router** | 4 | 5 | 1 | 1 | 8 | read |
 
 > 🎯 **Requires a goal** — the research question to answer and the confidence bar an answer must clear. Without one the graph refuses and runs no node.
 
@@ -36,7 +36,7 @@ A cheap classifier sends every item down the narrowest branch that can handle it
 
 - **Exit contract** — synthesizer output cites >=1 source per claim; unverifiable claims are labeled
 - **Machine-checked** — `all(c.sources for c in output.claims)`
-- **Bounded** — hard stop after 20 steps; the topology is acyclic
+- **Bounded** — hard stop after 8 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval cost-routed-research` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/cost-routed-research.md)
 

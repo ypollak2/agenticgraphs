@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-123` | business-ops | **human-gate** | 5 | 5 | 0 | 0 | 35 | execute |
+| `AGR-123` | business-ops | **human-gate** | 5 | 5 | 0 | 0 | 14 | execute |
 
 > 🎯 **Requires a goal** — the requirement to source, with its budget envelope and award deadline. Without one the graph refuses and runs no node.
 
@@ -38,7 +38,7 @@ A `kind: human` node holds an approval contract that no model may sign — the l
 - **Exit contract** — no award without three rubric-scored vendors and a budget-holder signature
 - **Machine-checked** — `output.scored_vendors >= 3`
 - **Machine-checked** — `output.signed_off == true`
-- **Bounded** — hard stop after 35 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 14 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval procurement-lifecycle` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/procurement-lifecycle.md)
 

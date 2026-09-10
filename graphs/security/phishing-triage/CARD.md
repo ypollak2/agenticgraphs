@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-085` | security | **router** | 4 | 4 | 1 | 1 | 12 | write |
+| `AGR-085` | security | **router** | 4 | 4 | 1 | 1 | 6 | write |
 
 > 🎯 **Requires a goal** — the reported email to classify and the organisation's sender baseline. Without one the graph refuses and runs no node.
 
@@ -36,7 +36,7 @@ A cheap classifier sends every item down the narrowest branch that can handle it
 - **Exit contract** — verdicts benchmarked against labeled corpus
 - **Machine-checked** — `output.assigned_verdict == output.expected_verdict`
 - **Machine-checked** — `len(output.expected_verdict) > 0`
-- **Bounded** — hard stop after 12 steps; the topology is acyclic
+- **Bounded** — hard stop after 6 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval phishing-triage` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/phishing-triage.md)
 

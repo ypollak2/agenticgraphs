@@ -1,0 +1,48 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "incident": {
+      "id": "SEC-908",
+      "alert": "S3 exfiltration",
+      "bucket": "prod-exports",
+      "window": "2026-08-19T02:00Z/06:00Z",
+      "leads": [
+        {
+          "id": "l1",
+          "claim": "anomalous GetObject volume",
+          "source": "cloudtrail:2026-08-19"
+        },
+        {
+          "id": "l2",
+          "claim": "access key last rotated 2024",
+          "source": "iam:key-audit"
+        },
+        {
+          "id": "l3",
+          "claim": "egress to unknown ASN",
+          "source": "flowlogs:2026-08-19"
+        }
+      ]
+    },
+    "goal": "investigate the S3 exfiltration alert; settle whether data left the account"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "seed: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

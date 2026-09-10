@@ -1,0 +1,41 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "source": {
+      "chapter": 4,
+      "topic": "photosynthesis",
+      "year_group": 9,
+      "key_facts": [
+        "chlorophyll absorbs light energy",
+        "carbon dioxide and water are the reactants",
+        "glucose and oxygen are the products",
+        "the reaction happens in chloroplasts"
+      ]
+    },
+    "answer_key_required": true,
+    "goal": "chapter 4 on photosynthesis, for year 9"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Chapter 4 covers photosynthesis in plants, occurring within chloroplasts where chlorophyll absorbs light energy to convert carbon dioxide and water into glucose and oxygen."
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "generate: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

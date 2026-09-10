@@ -1,0 +1,121 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "pull_requests": [
+      {
+        "number": 770,
+        "pr_url": "https://github.com/acme/app/pull/770",
+        "title": "fix refund rounding",
+        "label": "fix"
+      },
+      {
+        "number": 771,
+        "pr_url": "https://github.com/acme/app/pull/771",
+        "title": "add SSO login",
+        "label": "feat"
+      },
+      {
+        "number": 772,
+        "pr_url": "https://github.com/acme/app/pull/772",
+        "title": "speed up export",
+        "label": "perf"
+      },
+      {
+        "number": 773,
+        "pr_url": "https://github.com/acme/app/pull/773",
+        "title": "update docs for auth",
+        "label": "docs"
+      }
+    ],
+    "from_tag": "v2.13",
+    "to_tag": "v2.14.0",
+    "goal": "the 41 PRs merged since v2.13, for v2.14.0"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "pr_number": 770,
+          "url": "https://github.com/acme/app/pull/770",
+          "summary": "fix refund rounding"
+        },
+        {
+          "pr_number": 771,
+          "url": "https://github.com/acme/app/pull/771",
+          "summary": "add SSO login"
+        },
+        {
+          "pr_number": 772,
+          "url": "https://github.com/acme/app/pull/772",
+          "summary": "speed up export"
+        },
+        {
+          "pr_number": 773,
+          "url": "https://github.com/acme/app/pull/773",
+          "summary": "update docs for auth"
+        }
+      ]
+    },
+    "map": [
+      {
+        "shard_result": "fix refund rounding"
+      },
+      {
+        "shard_result": "add SSO login"
+      },
+      {
+        "shard_result": "speed up export"
+      },
+      {
+        "shard_result": "update docs for auth"
+      }
+    ],
+    "reduce": {
+      "notes": [
+        {
+          "pr_url": "https://github.com/acme/app/pull/770"
+        },
+        {
+          "pr_url": "https://github.com/acme/app/pull/771"
+        },
+        {
+          "pr_url": "https://github.com/acme/app/pull/772"
+        },
+        {
+          "pr_url": "https://github.com/acme/app/pull/773"
+        }
+      ],
+      "orphan_claims": [],
+      "output": {
+        "notes": [
+          {
+            "pr_url": "https://github.com/acme/app/pull/770"
+          },
+          {
+            "pr_url": "https://github.com/acme/app/pull/771"
+          },
+          {
+            "pr_url": "https://github.com/acme/app/pull/772"
+          },
+          {
+            "pr_url": "https://github.com/acme/app/pull/773"
+          }
+        ],
+        "orphan_claims": []
+      }
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

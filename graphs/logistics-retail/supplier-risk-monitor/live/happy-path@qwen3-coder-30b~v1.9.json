@@ -1,0 +1,343 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "supplier_list": [
+      {
+        "id": "s1",
+        "name": "Northwind Components",
+        "category": "pcb",
+        "spend_usd": 4200000,
+        "region": "TW",
+        "alternatives": 0
+      },
+      {
+        "id": "s2",
+        "name": "Baltic Plastics",
+        "category": "enclosure",
+        "spend_usd": 1800000,
+        "region": "PL",
+        "alternatives": 3
+      },
+      {
+        "id": "s3",
+        "name": "Kyoto Optics",
+        "category": "lens",
+        "spend_usd": 2600000,
+        "region": "JP",
+        "alternatives": 0
+      },
+      {
+        "id": "s4",
+        "name": "Cascade Metals",
+        "category": "enclosure",
+        "spend_usd": 900000,
+        "region": "US",
+        "alternatives": 3
+      },
+      {
+        "id": "s5",
+        "name": "Adriatic Cable",
+        "category": "harness",
+        "spend_usd": 450000,
+        "region": "IT",
+        "alternatives": 2
+      }
+    ],
+    "risk_appetite": {
+      "max_single_source_spend_usd": 2000000
+    },
+    "goal": "the 240 tier-1 suppliers, on single-source and concentration"
+  },
+  "node_outputs": {
+    "ingest.partition": {
+      "shards": [
+        {
+          "id": "s1",
+          "name": "Northwind Components",
+          "category": "pcb",
+          "spend_usd": 4200000,
+          "region": "TW",
+          "alternatives": 0,
+          "single_source_risk": true,
+          "concentration_risk": true
+        },
+        {
+          "id": "s2",
+          "name": "Baltic Plastics",
+          "category": "enclosure",
+          "spend_usd": 1800000,
+          "region": "PL",
+          "alternatives": 3,
+          "single_source_risk": false,
+          "concentration_risk": false
+        },
+        {
+          "id": "s3",
+          "name": "Kyoto Optics",
+          "category": "lens",
+          "spend_usd": 2600000,
+          "region": "JP",
+          "alternatives": 0,
+          "single_source_risk": true,
+          "concentration_risk": true
+        },
+        {
+          "id": "s4",
+          "name": "Cascade Metals",
+          "category": "enclosure",
+          "spend_usd": 900000,
+          "region": "US",
+          "alternatives": 3,
+          "single_source_risk": false,
+          "concentration_risk": false
+        },
+        {
+          "id": "s5",
+          "name": "Adriatic Cable",
+          "category": "harness",
+          "spend_usd": 450000,
+          "region": "IT",
+          "alternatives": 2,
+          "single_source_risk": false,
+          "concentration_risk": false
+        }
+      ]
+    },
+    "ingest.map": [
+      {
+        "shard_result": "single_source_risk:true, concentration_risk:true"
+      },
+      {
+        "shard_result": "map_shard"
+      },
+      {
+        "shard_result": "single_source_risk:true,concentration_risk:true"
+      },
+      {
+        "shard_result": "continue"
+      },
+      {
+        "shard_result": "continue"
+      }
+    ],
+    "ingest.reduce": {
+      "findings": [
+        {
+          "source_date": null,
+          "source_url": null
+        },
+        {
+          "source_date": null,
+          "source_url": null
+        }
+      ],
+      "output": {
+        "findings": [
+          "single_source_risk:true, concentration_risk:true",
+          "single_source_risk:true,concentration_risk:true"
+        ]
+      },
+      "supplier_signals": [
+        {
+          "source_date": null,
+          "source_url": null
+        },
+        {
+          "source_date": null,
+          "source_url": null
+        }
+      ]
+    },
+    "score": [
+      {
+        "risk_scores": [
+          {
+            "supplier_id": "s1",
+            "single_source_risk": true,
+            "concentration_risk": true,
+            "mitigation_owner": "not_assigned"
+          },
+          {
+            "supplier_id": "s2",
+            "single_source_risk": false,
+            "concentration_risk": false,
+            "mitigation_owner": "not_assigned"
+          },
+          {
+            "supplier_id": "s3",
+            "single_source_risk": true,
+            "concentration_risk": true,
+            "mitigation_owner": "not_assigned"
+          },
+          {
+            "supplier_id": "s4",
+            "single_source_risk": false,
+            "concentration_risk": false,
+            "mitigation_owner": "not_assigned"
+          },
+          {
+            "supplier_id": "s5",
+            "single_source_risk": false,
+            "concentration_risk": false,
+            "mitigation_owner": "not_assigned"
+          }
+        ]
+      },
+      {
+        "risk_scores": [
+          {
+            "supplier_id": "s1",
+            "single_source_risk": true,
+            "concentration_risk": true,
+            "mitigation_owner": "not_assigned"
+          },
+          {
+            "supplier_id": "s2",
+            "single_source_risk": false,
+            "concentration_risk": false,
+            "mitigation_owner": "not_assigned"
+          },
+          {
+            "supplier_id": "s3",
+            "single_source_risk": true,
+            "concentration_risk": true,
+            "mitigation_owner": "not_assigned"
+          },
+          {
+            "supplier_id": "s4",
+            "single_source_risk": false,
+            "concentration_risk": false,
+            "mitigation_owner": "not_assigned"
+          },
+          {
+            "supplier_id": "s5",
+            "single_source_risk": false,
+            "concentration_risk": false,
+            "mitigation_owner": "not_assigned"
+          }
+        ]
+      }
+    ],
+    "concentrate": {
+      "concentration": [
+        {
+          "single_source": true,
+          "supplier_count": 2
+        },
+        {
+          "single_source": false,
+          "supplier_count": 3
+        }
+      ]
+    },
+    "mitigate": {
+      "above_appetite": [
+        {
+          "supplier_id": "s1",
+          "single_source_risk": true,
+          "concentration_risk": true,
+          "mitigation_owner": "not_assigned"
+        },
+        {
+          "supplier_id": "s3",
+          "single_source_risk": true,
+          "concentration_risk": true,
+          "mitigation_owner": "not_assigned"
+        }
+      ],
+      "concentration": [
+        {
+          "single_source": true,
+          "supplier_count": 2
+        },
+        {
+          "single_source": false,
+          "supplier_count": 3
+        }
+      ],
+      "mitigations": [
+        {
+          "supplier_id": "s1",
+          "single_source_risk": true,
+          "concentration_risk": true,
+          "mitigation_owner": "not_assigned"
+        },
+        {
+          "supplier_id": "s3",
+          "single_source_risk": true,
+          "concentration_risk": true,
+          "mitigation_owner": "not_assigned"
+        }
+      ],
+      "mitigations_planned": [
+        {
+          "supplier_id": "s1",
+          "single_source_risk": true,
+          "concentration_risk": true,
+          "mitigation_owner": "not_assigned"
+        },
+        {
+          "supplier_id": "s3",
+          "single_source_risk": true,
+          "concentration_risk": true,
+          "mitigation_owner": "not_assigned"
+        }
+      ],
+      "output": {
+        "above_appetite": [
+          {
+            "supplier_id": "s1",
+            "single_source_risk": true,
+            "concentration_risk": true,
+            "mitigation_owner": "not_assigned"
+          },
+          {
+            "supplier_id": "s3",
+            "single_source_risk": true,
+            "concentration_risk": true,
+            "mitigation_owner": "not_assigned"
+          }
+        ],
+        "concentration": [
+          {
+            "single_source": true,
+            "supplier_count": 2
+          },
+          {
+            "single_source": false,
+            "supplier_count": 3
+          }
+        ],
+        "mitigations_planned": [
+          {
+            "supplier_id": "s1",
+            "single_source_risk": true,
+            "concentration_risk": true,
+            "mitigation_owner": "not_assigned"
+          },
+          {
+            "supplier_id": "s3",
+            "single_source_risk": true,
+            "concentration_risk": true,
+            "mitigation_owner": "not_assigned"
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "assert"
+  ],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

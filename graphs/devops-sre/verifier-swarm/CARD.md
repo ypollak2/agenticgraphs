@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-114` | devops-sre | **parallel-swarm** | 3 | 3 | 1 | 0 | 30 | execute |
+| `AGR-114` | devops-sre | **parallel-swarm** | 3 | 3 | 1 | 0 | 14 | execute |
 
 > 🎯 **Requires a goal** — the goal to decompose and the command that proves it done. Without one the graph refuses and runs no node.
 
@@ -34,7 +34,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 - **Exit contract** — verifier command exits 0, or 3 failed attempts escalate to human
 - **Command-checked** — `{verify_command}`
 - **Machine-checked** — `output.attempts <= 3`
-- **Bounded** — hard stop after 30 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 14 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval verifier-swarm` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/verifier-swarm.md)
 

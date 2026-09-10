@@ -1,0 +1,28 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "threshold": 0.9,
+    "goal": "the custodian mailboxes, for the Meridian breach-of-contract matter"
+  },
+  "node_outputs": {
+    "route": {
+      "complexity": 0.85
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

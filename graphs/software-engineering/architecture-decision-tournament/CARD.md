@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-131` | software-engineering | **tournament** | 3 | 2 | 1 | 0 | 30 | write |
+| `AGR-131` | software-engineering | **tournament** | 3 | 2 | 1 | 0 | 6 | write |
 
 > 🎯 **Requires a goal** — the architecture decision to settle and the constraints any winner must meet. Without one the graph refuses and runs no node.
 
@@ -33,7 +33,7 @@ More than two options, judged pairwise on one rubric, with the winner recorded a
 - **Exit contract** — a decision names its runner-up and the margin, so it can be revisited on evidence
 - **Machine-checked** — `output.designs_scored >= 3`
 - **Machine-checked** — `output.margin is not None`
-- **Bounded** — hard stop after 30 steps; the topology is acyclic
+- **Bounded** — hard stop after 6 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval architecture-decision-tournament` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/architecture-decision-tournament.md)
 

@@ -1,0 +1,49 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "feeds": [
+      {
+        "source": "CISA",
+        "advisory_url": "https://cisa.gov/advisories/aa26-231",
+        "cve_ids": [
+          "CVE-2026-2211"
+        ],
+        "product": "kubelet"
+      },
+      {
+        "source": "vendor",
+        "advisory_url": "https://kubernetes.io/security/2026-08",
+        "cve_ids": [
+          "CVE-2026-2244",
+          "CVE-2026-2245"
+        ],
+        "product": "kube-apiserver"
+      }
+    ],
+    "estate": {
+      "platform": "Kubernetes",
+      "version": "1.31"
+    },
+    "goal": "this week's CISA and vendor feeds, for a Kubernetes estate"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "partition: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

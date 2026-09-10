@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-127` | security | **red-team-blue-team** | 4 | 4 | 1 | 0 | 45 | execute |
+| `AGR-127` | security | **red-team-blue-team** | 4 | 4 | 1 | 0 | 8 | execute |
 
 > 🎯 **Requires a goal** — the system to harden and the threat model to harden it against. Without one the graph refuses and runs no node.
 
@@ -37,7 +37,7 @@ An attacker searches for a working bypass while a defender patches, alternating 
 - **Machine-checked** — `all(b.mitigation_ref for b in output.bypasses)`
 - **Machine-checked** — `output.unmitigated == 0`
 - **Command-checked** — `pytest -q {exploit_suite}`
-- **Bounded** — hard stop after 45 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 8 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval red-team-blue-team-hardening` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/red-team-blue-team-hardening.md)
 

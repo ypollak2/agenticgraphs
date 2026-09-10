@@ -1,89 +1,87 @@
 {
- "model": "qwen3-coder:30b",
- "recorded": "2026-09-10",
- "endpoint": "http://localhost:11434/v1",
- "spec": "agr/v1.9",
- "sampling": {
-  "temperature": 0,
-  "seed": 7,
-  "max_tokens": 2048
- },
- "inputs": {
-  "transcript": {
-   "date": "2026-08-14",
-   "meeting": "platform sync",
-   "turns": [
-    {
-     "speaker": "ana",
-     "text": "I'll take the storage migration runbook and have it ready by the 21st."
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "transcript": {
+      "date": "2026-08-14",
+      "meeting": "platform sync",
+      "turns": [
+        {
+          "speaker": "ana",
+          "text": "I'll take the storage migration runbook and have it ready by the 21st."
+        },
+        {
+          "speaker": "raj",
+          "text": "I can own the alert cleanup, end of next week."
+        },
+        {
+          "speaker": "ana",
+          "text": "Sam, can you confirm the backup window by Friday?"
+        },
+        {
+          "speaker": "sam",
+          "text": "Yes, I'll confirm the backup window by Friday the 16th."
+        }
+      ]
     },
-    {
-     "speaker": "raj",
-     "text": "I can own the alert cleanup, end of next week."
+    "goal": "the 2026-08-14 platform sync transcript, for the infra team"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Storage migration runbook to be ready by 21st; alert cleanup owned by Raj, complete end of next week; Sam to confirm backup window by Friday the 16th"
     },
-    {
-     "speaker": "ana",
-     "text": "Sam, can you confirm the backup window by Friday?"
+    "produce": {
+      "actions": [
+        {
+          "date": "2026-08-21",
+          "owner": "ana",
+          "quote": "I'll take the storage migration runbook and have it ready by the 21st."
+        },
+        {
+          "date": "2026-08-21",
+          "owner": "raj",
+          "quote": "I can own the alert cleanup, end of next week."
+        },
+        {
+          "date": "2026-08-16",
+          "owner": "sam",
+          "quote": "Yes, I'll confirm the backup window by Friday the 16th."
+        }
+      ]
     },
-    {
-     "speaker": "sam",
-     "text": "Yes, I'll confirm the backup window by Friday the 16th."
+    "review": {
+      "output": {
+        "actions": [
+          {
+            "date": "2026-08-21",
+            "owner": "ana",
+            "quote": "I'll take the storage migration runbook and have it ready by the 21st."
+          },
+          {
+            "date": "2026-08-21",
+            "owner": "raj",
+            "quote": "I can own the alert cleanup, end of next week."
+          },
+          {
+            "date": "2026-08-16",
+            "owner": "sam",
+            "quote": "Yes, I'll confirm the backup window by Friday the 16th."
+          }
+        ]
+      },
+      "revision_requested": false
     }
-   ]
   },
-  "goal": "the 2026-08-14 platform sync transcript, for the infra team"
- },
- "node_outputs": {
-  "intake": {
-   "summary": "Storage migration runbook to be ready by 21st; alert cleanup owned by Raj, complete end of next week; Sam to confirm backup window by Friday the 16th"
-  },
-  "produce": {
-   "actions": [
-    {
-     "date": "2026-08-21",
-     "owner": "ana",
-     "quote": "I'll take the storage migration runbook and have it ready by the 21st."
-    },
-    {
-     "date": "2026-08-21",
-     "owner": "raj",
-     "quote": "I can own the alert cleanup, end of next week."
-    },
-    {
-     "date": "2026-08-16",
-     "owner": "sam",
-     "quote": "Yes, I'll confirm the backup window by Friday the 16th."
-    }
-   ]
-  },
-  "review": {
-   "output": {
-    "actions": [
-     {
-      "date": "2026-08-21",
-      "owner": "ana",
-      "quote": "I'll take the storage migration runbook and have it ready by the 21st."
-     },
-     {
-      "date": "2026-08-21",
-      "owner": "raj",
-      "quote": "I can own the alert cleanup, end of next week."
-     },
-     {
-      "date": "2026-08-16",
-      "owner": "sam",
-      "quote": "Yes, I'll confirm the backup window by Friday the 16th."
-     }
-    ]
-   },
-   "revision_requested": false
-  }
- },
- "tool_calls": [],
- "failure_kinds": [],
- "parse_failures": [],
- "gate_refused": "",
- "timeouts": [],
- "superseded_by": "v19-guidance-stripped",
- "reason": "recorded while 8 graphs still carried edge guidance measured at zero mean benefit; the v1.9 baseline should not bake in an unproven mechanism"
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
 }

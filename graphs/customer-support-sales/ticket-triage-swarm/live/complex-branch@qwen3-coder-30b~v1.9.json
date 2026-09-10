@@ -1,43 +1,41 @@
 {
- "model": "qwen3-coder:30b",
- "recorded": "2026-09-10",
- "endpoint": "http://localhost:11434/v1",
- "spec": "agr/v1.9",
- "sampling": {
-  "temperature": 0,
-  "seed": 7,
-  "max_tokens": 2048
- },
- "inputs": {
-  "ownership_map": {
-   "refund not received": "billing-tier2",
-   "cannot log in": "identity-tier1",
-   "invoice wrong amount": "billing-tier2",
-   "app crashes on upload": "mobile-tier2"
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
   },
-  "goal": "the ticket 'cannot log in', against the queue ownership map"
- },
- "node_outputs": {
-  "route": {
-   "complexity": "low"
+  "inputs": {
+    "ownership_map": {
+      "refund not received": "billing-tier2",
+      "cannot log in": "identity-tier1",
+      "invoice wrong amount": "billing-tier2",
+      "app crashes on upload": "mobile-tier2"
+    },
+    "goal": "the ticket 'cannot log in', against the queue ownership map"
   },
-  "branch-simple": {
-   "assigned_queue": "identity-tier1"
+  "node_outputs": {
+    "route": {
+      "complexity": "low"
+    },
+    "branch-simple": {
+      "assigned_queue": "identity-tier1"
+    },
+    "verify": {
+      "expected_queue": "identity-tier1",
+      "assigned_queue": "identity-tier1",
+      "output": {
+        "assigned_queue": "identity-tier1",
+        "expected_queue": "identity-tier1"
+      }
+    }
   },
-  "verify": {
-   "expected_queue": "identity-tier1",
-   "assigned_queue": "identity-tier1",
-   "output": {
-    "assigned_queue": "identity-tier1",
-    "expected_queue": "identity-tier1"
-   }
-  }
- },
- "tool_calls": [],
- "failure_kinds": [],
- "parse_failures": [],
- "gate_refused": "",
- "timeouts": [],
- "superseded_by": "v19-guidance-stripped",
- "reason": "recorded while 8 graphs still carried edge guidance measured at zero mean benefit; the v1.9 baseline should not bake in an unproven mechanism"
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
 }

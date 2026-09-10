@@ -1,0 +1,60 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "papers": [
+      {
+        "paper": "Cepeda 2006",
+        "section": "meta-analysis",
+        "design": "RCT review",
+        "year": 2006,
+        "finding": "spacing improves retention"
+      },
+      {
+        "paper": "Kornell 2009",
+        "section": "experiment 2",
+        "design": "RCT",
+        "year": 2009,
+        "finding": "spacing beats massing for concepts"
+      },
+      {
+        "paper": "Carpenter 2012",
+        "section": "discussion",
+        "design": "RCT",
+        "year": 2012,
+        "finding": "effect persists at 8 weeks"
+      }
+    ],
+    "inclusion": {
+      "design": "RCT",
+      "since_year": 2005
+    },
+    "goal": "does spaced repetition improve retention, RCTs since 2015"
+  },
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        "search for RCTs on spaced repetition published after 2015",
+        "extract findings from identified papers regarding retention improvement",
+        "update inclusion criteria since_year to 2015"
+      ]
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "screen: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

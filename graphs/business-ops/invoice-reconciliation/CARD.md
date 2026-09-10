@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-047` | business-ops | **router** | 4 | 5 | 0 | 0 | 30 | write |
+| `AGR-047` | business-ops | **router** | 4 | 5 | 0 | 0 | 8 | write |
 
 > 🎯 **Requires a goal** — the invoice batch to reconcile and the period it covers. Without one the graph refuses and runs no node.
 
@@ -37,7 +37,7 @@ A cheap classifier sends every item down the narrowest branch that can handle it
 - **Exit contract** — an unmatched invoice never posts without an AP signature
 - **Machine-checked** — `output.unreviewed_exceptions == 0`
 - **Machine-checked** — `all(m.invoice_id and m.po_id and m.receipt_id for m in output.matched)`
-- **Bounded** — hard stop after 30 steps; the topology is acyclic
+- **Bounded** — hard stop after 8 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval invoice-reconciliation` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/invoice-reconciliation.md)
 

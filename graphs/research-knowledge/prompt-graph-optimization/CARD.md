@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-125` | research-knowledge | **tree-search** | 3 | 2 | 1 | 0 | 40 | execute |
+| `AGR-125` | research-knowledge | **tree-search** | 3 | 2 | 1 | 0 | 6 | execute |
 
 > 🎯 **Requires a goal** — the graph to optimize and the metric that decides a winner. Without one the graph refuses and runs no node.
 
@@ -33,7 +33,7 @@ Candidates are branched, scored against a real measurement, and pruned to a beam
 - **Exit contract** — a variant ships only if it beats baseline on a held-out set it was not searched against
 - **Machine-checked** — `output.holdout_score > output.baseline_score`
 - **Command-checked** — `agr eval {candidate_graph} --live`
-- **Bounded** — hard stop after 40 steps; the topology is acyclic
+- **Bounded** — hard stop after 6 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval prompt-graph-optimization` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/prompt-graph-optimization.md)
 

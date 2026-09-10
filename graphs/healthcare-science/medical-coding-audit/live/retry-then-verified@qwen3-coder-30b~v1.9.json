@@ -1,0 +1,91 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "encounters": [
+      {
+        "id": "E1",
+        "drg": "291",
+        "chart": "Acute CHF exacerbation, IV diuresis, note span 4-9"
+      },
+      {
+        "id": "E2",
+        "drg": "470",
+        "chart": "Elective THA, uncomplicated, note span 2-5"
+      },
+      {
+        "id": "E3",
+        "drg": "871",
+        "chart": "Sepsis with lactate 4.2, note span 1-14"
+      }
+    ],
+    "goal": "the July inpatient DRG assignments and their charts"
+  },
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        "Extract DRG assignments and corresponding note spans from encounter E1: 'Acute CHF exacerbation, IV diuresis, note span 4-9'",
+        "Extract DRG assignments and corresponding note spans from encounter E2: 'Elective THA, uncomplicated, note span 2-5'",
+        "Extract DRG assignments and corresponding note spans from encounter E3: 'Sepsis with lactate 4.2, note span 1-14'"
+      ]
+    },
+    "work": [
+      {
+        "work_result": "DRG 291: Acute CHF exacerbation, IV diuresis, note span 4-9"
+      },
+      {
+        "work_result": "DRG 470 assigned to encounter E2 with note span 2-5 for 'Elective THA, uncomplicated'"
+      },
+      {
+        "work_result": "DRG 871 assigned for Sepsis with lactate 4.2, note span 1-14"
+      }
+    ],
+    "recode": {
+      "corrections": [
+        "DRG 291: Acute CHF exacerbation, IV diuresis, note span 4-9",
+        "DRG 470 assigned to encounter E2 with note span 2-5 for 'Elective THA, uncomplicated'",
+        "DRG 871 assigned for Sepsis with lactate 4.2, note span 1-14"
+      ],
+      "recode_failed": false
+    },
+    "verify": {
+      "codes": [
+        {
+          "note_span": "4-9"
+        },
+        {
+          "note_span": "2-5"
+        },
+        {
+          "note_span": "1-14"
+        }
+      ],
+      "output": {
+        "codes": [
+          {
+            "note_span": "4-9"
+          },
+          {
+            "note_span": "2-5"
+          },
+          {
+            "note_span": "1-14"
+          }
+        ]
+      },
+      "verify_failed": false
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

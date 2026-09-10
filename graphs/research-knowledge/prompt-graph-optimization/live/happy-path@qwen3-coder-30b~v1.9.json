@@ -1,0 +1,149 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "graph_under_test": "support-triage",
+    "candidate_graph": {
+      "name": "support-triage-v2",
+      "change": "add a dedupe step before routing"
+    },
+    "train_set": [
+      {
+        "id": "t1",
+        "label": "billing"
+      },
+      {
+        "id": "t2",
+        "label": "identity"
+      },
+      {
+        "id": "t3",
+        "label": "billing"
+      }
+    ],
+    "holdout_set": [
+      {
+        "id": "h1",
+        "label": "billing"
+      },
+      {
+        "id": "h2",
+        "label": "mobile"
+      },
+      {
+        "id": "h3",
+        "label": "identity"
+      },
+      {
+        "id": "h4",
+        "label": "billing"
+      }
+    ],
+    "baseline_score": 0.62,
+    "goal": "optimize the support-triage graph for accuracy on the held-out set"
+  },
+  "node_outputs": {
+    "baseline": {
+      "baseline_score": 0.62,
+      "eval_set": [
+        {
+          "id": "h1",
+          "label": "billing"
+        },
+        {
+          "id": "h2",
+          "label": "mobile"
+        },
+        {
+          "id": "h3",
+          "label": "identity"
+        },
+        {
+          "id": "h4",
+          "label": "billing"
+        }
+      ]
+    },
+    "search": [
+      {
+        "variant": "support-triage-v2",
+        "score": 0.75
+      },
+      {
+        "variant": "support-triage-v2",
+        "score": 0.75
+      },
+      {
+        "variant": "support-triage-v2",
+        "score": 0.75
+      },
+      {
+        "variant": "support-triage-v2",
+        "score": 0.75
+      },
+      {
+        "variant": "support-triage-v2",
+        "score": 0.75
+      },
+      {
+        "variant": "support-triage-v2",
+        "score": 0.75
+      },
+      {
+        "variant": "support-triage-v2",
+        "score": 0.75
+      },
+      {
+        "variant": "support-triage-v2",
+        "score": 0.75
+      },
+      {
+        "variant": "support-triage-v2",
+        "score": 0.75
+      },
+      {
+        "variant": "support-triage-v2",
+        "score": 0.75
+      },
+      {
+        "variant": "support-triage-v2",
+        "score": 0.75
+      },
+      {
+        "variant": "support-triage-v2",
+        "score": 0.75
+      },
+      {
+        "variant": "support-triage-v2",
+        "score": 0.75
+      },
+      {
+        "variant": "support-triage-v2",
+        "score": 0.75
+      },
+      {
+        "variant": "support-triage-v2",
+        "score": 0.75
+      }
+    ],
+    "confirm": {
+      "holdout_score": 0.75,
+      "output": {
+        "baseline_score": 0.62,
+        "holdout_score": 0.75
+      }
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

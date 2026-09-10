@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-121` | finance | **human-gate** | 7 | 7 | 0 | 0 | 35 | execute |
+| `AGR-121` | finance | **human-gate** | 7 | 7 | 0 | 0 | 14 | execute |
 
 > 🎯 **Requires a goal** — the filing period and the regime being filed under. Without one the graph refuses and runs no node.
 
@@ -43,7 +43,7 @@ A `kind: human` node holds an approval contract that no model may sign — the l
 - **Machine-checked** — `output.filing_total == output.ledger_total`
 - **Machine-checked** — `output.signed_off == true`
 - **Machine-checked** — `output.evidence_pack is not None`
-- **Bounded** — hard stop after 35 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 14 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval regulatory-filing-lifecycle` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/regulatory-filing-lifecycle.md)
 

@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-106` | creative-production | **pipeline** | 6 | 6 | 0 | 0 | 30 | execute |
+| `AGR-106` | creative-production | **pipeline** | 6 | 6 | 0 | 0 | 10 | execute |
 
 > 🎯 **Requires a goal** — the episode transcript to work from and the show it belongs to. Without one the graph refuses and runs no node.
 
@@ -40,7 +40,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 - **Exit contract** — no episode publishes with an uncleared cue or drifting timestamps
 - **Machine-checked** — `all(c.license_ref for c in output.clearances)`
 - **Machine-checked** — `all(t.start < t.end for t in output.timestamps)`
-- **Bounded** — hard stop after 30 steps; the topology is acyclic
+- **Bounded** — hard stop after 10 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval podcast-production-pipeline` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/podcast-production-pipeline.md)
 

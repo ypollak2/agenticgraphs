@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-069` | healthcare-science | **pipeline** | 5 | 5 | 0 | 0 | 30 | execute |
+| `AGR-069` | healthcare-science | **pipeline** | 5 | 5 | 0 | 0 | 6 | execute |
 
 > 🎯 **Requires a goal** — the trial to screen against and the cohort to screen. Without one the graph refuses and runs no node.
 
@@ -37,7 +37,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 
 - **Exit contract** — an ambiguous eligibility decision never enrols without a clinician signature
 - **Machine-checked** — `output.unreviewed_ambiguous == 0`
-- **Bounded** — hard stop after 30 steps; the topology is acyclic
+- **Bounded** — hard stop after 6 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval trial-eligibility-screener` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/trial-eligibility-screener.md)
 

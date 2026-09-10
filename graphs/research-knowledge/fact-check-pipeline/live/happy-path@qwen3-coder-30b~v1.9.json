@@ -1,0 +1,105 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "claims": [
+      {
+        "id": "c1",
+        "text": "The product cut onboarding time by half."
+      },
+      {
+        "id": "c2",
+        "text": "It is used by more than 400 teams."
+      },
+      {
+        "id": "c3",
+        "text": "It is the fastest tool in the category."
+      }
+    ],
+    "primary_sources": [
+      {
+        "url": "https://example.org/case-study",
+        "quote_span": "onboarding fell from 14 to 7 days"
+      },
+      {
+        "url": "https://example.org/customers",
+        "quote_span": "412 teams as of July 2026"
+      }
+    ],
+    "goal": "the twelve claims in the launch post, against primary sources"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": [
+        {
+          "claim_id": "c1",
+          "verdict": "verified",
+          "source_url": "https://example.org/case-study",
+          "quote_span": "onboarding fell from 14 to 7 days"
+        },
+        {
+          "claim_id": "c2",
+          "verdict": "verified",
+          "source_url": "https://example.org/customers",
+          "quote_span": "412 teams as of July 2026"
+        },
+        {
+          "claim_id": "c3",
+          "verdict": "unverified",
+          "source_url": null,
+          "quote_span": null
+        }
+      ]
+    },
+    "produce": {
+      "verdicts": [
+        {
+          "quote_span": "onboarding fell from 14 to 7 days",
+          "source_url": "https://example.org/case-study"
+        },
+        {
+          "quote_span": "412 teams as of July 2026",
+          "source_url": "https://example.org/customers"
+        },
+        {
+          "quote_span": null,
+          "source_url": null
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "verdicts": [
+          {
+            "quote_span": "onboarding fell from 14 to 7 days",
+            "source_url": "https://example.org/case-study"
+          },
+          {
+            "quote_span": "412 teams as of July 2026",
+            "source_url": "https://example.org/customers"
+          },
+          {
+            "quote_span": null,
+            "source_url": null
+          }
+        ]
+      },
+      "revision_requested": false,
+      "unsupported_claims": []
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "assert"
+  ],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

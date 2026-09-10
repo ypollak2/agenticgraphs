@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-013` | devops-sre | **map-reduce** | 3 | 2 | 1 | 0 | 20 | write |
+| `AGR-013` | devops-sre | **map-reduce** | 3 | 2 | 1 | 0 | 6 | write |
 
 > 🎯 **Requires a goal** — the alert history to cluster and the window it covers. Its trigger supplies this when it fires on schedule.
 
@@ -32,7 +32,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 
 - **Exit contract** — dedupe ratio measured; no missed paging alert
 - **Machine-checked** — `output.dedupe_ratio > 0 and not output.missed_paging_alerts`
-- **Bounded** — hard stop after 20 steps; the topology is acyclic
+- **Bounded** — hard stop after 6 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval alert-noise-reduction` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/alert-noise-reduction.md)
 

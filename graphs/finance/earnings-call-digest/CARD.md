@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-049` | finance | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
+| `AGR-049` | finance | **pipeline** | 3 | 3 | 1 | 0 | 10 | write |
 
 > 🎯 **Requires a goal** — the earnings call to digest and the prior guidance to compare against. Without one the graph refuses and runs no node.
 
@@ -33,7 +33,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 
 - **Exit contract** — every figure matches transcript; no invented numbers
 - **Machine-checked** — `all(f.matches_transcript for f in output.figures) and not output.invented_numbers`
-- **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 10 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval earnings-call-digest` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/earnings-call-digest.md)
 

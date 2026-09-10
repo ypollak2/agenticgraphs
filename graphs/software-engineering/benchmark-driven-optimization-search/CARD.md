@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-124` | software-engineering | **tree-search** | 3 | 2 | 1 | 0 | 40 | execute |
+| `AGR-124` | software-engineering | **tree-search** | 3 | 2 | 1 | 0 | 6 | execute |
 
 > 🎯 **Requires a goal** — the repository to optimize and the benchmark that scores it. Without one the graph refuses and runs no node.
 
@@ -33,7 +33,7 @@ Candidates are branched, scored against a real measurement, and pruned to a beam
 - **Exit contract** — the retained candidate is faster than baseline with a green suite; losers are pruned, not shipped
 - **Machine-checked** — `output.bench_ms < output.baseline_ms`
 - **Command-checked** — `pytest -q`
-- **Bounded** — hard stop after 40 steps; the topology is acyclic
+- **Bounded** — hard stop after 6 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval benchmark-driven-optimization-search` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/benchmark-driven-optimization-search.md)
 

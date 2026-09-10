@@ -1,0 +1,100 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "source": {
+      "chapter": 4,
+      "topic": "photosynthesis",
+      "year_group": 9,
+      "key_facts": [
+        "chlorophyll absorbs light energy",
+        "carbon dioxide and water are the reactants",
+        "glucose and oxygen are the products",
+        "the reaction happens in chloroplasts"
+      ]
+    },
+    "answer_key_required": true,
+    "goal": "chapter 4 on photosynthesis, for year 9"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Photosynthesis occurs in chloroplasts where chlorophyll absorbs light energy to convert carbon dioxide and water into glucose and oxygen. This process is essential for producing oxygen and food sources in ecosystems."
+    },
+    "generate": {
+      "draft": "Chapter 4: Photosynthesis\n\nPhotosynthesis is the process by which plants make their own food using sunlight. This process happens in structures called chloroplasts, which are found in plant cells.\n\nThe main ingredients for photosynthesis are:\n- Carbon dioxide (CO\u2082) - this gas enters through tiny pores in leaves called stomata\n- Water (H\u2082O) - this is absorbed by roots and transported to leaves\n- Light energy - usually from sunlight\n\nChlorophyll, a green pigment found in chloroplasts, captures light energy. This energy is used to convert carbon dioxide and water into glucose (a type of sugar) and oxygen.\n\nThe overall equation for photosynthesis is:\n6CO\u2082 + 6H\u2082O + light energy \u2192 C\u2086H\u2081\u2082O\u2086 + 6O\u2082\n\nGlucose provides energy for the plant's growth and development, while oxygen is released into the atmosphere as a byproduct. This oxygen is essential for most living organisms to breathe.\n\nPhotosynthesis occurs mainly in the leaves of plants, particularly in cells containing many chloroplasts. The process is crucial for life on Earth because it produces oxygen and forms the base of most food chains."
+    },
+    "blind-solve": {
+      "blind_answers": [
+        {
+          "question": "What are the reactants in photosynthesis?",
+          "answer": "Carbon dioxide and water"
+        },
+        {
+          "question": "What are the products of photosynthesis?",
+          "answer": "Glucose and oxygen"
+        },
+        {
+          "question": "Where does photosynthesis occur in plant cells?",
+          "answer": "In chloroplasts"
+        },
+        {
+          "question": "What role does chlorophyll play in photosynthesis?",
+          "answer": "It absorbs light energy"
+        }
+      ]
+    },
+    "critique": {
+      "entries": [
+        {
+          "answer_matches_key": true,
+          "distractors_plausible": true
+        },
+        {
+          "answer_matches_key": true,
+          "distractors_plausible": true
+        },
+        {
+          "answer_matches_key": true,
+          "distractors_plausible": true
+        },
+        {
+          "answer_matches_key": true,
+          "distractors_plausible": true
+        }
+      ],
+      "output": {
+        "entries": [
+          {
+            "answer_matches_key": true,
+            "distractors_plausible": true
+          },
+          {
+            "answer_matches_key": true,
+            "distractors_plausible": true
+          },
+          {
+            "answer_matches_key": true,
+            "distractors_plausible": true
+          },
+          {
+            "answer_matches_key": true,
+            "distractors_plausible": true
+          }
+        ]
+      },
+      "rejected": false
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

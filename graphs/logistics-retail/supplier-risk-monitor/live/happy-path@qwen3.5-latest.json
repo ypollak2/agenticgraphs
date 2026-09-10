@@ -1,0 +1,71 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "supplier_list": [
+      {
+        "id": "s1",
+        "name": "Northwind Components",
+        "category": "pcb",
+        "spend_usd": 4200000,
+        "region": "TW",
+        "alternatives": 0
+      },
+      {
+        "id": "s2",
+        "name": "Baltic Plastics",
+        "category": "enclosure",
+        "spend_usd": 1800000,
+        "region": "PL",
+        "alternatives": 3
+      },
+      {
+        "id": "s3",
+        "name": "Kyoto Optics",
+        "category": "lens",
+        "spend_usd": 2600000,
+        "region": "JP",
+        "alternatives": 0
+      },
+      {
+        "id": "s4",
+        "name": "Cascade Metals",
+        "category": "enclosure",
+        "spend_usd": 900000,
+        "region": "US",
+        "alternatives": 3
+      },
+      {
+        "id": "s5",
+        "name": "Adriatic Cable",
+        "category": "harness",
+        "spend_usd": 450000,
+        "region": "IT",
+        "alternatives": 2
+      }
+    ],
+    "risk_appetite": {
+      "max_single_source_spend_usd": 2000000
+    },
+    "goal": "the 240 tier-1 suppliers, on single-source and concentration"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "ingest.partition: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

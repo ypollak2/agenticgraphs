@@ -1,0 +1,47 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "test_id": "test_checkout_timeout",
+    "test_path": "tests/test_checkout.py",
+    "required_green_streak": 3,
+    "history": [
+      {
+        "attempt": 1,
+        "status": "fail",
+        "error": "timeout after 5s"
+      },
+      {
+        "attempt": 2,
+        "status": "pass"
+      },
+      {
+        "attempt": 3,
+        "status": "fail",
+        "error": "timeout after 5s"
+      }
+    ],
+    "suspected_cause": "fixed 5s timeout races a 4.8s p99 dependency",
+    "goal": "stabilize test_checkout_timeout; it must go 3 consecutive greens"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "reproduce: no JSON object in model reply: ''",
+    "reproduce: no JSON object in model reply: ''",
+    "reproduce: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

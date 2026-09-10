@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-096` | hr-people | **pipeline** | 5 | 5 | 1 | 0 | 25 | write |
+| `AGR-096` | hr-people | **pipeline** | 5 | 5 | 1 | 0 | 12 | write |
 
 > 🎯 **Requires a goal** — the review cycle and the person it covers. Without one the graph refuses and runs no node.
 
@@ -38,7 +38,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 - **Exit contract** — every statement cites an input and no bias flag survives calibration
 - **Machine-checked** — `output.uncited_claims == 0`
 - **Machine-checked** — `len(output.bias_flags) == 0`
-- **Bounded** — hard stop after 25 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval performance-cycle-summarizer` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/performance-cycle-summarizer.md)
 

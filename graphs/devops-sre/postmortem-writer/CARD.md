@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-016` | devops-sre | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
+| `AGR-016` | devops-sre | **pipeline** | 3 | 3 | 1 | 0 | 10 | write |
 
 > 🎯 **Requires a goal** — the incident timeline to write up and the severity it was declared at. Without one the graph refuses and runs no node.
 
@@ -33,7 +33,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 
 - **Exit contract** — every timeline event cites a log or message id
 - **Machine-checked** — `all(e.get('log_id') or e.get('message_id') for e in output.timeline)`
-- **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 10 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval postmortem-writer` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/postmortem-writer.md)
 

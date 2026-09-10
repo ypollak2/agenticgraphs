@@ -1,0 +1,195 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "contract": {
+      "name": "Acme MSA",
+      "counterparty": "Acme Corp",
+      "term_months": 24,
+      "clauses": [
+        {
+          "id": "c1",
+          "type": "liability_cap",
+          "text": "Liability capped at 12 months of fees.",
+          "risk": "low"
+        },
+        {
+          "id": "c2",
+          "type": "indemnity",
+          "text": "Supplier indemnifies customer for IP claims.",
+          "risk": "low"
+        },
+        {
+          "id": "c3",
+          "type": "auto_renew",
+          "text": "Renews automatically unless cancelled 90 days prior.",
+          "risk": "medium"
+        },
+        {
+          "id": "c4",
+          "type": "data_residency",
+          "text": "Data may be processed in any region.",
+          "risk": "medium"
+        }
+      ],
+      "signatories": [
+        {
+          "party": "Acme Corp",
+          "role": "VP Procurement"
+        },
+        {
+          "party": "Our Co",
+          "role": "General Counsel"
+        }
+      ],
+      "risk_appetite": "medium"
+    },
+    "goal": "review the Acme MSA under our standard enterprise risk posture"
+  },
+  "node_outputs": {
+    "intake": {
+      "clauses": [
+        {
+          "id": "c1",
+          "risk": "low"
+        },
+        {
+          "id": "c2",
+          "risk": "low"
+        },
+        {
+          "id": "c3",
+          "risk": "medium"
+        },
+        {
+          "id": "c4",
+          "risk": "medium"
+        }
+      ]
+    },
+    "redline.intake": {
+      "summary": "Acme MSA presents medium overall risk profile. Key concerns include auto-renew clause (medium risk) and data residency clause (medium risk). Liability cap and indemnity clauses are low risk. Contract terms align with our medium risk appetite but require careful monitoring of renewal obligations and data handling practices."
+    },
+    "redline.playbook-lookup": {
+      "playbook_positions": [
+        {
+          "clause_id": "c1",
+          "position": "Liability capped at 12 months of fees.",
+          "applicable_playbook_section": "Risk Mitigation - Financial Liability",
+          "fallback_acceptance": "Low risk, acceptable under current posture"
+        },
+        {
+          "clause_id": "c2",
+          "position": "Supplier indemnifies customer for IP claims.",
+          "applicable_playbook_section": "Risk Mitigation - Intellectual Property",
+          "fallback_acceptance": "Low risk, acceptable under current posture"
+        },
+        {
+          "clause_id": "c3",
+          "position": "Renews automatically unless cancelled 90 days prior.",
+          "applicable_playbook_section": "Contract Management - Renewal Obligations",
+          "fallback_acceptance": "Medium risk, acceptable with monitoring and escalation protocols"
+        },
+        {
+          "clause_id": "c4",
+          "position": "Data may be processed in any region.",
+          "applicable_playbook_section": "Data Governance - Cross-Border Data Handling",
+          "fallback_acceptance": "Medium risk, acceptable with compliance monitoring and data protection measures"
+        }
+      ]
+    },
+    "redline.produce": {
+      "redlines": [
+        {
+          "playbook_ref": "Risk Mitigation - Financial Liability"
+        },
+        {
+          "playbook_ref": "Risk Mitigation - Intellectual Property"
+        },
+        {
+          "playbook_ref": "Contract Management - Renewal Obligations"
+        },
+        {
+          "playbook_ref": "Data Governance - Cross-Border Data Handling"
+        }
+      ]
+    },
+    "redline.review": {
+      "output": {
+        "redlines": [
+          {
+            "playbook_ref": "Risk Mitigation - Financial Liability"
+          },
+          {
+            "playbook_ref": "Risk Mitigation - Intellectual Property"
+          },
+          {
+            "playbook_ref": "Contract Management - Renewal Obligations"
+          },
+          {
+            "playbook_ref": "Data Governance - Cross-Border Data Handling"
+          }
+        ]
+      },
+      "redlines": [
+        {
+          "playbook_ref": "Risk Mitigation - Financial Liability"
+        },
+        {
+          "playbook_ref": "Risk Mitigation - Intellectual Property"
+        },
+        {
+          "playbook_ref": "Contract Management - Renewal Obligations"
+        },
+        {
+          "playbook_ref": "Data Governance - Cross-Border Data Handling"
+        }
+      ],
+      "revision_requested": false
+    },
+    "risk-assess": {
+      "residual_risk": "medium"
+    },
+    "execute": {
+      "output": {
+        "residual_risk_level": "medium",
+        "signatures": [
+          {
+            "party": "Acme Corp",
+            "dated": null
+          },
+          {
+            "party": "Our Co",
+            "dated": null
+          }
+        ],
+        "signed_off": true
+      },
+      "residual_risk_level": "medium",
+      "signatures": [
+        {
+          "party": "Acme Corp",
+          "dated": null
+        },
+        {
+          "party": "Our Co",
+          "dated": null
+        }
+      ]
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "assert"
+  ],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

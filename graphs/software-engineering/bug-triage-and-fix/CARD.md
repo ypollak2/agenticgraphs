@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-002` | software-engineering | **planner-executor-verifier** | 3 | 3 | 1 | 0 | 25 | execute |
+| `AGR-002` | software-engineering | **planner-executor-verifier** | 3 | 3 | 1 | 0 | 14 | execute |
 
 > 🎯 **Requires a goal** — the bug report to fix and the repository it reproduces in. Without one the graph refuses and runs no node.
 
@@ -34,7 +34,7 @@ The plan makes intent inspectable before anything touches the world, the executo
 - **Exit contract** — repro test fails before patch and passes after
 - **Machine-checked** — `output.exit_before != 0 and output.exit_after == 0`
 - **Command-checked** — `pytest -q {test_path}`
-- **Bounded** — hard stop after 25 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 14 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval bug-triage-and-fix` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/bug-triage-and-fix.md)
 

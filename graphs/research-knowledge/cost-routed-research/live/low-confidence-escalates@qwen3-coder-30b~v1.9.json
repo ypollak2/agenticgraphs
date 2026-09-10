@@ -1,0 +1,71 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "sources": [
+      {
+        "id": "s1",
+        "url": "https://example.org/usage-pricing-churn",
+        "date": "2026-05-02",
+        "claim": "usage plans churn on billing surprise"
+      },
+      {
+        "id": "s2",
+        "url": "https://example.org/seat-vs-usage",
+        "date": "2026-06-11",
+        "claim": "seat plans churn on budget cycles"
+      },
+      {
+        "id": "s3",
+        "url": "https://example.org/pricing-elasticity",
+        "date": "2026-07-19",
+        "claim": "overage caps reduce involuntary churn"
+      }
+    ],
+    "goal": "what drives churn in usage-based pricing, cited to primary sources"
+  },
+  "node_outputs": {
+    "router": {
+      "complexity": "high"
+    },
+    "deep-researcher": {
+      "confidence": 0.85
+    },
+    "synthesizer": {
+      "claims": [
+        {
+          "sources": [
+            {
+              "id": "s1",
+              "url": "https://example.org/usage-pricing-churn",
+              "date": "2026-05-02",
+              "claim": "usage plans churn on billing surprise"
+            }
+          ]
+        },
+        {
+          "sources": [
+            {
+              "id": "s3",
+              "url": "https://example.org/pricing-elasticity",
+              "date": "2026-07-19",
+              "claim": "overage caps reduce involuntary churn"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

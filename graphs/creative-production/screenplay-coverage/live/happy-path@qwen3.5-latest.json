@@ -1,0 +1,65 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "screenplay": {
+      "title": "Longwater",
+      "pages": 104,
+      "genre": "contained thriller",
+      "budget_tier": "mid-budget indie",
+      "logline": "A dam inspector trapped by a rising flood must choose which valley town to save.",
+      "beats": [
+        {
+          "page": 1,
+          "beat": "inspection begins"
+        },
+        {
+          "page": 24,
+          "beat": "first breach"
+        },
+        {
+          "page": 55,
+          "beat": "the choice is named"
+        },
+        {
+          "page": 88,
+          "beat": "the valve room"
+        }
+      ],
+      "comparable_pool": [
+        {
+          "title": "The Wave",
+          "year": 2015
+        },
+        {
+          "title": "Buried",
+          "year": 2010
+        },
+        {
+          "title": "Nightcrawler",
+          "year": 2014
+        }
+      ]
+    },
+    "goal": "the 104-page Longwater draft, for a mid-budget indie slate"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "read: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

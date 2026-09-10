@@ -1,0 +1,68 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "contract": {
+      "name": "Meridian MSA",
+      "clauses": [
+        {
+          "id": "m1",
+          "type": "liability_cap",
+          "text": "Unlimited liability for all claims."
+        },
+        {
+          "id": "m2",
+          "type": "payment_terms",
+          "text": "Net 90 from invoice."
+        },
+        {
+          "id": "m3",
+          "type": "termination",
+          "text": "Termination for convenience with 180 days notice."
+        }
+      ]
+    },
+    "playbook": {
+      "year": 2026,
+      "positions": [
+        {
+          "playbook_ref": "PB-2",
+          "rule": "cap at 12 months fees"
+        },
+        {
+          "playbook_ref": "PB-5",
+          "rule": "Net 30 standard, Net 45 maximum"
+        },
+        {
+          "playbook_ref": "PB-8",
+          "rule": "termination for convenience at 60 days"
+        }
+      ]
+    },
+    "goal": "the Meridian MSA, against the 2026 commercial playbook"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Clause m1 (Unlimited liability) conflicts with Playbook PB-2 (cap at 12 months fees). Clause m2 (Net 90 payment terms) conflicts with Playbook PB-5 (Net 30 standard, Net 45 maximum). Clause m3 (180 days termination notice) conflicts with Playbook PB-8 (termination for convenience at 60 days)."
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "playbook-lookup: no JSON object in model reply: ''",
+    "playbook-lookup: no JSON object in model reply: ''",
+    "playbook-lookup: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

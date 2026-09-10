@@ -1,0 +1,43 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "module": {
+      "path": "src/pricing",
+      "target_mutation_score": 0.85,
+      "current": {
+        "coverage": 0.61,
+        "mutation_score": 0.42
+      },
+      "functions": [
+        {
+          "name": "apply_discount",
+          "branches": 6
+        },
+        {
+          "name": "prorate",
+          "branches": 4
+        }
+      ]
+    },
+    "goal": "the pricing module, to 85% mutation score"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "intake: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

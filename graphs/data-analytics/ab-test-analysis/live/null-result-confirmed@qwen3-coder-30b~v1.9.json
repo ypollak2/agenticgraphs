@@ -1,51 +1,49 @@
 {
- "model": "qwen3-coder:30b",
- "recorded": "2026-09-10",
- "endpoint": "http://localhost:11434/v1",
- "spec": "agr/v1.9",
- "sampling": {
-  "temperature": 0,
-  "seed": 7,
-  "max_tokens": 2048
- },
- "inputs": {
-  "experiment": {
-   "name": "checkout-v3",
-   "claimed_effect": 0.021,
-   "control": {
-    "n": 48210,
-    "conversions": 4339
-   },
-   "variant": {
-    "n": 47980,
-    "conversions": 5327
-   },
-   "primary_metric": "conversion rate",
-   "run_days": 14
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
   },
-  "goal": "experiment checkout-v3, claimed +2.1% conversion"
- },
- "node_outputs": {
-  "position-a": {
-   "argument": "The experiment checkout-v3 shows a 2.1% conversion rate improvement as claimed. With control group having 4339 conversions out of 48210 (9.0%), and variant group having 5327 conversions out of 47980 (11.1%), the observed effect matches the claimed effect of +2.1% conversion rate, confirming the statistical significance and reproducibility of the claimed impact."
+  "inputs": {
+    "experiment": {
+      "name": "checkout-v3",
+      "claimed_effect": 0.021,
+      "control": {
+        "n": 48210,
+        "conversions": 4339
+      },
+      "variant": {
+        "n": 47980,
+        "conversions": 5327
+      },
+      "primary_metric": "conversion rate",
+      "run_days": 14
+    },
+    "goal": "experiment checkout-v3, claimed +2.1% conversion"
   },
-  "position-b": {
-   "argument": "The experiment shows variant conversion rate of 11.1% (5327/47980) versus control rate of 9.0% (4339/48210), yielding a 2.1% absolute improvement that matches the claimed effect. The statistical significance can be assessed by computing the p-value for the difference in proportions, which should be below the threshold (e.g., 0.05) to validate the claimed effect."
+  "node_outputs": {
+    "position-a": {
+      "argument": "The experiment checkout-v3 shows a 2.1% conversion rate improvement as claimed. With control group having 4339 conversions out of 48210 (9.0%), and variant group having 5327 conversions out of 47980 (11.1%), the observed effect matches the claimed effect of +2.1% conversion rate, confirming the statistical significance and reproducibility of the claimed impact."
+    },
+    "position-b": {
+      "argument": "The experiment shows variant conversion rate of 11.1% (5327/47980) versus control rate of 9.0% (4339/48210), yielding a 2.1% absolute improvement that matches the claimed effect. The statistical significance can be assessed by computing the p-value for the difference in proportions, which should be below the threshold (e.g., 0.05) to validate the claimed effect."
+    },
+    "judge": {
+      "claimed_effect": 0.021,
+      "output": {
+        "claimed_effect": 0.021,
+        "recomputed_effect": 0.021
+      },
+      "recomputed_effect": 0.021
+    }
   },
-  "judge": {
-   "claimed_effect": 0.021,
-   "output": {
-    "claimed_effect": 0.021,
-    "recomputed_effect": 0.021
-   },
-   "recomputed_effect": 0.021
-  }
- },
- "tool_calls": [],
- "failure_kinds": [],
- "parse_failures": [],
- "gate_refused": "",
- "timeouts": [],
- "superseded_by": "v19-guidance-stripped",
- "reason": "recorded while 8 graphs still carried edge guidance measured at zero mean benefit; the v1.9 baseline should not bake in an unproven mechanism"
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
 }

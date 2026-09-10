@@ -1,0 +1,63 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "document": {
+      "name": "vendor onboarding runbook",
+      "sections": [
+        {
+          "n": 1,
+          "text": "Collect the vendor security questionnaire before signature."
+        },
+        {
+          "n": 2,
+          "text": "Grant production access on day one so the vendor can self-serve."
+        },
+        {
+          "n": 3,
+          "text": "Store completed questionnaires in the shared drive."
+        }
+      ]
+    },
+    "policy": {
+      "name": "InfoSec 2026",
+      "clauses": [
+        {
+          "clause_id": "IS-3.1",
+          "rule": "least privilege on production access"
+        },
+        {
+          "clause_id": "IS-4.2",
+          "rule": "security review before vendor signature"
+        },
+        {
+          "clause_id": "IS-7.5",
+          "rule": "evidence retained in the GRC system, not shared drives"
+        }
+      ]
+    },
+    "goal": "the vendor onboarding runbook, against InfoSec policy v4"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Section 2 violates IS-3.1 by granting production access on day one without enforcing least privilege. Section 3 violates IS-7.5 by storing evidence in a shared drive instead of the GRC system. Section 1 complies with IS-4.2 regarding security review before signature."
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "clause-map: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

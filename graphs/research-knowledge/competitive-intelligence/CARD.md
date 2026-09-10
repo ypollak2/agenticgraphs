@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-028` | research-knowledge | **map-reduce** | 3 | 2 | 1 | 0 | 20 | write |
+| `AGR-028` | research-knowledge | **map-reduce** | 3 | 2 | 1 | 0 | 6 | write |
 
 > 🎯 **Requires a goal** — the competitors to profile and the decision the brief informs. Without one the graph refuses and runs no node.
 
@@ -32,7 +32,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 
 - **Exit contract** — every finding links a dated public source
 - **Machine-checked** — `all(f.source_url and f.source_date for f in output.findings)`
-- **Bounded** — hard stop after 20 steps; the topology is acyclic
+- **Bounded** — hard stop after 6 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval competitive-intelligence` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/competitive-intelligence.md)
 

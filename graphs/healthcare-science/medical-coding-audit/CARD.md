@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-065` | healthcare-science | **parallel-swarm** | 5 | 5 | 1 | 0 | 30 | execute |
+| `AGR-065` | healthcare-science | **parallel-swarm** | 5 | 5 | 1 | 0 | 14 | execute |
 
 > 🎯 **Requires a goal** — the assigned codes to audit and the clinical documentation behind them. Without one the graph refuses and runs no node.
 
@@ -37,7 +37,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 
 - **Exit contract** — code assignments justified by note spans
 - **Machine-checked** — `all(c.note_span for c in output.codes)`
-- **Bounded** — hard stop after 30 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 14 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval medical-coding-audit` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/medical-coding-audit.md)
 

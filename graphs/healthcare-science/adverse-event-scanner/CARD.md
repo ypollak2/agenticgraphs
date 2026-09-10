@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-067` | healthcare-science | **map-reduce** | 3 | 2 | 1 | 0 | 20 | write |
+| `AGR-067` | healthcare-science | **map-reduce** | 3 | 2 | 1 | 0 | 6 | write |
 
 > 🎯 **Requires a goal** — the reports to scan and the product whose safety signal matters. Without one the graph refuses and runs no node.
 
@@ -32,7 +32,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 
 - **Exit contract** — every signal cites report ids; counts reproducible
 - **Machine-checked** — `all(s.report_ids and s.report_ids[s.count - 1:] and not s.report_ids[s.count:] for s in output.signals)`
-- **Bounded** — hard stop after 20 steps; the topology is acyclic
+- **Bounded** — hard stop after 6 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval adverse-event-scanner` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/adverse-event-scanner.md)
 

@@ -1,0 +1,72 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "systems": [
+      {
+        "name": "CRM",
+        "stores": [
+          {
+            "id": "crm.contacts",
+            "fields": [
+              "name",
+              "email",
+              "phone"
+            ],
+            "lawful_basis": "contract"
+          }
+        ],
+        "owner": "rev-ops"
+      },
+      {
+        "name": "billing",
+        "stores": [
+          {
+            "id": "billing.customers",
+            "fields": [
+              "name",
+              "vat_id",
+              "address"
+            ],
+            "lawful_basis": "contract"
+          }
+        ],
+        "owner": "finance"
+      },
+      {
+        "name": "support",
+        "stores": [
+          {
+            "id": "support.tickets",
+            "fields": [
+              "email",
+              "free_text"
+            ],
+            "lawful_basis": null
+          }
+        ],
+        "owner": "support"
+      }
+    ],
+    "goal": "audit personal data across CRM, billing and support for lawful basis"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "discover.plan: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

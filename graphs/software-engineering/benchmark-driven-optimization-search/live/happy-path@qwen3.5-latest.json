@@ -1,0 +1,50 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "repo": {
+      "name": "parser",
+      "entry": "src/parser.py",
+      "benchmark": {
+        "cmd": "pytest bench/ --benchmark-only",
+        "metric": "ms",
+        "baseline_ms": 184.0
+      },
+      "hot_paths": [
+        {
+          "fn": "tokenize",
+          "share": 0.61
+        },
+        {
+          "fn": "normalize",
+          "share": 0.22
+        }
+      ]
+    },
+    "goal": "optimize the parser repo against the throughput benchmark"
+  },
+  "node_outputs": {
+    "profile": {
+      "hotspot": "tokenize",
+      "baseline_ms": 184.0
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "explore: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}
