@@ -1,0 +1,180 @@
+{
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.9",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "screenplay": {
+   "title": "Longwater",
+   "pages": 104,
+   "genre": "contained thriller",
+   "budget_tier": "mid-budget indie",
+   "logline": "A dam inspector trapped by a rising flood must choose which valley town to save.",
+   "beats": [
+    {
+     "page": 1,
+     "beat": "inspection begins"
+    },
+    {
+     "page": 24,
+     "beat": "first breach"
+    },
+    {
+     "page": 55,
+     "beat": "the choice is named"
+    },
+    {
+     "page": 88,
+     "beat": "the valve room"
+    }
+   ],
+   "comparable_pool": [
+    {
+     "title": "The Wave",
+     "year": 2015
+    },
+    {
+     "title": "Buried",
+     "year": 2010
+    },
+    {
+     "title": "Nightcrawler",
+     "year": 2014
+    }
+   ]
+  },
+  "goal": "the 104-page Longwater draft, for a mid-budget indie slate"
+ },
+ "node_outputs": {
+  "read": {
+   "synopsis": "A dedicated dam inspector discovers a critical structural failure just hours before a massive flood threatens to destroy two valley communities. With limited time and resources, he must make an impossible choice between saving the town where he lives and the one where his family is trapped. As water levels rise and communication breaks down, he races against time to reach the control room while grappling with the moral weight of his decision.",
+   "beats": [
+    {
+     "page": 1,
+     "beat": "inspection begins"
+    },
+    {
+     "page": 24,
+     "beat": "first breach"
+    },
+    {
+     "page": 55,
+     "beat": "the choice is named"
+    },
+    {
+     "page": 88,
+     "beat": "the valve room"
+    }
+   ]
+  },
+  "structure": {
+   "structure_notes": "The draft's pacing is too slow for a contained thriller; the first breach occurs at page 24, which is too late to establish urgency. The choice is named at page 55, but the moral complexity needs deeper exploration earlier. The valve room beat at page 88 feels rushed and lacks sufficient tension building. Comparables like 'The Wave' and 'Buried' rely on tighter time constraints and more immediate stakes. The current structure allows too much breathing room for character development at the expense of narrative drive, particularly given the mid-budget indie constraints that demand lean storytelling."
+  },
+  "comparables.partition": {
+   "shards": [
+    {
+     "page": 12,
+     "beat": "first breach"
+    },
+    {
+     "page": 35,
+     "beat": "the choice is named"
+    },
+    {
+     "page": 78,
+     "beat": "the valve room"
+    }
+   ]
+  },
+  "comparables.map": [
+   {
+    "shard_result": "Move the first breach to page 8 to increase early tension and align with comparable films like 'Buried' and 'The Wave', which establish life-or-death stakes within the first 15 pages. This adjustment will create a tighter narrative structure that better serves the mid-budget indie constraints while maintaining the core premise of a trapped protagonist facing impossible choices."
+   },
+   {
+    "shard_result": "The choice is named at page 35, but the moral complexity needs deeper exploration earlier. To tighten the structure, move the first breach to page 12, the choice to page 28, and the valve room to page 65. This creates a more immediate stakes environment, aligns with comparable films like 'The Wave' and 'Buried', and ensures the mid-budget indie constraints are met through lean storytelling."
+   },
+   {
+    "shard_result": "The valve room sequence should begin at page 65 instead of page 78 to intensify the narrative urgency. The inspector discovers the control room is sealed by a malfunctioning valve system, creating a new obstacle that delays his access. This shift allows for a more suspenseful buildup, incorporating a technical challenge that mirrors the moral dilemma\u2014choosing between two flawed solutions. The revised pacing will better align with comparable films like 'The Wave' and 'Buried', which maintain tight time constraints and escalating stakes throughout."
+   }
+  ],
+  "comparables.reduce": {
+   "comps": [
+    {
+     "source_date": "2015",
+     "source_url": "https://www.imdb.com/title/tt3386440/"
+    },
+    {
+     "source_date": "2010",
+     "source_url": "https://www.imdb.com/title/tt1540281/"
+    },
+    {
+     "source_date": "2014",
+     "source_url": "https://www.imdb.com/title/tt3119998/"
+    }
+   ],
+   "findings": [
+    {
+     "source_date": "2015",
+     "source_url": "https://www.imdb.com/title/tt3386440/"
+    },
+    {
+     "source_date": "2010",
+     "source_url": "https://www.imdb.com/title/tt1540281/"
+    },
+    {
+     "source_date": "2014",
+     "source_url": "https://www.imdb.com/title/tt3119998/"
+    }
+   ],
+   "output": {
+    "findings": [
+     {
+      "source_date": "2015",
+      "source_url": "https://www.imdb.com/title/tt3386440/"
+     },
+     {
+      "source_date": "2010",
+      "source_url": "https://www.imdb.com/title/tt1540281/"
+     },
+     {
+      "source_date": "2014",
+      "source_url": "https://www.imdb.com/title/tt3119998/"
+     }
+    ]
+   }
+  },
+  "recommend": {
+   "output": {
+    "comps": [
+     {
+      "source_date": "2015",
+      "source_url": "https://www.imdb.com/title/tt3386440/"
+     },
+     {
+      "source_date": "2010",
+      "source_url": "https://www.imdb.com/title/tt1540281/"
+     },
+     {
+      "source_date": "2014",
+      "source_url": "https://www.imdb.com/title/tt3119998/"
+     }
+    ],
+    "recommendation": "consider"
+   },
+   "rationale": "The revised structure addresses the pacing issues identified in the initial assessment by moving key beats earlier, aligning with the tight narrative constraints of comparable films like 'Buried' and 'The Wave'. However, while the adjustments improve the thriller's intensity and serve the mid-budget indie slate better, the moral complexity and character stakes still need further development to fully justify a pass verdict. The current draft is not yet strong enough to warrant a pass without additional refinement.",
+   "recommendation": "consider"
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-guidance-stripped",
+ "reason": "recorded while 8 graphs still carried edge guidance measured at zero mean benefit; the v1.9 baseline should not bake in an unproven mechanism"
+}

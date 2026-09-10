@@ -1,0 +1,176 @@
+{
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.9",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "model_name": "customers",
+  "rules": [
+   {
+    "rule_id": "cdm-001",
+    "column": "email",
+    "check": "not_null"
+   },
+   {
+    "rule_id": "cdm-002",
+    "column": "country",
+    "check": "in_iso3166"
+   },
+   {
+    "rule_id": "cdm-003",
+    "column": "created_at",
+    "check": "not_future"
+   }
+  ],
+  "sample_rows": [
+   {
+    "id": 1,
+    "email": "a@x.com",
+    "country": "GB",
+    "created_at": "2026-01-04"
+   },
+   {
+    "id": 2,
+    "email": null,
+    "country": "GB",
+    "created_at": "2026-02-11"
+   },
+   {
+    "id": 3,
+    "email": "c@x.com",
+    "country": "ZZ",
+    "created_at": "2026-03-01"
+   }
+  ],
+  "goal": "the customers table, against the CDM completeness rules"
+ },
+ "node_outputs": {
+  "plan": {
+   "tasks": [
+    {
+     "task_id": "task-1",
+     "description": "Check for null values in the email column against rule cdm-001",
+     "action": "validate_not_null",
+     "column": "email",
+     "rule_id": "cdm-001"
+    },
+    {
+     "task_id": "task-2",
+     "description": "Validate that country values are in ISO 3166 format against rule cdm-002",
+     "action": "validate_iso3166",
+     "column": "country",
+     "rule_id": "cdm-002"
+    },
+    {
+     "task_id": "task-3",
+     "description": "Ensure created_at values are not in the future against rule cdm-003",
+     "action": "validate_not_future",
+     "column": "created_at",
+     "rule_id": "cdm-003"
+    }
+   ]
+  },
+  "work": [
+   {
+    "work_result": [
+     {
+      "rule_id": "cdm-001",
+      "violations": 1,
+      "details": "Null values found in email column"
+     },
+     {
+      "rule_id": "cdm-002",
+      "violations": 1,
+      "details": "Invalid country code 'ZZ' found"
+     },
+     {
+      "rule_id": "cdm-003",
+      "violations": 2,
+      "details": "Future dates found in created_at column"
+     }
+    ]
+   },
+   {
+    "work_result": {
+     "violations": [
+      {
+       "rule_id": "cdm-001",
+       "count": 1
+      },
+      {
+       "rule_id": "cdm-002",
+       "count": 1
+      },
+      {
+       "rule_id": "cdm-003",
+       "count": 1
+      }
+     ]
+    }
+   },
+   {
+    "work_result": {
+     "violations": [
+      {
+       "rule_id": "cdm-001",
+       "count": 1
+      },
+      {
+       "rule_id": "cdm-002",
+       "count": 1
+      },
+      {
+       "rule_id": "cdm-003",
+       "count": 1
+      }
+     ]
+    }
+   }
+  ],
+  "verify": {
+   "output": {
+    "violations": [
+     {
+      "count": 1,
+      "rule_id": "cdm-001"
+     },
+     {
+      "count": 1,
+      "rule_id": "cdm-002"
+     },
+     {
+      "count": 1,
+      "rule_id": "cdm-003"
+     }
+    ]
+   },
+   "violations": [
+    {
+     "count": 1,
+     "rule_id": "cdm-001"
+    },
+    {
+     "count": 1,
+     "rule_id": "cdm-002"
+    },
+    {
+     "count": 1,
+     "rule_id": "cdm-003"
+    }
+   ],
+   "verify_failed": false
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-guidance-stripped",
+ "reason": "recorded while 8 graphs still carried edge guidance measured at zero mean benefit; the v1.9 baseline should not bake in an unproven mechanism"
+}

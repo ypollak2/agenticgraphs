@@ -79,10 +79,6 @@ edges:
   to: port-slice
 - from: port-slice
   to: integrate
-  condition: a slice has been ported and is ready to fold back in
-  guidance: Confirm the behaviour is unchanged before folding the slice back in, and keep going until no slice from the inventory
-    is left unported. Work through them one at a time rather than declaring the whole migration done at once.
-  pitfalls: stopping after the first slice, or reporting the migration complete while inventory entries remain
 - from: integrate
   to: supervise
   when: not suite_green and attempts < 3

@@ -1,0 +1,166 @@
+{
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.9",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "invoices": [
+   {
+    "invoice_id": "INV-3001",
+    "po_id": "PO-771",
+    "receipt_id": "GRN-551",
+    "supplier": "Northwind",
+    "amount": 12400.0,
+    "currency": "USD",
+    "date": "2026-03-04"
+   },
+   {
+    "invoice_id": "INV-3002",
+    "po_id": "PO-772",
+    "receipt_id": "GRN-552",
+    "supplier": "Baltic",
+    "amount": 3150.5,
+    "currency": "USD",
+    "date": "2026-03-09"
+   },
+   {
+    "invoice_id": "INV-3003",
+    "po_id": "PO-773",
+    "receipt_id": "GRN-553",
+    "supplier": "Kyoto",
+    "amount": 8790.0,
+    "currency": "USD",
+    "date": "2026-03-17"
+   }
+  ],
+  "purchase_orders": [
+   {
+    "po_id": "PO-771",
+    "amount": 12400.0
+   },
+   {
+    "po_id": "PO-772",
+    "amount": 3150.5
+   },
+   {
+    "po_id": "PO-773",
+    "amount": 8790.0
+   }
+  ],
+  "receipts": [
+   {
+    "receipt_id": "GRN-551",
+    "po_id": "PO-771"
+   },
+   {
+    "receipt_id": "GRN-552",
+    "po_id": "PO-772"
+   },
+   {
+    "receipt_id": "GRN-553",
+    "po_id": "PO-773"
+   }
+  ],
+  "goal": "reconcile the March 2026 supplier invoice batch against POs and receipts"
+ },
+ "node_outputs": {
+  "auto-match.plan": {
+   "tasks": [
+    "Verify that invoice INV-3001 matches PO-771 and GRN-551 for amount 12400.0 USD",
+    "Verify that invoice INV-3002 matches PO-772 and GRN-552 for amount 3150.5 USD",
+    "Verify that invoice INV-3003 matches PO-773 and GRN-553 for amount 8790.0 USD"
+   ]
+  },
+  "auto-match.work": [
+   {
+    "work_result": "Invoice INV-3001 matches PO-771 and GRN-551 for amount 12400.0 USD"
+   },
+   {
+    "work_result": "Invoice INV-3002 for amount 3150.5 USD matches Purchase Order PO-772 and Goods Receipt GRN-552."
+   },
+   {
+    "work_result": "Invoice INV-3003 for amount 8790.0 USD matches PO-773 and GRN-553. Reconciliation complete."
+   }
+  ],
+  "auto-match.verify": {
+   "exceptions": [],
+   "matched": [
+    {
+     "invoice_id": "INV-3001",
+     "po_id": "PO-771",
+     "receipt_id": "GRN-551"
+    },
+    {
+     "invoice_id": "INV-3002",
+     "po_id": "PO-772",
+     "receipt_id": "GRN-552"
+    },
+    {
+     "invoice_id": "INV-3003",
+     "po_id": "PO-773",
+     "receipt_id": "GRN-553"
+    }
+   ],
+   "output": {
+    "violations": []
+   },
+   "verify_failed": false,
+   "violations": []
+  },
+  "post": {
+   "matched": [
+    {
+     "invoice_id": "INV-3001",
+     "po_id": "PO-771",
+     "receipt_id": "GRN-551"
+    },
+    {
+     "invoice_id": "INV-3002",
+     "po_id": "PO-772",
+     "receipt_id": "GRN-552"
+    },
+    {
+     "invoice_id": "INV-3003",
+     "po_id": "PO-773",
+     "receipt_id": "GRN-553"
+    }
+   ],
+   "output": {
+    "matched": [
+     {
+      "invoice_id": "INV-3001",
+      "po_id": "PO-771",
+      "receipt_id": "GRN-551"
+     },
+     {
+      "invoice_id": "INV-3002",
+      "po_id": "PO-772",
+      "receipt_id": "GRN-552"
+     },
+     {
+      "invoice_id": "INV-3003",
+      "po_id": "PO-773",
+      "receipt_id": "GRN-553"
+     }
+    ],
+    "unreviewed_exceptions": []
+   },
+   "posted": true,
+   "unreviewed_exceptions": []
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [
+  "assert"
+ ],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-guidance-stripped",
+ "reason": "recorded while 8 graphs still carried edge guidance measured at zero mean benefit; the v1.9 baseline should not bake in an unproven mechanism"
+}

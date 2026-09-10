@@ -45,19 +45,8 @@ nodes:
 edges:
 - from: frame
   to: design
-  condition: the problem has been framed and its constraints are explicit
-  guidance: "A tournament needs a field, not a favourite. Put forward several genuinely different candidate approaches \u2014\
-    \ rival architectures that trade off against each other, not variations on one idea. Two options is a comparison; a real\
-    \ field is broader than that."
-  pitfalls: proposing one strong option plus token straw men, or stopping early because the remaining candidates look similar
-    to one already on the table
 - from: design
   to: judge
-  condition: candidate approaches are on the table and ready to be compared
-  guidance: "Evaluate every candidate on the same rubric before ranking any of them, and record the evaluation for each one\
-    \ you were given \u2014 a ranking that quietly drops a candidate is not a tournament. Then say explicitly how far ahead\
-    \ the winner finished and why the closest rival lost."
-  pitfalls: ranking on impressions instead of the shared rubric, or declaring a winner without stating the gap to the runner-up
 termination:
   max_steps: 6
   contract: a decision names its runner-up and the margin, so it can be revisited on evidence

@@ -33,19 +33,8 @@ nodes:
 edges:
 - from: partition
   to: map
-  condition: the incoming stream has been split into groups for parallel handling
-  guidance: Keep signals that share an underlying cause in the same group. Splitting by arrival time or round-robin scatters
-    one storm across several groups, and a worker that only sees a fragment cannot tell a repeat from a new event.
-  pitfalls: splitting purely by volume so related signals land in different groups
 - from: map
   to: reduce
-  condition: each group has been summarised and the results are ready to merge
-  guidance: "Collapse repeats that share a root cause into a single incident, and keep a count of what you folded together\
-    \ so the reduction is visible rather than silent. Anything that would wake a human at 3am must survive the merge intact,\
-    \ even when it looks like a repeat of something already folded \u2014 when you are unsure whether two signals are the\
-    \ same, keep them apart."
-  pitfalls: collapsing on surface similarity such as a shared hostname or message prefix, and letting an urgent signal disappear
-    into a cluster it merely resembles
 termination:
   max_steps: 6
   contract: dedupe ratio measured; no missed paging alert

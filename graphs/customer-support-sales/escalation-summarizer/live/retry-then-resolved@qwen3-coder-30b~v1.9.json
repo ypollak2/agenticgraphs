@@ -1,0 +1,80 @@
+{
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.9",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "ticket": {
+   "id": 84120,
+   "tier_from": 2,
+   "tier_to": 3,
+   "messages": [
+    {
+     "from": "customer",
+     "text": "Exports have failed every night since Tuesday."
+    },
+    {
+     "from": "agent",
+     "text": "Can you confirm the export schedule and destination?"
+    },
+    {
+     "from": "customer",
+     "text": "Nightly at 02:00 UTC to our S3 bucket, and we need this fixed before month-end close."
+    },
+    {
+     "from": "customer",
+     "text": "We also need a written RCA for our auditors."
+    }
+   ]
+  },
+  "goal": "ticket 84120, escalating to tier 3"
+ },
+ "node_outputs": {
+  "intake": {
+   "summary": "Export failures since Tuesday night at 02:00 UTC to S3 bucket require tier 3 escalation. Customer demands resolution before month-end close and requires written RCA for auditors. Export schedule and destination confirmed but issue persists."
+  },
+  "produce": {
+   "all_asks_covered": true,
+   "asks": [
+    {
+     "quote": "Exports have failed every night since Tuesday."
+    },
+    {
+     "quote": "Nightly at 02:00 UTC to our S3 bucket, and we need this fixed before month-end close."
+    },
+    {
+     "quote": "We also need a written RCA for our auditors."
+    }
+   ]
+  },
+  "review": {
+   "output": {
+    "asks": [
+     {
+      "quote": "Exports have failed every night since Tuesday."
+     },
+     {
+      "quote": "Nightly at 02:00 UTC to our S3 bucket, and we need this fixed before month-end close."
+     },
+     {
+      "quote": "We also need a written RCA for our auditors."
+     }
+    ],
+    "all_asks_covered": true
+   },
+   "revision_requested": false
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-guidance-stripped",
+ "reason": "recorded while 8 graphs still carried edge guidance measured at zero mean benefit; the v1.9 baseline should not bake in an unproven mechanism"
+}

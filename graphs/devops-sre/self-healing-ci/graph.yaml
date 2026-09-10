@@ -56,17 +56,8 @@ edges:
   to: classify
 - from: classify
   to: repair
-  condition: the failure has been classified and a cause proposed
-  guidance: Fix the cause you identified, not the symptom in the log line. Keep your changes to what the diagnosis supports.
-  pitfalls: rewriting the test so it accepts the current behaviour
 - from: repair
   to: confirm
-  condition: a repair has been made and needs verifying
-  guidance: "Re-run the same check that failed and report what you learned from this cycle in writing \u2014 at least one\
-    \ concrete takeaway a future run could act on, even when the fix worked first time. Keep the number of repair cycles small;\
-    \ if two rounds have not fixed it, record what you learned and stop rather than continuing to try."
-  pitfalls: finishing with an empty record of what was learned because the fix succeeded, or looping on repairs without writing
-    anything down
 - from: confirm
   to: classify
   when: not pipeline_green and attempts < 3

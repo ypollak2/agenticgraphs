@@ -1,0 +1,96 @@
+{
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.9",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "alerts": [
+   {
+    "id": "a1",
+    "service": "checkout",
+    "msg": "p99 latency > 2s",
+    "severity": "page",
+    "cause": "db-pool-exhausted",
+    "ts": "09:01"
+   },
+   {
+    "id": "a2",
+    "service": "checkout",
+    "msg": "p99 latency > 2s",
+    "severity": "page",
+    "cause": "db-pool-exhausted",
+    "ts": "09:02"
+   },
+   {
+    "id": "a3",
+    "service": "checkout",
+    "msg": "p99 latency > 2s",
+    "severity": "page",
+    "cause": "db-pool-exhausted",
+    "ts": "09:03"
+   }
+  ],
+  "goal": "the last 30 days of paging alerts"
+ },
+ "node_outputs": {
+  "partition": {
+   "shards": [
+    {
+     "id": "a1",
+     "service": "checkout",
+     "msg": "p99 latency > 2s",
+     "severity": "page",
+     "cause": "db-pool-exhausted",
+     "ts": "09:01"
+    },
+    {
+     "id": "a2",
+     "service": "checkout",
+     "msg": "p99 latency > 2s",
+     "severity": "page",
+     "cause": "db-pool-exhausted",
+     "ts": "09:02"
+    },
+    {
+     "id": "a3",
+     "service": "checkout",
+     "msg": "p99 latency > 2s",
+     "severity": "page",
+     "cause": "db-pool-exhausted",
+     "ts": "09:03"
+    }
+   ]
+  },
+  "map": [
+   {
+    "shard_result": "map_shard"
+   },
+   {
+    "shard_result": "map_shard"
+   },
+   {
+    "shard_result": "map_shard"
+   }
+  ],
+  "reduce": {
+   "dedupe_ratio": 100,
+   "missed_paging_alerts": 0,
+   "output": {
+    "dedupe_ratio": 100,
+    "missed_paging_alerts": 0
+   }
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-guidance-stripped",
+ "reason": "recorded while 8 graphs still carried edge guidance measured at zero mean benefit; the v1.9 baseline should not bake in an unproven mechanism"
+}

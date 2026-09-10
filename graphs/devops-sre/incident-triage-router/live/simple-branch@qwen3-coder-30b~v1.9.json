@@ -1,0 +1,43 @@
+{
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.9",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "ownership_map": {
+   "checkout": "payments-oncall",
+   "search": "discovery-oncall",
+   "image-resize": "platform-oncall",
+   "billing": "payments-oncall"
+  },
+  "goal": "the checkout 5xx page, against the 2026-Q3 ownership map"
+ },
+ "node_outputs": {
+  "route": {
+   "complexity": "medium"
+  },
+  "branch-simple": {
+   "assigned_team": "payments-oncall"
+  },
+  "verify": {
+   "expected_team": "payments-oncall",
+   "assigned_team": "payments-oncall",
+   "output": {
+    "assigned_team": "payments-oncall",
+    "expected_team": "payments-oncall"
+   }
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-guidance-stripped",
+ "reason": "recorded while 8 graphs still carried edge guidance measured at zero mean benefit; the v1.9 baseline should not bake in an unproven mechanism"
+}

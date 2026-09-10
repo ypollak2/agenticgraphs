@@ -1,0 +1,39 @@
+{
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.9",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "threshold": 75,
+  "goal": "/pricing, for 'agent workflow pricing'"
+ },
+ "node_outputs": {
+  "intake": {
+   "summary": "Agent workflow pricing analysis complete. Found competitive pricing tiers with clear feature differentiation. Recommended approach focuses on value-based positioning rather than cost competition. Pricing structure includes base tier, premium tier with advanced features, and enterprise customization options. All pricing points emphasize workflow automation benefits and ROI justification to meet SEO threshold without keyword stuffing."
+  },
+  "attempt": {
+   "seo_score": 82.5,
+   "stuffing_flags": false
+  },
+  "measure": {
+   "output": {
+    "seo_score": 82.5,
+    "stuffing_flags": false,
+    "threshold": 75
+   },
+   "below_target": false
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-guidance-stripped",
+ "reason": "recorded while 8 graphs still carried edge guidance measured at zero mean benefit; the v1.9 baseline should not bake in an unproven mechanism"
+}

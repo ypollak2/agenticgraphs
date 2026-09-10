@@ -1,0 +1,176 @@
+{
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.9",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "recording": {
+   "episode": 112,
+   "show": "Systems People",
+   "duration_s": 3180,
+   "segments": [
+    {
+     "start": 0,
+     "end": 95,
+     "kind": "cold_open"
+    },
+    {
+     "start": 95,
+     "end": 1420,
+     "kind": "interview"
+    },
+    {
+     "start": 1420,
+     "end": 1465,
+     "kind": "ad"
+    },
+    {
+     "start": 1465,
+     "end": 3180,
+     "kind": "interview"
+    }
+   ],
+   "music_cues": [
+    {
+     "cue": "theme",
+     "license_ref": "EPI-4471",
+     "start": 0,
+     "end": 22
+    },
+    {
+     "cue": "bed-a",
+     "license_ref": "EPI-1180",
+     "start": 1420,
+     "end": 1465
+    }
+   ]
+  },
+  "goal": "episode 112 of Systems People"
+ },
+ "node_outputs": {
+  "transcribe": {
+   "transcript": "Systems People Episode 112 Transcript\n\n[Cold Open - 0:00-1:35]\nHost: Welcome back to Systems People, I'm your host. Today we're diving deep into the world of system design and architecture. Our first guest today is Dr. Sarah Chen, who's been working in distributed systems for over a decade.\n\n[Interview - 1:35-23:40]\nHost: Sarah, can you tell us about your journey into systems engineering?\nDr. Chen: Well, it started when I was working on a project where we had to scale our application from a few hundred users to over a million. The challenges were immense.\nHost: What were some of the biggest obstacles you faced during that scaling process?\nDr. Chen: One major issue was database performance. We had to implement sharding strategies and optimize queries significantly.\n\n[Ad - 23:40-24:25]\n[Music Bed A plays]\n\n[Interview - 24:25-53:00]\nHost: How do you approach designing systems that can handle unexpected load spikes?\nDr. Chen: It's all about building in resilience from the start. We use techniques like circuit breakers and rate limiting.\nHost: What tools or methodologies do you recommend for system monitoring?\nDr. Chen: I'm a big fan of distributed tracing and metrics collection. Tools like Prometheus and Grafana have been game changers for us.\n\n[Outro - 53:00-53:10]\nHost: Thanks for joining us today, Sarah. This has been fascinating.\nDr. Chen: Thank you for having me."
+  },
+  "edit-plan": {
+   "cut_list": [
+    {
+     "start": 0,
+     "end": 95,
+     "kind": "cold_open"
+    },
+    {
+     "start": 95,
+     "end": 1420,
+     "kind": "interview"
+    },
+    {
+     "start": 1420,
+     "end": 1465,
+     "kind": "ad"
+    },
+    {
+     "start": 1465,
+     "end": 3180,
+     "kind": "interview"
+    }
+   ]
+  },
+  "rights-check": {
+   "clearances": [
+    "EPI-4471",
+    "EPI-1180"
+   ],
+   "rights_clear": true
+  },
+  "show-notes": {
+   "show_notes": "In this episode of Systems People, host interviews Dr. Sarah Chen, an expert in distributed systems with over a decade of experience. The discussion covers her journey into systems engineering, particularly focusing on scaling applications from hundreds to millions of users. Key challenges included database performance issues and implementing sharding strategies. The conversation also delves into designing resilient systems capable of handling unexpected load spikes using techniques like circuit breakers and rate limiting. Monitoring methodologies are explored, with recommendations for tools such as Prometheus and Grafana for distributed tracing and metrics collection. The episode features a cold open, two interview segments, and an ad break.",
+   "timestamps": [
+    {
+     "start": 0,
+     "end": 95
+    },
+    {
+     "start": 95,
+     "end": 1420
+    },
+    {
+     "start": 1420,
+     "end": 1465
+    },
+    {
+     "start": 1465,
+     "end": 3180
+    }
+   ]
+  },
+  "publish": {
+   "clearances": [
+    {
+     "license_ref": "EPI-4471"
+    },
+    {
+     "license_ref": "EPI-1180"
+    }
+   ],
+   "output": {
+    "clearances": [
+     {
+      "license_ref": "EPI-4471"
+     },
+     {
+      "license_ref": "EPI-1180"
+     }
+    ],
+    "timestamps": [
+     {
+      "start": 0,
+      "end": 95
+     },
+     {
+      "start": 95,
+      "end": 1420
+     },
+     {
+      "start": 1420,
+      "end": 1465
+     },
+     {
+      "start": 1465,
+      "end": 3180
+     }
+    ]
+   },
+   "published": true,
+   "timestamps": [
+    {
+     "start": 0,
+     "end": 95
+    },
+    {
+     "start": 95,
+     "end": 1420
+    },
+    {
+     "start": 1420,
+     "end": 1465
+    },
+    {
+     "start": 1465,
+     "end": 3180
+    }
+   ]
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-guidance-stripped",
+ "reason": "recorded while 8 graphs still carried edge guidance measured at zero mean benefit; the v1.9 baseline should not bake in an unproven mechanism"
+}
