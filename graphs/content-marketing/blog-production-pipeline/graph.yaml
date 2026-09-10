@@ -43,8 +43,16 @@ edges:
   to: outline
 - from: outline
   to: produce
+  guidance: "Write from the outline in your own words. Source material is there to tell you what is true, not to supply your\
+    \ sentences \u2014 if a phrase in your draft could be lifted verbatim from something you were given, rewrite it. Long\
+    \ shared runs of wording are the thing to avoid, not shared facts."
+  pitfalls: paraphrasing so lightly that whole clauses survive intact from a source
 - from: produce
   to: review
+  condition: a draft exists and is ready to be checked
+  guidance: "Check the draft against the house rules you were given, and check how closely it tracks the source material.\
+    \ Report the worst overlap you find, not the average \u2014 one copied passage is what a reader would notice."
+  pitfalls: reporting a comfortable mean while a single passage is near-identical to a source
 - from: review
   to: produce
   when: revision_requested and attempts < 2

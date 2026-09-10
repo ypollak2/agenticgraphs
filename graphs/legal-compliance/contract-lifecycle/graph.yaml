@@ -75,8 +75,16 @@ edges:
 - from: risk-assess
   to: counsel-approval
   when: residual_risk <= medium
+  condition: the redlines are settled and the residual risk has been assessed
+  guidance: State the remaining exposure in the same terms as the appetite you were given, so the two can be compared directly
+    rather than interpreted.
+  pitfalls: describing risk in prose that cannot be checked against the stated appetite
 - from: counsel-approval
   to: execute
+  condition: approval has been given and the agreement is ready to complete
+  guidance: "Every signing block must record both who signed it and the date they signed \u2014 an entry missing either one\
+    \ is not executed, however clearly the rest reads. Complete one for everyone who has to sign."
+  pitfalls: recording a name with no date, or a date with no name, and treating the agreement as complete
 - from: risk-assess
   to: escalate-contract
   when: residual_risk > medium and attempts >= 2

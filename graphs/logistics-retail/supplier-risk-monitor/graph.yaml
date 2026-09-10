@@ -53,8 +53,17 @@ edges:
   to: score
 - from: score
   to: concentrate
+  condition: each supplier has been scored and the portfolio can be grouped
+  guidance: "Group by what you buy, then for each group report both how many suppliers can actually deliver it and whether\
+    \ you are dependent on exactly one. Those two statements are the same fact told two ways \u2014 make sure they agree with\
+    \ each other in every group you report."
+  pitfalls: marking a group as sole-sourced while also listing several suppliers for it
 - from: concentrate
   to: mitigate
+  condition: the grouping is complete and exposures are visible
+  guidance: "Plan a mitigation for each group that sits beyond the tolerance you were given, and for those only \u2014 the\
+    \ count you plan for and the count you flagged should match."
+  pitfalls: flagging more exposures than you plan for, or planning for groups you never flagged
 termination:
   max_steps: 12
   contract: every supplier above risk appetite carries a named mitigation owner

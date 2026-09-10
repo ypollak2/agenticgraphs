@@ -34,6 +34,10 @@ edges:
   to: map
 - from: map
   to: reduce
+  condition: each batch has been scanned and the findings are ready to combine
+  guidance: 'Report identifiers and counts that agree with each other: if you say you found N of something, list exactly N
+    identifiers for it, in the order you found them.'
+  pitfalls: reporting a total that does not match the number of identifiers listed
 termination:
   max_steps: 6
   contract: every signal cites report ids; counts reproducible
