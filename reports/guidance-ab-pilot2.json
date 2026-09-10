@@ -1,0 +1,183 @@
+{
+  "model": "qwen3-coder:30b",
+  "date": "2026-09-10",
+  "criteria": {
+    "min_mean_delta": 0.25,
+    "min_per_graph_delta": 0.34,
+    "min_graphs_improved": 6,
+    "max_graphs_regressed": 2,
+    "require_zero_leaks": true,
+    "episodes_per_arm": 3
+  },
+  "episodes_per_arm": 3,
+  "graphs": {
+    "alert-noise-reduction": {
+      "leaks": [],
+      "off": {
+        "pass_rate": 0.0,
+        "n": 6,
+        "results": [
+          {
+            "case": "single-item",
+            "episode": 0,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.dedupe_ratio > 0 and not output.missed_paging_alerts"
+            ]
+          },
+          {
+            "case": "single-item",
+            "episode": 1,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.dedupe_ratio > 0 and not output.missed_paging_alerts"
+            ]
+          },
+          {
+            "case": "single-item",
+            "episode": 2,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.dedupe_ratio > 0 and not output.missed_paging_alerts"
+            ]
+          },
+          {
+            "case": "multi-item",
+            "episode": 0,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.dedupe_ratio > 0 and not output.missed_paging_alerts"
+            ]
+          },
+          {
+            "case": "multi-item",
+            "episode": 1,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.dedupe_ratio > 0 and not output.missed_paging_alerts"
+            ]
+          },
+          {
+            "case": "multi-item",
+            "episode": 2,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.dedupe_ratio > 0 and not output.missed_paging_alerts"
+            ]
+          }
+        ]
+      },
+      "on": {
+        "pass_rate": 0.0,
+        "n": 6,
+        "results": [
+          {
+            "case": "single-item",
+            "episode": 0,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.dedupe_ratio > 0 and not output.missed_paging_alerts"
+            ]
+          },
+          {
+            "case": "single-item",
+            "episode": 1,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.dedupe_ratio > 0 and not output.missed_paging_alerts"
+            ]
+          },
+          {
+            "case": "single-item",
+            "episode": 2,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.dedupe_ratio > 0 and not output.missed_paging_alerts"
+            ]
+          },
+          {
+            "case": "multi-item",
+            "episode": 0,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.dedupe_ratio > 0 and not output.missed_paging_alerts"
+            ]
+          },
+          {
+            "case": "multi-item",
+            "episode": 1,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.dedupe_ratio > 0 and not output.missed_paging_alerts"
+            ]
+          },
+          {
+            "case": "multi-item",
+            "episode": 2,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.dedupe_ratio > 0 and not output.missed_paging_alerts"
+            ]
+          }
+        ]
+      },
+      "delta": 0.0
+    }
+  },
+  "verdict": {
+    "mean_delta": 0.0,
+    "graphs": 1,
+    "improved": 0,
+    "regressed": 0,
+    "leaks_total": 0,
+    "passes": false
+  }
+}
