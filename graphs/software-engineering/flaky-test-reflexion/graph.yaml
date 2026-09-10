@@ -78,6 +78,9 @@ state:
   - goal
   - test_id
   - test_path
+  - required_green_streak
+  - history
+  - suspected_cause
   schema: state/lessons.schema.json
 memory:
   scope: graph

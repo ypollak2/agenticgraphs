@@ -1,104 +1,106 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-08-31",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "the vendor onboarding runbook, against InfoSec policy v4"
+ },
+ "node_outputs": {
+  "intake": {
+   "summary": "Vendor onboarding runbook requires multi-factor authentication for all vendor access accounts, mandatory security training completion before access provisioning, and regular security awareness updates. Policy v4 clause 3.2.1 mandates that all third-party vendors must undergo security screening and risk assessment prior to onboarding. The runbook lacks specific procedures for continuous monitoring of vendor activities post-onboarding, which is required by policy v4 clause 5.3.4. Additionally, the runbook does not explicitly define incident response protocols for vendor-related security breaches, as outlined in policy v4 clause 6.2.7."
   },
-  "inputs": {
-    "goal": "the vendor onboarding runbook, against InfoSec policy v4"
+  "clause-map": {
+   "clause_shards": [
+    {
+     "clause_id": "3.2.1",
+     "shard_content": "All third-party vendors must undergo security screening and risk assessment prior to onboarding"
+    },
+    {
+     "clause_id": "5.3.4",
+     "shard_content": "Continuous monitoring of vendor activities post-onboarding"
+    },
+    {
+     "clause_id": "6.2.7",
+     "shard_content": "Incident response protocols for vendor-related security breaches"
+    }
+   ]
   },
-  "node_outputs": {
-    "intake": {
-      "summary": "Vendor onboarding runbook requires multi-factor authentication for all vendor access accounts, mandatory security training completion before access provisioning, and regular security awareness updates. Policy v4 clause 3.2.1 mandates that all third-party vendors must undergo security screening and risk assessment prior to onboarding. The runbook lacks specific procedures for continuous monitoring of vendor activities post-onboarding, which is required by policy v4 clause 5.3.4. Additionally, the runbook does not explicitly define incident response protocols for vendor-related security breaches, as outlined in policy v4 clause 6.2.7."
-    },
-    "clause-map": {
-      "clause_shards": [
-        {
-          "clause_id": "3.2.1",
-          "shard_content": "All third-party vendors must undergo security screening and risk assessment prior to onboarding"
-        },
-        {
-          "clause_id": "5.3.4",
-          "shard_content": "Continuous monitoring of vendor activities post-onboarding"
-        },
-        {
-          "clause_id": "6.2.7",
-          "shard_content": "Incident response protocols for vendor-related security breaches"
-        }
-      ]
-    },
-    "produce": [
-      {
-        "findings": [
-          {
-            "clause_id": "3.2.1"
-          },
-          {
-            "clause_id": "5.3.4"
-          },
-          {
-            "clause_id": "6.2.7"
-          }
-        ]
-      },
-      {
-        "findings": [
-          {
-            "clause_id": "3.2.1"
-          },
-          {
-            "clause_id": "5.3.4"
-          },
-          {
-            "clause_id": "6.2.7"
-          }
-        ]
-      }
-    ],
-    "review": [
-      {
-        "output": {
-          "findings": [
-            {
-              "clause_id": "3.2.1",
-              "breach_text": "All third-party vendors must undergo security screening and risk assessment prior to onboarding"
-            },
-            {
-              "clause_id": "5.3.4",
-              "breach_text": "Continuous monitoring of vendor activities post-onboarding"
-            },
-            {
-              "clause_id": "6.2.7",
-              "breach_text": "Incident response protocols for vendor-related security breaches"
-            }
-          ]
-        },
-        "revision_requested": true
-      },
-      {
-        "output": {
-          "findings": [
-            {
-              "clause_id": "3.2.1",
-              "breach_text": "All third-party vendors must undergo security screening and risk assessment prior to onboarding"
-            },
-            {
-              "clause_id": "5.3.4",
-              "breach_text": "Continuous monitoring of vendor activities post-onboarding"
-            },
-            {
-              "clause_id": "6.2.7",
-              "breach_text": "Incident response protocols for vendor-related security breaches"
-            }
-          ]
-        },
-        "revision_requested": true
-      }
+  "produce": [
+   {
+    "findings": [
+     {
+      "clause_id": "3.2.1"
+     },
+     {
+      "clause_id": "5.3.4"
+     },
+     {
+      "clause_id": "6.2.7"
+     }
     ]
-  },
-  "tool_calls": []
+   },
+   {
+    "findings": [
+     {
+      "clause_id": "3.2.1"
+     },
+     {
+      "clause_id": "5.3.4"
+     },
+     {
+      "clause_id": "6.2.7"
+     }
+    ]
+   }
+  ],
+  "review": [
+   {
+    "output": {
+     "findings": [
+      {
+       "clause_id": "3.2.1",
+       "breach_text": "All third-party vendors must undergo security screening and risk assessment prior to onboarding"
+      },
+      {
+       "clause_id": "5.3.4",
+       "breach_text": "Continuous monitoring of vendor activities post-onboarding"
+      },
+      {
+       "clause_id": "6.2.7",
+       "breach_text": "Incident response protocols for vendor-related security breaches"
+      }
+     ]
+    },
+    "revision_requested": true
+   },
+   {
+    "output": {
+     "findings": [
+      {
+       "clause_id": "3.2.1",
+       "breach_text": "All third-party vendors must undergo security screening and risk assessment prior to onboarding"
+      },
+      {
+       "clause_id": "5.3.4",
+       "breach_text": "Continuous monitoring of vendor activities post-onboarding"
+      },
+      {
+       "clause_id": "6.2.7",
+       "breach_text": "Incident response protocols for vendor-related security breaches"
+      }
+     ]
+    },
+    "revision_requested": true
+   }
+  ]
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

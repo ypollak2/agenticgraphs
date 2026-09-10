@@ -138,6 +138,7 @@ state:
   - goal
   - feed
   - repro_path
+  - approver
 goal:
   required: true
   description: the vulnerability to remediate and the affected estate

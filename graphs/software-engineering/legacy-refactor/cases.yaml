@@ -12,6 +12,18 @@ cases:
       revision_requested: false
       attempts: 1
   goal: the billing module, keeping tests/billing green
+  inputs:
+    module: &id001
+      path: src/billing
+      functions:
+      - name: compute_invoice
+        lines: 180
+        complexity: 24
+      - name: apply_credits
+        lines: 95
+        complexity: 13
+      test_path: tests/billing
+      snapshot_command: python -m billing.snapshot
 - id: retry-then-resolved
   node_outputs:
     intake:
@@ -30,3 +42,5 @@ cases:
     - revision_requested: false
       attempts: 2
   goal: the billing module, keeping tests/billing green
+  inputs:
+    module: *id001

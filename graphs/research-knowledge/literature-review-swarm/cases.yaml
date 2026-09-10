@@ -27,6 +27,26 @@ cases:
       - paper: p2
         reason: wrong design
   goal: does spaced repetition improve retention, RCTs since 2015
+  inputs:
+    papers: &id003
+    - paper: Cepeda 2006
+      section: meta-analysis
+      design: RCT review
+      year: 2006
+      finding: spacing improves retention
+    - paper: Kornell 2009
+      section: experiment 2
+      design: RCT
+      year: 2009
+      finding: spacing beats massing for concepts
+    - paper: Carpenter 2012
+      section: discussion
+      design: RCT
+      year: 2012
+      finding: effect persists at 8 weeks
+    inclusion: &id004
+      design: RCT
+      since_year: 2005
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -51,3 +71,6 @@ cases:
           section: '3.2'
     screen: *id002
   goal: does spaced repetition improve retention, RCTs since 2015
+  inputs:
+    papers: *id003
+    inclusion: *id004

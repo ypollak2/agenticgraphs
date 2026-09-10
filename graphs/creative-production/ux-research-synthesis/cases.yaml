@@ -19,6 +19,32 @@ cases:
           - P1
           - P2
   goal: 12 onboarding interviews, on why trial users stall at step 3
+  inputs:
+    interviews: &id002
+    - participant_id: P01
+      notes: signed up, never connected a data source
+    - participant_id: P02
+      notes: confused by the workspace vs project split
+    - participant_id: P03
+      notes: waited on an admin invite that never arrived
+    - participant_id: P04
+      notes: tried the sample data, could not switch to real
+    - participant_id: P05
+      notes: hit the row limit on day two
+    - participant_id: P06
+      notes: did not find the import button
+    - participant_id: P07
+      notes: expected SSO, got email login
+    - participant_id: P08
+      notes: invited teammates before finishing setup
+    - participant_id: P09
+      notes: abandoned at the billing prompt
+    - participant_id: P10
+      notes: could not tell trial from paid
+    - participant_id: P11
+      notes: wanted a template, found none
+    - participant_id: P12
+      notes: stalled connecting the warehouse
 - id: multi-item
   node_outputs:
     partition:
@@ -42,3 +68,5 @@ cases:
           - P4
           - P5
   goal: 12 onboarding interviews, on why trial users stall at step 3
+  inputs:
+    interviews: *id002

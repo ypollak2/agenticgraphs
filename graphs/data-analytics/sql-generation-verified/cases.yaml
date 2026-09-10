@@ -19,6 +19,21 @@ cases:
       row_count: 12
       exit_code: 0
   goal: monthly active accounts by plan, against the warehouse schema
+  inputs:
+    query_path: analytics/mau_by_plan.sql
+    schema: &id002
+      tables:
+      - name: accounts
+        columns:
+        - id
+        - plan
+        - created_at
+      - name: events
+        columns:
+        - account_id
+        - occurred_at
+        - kind
+    expect_nonempty: true
 - id: revised-after-rejection
   node_outputs:
     intake:
@@ -45,3 +60,7 @@ cases:
       row_count: 12
     execute: *id001
   goal: monthly active accounts by plan, against the warehouse schema
+  inputs:
+    query_path: analytics/mau_by_plan.sql
+    schema: *id002
+    expect_nonempty: true

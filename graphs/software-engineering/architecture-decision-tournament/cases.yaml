@@ -18,3 +18,24 @@ cases:
         margin: 0.18
         winner: option-b
   goal: settle sync vs async order processing under a 200ms p99 constraint
+  inputs:
+    decision:
+      question: sync vs async order processing
+      constraint: p99 under 200ms
+      traffic: 3k orders/min peak
+      options:
+      - id: o1
+        name: synchronous inline
+      - id: o2
+        name: queue + worker
+      - id: o3
+        name: outbox + CDC
+      - id: o4
+        name: 'hybrid: sync ack, async fulfil'
+      rubric:
+        criteria:
+        - latency
+        - failure isolation
+        - operational cost
+        - migration risk
+        scale: 1-5

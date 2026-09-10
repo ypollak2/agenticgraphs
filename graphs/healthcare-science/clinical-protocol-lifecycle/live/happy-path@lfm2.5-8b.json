@@ -1,35 +1,37 @@
 {
-  "model": "lfm2.5:8b",
-  "recorded": "2026-09-01",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "lfm2.5:8b",
+ "recorded": "2026-09-01",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "draft a phase II protocol for drug X in treatment-resistant patients"
+ },
+ "node_outputs": {
+  "draft": {
+   "protocol": "Phase II protocol for drug X in treatment-resistant patients"
   },
-  "inputs": {
-    "goal": "draft a phase II protocol for drug X in treatment-resistant patients"
+  "critique": {
+   "deviations": []
   },
-  "node_outputs": {
-    "draft": {
-      "protocol": "Phase II protocol for drug X in treatment-resistant patients"
-    },
-    "critique": {
-      "deviations": []
-    },
-    "register": {
-      "output": {
-        "deviations": [],
-        "registry_id": "",
-        "signed_off": true
-      },
-      "registered": false,
-      "register_failed": true
-    },
-    "amend-registration": {
-      "amend_registration_filed": []
-    }
+  "register": {
+   "output": {
+    "deviations": [],
+    "registry_id": "",
+    "signed_off": true
+   },
+   "registered": false,
+   "register_failed": true
   },
-  "tool_calls": []
+  "amend-registration": {
+   "amend_registration_filed": []
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

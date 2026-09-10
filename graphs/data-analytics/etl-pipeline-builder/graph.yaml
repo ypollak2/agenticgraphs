@@ -53,3 +53,5 @@ state:
   inputs:
   - goal
   - model_name
+  - source
+  - target

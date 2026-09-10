@@ -1,36 +1,38 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-08-31",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "holdout_labels": {
+   "friday-signup-dip": "seasonal",
+   "null-spike-2026-08-12": "data-bug",
+   "eu-latency-step": "real-change"
   },
-  "inputs": {
-    "holdout_labels": {
-      "friday-signup-dip": "seasonal",
-      "null-spike-2026-08-12": "data-bug",
-      "eu-latency-step": "real-change"
-    },
-    "goal": "the friday-signup-dip anomaly, against the labelled holdout"
+  "goal": "the friday-signup-dip anomaly, against the labelled holdout"
+ },
+ "node_outputs": {
+  "route": {
+   "complexity": "medium"
   },
-  "node_outputs": {
-    "route": {
-      "complexity": "medium"
-    },
-    "branch-simple": {
-      "assigned_class": "seasonal"
-    },
-    "verify": {
-      "expected_class": "seasonal",
-      "assigned_class": "seasonal",
-      "output": {
-        "assigned_class": "seasonal",
-        "expected_class": "seasonal"
-      }
-    }
+  "branch-simple": {
+   "assigned_class": "seasonal"
   },
-  "tool_calls": []
+  "verify": {
+   "expected_class": "seasonal",
+   "assigned_class": "seasonal",
+   "output": {
+    "assigned_class": "seasonal",
+    "expected_class": "seasonal"
+   }
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

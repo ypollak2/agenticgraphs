@@ -23,6 +23,22 @@ cases:
         assets:
         - api-1
   goal: this week's CISA and vendor feeds, for a Kubernetes estate
+  inputs:
+    feeds: &id003
+    - source: CISA
+      advisory_url: https://cisa.gov/advisories/aa26-231
+      cve_ids:
+      - CVE-2026-2211
+      product: kubelet
+    - source: vendor
+      advisory_url: https://kubernetes.io/security/2026-08
+      cve_ids:
+      - CVE-2026-2244
+      - CVE-2026-2245
+      product: kube-apiserver
+    estate: &id004
+      platform: Kubernetes
+      version: '1.31'
 - id: multi-item
   node_outputs:
     partition:
@@ -45,3 +61,6 @@ cases:
           - CVE-2026-3
     estate-match: *id002
   goal: this week's CISA and vendor feeds, for a Kubernetes estate
+  inputs:
+    feeds: *id003
+    estate: *id004

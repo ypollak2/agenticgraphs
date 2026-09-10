@@ -19,3 +19,12 @@ cases:
       output: *id001
     amend-registration: {}
   goal: draft a phase II protocol for drug X in treatment-resistant patients
+  inputs:
+    study_goal:
+      drug: Drug X
+      phase: II
+      indication: treatment-resistant hypertension
+      n_target: 180
+      primary_endpoint: change in mean 24h ambulatory systolic BP at week 12
+      regulatory_regime: ICH-GCP
+      sponsor_approver: Medical Director

@@ -89,3 +89,4 @@ goal:
 state:
   inputs:
   - goal
+  - encounters

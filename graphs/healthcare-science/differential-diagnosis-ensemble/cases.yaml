@@ -32,3 +32,27 @@ cases:
       - clinician_id: c1
       - clinician_id: c2
   goal: a 54-year-old with acute dyspnoea and a cardiac history
+  inputs:
+    case_notes:
+      age: 54
+      sex: F
+      presenting: acute dyspnoea
+      history:
+      - prior MI 2019
+      - hypertension
+      presentations:
+      - id: p1
+        clinician_id: c1
+        findings:
+        - dyspnoea
+        - raised JVP
+      - id: p2
+        clinician_id: c2
+        findings:
+        - dyspnoea
+        - bibasal crackles
+      - id: p3
+        clinician_id: c3
+        findings:
+        - dyspnoea
+        - pleuritic chest pain

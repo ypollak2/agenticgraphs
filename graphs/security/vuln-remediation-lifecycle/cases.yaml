@@ -41,3 +41,16 @@ cases:
       cve_id: CVE-2026-1234
     escalate-vuln: {}
   goal: remediate CVE-2026-1234 across the payment services estate
+  inputs:
+    feed:
+      cve: CVE-2026-1234
+      severity: high
+      package: libpay
+      fixed_version: 2.4.1
+      affected:
+      - service: payments-api
+        version: 2.3.9
+      - service: payments-worker
+        version: 2.3.9
+    repro_path: security/repro/cve_2026_1234.sh
+    approver: Security Lead

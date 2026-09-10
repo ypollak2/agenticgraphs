@@ -60,3 +60,6 @@ goal:
 state:
   inputs:
   - goal
+  - essays
+  - rubric
+  - threshold

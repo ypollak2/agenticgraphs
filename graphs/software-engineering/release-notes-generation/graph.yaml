@@ -50,3 +50,6 @@ goal:
 state:
   inputs:
   - goal
+  - pull_requests
+  - from_tag
+  - to_tag

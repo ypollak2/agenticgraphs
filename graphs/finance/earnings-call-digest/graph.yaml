@@ -47,3 +47,5 @@ goal:
 state:
   inputs:
   - goal
+  - transcript
+  - prior_guidance

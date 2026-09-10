@@ -62,3 +62,4 @@ state:
   inputs:
   - goal
   - verify_command
+  - failing_tests

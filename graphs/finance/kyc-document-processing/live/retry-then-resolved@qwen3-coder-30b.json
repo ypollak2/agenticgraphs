@@ -1,76 +1,78 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-08-31",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "a UK sole-trader onboarding pack, under FCA rules"
+ },
+ "node_outputs": {
+  "intake": {
+   "summary": "UK sole-trader onboarding pack under FCA rules including business registration details, financial statements, identification documents, proof of address, business premises information, anti-money laundering checks, and compliance documentation for regulatory approval"
   },
-  "inputs": {
-    "goal": "a UK sole-trader onboarding pack, under FCA rules"
+  "sanctions-screen": {
+   "screen_hits": 0
   },
-  "node_outputs": {
-    "intake": {
-      "summary": "UK sole-trader onboarding pack under FCA rules including business registration details, financial statements, identification documents, proof of address, business premises information, anti-money laundering checks, and compliance documentation for regulatory approval"
+  "produce": {
+   "fields": [
+    {
+     "validated": true
     },
-    "sanctions-screen": {
-      "screen_hits": 0
+    {
+     "validated": true
     },
-    "produce": {
-      "fields": [
-        {
-          "validated": true
-        },
-        {
-          "validated": true
-        },
-        {
-          "validated": true
-        },
-        {
-          "validated": true
-        },
-        {
-          "validated": true
-        },
-        {
-          "validated": true
-        },
-        {
-          "validated": true
-        }
-      ]
+    {
+     "validated": true
     },
-    "review": {
-      "output": {
-        "fields": [
-          {
-            "validated": true
-          },
-          {
-            "validated": true
-          },
-          {
-            "validated": true
-          },
-          {
-            "validated": true
-          },
-          {
-            "validated": true
-          },
-          {
-            "validated": true
-          },
-          {
-            "validated": true
-          }
-        ]
-      },
-      "revision_requested": false
+    {
+     "validated": true
+    },
+    {
+     "validated": true
+    },
+    {
+     "validated": true
+    },
+    {
+     "validated": true
     }
+   ]
   },
-  "tool_calls": []
+  "review": {
+   "output": {
+    "fields": [
+     {
+      "validated": true
+     },
+     {
+      "validated": true
+     },
+     {
+      "validated": true
+     },
+     {
+      "validated": true
+     },
+     {
+      "validated": true
+     },
+     {
+      "validated": true
+     },
+     {
+      "validated": true
+     }
+    ]
+   },
+   "revision_requested": false
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

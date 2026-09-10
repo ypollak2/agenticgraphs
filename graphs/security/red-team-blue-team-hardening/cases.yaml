@@ -20,3 +20,22 @@ cases:
       bypasses:
       - mitigation_ref: m-1
   goal: the public API, against an authenticated-tenant attacker
+  inputs:
+    target:
+      name: public API
+      auth: tenant-scoped bearer
+      endpoints:
+      - path: /v1/orders
+        methods:
+        - GET
+        - POST
+      - path: /v1/exports
+        methods:
+        - POST
+    exploit_suite:
+    - id: e1
+      name: tenant id substitution
+      expects: '403'
+    - id: e2
+      name: export path traversal
+      expects: '400'

@@ -28,3 +28,14 @@ cases:
     withdraw-filing: {}
     abandon-filing: {}
   goal: file Q1 2026 under the SEC regime with reconciled figures
+  inputs:
+    period:
+      quarter: Q1 2026
+      regime: SEC
+      ledger:
+        revenue: 18400000
+        cogs: 7100000
+        opex: 6900000
+        total: 4400000
+      signatory: CFO
+      filing_deadline: '2026-05-10'

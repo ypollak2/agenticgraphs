@@ -99,6 +99,7 @@ state:
   inputs:
   - goal
   - spec_sheets
+  - policy
 goal:
   required: true
   description: the products to list and the marketplace policy that governs them

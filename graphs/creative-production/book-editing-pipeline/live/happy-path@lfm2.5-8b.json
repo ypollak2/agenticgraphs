@@ -1,30 +1,32 @@
 {
-  "model": "lfm2.5:8b",
-  "recorded": "2026-09-01",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "lfm2.5:8b",
+ "recorded": "2026-09-01",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "the 90k-word Ridgeline draft, against the Kestrel style guide"
+ },
+ "node_outputs": {
+  "assess": {
+   "dev_notes": "Assessing the Ridgeline draft against Kestrel style guide"
   },
-  "inputs": {
-    "goal": "the 90k-word Ridgeline draft, against the Kestrel style guide"
+  "dev-edit": {
+   "dev_draft": "the 90k-word Ridgeline draft, against the Kestrel style guide"
   },
-  "node_outputs": {
-    "assess": {
-      "dev_notes": "Assessing the Ridgeline draft against Kestrel style guide"
-    },
-    "dev-edit": {
-      "dev_draft": "the 90k-word Ridgeline draft, against the Kestrel style guide"
-    },
-    "line-edit": {
-      "line_draft": "the 90k-word Ridgeline draft, against the Kestrel style guide"
-    },
-    "copy-edit": {
-      "copy_clean": true,
-      "style_violations": 0
-    }
+  "line-edit": {
+   "line_draft": "the 90k-word Ridgeline draft, against the Kestrel style guide"
   },
-  "tool_calls": []
+  "copy-edit": {
+   "copy_clean": true,
+   "style_violations": 0
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

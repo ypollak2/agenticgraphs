@@ -60,3 +60,5 @@ goal:
 state:
   inputs:
   - goal
+  - feeds
+  - estate

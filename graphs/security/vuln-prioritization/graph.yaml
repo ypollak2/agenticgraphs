@@ -44,3 +44,5 @@ goal:
 state:
   inputs:
   - goal
+  - scanner_output
+  - asset_map

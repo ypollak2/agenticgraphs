@@ -44,3 +44,4 @@ goal:
 state:
   inputs:
   - goal
+  - incident

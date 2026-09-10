@@ -26,9 +26,8 @@ nodes:
   - output
   - unique_requirements: list
   - rejected: bool
-  criteria: The description is clean of gendered and coded bias terms, and requirements are deduplicated
-    and separated into must-have and nice-to-have. An inflated requirement list narrows the pool without
-    raising the bar.
+  criteria: The description is clean of gendered and coded bias terms, and requirements are deduplicated and separated into
+    must-have and nice-to-have. An inflated requirement list narrows the pool without raising the bar.
 edges:
 - from: intake
   to: generate
@@ -51,3 +50,4 @@ goal:
 state:
   inputs:
   - goal
+  - role

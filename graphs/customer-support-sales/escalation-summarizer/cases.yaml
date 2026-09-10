@@ -13,6 +13,20 @@ cases:
       revision_requested: false
       attempts: 1
   goal: ticket 84120, escalating to tier 3
+  inputs:
+    ticket: &id001
+      id: 84120
+      tier_from: 2
+      tier_to: 3
+      messages:
+      - from: customer
+        text: Exports have failed every night since Tuesday.
+      - from: agent
+        text: Can you confirm the export schedule and destination?
+      - from: customer
+        text: Nightly at 02:00 UTC to our S3 bucket, and we need this fixed before month-end close.
+      - from: customer
+        text: We also need a written RCA for our auditors.
 - id: retry-then-resolved
   node_outputs:
     intake:
@@ -34,3 +48,5 @@ cases:
     - revision_requested: false
       attempts: 2
   goal: ticket 84120, escalating to tier 3
+  inputs:
+    ticket: *id001

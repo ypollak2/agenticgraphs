@@ -47,3 +47,4 @@ goal:
 state:
   inputs:
   - goal
+  - module

@@ -48,3 +48,4 @@ goal:
 state:
   inputs:
   - goal
+  - sources

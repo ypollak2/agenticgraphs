@@ -101,6 +101,7 @@ state:
   inputs:
   - goal
   - manuscript
+  - approver
 goal:
   required: true
   description: the manuscript to edit and the house style it must follow

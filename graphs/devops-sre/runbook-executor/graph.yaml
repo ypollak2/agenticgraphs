@@ -51,3 +51,4 @@ state:
   inputs:
   - goal
   - postcondition_path
+  - runbook

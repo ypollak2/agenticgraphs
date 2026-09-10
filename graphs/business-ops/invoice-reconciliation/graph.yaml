@@ -79,6 +79,8 @@ state:
   inputs:
   - goal
   - invoices
+  - purchase_orders
+  - receipts
 goal:
   required: true
   description: the invoice batch to reconcile and the period it covers

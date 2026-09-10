@@ -138,6 +138,7 @@ state:
   inputs:
   - goal
   - source_schema
+  - target_schema
 goal:
   required: true
   description: the current schema, the target schema, and the table that must stay live

@@ -13,6 +13,18 @@ cases:
         mutation_score: 0.8
         mutation_baseline: 0.7
   goal: the pricing module, to 85% mutation score
+  inputs:
+    module: &id001
+      path: src/pricing
+      target_mutation_score: 0.85
+      current:
+        coverage: 0.61
+        mutation_score: 0.42
+      functions:
+      - name: apply_discount
+        branches: 6
+      - name: prorate
+        branches: 4
 - id: revised-after-rejection
   node_outputs:
     intake:
@@ -30,3 +42,5 @@ cases:
         mutation_score: 0.8
         mutation_baseline: 0.7
   goal: the pricing module, to 85% mutation score
+  inputs:
+    module: *id001

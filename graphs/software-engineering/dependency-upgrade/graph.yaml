@@ -63,3 +63,5 @@ goal:
 state:
   inputs:
   - goal
+  - lockfile
+  - test_command

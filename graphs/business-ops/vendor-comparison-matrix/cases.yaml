@@ -37,3 +37,19 @@ cases:
         - sso
         vendor: acme
   goal: compare Snowflake, BigQuery and Redshift for our warehouse migration
+  inputs:
+    vendors:
+    - name: Snowflake
+      doc_url: https://docs.snowflake.com/pricing
+      notes: per-second compute billing
+    - name: BigQuery
+      doc_url: https://cloud.google.com/bigquery/pricing
+      notes: on-demand bytes scanned
+    - name: Redshift
+      doc_url: https://docs.aws.amazon.com/redshift/pricing
+      notes: provisioned RA3 nodes
+    criteria:
+    - pricing model
+    - EU residency
+    - SSO
+    - max concurrency

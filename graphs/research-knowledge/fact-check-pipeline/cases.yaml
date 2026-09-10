@@ -15,6 +15,19 @@ cases:
       attempts: 1
       unsupported_claims: []
   goal: the twelve claims in the launch post, against primary sources
+  inputs:
+    claims: &id001
+    - id: c1
+      text: The product cut onboarding time by half.
+    - id: c2
+      text: It is used by more than 400 teams.
+    - id: c3
+      text: It is the fastest tool in the category.
+    primary_sources: &id002
+    - url: https://example.org/case-study
+      quote_span: onboarding fell from 14 to 7 days
+    - url: https://example.org/customers
+      quote_span: 412 teams as of July 2026
 - id: retry-then-resolved
   node_outputs:
     intake:
@@ -40,3 +53,6 @@ cases:
       attempts: 2
       unsupported_claims: []
   goal: the twelve claims in the launch post, against primary sources
+  inputs:
+    claims: *id001
+    primary_sources: *id002

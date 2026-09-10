@@ -17,8 +17,8 @@ nodes:
   - summary
   outputs:
   - screen_hits
-  criteria: Every name and date of birth is screened against the sanctions and PEP lists for the customer's
-    jurisdiction. A near-match is a hit to adjudicate, never a miss to round away.
+  criteria: Every name and date of birth is screened against the sanctions and PEP lists for the customer's jurisdiction.
+    A near-match is a hit to adjudicate, never a miss to round away.
 - id: produce
   speciality: producer
   abilities:
@@ -33,8 +33,8 @@ nodes:
   outputs:
   - output
   - revision_requested: bool
-  criteria: Every extracted field validates against the document image it came from, and a field that
-    could not be read is flagged as a gap rather than inferred from the rest of the pack.
+  criteria: Every extracted field validates against the document image it came from, and a field that could not be read is
+    flagged as a gap rather than inferred from the rest of the pack.
 edges:
 - from: intake
   to: sanctions-screen
@@ -56,3 +56,4 @@ goal:
 state:
   inputs:
   - goal
+  - pack

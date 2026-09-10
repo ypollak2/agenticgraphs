@@ -42,3 +42,26 @@ cases:
         structured: true
     escalate-hiring: {}
   goal: hire a senior backend engineer who can own our payments service
+  inputs:
+    role_brief:
+      title: Senior Backend Engineer
+      team: payments
+      must_have:
+      - distributed systems
+      - payment rails
+      - on-call ownership
+      panel:
+      - name: interviewer-a
+        focus: systems design
+      - name: interviewer-b
+        focus: coding
+      - name: interviewer-c
+        focus: ownership
+      candidates:
+      - id: cand-1
+        years: 9
+      - id: cand-2
+        years: 6
+      - id: cand-3
+        years: 11
+      approver: Head of Engineering

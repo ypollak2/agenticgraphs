@@ -28,3 +28,31 @@ cases:
         gaps: *id001
         attested: true
   goal: audit personal data across CRM, billing and support for lawful basis
+  inputs:
+    systems:
+    - name: CRM
+      stores:
+      - id: crm.contacts
+        fields:
+        - name
+        - email
+        - phone
+        lawful_basis: contract
+      owner: rev-ops
+    - name: billing
+      stores:
+      - id: billing.customers
+        fields:
+        - name
+        - vat_id
+        - address
+        lawful_basis: contract
+      owner: finance
+    - name: support
+      stores:
+      - id: support.tickets
+        fields:
+        - email
+        - free_text
+        lawful_basis: null
+      owner: support

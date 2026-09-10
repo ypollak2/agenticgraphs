@@ -1,26 +1,28 @@
 {
-  "model": "qwen3.5:latest",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "qwen3.5:latest",
+ "recorded": "2026-08-31",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "ownership_map": {
+   "checkout": "payments-oncall",
+   "search": "discovery-oncall",
+   "image-resize": "platform-oncall",
+   "billing": "payments-oncall"
   },
-  "inputs": {
-    "ownership_map": {
-      "checkout": "payments-oncall",
-      "search": "discovery-oncall",
-      "image-resize": "platform-oncall",
-      "billing": "payments-oncall"
-    },
-    "goal": "the checkout 5xx page, against the 2026-Q3 ownership map"
-  },
-  "node_outputs": {
-    "route": {
-      "complexity": 1
-    }
-  },
-  "tool_calls": []
+  "goal": "the checkout 5xx page, against the 2026-Q3 ownership map"
+ },
+ "node_outputs": {
+  "route": {
+   "complexity": 1
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

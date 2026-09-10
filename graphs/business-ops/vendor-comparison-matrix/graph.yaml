@@ -68,6 +68,7 @@ state:
   inputs:
   - goal
   - vendors
+  - criteria
 goal:
   required: true
   description: the vendors to compare and the decision the matrix must inform

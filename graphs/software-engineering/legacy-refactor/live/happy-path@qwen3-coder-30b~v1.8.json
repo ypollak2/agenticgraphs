@@ -1,31 +1,33 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-08-31",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "the billing module, keeping tests/billing green"
+ },
+ "node_outputs": {
+  "intake": {
+   "summary": "Analyzed billing module for test stability. Identified potential regressions in payment processing logic that could break existing snapshot tests. Recommended implementing additional edge case handling in billing calculations to maintain test green status while ensuring accurate financial computations."
   },
-  "inputs": {
-    "goal": "the billing module, keeping tests/billing green"
+  "produce": {
+   "snapshot_after": "billing_module_stable_with_edge_case_handling",
+   "snapshot_before": "billing_module_with_potential_regression_in_payment_processing"
   },
-  "node_outputs": {
-    "intake": {
-      "summary": "Analyzed billing module for test stability. Identified potential regressions in payment processing logic that could break existing snapshot tests. Recommended implementing additional edge case handling in billing calculations to maintain test green status while ensuring accurate financial computations."
-    },
-    "produce": {
-      "snapshot_after": "billing_module_stable_with_edge_case_handling",
-      "snapshot_before": "billing_module_with_potential_regression_in_payment_processing"
-    },
-    "review": {
-      "output": {
-        "snapshot_after": "billing_module_stable_with_edge_case_handling",
-        "snapshot_before": "billing_module_with_potential_regression_in_payment_processing"
-      },
-      "revision_requested": false
-    }
-  },
-  "tool_calls": []
+  "review": {
+   "output": {
+    "snapshot_after": "billing_module_stable_with_edge_case_handling",
+    "snapshot_before": "billing_module_with_potential_regression_in_payment_processing"
+   },
+   "revision_requested": false
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

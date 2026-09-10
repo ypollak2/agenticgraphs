@@ -25,6 +25,17 @@ cases:
         to: J15.9
     reverse-claim: {}
   goal: the July inpatient DRG assignments and their charts
+  inputs:
+    encounters: &id003
+    - id: E1
+      drg: '291'
+      chart: Acute CHF exacerbation, IV diuresis, note span 4-9
+    - id: E2
+      drg: '470'
+      chart: Elective THA, uncomplicated, note span 2-5
+    - id: E3
+      drg: '871'
+      chart: Sepsis with lactate 4.2, note span 1-14
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -49,3 +60,5 @@ cases:
     recode: *id002
     reverse-claim: {}
   goal: the July inpatient DRG assignments and their charts
+  inputs:
+    encounters: *id003

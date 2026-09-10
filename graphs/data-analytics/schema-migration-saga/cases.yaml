@@ -36,3 +36,25 @@ cases:
       compensated_steps: 0
       executed_steps: 3
   goal: orders v3 to v4, keeping orders readable throughout
+  inputs:
+    source_schema:
+      name: orders_v3
+      rows: 52000
+      columns:
+      - n: id
+        t: int
+      - n: total_cents
+        t: int
+      - n: status
+        t: text
+    target_schema:
+      name: orders_v4
+      columns:
+      - n: id
+        t: int
+      - n: total_cents
+        t: int
+      - n: status
+        t: text
+      - n: currency
+        t: text

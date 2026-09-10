@@ -16,3 +16,17 @@ cases:
         consecutive_green: 3
         lessons: *id001
   goal: stabilize test_checkout_timeout; it must go 3 consecutive greens
+  inputs:
+    test_id: test_checkout_timeout
+    test_path: tests/test_checkout.py
+    required_green_streak: 3
+    history:
+    - attempt: 1
+      status: fail
+      error: timeout after 5s
+    - attempt: 2
+      status: pass
+    - attempt: 3
+      status: fail
+      error: timeout after 5s
+    suspected_cause: fixed 5s timeout races a 4.8s p99 dependency

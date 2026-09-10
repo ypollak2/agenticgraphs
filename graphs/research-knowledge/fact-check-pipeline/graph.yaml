@@ -48,3 +48,5 @@ goal:
 state:
   inputs:
   - goal
+  - claims
+  - primary_sources

@@ -45,3 +45,4 @@ goal:
 state:
   inputs:
   - goal
+  - experiment

@@ -79,6 +79,7 @@ state:
   inputs:
   - goal
   - patient_records
+  - criteria
 goal:
   required: true
   description: the trial to screen against and the cohort to screen

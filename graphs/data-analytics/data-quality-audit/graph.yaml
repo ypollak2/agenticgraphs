@@ -61,3 +61,5 @@ state:
   inputs:
   - goal
   - model_name
+  - rules
+  - sample_rows

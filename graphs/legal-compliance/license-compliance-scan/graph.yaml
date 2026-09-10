@@ -46,3 +46,5 @@ goal:
 state:
   inputs:
   - goal
+  - lockfile
+  - policy

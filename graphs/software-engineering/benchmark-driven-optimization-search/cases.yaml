@@ -16,3 +16,16 @@ cases:
       bench_ms: 120
       baseline_ms: 400
   goal: optimize the parser repo against the throughput benchmark
+  inputs:
+    repo:
+      name: parser
+      entry: src/parser.py
+      benchmark:
+        cmd: pytest bench/ --benchmark-only
+        metric: ms
+        baseline_ms: 184.0
+      hot_paths:
+      - fn: tokenize
+        share: 0.61
+      - fn: normalize
+        share: 0.22

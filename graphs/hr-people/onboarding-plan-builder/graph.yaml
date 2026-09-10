@@ -71,6 +71,9 @@ state:
   - goal
   - role
   - team
+  - systems
+  - start_date
+  - manager
 goal:
   required: true
   description: the new hire's role and the team they are joining

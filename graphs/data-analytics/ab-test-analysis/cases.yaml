@@ -11,6 +11,18 @@ cases:
         claimed_effect: 0.12
         reproduces_claimed_effect: true
   goal: experiment checkout-v3, claimed +2.1% conversion
+  inputs:
+    experiment: &id001
+      name: checkout-v3
+      claimed_effect: 0.021
+      control:
+        n: 48210
+        conversions: 4339
+      variant:
+        n: 47980
+        conversions: 5327
+      primary_metric: conversion rate
+      run_days: 14
 - id: null-result-confirmed
   node_outputs:
     position-a:
@@ -23,3 +35,5 @@ cases:
         claimed_effect: 0.0
         reproduces_claimed_effect: true
   goal: experiment checkout-v3, claimed +2.1% conversion
+  inputs:
+    experiment: *id001

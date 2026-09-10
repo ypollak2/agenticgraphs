@@ -18,3 +18,34 @@ cases:
         enrolled: 12
         unreviewed_ambiguous: 0
   goal: screen the oncology cohort against NCT-12345 eligibility criteria
+  inputs:
+    patient_records:
+    - id: P-01
+      age: 61
+      ecog: 1
+      stage: IIIB
+      prior_lines: 1
+      egfr_mutation: true
+      labs_complete: true
+    - id: P-02
+      age: 47
+      ecog: 0
+      stage: IV
+      prior_lines: 2
+      egfr_mutation: false
+      labs_complete: true
+    - id: P-03
+      age: 73
+      ecog: 3
+      stage: IV
+      prior_lines: 3
+      egfr_mutation: true
+      labs_complete: true
+    criteria:
+      trial: NCT-12345
+      min_age: 18
+      max_ecog: 2
+      required_stage:
+      - IIIB
+      - IV
+      max_prior_lines: 2

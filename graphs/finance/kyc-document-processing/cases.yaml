@@ -15,6 +15,25 @@ cases:
     sanctions-screen: &id001
       screen_hits: []
   goal: a UK sole-trader onboarding pack, under FCA rules
+  inputs:
+    pack: &id002
+      entity_type: UK sole trader
+      regime: FCA
+      documents:
+      - kind: passport
+        fields:
+          name: J Whitmore
+          dob: '1984-02-11'
+          expiry: '2031-07-09'
+      - kind: utility_bill
+        fields:
+          name: J Whitmore
+          address: 12 Bridge St, Leeds
+          dated: '2026-07-02'
+      - kind: hmrc_utr
+        fields:
+          utr: '1234567890'
+          name: J Whitmore
 - id: retry-then-resolved
   node_outputs:
     intake:
@@ -37,3 +56,5 @@ cases:
       attempts: 2
     sanctions-screen: *id001
   goal: a UK sole-trader onboarding pack, under FCA rules
+  inputs:
+    pack: *id002

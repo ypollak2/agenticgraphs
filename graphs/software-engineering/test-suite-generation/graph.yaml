@@ -27,9 +27,8 @@ nodes:
   - mutation_score: float
   - output
   - rejected: bool
-  criteria: Coverage increases and the mutation score beats the baseline. A test that executes a line
-    without asserting anything about it raises coverage and catches nothing, which is exactly what mutation
-    score exists to detect.
+  criteria: Coverage increases and the mutation score beats the baseline. A test that executes a line without asserting anything
+    about it raises coverage and catches nothing, which is exactly what mutation score exists to detect.
   retries:
     max: 2
     reissue_effects: true
@@ -54,3 +53,4 @@ goal:
 state:
   inputs:
   - goal
+  - module

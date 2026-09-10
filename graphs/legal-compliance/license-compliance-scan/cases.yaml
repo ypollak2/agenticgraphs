@@ -18,6 +18,27 @@ cases:
           spdx: MIT
         copyleft_conflicts: []
   goal: the production lockfile, against the no-copyleft policy
+  inputs:
+    lockfile: &id002
+      packages:
+      - name: requests
+        version: 2.32.3
+        spdx: Apache-2.0
+      - name: pyyaml
+        version: 6.0.2
+        spdx: MIT
+      - name: chardet
+        version: 5.2.0
+        spdx: LGPL-2.1
+      - name: click
+        version: 8.1.7
+        spdx: BSD-3-Clause
+    policy: &id003
+      name: no-copyleft
+      forbidden_spdx:
+      - GPL-3.0
+      - AGPL-3.0
+      - LGPL-2.1
 - id: multi-item
   node_outputs:
     partition:
@@ -37,3 +58,6 @@ cases:
           spdx: GPL-3.0
         copyleft_conflicts: []
   goal: the production lockfile, against the no-copyleft policy
+  inputs:
+    lockfile: *id002
+    policy: *id003

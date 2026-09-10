@@ -16,6 +16,18 @@ cases:
         - id: s1
           exit_code: 0
   goal: the certificate rotation runbook, in staging
+  inputs:
+    postcondition_path: runbooks/checks/cert_rotation.sh
+    runbook: &id002
+      name: certificate rotation
+      environment: staging
+      steps:
+      - n: 1
+        cmd: acme renew --staging
+      - n: 2
+        cmd: deploy-certs --env staging
+      - n: 3
+        cmd: verify-tls --env staging
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -34,3 +46,6 @@ cases:
         - id: s1
           exit_code: 0
   goal: the certificate rotation runbook, in staging
+  inputs:
+    postcondition_path: runbooks/checks/cert_rotation.sh
+    runbook: *id002

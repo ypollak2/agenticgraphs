@@ -1,30 +1,32 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-08-31",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "PR 812 in the payments service"
+ },
+ "node_outputs": {
+  "triage": {
+   "risk": "medium"
   },
-  "inputs": {
-    "goal": "PR 812 in the payments service"
+  "security-review": {
+   "sec_hits": []
   },
-  "node_outputs": {
-    "triage": {
-      "risk": "medium"
-    },
-    "security-review": {
-      "sec_hits": []
-    },
-    "style-review": {
-      "style_findings": []
-    },
-    "synthesize": {
-      "findings": [],
-      "verdict": "approve"
-    }
+  "style-review": {
+   "style_findings": []
   },
-  "tool_calls": []
+  "synthesize": {
+   "findings": [],
+   "verdict": "approve"
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

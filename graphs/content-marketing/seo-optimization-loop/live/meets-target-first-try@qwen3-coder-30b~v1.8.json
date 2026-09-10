@@ -1,33 +1,35 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-08-31",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "/pricing, for 'agent workflow pricing'"
+ },
+ "node_outputs": {
+  "intake": {
+   "summary": "Agent workflow pricing analysis complete. Base pricing structure includes $500/month for basic agent workflows with 1000 interactions, $1200/month for premium workflows with 5000 interactions, and custom enterprise pricing starting at $5000/month. All plans include analytics dashboard, priority support, and monthly performance reviews. No keyword stuffing detected in pricing documentation."
   },
-  "inputs": {
-    "goal": "/pricing, for 'agent workflow pricing'"
+  "attempt": {
+   "seo_score": 87.5,
+   "stuffing_flags": 0,
+   "threshold": 85.0
   },
-  "node_outputs": {
-    "intake": {
-      "summary": "Agent workflow pricing analysis complete. Base pricing structure includes $500/month for basic agent workflows with 1000 interactions, $1200/month for premium workflows with 5000 interactions, and custom enterprise pricing starting at $5000/month. All plans include analytics dashboard, priority support, and monthly performance reviews. No keyword stuffing detected in pricing documentation."
-    },
-    "attempt": {
-      "seo_score": 87.5,
-      "stuffing_flags": 0,
-      "threshold": 85.0
-    },
-    "measure": {
-      "output": {
-        "seo_score": 87.5,
-        "stuffing_flags": 0,
-        "threshold": 85.0
-      },
-      "below_target": false
-    }
-  },
-  "tool_calls": []
+  "measure": {
+   "output": {
+    "seo_score": 87.5,
+    "stuffing_flags": 0,
+    "threshold": 85.0
+   },
+   "below_target": false
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

@@ -61,6 +61,9 @@ state:
   - goal
   - graph_under_test
   - candidate_graph
+  - train_set
+  - holdout_set
+  - baseline_score
 goal:
   required: true
   description: the graph to optimize and the metric that decides a winner

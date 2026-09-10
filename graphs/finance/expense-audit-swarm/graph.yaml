@@ -58,3 +58,5 @@ goal:
 state:
   inputs:
   - goal
+  - reports
+  - policy

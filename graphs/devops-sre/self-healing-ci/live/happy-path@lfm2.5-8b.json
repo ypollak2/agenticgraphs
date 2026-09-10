@@ -1,74 +1,76 @@
 {
-  "model": "lfm2.5:8b",
-  "recorded": "2026-09-01",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "lfm2.5:8b",
+ "recorded": "2026-09-01",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "repair the failing nightly build on main"
+ },
+ "node_outputs": {
+  "collect": {
+   "failures": []
   },
-  "inputs": {
-    "goal": "repair the failing nightly build on main"
-  },
-  "node_outputs": {
-    "collect": {
-      "failures": []
+  "classify": [
+   {
+    "cause": "unknown",
+    "known": true
+   },
+   {
+    "cause": "unknown",
+    "known": true
+   },
+   {
+    "cause": "unknown",
+    "known": true
+   }
+  ],
+  "repair": [
+   {
+    "repair_applied": true
+   },
+   {
+    "repair_applied": true
+   },
+   {
+    "repair_applied": true
+   }
+  ],
+  "confirm": [
+   {
+    "escalated": true,
+    "lessons": [],
+    "output": {
+     "attempts": 1,
+     "pipeline_green": false
     },
-    "classify": [
-      {
-        "cause": "unknown",
-        "known": true
-      },
-      {
-        "cause": "unknown",
-        "known": true
-      },
-      {
-        "cause": "unknown",
-        "known": true
-      }
-    ],
-    "repair": [
-      {
-        "repair_applied": true
-      },
-      {
-        "repair_applied": true
-      },
-      {
-        "repair_applied": true
-      }
-    ],
-    "confirm": [
-      {
-        "escalated": true,
-        "lessons": [],
-        "output": {
-          "attempts": 1,
-          "pipeline_green": false
-        },
-        "pipeline_green": false
-      },
-      {
-        "escalated": true,
-        "lessons": [],
-        "output": {
-          "attempts": 1,
-          "lessons": []
-        },
-        "pipeline_green": false
-      },
-      {
-        "escalated": true,
-        "lessons": [],
-        "output": {
-          "attempts": 1,
-          "lessons": []
-        },
-        "pipeline_green": false
-      }
-    ]
-  },
-  "tool_calls": []
+    "pipeline_green": false
+   },
+   {
+    "escalated": true,
+    "lessons": [],
+    "output": {
+     "attempts": 1,
+     "lessons": []
+    },
+    "pipeline_green": false
+   },
+   {
+    "escalated": true,
+    "lessons": [],
+    "output": {
+     "attempts": 1,
+     "lessons": []
+    },
+    "pipeline_green": false
+   }
+  ]
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

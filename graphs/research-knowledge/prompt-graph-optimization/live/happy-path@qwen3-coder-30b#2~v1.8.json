@@ -1,90 +1,92 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-08-31",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "optimize the support-triage graph for accuracy on the held-out set"
+ },
+ "node_outputs": {
+  "baseline": {
+   "baseline_score": 0.823,
+   "eval_set": "support_tickets_v2_holdout"
   },
-  "inputs": {
-    "goal": "optimize the support-triage graph for accuracy on the held-out set"
-  },
-  "node_outputs": {
-    "baseline": {
-      "baseline_score": 0.823,
-      "eval_set": "support_tickets_v2_holdout"
-    },
-    "search": [
-      {
-        "variant": "triage_graph_v2_optimized",
-        "score": 0.847
-      },
-      {
-        "variant": "triage_graph_v2_optimized",
-        "score": 0.847
-      },
-      {
-        "variant": "triage_graph_v2.1",
-        "score": 0.847
-      },
-      {
-        "variant": "triage_graph_v2_optimized",
-        "score": 0.847
-      },
-      {
-        "variant": "triage_graph_v2_optimized",
-        "score": 0.847
-      },
-      {
-        "variant": "triage_graph_v2_optimized",
-        "score": 0.847
-      },
-      {
-        "variant": "triage_graph_v2_optimized",
-        "score": 0.847
-      },
-      {
-        "variant": "triage_graph_v2_optimized",
-        "score": 0.847
-      },
-      {
-        "variant": "triage_graph_v2_optimized",
-        "score": 0.847
-      },
-      {
-        "variant": "triage_graph_v2_optimized",
-        "score": 0.847
-      },
-      {
-        "variant": "triage_graph_v2_optimized",
-        "score": 0.847
-      },
-      {
-        "variant": "triage_graph_v2_optimized",
-        "score": 0.847
-      },
-      {
-        "variant": "triage_graph_v2_optimized",
-        "score": 0.847
-      },
-      {
-        "variant": "triage_graph_v2_optimized",
-        "score": 0.847
-      },
-      {
-        "variant": "triage_graph_v2_optimized",
-        "score": 0.847
-      }
-    ],
-    "confirm": {
-      "holdout_score": 0.847,
-      "output": {
-        "baseline_score": 0.823,
-        "holdout_score": 0.847
-      }
-    }
-  },
-  "tool_calls": []
+  "search": [
+   {
+    "variant": "triage_graph_v2_optimized",
+    "score": 0.847
+   },
+   {
+    "variant": "triage_graph_v2_optimized",
+    "score": 0.847
+   },
+   {
+    "variant": "triage_graph_v2.1",
+    "score": 0.847
+   },
+   {
+    "variant": "triage_graph_v2_optimized",
+    "score": 0.847
+   },
+   {
+    "variant": "triage_graph_v2_optimized",
+    "score": 0.847
+   },
+   {
+    "variant": "triage_graph_v2_optimized",
+    "score": 0.847
+   },
+   {
+    "variant": "triage_graph_v2_optimized",
+    "score": 0.847
+   },
+   {
+    "variant": "triage_graph_v2_optimized",
+    "score": 0.847
+   },
+   {
+    "variant": "triage_graph_v2_optimized",
+    "score": 0.847
+   },
+   {
+    "variant": "triage_graph_v2_optimized",
+    "score": 0.847
+   },
+   {
+    "variant": "triage_graph_v2_optimized",
+    "score": 0.847
+   },
+   {
+    "variant": "triage_graph_v2_optimized",
+    "score": 0.847
+   },
+   {
+    "variant": "triage_graph_v2_optimized",
+    "score": 0.847
+   },
+   {
+    "variant": "triage_graph_v2_optimized",
+    "score": 0.847
+   },
+   {
+    "variant": "triage_graph_v2_optimized",
+    "score": 0.847
+   }
+  ],
+  "confirm": {
+   "holdout_score": 0.847,
+   "output": {
+    "baseline_score": 0.823,
+    "holdout_score": 0.847
+   }
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }
