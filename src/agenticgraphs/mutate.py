@@ -14,8 +14,8 @@ from pathlib import Path
 import yaml
 
 from .autonomy import commit_autonomous_mutation, require_autonomous, require_execute_allowed
-from .evalcmd import case_inputs
-from .harness import MockRunner, run_graph
+from .evalcmd import _recordings, case_inputs
+from .harness import MockRunner, ReplayRunner, run_graph
 from .inspect import find_graph
 from .registry import ROOT, cases_path, iter_yaml, load
 from .validate import validate_graph_file
@@ -55,6 +55,49 @@ def _cases_still_pass(name: str, doc: dict, root: Path = ROOT) -> bool:
         if not rep.passed:
             return False
     return True
+
+
+def _live_score(name: str, doc: dict, root: Path = ROOT) -> tuple[float, int]:
+    """Replay every current real-model recording against `doc`; return (pass_rate, n).
+
+    This is the gate `_cases_still_pass` could never be. That check replays canned
+    `node_outputs` from cases.yaml, and every graph in the registry scores 1.0 on
+    it — a mock replay cannot distinguish two graphs, so the optimizer was
+    hill-climbing a constant and accepting every structural change that kept the
+    schema valid.
+
+    A recording is a real model's output for a real case. Replaying a *mutated*
+    graph against one asks the question the optimizer actually needs answered:
+    with this topology, do the recorded outputs still satisfy the contract? That
+    is sensitive to exactly what the current operators change — edges, parallel
+    groups, step budgets — because those decide which nodes run, in what order,
+    and whether a join ever resolves.
+
+    It is NOT sensitive to prompt text: the outputs are fixed, so a change to
+    what a node is *told* replays identically. Guidance-bearing mutations need
+    fresh live runs and cannot be gated here (see docs/plans/v19-agr-1.9.md §L0).
+
+    Returns n=0 when the graph has no current recordings, which the caller must
+    treat as "no opinion" rather than a zero score.
+    """
+    cf = cases_path(name, root)
+    if not cf.exists():
+        return (0.0, 0)
+    gated = any(n.get("kind") == "human" for n in doc["nodes"])
+    passed = total = 0
+    for case in yaml.safe_load(cf.read_text())["cases"]:
+        for rec in _recordings(root, name, case["id"]):
+            try:
+                rep = run_graph(doc, ReplayRunner.load(rec), root=root,
+                                auto_approve=gated, inputs=case_inputs(case))
+            except Exception:
+                # A mutation that makes the graph unrunnable scores as a failure
+                # rather than crashing the optimizer — that is the gate working.
+                total += 1
+                continue
+            passed += bool(rep.passed)
+            total += 1
+    return ((round(passed / total, 3), total) if total else (0.0, 0))
 
 
 def infuse(name: str, node_id: str, ability: str, root: Path = ROOT) -> dict:
@@ -168,11 +211,23 @@ def op_parallelize_siblings(doc: dict, ctx: dict) -> list[str]:
 
 
 def op_tighten_max_steps(doc: dict, ctx: dict) -> list[str]:
-    """Measurement-driven: shrink the step budget toward observed worst-case (profile.json)."""
+    """Measurement-driven: shrink the step budget toward observed worst-case (profile.json).
+
+    The worst case must come from the *live* block when there is one. Reading only
+    `measured` sized every budget against mock traces, and a mock is systematically
+    shorter than a real run: `performance-optimization` mocks in 5 steps and replays
+    in 11, so a budget of 10 derived from the mock stalled all 8 of its recorded
+    episodes. Three graphs were being strangled this way. Take the max across both
+    blocks — a budget has to survive the slowest behaviour actually observed, not
+    the fastest.
+    """
     prof = ctx.get("profile")
     if not prof or not prof.get("measured") or prof["measured"]["pass_rate"] != 1.0:
         return []
-    worst = max(r["steps"] for r in prof["measured"]["results"])
+    observed = [r["steps"] for r in prof["measured"]["results"]]
+    live = prof.get("measured_live") or {}
+    observed += [r["steps"] for r in live.get("results", [])]
+    worst = max(observed)
     proposed = max(worst * 2, worst + 2)
     if proposed < doc["termination"]["max_steps"]:
         old = doc["termination"]["max_steps"]
@@ -193,18 +248,45 @@ def optimize(name: str, apply: bool = False, root: Path = ROOT) -> dict:
     pf = gpath.parent / "profile.json"
     ctx = {"profile": json.loads(pf.read_text()) if pf.exists() else None}
     notes: list[str] = []
+    rejected: list[dict] = []
+    baseline, episodes = _live_score(name, doc, root)
     for op in OPERATORS:
         before = yaml.safe_dump(doc)
         applied = op(doc, ctx)
-        if applied and not _cases_still_pass(name, doc, root):
-            doc = yaml.safe_load(before)  # revert this operator: it broke golden cases
+        if not applied:
             continue
+        # Gate 1 — mechanics. Canned fixtures prove the graph still runs at all.
+        if not _cases_still_pass(name, doc, root):
+            doc = yaml.safe_load(before)
+            rejected.append({"op": op.__name__, "changes": applied, "why": "broke golden cases"})
+            continue
+        # Gate 2 — quality. Replayed real-model runs decide whether it got worse.
+        # Skipped when the graph has no current recordings: no evidence is not
+        # the same as evidence of harm, and refusing every mutation on a graph
+        # that simply has not been recorded would be the old bug with the sign
+        # flipped.
+        if episodes:
+            score, _ = _live_score(name, doc, root)
+            if score < baseline:
+                doc = yaml.safe_load(before)
+                rejected.append({"op": op.__name__, "changes": applied,
+                                 "why": f"live score {score} < {baseline}"})
+                continue
+            baseline = score  # accepted: the candidate is the new bar
         notes.extend(applied)
+    result_scores = {"live_score": baseline, "episodes": episodes,
+                     "gated": bool(episodes)}
     if not notes:
-        return {"changed": False, "notes": []}
+        return {"changed": False, "notes": [], "rejected": rejected, **result_scores}
     if apply:
         errs = _write_checked(gpath, doc, original)
         if errs:
             raise SystemExit("optimization rejected by gate:\n" + "\n".join(errs))
-        _lineage_append(gpath.parent, {"op": "optimize", "changes": notes})
-    return {"changed": apply, "notes": notes}
+        _lineage_append(gpath.parent, {"op": "optimize", "status": "accepted",
+                                       "changes": notes, **result_scores})
+        # Rejection memory: what the optimizer tried and would not keep. The paper
+        # feeds this back to its refiner as negative evidence; logging it now means
+        # the record exists before there is a refiner to read it.
+        for r in rejected:
+            _lineage_append(gpath.parent, {"op": "optimize", "status": "rejected", **r})
+    return {"changed": apply, "notes": notes, "rejected": rejected, **result_scores}
