@@ -1,0 +1,866 @@
+{
+  "model": "qwen3-coder:30b",
+  "date": "2026-09-10",
+  "criteria": {
+    "min_mean_delta": 0.25,
+    "min_per_graph_delta": 0.34,
+    "min_graphs_improved": 6,
+    "max_graphs_regressed": 2,
+    "require_zero_leaks": true,
+    "episodes_per_arm": 3
+  },
+  "episodes_per_arm": 3,
+  "graphs": {
+    "blog-production-pipeline": {
+      "leaks": [],
+      "off": {
+        "pass_rate": 0.0,
+        "n": 6,
+        "results": [
+          {
+            "case": "happy-path",
+            "episode": 0,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.max_match_ratio < 0.15"
+            ]
+          },
+          {
+            "case": "happy-path",
+            "episode": 1,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.max_match_ratio < 0.15"
+            ]
+          },
+          {
+            "case": "happy-path",
+            "episode": 2,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.max_match_ratio < 0.15"
+            ]
+          },
+          {
+            "case": "retry-then-resolved",
+            "episode": 0,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.max_match_ratio < 0.15"
+            ]
+          },
+          {
+            "case": "retry-then-resolved",
+            "episode": 1,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.max_match_ratio < 0.15"
+            ]
+          },
+          {
+            "case": "retry-then-resolved",
+            "episode": 2,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.max_match_ratio < 0.15"
+            ]
+          }
+        ]
+      },
+      "on": {
+        "pass_rate": 0.0,
+        "n": 6,
+        "results": [
+          {
+            "case": "happy-path",
+            "episode": 0,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.max_match_ratio < 0.15"
+            ]
+          },
+          {
+            "case": "happy-path",
+            "episode": 1,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.max_match_ratio < 0.15"
+            ]
+          },
+          {
+            "case": "happy-path",
+            "episode": 2,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.max_match_ratio < 0.15"
+            ]
+          },
+          {
+            "case": "retry-then-resolved",
+            "episode": 0,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.max_match_ratio < 0.15"
+            ]
+          },
+          {
+            "case": "retry-then-resolved",
+            "episode": 1,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.max_match_ratio < 0.15"
+            ]
+          },
+          {
+            "case": "retry-then-resolved",
+            "episode": 2,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.max_match_ratio < 0.15"
+            ]
+          }
+        ]
+      },
+      "delta": 0.0
+    },
+    "alert-noise-reduction": {
+      "leaks": [],
+      "off": {
+        "pass_rate": 1.0,
+        "n": 6,
+        "results": [
+          {
+            "case": "single-item",
+            "episode": 0,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "single-item",
+            "episode": 1,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "single-item",
+            "episode": 2,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 0,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 1,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 2,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          }
+        ]
+      },
+      "on": {
+        "pass_rate": 0.5,
+        "n": 6,
+        "results": [
+          {
+            "case": "single-item",
+            "episode": 0,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.dedupe_ratio > 0 and not output.missed_paging_alerts"
+            ]
+          },
+          {
+            "case": "single-item",
+            "episode": 1,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.dedupe_ratio > 0 and not output.missed_paging_alerts"
+            ]
+          },
+          {
+            "case": "single-item",
+            "episode": 2,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.dedupe_ratio > 0 and not output.missed_paging_alerts"
+            ]
+          },
+          {
+            "case": "multi-item",
+            "episode": 0,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 1,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 2,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          }
+        ]
+      },
+      "delta": -0.5
+    },
+    "self-healing-ci": {
+      "leaks": [],
+      "off": {
+        "pass_rate": 0.0,
+        "n": 3,
+        "results": [
+          {
+            "case": "happy-path",
+            "episode": 0,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "happy-path",
+            "episode": 1,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "happy-path",
+            "episode": 2,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [],
+            "assert_failures": []
+          }
+        ]
+      },
+      "on": {
+        "pass_rate": 0.0,
+        "n": 3,
+        "results": [
+          {
+            "case": "happy-path",
+            "episode": 0,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "happy-path",
+            "episode": 1,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "happy-path",
+            "episode": 2,
+            "passed": false,
+            "steps": 4,
+            "failure_kinds": [],
+            "assert_failures": []
+          }
+        ]
+      },
+      "delta": 0.0
+    },
+    "adverse-event-scanner": {
+      "leaks": [],
+      "off": {
+        "pass_rate": 1.0,
+        "n": 6,
+        "results": [
+          {
+            "case": "single-item",
+            "episode": 0,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "single-item",
+            "episode": 1,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "single-item",
+            "episode": 2,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 0,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 1,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 2,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          }
+        ]
+      },
+      "on": {
+        "pass_rate": 1.0,
+        "n": 6,
+        "results": [
+          {
+            "case": "single-item",
+            "episode": 0,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "single-item",
+            "episode": 1,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "single-item",
+            "episode": 2,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 0,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 1,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 2,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          }
+        ]
+      },
+      "delta": 0.0
+    },
+    "contract-lifecycle": {
+      "leaks": [],
+      "off": {
+        "pass_rate": 0.0,
+        "n": 3,
+        "results": [
+          {
+            "case": "happy-path",
+            "episode": 0,
+            "passed": false,
+            "steps": 8,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "all(s.party and s.dated for s in output.signatures)"
+            ]
+          },
+          {
+            "case": "happy-path",
+            "episode": 1,
+            "passed": false,
+            "steps": 8,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "all(s.party and s.dated for s in output.signatures)"
+            ]
+          },
+          {
+            "case": "happy-path",
+            "episode": 2,
+            "passed": false,
+            "steps": 8,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "all(s.party and s.dated for s in output.signatures)"
+            ]
+          }
+        ]
+      },
+      "on": {
+        "pass_rate": 0.0,
+        "n": 3,
+        "results": [
+          {
+            "case": "happy-path",
+            "episode": 0,
+            "passed": false,
+            "steps": 8,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "all(s.party and s.dated for s in output.signatures)"
+            ]
+          },
+          {
+            "case": "happy-path",
+            "episode": 1,
+            "passed": false,
+            "steps": 8,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "all(s.party and s.dated for s in output.signatures)"
+            ]
+          },
+          {
+            "case": "happy-path",
+            "episode": 2,
+            "passed": false,
+            "steps": 8,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "all(s.party and s.dated for s in output.signatures)"
+            ]
+          }
+        ]
+      },
+      "delta": 0.0
+    },
+    "supplier-risk-monitor": {
+      "leaks": [],
+      "off": {
+        "pass_rate": 0.0,
+        "n": 3,
+        "results": [
+          {
+            "case": "happy-path",
+            "episode": 0,
+            "passed": false,
+            "steps": 6,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "all(c.single_source == (c.supplier_count == 1) for c in output.concentration)",
+              "[ingest] all(f.source_url and f.source_date for f in output.findings) (AttributeError: 'str' object has no attribute 'so"
+            ]
+          },
+          {
+            "case": "happy-path",
+            "episode": 1,
+            "passed": false,
+            "steps": 6,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.above_appetite == output.mitigations_planned",
+              "all(c.single_source == (c.supplier_count == 1) for c in output.concentration)",
+              "[ingest] all(f.source_url and f.source_date for f in output.findings) (AttributeError: 'str' object has no attribute 'so"
+            ]
+          },
+          {
+            "case": "happy-path",
+            "episode": 2,
+            "passed": false,
+            "steps": 6,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "all(c.single_source == (c.supplier_count == 1) for c in output.concentration)",
+              "[ingest] all(f.source_url and f.source_date for f in output.findings) (AttributeError: 'str' object has no attribute 'so"
+            ]
+          }
+        ]
+      },
+      "on": {
+        "pass_rate": 0.0,
+        "n": 3,
+        "results": [
+          {
+            "case": "happy-path",
+            "episode": 0,
+            "passed": false,
+            "steps": 6,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "all(c.single_source == (c.supplier_count == 1) for c in output.concentration)",
+              "[ingest] all(f.source_url and f.source_date for f in output.findings) (AttributeError: 'str' object has no attribute 'so"
+            ]
+          },
+          {
+            "case": "happy-path",
+            "episode": 1,
+            "passed": false,
+            "steps": 6,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "all(c.single_source == (c.supplier_count == 1) for c in output.concentration)",
+              "[ingest] all(f.source_url and f.source_date for f in output.findings) (AttributeError: 'str' object has no attribute 'so"
+            ]
+          },
+          {
+            "case": "happy-path",
+            "episode": 2,
+            "passed": false,
+            "steps": 6,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "all(c.single_source == (c.supplier_count == 1) for c in output.concentration)",
+              "[ingest] all(f.source_url and f.source_date for f in output.findings) (AttributeError: 'str' object has no attribute 'so"
+            ]
+          }
+        ]
+      },
+      "delta": 0.0
+    },
+    "bug-triage-and-fix": {
+      "leaks": [],
+      "off": {
+        "pass_rate": 1.0,
+        "n": 6,
+        "results": [
+          {
+            "case": "first-attempt-verified",
+            "episode": 0,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "first-attempt-verified",
+            "episode": 1,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "first-attempt-verified",
+            "episode": 2,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "retry-then-verified",
+            "episode": 0,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "retry-then-verified",
+            "episode": 1,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "retry-then-verified",
+            "episode": 2,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          }
+        ]
+      },
+      "on": {
+        "pass_rate": 0.0,
+        "n": 6,
+        "results": [
+          {
+            "case": "first-attempt-verified",
+            "episode": 0,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.exit_before != 0 and output.exit_after == 0"
+            ]
+          },
+          {
+            "case": "first-attempt-verified",
+            "episode": 1,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.exit_before != 0 and output.exit_after == 0"
+            ]
+          },
+          {
+            "case": "first-attempt-verified",
+            "episode": 2,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.exit_before != 0 and output.exit_after == 0"
+            ]
+          },
+          {
+            "case": "retry-then-verified",
+            "episode": 0,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.exit_before != 0 and output.exit_after == 0"
+            ]
+          },
+          {
+            "case": "retry-then-verified",
+            "episode": 1,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.exit_before != 0 and output.exit_after == 0"
+            ]
+          },
+          {
+            "case": "retry-then-verified",
+            "episode": 2,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.exit_before != 0 and output.exit_after == 0"
+            ]
+          }
+        ]
+      },
+      "delta": -1.0
+    },
+    "framework-migration": {
+      "leaks": [],
+      "off": {
+        "pass_rate": 1.0,
+        "n": 3,
+        "results": [
+          {
+            "case": "happy-path",
+            "episode": 0,
+            "passed": true,
+            "steps": 7,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "happy-path",
+            "episode": 1,
+            "passed": true,
+            "steps": 7,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "happy-path",
+            "episode": 2,
+            "passed": true,
+            "steps": 7,
+            "failure_kinds": [],
+            "assert_failures": []
+          }
+        ]
+      },
+      "on": {
+        "pass_rate": 1.0,
+        "n": 3,
+        "results": [
+          {
+            "case": "happy-path",
+            "episode": 0,
+            "passed": true,
+            "steps": 7,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "happy-path",
+            "episode": 1,
+            "passed": true,
+            "steps": 7,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "happy-path",
+            "episode": 2,
+            "passed": true,
+            "steps": 7,
+            "failure_kinds": [],
+            "assert_failures": []
+          }
+        ]
+      },
+      "delta": 0.0
+    }
+  },
+  "verdict": {
+    "mean_delta": -0.188,
+    "graphs": 8,
+    "improved": 0,
+    "regressed": 2,
+    "leaks_total": 0,
+    "passes": false
+  }
+}

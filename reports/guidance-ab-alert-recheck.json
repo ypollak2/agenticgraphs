@@ -1,0 +1,135 @@
+{
+  "model": "qwen3-coder:30b",
+  "date": "2026-09-10",
+  "criteria": {
+    "min_mean_delta": 0.25,
+    "min_per_graph_delta": 0.34,
+    "min_graphs_improved": 6,
+    "max_graphs_regressed": 2,
+    "require_zero_leaks": true,
+    "episodes_per_arm": 3
+  },
+  "episodes_per_arm": 3,
+  "graphs": {
+    "alert-noise-reduction": {
+      "leaks": [],
+      "off": {
+        "pass_rate": 1.0,
+        "n": 6,
+        "results": [
+          {
+            "case": "single-item",
+            "episode": 0,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "single-item",
+            "episode": 1,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "single-item",
+            "episode": 2,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 0,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 1,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 2,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          }
+        ]
+      },
+      "on": {
+        "pass_rate": 1.0,
+        "n": 6,
+        "results": [
+          {
+            "case": "single-item",
+            "episode": 0,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "single-item",
+            "episode": 1,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "single-item",
+            "episode": 2,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 0,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 1,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          },
+          {
+            "case": "multi-item",
+            "episode": 2,
+            "passed": true,
+            "steps": 3,
+            "failure_kinds": [],
+            "assert_failures": []
+          }
+        ]
+      },
+      "delta": 0.0
+    }
+  },
+  "verdict": {
+    "mean_delta": 0.0,
+    "graphs": 1,
+    "improved": 0,
+    "regressed": 0,
+    "leaks_total": 0,
+    "passes": false
+  }
+}

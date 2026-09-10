@@ -160,3 +160,89 @@ rubric. If guidance only works when it leaks, it does not work.
 - **Authoring bias.** The guidance was written after seeing each graph's failures.
   That is the honest way to author it, but it means a positive result needs
   confirmation on a case the author did not see before it generalizes.
+
+---
+
+# RESULT (2026-09-10, qwen3-coder:30b, 3 paired episodes per arm)
+
+**The mechanism failed its own pre-registered criteria. It is not adopted.**
+
+| graph | guidance OFF | guidance ON | delta |
+|---|---|---|---|
+| `blog-production-pipeline` | 0.0 | 0.0 | 0.0 |
+| `alert-noise-reduction` | 1.0 | 1.0 | 0.0 |
+| `self-healing-ci` | 0.0 | 0.0 | 0.0 |
+| `adverse-event-scanner` | 1.0 | 1.0 | 0.0 |
+| `contract-lifecycle` | 0.0 | 0.0 | 0.0 |
+| `supplier-risk-monitor` | 0.0 | 0.0 | 0.0 |
+| `bug-triage-and-fix` | 1.0 | **0.0** | **−1.0** |
+| `framework-migration` | 1.0 | 1.0 | 0.0 |
+
+| criterion | required | actual | |
+|---|---|---|---|
+| mean delta | ≥ +0.25 | **−0.125** | ✗ |
+| graphs improved | ≥ 5 of 8 | **0** | ✗ |
+| graphs regressed | ≤ 2 | 1 | ✓ |
+| leaks | 0 | 0 | ✓ |
+
+**Zero graphs improved.** Not one of the eight got better, and the four failing
+graphs failed identically in both arms on the same asserts. The single change the
+mechanism produced was a regression.
+
+## Why the regression is the interesting part
+
+`bug-triage-and-fix` went from 6/6 to 0/6. The cause is exact:
+
+| arm | `exit_before` | `exit_after` | |
+|---|---|---|---|
+| OFF | 1 | 0 | correct — broken before the fix, passing after |
+| ON | 0 | 1 | inverted |
+
+The guidance narrated the procedure: *"record what the check returned before you
+change anything, then make the fix and run the same check again."* The node's
+declared outputs are `exit_before` and `exit_after` — **the field names already
+encode that sequence**. The prose restated it in a second, weaker notation, and the
+model resolved the conflict by swapping them.
+
+This is a failure mode the paper does not discuss, and it is not an artefact of
+badly written guidance. It is structural: **procedural prose competes with a
+contract that already expresses the procedure.** AGR nodes declare typed outputs and
+carry `criteria`; a node whose schema says `exit_before`/`exit_after` does not need
+to be told the order, and telling it anyway introduces ambiguity where there was
+none.
+
+## A correction found while diagnosing
+
+The first run scored `alert-noise-reduction` as a second regression (1.0 → 0.5).
+It was not. The `single-item` case had been seeded with **one** alert against an
+assert demanding `dedupe_ratio > 0`. With nothing repeated in the stream the correct
+answer is zero:
+
+- guidance OFF reported `dedupe_ratio: 1` — factually wrong, and it passed
+- guidance ON reported `dedupe_ratio: 0` — correct, and it failed
+
+Guidance made the model more accurate and the assert punished it for it. The fixture
+was mine and it was wrong: "single item" means one underlying *cause*, not one alert.
+Re-seeded with three alerts sharing a cause, the graph scores 1.0 in both arms.
+
+Worth recording twice over: a fixture can punish a correct answer, and the first
+reading of a regression can be exactly backwards.
+
+## What this does and does not settle
+
+**Settles:** hand-authored edge guidance does not improve pass rates on this
+registry at this model size, and can invert a contract that already encodes
+sequence. L3 — an LLM refiner that writes guidance automatically — should not be
+built. It would be automating the production of an artefact measured at zero mean
+benefit, hill-climbing on a signal this experiment could not detect.
+
+**Does not settle:** whether guidance helps a frontier model; whether it helps on
+graphs whose contracts do *not* already encode the procedure; whether generative
+guidance (the paper's actual `Ψ`, which this deliberately replaced with static
+serialization) behaves differently. All three remain open, and none is worth opening
+before the fixture work is finished registry-wide.
+
+**Kept regardless:** the v1.9 schema and wiring stay in the repo. They cost nothing
+when unused — a graph declaring no guidance renders a byte-identical prompt — and
+the leak audit, the paired-episode harness, and the pre-registered rule are reusable
+for the next mechanism that wants evaluating.
