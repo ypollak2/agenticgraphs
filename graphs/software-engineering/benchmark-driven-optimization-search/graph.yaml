@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: benchmark-driven-optimization-search
 description: Branch candidate optimizations, score each on a real benchmark, keep the beam, prune the rest.
 category: software-engineering

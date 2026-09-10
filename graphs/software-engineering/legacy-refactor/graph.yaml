@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: legacy-refactor
 description: Refactor a module behind characterization tests.
 category: software-engineering

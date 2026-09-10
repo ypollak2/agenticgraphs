@@ -1,0 +1,150 @@
+{
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "contract": {
+   "name": "Meridian MSA",
+   "clauses": [
+    {
+     "id": "m1",
+     "type": "liability_cap",
+     "text": "Unlimited liability for all claims."
+    },
+    {
+     "id": "m2",
+     "type": "payment_terms",
+     "text": "Net 90 from invoice."
+    },
+    {
+     "id": "m3",
+     "type": "termination",
+     "text": "Termination for convenience with 180 days notice."
+    }
+   ]
+  },
+  "playbook": {
+   "year": 2026,
+   "positions": [
+    {
+     "playbook_ref": "PB-2",
+     "rule": "cap at 12 months fees"
+    },
+    {
+     "playbook_ref": "PB-5",
+     "rule": "Net 30 standard, Net 45 maximum"
+    },
+    {
+     "playbook_ref": "PB-8",
+     "rule": "termination for convenience at 60 days"
+    }
+   ]
+  },
+  "goal": "the Meridian MSA, against the 2026 commercial playbook"
+ },
+ "node_outputs": {
+  "intake": {
+   "summary": "The Meridian MSA contains unlimited liability for all claims, which conflicts with the 2026 playbook's cap at 12 months fees (PB-2). The MSA specifies Net 90 payment terms, exceeding the playbook's standard Net 30 and maximum Net 45 (PB-5). Additionally, the MSA allows termination for convenience with 180 days notice, surpassing the playbook's 60-day requirement (PB-8)."
+  },
+  "playbook-lookup": {
+   "playbook_positions": [
+    {
+     "clause_id": "m1",
+     "position_ref": "PB-2",
+     "accepted": false
+    },
+    {
+     "clause_id": "m2",
+     "position_ref": "PB-5",
+     "accepted": false
+    },
+    {
+     "clause_id": "m3",
+     "position_ref": "PB-8",
+     "accepted": false
+    }
+   ]
+  },
+  "produce": [
+   {
+    "redlines": [
+     {
+      "playbook_ref": "PB-2"
+     },
+     {
+      "playbook_ref": "PB-5"
+     },
+     {
+      "playbook_ref": "PB-8"
+     }
+    ]
+   },
+   {
+    "redlines": [
+     {
+      "playbook_ref": "PB-2"
+     },
+     {
+      "playbook_ref": "PB-5"
+     },
+     {
+      "playbook_ref": "PB-8"
+     }
+    ]
+   }
+  ],
+  "review": [
+   {
+    "output": {
+     "redlines": [
+      {
+       "playbook_ref": "PB-2",
+       "risk": "Unlimited liability for all claims creates unbounded financial exposure, contrary to the playbook's cap at 12 months fees."
+      },
+      {
+       "playbook_ref": "PB-5",
+       "risk": "Net 90 payment terms exceed the playbook's standard Net 30 and maximum Net 45, increasing cash flow risk."
+      },
+      {
+       "playbook_ref": "PB-8",
+       "risk": "Termination for convenience with 180 days notice exceeds the playbook's 60-day requirement, providing excessive leverage to the counterparty."
+      }
+     ]
+    },
+    "revision_requested": true
+   },
+   {
+    "output": {
+     "redlines": [
+      {
+       "playbook_ref": "PB-2",
+       "risk": "The original clause allows unlimited liability for all claims, which creates financial risk exceeding the playbook's cap at 12 months fees."
+      },
+      {
+       "playbook_ref": "PB-5",
+       "risk": "The original clause specifies Net 90 payment terms, which exceeds the playbook's standard Net 30 and maximum Net 45."
+      },
+      {
+       "playbook_ref": "PB-8",
+       "risk": "The original clause allows termination for convenience with 180 days notice, which exceeds the playbook's 60-day requirement."
+      }
+     ]
+    },
+    "revision_requested": true
+   }
+  ]
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
+}

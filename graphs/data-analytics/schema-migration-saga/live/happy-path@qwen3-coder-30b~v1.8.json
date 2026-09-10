@@ -1,6 +1,6 @@
 {
  "model": "qwen3-coder:30b",
- "recorded": "2026-08-31",
+ "recorded": "2026-09-10",
  "endpoint": "http://localhost:11434/v1",
  "spec": "agr/v1.8",
  "sampling": {
@@ -9,6 +9,45 @@
   "max_tokens": 2048
  },
  "inputs": {
+  "source_schema": {
+   "name": "orders_v3",
+   "rows": 52000,
+   "columns": [
+    {
+     "n": "id",
+     "t": "int"
+    },
+    {
+     "n": "total_cents",
+     "t": "int"
+    },
+    {
+     "n": "status",
+     "t": "text"
+    }
+   ]
+  },
+  "target_schema": {
+   "name": "orders_v4",
+   "columns": [
+    {
+     "n": "id",
+     "t": "int"
+    },
+    {
+     "n": "total_cents",
+     "t": "int"
+    },
+    {
+     "n": "status",
+     "t": "text"
+    },
+    {
+     "n": "currency",
+     "t": "text"
+    }
+   ]
+  },
   "goal": "orders v3 to v4, keeping orders readable throughout"
  },
  "node_outputs": {
@@ -16,38 +55,28 @@
    "migration_plan": [
     {
      "step": 1,
-     "action": "decompose_goal",
-     "details": "Break down v3 to v4 orders migration into manageable components"
+     "action": "validate_source_schema",
+     "compensator": "noop"
     },
     {
      "step": 2,
-     "action": "validate_v3_orders",
-     "details": "Verify all v3 order data integrity and readability before migration"
+     "action": "create_target_table",
+     "compensator": "drop_target_table"
     },
     {
      "step": 3,
-     "action": "create_v4_schema",
-     "details": "Design and implement v4 order schema maintaining readability standards"
+     "action": "migrate_data_with_currency_column",
+     "compensator": "rollback_migrated_data"
     },
     {
      "step": 4,
-     "action": "migrate_orders_batch",
-     "details": "Migrate orders in small batches with validation at each step"
+     "action": "validate_data_integrity",
+     "compensator": "revert_validation"
     },
     {
      "step": 5,
-     "action": "validate_v4_orders",
-     "details": "Ensure migrated orders maintain readability and data integrity"
-    },
-    {
-     "step": 6,
-     "action": "update_references",
-     "details": "Update all system references to point to v4 orders"
-    },
-    {
-     "step": 7,
-     "action": "cleanup_v3",
-     "details": "Remove v3 order data after successful migration and validation"
+     "action": "update_table_constraints",
+     "compensator": "remove_table_constraints"
     }
    ]
   },
@@ -61,15 +90,20 @@
   },
   "cutover": {
    "cutover_done": true,
-   "cutover_failed": false
+   "cutover_failed": false,
+   "executed_steps": 5
   },
   "verify": {
-   "source_rows": 1000,
-   "target_rows": 1000,
+   "source_rows": 52000,
+   "target_rows": 52000,
    "parity_verified": true
   }
  },
  "tool_calls": [],
- "superseded_by": "v19-fixture-pass",
- "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
 }

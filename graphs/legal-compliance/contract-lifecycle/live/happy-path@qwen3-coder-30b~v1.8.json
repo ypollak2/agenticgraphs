@@ -1,6 +1,6 @@
 {
  "model": "qwen3-coder:30b",
- "recorded": "2026-08-31",
+ "recorded": "2026-09-10",
  "endpoint": "http://localhost:11434/v1",
  "spec": "agr/v1.8",
  "sampling": {
@@ -9,81 +9,147 @@
   "max_tokens": 2048
  },
  "inputs": {
+  "contract": {
+   "name": "Acme MSA",
+   "counterparty": "Acme Corp",
+   "term_months": 24,
+   "clauses": [
+    {
+     "id": "c1",
+     "type": "liability_cap",
+     "text": "Liability capped at 12 months of fees.",
+     "risk": "low"
+    },
+    {
+     "id": "c2",
+     "type": "indemnity",
+     "text": "Supplier indemnifies customer for IP claims.",
+     "risk": "low"
+    },
+    {
+     "id": "c3",
+     "type": "auto_renew",
+     "text": "Renews automatically unless cancelled 90 days prior.",
+     "risk": "medium"
+    },
+    {
+     "id": "c4",
+     "type": "data_residency",
+     "text": "Data may be processed in any region.",
+     "risk": "medium"
+    }
+   ],
+   "signatories": [
+    {
+     "party": "Acme Corp",
+     "role": "VP Procurement"
+    },
+    {
+     "party": "Our Co",
+     "role": "General Counsel"
+    }
+   ],
+   "risk_appetite": "medium"
+  },
   "goal": "review the Acme MSA under our standard enterprise risk posture"
  },
  "node_outputs": {
   "intake": {
    "clauses": [
-    "Termination for convenience clause",
-    "Data protection and privacy clause",
-    "Intellectual property ownership clause",
-    "Indemnification and liability limitation clause",
-    "Compliance with applicable laws clause"
+    {
+     "id": "c1",
+     "risk": "low"
+    },
+    {
+     "id": "c2",
+     "risk": "low"
+    },
+    {
+     "id": "c3",
+     "risk": "medium"
+    },
+    {
+     "id": "c4",
+     "risk": "medium"
+    }
    ]
   },
   "redline.intake": {
-   "summary": "Acme MSA presents moderate risk exposure across multiple clauses. Termination for convenience clause allows either party to end agreement with minimal penalty, creating potential operational disruption risk. Data protection and privacy clause requires strengthening to meet enterprise security standards. Intellectual property ownership clause needs clarification on usage rights and ownership transfer mechanisms. Indemnification and liability limitation clause provides insufficient protection against third-party claims. Compliance with applicable laws clause lacks specific regulatory adherence requirements. Overall risk posture rated as moderate-high, requiring additional contractual safeguards before proceeding."
+   "summary": "Acme MSA presents medium overall risk profile. Key concerns include auto-renew clause (medium risk) and data residency clause (medium risk). Liability cap and indemnity clauses are low risk. Contract terms align with our medium risk appetite but require careful monitoring of renewal obligations and data handling practices."
   },
   "redline.playbook-lookup": {
    "playbook_positions": [
     {
-     "clause": "Termination for convenience clause",
-     "position": "Standard termination for convenience with 30-day notice required, business accepts 30-day window as acceptable risk threshold"
+     "clause_id": "c1",
+     "position": "Liability capped at 12 months of fees.",
+     "applicable_playbook_section": "Risk Mitigation - Financial Liability",
+     "fallback_acceptance": "Low risk, acceptable under current posture"
     },
     {
-     "clause": "Data protection and privacy clause",
-     "position": "Enterprise data protection standard requires encryption at rest and in transit, business accepts additional security controls as necessary to meet compliance requirements"
+     "clause_id": "c2",
+     "position": "Supplier indemnifies customer for IP claims.",
+     "applicable_playbook_section": "Risk Mitigation - Intellectual Property",
+     "fallback_acceptance": "Low risk, acceptable under current posture"
     },
     {
-     "clause": "Intellectual property ownership clause",
-     "position": "IP ownership must be clearly defined with transfer mechanisms, business accepts standard IP ownership model with explicit licensing terms"
+     "clause_id": "c3",
+     "position": "Renews automatically unless cancelled 90 days prior.",
+     "applicable_playbook_section": "Contract Management - Renewal Obligations",
+     "fallback_acceptance": "Medium risk, acceptable with monitoring and escalation protocols"
     },
     {
-     "clause": "Indemnification and liability limitation clause",
-     "position": "Liability limitation capped at contract value, business accepts this as baseline but requires additional indemnification for third-party claims"
-    },
-    {
-     "clause": "Compliance with applicable laws clause",
-     "position": "General compliance clause acceptable, business requires specific regulatory adherence requirements to be added to contract"
+     "clause_id": "c4",
+     "position": "Data may be processed in any region.",
+     "applicable_playbook_section": "Data Governance - Cross-Border Data Handling",
+     "fallback_acceptance": "Medium risk, acceptable with compliance monitoring and data protection measures"
     }
    ]
   },
   "redline.produce": {
    "redlines": [
     {
-     "playbook_ref": "Termination for convenience clause"
+     "playbook_ref": "Risk Mitigation - Financial Liability"
     },
     {
-     "playbook_ref": "Data protection and privacy clause"
+     "playbook_ref": "Risk Mitigation - Intellectual Property"
     },
     {
-     "playbook_ref": "Intellectual property ownership clause"
+     "playbook_ref": "Contract Management - Renewal Obligations"
     },
     {
-     "playbook_ref": "Indemnification and liability limitation clause"
-    },
-    {
-     "playbook_ref": "Compliance with applicable laws clause"
+     "playbook_ref": "Data Governance - Cross-Border Data Handling"
     }
    ]
   },
   "redline.review": {
-   "output": "All redlines properly cite their corresponding playbook positions and clearly identify the risk created by the original language. Each redline aligns with the enterprise risk posture and provides necessary contractual safeguards. No stylistic edits without playbook references are present.",
+   "output": {
+    "redlines": [
+     {
+      "playbook_ref": "Risk Mitigation - Financial Liability"
+     },
+     {
+      "playbook_ref": "Risk Mitigation - Intellectual Property"
+     },
+     {
+      "playbook_ref": "Contract Management - Renewal Obligations"
+     },
+     {
+      "playbook_ref": "Data Governance - Cross-Border Data Handling"
+     }
+    ]
+   },
    "redlines": [
     {
-     "playbook_ref": "Termination for convenience clause"
+     "playbook_ref": "Risk Mitigation - Financial Liability"
     },
     {
-     "playbook_ref": "Data protection and privacy clause"
+     "playbook_ref": "Risk Mitigation - Intellectual Property"
     },
     {
-     "playbook_ref": "Intellectual property ownership clause"
+     "playbook_ref": "Contract Management - Renewal Obligations"
     },
     {
-     "playbook_ref": "Indemnification and liability limitation clause"
-    },
-    {
-     "playbook_ref": "Compliance with applicable laws clause"
+     "playbook_ref": "Data Governance - Cross-Border Data Handling"
     }
    ],
    "revision_requested": false
@@ -92,18 +158,40 @@
    "residual_risk": "medium"
   },
   "execute": {
-   "output": "All redlines properly cite their corresponding playbook positions and clearly identify the risk created by the original language. Each redline aligns with the enterprise risk posture and provides necessary contractual safeguards. No stylistic edits without playbook references are present.",
+   "output": {
+    "residual_risk_level": "medium",
+    "signatures": [
+     {
+      "party": "Acme Corp",
+      "dated": null
+     },
+     {
+      "party": "Our Co",
+      "dated": null
+     }
+    ],
+    "signed_off": true
+   },
    "residual_risk_level": "medium",
    "signatures": [
     {
-     "party": "counsel",
+     "party": "Acme Corp",
+     "dated": null
+    },
+    {
+     "party": "Our Co",
      "dated": null
     }
-   ],
-   "signed_off": true
+   ]
   }
  },
  "tool_calls": [],
- "superseded_by": "v19-fixture-pass",
- "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
+ "failure_kinds": [
+  "assert"
+ ],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
 }

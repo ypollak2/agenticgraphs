@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: differential-diagnosis-ensemble
 description: Independent diagnosticians rank hypotheses; a quorum decides and dissent is reported, never dropped.
 category: healthcare-science

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: citation-integrity-audit
 description: Workers verify each citation exists and supports its claim.
 category: research-knowledge

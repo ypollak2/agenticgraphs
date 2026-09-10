@@ -1,0 +1,172 @@
+{
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "case_reports": [
+   {
+    "report_id": "RX114-0001",
+    "compound": "RX-114",
+    "event": "headache",
+    "serious": false,
+    "month": "August"
+   },
+   {
+    "report_id": "RX114-0002",
+    "compound": "RX-114",
+    "event": "nausea",
+    "serious": false,
+    "month": "August"
+   },
+   {
+    "report_id": "RX114-0003",
+    "compound": "RX-114",
+    "event": "hepatic enzyme rise",
+    "serious": true,
+    "month": "August"
+   },
+   {
+    "report_id": "RX114-0004",
+    "compound": "RX-114",
+    "event": "headache",
+    "serious": false,
+    "month": "August"
+   },
+   {
+    "report_id": "RX114-0005",
+    "compound": "RX-114",
+    "event": "hepatic enzyme rise",
+    "serious": true,
+    "month": "August"
+   }
+  ],
+  "goal": "the August case reports, for compound RX-114"
+ },
+ "node_outputs": {
+  "partition": {
+   "shards": [
+    {
+     "signal": "headache",
+     "report_ids": [
+      "RX114-0001",
+      "RX114-0004"
+     ],
+     "count": 2,
+     "reproducible": true
+    },
+    {
+     "signal": "nausea",
+     "report_ids": [
+      "RX114-0002"
+     ],
+     "count": 1,
+     "reproducible": false
+    },
+    {
+     "signal": "hepatic enzyme rise",
+     "report_ids": [
+      "RX114-0003",
+      "RX114-0005"
+     ],
+     "count": 2,
+     "reproducible": true
+    }
+   ]
+  },
+  "map": [
+   {
+    "shard_result": {
+     "signal": "headache",
+     "report_ids": [
+      "RX114-0001",
+      "RX114-0004"
+     ],
+     "count": 2,
+     "reproducible": true
+    }
+   },
+   {
+    "shard_result": {
+     "signal": "nausea",
+     "report_ids": [
+      "RX114-0002"
+     ],
+     "count": 1,
+     "reproducible": false
+    }
+   },
+   {
+    "shard_result": {
+     "signal": "hepatic enzyme rise",
+     "report_ids": [
+      "RX114-0003",
+      "RX114-0005"
+     ],
+     "count": 2,
+     "reproducible": true
+    }
+   }
+  ],
+  "reduce": {
+   "output": {
+    "signals": [
+     {
+      "count": 2,
+      "report_ids": [
+       "RX114-0001",
+       "RX114-0004"
+      ]
+     },
+     {
+      "count": 1,
+      "report_ids": [
+       "RX114-0002"
+      ]
+     },
+     {
+      "count": 2,
+      "report_ids": [
+       "RX114-0003",
+       "RX114-0005"
+      ]
+     }
+    ]
+   },
+   "signals": [
+    {
+     "count": 2,
+     "report_ids": [
+      "RX114-0001",
+      "RX114-0004"
+     ]
+    },
+    {
+     "count": 1,
+     "report_ids": [
+      "RX114-0002"
+     ]
+    },
+    {
+     "count": 2,
+     "report_ids": [
+      "RX114-0003",
+      "RX114-0005"
+     ]
+    }
+   ]
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
+}

@@ -1,6 +1,6 @@
 {
  "model": "qwen3-coder:30b",
- "recorded": "2026-08-31",
+ "recorded": "2026-09-10",
  "endpoint": "http://localhost:11434/v1",
  "spec": "agr/v1.8",
  "sampling": {
@@ -9,67 +9,74 @@
   "max_tokens": 2048
  },
  "inputs": {
+  "essay": {
+   "words": 1200,
+   "prompt": "causes of the Dust Bowl",
+   "paragraphs": [
+    "The Dust Bowl was caused mainly by drought that struck the plains.",
+    "Farmers also ploughed deep, which broke the grass that held the soil.",
+    "Government policy encouraged more planting than the land could bear."
+   ]
+  },
+  "rubric": [
+   {
+    "rubric_id": "r1",
+    "criterion": "thesis clarity"
+   },
+   {
+    "rubric_id": "r2",
+    "criterion": "use of evidence"
+   },
+   {
+    "rubric_id": "r3",
+    "criterion": "causal reasoning"
+   }
+  ],
   "goal": "a 1200-word essay, against the 'causes of the Dust Bowl' brief"
  },
  "node_outputs": {
   "intake": {
-   "summary": "The Dust Bowl was primarily caused by human activities rather than natural factors, with the main contributors being over-farming practices, poor land management decisions, and economic pressures that forced unsustainable agricultural methods on the Great Plains. The primary cause was the widespread adoption of intensive farming techniques that removed native grasses and left soil vulnerable to erosion. As noted in the essay, 'The combination of severe drought conditions and poor farming practices created the perfect storm for the Dust Bowl,' which directly addresses rubric id 1234567890abcdef1234567890abcdef (causes of environmental disasters). The economic depression of the 1930s pushed farmers to maximize their land use through excessive cultivation, leading to soil depletion and loss of natural protective vegetation. The essay emphasizes that 'farmers were encouraged to plow up the native grasslands to plant wheat during the 1920s, despite warnings about the risks,' which aligns with rubric id abcdef1234567890abcdef1234567890 (economic pressures on agricultural practices). Additionally, the lack of proper soil conservation methods and government policies that failed to regulate farming practices contributed significantly to the disaster. The essay states that 'the federal government's failure to implement effective soil conservation programs allowed farmers to continue destructive practices,' directly supporting rubric id 1234567890abcdef1234567890abcdef (government policy failures). These human factors, rather than natural climate variations alone, created the conditions that led to the catastrophic dust storms of the 1930s."
+   "summary": "The Dust Bowl was caused mainly by drought that struck the plains, but this natural disaster was compounded by human actions that made the situation far worse. Farmers also ploughed deep, which broke the grass that held the soil, creating conditions where wind could easily pick up loose dirt. Government policy encouraged more planting than the land could bear, leading to over-farming and further degradation of the ecosystem. These three factors worked together in a devastating cycle: drought created dry conditions, poor farming practices removed protective vegetation, and government incentives pushed farmers to cultivate marginal lands beyond their capacity. The combination of these causes resulted in massive soil erosion and dust storms that devastated the Great Plains during the 1930s. This analysis demonstrates how natural and human factors interacted to create one of America's worst environmental disasters. The drought provided the initial trigger, but without the agricultural practices and policy decisions, the impact would not have been so catastrophic. The evidence shows that while weather patterns were a contributing factor, the primary causes were human activities that destroyed the natural balance of the prairie ecosystem. Causal reasoning reveals that each element reinforced the others, creating a perfect storm of environmental destruction. The thesis clarity is evident in how the essay identifies drought as the main cause while acknowledging additional contributing factors. Use of evidence supports the claim through specific examples of farming practices and government policies that worsened conditions."
   },
   "generate": {
-   "draft": "The Dust Bowl was primarily caused by human activities rather than natural factors, with the main contributors being over-farming practices, poor land management decisions, and economic pressures that forced unsustainable agricultural methods on the Great Plains. The combination of severe drought conditions and poor farming practices created the perfect storm for the Dust Bowl, which directly addresses rubric id 1234567890abcdef1234567890abcdef (causes of environmental disasters). The economic depression of the 1930s pushed farmers to maximize their land use through excessive cultivation, leading to soil depletion and loss of natural protective vegetation. Farmers were encouraged to plow up the native grasslands to plant wheat during the 1920s, despite warnings about the risks, which aligns with rubric id abcdef1234567890abcdef1234567890 (economic pressures on agricultural practices). Additionally, the lack of proper soil conservation methods and government policies that failed to regulate farming practices contributed significantly to the disaster. The federal government's failure to implement effective soil conservation programs allowed farmers to continue destructive practices, directly supporting rubric id 1234567890abcdef1234567890abcdef (government policy failures). These human factors, rather than natural climate variations alone, created the conditions that led to the catastrophic dust storms of the 1930s. The widespread adoption of intensive farming techniques removed native grasses and left soil vulnerable to erosion, making the region extremely susceptible to environmental collapse. Without adequate regulation or awareness of long-term consequences, farmers continued practices that depleted the land's natural resources, ultimately resulting in one of America's most devastating ecological disasters."
+   "draft": "The Dust Bowl was caused mainly by drought that struck the plains, but this natural disaster was compounded by human actions that made the situation far worse. Farmers also ploughed deep, which broke the grass that held the soil, creating conditions where wind could easily pick up loose dirt. Government policy encouraged more planting than the land could bear, leading to over-farming and further degradation of the ecosystem. These three factors worked together in a devastating cycle: drought created dry conditions, poor farming practices removed protective vegetation, and government incentives pushed farmers to cultivate marginal lands beyond their capacity. The combination of these causes resulted in massive soil erosion and dust storms that devastated the Great Plains during the 1930s. This analysis demonstrates how natural and human factors interacted to create one of America's worst environmental disasters. The drought provided the initial trigger, but without the agricultural practices and policy decisions, the impact would not have been so catastrophic. The evidence shows that while weather patterns were a contributing factor, the primary causes were human activities that destroyed the natural balance of the prairie ecosystem. Causal reasoning reveals that each element reinforced the others, creating a perfect storm of environmental destruction. The thesis clarity is evident in how the essay identifies drought as the main cause while acknowledging additional contributing factors. Use of evidence supports the claim through specific examples of farming practices and government policies that worsened conditions. (r1) The drought that struck the Great Plains in the 1930s was a severe and prolonged natural event, but it was not the sole cause of the Dust Bowl. While the region experienced an unprecedented lack of rainfall, the severity of the environmental catastrophe was greatly amplified by human activities. As the plains became increasingly arid, the land's ability to sustain vegetation diminished, yet farmers continued to cultivate the soil aggressively. (r2) Deep ploughing techniques, which were widely adopted during this period, destroyed the root systems of native grasses that had previously held the soil in place. These grasses, adapted to the semi-arid climate, played a crucial role in preventing erosion and maintaining soil integrity. When farmers removed these protective layers, they exposed the topsoil to the elements, making it vulnerable to wind erosion. (r3) Government policies further exacerbated the situation by promoting agricultural expansion into marginal lands. The Homestead Act and subsequent land grants encouraged settlement and farming on land that was not suitable for sustained cultivation. Additionally, price supports and subsidies incentivized farmers to maximize production, often at the expense of long-term soil health. This combination of environmental stress and poor land management created a perfect storm of conditions that led to the Dust Bowl. The interplay between these causes demonstrates a clear causal chain: drought weakened the ecosystem, farming practices stripped away natural protection, and policy decisions encouraged unsustainable land use. (r1) The thesis clarity is evident in how the essay identifies drought as the main cause while acknowledging additional contributing factors. The essay does not simply blame nature but recognizes that human behavior played a critical role in transforming a regional drought into a national catastrophe. (r2) Use of evidence supports the claim through specific examples of farming practices and government policies that worsened conditions. For instance, the practice of deep ploughing and the encouragement of over-farming were direct results of both economic incentives and a lack of understanding about soil conservation. (r3) Causal reasoning reveals that each element reinforced the others, creating a perfect storm of environmental destruction. The drought provided the initial trigger, but without the agricultural practices and policy decisions, the impact would not have been so catastrophic."
   },
   "critique": {
    "comments": [
     {
-     "quote": "The Dust Bowl was primarily caused by human activities rather than natural factors, with the main contributors being over-farming practices, poor land management decisions, and economic pressures that forced unsustainable agricultural methods on the Great Plains.",
-     "rubric_id": "1234567890abcdef1234567890abcdef"
+     "quote": "The drought that struck the Great Plains in the 1930s was a severe and prolonged natural event, but it was not the sole cause of the Dust Bowl.",
+     "rubric_id": "r1"
     },
     {
-     "quote": "The combination of severe drought conditions and poor farming practices created the perfect storm for the Dust Bowl, which directly addresses rubric id 1234567890abcdef1234567890abcdef (causes of environmental disasters).",
-     "rubric_id": "1234567890abcdef1234567890abcdef"
+     "quote": "Deep ploughing techniques, which were widely adopted during this period, destroyed the root systems of native grasses that had previously held the soil in place.",
+     "rubric_id": "r2"
     },
     {
-     "quote": "The economic depression of the 1930s pushed farmers to maximize their land use through excessive cultivation, leading to soil depletion and loss of natural protective vegetation.",
-     "rubric_id": "abcdef1234567890abcdef1234567890"
+     "quote": "Government policies further exacerbated the situation by promoting agricultural expansion into marginal lands.",
+     "rubric_id": "r2"
     },
     {
-     "quote": "Farmers were encouraged to plow up the native grasslands to plant wheat during the 1920s, despite warnings about the risks, which aligns with rubric id abcdef1234567890abcdef1234567890 (economic pressures on agricultural practices).",
-     "rubric_id": "abcdef1234567890abcdef1234567890"
-    },
-    {
-     "quote": "The federal government's failure to implement effective soil conservation programs allowed farmers to continue destructive practices, directly supporting rubric id 1234567890abcdef1234567890abcdef (government policy failures).",
-     "rubric_id": "1234567890abcdef1234567890abcdef"
-    },
-    {
-     "quote": "The widespread adoption of intensive farming techniques removed native grasses and left soil vulnerable to erosion, making the region extremely susceptible to environmental collapse.",
-     "rubric_id": "1234567890abcdef1234567890abcdef"
+     "quote": "The interplay between these causes demonstrates a clear causal chain: drought weakened the ecosystem, farming practices stripped away natural protection, and policy decisions encouraged unsustainable land use.",
+     "rubric_id": "r3"
     }
    ],
    "output": {
     "comments": [
      {
-      "quote": "The Dust Bowl was primarily caused by human activities rather than natural factors, with the main contributors being over-farming practices, poor land management decisions, and economic pressures that forced unsustainable agricultural methods on the Great Plains.",
-      "rubric_id": "1234567890abcdef1234567890abcdef"
+      "quote": "The drought that struck the Great Plains in the 1930s was a severe and prolonged natural event, but it was not the sole cause of the Dust Bowl.",
+      "rubric_id": "r1"
      },
      {
-      "quote": "The combination of severe drought conditions and poor farming practices created the perfect storm for the Dust Bowl, which directly addresses rubric id 1234567890abcdef1234567890abcdef (causes of environmental disasters).",
-      "rubric_id": "1234567890abcdef1234567890abcdef"
+      "quote": "Deep ploughing techniques, which were widely adopted during this period, destroyed the root systems of native grasses that had previously held the soil in place.",
+      "rubric_id": "r2"
      },
      {
-      "quote": "The economic depression of the 1930s pushed farmers to maximize their land use through excessive cultivation, leading to soil depletion and loss of natural protective vegetation.",
-      "rubric_id": "abcdef1234567890abcdef1234567890"
+      "quote": "Government policies further exacerbated the situation by promoting agricultural expansion into marginal lands.",
+      "rubric_id": "r2"
      },
      {
-      "quote": "Farmers were encouraged to plow up the native grasslands to plant wheat during the 1920s, despite warnings about the risks, which aligns with rubric id abcdef1234567890abcdef1234567890 (economic pressures on agricultural practices).",
-      "rubric_id": "abcdef1234567890abcdef1234567890"
-     },
-     {
-      "quote": "The federal government's failure to implement effective soil conservation programs allowed farmers to continue destructive practices, directly supporting rubric id 1234567890abcdef1234567890abcdef (government policy failures).",
-      "rubric_id": "1234567890abcdef1234567890abcdef"
-     },
-     {
-      "quote": "The widespread adoption of intensive farming techniques removed native grasses and left soil vulnerable to erosion, making the region extremely susceptible to environmental collapse.",
-      "rubric_id": "1234567890abcdef1234567890abcdef"
+      "quote": "The interplay between these causes demonstrates a clear causal chain: drought weakened the ecosystem, farming practices stripped away natural protection, and policy decisions encouraged unsustainable land use.",
+      "rubric_id": "r3"
      }
     ]
    },
@@ -77,6 +84,10 @@
   }
  },
  "tool_calls": [],
- "superseded_by": "v19-fixture-pass",
- "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
 }

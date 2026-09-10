@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: docs-code-sync-audit
 description: Extract every code example from the docs and execute it, recording the real exit code for each.
 category: software-engineering

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: expense-audit-swarm
 description: Workers audit expense lines against policy in parallel.
 category: finance

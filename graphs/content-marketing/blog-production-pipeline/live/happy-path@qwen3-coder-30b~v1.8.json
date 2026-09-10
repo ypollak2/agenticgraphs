@@ -1,6 +1,6 @@
 {
  "model": "qwen3-coder:30b",
- "recorded": "2026-08-31",
+ "recorded": "2026-09-10",
  "endpoint": "http://localhost:11434/v1",
  "spec": "agr/v1.8",
  "sampling": {
@@ -9,49 +9,74 @@
   "max_tokens": 2048
  },
  "inputs": {
+  "brief": {
+   "title": "Observability for small teams",
+   "audience": "platform engineers",
+   "must_cover": [
+    "what to instrument first",
+    "cost control",
+    "on-call ergonomics"
+   ],
+   "word_target": 900
+  },
+  "style_guide": {
+   "banned_phrases": [
+    "leverage",
+    "synergy",
+    "game-changing",
+    "in today's fast-paced world"
+   ],
+   "voice": "second person, active",
+   "max_sentence_words": 32,
+   "require_code_example": true
+  },
+  "reference_corpus": [
+   {
+    "id": "r1",
+    "text": "Start by instrumenting the request path end to end before adding custom metrics."
+   },
+   {
+    "id": "r2",
+    "text": "Sampling is the main lever teams have on observability spend."
+   },
+   {
+    "id": "r3",
+    "text": "Alert on symptoms your users feel, not on every resource threshold."
+   }
+  ],
   "goal": "the 'observability for small teams' brief, for platform engineers"
  },
  "node_outputs": {
   "intake": {
-   "summary": "Observability for small teams requires streamlined, accessible monitoring solutions that don't overwhelm limited resources. Platform engineers should focus on implementing foundational metrics collection, log aggregation, and distributed tracing using lightweight tools. Key considerations include selecting observability platforms that offer easy setup, minimal operational overhead, and clear value propositions for small organizations. The approach should emphasize simplicity, automation, and integration with existing development workflows to ensure sustainable monitoring practices without requiring extensive specialized knowledge or large teams."
+   "summary": "Focus on instrumenting request paths end to end first. This gives visibility into user experience before adding custom metrics. Control costs through sampling - it's your primary tool for managing observability spend. Set alerts on user symptoms, not resource thresholds. This approach keeps on-call responsibilities manageable and ensures you measure what matters most to users."
   },
   "outline": {
    "outline": [
     {
-     "section": "Introduction and Problem Statement",
-     "claim": "Small teams lack the resources and expertise to implement comprehensive observability solutions",
-     "evidence": "Survey data showing 73% of small teams struggle with monitoring complexity, case studies of teams reducing alert fatigue by 60% through streamlined tools"
+     "section": "Start with Request Path Instrumentation",
+     "claim": "Instrument the complete request path first to understand user experience before adding custom metrics",
+     "evidence": "Reference r1 states 'Start by instrumenting the request path end to end before adding custom metrics.'"
     },
     {
-     "section": "Foundational Metrics Collection",
-     "claim": "Lightweight metrics collection tools are essential for small teams to avoid operational overhead",
-     "evidence": "Benchmarking results showing Prometheus and OpenTelemetry reduce setup time by 75% compared to traditional solutions, platform engineer testimonials on reduced maintenance burden"
+     "section": "Control Costs Through Sampling",
+     "claim": "Sampling is the primary method for managing observability expenses",
+     "evidence": "Reference r2 states 'Sampling is the main lever teams have on observability spend.'"
     },
     {
-     "section": "Log Aggregation Strategies",
-     "claim": "Centralized log aggregation must be simple enough for non-specialists to manage effectively",
-     "evidence": "User experience studies showing 80% of small teams prefer tools with GUI interfaces over CLI-based solutions, implementation guides demonstrating 30-minute setup times"
-    },
-    {
-     "section": "Distributed Tracing Implementation",
-     "claim": "Small teams benefit from tracing solutions that integrate seamlessly with existing development workflows",
-     "evidence": "Integration success rates showing 90% of teams adopting tracing tools when they support CI/CD pipelines, developer feedback on reduced debugging time by 50%"
-    },
-    {
-     "section": "Platform Engineering Considerations",
-     "claim": "Platform engineers must prioritize ease of use and automation to support small team needs",
-     "evidence": "Platform maturity models indicating teams with automated observability practices achieve 40% faster incident resolution, case studies of platform teams reducing onboarding time by 80%"
+     "section": "Set Meaningful Alerts on User Symptoms",
+     "claim": "Alert on user-facing symptoms rather than resource thresholds to maintain manageable on-call responsibilities",
+     "evidence": "Reference r3 states 'Alert on symptoms your users feel, not on every resource threshold.'"
     }
    ]
   },
   "produce": {
-   "max_match_ratio": 0.82,
+   "max_match_ratio": 0.32,
    "style_violations": []
   },
   "review": {
-   "max_match_ratio": 0.82,
+   "max_match_ratio": 0.32,
    "output": {
-    "max_match_ratio": 0.82,
+    "max_match_ratio": 0.32,
     "style_violations": []
    },
    "style_violations": [],
@@ -59,6 +84,12 @@
   }
  },
  "tool_calls": [],
- "superseded_by": "v19-fixture-pass",
- "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
+ "failure_kinds": [
+  "assert"
+ ],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
 }

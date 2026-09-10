@@ -1,6 +1,6 @@
 {
  "model": "qwen3-coder:30b",
- "recorded": "2026-08-31",
+ "recorded": "2026-09-10",
  "endpoint": "http://localhost:11434/v1",
  "spec": "agr/v1.8",
  "sampling": {
@@ -9,15 +9,23 @@
   "max_tokens": 2048
  },
  "inputs": {
+  "verify_command": "pytest tests/integration -q",
+  "failing_tests": [
+   {
+    "test": "tests/integration/test_orders.py::test_refund",
+    "error": "AssertionError: status 500"
+   },
+   {
+    "test": "tests/integration/test_orders.py::test_partial",
+    "error": "KeyError: 'refund_id'"
+   }
+  ],
   "goal": "make tests/integration pass; proven by `pytest tests/integration`"
  },
  "node_outputs": {
   "planner": {
    "tasks": [
-    "run pytest tests/integration to identify failing tests",
-    "analyze the first failing test to determine root cause",
-    "fix the identified issue in the codebase",
-    "re-run pytest tests/integration to verify fix"
+    "decompose_goal"
    ]
   },
   "worker": [
@@ -29,20 +37,37 @@
    },
    {
     "patched": false
-   },
-   {
-    "patched": false
    }
   ],
-  "verifier": {
-   "escalated": false,
-   "output": {
-    "attempts": 1
+  "verifier": [
+   {
+    "escalated": false,
+    "output": {
+     "attempts": 1
+    },
+    "verify_failed": true
    },
-   "verify_failed": false
-  }
+   {
+    "escalated": false,
+    "output": {
+     "attempts": 2
+    },
+    "verify_failed": true
+   },
+   {
+    "escalated": false,
+    "output": {
+     "attempts": 3
+    },
+    "verify_failed": true
+   }
+  ]
  },
  "tool_calls": [],
- "superseded_by": "v19-fixture-pass",
- "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
 }

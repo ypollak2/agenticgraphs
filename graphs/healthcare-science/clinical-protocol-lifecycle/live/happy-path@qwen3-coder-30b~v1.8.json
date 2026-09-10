@@ -1,6 +1,6 @@
 {
  "model": "qwen3-coder:30b",
- "recorded": "2026-08-31",
+ "recorded": "2026-09-10",
  "endpoint": "http://localhost:11434/v1",
  "spec": "agr/v1.8",
  "sampling": {
@@ -9,11 +9,20 @@
   "max_tokens": 2048
  },
  "inputs": {
+  "study_goal": {
+   "drug": "Drug X",
+   "phase": "II",
+   "indication": "treatment-resistant hypertension",
+   "n_target": 180,
+   "primary_endpoint": "change in mean 24h ambulatory systolic BP at week 12",
+   "regulatory_regime": "ICH-GCP",
+   "sponsor_approver": "Medical Director"
+  },
   "goal": "draft a phase II protocol for drug X in treatment-resistant patients"
  },
  "node_outputs": {
   "draft": {
-   "protocol": "Phase II Study of Drug X in Treatment-Resistant Patients\n\nObjective: To evaluate the efficacy and safety of Drug X in patients with treatment-resistant disease\n\nStudy Design: Single-arm, open-label, multicenter phase II trial\n\nPopulation: Adults (18-75 years) with treatment-resistant disease who have failed at least two prior systemic therapies\n\nTreatment: Drug X administered orally twice daily at 200 mg per dose\n\nPrimary Endpoint: Objective response rate assessed by RECIST 1.1 criteria\n\nSecondary Endpoints: Progression-free survival, overall survival, safety and tolerability\n\nSample Size: 60 patients\n\nDuration: 24 months (including 6 months follow-up)\n\nEstimated Enrollment: 60 patients over 18 months\n\nInvestigator Signature: Dr. Sarah Chen, MD\n\nIRB Approval: Required prior to enrollment\n\nData Monitoring: Independent Data Monitoring Committee\n\nStatistical Analysis: Descriptive statistics for efficacy; safety analysis by treatment-emergent events"
+   "protocol": "Phase II Study of Drug X in Treatment-Resistant Hypertension: A Randomized, Double-Blind, Placebo-Controlled Trial to Evaluate Efficacy and Safety in 180 Patients with Resistant Hypertension. Primary Endpoint: Change in Mean 24h Ambulatory Systolic BP at Week 12. Study Conducted Under ICH-GCP Guidelines. Approval by Medical Director Required. Protocol Finalized with No Open Deviations. Investigator Signature: [Signature Block]"
   },
   "critique": {
    "deviations": []
@@ -30,6 +39,12 @@
   }
  },
  "tool_calls": [],
- "superseded_by": "v19-fixture-pass",
- "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
+ "failure_kinds": [
+  "assert"
+ ],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
 }

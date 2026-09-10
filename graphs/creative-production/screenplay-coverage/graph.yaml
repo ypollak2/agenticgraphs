@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: screenplay-coverage
 description: 'Produce studio-standard coverage: synopsis, structural analysis, comparables, and a defended recommendation.'
 category: creative-production

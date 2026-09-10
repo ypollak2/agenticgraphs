@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: vuln-remediation-lifecycle
 description: Ingest a vulnerability, prioritize it, reproduce it, patch it, prove the patch, and disclose behind a human gate.
 category: security

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: book-editing-pipeline
 description: Take a manuscript through developmental, line and copy edit passes with author sign-off before typesetting.
 category: creative-production

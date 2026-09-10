@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: rfp-response-assembler
 description: Answer each RFP requirement from a knowledge base, assemble.
 category: business-ops

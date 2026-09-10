@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: supplier-risk-monitor
 description: Score supplier concentration, financial and geographic risk, then plan mitigation for anything above appetite.
 category: logistics-retail

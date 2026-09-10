@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: forensic-investigation-blackboard
 description: Specialists contribute independently to shared evidence; a controller decides when the picture closes.
 category: security

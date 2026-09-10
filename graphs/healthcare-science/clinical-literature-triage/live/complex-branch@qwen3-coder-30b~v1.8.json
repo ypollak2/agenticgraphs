@@ -1,0 +1,42 @@
+{
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "validated_labels": {
+   "PMID-30011": "1b",
+   "PMID-30012": "2b",
+   "PMID-30013": "4"
+  },
+  "goal": "PMID-30012, against the validated evidence-level sample"
+ },
+ "node_outputs": {
+  "route": {
+   "complexity": "medium"
+  },
+  "branch-simple": {
+   "assigned_evidence_level": "2b"
+  },
+  "verify": {
+   "expected_evidence_level": "2b",
+   "assigned_evidence_level": "2b",
+   "output": {
+    "assigned_evidence_level": "2b",
+    "expected_evidence_level": "2b"
+   }
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
+}

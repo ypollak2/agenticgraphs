@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: essay-feedback-critic
 description: Rubric-based feedback with evidence quotes from the essay.
 category: education
