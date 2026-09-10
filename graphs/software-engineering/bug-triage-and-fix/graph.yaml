@@ -35,11 +35,6 @@ nodes:
 edges:
 - from: plan
   to: execute
-  condition: the reproduction is understood and a fix can be attempted
-  guidance: "Reproduce the failure first and record what the check returned before you change anything, then make the fix\
-    \ and run the same check again. Both readings are part of the evidence \u2014 a fix with no before-reading cannot be shown\
-    \ to have fixed anything."
-  pitfalls: changing the code first and only checking afterwards
 - from: execute
   to: verify
 - from: verify
