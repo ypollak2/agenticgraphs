@@ -1,0 +1,111 @@
+{
+  "model": "qwen3-coder:30b",
+  "date": "2026-09-10",
+  "criteria": {
+    "min_mean_delta": 0.25,
+    "min_per_graph_delta": 0.34,
+    "min_graphs_improved": 6,
+    "max_graphs_regressed": 2,
+    "require_zero_leaks": true,
+    "episodes_per_arm": 3
+  },
+  "episodes_per_arm": 3,
+  "graphs": {
+    "architecture-decision-tournament": {
+      "leaks": [],
+      "off": {
+        "pass_rate": 0.0,
+        "n": 3,
+        "results": [
+          {
+            "case": "happy-path",
+            "episode": 0,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.designs_scored >= 3"
+            ]
+          },
+          {
+            "case": "happy-path",
+            "episode": 1,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.designs_scored >= 3"
+            ]
+          },
+          {
+            "case": "happy-path",
+            "episode": 2,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.designs_scored >= 3"
+            ]
+          }
+        ]
+      },
+      "on": {
+        "pass_rate": 0.0,
+        "n": 3,
+        "results": [
+          {
+            "case": "happy-path",
+            "episode": 0,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.designs_scored >= 3"
+            ]
+          },
+          {
+            "case": "happy-path",
+            "episode": 1,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.designs_scored >= 3"
+            ]
+          },
+          {
+            "case": "happy-path",
+            "episode": 2,
+            "passed": false,
+            "steps": 3,
+            "failure_kinds": [
+              "assert"
+            ],
+            "assert_failures": [
+              "output.designs_scored >= 3"
+            ]
+          }
+        ]
+      },
+      "delta": 0.0
+    }
+  },
+  "verdict": {
+    "mean_delta": 0.0,
+    "graphs": 1,
+    "improved": 0,
+    "regressed": 0,
+    "leaks_total": 0,
+    "passes": false
+  }
+}
