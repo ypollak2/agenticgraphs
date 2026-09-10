@@ -51,9 +51,22 @@ instead of the model's imagination. Spec: [agr-v1.9.md](docs/agr-v1.9.md).
 ### Retired
 
 - **All 549 recordings.** They were taken against goal-only cases, so they measured a
-  model inventing its inputs rather than working on them. The Live column is empty
-  until a two-model re-record on v1.9 lands — the honest figure is zero rather than a
-  smaller one.
+  model inventing its inputs rather than working on them.
+
+### Evidence
+
+- **Re-recorded on two models**, guidance stripped, against cases that carry their
+  subject:
+
+  | | `qwen3-coder:30b` (30B) | `qwen3.5:latest` (9.7B) |
+  |---|---|---|
+  | contracts satisfied | **113 of 138 (82%)** | 12 of 139 (8%) |
+
+  The second model is what makes the column mean anything. Cross-tabulated across the registry: **5** pass on both, **60** pass only on the larger model
+  (a capability gap — the contract is fine), **17** fail on both (a contract problem
+  no model delivers), and **0** pass only on the smaller one. The scoreboard has had
+  a per-model column since v1.2 for exactly this reason and had one model in it;
+  18 graphs are now marked `fails_every_model` and 60 `models_disagree`.
 
 ### Known limits
 

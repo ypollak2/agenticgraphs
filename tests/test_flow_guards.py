@@ -253,3 +253,26 @@ def test_a_refused_approval_is_not_reported_as_a_stall():
     assert rep.unreached_terminals == [], (
         "a refused approval was reported as a stall"
     )
+
+
+def test_best_aggregate_survives_a_shard_returning_an_unorderable_type():
+    """A dict among numbers used to take the whole run down.
+
+    `architecture-decision-tournament` fans `design` out over `options` and its judge
+    declares `aggregate: {op: best, over: rubric_score}`. A real model returned a dict
+    for one shard and numbers for the rest; `max()` raised TypeError inside
+    `run_graph`, so the recording was lost to a crash instead of kept as evidence.
+    D1-01 had already established the rule for `None` — a value that cannot take part
+    in the ordering is dropped visibly rather than allowed to raise.
+    """
+    from agenticgraphs.harness import _aggregate
+
+    node = {"id": "judge", "aggregate": {"op": "best", "over": "rubric_score"}}
+    bb = {"rubric_score": [3, {"score": 9}, 7, None]}
+    _aggregate(node, bb)
+    assert bb["rubric_score"] == 7
+
+    # All-unorderable degrades to None rather than raising.
+    bb2 = {"rubric_score": [{"a": 1}, {"b": 2}]}
+    _aggregate(node, bb2)
+    assert bb2["rubric_score"] is None

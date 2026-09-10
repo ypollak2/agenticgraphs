@@ -62,7 +62,7 @@
 ## 🧭 About The Project
 
 A **registry of ready-made multi-agent workflow graphs** in a portable, framework-neutral
-format (AGR v1.8), built on three principles:
+format (AGR v1.9), built on three principles:
 
 ```yaml
 principles:
@@ -95,7 +95,7 @@ flowchart LR
 ```
 
 ```yaml
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: code-review-pipeline
 category: software-engineering
 nodes:
@@ -284,7 +284,7 @@ pie showData title Graphs per domain
 | `threat-intel-digest` | security | 2 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-09-10 | 4 | 1 |
 | `vuln-prioritization` | security | 2 | 100% | `assert-fixture` | ⚠️ 100%/0% · 2026-09-10 | 4 | 2 |
 | `vuln-remediation-lifecycle` | security | 1 | 100% | `command` | ⚠️ 100%/0% · 2026-09-10 | 9 | 1 |
-| `architecture-decision-tournament` | software-engineering | 1 | 100% | `assert-fixture` | 🚫 0% · 2026-09-10 | 3 | 1 |
+| `architecture-decision-tournament` | software-engineering | 1 | 100% | `assert-fixture` | 🚫 0%/0% · 2026-09-10 | 3 | 1 |
 | `benchmark-driven-optimization-search` | software-engineering | 1 | 100% | `command` | ⚠️ 100%/0% · 2026-09-10 | 3 | 1 |
 | `bug-triage-and-fix` | software-engineering | 2 | 100% | `command` | ⚠️ 100%/0% · 2026-09-10 | 4 | 2 |
 | `code-review-pipeline` | software-engineering | 2 | 100% | `command` | ⚠️ 100%/0% · 2026-09-10 | 3.5 | 2 |
@@ -405,7 +405,7 @@ uv run python scripts/audit_usecases.py      # use cases, domains, AUDIT PASSED
 | **Speciality** | `specialities/*.yaml` | A role a node plays (e.g. `security-auditor`), with required abilities |
 | **Ability** | `abilities/*.yaml` | An atomic capability (e.g. `sast_scan`) with a risk level; MCP-bindable |
 | **Use case** | `usecases/catalog.yaml` | Demand-side backlog of audited entries that graduate into graphs |
-| **Spec** | `spec/*.schema.json` | AGR v1.8 JSON Schemas ([v1.1](docs/agr-v1.1.md) · [v1.2](docs/agr-v1.2.md) · [v1.3](docs/agr-v1.3.md) · [v1.4](docs/agr-v1.4.md) · [v1.5](docs/agr-v1.5.md) · [v1.6](docs/agr-v1.6.md) · [v1.7](docs/agr-v1.7.md) · [**v1.8**](docs/agr-v1.8.md)); every superseded page carries a generated banner |
+| **Spec** | `spec/*.schema.json` | AGR v1.9 JSON Schemas ([v1.1](docs/agr-v1.1.md) · [v1.2](docs/agr-v1.2.md) · [v1.3](docs/agr-v1.3.md) · [v1.4](docs/agr-v1.4.md) · [v1.5](docs/agr-v1.5.md) · [v1.6](docs/agr-v1.6.md) · [v1.7](docs/agr-v1.7.md) · [v1.8](docs/agr-v1.8.md) · [**v1.9**](docs/agr-v1.9.md)); every superseded page carries a generated banner |
 | **Subgraph** | `nodes[].kind: subgraph` + `ref` | A phase that *is* another registry graph, inlined at load (v1.1) |
 | **Join** | `nodes[].join` | `any` (default) · `all` · `quorum(n)` — when a multi-predecessor node is ready (v1.1) |
 | **Human gate** | `nodes[].kind: human` + `approval` | An approval contract the live runner refuses to sign itself (v1.1) |
@@ -463,9 +463,28 @@ could satisfy, a phase merge that dropped facts, two vocabularies for one key, a
 to be scored on. The version-by-version record of those findings is in
 [docs/evidence-history.md](docs/evidence-history.md).
 
-**None of that evidence is currently valid.** The v1.8 prompt, sampling and contract
-changes superseded all 560 recordings at once, so live coverage reads 0 of 83 and
-means *pending re-recording*. See [docs/live-coverage.md](docs/live-coverage.md).
+**v1.9 re-recorded everything, and the finding was the fixtures.** All 549 v1.8
+recordings were retired because they were taken against cases that seeded a `goal`
+string and no subject data — 71 of 83 graphs were scored on nothing to work on, so
+`alert-noise-reduction` was asked to deduplicate alerts it was never given and its
+`map` node returned the literal string `"map_shard"`
+([the finding](docs/plans/v19-finding-fixture-poverty.md)).
+
+Every case now carries its subject, and the baseline is recorded on two models so the
+column can tell two things apart that used to look identical:
+
+| | `qwen3-coder:30b` (30B) | `qwen3.5:latest` (9.7B) |
+|---|---|---|
+| contracts satisfied | **113 of 138 (82%)** | 12 of 139 (8%) |
+
+Cross-tabulated across the registry: 5 pass on both, **60 pass only on
+the larger model** (a capability gap — the contract is fine), and **17 fail on both**
+(a contract problem no model delivers). Nothing passes only on the smaller model. See
+[docs/live-coverage.md](docs/live-coverage.md) and
+[docs/evidence-history.md](docs/evidence-history.md).
+
+The fixtures are authored rather than sourced from each domain, which is the main
+limit on what these numbers prove.
 
 ### Composites reference, they don't copy
 
@@ -504,10 +523,10 @@ averaged away. Deepening it is the open problem, not a solved one.
 
 ## 🗺️ Roadmap
 
-Shipped through **AGR v1.8**. Each version closed a gap the previous one left, and
+Shipped through **AGR v1.9**. Each version closed a gap the previous one left, and
 several corrected an earlier version's diagnosis — the per-milestone record is in
 [docs/milestones.md](docs/milestones.md), and the current spec is
-[docs/agr-v1.8.md](docs/agr-v1.8.md).
+[docs/agr-v1.9.md](docs/agr-v1.9.md).
 
 **Done in the 2026-09-04 gap audit** ([findings](docs/plans/audit-gaps-2026-09-04.md) ·
 [plan](docs/plans/audit-gaps-remediation-2026-09-04.md)): every number in this file is
@@ -620,7 +639,7 @@ Project Link: [https://github.com/ypollak2/agenticgraphs][repo-url]
 [domains-shield]: https://img.shields.io/badge/domains-15-2ea44f?style=for-the-badge
 [patterns-shield]: https://img.shields.io/badge/motifs-17-2ea44f?style=for-the-badge
 [patterns-url]: #the-motifs
-[tests-shield]: https://img.shields.io/badge/tests-527-blue?style=for-the-badge
+[tests-shield]: https://img.shields.io/badge/tests-528-blue?style=for-the-badge
 [tests-url]: tests/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
 [license-url]: LICENSE

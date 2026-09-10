@@ -40,7 +40,7 @@ produce what it asserts on. That is the v1.4 item.
 | `supplier-risk-monitor` | every supplier above risk appetite carries a named mitigation owner | `[ingest] all(f.source_url and f.source_date for f in output.findings) (AttributeError: 'st` |
 | `fact-check-pipeline` | each verdict carries source URL and quote span | `all(v.source_url and v.quote_span for v in output.verdicts)` |
 | `red-team-blue-team-hardening` | terminates on attacker exhaustion, producing evidence of absence rathe | `all(b.mitigation_ref for b in output.bypasses) (AttributeError: bypasses)` |
-| `architecture-decision-tournament` | a decision names its runner-up and the margin, so it can be revisited  | `output.designs_scored >= 3 (AttributeError: designs_scored)` |
+| `architecture-decision-tournament` | a decision names its runner-up and the margin, so it can be revisited  | `output.designs_scored >= 3` |
 | `dependency-upgrade` | lockfile updated; tests pass; no new deprecation warnings | `len(output.new_deprecations) == 0 (AttributeError: new_deprecations)` |
 | `feature-delivery-lifecycle` | A release is cut only after the audit verdict is approve, docs are upd | `[audit] all(f.file and f.line for f in output.findings) (AttributeError: findings)` |
 | `flaky-test-reflexion` | stability is proven over repeated runs, and every failed attempt is re | `len(output.lessons) >= 1 (AttributeError: lessons)` |

@@ -1330,6 +1330,16 @@ def _aggregate(node: dict, bb: dict) -> None:
     # "aggregate over the shards that succeeded", so drop them here, visibly.
     if spec["op"] in ("median", "best"):
         values = [v for v in values if v is not None]
+        # ...and for the same reason, values that cannot be ordered against each
+        # other. D1-01 fixed `None`; a real model then returned a *dict* for one
+        # shard of `architecture-decision-tournament` while others returned numbers,
+        # and `max()` raised TypeError with the whole run inside it — a recording
+        # lost to a crash rather than kept as a failure. Ordering needs one
+        # comparable type, so keep the numbers when there are any, else the strings,
+        # and drop the rest visibly.
+        nums = [v for v in values if isinstance(v, (int, float)) and not isinstance(v, bool)]
+        strs = [v for v in values if isinstance(v, str)]
+        values = nums or strs or []
     bb[spec["over"]] = _AGG[spec["op"]](values)
 
 

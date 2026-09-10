@@ -1,0 +1,109 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "decision": {
+      "question": "sync vs async order processing",
+      "constraint": "p99 under 200ms",
+      "traffic": "3k orders/min peak",
+      "options": [
+        {
+          "id": "o1",
+          "name": "synchronous inline"
+        },
+        {
+          "id": "o2",
+          "name": "queue + worker"
+        },
+        {
+          "id": "o3",
+          "name": "outbox + CDC"
+        },
+        {
+          "id": "o4",
+          "name": "hybrid: sync ack, async fulfil"
+        }
+      ],
+      "rubric": {
+        "criteria": [
+          "latency",
+          "failure isolation",
+          "operational cost",
+          "migration risk"
+        ],
+        "scale": "1-5"
+      }
+    },
+    "goal": "settle sync vs async order processing under a 200ms p99 constraint"
+  },
+  "node_outputs": {
+    "frame": {
+      "options": [
+        {
+          "id": "o4",
+          "name": "hybrid: sync ack, async fulfil"
+        },
+        {
+          "id": "o1",
+          "name": "synchronous inline"
+        }
+      ],
+      "rubric": {
+        "latency": [
+          5,
+          3
+        ],
+        "failure isolation": [
+          2,
+          4
+        ],
+        "operational cost": [
+          3,
+          4
+        ],
+        "migration risk": [
+          4,
+          3
+        ]
+      }
+    },
+    "design": [
+      {
+        "proposal": "hybrid: sync ack, async fulfil",
+        "rubric_score": 14
+      },
+      {
+        "proposal": "hybrid: sync ack, async fulfil",
+        "rubric_score": {
+          "latency": 4,
+          "failure isolation": 3,
+          "operational cost": 4,
+          "migration risk": 3
+        }
+      }
+    ],
+    "judge": {
+      "designs_scored": 2,
+      "margin": 1,
+      "output": {
+        "designs_scored": 2,
+        "margin": 1
+      },
+      "winner": "hybrid: sync ack, async fulfil"
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "assert"
+  ],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}
