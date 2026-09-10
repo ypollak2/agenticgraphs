@@ -16,6 +16,14 @@ cases:
         dedupe_ratio: 0.8
         missed_paging_alerts: []
   goal: the last 30 days of paging alerts
+  inputs:
+    alerts:
+    - id: a1
+      service: checkout
+      msg: p99 latency > 2s
+      severity: page
+      cause: db-pool-exhausted
+      ts: 09:01
 - id: multi-item
   node_outputs:
     partition:
@@ -31,3 +39,41 @@ cases:
         dedupe_ratio: 0.4
         missed_paging_alerts: []
   goal: the last 30 days of paging alerts
+  inputs:
+    alerts:
+    - id: a1
+      service: checkout
+      msg: p99 latency > 2s
+      severity: page
+      cause: db-pool-exhausted
+      ts: 09:01
+    - id: a2
+      service: checkout
+      msg: p99 latency > 2s
+      severity: page
+      cause: db-pool-exhausted
+      ts: 09:02
+    - id: a3
+      service: checkout
+      msg: p99 latency > 2s
+      severity: page
+      cause: db-pool-exhausted
+      ts: 09:03
+    - id: a4
+      service: search
+      msg: index rebuild slow
+      severity: ticket
+      cause: index-rebuild
+      ts: 09:05
+    - id: a5
+      service: payments
+      msg: card auth failures spiking
+      severity: page
+      cause: psp-outage
+      ts: 09:07
+    - id: a6
+      service: search
+      msg: index rebuild slow
+      severity: ticket
+      cause: index-rebuild
+      ts: 09:09

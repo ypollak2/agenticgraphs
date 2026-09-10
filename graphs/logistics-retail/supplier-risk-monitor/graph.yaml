@@ -67,6 +67,7 @@ state:
   inputs:
   - goal
   - supplier_list
+  - risk_appetite
 triggers:
 - 'on': schedule
   cron: 41 6 * * *

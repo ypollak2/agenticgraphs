@@ -20,6 +20,13 @@ cases:
           - R2
           count: 2
   goal: the August case reports, for compound RX-114
+  inputs:
+    case_reports:
+    - report_id: RX114-0001
+      compound: RX-114
+      event: headache
+      serious: false
+      month: August
 - id: multi-item
   node_outputs:
     partition:
@@ -43,3 +50,30 @@ cases:
           - R3
           count: 1
   goal: the August case reports, for compound RX-114
+  inputs:
+    case_reports:
+    - report_id: RX114-0001
+      compound: RX-114
+      event: headache
+      serious: false
+      month: August
+    - report_id: RX114-0002
+      compound: RX-114
+      event: nausea
+      serious: false
+      month: August
+    - report_id: RX114-0003
+      compound: RX-114
+      event: hepatic enzyme rise
+      serious: true
+      month: August
+    - report_id: RX114-0004
+      compound: RX-114
+      event: headache
+      serious: false
+      month: August
+    - report_id: RX114-0005
+      compound: RX-114
+      event: hepatic enzyme rise
+      serious: true
+      month: August

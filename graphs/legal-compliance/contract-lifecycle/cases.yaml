@@ -39,3 +39,31 @@ cases:
         dated: '2026-08-01'
     escalate-contract: {}
   goal: review the Acme MSA under our standard enterprise risk posture
+  inputs:
+    contract:
+      name: Acme MSA
+      counterparty: Acme Corp
+      term_months: 24
+      clauses:
+      - id: c1
+        type: liability_cap
+        text: Liability capped at 12 months of fees.
+        risk: low
+      - id: c2
+        type: indemnity
+        text: Supplier indemnifies customer for IP claims.
+        risk: low
+      - id: c3
+        type: auto_renew
+        text: Renews automatically unless cancelled 90 days prior.
+        risk: medium
+      - id: c4
+        type: data_residency
+        text: Data may be processed in any region.
+        risk: medium
+      signatories:
+      - party: Acme Corp
+        role: VP Procurement
+      - party: Our Co
+        role: General Counsel
+      risk_appetite: medium

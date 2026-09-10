@@ -15,7 +15,7 @@
     "risk_surface": "execute"
   },
   "refs": {
-    "software-engineering/bug-triage-and-fix": "ab04e80cc141",
+    "software-engineering/bug-triage-and-fix": "7e326e797af7",
     "software-engineering/test-suite-generation": "6524e581bfbb",
     "software-engineering/code-review-pipeline": "9d7708fba667"
   },
