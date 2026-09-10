@@ -1,7 +1,6 @@
 apiVersion: agr/v1.8
 name: invoice-reconciliation
-description: Match invoices to POs and receipts cheapest-first, escalating only genuine exceptions to
-  a human.
+description: Match invoices to POs and receipts cheapest-first, escalating only genuine exceptions to a human.
 category: business-ops
 nodes:
 - id: auto-match
@@ -26,8 +25,8 @@ nodes:
   - exceptions
   outputs:
   - still_open
-  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
-    it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 - id: ap-review
   speciality: approver
   kind: human
@@ -68,13 +67,13 @@ edges:
 - from: ap-review
   to: post
 termination:
-  max_steps: 30
+  max_steps: 8
   contract: an unmatched invoice never posts without an AP signature
 verification:
 - describe: no exception reached posting unreviewed
   assert: output.unreviewed_exceptions == 0
-- describe: "a three-way match names all three documents \u2014 invoice, PO and receipt. A match that\
-    \ cannot say what it matched is a claim"
+- describe: "a three-way match names all three documents \u2014 invoice, PO and receipt. A match that cannot say what it matched\
+    \ is a claim"
   assert: all(m.invoice_id and m.po_id and m.receipt_id for m in output.matched)
 state:
   inputs:

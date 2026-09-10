@@ -45,9 +45,8 @@ nodes:
   - controls_total: any
   - evidence_report
   - output
-  criteria: 'Every control is either evidenced with a live artefact or named explicitly in the uncovered
-    list. The totals must reconcile: a control that is silently neither is how an audit finds what the
-    collector missed.'
+  criteria: 'Every control is either evidenced with a live artefact or named explicitly in the uncovered list. The totals
+    must reconcile: a control that is silently neither is how an audit finds what the collector missed.'
 edges:
 - from: enumerate
   to: collect
@@ -59,7 +58,7 @@ edges:
 - from: assess
   to: report
 termination:
-  max_steps: 30
+  max_steps: 22
   contract: no control is silently unevidenced; the uncovered list is explicit
 verification:
 - describe: every control is either evidenced or explicitly listed as uncovered

@@ -1,7 +1,6 @@
 apiVersion: agr/v1.8
 name: performance-cycle-summarizer
-description: Aggregate self, peer and manager input into a calibrated summary with evidence for every
-  claim.
+description: Aggregate self, peer and manager input into a calibrated summary with evidence for every claim.
 category: hr-people
 nodes:
 - id: gather
@@ -39,8 +38,8 @@ nodes:
   - calibrated_summary
   - output
   - uncited_claims: int
-  criteria: Every statement cites the self, peer or manager input it came from, and no recency or halo
-    bias flag survives calibration. An uncited claim in a performance summary is hearsay.
+  criteria: Every statement cites the self, peer or manager input it came from, and no recency or halo bias flag survives
+    calibration. An uncited claim in a performance summary is hearsay.
 - id: escalate-review
   speciality: escalator
   abilities:
@@ -49,10 +48,10 @@ nodes:
   outputs:
   - escalated: bool
   - escalation_reason
-  criteria: The review goes to a human with the surviving bias flags named. A summary that could not be
-    de-biased must not be published as if it had been.
-  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
-    it until the ability is bound (audit 2026-09-04, Q1)'
+  criteria: The review goes to a human with the surviving bias flags named. A summary that could not be de-biased must not
+    be published as if it had been.
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 edges:
 - from: gather
   to: synthesize
@@ -68,7 +67,7 @@ edges:
   to: escalate-review
   when: len(bias_flags) > 0 and attempts >= 2
 termination:
-  max_steps: 25
+  max_steps: 12
   contract: every statement cites an input and no bias flag survives calibration
 verification:
 - describe: every claim cites a source input

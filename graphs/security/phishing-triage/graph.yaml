@@ -16,12 +16,14 @@ nodes:
   - generate
   outputs:
   - assigned_verdict
+  parallel_group: auto-route
 - id: branch-complex
   speciality: producer
   abilities:
   - generate
   outputs:
   - assigned_verdict
+  parallel_group: auto-route
 - id: verify
   speciality: critic
   abilities:
@@ -31,9 +33,8 @@ nodes:
   - expected_verdict
   - assigned_verdict
   - output
-  criteria: "Verdicts agree with the labeled corpus, and anything confirmed as phishing cites the specific\
-    \ indicator \u2014 sender mismatch, lookalike domain, credential-harvesting target \u2014 rather than\
-    \ a general impression of suspicion."
+  criteria: "Verdicts agree with the labeled corpus, and anything confirmed as phishing cites the specific indicator \u2014\
+    \ sender mismatch, lookalike domain, credential-harvesting target \u2014 rather than a general impression of suspicion."
   inputs:
   - labeled_corpus
 edges:
@@ -48,7 +49,7 @@ edges:
 - from: branch-complex
   to: verify
 termination:
-  max_steps: 12
+  max_steps: 6
   contract: verdicts benchmarked against labeled corpus
 verification:
 - describe: the decision agrees with the labeled corpus the caller supplied

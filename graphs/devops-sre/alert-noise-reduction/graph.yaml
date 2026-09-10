@@ -47,7 +47,7 @@ edges:
   pitfalls: collapsing on surface similarity such as a shared hostname or message prefix, and letting an urgent signal disappear
     into a cluster it merely resembles
 termination:
-  max_steps: 20
+  max_steps: 6
   contract: dedupe ratio measured; no missed paging alert
 verification:
 - assert: output.dedupe_ratio > 0 and not output.missed_paging_alerts

@@ -16,12 +16,14 @@ nodes:
   - generate
   outputs:
   - assigned_team
+  parallel_group: auto-route
 - id: branch-complex
   speciality: producer
   abilities:
   - generate
   outputs:
   - assigned_team
+  parallel_group: auto-route
 - id: verify
   speciality: critic
   abilities:
@@ -31,8 +33,8 @@ nodes:
   - expected_team
   - assigned_team
   - output
-  criteria: The team the incident was routed to owns the affected service in the current on-call map,
-    and the severity reflects observed customer impact rather than the reporter's urgency.
+  criteria: The team the incident was routed to owns the affected service in the current on-call map, and the severity reflects
+    observed customer impact rather than the reporter's urgency.
   inputs:
   - ownership_map
 edges:
@@ -47,7 +49,7 @@ edges:
 - from: branch-complex
   to: verify
 termination:
-  max_steps: 12
+  max_steps: 6
   contract: routing matches on-call ownership map
 verification:
 - describe: the decision agrees with the ownership map the caller supplied

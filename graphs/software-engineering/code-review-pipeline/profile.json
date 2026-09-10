@@ -10,7 +10,7 @@
     "max_fan_out": 2,
     "loops": 0,
     "loops_bounded": true,
-    "max_steps": 12,
+    "max_steps": 8,
     "verification_asserts": 3,
     "risk_surface": "read"
   },
@@ -18,7 +18,7 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "command",
-    "date": "2026-09-04",
+    "date": "2026-09-10",
     "cases": 2,
     "passed": 2,
     "pass_rate": 1.0,
@@ -91,7 +91,7 @@
     "runner": "llm-replay:lfm2.5:8b,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "command",
-    "date": "2026-09-04",
+    "date": "2026-09-10",
     "cases": 8,
     "passed": 8,
     "pass_rate": 1.0,
@@ -375,7 +375,7 @@
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-31",
-    "age_days": 4,
+    "age_days": 10,
     "per_model_pass_rate": {
       "lfm2.5:8b": 1.0,
       "qwen3-coder:30b": 1.0

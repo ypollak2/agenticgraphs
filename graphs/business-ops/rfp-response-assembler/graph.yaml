@@ -28,9 +28,9 @@ nodes:
   - output
   - page_count: float
   - requirements: list[{answered:bool, flagged:bool}]
-  criteria: "Every numbered requirement is either answered from the knowledge base with its source, or\
-    \ explicitly flagged as unanswerable \u2014 silence on a requirement is a failure, not an omission.\
-    \ The assembled document is within the RFP's stated page limit."
+  criteria: "Every numbered requirement is either answered from the knowledge base with its source, or explicitly flagged\
+    \ as unanswerable \u2014 silence on a requirement is a failure, not an omission. The assembled document is within the\
+    \ RFP's stated page limit."
   inputs:
   - page_limit
 edges:
@@ -39,7 +39,7 @@ edges:
 - from: map
   to: reduce
 termination:
-  max_steps: 20
+  max_steps: 6
   contract: every requirement answered or flagged; page limit met
 verification:
 - assert: all(r.answered or r.flagged for r in output.requirements) and output.page_count <= output.page_limit

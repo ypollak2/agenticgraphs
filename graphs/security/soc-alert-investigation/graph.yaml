@@ -15,8 +15,8 @@ nodes:
   - execute_step
   outputs:
   - step_result
-  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
-    of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 - id: verify
   speciality: verifier
   abilities:
@@ -27,8 +27,8 @@ nodes:
   - output
   - query_results
   - verify_failed: bool
-  criteria: The conclusion is supported by the query results attached to it, and the queries were driven
-    by a stated hypothesis rather than assembled after the answer was chosen.
+  criteria: The conclusion is supported by the query results attached to it, and the queries were driven by a stated hypothesis
+    rather than assembled after the answer was chosen.
   retries:
     max: 2
     reissue_effects: true
@@ -41,7 +41,7 @@ edges:
   to: execute
   when: verify_failed and attempts < 3
 termination:
-  max_steps: 25
+  max_steps: 10
   contract: conclusion supported by query results attached
 verification:
 - assert: len(output.query_results) > 0 and output.conclusion

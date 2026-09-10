@@ -1,7 +1,6 @@
 apiVersion: agr/v1.8
 name: regulatory-filing-lifecycle
-description: Collect figures, reconcile them to source, gate on controller sign-off, then file and retain
-  evidence.
+description: Collect figures, reconcile them to source, gate on controller sign-off, then file and retain evidence.
 category: finance
 nodes:
 - id: collect
@@ -12,6 +11,7 @@ nodes:
   - period
   outputs:
   - figures
+  parallel_group: auto-reconcile
 - id: reconcile
   speciality: controller
   abilities:
@@ -47,8 +47,8 @@ nodes:
   - filed: any
   - confirmation_id
   - file_failed: bool
-  unbound_ok: 'narrated: file_record has no binding in this runtime; the effect is the model''s account
-    of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: file_record has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 - id: retain
   speciality: producer
   abilities:
@@ -60,6 +60,7 @@ nodes:
   - filing_total
   - ledger_total
   - output
+  parallel_group: auto-file
 - id: withdraw-filing
   speciality: compensator
   abilities:
@@ -67,10 +68,11 @@ nodes:
   inputs: []
   outputs:
   - withdraw_filing_filed
-  criteria: A filing is received the moment it is submitted. Undoing it is a formal withdrawal or amendment
-    on the record, not a deletion, and the amendment must cite the filing it corrects.
-  unbound_ok: 'narrated: rollback has no binding in this runtime; the effect is the model''s account of
-    it until the ability is bound (audit 2026-09-04, Q1)'
+  criteria: A filing is received the moment it is submitted. Undoing it is a formal withdrawal or amendment on the record,
+    not a deletion, and the amendment must cite the filing it corrects.
+  unbound_ok: 'narrated: rollback has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
+  parallel_group: auto-file
 - id: abandon-filing
   speciality: escalator
   abilities:
@@ -79,10 +81,11 @@ nodes:
   outputs:
   - escalated: bool
   - escalation_reason
-  criteria: The filing is formally abandoned with the unreconciled variance recorded. A filing that cannot
-    be reconciled must be visibly not-filed, never silently unfiled.
-  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
-    it until the ability is bound (audit 2026-09-04, Q1)'
+  criteria: The filing is formally abandoned with the unreconciled variance recorded. A filing that cannot be reconciled must
+    be visibly not-filed, never silently unfiled.
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
+  parallel_group: auto-reconcile
 edges:
 - from: collect
   to: reconcile
@@ -104,11 +107,11 @@ edges:
   to: abandon-filing
   when: not reconciled and attempts >= 3
 termination:
-  max_steps: 35
+  max_steps: 14
   contract: nothing files until figures reconcile to source and a controller signs
 verification:
-- describe: "the filed figures equal the ledger `collect` read \u2014 reconciliation is two numbers agreeing,\
-    \ not a model reporting that they do"
+- describe: "the filed figures equal the ledger `collect` read \u2014 reconciliation is two numbers agreeing, not a model\
+    \ reporting that they do"
   assert: output.filing_total == output.ledger_total
 - describe: the filing carries a human signature
   assert: output.signed_off == true

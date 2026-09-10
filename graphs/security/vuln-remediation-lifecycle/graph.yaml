@@ -1,7 +1,6 @@
 apiVersion: agr/v1.8
 name: vuln-remediation-lifecycle
-description: Ingest a vulnerability, prioritize it, reproduce it, patch it, prove the patch, and disclose
-  behind a human gate.
+description: Ingest a vulnerability, prioritize it, reproduce it, patch it, prove the patch, and disclose behind a human gate.
 category: security
 nodes:
 - id: ingest
@@ -36,8 +35,8 @@ nodes:
   retries:
     max: 2
     reissue_effects: true
-  unbound_ok: 'narrated: edit_files has no binding in this runtime; the effect is the model''s account
-    of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: edit_files has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 - id: patch
   speciality: executor
   abilities:
@@ -47,8 +46,8 @@ nodes:
   - repro_confirmed
   outputs:
   - patch
-  unbound_ok: 'narrated: edit_files, execute_step has no binding in this runtime; the effect is the model''s
-    account of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: edit_files, execute_step has no binding in this runtime; the effect is the model''s account of it
+    until the ability is bound (audit 2026-09-04, Q1)'
 - id: prove
   speciality: verifier
   abilities:
@@ -60,9 +59,8 @@ nodes:
   - repro_exit_code_after
   - repro_exit_code_before
   - exploit_blocked: bool
-  criteria: The recorded proof-of-concept no longer succeeds against the patched build, demonstrated by
-    re-running it rather than by inspecting the diff. Nothing is disclosed before that re-run passes and
-    a human has signed off.
+  criteria: The recorded proof-of-concept no longer succeeds against the patched build, demonstrated by re-running it rather
+    than by inspecting the diff. Nothing is disclosed before that re-run passes and a human has signed off.
   retries:
     max: 2
     reissue_effects: true
@@ -97,10 +95,10 @@ nodes:
   outputs:
   - escalated: bool
   - escalation_reason
-  criteria: The vulnerability is escalated with every patch attempted and the proof-of-concept still succeeding.
-    Nothing is disclosed on this path.
-  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
-    it until the ability is bound (audit 2026-09-04, Q1)'
+  criteria: The vulnerability is escalated with every patch attempted and the proof-of-concept still succeeding. Nothing is
+    disclosed on this path.
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 edges:
 - from: ingest
   to: prioritize
@@ -122,16 +120,16 @@ edges:
   to: escalate-vuln
   when: not exploit_blocked and attempts >= 3
 termination:
-  max_steps: 45
+  max_steps: 18
   contract: nothing is disclosed until the exploit is proven blocked and a human has signed off
 verification:
-- describe: "the recorded proof-of-concept succeeded before the patch and fails after it \u2014 proven\
-    \ by re-running it, not by inspecting the diff"
+- describe: "the recorded proof-of-concept succeeded before the patch and fails after it \u2014 proven by re-running it, not\
+    \ by inspecting the diff"
   assert: output.repro_exit_code_before == 0 and output.repro_exit_code_after != 0
 - describe: disclosure carries a human signature
   assert: output.signed_off == true
-- describe: "the advisory is locatable \u2014 it names the CVE it concerns and where it was published,\
-    \ which 'published: true' does not"
+- describe: "the advisory is locatable \u2014 it names the CVE it concerns and where it was published, which 'published: true'\
+    \ does not"
   assert: output.advisory_url and output.cve_id
 - describe: the proof-of-concept is re-run against the patched build
   command: pytest -q {repro_path}

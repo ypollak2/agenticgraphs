@@ -27,8 +27,8 @@ nodes:
   - output
   - revision_requested: bool
   - unsupported_claims: list
-  criteria: Every verdict carries the source URL and the quoted span that settles it, so a reader can
-    check the check. A verdict without a quote span is an assertion about an assertion.
+  criteria: Every verdict carries the source URL and the quoted span that settles it, so a reader can check the check. A verdict
+    without a quote span is an assertion about an assertion.
 edges:
 - from: intake
   to: produce
@@ -38,7 +38,7 @@ edges:
   to: produce
   when: revision_requested and attempts < 2
 termination:
-  max_steps: 12
+  max_steps: 10
   contract: each verdict carries source URL and quote span
 verification:
 - assert: all(v.source_url and v.quote_span for v in output.verdicts)

@@ -1,7 +1,6 @@
 apiVersion: agr/v1.8
 name: red-team-blue-team-hardening
-description: An attacker searches for a working bypass while a defender patches, until the attacker is
-  exhausted.
+description: An attacker searches for a working bypass while a defender patches, until the attacker is exhausted.
 category: security
 nodes:
 - id: scope
@@ -41,8 +40,8 @@ nodes:
   - mitigation
   inputs:
   - bypass
-  unbound_ok: 'narrated: edit_files, execute_step has no binding in this runtime; the effect is the model''s
-    account of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: edit_files, execute_step has no binding in this runtime; the effect is the model''s account of it
+    until the ability is bound (audit 2026-09-04, Q1)'
 - id: retest
   speciality: verifier
   abilities:
@@ -55,9 +54,8 @@ nodes:
   inputs:
   - mitigation
   kind: verifier
-  criteria: The loop terminates because the attacker exhausted its options with every finding mitigated,
-    producing evidence of absence rather than absence of evidence. An unmitigated finding means the loop
-    stopped early.
+  criteria: The loop terminates because the attacker exhausted its options with every finding mitigated, producing evidence
+    of absence rather than absence of evidence. An unmitigated finding means the loop stopped early.
   retries:
     max: 2
     reissue_effects: true
@@ -72,7 +70,7 @@ edges:
   to: attack
   when: not attacker_exhausted and attempts < 3
 termination:
-  max_steps: 45
+  max_steps: 8
   contract: terminates on attacker exhaustion, producing evidence of absence rather than absence of evidence
 verification:
 - describe: every bypass `attack` found points at the mitigation that closed it

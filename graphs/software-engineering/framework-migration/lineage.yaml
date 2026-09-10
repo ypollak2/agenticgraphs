@@ -1,0 +1,10 @@
+mutations:
+- at: '2026-09-10T13:35:41+00:00'
+  op: optimize
+  status: accepted
+  changes:
+  - parallelized 2 siblings of 'integrate' into group 'auto-integrate'
+  - max_steps 60 -> 14 (observed worst-case 7 across passing cases)
+  live_score: 0.0
+  episodes: 4
+  gated: true

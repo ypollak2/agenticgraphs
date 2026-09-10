@@ -57,8 +57,8 @@ nodes:
   - awarded
   - output
   - scored_vendors: int
-  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
-    of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 edges:
 - from: rfp
   to: score
@@ -72,7 +72,7 @@ edges:
 - from: budget-approval
   to: award
 termination:
-  max_steps: 35
+  max_steps: 14
   contract: no award without three rubric-scored vendors and a budget-holder signature
 verification:
 - describe: at least three vendors were scored on the same rubric

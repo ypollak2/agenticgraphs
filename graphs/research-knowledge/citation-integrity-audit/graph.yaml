@@ -23,8 +23,8 @@ nodes:
   retries:
     max: 2
     reissue_effects: true
-  unbound_ok: 'narrated: edit_files has no binding in this runtime; the effect is the model''s account
-    of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: edit_files has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 - id: verify
   speciality: verifier
   abilities:
@@ -34,9 +34,8 @@ nodes:
   - citations: list[{resolves:bool}]
   - output
   - verify_failed: bool
-  criteria: Every citation resolves to a real, reachable source, and the cited passage actually supports
-    the claim it is attached to. A resolving link under a claim it does not support is the harder failure
-    and the one this node exists for.
+  criteria: Every citation resolves to a real, reachable source, and the cited passage actually supports the claim it is attached
+    to. A resolving link under a claim it does not support is the harder failure and the one this node exists for.
   retries:
     max: 2
     reissue_effects: true
@@ -49,7 +48,7 @@ edges:
   to: work
   when: verify_failed and attempts < 3
 termination:
-  max_steps: 30
+  max_steps: 10
   contract: every citation resolves; mismatches listed
 verification:
 - assert: all(c.resolves for c in output.citations)

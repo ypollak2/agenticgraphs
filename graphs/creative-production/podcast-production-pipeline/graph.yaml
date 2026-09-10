@@ -1,7 +1,6 @@
 apiVersion: agr/v1.8
 name: podcast-production-pipeline
-description: 'Turn a raw recording into a published episode: transcript, edit plan, show notes, rights
-  check, publish.'
+description: 'Turn a raw recording into a published episode: transcript, edit plan, show notes, rights check, publish.'
 category: creative-production
 nodes:
 - id: transcribe
@@ -53,8 +52,8 @@ nodes:
   - published
   - timestamps: list[{start:int, end:int}]
   join: all
-  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
-    of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 - id: escalate-rights
   speciality: escalator
   abilities:
@@ -63,10 +62,10 @@ nodes:
   outputs:
   - escalated: bool
   - escalation_reason
-  criteria: 'The episode is held with the clips whose licensing could not be confirmed. This node had
-    no failure path at all: unclear rights stopped the graph, which looks identical to rights being clear.'
-  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
-    it until the ability is bound (audit 2026-09-04, Q1)'
+  criteria: 'The episode is held with the clips whose licensing could not be confirmed. This node had no failure path at all:
+    unclear rights stopped the graph, which looks identical to rights being clear.'
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 edges:
 - from: transcribe
   to: edit-plan
@@ -83,14 +82,13 @@ edges:
   to: escalate-rights
   when: not rights_clear
 termination:
-  max_steps: 30
+  max_steps: 10
   contract: no episode publishes with an uncleared cue or drifting timestamps
 verification:
-- describe: "every clip names the licence it cleared under \u2014 'rights are clear' is unfalsifiable,\
-    \ a licence reference is not"
+- describe: "every clip names the licence it cleared under \u2014 'rights are clear' is unfalsifiable, a licence reference\
+    \ is not"
   assert: all(c.license_ref for c in output.clearances)
-- describe: every chapter marker starts before it ends, which is what makes a timestamp valid rather than
-    merely present
+- describe: every chapter marker starts before it ends, which is what makes a timestamp valid rather than merely present
   assert: all(t.start < t.end for t in output.timestamps)
 state:
   inputs:

@@ -1,7 +1,6 @@
 apiVersion: agr/v1.8
 name: incident-lifecycle
-description: Detect, triage, mitigate and prove an incident closed, then write the postmortem and file
-  the actions.
+description: Detect, triage, mitigate and prove an incident closed, then write the postmortem and file the actions.
 category: devops-sre
 nodes:
 - id: detect
@@ -48,8 +47,8 @@ nodes:
   - blast_radius
   - residual_blast_radius
   - impact_cleared: bool
-  criteria: "Mitigation is proven by the signal that declared the incident returning to normal, not by\
-    \ a responder saying so \u2014 and the postmortem yields at least one action with a named owner."
+  criteria: "Mitigation is proven by the signal that declared the incident returning to normal, not by a responder saying\
+    \ so \u2014 and the postmortem yields at least one action with a named owner."
   retries:
     max: 2
     reissue_effects: true
@@ -81,10 +80,10 @@ nodes:
   outputs:
   - escalated: bool
   - escalation_reason
-  criteria: The incident is handed on with the mitigations tried and the signal that is still out of bounds.
-    An incident nobody could clear is escalated, not closed.
-  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
-    it until the ability is bound (audit 2026-09-04, Q1)'
+  criteria: The incident is handed on with the mitigations tried and the signal that is still out of bounds. An incident nobody
+    could clear is escalated, not closed.
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 edges:
 - from: detect
   to: triage
@@ -104,12 +103,10 @@ edges:
   to: escalate-incident
   when: not impact_cleared and attempts >= 3
 termination:
-  max_steps: 45
-  contract: mitigation is proven effective before the postmortem is written; every postmortem yields owned
-    actions
+  max_steps: 28
+  contract: mitigation is proven effective before the postmortem is written; every postmortem yields owned actions
 verification:
-- describe: the blast radius measured after mitigation is smaller than the one `detect` measured before
-    it
+- describe: the blast radius measured after mitigation is smaller than the one `detect` measured before it
   assert: output.residual_blast_radius < output.blast_radius
 - describe: the postmortem yields at least one owned action
   assert: len(output.actions) >= 1 and all(a.owner for a in output.actions)

@@ -18,9 +18,8 @@ nodes:
   outputs:
   - included
   - excluded
-  criteria: Each paper is included or excluded against the stated criteria, with the reason recorded.
-    An unexplained exclusion cannot be audited, which is the difference between a review and a reading
-    list.
+  criteria: Each paper is included or excluded against the stated criteria, with the reason recorded. An unexplained exclusion
+    cannot be audited, which is the difference between a review and a reading list.
 - id: work
   speciality: worker
   abilities:
@@ -35,8 +34,8 @@ nodes:
   retries:
     max: 2
     reissue_effects: true
-  unbound_ok: 'narrated: edit_files has no binding in this runtime; the effect is the model''s account
-    of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: edit_files has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 - id: verify
   speciality: verifier
   abilities:
@@ -46,8 +45,8 @@ nodes:
   - claims: list[{paper:any, section:any}]
   - output
   - verify_failed: bool
-  criteria: Every claim cites the specific paper and the section within it. A claim citing a paper but
-    not where in it stops the next reader from verifying anything.
+  criteria: Every claim cites the specific paper and the section within it. A claim citing a paper but not where in it stops
+    the next reader from verifying anything.
   retries:
     max: 2
     reissue_effects: true
@@ -62,7 +61,7 @@ edges:
   to: work
   when: verify_failed and attempts < 3
 termination:
-  max_steps: 30
+  max_steps: 16
   contract: every claim cites a specific paper and section
 verification:
 - assert: all(c.paper and c.section for c in output.claims)

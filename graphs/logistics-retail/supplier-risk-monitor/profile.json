@@ -10,18 +10,18 @@
     "max_fan_out": 1,
     "loops": 0,
     "loops_bounded": true,
-    "max_steps": 25,
+    "max_steps": 12,
     "verification_asserts": 2,
     "risk_surface": "read"
   },
   "refs": {
-    "research-knowledge/competitive-intelligence": "9753d03162ec"
+    "research-knowledge/competitive-intelligence": "5ceb1fdfe573"
   },
   "measured": {
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-09-04",
+    "date": "2026-09-10",
     "cases": 1,
     "passed": 1,
     "pass_rate": 1.0,
@@ -66,7 +66,7 @@
     "runner": "llm-replay:qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-09-04",
+    "date": "2026-09-10",
     "cases": 3,
     "passed": 0,
     "pass_rate": 0.0,
@@ -200,7 +200,7 @@
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-31",
-    "age_days": 4,
+    "age_days": 10,
     "per_model_pass_rate": {
       "qwen3-coder:30b": 0.0
     },

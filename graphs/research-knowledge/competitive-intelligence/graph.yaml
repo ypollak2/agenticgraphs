@@ -28,8 +28,8 @@ nodes:
   outputs:
   - findings: list[{source_date:any, source_url:any}]
   - output
-  criteria: Every finding links a dated public source. An undated observation cannot be told apart from
-    a stale one, which is the whole risk in a competitive brief.
+  criteria: Every finding links a dated public source. An undated observation cannot be told apart from a stale one, which
+    is the whole risk in a competitive brief.
   retries:
     max: 2
 edges:
@@ -38,7 +38,7 @@ edges:
 - from: map
   to: reduce
 termination:
-  max_steps: 20
+  max_steps: 6
   contract: every finding links a dated public source
 verification:
 - assert: all(f.source_url and f.source_date for f in output.findings)

@@ -23,8 +23,8 @@ nodes:
   outputs:
   - output
   - revision_requested: bool
-  criteria: Every ranked item cites the scanner evidence and the asset-map reference that give it exposure.
-    A CVSS score without an asset map ranks a vulnerability nobody can reach above one on the perimeter.
+  criteria: Every ranked item cites the scanner evidence and the asset-map reference that give it exposure. A CVSS score without
+    an asset map ranks a vulnerability nobody can reach above one on the perimeter.
 edges:
 - from: intake
   to: produce
@@ -34,7 +34,7 @@ edges:
   to: produce
   when: revision_requested and attempts < 2
 termination:
-  max_steps: 12
+  max_steps: 10
   contract: ranking inputs cite scanner evidence and asset map
 verification:
 - assert: all(r.scanner_evidence and r.asset_map_ref for r in output.ranking)

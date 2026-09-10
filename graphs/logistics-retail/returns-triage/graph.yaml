@@ -16,12 +16,14 @@ nodes:
   - generate
   outputs:
   - assigned_disposition
+  parallel_group: auto-route
 - id: branch-complex
   speciality: producer
   abilities:
   - generate
   outputs:
   - assigned_disposition
+  parallel_group: auto-route
 - id: verify
   speciality: critic
   abilities:
@@ -31,8 +33,8 @@ nodes:
   - expected_disposition
   - assigned_disposition
   - output
-  criteria: The route agrees with the policy decision table for the stated reason code, and anything routed
-    to fraud review cites the specific pattern that triggered it rather than a general suspicion.
+  criteria: The route agrees with the policy decision table for the stated reason code, and anything routed to fraud review
+    cites the specific pattern that triggered it rather than a general suspicion.
   inputs:
   - policy_table
 edges:
@@ -47,7 +49,7 @@ edges:
 - from: branch-complex
   to: verify
 termination:
-  max_steps: 12
+  max_steps: 6
   contract: routing agrees with policy decision table
 verification:
 - describe: the decision agrees with the policy table the caller supplied

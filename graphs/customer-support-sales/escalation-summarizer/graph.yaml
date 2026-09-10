@@ -24,8 +24,8 @@ nodes:
   outputs:
   - output
   - revision_requested: bool
-  criteria: Every unresolved customer ask appears in the brief with a verbatim quote and its current state.
-    An ask the thread left hanging is exactly what the receiving tier must not have to rediscover.
+  criteria: Every unresolved customer ask appears in the brief with a verbatim quote and its current state. An ask the thread
+    left hanging is exactly what the receiving tier must not have to rediscover.
 edges:
 - from: intake
   to: produce
@@ -35,7 +35,7 @@ edges:
   to: produce
   when: revision_requested and attempts < 2
 termination:
-  max_steps: 12
+  max_steps: 10
   contract: brief covers all unresolved asks; quotes traceable
 verification:
 - assert: output.all_asks_covered and all(a.quote for a in output.asks)

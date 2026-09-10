@@ -1,7 +1,6 @@
 apiVersion: agr/v1.8
 name: code-review-pipeline
-description: Multi-stage PR review that triages risk, splits security and style review, and synthesizes
-  one verdict.
+description: Multi-stage PR review that triages risk, splits security and style review, and synthesizes one verdict.
 category: software-engineering
 nodes:
 - id: triage
@@ -37,8 +36,8 @@ nodes:
   outputs:
   - findings: list[{file:any, line:int}]
   - verdict: any
-  criteria: The verdict is approve or request_changes, and every finding names the file and line it is
-    about. A review comment that cannot be located in the diff cannot be acted on.
+  criteria: The verdict is approve or request_changes, and every finding names the file and line it is about. A review comment
+    that cannot be located in the diff cannot be acted on.
 edges:
 - from: triage
   to: security-review
@@ -50,7 +49,7 @@ edges:
 - from: style-review
   to: synthesize
 termination:
-  max_steps: 12
+  max_steps: 8
   contract: synthesize emits a verdict in {approve, request_changes} with every finding carrying file+line
 verification:
 - assert: output.verdict in ['approve','request_changes']

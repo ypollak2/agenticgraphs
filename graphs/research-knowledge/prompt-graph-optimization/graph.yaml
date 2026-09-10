@@ -38,8 +38,8 @@ nodes:
   inputs:
   - variant
   kind: verifier
-  criteria: A variant ships only if it beats the baseline on a held-out set it was never searched against.
-    A winner selected on the set that selected it has measured its own search, not its quality.
+  criteria: A variant ships only if it beats the baseline on a held-out set it was never searched against. A winner selected
+    on the set that selected it has measured its own search, not its quality.
   retries:
     max: 2
     reissue_effects: true
@@ -49,7 +49,7 @@ edges:
 - from: search
   to: confirm
 termination:
-  max_steps: 40
+  max_steps: 6
   contract: a variant ships only if it beats baseline on a held-out set it was not searched against
 verification:
 - describe: the winner is confirmed on held-out data, not the set it was tuned on

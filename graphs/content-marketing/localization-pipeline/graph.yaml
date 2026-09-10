@@ -28,9 +28,8 @@ nodes:
   - glossary_violations
   - output
   - similarity: float
-  criteria: Each locale's back-translation stays above the similarity threshold against the source, and
-    every glossary term uses its approved target-language equivalent. A fluent translation that renames
-    the product is a failure.
+  criteria: Each locale's back-translation stays above the similarity threshold against the source, and every glossary term
+    uses its approved target-language equivalent. A fluent translation that renames the product is a failure.
   inputs:
   - threshold
 edges:
@@ -39,7 +38,7 @@ edges:
 - from: map
   to: reduce
 termination:
-  max_steps: 20
+  max_steps: 6
   contract: back-translation similarity above threshold; glossary respected
 verification:
 - assert: output.similarity >= output.threshold and not output.glossary_violations

@@ -1,9 +1,8 @@
 apiVersion: agr/v1.8
 name: feature-delivery-lifecycle
-description: "End-to-end feature delivery: research a problem, plan it, implement it, test it, audit the\
-  \ change, fix what the audit found, document it, and release behind a human gate with a rollback path.\
-  \ The implement, test and audit phases are not re-authored here \u2014 they reference the existing single-purpose\
-  \ graphs as subgraphs."
+description: "End-to-end feature delivery: research a problem, plan it, implement it, test it, audit the change, fix what\
+  \ the audit found, document it, and release behind a human gate with a rollback path. The implement, test and audit phases\
+  \ are not re-authored here \u2014 they reference the existing single-purpose graphs as subgraphs."
 category: software-engineering
 state:
   inputs:
@@ -76,8 +75,9 @@ nodes:
   outputs:
   - patch
   - audit_rounds
-  unbound_ok: 'narrated: edit_files, execute_step has no binding in this runtime; the effect is the model''s
-    account of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: edit_files, execute_step has no binding in this runtime; the effect is the model''s account of it
+    until the ability is bound (audit 2026-09-04, Q1)'
+  parallel_group: auto-audit
 - id: docs
   speciality: docs-writer
   abilities:
@@ -89,6 +89,7 @@ nodes:
   outputs:
   - doc_changes: list[{file:any, pr_url:any}]
   join: all
+  parallel_group: auto-audit
 - id: release-approval
   speciality: approver
   kind: human
@@ -112,8 +113,8 @@ nodes:
   - release_tag
   - release_failed: bool
   on_error: rollback
-  unbound_ok: 'narrated: cut_release has no binding in this runtime; the effect is the model''s account
-    of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: cut_release has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 - id: rollback
   speciality: compensator
   abilities:
@@ -124,8 +125,8 @@ nodes:
   - doc_changes: list[{file:any, pr_url:any}]
   - output
   - rolled_back
-  unbound_ok: 'narrated: rollback has no binding in this runtime; the effect is the model''s account of
-    it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: rollback has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 edges:
 - from: research
   to: plan
@@ -154,11 +155,11 @@ edges:
   when: release_failed
 termination:
   max_steps: 60
-  contract: A release is cut only after the audit verdict is approve, docs are updated, and a human signs
-    off; a failed release is compensated by a rollback.
+  contract: A release is cut only after the audit verdict is approve, docs are updated, and a human signs off; a failed release
+    is compensated by a rollback.
 verification:
-- describe: every documentation change names the file it touched and the PR it landed in, so 'docs updated'
-    can be checked against the diff
+- describe: every documentation change names the file it touched and the PR it landed in, so 'docs updated' can be checked
+    against the diff
   assert: all(d.file and d.pr_url for d in output.doc_changes)
 - describe: the release carries a human signature
   assert: output.signed_off == true

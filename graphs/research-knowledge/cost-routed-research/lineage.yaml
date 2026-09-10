@@ -11,3 +11,11 @@ mutations:
   op: optimize
   changes:
   - max_steps 20 -> 8 (observed worst-case 4 across passing cases)
+- at: '2026-09-10T13:35:40+00:00'
+  op: optimize
+  status: accepted
+  changes:
+  - max_steps 20 -> 8 (observed worst-case 4 across passing cases)
+  live_score: 1.0
+  episodes: 12
+  gated: true

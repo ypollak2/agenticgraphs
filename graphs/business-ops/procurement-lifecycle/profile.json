@@ -10,18 +10,18 @@
     "max_fan_out": 2,
     "loops": 1,
     "loops_bounded": true,
-    "max_steps": 35,
+    "max_steps": 14,
     "verification_asserts": 2,
     "risk_surface": "execute"
   },
   "refs": {
-    "business-ops/rfp-response-assembler": "bab022426083"
+    "business-ops/rfp-response-assembler": "056a5e67377f"
   },
   "measured": {
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-09-04",
+    "date": "2026-09-10",
     "cases": 1,
     "passed": 1,
     "pass_rate": 1.0,
@@ -67,7 +67,7 @@
     "runner": "llm-replay:lfm2.5:8b,qwen3-coder:30b",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-09-04",
+    "date": "2026-09-10",
     "cases": 4,
     "passed": 3,
     "pass_rate": 0.75,
@@ -238,7 +238,7 @@
       "qwen3-coder:30b"
     ],
     "recorded": "2026-08-31",
-    "age_days": 4,
+    "age_days": 10,
     "per_model_pass_rate": {
       "lfm2.5:8b": 0.0,
       "qwen3-coder:30b": 1.0

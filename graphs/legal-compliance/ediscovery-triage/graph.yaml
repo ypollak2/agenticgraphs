@@ -16,12 +16,14 @@ nodes:
   - generate
   outputs:
   - handled_by
+  parallel_group: auto-route
 - id: branch-complex
   speciality: producer
   abilities:
   - generate
   outputs:
   - handled_by
+  parallel_group: auto-route
 - id: verify
   speciality: critic
   abilities:
@@ -30,8 +32,8 @@ nodes:
   outputs:
   - output
   - recall: float
-  criteria: 'Recall on the seeded relevant set clears the threshold, and privilege calls are conservative:
-    a document wrongly released cannot be recalled, while one wrongly withheld can still be produced.'
+  criteria: 'Recall on the seeded relevant set clears the threshold, and privilege calls are conservative: a document wrongly
+    released cannot be recalled, while one wrongly withheld can still be produced.'
   inputs:
   - threshold
 edges:
@@ -46,7 +48,7 @@ edges:
 - from: branch-complex
   to: verify
 termination:
-  max_steps: 12
+  max_steps: 6
   contract: recall on seeded relevant set above threshold
 verification:
 - assert: output.recall >= output.threshold
