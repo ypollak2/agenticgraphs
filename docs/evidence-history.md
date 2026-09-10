@@ -153,3 +153,46 @@ which is why the scoreboard reports per-model results and
 [`docs/contract-findings.md`](docs/contract-findings.md) names the contracts no
 model satisfies.
 
+
+---
+
+## v19 (2026-09-10) — the fixtures were never asked to supply a subject
+
+The pattern named above has a fifth instance, and it is the one that invalidates
+the most: **anything optional in the spec ends up unused, and anything unused ends
+up load-bearing by accident.** v1.8 made `goal.required` universal. Nothing ever
+required a case to carry the *subject* of that goal.
+
+71 of 83 graphs are therefore scored on cases seeding a goal string and nothing
+else. `alert-noise-reduction` is asked to deduplicate the last 30 days of paging
+alerts, is handed no alerts, and its `map` node returns the literal string
+`"map_shard"` — its own output key as a placeholder — because there is nothing to
+map over. `reduce` then reports a deduplication ratio of zero, correctly, and the
+assert fails it.
+
+| case inputs | graphs | mean live pass_rate |
+|---|---|---|
+| goal only | 71 | 0.614 |
+| real data seeded | 12 | 0.898 |
+
+A paired run isolates it: same graph, same model, same seed, varying only whether
+the case carries data.
+
+| inputs | no guidance | guidance |
+|---|---|---|
+| goal only | fail | fail |
+| goal + 6 real alerts | **pass** | **pass** |
+
+This is the third possibility the Live column could not express. It reported 🚫 as
+"a contract no model delivers is a bad contract, not a bad model" — a two-way
+distinction between a bad contract and a weak model. There was always a third: a
+fixture that never let the graph attempt the work. The scoreboard now says so.
+
+What it costs: the claim that 45 of 83 graphs have live headroom is not a quality
+claim, and the v1.9 guidance experiment (`docs/plans/v19-guidance-experiment.md`)
+cannot run on a population selected for live 0.0, because that selection is partly
+a selection for empty fixtures.
+
+What it does not cost: the optimizer fix (556a69b) stands on its own — it caught
+`op_tighten_max_steps` sizing budgets from mock traces and stalling three graphs,
+which is true regardless of fixture quality.
