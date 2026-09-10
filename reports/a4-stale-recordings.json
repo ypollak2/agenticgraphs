@@ -942,6 +942,16 @@
     },
     {
       "graph": "architecture-decision-tournament",
+      "file": "graphs/software-engineering/architecture-decision-tournament/live/happy-path@qwen3-coder-30b~v1.9.json",
+      "model": "qwen3-coder:30b",
+      "case": "happy-path",
+      "commit": "71f92a31",
+      "content": "same",
+      "shape": "same",
+      "verdict": "stable"
+    },
+    {
+      "graph": "architecture-decision-tournament",
       "file": "graphs/software-engineering/architecture-decision-tournament/live/happy-path@qwen3.5-latest.json",
       "model": "qwen3.5:latest",
       "case": "happy-path",
