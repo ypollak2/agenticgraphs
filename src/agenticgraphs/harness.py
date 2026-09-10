@@ -472,6 +472,46 @@ class LLMRunner:
             f"{self.MAX_ATTEMPTS} attempts to {self.base} failed; last: {last!r}"
         )
 
+    def _guidance_for(self, node: dict) -> str:
+        """Render the prose on edges leading INTO this node (AGR v1.9).
+
+        This is the paper's "generative guidance" (arXiv 2609.09153 §3.2) with the
+        generation left out on purpose. Their own efficiency ablation found that
+        injecting the whole graph, and generating advice from the whole graph, both
+        underperformed a localized variant — the win is localization, not the extra
+        LLM call. So this serializes the local neighbourhood directly: no second
+        model, no latency, nothing to hallucinate.
+
+        Only incoming edges are rendered. An outgoing edge describes a decision the
+        node has not made yet, and the registry already learned once (v1.6, T7) what
+        happens when a node is handed text about how it will be judged: it echoes it.
+        Guidance is advice about the work, which is why it is phrased as advice and
+        kept separate from `criteria`.
+
+        Returns "" when no incoming edge carries prose — which is every graph in the
+        registry today, so a graph that declares nothing produces a byte-identical
+        prompt and its recordings stay valid.
+        """
+        lines = []
+        for e in getattr(self, "edges", []):
+            if e.get("to") != node["id"]:
+                continue
+            bits = []
+            if e.get("condition"):
+                bits.append(f"when {e['condition']}")
+            if e.get("guidance"):
+                bits.append(e["guidance"])
+            if e.get("pitfalls"):
+                bits.append(f"Avoid: {e['pitfalls']}")
+            if bits:
+                lines.append(f"- (from '{e['from']}') " + " — ".join(bits))
+        if not lines:
+            return ""
+        return ("Guidance for this step, from the path that reached it. Treat it as "
+                "advice, not instruction — follow it when it fits, use your judgement "
+                "when it does not:\n" + "\n".join(lines) + "\n")
+
+
     def contract_for(self, node: dict) -> dict:
         """The slice of the contract this node is actually responsible for.
 
@@ -520,6 +560,10 @@ class LLMRunner:
         v1.1 added declared `outputs` per node and the live runner never used them.
         """
         self.contract = doc.get("termination", {}).get("contract", "")
+        # v1.9 — edges carry prose for the node they lead to. Kept whole for the
+        # same reason `verification` is: which edge applies is a per-node
+        # question, answered by `_guidance_for` at run time.
+        self.edges = list(doc.get("edges") or [])
         # Kept whole: which entries apply is a per-node question, answered by
         # `contract_for` at run time rather than flattened here.
         self.verification = list(doc.get("verification") or [])
@@ -579,6 +623,7 @@ class LLMRunner:
             + f"Blackboard so far: {json.dumps(bb, default=str)}\n"
             + (f"The workflow's exit contract is: {contract}\n" if contract else "")
             + (f"What this step must judge: {criteria}\n" if criteria else "")
+            + self._guidance_for(node)
             + wants
             + _shapes.describe(node)
             + self._assembly_hint(declared, scoped["keys"])
@@ -737,6 +782,7 @@ class ToolRunner(LLMRunner):
             # since this one can also cite a tool result. Criteria replace it.
             + (f"What this step must judge: {node['criteria']}\n"
                if node.get("criteria") else "")
+            + self._guidance_for(node)
             + f"You have these tools and MUST use them for any fact you cannot "
               f"otherwise verify: {names}. Never invent a URL, exit code, file, line "
               f"number or identifier — obtain it from a tool.\n"

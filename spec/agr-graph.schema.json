@@ -90,12 +90,16 @@
           },
           "maps": {
             "type": "object",
-            "additionalProperties": {"type": "string"},
+            "additionalProperties": {
+              "type": "string"
+            },
             "description": "kind: subgraph only. Explicit renames from the child's vocabulary to this graph's: {parent_key: child_key}. Every phase output the child does not itself produce must be mapped here from a key it does, and the lint checks both sides against the referenced graph (2026-09-04 audit, D4-01). Before this, a phase could declare any output and expansion simply contracted the child's terminal to produce it."
           },
           "aliases": {
             "type": "object",
-            "additionalProperties": {"type": "string"},
+            "additionalProperties": {
+              "type": "string"
+            },
             "description": "Runtime-only: set by subgraphs.expand on a child's terminal from the phase's `maps`; after the node runs, out[parent_key] = out[child_key]. Not for authoring."
           },
           "unbound_ok": {
@@ -391,6 +395,18 @@
             ],
             "default": "flow",
             "description": "v1.1 \u2014 error edges fire on `error` in node output; compensate edges are reverse paths exempt from back-edge lint and join accounting."
+          },
+          "guidance": {
+            "type": "string",
+            "description": "v1.9 \u2014 situational advice for the node this edge leads TO, rendered into its prompt when this edge is taken. A soft bias, never a constraint on legal actions (arXiv 2609.09153)."
+          },
+          "condition": {
+            "type": "string",
+            "description": "v1.9 \u2014 prose statement of when this edge applies, for the model. Distinct from `when`, which is the machine-evaluated guard."
+          },
+          "pitfalls": {
+            "type": "string",
+            "description": "v1.9 \u2014 known failure modes on this transition, surfaced to the target node so it can avoid them."
           }
         },
         "additionalProperties": false
