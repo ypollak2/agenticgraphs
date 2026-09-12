@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-075` | education | **parallel-swarm** | 3 | 3 | 1 | 0 | 30 | execute |
+| `AGR-075` | education | **parallel-swarm** | 3 | 3 | 1 | 0 | 10 | execute |
 
 > 🎯 **Requires a goal** — the submissions to grade and the rubric to grade them against. Without one the graph refuses and runs no node.
 
@@ -33,7 +33,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 
 - **Exit contract** — inter-rater agreement above threshold or escalated
 - **Machine-checked** — `output.agreement >= output.threshold or output.escalated`
-- **Bounded** — hard stop after 30 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 10 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval rubric-grading-swarm` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/rubric-grading-swarm.md)
 

@@ -1,0 +1,61 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "case_notes": {
+      "age": 54,
+      "sex": "F",
+      "presenting": "acute dyspnoea",
+      "history": [
+        "prior MI 2019",
+        "hypertension"
+      ],
+      "presentations": [
+        {
+          "id": "p1",
+          "clinician_id": "c1",
+          "findings": [
+            "dyspnoea",
+            "raised JVP"
+          ]
+        },
+        {
+          "id": "p2",
+          "clinician_id": "c2",
+          "findings": [
+            "dyspnoea",
+            "bibasal crackles"
+          ]
+        },
+        {
+          "id": "p3",
+          "clinician_id": "c3",
+          "findings": [
+            "dyspnoea",
+            "pleuritic chest pain"
+          ]
+        }
+      ]
+    },
+    "goal": "a 54-year-old with acute dyspnoea and a cardiac history"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "intake: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

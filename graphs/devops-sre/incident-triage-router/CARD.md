@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-011` | devops-sre | **router** | 4 | 4 | 1 | 1 | 12 | write |
+| `AGR-011` | devops-sre | **router** | 4 | 4 | 1 | 1 | 6 | write |
 
 > 🎯 **Requires a goal** — the incident to route and the on-call ownership map to route it by. Without one the graph refuses and runs no node.
 
@@ -36,7 +36,7 @@ A cheap classifier sends every item down the narrowest branch that can handle it
 - **Exit contract** — routing matches on-call ownership map
 - **Machine-checked** — `output.assigned_team == output.expected_team`
 - **Machine-checked** — `len(output.expected_team) > 0`
-- **Bounded** — hard stop after 12 steps; the topology is acyclic
+- **Bounded** — hard stop after 6 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval incident-triage-router` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/incident-triage-router.md)
 

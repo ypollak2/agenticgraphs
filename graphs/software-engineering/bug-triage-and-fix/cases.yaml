@@ -19,6 +19,16 @@ cases:
       exit_before: 1
       exit_after: 0
   goal: issue 481, reproducing in the checkout service
+  inputs:
+    test_path: tests/test_checkout.py::test_apply_coupon
+    issue: &id002
+      id: 481
+      service: checkout
+      title: coupon discount off by one cent
+      repro: apply coupon SAVE10 to a $100.00 cart
+      expected: 9.00 discount
+      actual: 10.00 discount
+    repro_command: pytest tests/test_checkout.py::test_apply_coupon -q
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -45,3 +55,7 @@ cases:
       exit_before: 1
       exit_after: 0
   goal: issue 481, reproducing in the checkout service
+  inputs:
+    test_path: tests/test_checkout.py::test_apply_coupon
+    issue: *id002
+    repro_command: pytest tests/test_checkout.py::test_apply_coupon -q

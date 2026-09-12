@@ -1,6 +1,82 @@
 # Changelog
 
-## [Unreleased] — the gap audit, remediated
+## [Unreleased] — AGR v1.9, the subject
+
+A case now supplies what its goal names, and the Live column measures the graph
+instead of the model's imagination. Spec: [agr-v1.9.md](docs/agr-v1.9.md).
+
+### Fixed
+
+- **71 of 83 graphs were scored on cases that gave them nothing to work on.**
+  `alert-noise-reduction` was asked to deduplicate the last 30 days of paging alerts
+  and handed `{"goal": "..."}` alone, so `partition` invented shards, `map` returned
+  the literal string `"map_shard"` — its own output key as a placeholder — and
+  `reduce` honestly reported a ratio of zero. Goal-only graphs averaged **0.614**
+  live; the 12 seeding real inputs averaged **0.898**. A paired run (same graph,
+  model and seed) flips fail→pass purely by supplying data. All 83 graphs now carry
+  their subject. **34 of the starved graphs already declared the input** in
+  `state.inputs` and no case ever supplied one; no schema change was needed, because
+  `case_inputs` has threaded `case.inputs` since the field existed.
+- **`agr optimize` was hill-climbing a constant.** It gated every mutation on canned
+  fixture replay, which all 83 graphs score 1.0 on, so it could reject a change only
+  for breaking schema — never for lowering quality. It now scores candidates against
+  replayed real-model runs. That immediately caught `op_tighten_max_steps` sizing
+  step budgets from *mock* traces: `performance-optimization` mocks in 5 steps and
+  replays in 11, so a proposed budget of 10 stalled all 8 of its recorded episodes.
+  Three graphs were being strangled. 81 gated optimizations then applied across 71
+  graphs, 0 rejected.
+
+### Added
+
+- **Edge-carried guidance** (`guidance`, `condition`, `pitfalls` on edges), rendered
+  into the node an edge leads to — the representation and delivery halves of
+  [arXiv 2609.09153](docs/research/2609.09153-procedural-graphs.md), with the paper's
+  second LLM call deliberately replaced by static serialization.
+- `scripts/guidance_ab.py`: a paired-episode A/B harness with a leak audit that fails
+  any run whose guidance shares an identifier or literal with the asserts it is
+  scored on.
+
+### Measured, and not adopted
+
+- **Edge guidance failed its pre-registered criteria.** 8 graphs, 3 paired episodes
+  per arm, 0 leaks: mean delta **−0.125**, **0 of 8 graphs improved**, 1 regression.
+  `bug-triage-and-fix` went 6/6 to 0/6 because the guidance narrated a sequence its
+  declared outputs `exit_before`/`exit_after` already encode, and the model swapped
+  them — procedural prose competes with a contract that already expresses the
+  procedure. The fields stay in the spec with the result attached; the prose is
+  stripped from the registry baseline, and the LLM refiner it would have justified is
+  explicitly not being built. See
+  [v19-guidance-experiment.md](docs/plans/v19-guidance-experiment.md).
+
+### Retired
+
+- **All 549 recordings.** They were taken against goal-only cases, so they measured a
+  model inventing its inputs rather than working on them.
+
+### Evidence
+
+- **Re-recorded on two models**, guidance stripped, against cases that carry their
+  subject:
+
+  | | `qwen3-coder:30b` (30B) | `qwen3.5:latest` (9.7B) |
+  |---|---|---|
+  | contracts satisfied | **113 of 138 (82%)** | 12 of 139 (8%) |
+
+  The second model is what makes the column mean anything. Cross-tabulated across the registry: **5** pass on both, **60** pass only on the larger model
+  (a capability gap — the contract is fine), **17** fail on both (a contract problem
+  no model delivers), and **0** pass only on the smaller one. The scoreboard has had
+  a per-model column since v1.2 for exactly this reason and had one model in it;
+  18 graphs are now marked `fails_every_model` and 60 `models_disagree`.
+
+### Known limits
+
+- The seeded fixtures are authored, not sourced. A graph passing on data written to
+  fit its contract is weaker evidence than one passing on data from its domain.
+- The guidance result is one model (`qwen3-coder:30b`) at one size.
+- The version gates in `validate.py` compare `apiVersion` as strings (`< "agr/v1.8"`).
+  Correct through v1.9; will misorder at v1.10.
+
+## [0.9.5] — the gap audit, remediated
 
 Fifty findings from a five-auditor read-only audit (`docs/plans/audit-gaps-2026-09-04.md`),
 forty-eight remediation items in seven phases, all landed. The headline gaps and what

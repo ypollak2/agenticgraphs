@@ -1,113 +1,177 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
-  },
-  "inputs": {
-    "goal": "a 54-year-old with acute dyspnoea and a cardiac history"
-  },
-  "node_outputs": {
-    "intake": {
-      "presentations": [
-        "54-year-old male presenting with acute onset dyspnoea",
-        "History of cardiac disease",
-        "Need for urgent cardiovascular evaluation"
-      ]
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "case_notes": {
+   "age": 54,
+   "sex": "F",
+   "presenting": "acute dyspnoea",
+   "history": [
+    "prior MI 2019",
+    "hypertension"
+   ],
+   "presentations": [
+    {
+     "id": "p1",
+     "clinician_id": "c1",
+     "findings": [
+      "dyspnoea",
+      "raised JVP"
+     ]
     },
-    "diagnose": [
-      {
-        "ranking": [
-          {
-            "clinician_id": "cardiology_attending"
-          },
-          {
-            "clinician_id": "pulmonologist"
-          },
-          {
-            "clinician_id": "emergency_medicine_physician"
-          }
-        ]
-      },
-      {
-        "ranking": [
-          {
-            "clinician_id": "cardiology_attending"
-          },
-          {
-            "clinician_id": "emergency_medicine_physician"
-          },
-          {
-            "clinician_id": "pulmonology_fellow"
-          }
-        ]
-      },
-      {
-        "ranking": [
-          {
-            "clinician_id": "cardiology_attending"
-          },
-          {
-            "clinician_id": "emergency_medicine_physician"
-          },
-          {
-            "clinician_id": "pulmonology_fellow"
-          }
-        ]
-      }
-    ],
-    "adjudicate": {
-      "consensus": [
-        "54-year-old male presenting with acute onset dyspnoea",
-        "History of cardiac disease",
-        "Need for urgent cardiovascular evaluation"
-      ],
-      "dissent": [],
-      "output": {
-        "consensus": [
-          "54-year-old male presenting with acute onset dyspnoea",
-          "History of cardiac disease",
-          "Need for urgent cardiovascular evaluation"
-        ],
-        "dissent": [],
-        "ranking": [
-          {
-            "clinician_id": "cardiology_attending"
-          },
-          {
-            "clinician_id": "emergency_medicine_physician"
-          },
-          {
-            "clinician_id": "pulmonology_fellow"
-          }
-        ],
-        "represented": [
-          "54-year-old male presenting with acute onset dyspnoea",
-          "History of cardiac disease",
-          "Need for urgent cardiovascular evaluation"
-        ]
-      },
-      "ranking": [
-        {
-          "clinician_id": "cardiology_attending"
-        },
-        {
-          "clinician_id": "emergency_medicine_physician"
-        },
-        {
-          "clinician_id": "pulmonology_fellow"
-        }
-      ],
-      "represented": [
-        "54-year-old male presenting with acute onset dyspnoea",
-        "History of cardiac disease",
-        "Need for urgent cardiovascular evaluation"
-      ]
+    {
+     "id": "p2",
+     "clinician_id": "c2",
+     "findings": [
+      "dyspnoea",
+      "bibasal crackles"
+     ]
+    },
+    {
+     "id": "p3",
+     "clinician_id": "c3",
+     "findings": [
+      "dyspnoea",
+      "pleuritic chest pain"
+     ]
     }
+   ]
   },
-  "tool_calls": []
+  "goal": "a 54-year-old with acute dyspnoea and a cardiac history"
+ },
+ "node_outputs": {
+  "intake": {
+   "presentations": [
+    {
+     "id": "p1",
+     "clinician_id": "c1",
+     "findings": [
+      "dyspnoea",
+      "raised JVP"
+     ]
+    },
+    {
+     "id": "p2",
+     "clinician_id": "c2",
+     "findings": [
+      "dyspnoea",
+      "bibasal crackles"
+     ]
+    },
+    {
+     "id": "p3",
+     "clinician_id": "c3",
+     "findings": [
+      "dyspnoea",
+      "pleuritic chest pain"
+     ]
+    }
+   ]
+  },
+  "diagnose": [
+   {
+    "ranking": [
+     {
+      "clinician_id": "c1"
+     },
+     {
+      "clinician_id": "c2"
+     },
+     {
+      "clinician_id": "c3"
+     }
+    ]
+   },
+   {
+    "ranking": [
+     {
+      "clinician_id": "c2"
+     },
+     {
+      "clinician_id": "c1"
+     },
+     {
+      "clinician_id": "c3"
+     }
+    ]
+   },
+   {
+    "ranking": [
+     {
+      "clinician_id": "c1"
+     },
+     {
+      "clinician_id": "c2"
+     },
+     {
+      "clinician_id": "c3"
+     }
+    ]
+   }
+  ],
+  "adjudicate": {
+   "consensus": [
+    "dyspnoea",
+    "raised JVP",
+    "bibasal crackles",
+    "pleuritic chest pain"
+   ],
+   "dissent": [],
+   "output": {
+    "consensus": [
+     "dyspnoea",
+     "raised JVP",
+     "bibasal crackles",
+     "pleuritic chest pain"
+    ],
+    "dissent": [],
+    "ranking": [
+     {
+      "clinician_id": "c1"
+     },
+     {
+      "clinician_id": "c2"
+     },
+     {
+      "clinician_id": "c3"
+     }
+    ],
+    "represented": [
+     "c1",
+     "c2",
+     "c3"
+    ]
+   },
+   "ranking": [
+    {
+     "clinician_id": "c1"
+    },
+    {
+     "clinician_id": "c2"
+    },
+    {
+     "clinician_id": "c3"
+    }
+   ],
+   "represented": [
+    "c1",
+    "c2",
+    "c3"
+   ]
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
 }

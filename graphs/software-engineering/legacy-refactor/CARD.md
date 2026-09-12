@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-004` | software-engineering | **pipeline** | 3 | 3 | 1 | 0 | 12 | write |
+| `AGR-004` | software-engineering | **pipeline** | 3 | 3 | 1 | 0 | 10 | write |
 
 > 🎯 **Requires a goal** — the code to refactor and the test suite that must stay green. Without one the graph refuses and runs no node.
 
@@ -34,7 +34,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 - **Exit contract** — behavior snapshot tests unchanged before and after
 - **Machine-checked** — `output.snapshot_before == output.snapshot_after`
 - **Command-checked** — `pytest -q`
-- **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 10 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval legacy-refactor` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/legacy-refactor.md)
 

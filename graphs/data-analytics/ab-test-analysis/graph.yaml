@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: ab-test-analysis
 description: Two analysts argue significance and pitfalls, judge writes readout.
 category: data-analytics
@@ -26,16 +26,16 @@ nodes:
   - claimed_effect: float
   - output
   - recomputed_effect: float
-  criteria: "The effect recomputed from the raw data reproduces the claimed effect within tolerance, and\
-    \ the readout names the pitfalls that could still invalidate it \u2014 peeking, unequal exposure,\
-    \ or a metric that moved for an unrelated reason."
+  criteria: "The effect recomputed from the raw data reproduces the claimed effect within tolerance, and the readout names\
+    \ the pitfalls that could still invalidate it \u2014 peeking, unequal exposure, or a metric that moved for an unrelated\
+    \ reason."
 edges:
 - from: position-a
   to: judge
 - from: position-b
   to: judge
 termination:
-  max_steps: 8
+  max_steps: 6
   contract: stats recomputed from raw data reproduce claimed effect
 verification:
 - assert: abs(output.recomputed_effect - output.claimed_effect) < 0.01
@@ -45,3 +45,4 @@ goal:
 state:
   inputs:
   - goal
+  - experiment

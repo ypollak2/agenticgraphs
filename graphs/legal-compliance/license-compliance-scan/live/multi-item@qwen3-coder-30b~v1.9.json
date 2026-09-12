@@ -1,0 +1,119 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "lockfile": {
+      "packages": [
+        {
+          "name": "requests",
+          "version": "2.32.3",
+          "spdx": "Apache-2.0"
+        },
+        {
+          "name": "pyyaml",
+          "version": "6.0.2",
+          "spdx": "MIT"
+        },
+        {
+          "name": "chardet",
+          "version": "5.2.0",
+          "spdx": "LGPL-2.1"
+        },
+        {
+          "name": "click",
+          "version": "8.1.7",
+          "spdx": "BSD-3-Clause"
+        }
+      ]
+    },
+    "policy": {
+      "name": "no-copyleft",
+      "forbidden_spdx": [
+        "GPL-3.0",
+        "AGPL-3.0",
+        "LGPL-2.1"
+      ]
+    },
+    "goal": "the production lockfile, against the no-copyleft policy"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "package": "chardet",
+          "version": "5.2.0",
+          "spdx": "LGPL-2.1",
+          "conflict": true,
+          "reason": "LGPL-2.1 is forbidden by the no-copyleft policy"
+        }
+      ]
+    },
+    "map": {
+      "shard_result": "conflict"
+    },
+    "reduce": {
+      "copyleft_conflicts": [
+        {
+          "package": "chardet",
+          "version": "5.2.0",
+          "spdx": "LGPL-2.1",
+          "conflict": true,
+          "reason": "LGPL-2.1 is forbidden by the no-copyleft policy"
+        }
+      ],
+      "output": {
+        "copyleft_conflicts": [
+          {
+            "package": "chardet",
+            "version": "5.2.0",
+            "spdx": "LGPL-2.1",
+            "conflict": true,
+            "reason": "LGPL-2.1 is forbidden by the no-copyleft policy"
+          }
+        ],
+        "packages": [
+          {
+            "spdx": "Apache-2.0"
+          },
+          {
+            "spdx": "MIT"
+          },
+          {
+            "spdx": "LGPL-2.1"
+          },
+          {
+            "spdx": "BSD-3-Clause"
+          }
+        ]
+      },
+      "packages": [
+        {
+          "spdx": "Apache-2.0"
+        },
+        {
+          "spdx": "MIT"
+        },
+        {
+          "spdx": "LGPL-2.1"
+        },
+        {
+          "spdx": "BSD-3-Clause"
+        }
+      ]
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "assert"
+  ],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

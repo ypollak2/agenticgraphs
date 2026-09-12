@@ -10,18 +10,18 @@
     "max_fan_out": 1,
     "loops": 1,
     "loops_bounded": true,
-    "max_steps": 25,
+    "max_steps": 12,
     "verification_asserts": 2,
     "risk_surface": "write"
   },
   "refs": {
-    "research-knowledge/competitive-intelligence": "9753d03162ec"
+    "research-knowledge/competitive-intelligence": "49ca903585ed"
   },
   "measured": {
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-09-04",
+    "date": "2026-09-10",
     "cases": 1,
     "passed": 1,
     "pass_rate": 1.0,
@@ -63,67 +63,19 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:lfm2.5:8b,qwen3-coder:30b",
+    "runner": "llm-replay:qwen3-coder:30b,qwen3.5:latest",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-09-04",
-    "cases": 4,
+    "date": "2026-09-10",
+    "cases": 2,
     "passed": 0,
     "pass_rate": 0.0,
     "mean_steps": 6.0,
     "results": [
       {
         "id": "happy-path",
-        "model": "lfm2.5:8b",
-        "recorded": "2026-09-01",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 6,
-        "trace": [
-          "collect.partition",
-          "collect.map",
-          "collect.reduce",
-          "normalize",
-          "fill",
-          "cite-check"
-        ],
-        "goal_missing": "",
-        "unreached_terminals": [],
-        "shape_violations": [
-          "fill.matrix: missing 'criteria' at [0][0]",
-          "fill.matrix: missing 'vendor' at [0][0]",
-          "fill.matrix: missing 'criteria' at [0][1]",
-          "fill.matrix: missing 'vendor' at [0][1]",
-          "fill.matrix: missing 'criteria' at [0][2]",
-          "cite-check.matrix: expected an object at [0], got list"
-        ],
-        "state_violations": [],
-        "assert_failures": [
-          "output.uncited_cells == 0",
-          "all(all(c in output.criteria_grid for c in r.criteria) for r in output.matrix) (AttributeError: 'list' object has no attribute 'criteria')"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "parse_failures": [],
-        "gate_refused": "",
-        "timeouts": [],
-        "failure_kinds": [
-          "assert"
-        ],
-        "overwritten_inputs": [],
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
+        "recorded": "2026-09-10",
         "gate_auto_approved": false,
         "passed": false,
         "steps": 6,
@@ -145,7 +97,8 @@
         "state_violations": [],
         "assert_failures": [
           "output.uncited_cells == 0",
-          "all(all(c in output.criteria_grid for c in r.criteria) for r in output.matrix) (AttributeError: 'list' object has no attribute 'criteria')"
+          "all(all(c in output.criteria_grid for c in r.criteria) for r in output.matrix) (AttributeError: 'list' object has no attribute 'criteria')",
+          "[collect] all(f.source_url and f.source_date for f in output.findings)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -167,8 +120,8 @@
       },
       {
         "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
+        "model": "qwen3.5:latest",
+        "recorded": "2026-09-10",
         "gate_auto_approved": false,
         "passed": false,
         "steps": 6,
@@ -182,60 +135,11 @@
         ],
         "goal_missing": "",
         "unreached_terminals": [],
-        "shape_violations": [
-          "cite-check.matrix: expected an object at [0], got list",
-          "cite-check.matrix: expected an object at [1], got list",
-          "cite-check.matrix: expected an object at [2], got list"
-        ],
+        "shape_violations": [],
         "state_violations": [],
         "assert_failures": [
-          "output.uncited_cells == 0",
-          "all(all(c in output.criteria_grid for c in r.criteria) for r in output.matrix) (AttributeError: 'list' object has no attribute 'criteria')"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "parse_failures": [],
-        "gate_refused": "",
-        "timeouts": [],
-        "failure_kinds": [
-          "assert"
-        ],
-        "overwritten_inputs": [],
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 6,
-        "trace": [
-          "collect.partition",
-          "collect.map",
-          "collect.reduce",
-          "normalize",
-          "fill",
-          "cite-check"
-        ],
-        "goal_missing": "",
-        "unreached_terminals": [],
-        "shape_violations": [
-          "cite-check.matrix: expected an object at [0], got list",
-          "cite-check.matrix: expected an object at [1], got list",
-          "cite-check.matrix: expected an object at [2], got list"
-        ],
-        "state_violations": [],
-        "assert_failures": [
-          "output.uncited_cells == 0",
-          "all(all(c in output.criteria_grid for c in r.criteria) for r in output.matrix) (AttributeError: 'list' object has no attribute 'criteria')"
+          "output.uncited_cells == 0 (AttributeError: uncited_cells)",
+          "[collect] all(f.source_url and f.source_date for f in output.findings) (AttributeError: findings)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -257,21 +161,21 @@
       }
     ],
     "models": [
-      "lfm2.5:8b",
-      "qwen3-coder:30b"
+      "qwen3-coder:30b",
+      "qwen3.5:latest"
     ],
-    "recorded": "2026-08-31",
-    "age_days": 4,
+    "recorded": "2026-09-10",
+    "age_days": 0,
     "per_model_pass_rate": {
-      "lfm2.5:8b": 0.0,
-      "qwen3-coder:30b": 0.0
+      "qwen3-coder:30b": 0.0,
+      "qwen3.5:latest": 0.0
     },
     "models_disagree": false,
     "fails_every_model": true,
     "flaky_models": [],
     "samples_per_model": {
-      "lfm2.5:8b": 1,
-      "qwen3-coder:30b": 3
+      "qwen3-coder:30b": 1,
+      "qwen3.5:latest": 1
     },
     "gate_auto_approved": false
   }

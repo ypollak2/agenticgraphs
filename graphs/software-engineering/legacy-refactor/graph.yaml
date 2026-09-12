@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: legacy-refactor
 description: Refactor a module behind characterization tests.
 category: software-engineering
@@ -24,8 +24,8 @@ nodes:
   outputs:
   - output
   - revision_requested: bool
-  criteria: The characterization snapshots are identical before and after. A refactor is a change in structure
-    and in nothing else; any behavioural difference means it was a rewrite.
+  criteria: The characterization snapshots are identical before and after. A refactor is a change in structure and in nothing
+    else; any behavioural difference means it was a rewrite.
 edges:
 - from: intake
   to: produce
@@ -35,12 +35,11 @@ edges:
   to: produce
   when: revision_requested and attempts < 2
 termination:
-  max_steps: 12
+  max_steps: 10
   contract: behavior snapshot tests unchanged before and after
 verification:
 - assert: output.snapshot_before == output.snapshot_after
-- describe: "the characterization suite is green after the refactor \u2014 a refactor that changes behaviour\
-    \ was a rewrite"
+- describe: "the characterization suite is green after the refactor \u2014 a refactor that changes behaviour was a rewrite"
   command: pytest -q
 goal:
   required: true
@@ -48,3 +47,4 @@ goal:
 state:
   inputs:
   - goal
+  - module

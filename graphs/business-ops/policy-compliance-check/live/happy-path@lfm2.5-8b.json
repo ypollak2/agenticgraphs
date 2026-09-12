@@ -1,46 +1,48 @@
 {
-  "model": "lfm2.5:8b",
-  "recorded": "2026-09-01",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "lfm2.5:8b",
+ "recorded": "2026-09-01",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "the vendor onboarding runbook, against InfoSec policy v4"
+ },
+ "node_outputs": {
+  "intake": {
+   "summary": "the vendor onboarding runbook, against InfoSec policy v4"
   },
-  "inputs": {
-    "goal": "the vendor onboarding runbook, against InfoSec policy v4"
+  "clause-map": {
+   "clause_shards": []
   },
-  "node_outputs": {
-    "intake": {
-      "summary": "the vendor onboarding runbook, against InfoSec policy v4"
+  "produce": {
+   "findings": [
+    {
+     "clause_id": "POL-001"
     },
-    "clause-map": {
-      "clause_shards": []
-    },
-    "produce": {
-      "findings": [
-        {
-          "clause_id": "POL-001"
-        },
-        {
-          "clause_id": "POL-045"
-        }
-      ]
-    },
-    "review": {
-      "output": {
-        "findings": [
-          {
-            "clause_id": "POL-001"
-          },
-          {
-            "clause_id": "POL-045"
-          }
-        ]
-      },
-      "revision_requested": false
+    {
+     "clause_id": "POL-045"
     }
+   ]
   },
-  "tool_calls": []
+  "review": {
+   "output": {
+    "findings": [
+     {
+      "clause_id": "POL-001"
+     },
+     {
+      "clause_id": "POL-045"
+     }
+    ]
+   },
+   "revision_requested": false
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

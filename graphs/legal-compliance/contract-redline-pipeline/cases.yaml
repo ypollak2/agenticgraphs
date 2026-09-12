@@ -16,6 +16,28 @@ cases:
       - clause: indemnity
         position: mutual
   goal: the Meridian MSA, against the 2026 commercial playbook
+  inputs:
+    contract: &id002
+      name: Meridian MSA
+      clauses:
+      - id: m1
+        type: liability_cap
+        text: Unlimited liability for all claims.
+      - id: m2
+        type: payment_terms
+        text: Net 90 from invoice.
+      - id: m3
+        type: termination
+        text: Termination for convenience with 180 days notice.
+    playbook: &id003
+      year: 2026
+      positions:
+      - playbook_ref: PB-2
+        rule: cap at 12 months fees
+      - playbook_ref: PB-5
+        rule: Net 30 standard, Net 45 maximum
+      - playbook_ref: PB-8
+        rule: termination for convenience at 60 days
 - id: retry-then-resolved
   node_outputs:
     intake:
@@ -36,3 +58,6 @@ cases:
       attempts: 2
     playbook-lookup: *id001
   goal: the Meridian MSA, against the 2026 commercial playbook
+  inputs:
+    contract: *id002
+    playbook: *id003

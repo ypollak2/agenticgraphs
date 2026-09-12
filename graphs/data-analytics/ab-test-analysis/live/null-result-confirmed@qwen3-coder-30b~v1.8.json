@@ -1,0 +1,51 @@
+{
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "experiment": {
+   "name": "checkout-v3",
+   "claimed_effect": 0.021,
+   "control": {
+    "n": 48210,
+    "conversions": 4339
+   },
+   "variant": {
+    "n": 47980,
+    "conversions": 5327
+   },
+   "primary_metric": "conversion rate",
+   "run_days": 14
+  },
+  "goal": "experiment checkout-v3, claimed +2.1% conversion"
+ },
+ "node_outputs": {
+  "position-a": {
+   "argument": "The experiment checkout-v3 shows a 2.1% conversion rate improvement as claimed. With control group (n=48210, conversions=4339) and variant group (n=47980, conversions=5327), the observed effect matches the claimed effect exactly, confirming statistical reproducibility of the claimed 2.1% conversion improvement."
+  },
+  "position-b": {
+   "argument": "The experiment shows variant conversion rate of 11.1% (5327/47980) versus control rate of 9.0% (4339/48210), yielding a 2.1% absolute improvement that matches the claimed effect. The statistical significance can be assessed by computing the p-value for the difference in proportions, which should be below the threshold (e.g., 0.05) to validate the claimed effect."
+  },
+  "judge": {
+   "claimed_effect": 0.021,
+   "output": {
+    "claimed_effect": 0.021,
+    "recomputed_effect": 0.021
+   },
+   "recomputed_effect": 0.021
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
+}

@@ -10,7 +10,7 @@
     "max_fan_out": 2,
     "loops": 1,
     "loops_bounded": true,
-    "max_steps": 25,
+    "max_steps": 8,
     "verification_asserts": 2,
     "risk_surface": "write"
   },
@@ -18,7 +18,7 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-09-04",
+    "date": "2026-09-10",
     "cases": 1,
     "passed": 1,
     "pass_rate": 1.0,
@@ -58,19 +58,19 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:qwen3-coder:30b",
+    "runner": "llm-replay:qwen3-coder:30b,qwen3.5:latest",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-09-04",
-    "cases": 3,
-    "passed": 3,
-    "pass_rate": 1.0,
+    "date": "2026-09-10",
+    "cases": 2,
+    "passed": 1,
+    "pass_rate": 0.5,
     "mean_steps": 4.0,
     "results": [
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
+        "recorded": "2026-09-10",
         "gate_auto_approved": false,
         "passed": true,
         "steps": 4,
@@ -103,10 +103,10 @@
       },
       {
         "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
+        "model": "qwen3.5:latest",
+        "recorded": "2026-09-10",
         "gate_auto_approved": false,
-        "passed": true,
+        "passed": false,
         "steps": 4,
         "trace": [
           "gather",
@@ -118,41 +118,10 @@
         "unreached_terminals": [],
         "shape_violations": [],
         "state_violations": [],
-        "assert_failures": [],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "parse_failures": [],
-        "gate_refused": "",
-        "timeouts": [],
-        "failure_kinds": [],
-        "overwritten_inputs": [],
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
-        "gate_auto_approved": false,
-        "passed": true,
-        "steps": 4,
-        "trace": [
-          "gather",
-          "draft-plan",
-          "access-map",
-          "review"
+        "assert_failures": [
+          "all(c.milestone for c in output.plan_30_60_90) (AttributeError: plan_30_60_90)",
+          "all(a.system and a.requested_on for a in output.access_requests) (AttributeError: access_requests)"
         ],
-        "goal_missing": "",
-        "unreached_terminals": [],
-        "shape_violations": [],
-        "state_violations": [],
-        "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -160,7 +129,9 @@
         "parse_failures": [],
         "gate_refused": "",
         "timeouts": [],
-        "failure_kinds": [],
+        "failure_kinds": [
+          "assert"
+        ],
         "overwritten_inputs": [],
         "rejected_approvals": [],
         "auto_approved": false,
@@ -171,18 +142,21 @@
       }
     ],
     "models": [
-      "qwen3-coder:30b"
+      "qwen3-coder:30b",
+      "qwen3.5:latest"
     ],
-    "recorded": "2026-08-31",
-    "age_days": 4,
+    "recorded": "2026-09-10",
+    "age_days": 0,
     "per_model_pass_rate": {
-      "qwen3-coder:30b": 1.0
+      "qwen3-coder:30b": 1.0,
+      "qwen3.5:latest": 0.0
     },
-    "models_disagree": false,
+    "models_disagree": true,
     "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
-      "qwen3-coder:30b": 3
+      "qwen3-coder:30b": 1,
+      "qwen3.5:latest": 1
     },
     "gate_auto_approved": false
   }

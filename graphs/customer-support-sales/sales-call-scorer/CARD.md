@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-082` | customer-support-sales | **parallel-swarm** | 3 | 2 | 1 | 0 | 30 | write |
+| `AGR-082` | customer-support-sales | **parallel-swarm** | 3 | 2 | 1 | 0 | 6 | write |
 
 > 🎯 **Requires a goal** — the call transcript to score and the rubric to score it against. Without one the graph refuses and runs no node.
 
@@ -33,7 +33,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 - **Exit contract** — the score reports the spread between passes alongside the median
 - **Machine-checked** — `output.segments_scored >= 1`
 - **Machine-checked** — `output.variance is not None`
-- **Bounded** — hard stop after 30 steps; the topology is acyclic
+- **Bounded** — hard stop after 6 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval sales-call-scorer` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/sales-call-scorer.md)
 

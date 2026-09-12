@@ -13,6 +13,19 @@ cases:
       revision_requested: false
       attempts: 1
   goal: the 2026-08-14 platform sync transcript, for the infra team
+  inputs:
+    transcript: &id001
+      date: '2026-08-14'
+      meeting: platform sync
+      turns:
+      - speaker: ana
+        text: I'll take the storage migration runbook and have it ready by the 21st.
+      - speaker: raj
+        text: I can own the alert cleanup, end of next week.
+      - speaker: ana
+        text: Sam, can you confirm the backup window by Friday?
+      - speaker: sam
+        text: Yes, I'll confirm the backup window by Friday the 16th.
 - id: retry-then-resolved
   node_outputs:
     intake:
@@ -34,3 +47,5 @@ cases:
     - revision_requested: false
       attempts: 2
   goal: the 2026-08-14 platform sync transcript, for the infra team
+  inputs:
+    transcript: *id001

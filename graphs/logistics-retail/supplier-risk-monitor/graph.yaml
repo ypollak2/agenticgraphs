@@ -1,7 +1,6 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: supplier-risk-monitor
-description: Score supplier concentration, financial and geographic risk, then plan mitigation for anything
-  above appetite.
+description: Score supplier concentration, financial and geographic risk, then plan mitigation for anything above appetite.
 category: logistics-retail
 nodes:
 - id: ingest
@@ -47,9 +46,8 @@ nodes:
   - mitigations
   - mitigations_planned
   - output
-  criteria: Every supplier above the risk appetite has a mitigation with a named owner, and single-source
-    dependencies are flagged even when the supplier is currently performing well. Concentration risk is
-    about what happens when they stop.
+  criteria: Every supplier above the risk appetite has a mitigation with a named owner, and single-source dependencies are
+    flagged even when the supplier is currently performing well. Concentration risk is about what happens when they stop.
 edges:
 - from: ingest
   to: score
@@ -58,18 +56,18 @@ edges:
 - from: concentrate
   to: mitigate
 termination:
-  max_steps: 25
+  max_steps: 12
   contract: every supplier above risk appetite carries a named mitigation owner
 verification:
 - describe: every supplier above appetite has a planned mitigation
   assert: output.above_appetite == output.mitigations_planned
-- describe: the single-source flag agrees with the supplier count `concentrate` measured, rather than
-    being asserted
+- describe: the single-source flag agrees with the supplier count `concentrate` measured, rather than being asserted
   assert: all(c.single_source == (c.supplier_count == 1) for c in output.concentration)
 state:
   inputs:
   - goal
   - supplier_list
+  - risk_appetite
 triggers:
 - 'on': schedule
   cron: 41 6 * * *

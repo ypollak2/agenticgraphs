@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-035` | content-marketing | **loop** | 3 | 3 | 1 | 0 | 15 | write |
+| `AGR-035` | content-marketing | **loop** | 3 | 3 | 1 | 0 | 10 | write |
 
 > 🎯 **Requires a goal** — the page to optimize and the queries it should rank for. Without one the graph refuses and runs no node.
 
@@ -33,7 +33,7 @@ A bounded improve-and-measure cycle: each iteration must beat the last measured 
 
 - **Exit contract** — seo score above threshold without keyword stuffing flags
 - **Machine-checked** — `output.seo_score >= output.threshold and not output.stuffing_flags`
-- **Bounded** — hard stop after 15 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 10 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval seo-optimization-loop` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/seo-optimization-loop.md)
 

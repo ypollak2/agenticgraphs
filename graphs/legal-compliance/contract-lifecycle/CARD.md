@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-120` | legal-compliance | **human-gate** | 6 | 6 | 0 | 0 | 35 | execute |
+| `AGR-120` | legal-compliance | **human-gate** | 6 | 6 | 0 | 0 | 16 | execute |
 
 > 🎯 **Requires a goal** — the contract to review and the risk posture to hold it to. Without one the graph refuses and runs no node.
 
@@ -41,7 +41,7 @@ A `kind: human` node holds an approval contract that no model may sign — the l
 - **Machine-checked** — `all(s.party and s.dated for s in output.signatures)`
 - **Machine-checked** — `output.residual_risk_level in ['low','medium']`
 - **Machine-checked** — `output.signed_off == true`
-- **Bounded** — hard stop after 35 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 16 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval contract-lifecycle` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/contract-lifecycle.md)
 

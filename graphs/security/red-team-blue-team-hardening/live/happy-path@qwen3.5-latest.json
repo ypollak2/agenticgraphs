@@ -1,0 +1,56 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "target": {
+      "name": "public API",
+      "auth": "tenant-scoped bearer",
+      "endpoints": [
+        {
+          "path": "/v1/orders",
+          "methods": [
+            "GET",
+            "POST"
+          ]
+        },
+        {
+          "path": "/v1/exports",
+          "methods": [
+            "POST"
+          ]
+        }
+      ]
+    },
+    "exploit_suite": [
+      {
+        "id": "e1",
+        "name": "tenant id substitution",
+        "expects": "403"
+      },
+      {
+        "id": "e2",
+        "name": "export path traversal",
+        "expects": "400"
+      }
+    ],
+    "goal": "the public API, against an authenticated-tenant attacker"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "scope: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-026` | research-knowledge | **parallel-swarm** | 4 | 4 | 1 | 0 | 30 | execute |
+| `AGR-026` | research-knowledge | **parallel-swarm** | 4 | 4 | 1 | 0 | 16 | execute |
 
 > 🎯 **Requires a goal** — the research question to review and the inclusion criteria for screening. Without one the graph refuses and runs no node.
 
@@ -35,7 +35,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 
 - **Exit contract** — every claim cites a specific paper and section
 - **Machine-checked** — `all(c.paper and c.section for c in output.claims)`
-- **Bounded** — hard stop after 30 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 16 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval literature-review-swarm` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/literature-review-swarm.md)
 

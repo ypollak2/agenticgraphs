@@ -29,3 +29,30 @@ cases:
         end: 120
     escalate-rights: {}
   goal: episode 112 of Systems People
+  inputs:
+    recording:
+      episode: 112
+      show: Systems People
+      duration_s: 3180
+      segments:
+      - start: 0
+        end: 95
+        kind: cold_open
+      - start: 95
+        end: 1420
+        kind: interview
+      - start: 1420
+        end: 1465
+        kind: ad
+      - start: 1465
+        end: 3180
+        kind: interview
+      music_cues:
+      - cue: theme
+        license_ref: EPI-4471
+        start: 0
+        end: 22
+      - cue: bed-a
+        license_ref: EPI-1180
+        start: 1420
+        end: 1465

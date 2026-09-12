@@ -1,7 +1,6 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: screenplay-coverage
-description: 'Produce studio-standard coverage: synopsis, structural analysis, comparables, and a defended
-  recommendation.'
+description: 'Produce studio-standard coverage: synopsis, structural analysis, comparables, and a defended recommendation.'
 category: creative-production
 nodes:
 - id: read
@@ -47,9 +46,8 @@ nodes:
   - rationale
   - recommendation: any
   join: all
-  criteria: The verdict is one of pass, consider or recommend, and is defended against at least two named
-    comparable titles and how they performed. A recommendation with no market comparison is an opinion,
-    not coverage.
+  criteria: The verdict is one of pass, consider or recommend, and is defended against at least two named comparable titles
+    and how they performed. A recommendation with no market comparison is an opinion, not coverage.
 edges:
 - from: read
   to: structure
@@ -60,7 +58,7 @@ edges:
 - from: comparables
   to: recommend
 termination:
-  max_steps: 25
+  max_steps: 12
   contract: coverage lands one of three verdicts, defended against at least two named comparables
 verification:
 - describe: the recommendation is one of the studio-standard verdicts

@@ -1,0 +1,46 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "document_path": "drafts/systematic-review.md",
+    "references": [
+      {
+        "n": 1,
+        "doi": "10.1000/aaa",
+        "title": "Cohort study A",
+        "resolves": true
+      },
+      {
+        "n": 2,
+        "doi": "10.1000/bbb",
+        "title": "Meta-analysis B",
+        "resolves": true
+      },
+      {
+        "n": 3,
+        "doi": "10.1000/ccc",
+        "title": "Trial C",
+        "resolves": true
+      }
+    ],
+    "goal": "the systematic review draft and its 96 references"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "plan: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

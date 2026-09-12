@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: anomaly-investigation
 description: Route metric anomalies to seasonal, data-bug, or real-change analysts.
 category: data-analytics
@@ -16,12 +16,14 @@ nodes:
   - generate
   outputs:
   - assigned_class
+  parallel_group: auto-route
 - id: branch-complex
   speciality: producer
   abilities:
   - generate
   outputs:
   - assigned_class
+  parallel_group: auto-route
 - id: verify
   speciality: critic
   abilities:
@@ -31,9 +33,8 @@ nodes:
   - expected_class
   - assigned_class
   - output
-  criteria: The classification into seasonal, data-bug or real-change agrees with the holdout labels,
-    and cites the comparison window and series that distinguishes the three. Every anomaly looks real
-    without the seasonal baseline beside it.
+  criteria: The classification into seasonal, data-bug or real-change agrees with the holdout labels, and cites the comparison
+    window and series that distinguishes the three. Every anomaly looks real without the seasonal baseline beside it.
   inputs:
   - holdout_labels
 edges:
@@ -48,7 +49,7 @@ edges:
 - from: branch-complex
   to: verify
 termination:
-  max_steps: 12
+  max_steps: 6
   contract: classification agrees with holdout labels
 verification:
 - describe: the decision agrees with the holdout labels the caller supplied

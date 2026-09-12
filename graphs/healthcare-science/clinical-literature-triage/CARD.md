@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-063` | healthcare-science | **router** | 4 | 4 | 1 | 1 | 12 | write |
+| `AGR-063` | healthcare-science | **router** | 4 | 4 | 1 | 1 | 6 | write |
 
 > 🎯 **Requires a goal** — the papers to triage and the evidence hierarchy to rank them by. Without one the graph refuses and runs no node.
 
@@ -36,7 +36,7 @@ A cheap classifier sends every item down the narrowest branch that can handle it
 - **Exit contract** — labels match a validated sample set
 - **Machine-checked** — `output.assigned_evidence_level == output.expected_evidence_level`
 - **Machine-checked** — `len(output.expected_evidence_level) > 0`
-- **Bounded** — hard stop after 12 steps; the topology is acyclic
+- **Bounded** — hard stop after 6 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval clinical-literature-triage` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/clinical-literature-triage.md)
 

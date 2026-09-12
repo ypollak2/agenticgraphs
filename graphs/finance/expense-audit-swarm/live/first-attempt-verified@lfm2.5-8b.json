@@ -1,36 +1,38 @@
 {
-  "model": "lfm2.5:8b",
-  "recorded": "2026-09-01",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "lfm2.5:8b",
+ "recorded": "2026-09-01",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "August EMEA reports, against the 2026 travel policy"
+ },
+ "node_outputs": {
+  "plan": {
+   "tasks": []
   },
-  "inputs": {
-    "goal": "August EMEA reports, against the 2026 travel policy"
-  },
-  "node_outputs": {
-    "plan": {
-      "tasks": []
-    },
-    "verify": {
-      "output": {
-        "violations": [
-          {
-            "line_id": "EXP-2026-045",
-            "policy_rule": "Travel expenses must be pre-approved for EMEA regions"
-          },
-          {
-            "line_id": "EXP-2026-078",
-            "policy_rule": "No personal expense reimbursements without manager sign-off"
-          }
-        ],
-        "verify_failed": false,
-        "shards_processed": 0
-      }
-    }
-  },
-  "tool_calls": []
+  "verify": {
+   "output": {
+    "violations": [
+     {
+      "line_id": "EXP-2026-045",
+      "policy_rule": "Travel expenses must be pre-approved for EMEA regions"
+     },
+     {
+      "line_id": "EXP-2026-078",
+      "policy_rule": "No personal expense reimbursements without manager sign-off"
+     }
+    ],
+    "verify_failed": false,
+    "shards_processed": 0
+   }
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

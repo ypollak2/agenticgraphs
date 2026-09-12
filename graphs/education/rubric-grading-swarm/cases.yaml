@@ -20,6 +20,24 @@ cases:
         threshold: 0.8
         escalated: false
   goal: 34 essays, against the AP argumentation rubric
+  inputs:
+    essays: &id002
+    - id: e1
+      text: The claim is supported by two sources but the counterargument is thin.
+    - id: e2
+      text: Strong thesis, evidence is anecdotal throughout.
+    - id: e3
+      text: Clear structure, the rebuttal paragraph does the real work.
+    - id: e4
+      text: Repeats the prompt without advancing a claim.
+    rubric: &id003
+      name: AP argumentation
+      criteria:
+      - thesis
+      - evidence
+      - rebuttal
+      scale: 1-6
+    threshold: 0.75
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -42,3 +60,7 @@ cases:
         threshold: 0.8
         escalated: false
   goal: 34 essays, against the AP argumentation rubric
+  inputs:
+    essays: *id002
+    rubric: *id003
+    threshold: 0.75

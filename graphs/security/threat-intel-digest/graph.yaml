@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: threat-intel-digest
 description: Summarize feeds into an actionable daily brief.
 category: security
@@ -27,8 +27,8 @@ nodes:
   - shard_result
   outputs:
   - affected_assets
-  criteria: Each advisory is matched against the estate actually run, so severity is reported as exposure
-    rather than as the vendor's CVSS in isolation.
+  criteria: Each advisory is matched against the estate actually run, so severity is reported as exposure rather than as the
+    vendor's CVSS in isolation.
 - id: reduce
   speciality: reducer
   abilities:
@@ -38,8 +38,8 @@ nodes:
   outputs:
   - entries: list[{advisory_url:any, cve_ids:any}]
   - output
-  criteria: Every item links its source advisory and the CVE ids it concerns, and relevance is judged
-    against the estate actually run rather than the severity score in isolation.
+  criteria: Every item links its source advisory and the CVE ids it concerns, and relevance is judged against the estate actually
+    run rather than the severity score in isolation.
   retries:
     max: 2
 edges:
@@ -50,7 +50,7 @@ edges:
 - from: estate-match
   to: reduce
 termination:
-  max_steps: 20
+  max_steps: 8
   contract: every item links source advisory with CVE ids
 verification:
 - assert: all(i.advisory_url and i.cve_ids for i in output.entries)
@@ -60,3 +60,5 @@ goal:
 state:
   inputs:
   - goal
+  - feeds
+  - estate

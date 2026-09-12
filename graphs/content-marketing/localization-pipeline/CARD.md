@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-038` | content-marketing | **map-reduce** | 3 | 2 | 1 | 0 | 20 | write |
+| `AGR-038` | content-marketing | **map-reduce** | 3 | 2 | 1 | 0 | 6 | write |
 
 > 🎯 **Requires a goal** — the source content to translate and the locales to translate it into. Without one the graph refuses and runs no node.
 
@@ -32,7 +32,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 
 - **Exit contract** — back-translation similarity above threshold; glossary respected
 - **Machine-checked** — `output.similarity >= output.threshold and not output.glossary_violations`
-- **Bounded** — hard stop after 20 steps; the topology is acyclic
+- **Bounded** — hard stop after 6 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval localization-pipeline` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/localization-pipeline.md)
 

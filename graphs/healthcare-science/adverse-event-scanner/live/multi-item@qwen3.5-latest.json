@@ -1,0 +1,63 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "case_reports": [
+      {
+        "report_id": "RX114-0001",
+        "compound": "RX-114",
+        "event": "headache",
+        "serious": false,
+        "month": "August"
+      },
+      {
+        "report_id": "RX114-0002",
+        "compound": "RX-114",
+        "event": "nausea",
+        "serious": false,
+        "month": "August"
+      },
+      {
+        "report_id": "RX114-0003",
+        "compound": "RX-114",
+        "event": "hepatic enzyme rise",
+        "serious": true,
+        "month": "August"
+      },
+      {
+        "report_id": "RX114-0004",
+        "compound": "RX-114",
+        "event": "headache",
+        "serious": false,
+        "month": "August"
+      },
+      {
+        "report_id": "RX114-0005",
+        "compound": "RX-114",
+        "event": "hepatic enzyme rise",
+        "serious": true,
+        "month": "August"
+      }
+    ],
+    "goal": "the August case reports, for compound RX-114"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "partition: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

@@ -1,72 +1,140 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
-  },
-  "inputs": {
-    "goal": "August EMEA reports, against the 2026 travel policy"
-  },
-  "node_outputs": {
-    "plan": {
-      "tasks": [
-        "Collect all August EMEA travel reports from relevant departments",
-        "Extract travel policy violations from each report against 2026 travel policy",
-        "Identify specific line items and corresponding policy rule breaches",
-        "Compile detailed violation report with line IDs and policy rule references"
-      ]
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "reports": [
+   {
+    "line_id": "L1",
+    "employee": "e1",
+    "amount": 420.0,
+    "category": "hotel",
+    "region": "EMEA",
+    "nights": 2
+   },
+   {
+    "line_id": "L2",
+    "employee": "e1",
+    "amount": 95.0,
+    "category": "meal",
+    "region": "EMEA",
+    "attendees": 1
+   },
+   {
+    "line_id": "L3",
+    "employee": "e2",
+    "amount": 1450.0,
+    "category": "flight",
+    "region": "EMEA",
+    "class": "business"
+   },
+   {
+    "line_id": "L4",
+    "employee": "e3",
+    "amount": 38.0,
+    "category": "taxi",
+    "region": "EMEA"
+   }
+  ],
+  "policy": {
+   "year": 2026,
+   "rules": [
+    {
+     "policy_rule": "TR-1",
+     "text": "meals capped at 60 EMEA"
     },
-    "work": [
-      {
-        "work_result": "Collected August EMEA travel reports from Finance, HR, and Operations departments. Files retrieved: finance_august_emea_reports.csv, hr_august_emea_reports.xlsx, operations_august_emea_travel_log.txt"
-      },
-      {
-        "work_result": "Extracted travel policy violations from August EMEA reports against 2026 travel policy, identified specific line items and corresponding policy rule breaches, and compiled detailed violation report with line IDs and policy rule references as required by the exit contract."
-      },
-      {
-        "work_result": "Identified specific line items and corresponding policy rule breaches for August EMEA travel reports against the 2026 travel policy"
-      },
-      {
-        "work_result": "Compiled detailed violation report with line IDs and policy rule references for August EMEA travel reports against 2026 travel policy"
-      }
-    ],
-    "verify": {
-      "output": {
-        "violations": [
-          {
-            "line_id": "finance_august_emea_reports.csv",
-            "policy_rule": "2026 travel policy - Section 3.2"
-          },
-          {
-            "line_id": "hr_august_emea_reports.xlsx",
-            "policy_rule": "2026 travel policy - Section 4.1"
-          },
-          {
-            "line_id": "operations_august_emea_travel_log.txt",
-            "policy_rule": "2026 travel policy - Section 5.3"
-          }
-        ]
-      },
-      "violations": [
-        {
-          "line_id": "finance_august_emea_reports.csv",
-          "policy_rule": "2026 travel policy - Section 3.2"
-        },
-        {
-          "line_id": "hr_august_emea_reports.xlsx",
-          "policy_rule": "2026 travel policy - Section 4.1"
-        },
-        {
-          "line_id": "operations_august_emea_travel_log.txt",
-          "policy_rule": "2026 travel policy - Section 5.3"
-        }
-      ],
-      "verify_failed": false
+    {
+     "policy_rule": "TR-4",
+     "text": "economy only under 6 hours"
+    },
+    {
+     "policy_rule": "TR-9",
+     "text": "hotel capped at 180/night"
     }
+   ]
   },
-  "tool_calls": []
+  "goal": "August EMEA reports, against the 2026 travel policy"
+ },
+ "node_outputs": {
+  "plan": {
+   "tasks": [
+    {
+     "task_id": "T1",
+     "action": "decompose_goal",
+     "goal": "August EMEA reports, against the 2026 travel policy",
+     "subgoals": [
+      {
+       "subgoal_id": "SG1",
+       "description": "Evaluate each report line against the 2026 travel policy rules for EMEA"
+      }
+     ]
+    }
+   ]
+  },
+  "work": {
+   "work_result": [
+    {
+     "line_id": "L1",
+     "policy_rule": "TR-9",
+     "violation": true
+    },
+    {
+     "line_id": "L2",
+     "policy_rule": "TR-1",
+     "violation": true
+    },
+    {
+     "line_id": "L3",
+     "policy_rule": "TR-4",
+     "violation": true
+    }
+   ]
+  },
+  "verify": {
+   "output": {
+    "violations": [
+     {
+      "line_id": "L1",
+      "policy_rule": "TR-9"
+     },
+     {
+      "line_id": "L2",
+      "policy_rule": "TR-1"
+     },
+     {
+      "line_id": "L3",
+      "policy_rule": "TR-4"
+     }
+    ]
+   },
+   "violations": [
+    {
+     "line_id": "L1",
+     "policy_rule": "TR-9"
+    },
+    {
+     "line_id": "L2",
+     "policy_rule": "TR-1"
+    },
+    {
+     "line_id": "L3",
+     "policy_rule": "TR-4"
+    }
+   ],
+   "verify_failed": false
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
 }

@@ -1,0 +1,72 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "ticket": {
+      "id": 84120,
+      "tier_from": 2,
+      "tier_to": 3,
+      "messages": [
+        {
+          "from": "customer",
+          "text": "Exports have failed every night since Tuesday."
+        },
+        {
+          "from": "agent",
+          "text": "Can you confirm the export schedule and destination?"
+        },
+        {
+          "from": "customer",
+          "text": "Nightly at 02:00 UTC to our S3 bucket, and we need this fixed before month-end close."
+        },
+        {
+          "from": "customer",
+          "text": "We also need a written RCA for our auditors."
+        }
+      ]
+    },
+    "goal": "ticket 84120, escalating to tier 3"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Ticket 84120 escalated to Tier 3. Unresolved asks: restore nightly exports (02:00 UTC to S3) before month-end close and provide written RCA for auditors."
+    },
+    "produce": {
+      "all_asks_covered": true,
+      "asks": [
+        {
+          "quote": "Escalating ticket 84120 to Tier 3 to restore nightly exports at 02:00 UTC to S3 before month-end close."
+        },
+        {
+          "quote": "Tier 3 team will provide written RCA for auditors upon investigation completion."
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "all_asks_covered": true,
+        "asks": [
+          {
+            "quote": "Escalating ticket 84120 to Tier 3 to restore nightly exports at 02:00 UTC to S3 before month-end close."
+          },
+          {
+            "quote": "Tier 3 team will provide written RCA for auditors upon investigation completion."
+          }
+        ]
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

@@ -14,3 +14,19 @@ cases:
         uncited_claims: 0
         open_questions: *id001
   goal: investigate the S3 exfiltration alert; settle whether data left the account
+  inputs:
+    incident:
+      id: SEC-908
+      alert: S3 exfiltration
+      bucket: prod-exports
+      window: 2026-08-19T02:00Z/06:00Z
+      leads:
+      - id: l1
+        claim: anomalous GetObject volume
+        source: cloudtrail:2026-08-19
+      - id: l2
+        claim: access key last rotated 2024
+        source: iam:key-audit
+      - id: l3
+        claim: egress to unknown ASN
+        source: flowlogs:2026-08-19

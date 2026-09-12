@@ -13,6 +13,27 @@ cases:
       revision_requested: false
       attempts: 1
   goal: the weekly scanner output, against the prod asset map
+  inputs:
+    scanner_output: &id001
+    - finding_id: v1
+      cve: CVE-2026-2211
+      asset: node-pool-a
+      cvss: 8.1
+      scanner_evidence: kubelet 1.31.0
+    - finding_id: v2
+      cve: CVE-2026-1988
+      asset: build-runner
+      cvss: 5.4
+      scanner_evidence: openssl 3.0.9
+    asset_map: &id002
+    - asset_map_ref: AM-1
+      asset: node-pool-a
+      exposure: internet
+      tier: prod
+    - asset_map_ref: AM-2
+      asset: build-runner
+      exposure: internal
+      tier: ci
 - id: retry-then-resolved
   node_outputs:
     intake:
@@ -34,3 +55,6 @@ cases:
     - revision_requested: false
       attempts: 2
   goal: the weekly scanner output, against the prod asset map
+  inputs:
+    scanner_output: *id001
+    asset_map: *id002

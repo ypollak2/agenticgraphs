@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-118` | data-analytics | **saga** | 8 | 10 | 1 | 0 | 40 | execute |
+| `AGR-118` | data-analytics | **saga** | 8 | 10 | 1 | 0 | 10 | execute |
 
 > 🎯 **Requires a goal** — the current schema, the target schema, and the table that must stay live. Without one the graph refuses and runs no node.
 
@@ -46,7 +46,7 @@ Every forward step that writes has a paired compensator reachable by a `kind: co
 - **Exit contract** — every forward step has a compensator; the saga ends verified or fully unwound
 - **Machine-checked** — `output.source_rows == output.target_rows or output.compensated_steps == output.executed_steps`
 - **Command-checked** — `alembic upgrade head`
-- **Bounded** — hard stop after 40 steps; the topology is acyclic
+- **Bounded** — hard stop after 10 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval schema-migration-saga` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/schema-migration-saga.md)
 

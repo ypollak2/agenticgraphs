@@ -1,7 +1,6 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: sales-call-scorer
-description: Score a call against a rubric from several independent passes, reporting variance as a confidence
-  signal.
+description: Score a call against a rubric from several independent passes, reporting variance as a confidence signal.
 category: customer-support-sales
 nodes:
 - id: segment
@@ -38,16 +37,15 @@ nodes:
     op: median
     over: rubric_score
   kind: verifier
-  criteria: The score reports the median across independent passes and the spread between them. A tight
-    spread is a confident score; a wide one must be surfaced, not averaged into a single number that hides
-    the disagreement.
+  criteria: The score reports the median across independent passes and the spread between them. A tight spread is a confident
+    score; a wide one must be surfaced, not averaged into a single number that hides the disagreement.
 edges:
 - from: segment
   to: score-pass
 - from: score-pass
   to: consolidate
 termination:
-  max_steps: 30
+  max_steps: 6
   contract: the score reports the spread between passes alongside the median
 verification:
 - describe: every scored segment is traceable

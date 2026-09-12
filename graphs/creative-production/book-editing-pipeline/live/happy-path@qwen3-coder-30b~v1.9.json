@@ -1,0 +1,105 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "manuscript": {
+      "title": "Ridgeline",
+      "word_count": 90000,
+      "chapters": [
+        {
+          "n": 1,
+          "words": 4200,
+          "text_sample": "The ridge held the last of the light, and Mara counted the switchbacks she had left."
+        },
+        {
+          "n": 2,
+          "words": 5100,
+          "text_sample": "Very unique among the peaks, it was literally breathtaking to behold."
+        },
+        {
+          "n": 3,
+          "words": 4800,
+          "text_sample": "She checked the fixed line twice, then a third time, before committing her weight."
+        }
+      ],
+      "style_guide": {
+        "name": "Kestrel",
+        "banned": [
+          "very unique",
+          "literally",
+          "breathtaking"
+        ],
+        "serial_comma": true
+      }
+    },
+    "approver": "Managing Editor",
+    "goal": "the 90k-word Ridgeline draft, against the Kestrel style guide"
+  },
+  "node_outputs": {
+    "assess": {
+      "dev_notes": "Style guide violations found: 'very unique' in chapter 2, 'literally' in chapter 2, and 'breathtaking' in chapter 2. Serial comma usage is correct. Recommend revising chapter 2 to remove banned terms and ensure all instances of banned words are replaced with more precise, active language. Chapter 1 and 3 do not contain style guide violations."
+    },
+    "dev-edit": {
+      "dev_draft": {
+        "title": "Ridgeline",
+        "word_count": 90000,
+        "chapters": [
+          {
+            "n": 1,
+            "words": 4200,
+            "text_sample": "The ridge held the last of the light, and Mara counted the switchbacks she had left."
+          },
+          {
+            "n": 2,
+            "words": 5100,
+            "text_sample": "Among the peaks, it was striking to behold."
+          },
+          {
+            "n": 3,
+            "words": 4800,
+            "text_sample": "She checked the fixed line twice, then a third time, before committing her weight."
+          }
+        ],
+        "style_guide": {
+          "name": "Kestrel",
+          "banned": [
+            "very unique",
+            "literally",
+            "breathtaking"
+          ],
+          "serial_comma": true
+        },
+        "approver": "Managing Editor",
+        "goal": "the 90k-word Ridgeline draft, against the Kestrel style guide",
+        "attempts": 1,
+        "dev_notes": "Style guide violations found: 'very unique' in chapter 2, 'literally' in chapter 2, and 'breathtaking' in chapter 2. Serial comma usage is correct. Recommend revising chapter 2 to remove banned terms and ensure all instances of banned words are replaced with more precise, active language. Chapter 1 and 3 do not contain style guide violations."
+      }
+    },
+    "line-edit": {
+      "line_draft": "The ridge held the last of the light, and Mara counted the switchbacks she had left.\n\nAmong the peaks, it was striking to behold.\n\nShe checked the fixed line twice, then a third time, before committing her weight."
+    },
+    "copy-edit": {
+      "copy_clean": "The ridge held the last of the light, and Mara counted the switchbacks she had left.\n\nAmong the peaks, it was striking to behold.\n\nShe checked the fixed line twice, then a third time, before committing her weight.",
+      "style_violations": []
+    },
+    "typeset": {
+      "output": {
+        "signed_off": true,
+        "style_violations": []
+      },
+      "typeset": "The ridge held the last of the light, and Mara counted the switchbacks she had left.\n\nAmong the peaks, it was striking to behold.\n\nShe checked the fixed line twice, then a third time, before committing her weight."
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

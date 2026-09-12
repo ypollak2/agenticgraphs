@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: ux-research-synthesis
 description: Code interview transcripts, reduce to themed insights.
 category: creative-production
@@ -27,15 +27,14 @@ nodes:
   outputs:
   - insights: list[{participant_ids:any}]
   - output
-  criteria: Every insight is grounded in at least two distinct participants. A theme one person raised
-    is a quote, not a finding.
+  criteria: Every insight is grounded in at least two distinct participants. A theme one person raised is a quote, not a finding.
 edges:
 - from: partition
   to: map
 - from: map
   to: reduce
 termination:
-  max_steps: 20
+  max_steps: 6
   contract: every insight cites at least two participants
 verification:
 - assert: all(i.participant_ids[1:] for i in output.insights)
@@ -45,3 +44,4 @@ goal:
 state:
   inputs:
   - goal
+  - interviews

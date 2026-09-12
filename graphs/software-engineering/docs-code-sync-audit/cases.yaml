@@ -19,6 +19,16 @@ cases:
           exit_code: 0
       examples: *id001
   goal: docs/ against src/ at the current HEAD
+  inputs:
+    docs_path: docs/
+    examples: &id002
+    - file: docs/quickstart.md
+      lang: python
+      code: print('hello')
+    - file: docs/api.md
+      lang: python
+      code: import json; json.dumps({})
+    src_path: src/
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -42,3 +52,7 @@ cases:
         examples: *id001
       examples: *id001
   goal: docs/ against src/ at the current HEAD
+  inputs:
+    docs_path: docs/
+    examples: *id002
+    src_path: src/

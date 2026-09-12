@@ -1,61 +1,74 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
-  },
-  "inputs": {
-    "goal": "the August case reports, for compound RX-114"
-  },
-  "node_outputs": {
-    "partition": {
-      "shards": [
-        "report_801",
-        "report_802",
-        "report_803",
-        "report_804",
-        "report_805"
-      ]
-    },
-    "map": [
-      {
-        "shard_result": "report_801 contains 2 case reports for compound RX-114 in August"
-      },
-      {
-        "shard_result": "RX-114 August case reports complete. All 5 reports processed. Signal citations: report_801, report_802, report_803, report_804, report_805. Counts verified reproducible."
-      },
-      {
-        "shard_result": "August case reports for compound RX-114, report_803 contains relevant data"
-      },
-      {
-        "shard_result": "August case reports for compound RX-114 - Report 804 contains relevant data: 12 cases documented, 8 resolved, 4 pending. All signals cite report IDs: 801, 802, 803, 804, 805. Counts are reproducible across all reports."
-      },
-      {
-        "shard_result": "August case reports for compound RX-114 found in report_805"
-      }
-    ],
-    "reduce": {
-      "output": {
-        "signals": [
-          {
-            "count": 2,
-            "report_ids": [
-              "report_801"
-            ]
-          },
-          {
-            "count": 12,
-            "report_ids": [
-              "report_804"
-            ]
-          }
-        ]
-      }
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "case_reports": [
+   {
+    "report_id": "RX114-0001",
+    "compound": "RX-114",
+    "event": "headache",
+    "serious": false,
+    "month": "August"
+   }
+  ],
+  "goal": "the August case reports, for compound RX-114"
+ },
+ "node_outputs": {
+  "partition": {
+   "shards": [
+    {
+     "report_id": "RX114-0001",
+     "compound": "RX-114",
+     "event": "headache",
+     "serious": false,
+     "month": "August"
     }
+   ]
   },
-  "tool_calls": []
+  "map": {
+   "shard_result": [
+    {
+     "report_id": "RX114-0001",
+     "compound": "RX-114",
+     "event": "headache",
+     "serious": false,
+     "month": "August"
+    }
+   ]
+  },
+  "reduce": {
+   "output": {
+    "signals": [
+     {
+      "count": 1,
+      "report_ids": [
+       "RX114-0001"
+      ]
+     }
+    ]
+   },
+   "signals": [
+    {
+     "count": 1,
+     "report_ids": [
+      "RX114-0001"
+     ]
+    }
+   ]
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
 }

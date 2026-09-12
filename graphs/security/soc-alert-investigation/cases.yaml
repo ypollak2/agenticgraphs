@@ -17,6 +17,20 @@ cases:
         - query: failed logins by ip
           result: 42 attempts from 1.2.3.4
   goal: an impossible-travel alert, with 30 days of auth logs
+  inputs:
+    alert: &id002
+      kind: impossible travel
+      user: u-4412
+      events:
+      - ts: 2026-08-19T02:11Z
+        ip: 81.2.69.4
+        geo: GB
+        result: success
+      - ts: 2026-08-19T02:49Z
+        ip: 203.0.113.9
+        geo: SG
+        result: success
+    auth_logs_days: 30
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -36,3 +50,6 @@ cases:
         - query: failed logins by ip
           result: 42 attempts from 1.2.3.4
   goal: an impossible-travel alert, with 30 days of auth logs
+  inputs:
+    alert: *id002
+    auth_logs_days: 30

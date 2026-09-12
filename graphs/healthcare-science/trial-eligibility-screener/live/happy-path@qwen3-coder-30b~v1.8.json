@@ -1,24 +1,84 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "patient_records": [
+   {
+    "id": "P-01",
+    "age": 61,
+    "ecog": 1,
+    "stage": "IIIB",
+    "prior_lines": 1,
+    "egfr_mutation": true,
+    "labs_complete": true
+   },
+   {
+    "id": "P-02",
+    "age": 47,
+    "ecog": 0,
+    "stage": "IV",
+    "prior_lines": 2,
+    "egfr_mutation": false,
+    "labs_complete": true
+   },
+   {
+    "id": "P-03",
+    "age": 73,
+    "ecog": 3,
+    "stage": "IV",
+    "prior_lines": 3,
+    "egfr_mutation": true,
+    "labs_complete": true
+   }
+  ],
+  "criteria": {
+   "trial": "NCT-12345",
+   "min_age": 18,
+   "max_ecog": 2,
+   "required_stage": [
+    "IIIB",
+    "IV"
+   ],
+   "max_prior_lines": 2
   },
-  "inputs": {
-    "goal": "screen the oncology cohort against NCT-12345 eligibility criteria"
+  "goal": "screen the oncology cohort against NCT-12345 eligibility criteria"
+ },
+ "node_outputs": {
+  "prefilter": {
+   "obvious_excludes": [
+    "P-03"
+   ]
   },
-  "node_outputs": {
-    "prefilter": {
-      "obvious_excludes": []
-    },
-    "criteria-match": {
-      "matched": false,
-      "ambiguous": true
-    }
+  "criteria-match": {
+   "matched": [
+    "P-01",
+    "P-02"
+   ],
+   "ambiguous": []
   },
-  "tool_calls": []
+  "enrol": {
+   "enrolled": [
+    "P-01",
+    "P-02"
+   ],
+   "output": {
+    "unreviewed_ambiguous": 0
+   },
+   "unreviewed_ambiguous": 0
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
 }

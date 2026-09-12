@@ -1,0 +1,42 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "encounters": [
+      {
+        "id": "E1",
+        "drg": "291",
+        "chart": "Acute CHF exacerbation, IV diuresis, note span 4-9"
+      },
+      {
+        "id": "E2",
+        "drg": "470",
+        "chart": "Elective THA, uncomplicated, note span 2-5"
+      },
+      {
+        "id": "E3",
+        "drg": "871",
+        "chart": "Sepsis with lactate 4.2, note span 1-14"
+      }
+    ],
+    "goal": "the July inpatient DRG assignments and their charts"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "plan: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

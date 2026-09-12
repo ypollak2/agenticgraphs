@@ -1,0 +1,93 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "brief": {
+      "title": "Observability for small teams",
+      "audience": "platform engineers",
+      "must_cover": [
+        "what to instrument first",
+        "cost control",
+        "on-call ergonomics"
+      ],
+      "word_target": 900
+    },
+    "style_guide": {
+      "banned_phrases": [
+        "leverage",
+        "synergy",
+        "game-changing",
+        "in today's fast-paced world"
+      ],
+      "voice": "second person, active",
+      "max_sentence_words": 32,
+      "require_code_example": true
+    },
+    "reference_corpus": [
+      {
+        "id": "r1",
+        "text": "Start by instrumenting the request path end to end before adding custom metrics."
+      },
+      {
+        "id": "r2",
+        "text": "Sampling is the main lever teams have on observability spend."
+      },
+      {
+        "id": "r3",
+        "text": "Alert on symptoms your users feel, not on every resource threshold."
+      }
+    ],
+    "goal": "the 'observability for small teams' brief, for platform engineers"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Focus on instrumenting request paths end to end first. This gives visibility into user experience before adding custom metrics. Control costs through sampling - it's your primary tool for managing observability spend. Set alerts on user symptoms, not resource thresholds. This approach reduces noise and improves on-call ergonomics. Example: Use tracing to follow requests from entry point to database, then sample logs at 10% for cost control."
+    },
+    "outline": {
+      "outline": [
+        {
+          "section": "Start with Request Path Instrumentation",
+          "claim": "Instrument the complete request path end to end before adding custom metrics",
+          "evidence": "Reference r1 states 'Start by instrumenting the request path end to end before adding custom metrics.'"
+        },
+        {
+          "section": "Control Costs Through Sampling",
+          "claim": "Sampling is the main lever teams have on observability spend",
+          "evidence": "Reference r2 states 'Sampling is the main lever teams have on observability spend.'"
+        },
+        {
+          "section": "Set Alerts on User Symptoms",
+          "claim": "Alert on symptoms your users feel, not on every resource threshold",
+          "evidence": "Reference r3 states 'Alert on symptoms your users feel, not on every resource threshold.'"
+        }
+      ]
+    },
+    "produce": {
+      "max_match_ratio": 0.72,
+      "style_violations": []
+    },
+    "review": {
+      "max_match_ratio": 0.72,
+      "output": {
+        "max_match_ratio": 0.72,
+        "style_violations": []
+      },
+      "style_violations": [],
+      "revision_requested": false
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "assert"
+  ],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

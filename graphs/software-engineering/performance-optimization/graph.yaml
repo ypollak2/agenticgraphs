@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: performance-optimization
 description: Profile, patch hotspot, re-benchmark until budget met.
 category: software-engineering
@@ -26,9 +26,8 @@ nodes:
   outputs:
   - output
   - below_target: bool
-  criteria: The benchmark is under the target budget with no test regressions, and the measurement is
-    of the same workload as the baseline. Comparing a tuned run against an untuned one on different input
-    measures nothing.
+  criteria: The benchmark is under the target budget with no test regressions, and the measurement is of the same workload
+    as the baseline. Comparing a tuned run against an untuned one on different input measures nothing.
 edges:
 - from: intake
   to: attempt

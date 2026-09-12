@@ -1,0 +1,496 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "vendors": [
+      {
+        "name": "Snowflake",
+        "doc_url": "https://docs.snowflake.com/pricing",
+        "notes": "per-second compute billing"
+      },
+      {
+        "name": "BigQuery",
+        "doc_url": "https://cloud.google.com/bigquery/pricing",
+        "notes": "on-demand bytes scanned"
+      },
+      {
+        "name": "Redshift",
+        "doc_url": "https://docs.aws.amazon.com/redshift/pricing",
+        "notes": "provisioned RA3 nodes"
+      }
+    ],
+    "criteria": [
+      "pricing model",
+      "EU residency",
+      "SSO",
+      "max concurrency"
+    ],
+    "goal": "compare Snowflake, BigQuery and Redshift for our warehouse migration"
+  },
+  "node_outputs": {
+    "collect.partition": {
+      "shards": [
+        {
+          "vendor": "Snowflake",
+          "pricing_model": "per-second compute billing",
+          "eu_residency": "Available",
+          "sso": "Supported",
+          "max_concurrency": "High"
+        },
+        {
+          "vendor": "BigQuery",
+          "pricing_model": "on-demand bytes scanned",
+          "eu_residency": "Available",
+          "sso": "Supported",
+          "max_concurrency": "High"
+        },
+        {
+          "vendor": "Redshift",
+          "pricing_model": "provisioned RA3 nodes",
+          "eu_residency": "Available",
+          "sso": "Supported",
+          "max_concurrency": "Moderate"
+        }
+      ]
+    },
+    "collect.map": [
+      {
+        "shard_result": {
+          "vendor": "Snowflake",
+          "pricing_model": "per-second compute billing",
+          "eu_residency": "Available",
+          "sso": "Supported",
+          "max_concurrency": "High"
+        }
+      },
+      {
+        "shard_result": {
+          "vendor": "BigQuery",
+          "pricing_model": "on-demand bytes scanned",
+          "eu_residency": "Available",
+          "sso": "Supported",
+          "max_concurrency": "High"
+        }
+      },
+      {
+        "shard_result": {
+          "vendor": "Redshift",
+          "pricing_model": "provisioned RA3 nodes",
+          "eu_residency": "Available",
+          "sso": "Supported",
+          "max_concurrency": "Moderate"
+        }
+      }
+    ],
+    "collect.reduce": {
+      "findings": [
+        {
+          "source_date": null,
+          "source_url": "https://docs.snowflake.com/pricing"
+        },
+        {
+          "source_date": null,
+          "source_url": "https://cloud.google.com/bigquery/pricing"
+        },
+        {
+          "source_date": null,
+          "source_url": "https://docs.aws.amazon.com/redshift/pricing"
+        }
+      ],
+      "output": {
+        "findings": [
+          {
+            "source_date": null,
+            "source_url": "https://docs.snowflake.com/pricing"
+          },
+          {
+            "source_date": null,
+            "source_url": "https://cloud.google.com/bigquery/pricing"
+          },
+          {
+            "source_date": null,
+            "source_url": "https://docs.aws.amazon.com/redshift/pricing"
+          }
+        ]
+      },
+      "vendor_docs": [
+        {
+          "source_date": null,
+          "source_url": "https://docs.snowflake.com/pricing"
+        },
+        {
+          "source_date": null,
+          "source_url": "https://cloud.google.com/bigquery/pricing"
+        },
+        {
+          "source_date": null,
+          "source_url": "https://docs.aws.amazon.com/redshift/pricing"
+        }
+      ]
+    },
+    "normalize": {
+      "criteria_grid": [
+        {
+          "vendor": "Snowflake",
+          "pricing_model": "per-second compute billing",
+          "eu_residency": "Available",
+          "sso": "Supported",
+          "max_concurrency": "High"
+        },
+        {
+          "vendor": "BigQuery",
+          "pricing_model": "on-demand bytes scanned",
+          "eu_residency": "Available",
+          "sso": "Supported",
+          "max_concurrency": "High"
+        },
+        {
+          "vendor": "Redshift",
+          "pricing_model": "provisioned RA3 nodes",
+          "eu_residency": "Available",
+          "sso": "Supported",
+          "max_concurrency": "Moderate"
+        }
+      ]
+    },
+    "fill": [
+      {
+        "matrix": [
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "Snowflake"
+          },
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "BigQuery"
+          },
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "Redshift"
+          }
+        ]
+      },
+      {
+        "matrix": [
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "Snowflake"
+          },
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "BigQuery"
+          },
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "Redshift"
+          }
+        ]
+      },
+      {
+        "matrix": [
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "Snowflake"
+          },
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "BigQuery"
+          },
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "Redshift"
+          }
+        ]
+      }
+    ],
+    "cite-check": {
+      "criteria_grid": [
+        {
+          "vendor": "Snowflake",
+          "pricing_model": "per-second compute billing",
+          "eu_residency": "Available",
+          "sso": "Supported",
+          "max_concurrency": "High"
+        },
+        {
+          "vendor": "BigQuery",
+          "pricing_model": "on-demand bytes scanned",
+          "eu_residency": "Available",
+          "sso": "Supported",
+          "max_concurrency": "High"
+        },
+        {
+          "vendor": "Redshift",
+          "pricing_model": "provisioned RA3 nodes",
+          "eu_residency": "Available",
+          "sso": "Supported",
+          "max_concurrency": "Moderate"
+        }
+      ],
+      "matrix": [
+        [
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "Snowflake"
+          },
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "BigQuery"
+          },
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "Redshift"
+          }
+        ],
+        [
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "Snowflake"
+          },
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "BigQuery"
+          },
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "Redshift"
+          }
+        ],
+        [
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "Snowflake"
+          },
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "BigQuery"
+          },
+          {
+            "criteria": [
+              "pricing_model",
+              "eu_residency",
+              "sso",
+              "max_concurrency"
+            ],
+            "vendor": "Redshift"
+          }
+        ]
+      ],
+      "output": {
+        "criteria_grid": [
+          {
+            "vendor": "Snowflake",
+            "pricing_model": "per-second compute billing",
+            "eu_residency": "Available",
+            "sso": "Supported",
+            "max_concurrency": "High"
+          },
+          {
+            "vendor": "BigQuery",
+            "pricing_model": "on-demand bytes scanned",
+            "eu_residency": "Available",
+            "sso": "Supported",
+            "max_concurrency": "High"
+          },
+          {
+            "vendor": "Redshift",
+            "pricing_model": "provisioned RA3 nodes",
+            "eu_residency": "Available",
+            "sso": "Supported",
+            "max_concurrency": "Moderate"
+          }
+        ],
+        "matrix": [
+          [
+            {
+              "criteria": [
+                "pricing_model",
+                "eu_residency",
+                "sso",
+                "max_concurrency"
+              ],
+              "vendor": "Snowflake"
+            },
+            {
+              "criteria": [
+                "pricing_model",
+                "eu_residency",
+                "sso",
+                "max_concurrency"
+              ],
+              "vendor": "BigQuery"
+            },
+            {
+              "criteria": [
+                "pricing_model",
+                "eu_residency",
+                "sso",
+                "max_concurrency"
+              ],
+              "vendor": "Redshift"
+            }
+          ],
+          [
+            {
+              "criteria": [
+                "pricing_model",
+                "eu_residency",
+                "sso",
+                "max_concurrency"
+              ],
+              "vendor": "Snowflake"
+            },
+            {
+              "criteria": [
+                "pricing_model",
+                "eu_residency",
+                "sso",
+                "max_concurrency"
+              ],
+              "vendor": "BigQuery"
+            },
+            {
+              "criteria": [
+                "pricing_model",
+                "eu_residency",
+                "sso",
+                "max_concurrency"
+              ],
+              "vendor": "Redshift"
+            }
+          ],
+          [
+            {
+              "criteria": [
+                "pricing_model",
+                "eu_residency",
+                "sso",
+                "max_concurrency"
+              ],
+              "vendor": "Snowflake"
+            },
+            {
+              "criteria": [
+                "pricing_model",
+                "eu_residency",
+                "sso",
+                "max_concurrency"
+              ],
+              "vendor": "BigQuery"
+            },
+            {
+              "criteria": [
+                "pricing_model",
+                "eu_residency",
+                "sso",
+                "max_concurrency"
+              ],
+              "vendor": "Redshift"
+            }
+          ]
+        ],
+        "uncited_cells": []
+      },
+      "uncited_cells": []
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "assert"
+  ],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

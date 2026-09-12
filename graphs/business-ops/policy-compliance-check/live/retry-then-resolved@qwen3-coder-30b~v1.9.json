@@ -1,0 +1,135 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "document": {
+      "name": "vendor onboarding runbook",
+      "sections": [
+        {
+          "n": 1,
+          "text": "Collect the vendor security questionnaire before signature."
+        },
+        {
+          "n": 2,
+          "text": "Grant production access on day one so the vendor can self-serve."
+        },
+        {
+          "n": 3,
+          "text": "Store completed questionnaires in the shared drive."
+        }
+      ]
+    },
+    "policy": {
+      "name": "InfoSec 2026",
+      "clauses": [
+        {
+          "clause_id": "IS-3.1",
+          "rule": "least privilege on production access"
+        },
+        {
+          "clause_id": "IS-4.2",
+          "rule": "security review before vendor signature"
+        },
+        {
+          "clause_id": "IS-7.5",
+          "rule": "evidence retained in the GRC system, not shared drives"
+        }
+      ]
+    },
+    "goal": "the vendor onboarding runbook, against InfoSec policy v4"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": [
+        {
+          "finding": "The runbook instructs to grant production access on day one, which violates the 'least privilege' principle outlined in IS-3.1.",
+          "clause_id": "IS-3.1"
+        },
+        {
+          "finding": "The runbook directs storing completed questionnaires in a shared drive instead of the GRC system, conflicting with IS-7.5 which mandates evidence retention in the GRC system.",
+          "clause_id": "IS-7.5"
+        }
+      ]
+    },
+    "clause-map": {
+      "clause_shards": [
+        {
+          "clause_id": "IS-3.1",
+          "shard": "Grant production access on day one so the vendor can self-serve.",
+          "status": "breach"
+        },
+        {
+          "clause_id": "IS-7.5",
+          "shard": "Store completed questionnaires in the shared drive.",
+          "status": "breach"
+        }
+      ]
+    },
+    "produce": [
+      {
+        "findings": [
+          {
+            "clause_id": "IS-3.1"
+          },
+          {
+            "clause_id": "IS-7.5"
+          }
+        ]
+      },
+      {
+        "findings": [
+          {
+            "clause_id": "IS-3.1"
+          },
+          {
+            "clause_id": "IS-7.5"
+          }
+        ]
+      }
+    ],
+    "review": [
+      {
+        "output": {
+          "findings": [
+            {
+              "clause_id": "IS-3.1",
+              "text": "Grant production access on day one so the vendor can self-serve."
+            },
+            {
+              "clause_id": "IS-7.5",
+              "text": "Store completed questionnaires in the shared drive."
+            }
+          ]
+        },
+        "revision_requested": true
+      },
+      {
+        "output": {
+          "findings": [
+            {
+              "clause_id": "IS-3.1",
+              "text": "Grant production access on day one so the vendor can self-serve."
+            },
+            {
+              "clause_id": "IS-7.5",
+              "text": "Store completed questionnaires in the shared drive."
+            }
+          ]
+        },
+        "revision_requested": true
+      }
+    ]
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

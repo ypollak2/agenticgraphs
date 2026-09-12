@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-130` | security | **blackboard** | 3 | 3 | 1 | 0 | 40 | execute |
+| `AGR-130` | security | **blackboard** | 3 | 3 | 1 | 0 | 14 | execute |
 
 > 🎯 **Requires a goal** — the incident to investigate and the question the investigation must settle. Without one the graph refuses and runs no node.
 
@@ -34,7 +34,7 @@ Specialists contribute independently to shared evidence and a controller decides
 - **Exit contract** — conclusions cite evidence; unresolved questions are stated, not dropped
 - **Machine-checked** — `output.uncited_claims == 0`
 - **Machine-checked** — `output.open_questions is not None`
-- **Bounded** — hard stop after 40 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 14 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval forensic-investigation-blackboard` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/forensic-investigation-blackboard.md)
 

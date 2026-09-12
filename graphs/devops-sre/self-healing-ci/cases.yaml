@@ -21,3 +21,21 @@ cases:
           ruled_out: stale artifacts
       escalated: false
   goal: repair the failing nightly build on main
+  inputs:
+    pipeline_run:
+      id: nightly-8842
+      branch: main
+      status: failed
+      attempts_so_far: 0
+      failing_steps:
+      - step: unit
+        exit_code: 1
+        log: 'FAIL tests/test_cart.py::test_apply_coupon - AssertionError: expected 9.00 got 10.00'
+      - step: lint
+        exit_code: 0
+        log: clean
+      recent_commits:
+      - sha: 4c1a9e
+        msg: round coupon discount to 2dp
+      - sha: 9b7712
+        msg: bump pytest to 8.2

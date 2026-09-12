@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-128` | software-engineering | **reflexion** | 4 | 4 | 1 | 0 | 40 | execute |
+| `AGR-128` | software-engineering | **reflexion** | 4 | 4 | 1 | 0 | 26 | execute |
 
 > 🎯 **Requires a goal** — the test suspected of flaking and the stability bar it must clear. Without one the graph refuses and runs no node.
 
@@ -37,7 +37,7 @@ Each failed attempt writes down what was learned, and the next attempt reads it.
 - **Machine-checked** — `output.consecutive_green >= 3`
 - **Machine-checked** — `len(output.lessons) >= 1`
 - **Command-checked** — `pytest -q --count=5 {test_path}`
-- **Bounded** — hard stop after 40 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 26 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval flaky-test-reflexion` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/flaky-test-reflexion.md)
 

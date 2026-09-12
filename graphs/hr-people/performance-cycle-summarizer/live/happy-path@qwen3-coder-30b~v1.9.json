@@ -1,0 +1,64 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "cycle": {
+      "name": "H1 2026",
+      "level": "senior",
+      "team": "infrastructure",
+      "evidence": [
+        {
+          "src": "pr",
+          "ref": "PR-4412",
+          "note": "led the storage migration"
+        },
+        {
+          "src": "incident",
+          "ref": "INC-221",
+          "note": "IC on the March outage"
+        },
+        {
+          "src": "peer",
+          "ref": "feedback-7",
+          "note": "mentored two juniors through on-call"
+        }
+      ]
+    },
+    "goal": "summarize the H1 2026 cycle for a senior engineer on the infra team"
+  },
+  "node_outputs": {
+    "gather": {
+      "inputs": [
+        "PR-4412: led the storage migration",
+        "INC-221: IC on the March outage",
+        "feedback-7: mentored two juniors through on-call"
+      ]
+    },
+    "synthesize": {
+      "draft_summary": "Led the storage migration project (PR-4412), served as Incident Commander during the March outage (INC-221), and mentored two junior engineers through on-call responsibilities (feedback-7)."
+    },
+    "bias-check": {
+      "bias_flags": []
+    },
+    "calibrate": {
+      "calibrated_summary": "Led the storage migration project (PR-4412), served as Incident Commander during the March outage (INC-221), and mentored two junior engineers through on-call responsibilities (feedback-7).",
+      "output": {
+        "bias_flags": [],
+        "uncited_claims": 0
+      },
+      "uncited_claims": 0
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

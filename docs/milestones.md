@@ -95,6 +95,21 @@ The README keeps the current state and a pointer here.
       does not have. All 560 recordings were retired because none said which spec they
       were scored against. Spec: [agr-v1.8.md](agr-v1.8.md) ·
       Changelog: [0.9.4](../CHANGELOG.md).
+- [x] **M13 / AGR v1.9 — the subject.** v1.7 gave a graph its subject and v1.8 gave it a
+      rubric; neither required the *case* to hand the graph anything to work on. **71 of 83
+      graphs were scored on cases seeding only a `goal` string**, so `alert-noise-reduction`
+      was told to deduplicate alerts it was never given and its `map` node returned the
+      literal `"map_shard"` — its own output key as a placeholder. Goal-only graphs averaged
+      0.614 live against 0.898 for the 12 seeding real inputs, and a paired run flips a graph
+      fail→pass purely by supplying data. All 83 now carry the subject their goal names; 34
+      of the starved ones had already *declared* the input and no case supplied it. Found on
+      the way: `agr optimize` gated every mutation on canned fixture replay, which all 83
+      graphs score 1.0 on — it was hill-climbing a constant, and it had been strangling three
+      graphs by sizing step budgets from mock traces. Edge guidance from arXiv 2609.09153
+      ships in the schema and **failed its pre-registered A/B** (mean delta −0.125, 0 of 8
+      improved, one regression), so it is documented, not adopted. All 549 recordings retired:
+      they measured a model inventing its inputs. Spec: [agr-v1.9.md](agr-v1.9.md) ·
+      Changelog: [Unreleased](../CHANGELOG.md).
 - [x] **M12 — the gap audit.** Five read-only auditors, ten dimensions, 50 findings at
       `aa486fc`; 48 remediation items in seven phases, all landed on `audit-remediation`
       (42 commits). Onboarding passes as documented; every README number is generated

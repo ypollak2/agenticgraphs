@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-087` | security | **planner-executor-verifier** | 3 | 3 | 1 | 0 | 25 | execute |
+| `AGR-087` | security | **planner-executor-verifier** | 3 | 3 | 1 | 0 | 10 | execute |
 
 > 🎯 **Requires a goal** — the alert to investigate and the telemetry available to investigate it. Without one the graph refuses and runs no node.
 
@@ -33,7 +33,7 @@ The plan makes intent inspectable before anything touches the world, the executo
 
 - **Exit contract** — conclusion supported by query results attached
 - **Machine-checked** — `len(output.query_results) > 0 and output.conclusion`
-- **Bounded** — hard stop after 25 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 10 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval soc-alert-investigation` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/soc-alert-investigation.md)
 

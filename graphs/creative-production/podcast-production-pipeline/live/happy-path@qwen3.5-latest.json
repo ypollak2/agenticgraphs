@@ -1,0 +1,67 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "recording": {
+      "episode": 112,
+      "show": "Systems People",
+      "duration_s": 3180,
+      "segments": [
+        {
+          "start": 0,
+          "end": 95,
+          "kind": "cold_open"
+        },
+        {
+          "start": 95,
+          "end": 1420,
+          "kind": "interview"
+        },
+        {
+          "start": 1420,
+          "end": 1465,
+          "kind": "ad"
+        },
+        {
+          "start": 1465,
+          "end": 3180,
+          "kind": "interview"
+        }
+      ],
+      "music_cues": [
+        {
+          "cue": "theme",
+          "license_ref": "EPI-4471",
+          "start": 0,
+          "end": 22
+        },
+        {
+          "cue": "bed-a",
+          "license_ref": "EPI-1180",
+          "start": 1420,
+          "end": 1465
+        }
+      ]
+    },
+    "goal": "episode 112 of Systems People"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "transcribe: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

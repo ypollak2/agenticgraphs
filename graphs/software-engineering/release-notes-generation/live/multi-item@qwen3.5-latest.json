@@ -1,0 +1,54 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "pull_requests": [
+      {
+        "number": 770,
+        "pr_url": "https://github.com/acme/app/pull/770",
+        "title": "fix refund rounding",
+        "label": "fix"
+      },
+      {
+        "number": 771,
+        "pr_url": "https://github.com/acme/app/pull/771",
+        "title": "add SSO login",
+        "label": "feat"
+      },
+      {
+        "number": 772,
+        "pr_url": "https://github.com/acme/app/pull/772",
+        "title": "speed up export",
+        "label": "perf"
+      },
+      {
+        "number": 773,
+        "pr_url": "https://github.com/acme/app/pull/773",
+        "title": "update docs for auth",
+        "label": "docs"
+      }
+    ],
+    "from_tag": "v2.13",
+    "to_tag": "v2.14.0",
+    "goal": "the 41 PRs merged since v2.13, for v2.14.0"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "partition: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

@@ -1,206 +1,280 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "supplier_list": [
+   {
+    "id": "s1",
+    "name": "Northwind Components",
+    "category": "pcb",
+    "spend_usd": 4200000,
+    "region": "TW",
+    "alternatives": 0
+   },
+   {
+    "id": "s2",
+    "name": "Baltic Plastics",
+    "category": "enclosure",
+    "spend_usd": 1800000,
+    "region": "PL",
+    "alternatives": 3
+   },
+   {
+    "id": "s3",
+    "name": "Kyoto Optics",
+    "category": "lens",
+    "spend_usd": 2600000,
+    "region": "JP",
+    "alternatives": 0
+   },
+   {
+    "id": "s4",
+    "name": "Cascade Metals",
+    "category": "enclosure",
+    "spend_usd": 900000,
+    "region": "US",
+    "alternatives": 3
+   },
+   {
+    "id": "s5",
+    "name": "Adriatic Cable",
+    "category": "harness",
+    "spend_usd": 450000,
+    "region": "IT",
+    "alternatives": 2
+   }
+  ],
+  "risk_appetite": {
+   "max_single_source_spend_usd": 2000000
   },
-  "inputs": {
-    "goal": "the 240 tier-1 suppliers, on single-source and concentration"
-  },
-  "node_outputs": {
-    "ingest.partition": {
-      "shards": [
-        {
-          "supplier_id": "S001",
-          "single_source": true,
-          "concentration": 0.85
-        },
-        {
-          "supplier_id": "S002",
-          "single_source": false,
-          "concentration": 0.45
-        },
-        {
-          "supplier_id": "S003",
-          "single_source": true,
-          "concentration": 0.92
-        },
-        {
-          "supplier_id": "S004",
-          "single_source": false,
-          "concentration": 0.38
-        },
-        {
-          "supplier_id": "S005",
-          "single_source": true,
-          "concentration": 0.78
-        }
-      ]
+  "goal": "the 240 tier-1 suppliers, on single-source and concentration"
+ },
+ "node_outputs": {
+  "ingest.partition": {
+   "shards": [
+    {
+     "id": "s1",
+     "name": "Northwind Components",
+     "category": "pcb",
+     "spend_usd": 4200000,
+     "region": "TW",
+     "alternatives": 0,
+     "single_source_risk": true,
+     "concentration_risk": true
     },
-    "ingest.map": [
-      {
-        "shard_result": "continue"
-      },
-      {
-        "shard_result": "continue"
-      },
-      {
-        "shard_result": "accept"
-      },
-      {
-        "shard_result": "continue"
-      },
-      {
-        "shard_result": "continue"
-      }
-    ],
-    "ingest.reduce": {
-      "findings": [
-        {
-          "source_date": "2023-06-15",
-          "source_url": "https://example.com/supplier-s001-analysis"
-        },
-        {
-          "source_date": "2023-08-22",
-          "source_url": "https://example.com/supplier-s003-analysis"
-        }
-      ],
-      "output": "accept",
-      "supplier_signals": [
-        {
-          "supplier_id": "S001",
-          "single_source": true,
-          "concentration": 0.85
-        },
-        {
-          "supplier_id": "S003",
-          "single_source": true,
-          "concentration": 0.92
-        }
-      ]
+    {
+     "id": "s2",
+     "name": "Baltic Plastics",
+     "category": "enclosure",
+     "spend_usd": 1800000,
+     "region": "PL",
+     "alternatives": 3,
+     "single_source_risk": false,
+     "concentration_risk": false
     },
-    "score": [
-      {
-        "risk_scores": [
-          {
-            "supplier_id": "S001",
-            "risk_score": 0.85,
-            "mitigation_owner": null
-          },
-          {
-            "supplier_id": "S002",
-            "risk_score": 0.45,
-            "mitigation_owner": null
-          },
-          {
-            "supplier_id": "S003",
-            "risk_score": 0.92,
-            "mitigation_owner": null
-          },
-          {
-            "supplier_id": "S004",
-            "risk_score": 0.38,
-            "mitigation_owner": null
-          },
-          {
-            "supplier_id": "S005",
-            "risk_score": 0.78,
-            "mitigation_owner": null
-          }
-        ]
-      },
-      {
-        "risk_scores": [
-          {
-            "supplier_id": "S001",
-            "risk_score": 0.85
-          },
-          {
-            "supplier_id": "S002",
-            "risk_score": 0.45
-          },
-          {
-            "supplier_id": "S003",
-            "risk_score": 0.92
-          },
-          {
-            "supplier_id": "S004",
-            "risk_score": 0.38
-          },
-          {
-            "supplier_id": "S005",
-            "risk_score": 0.78
-          }
-        ]
-      }
-    ],
-    "concentrate": {
-      "concentration": [
-        {
-          "single_source": true,
-          "supplier_count": 3
-        },
-        {
-          "single_source": false,
-          "supplier_count": 2
-        }
-      ]
+    {
+     "id": "s3",
+     "name": "Kyoto Optics",
+     "category": "lens",
+     "spend_usd": 2600000,
+     "region": "JP",
+     "alternatives": 0,
+     "single_source_risk": true,
+     "concentration_risk": true
     },
-    "mitigate": {
-      "above_appetite": [
-        {
-          "supplier_id": "S001",
-          "risk_score": 0.85,
-          "mitigation_owner": null
-        },
-        {
-          "supplier_id": "S003",
-          "risk_score": 0.92,
-          "mitigation_owner": null
-        }
-      ],
-      "concentration": [
-        {
-          "single_source": true,
-          "supplier_count": 3
-        },
-        {
-          "single_source": false,
-          "supplier_count": 2
-        }
-      ],
-      "mitigations": [],
-      "mitigations_planned": 0,
-      "output": {
-        "above_appetite": [
-          {
-            "supplier_id": "S001",
-            "risk_score": 0.85,
-            "mitigation_owner": null
-          },
-          {
-            "supplier_id": "S003",
-            "risk_score": 0.92,
-            "mitigation_owner": null
-          }
-        ],
-        "concentration": [
-          {
-            "single_source": true,
-            "supplier_count": 3
-          },
-          {
-            "single_source": false,
-            "supplier_count": 2
-          }
-        ],
-        "mitigations_planned": 0
-      }
+    {
+     "id": "s4",
+     "name": "Cascade Metals",
+     "category": "enclosure",
+     "spend_usd": 900000,
+     "region": "US",
+     "alternatives": 3,
+     "single_source_risk": false,
+     "concentration_risk": false
+    },
+    {
+     "id": "s5",
+     "name": "Adriatic Cable",
+     "category": "harness",
+     "spend_usd": 450000,
+     "region": "IT",
+     "alternatives": 2,
+     "single_source_risk": false,
+     "concentration_risk": false
     }
+   ]
   },
-  "tool_calls": []
+  "ingest.map": [
+   {
+    "shard_result": "single_source_risk:true, concentration_risk:true"
+   },
+   {
+    "shard_result": "map_shard"
+   },
+   {
+    "shard_result": "single_source_risk:true,concentration_risk:true"
+   },
+   {
+    "shard_result": "continue"
+   },
+   {
+    "shard_result": "continue"
+   }
+  ],
+  "ingest.reduce": {
+   "findings": [
+    {
+     "source_date": null,
+     "source_url": null
+    },
+    {
+     "source_date": null,
+     "source_url": null
+    }
+   ],
+   "output": {
+    "findings": [
+     "single_source_risk:true, concentration_risk:true",
+     "single_source_risk:true,concentration_risk:true"
+    ]
+   },
+   "supplier_signals": [
+    {
+     "source_date": null,
+     "source_url": null
+    },
+    {
+     "source_date": null,
+     "source_url": null
+    }
+   ]
+  },
+  "score": [
+   {
+    "risk_scores": [
+     {
+      "supplier_id": "s1",
+      "single_source_risk": true,
+      "concentration_risk": true,
+      "mitigation_owner": "not_assigned"
+     },
+     {
+      "supplier_id": "s2",
+      "single_source_risk": false,
+      "concentration_risk": false,
+      "mitigation_owner": "not_assigned"
+     },
+     {
+      "supplier_id": "s3",
+      "single_source_risk": true,
+      "concentration_risk": true,
+      "mitigation_owner": "not_assigned"
+     },
+     {
+      "supplier_id": "s4",
+      "single_source_risk": false,
+      "concentration_risk": false,
+      "mitigation_owner": "not_assigned"
+     },
+     {
+      "supplier_id": "s5",
+      "single_source_risk": false,
+      "concentration_risk": false,
+      "mitigation_owner": "not_assigned"
+     }
+    ]
+   },
+   {
+    "risk_scores": [
+     {
+      "supplier_id": "s1",
+      "single_source_risk": true,
+      "concentration_risk": true,
+      "mitigation_owner": "not_assigned"
+     },
+     {
+      "supplier_id": "s2",
+      "single_source_risk": false,
+      "concentration_risk": false,
+      "mitigation_owner": "not_assigned"
+     },
+     {
+      "supplier_id": "s3",
+      "single_source_risk": true,
+      "concentration_risk": true,
+      "mitigation_owner": "not_assigned"
+     },
+     {
+      "supplier_id": "s4",
+      "single_source_risk": false,
+      "concentration_risk": false,
+      "mitigation_owner": "not_assigned"
+     },
+     {
+      "supplier_id": "s5",
+      "single_source_risk": false,
+      "concentration_risk": false,
+      "mitigation_owner": "not_assigned"
+     }
+    ]
+   }
+  ],
+  "concentrate": {
+   "concentration": [
+    {
+     "single_source": true,
+     "supplier_count": 2
+    },
+    {
+     "single_source": false,
+     "supplier_count": 3
+    }
+   ]
+  },
+  "mitigate": {
+   "above_appetite": 2,
+   "concentration": [
+    {
+     "single_source": true,
+     "supplier_count": 2
+    },
+    {
+     "single_source": false,
+     "supplier_count": 3
+    }
+   ],
+   "mitigations": 2,
+   "mitigations_planned": 2,
+   "output": {
+    "above_appetite": 2,
+    "concentration": [
+     {
+      "single_source": true,
+      "supplier_count": 2
+     },
+     {
+      "single_source": false,
+      "supplier_count": 3
+     }
+    ],
+    "mitigations_planned": 2
+   }
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [
+  "assert"
+ ],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
 }

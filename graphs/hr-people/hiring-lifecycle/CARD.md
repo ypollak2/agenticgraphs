@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-122` | hr-people | **human-gate** | 6 | 6 | 0 | 0 | 35 | execute |
+| `AGR-122` | hr-people | **human-gate** | 6 | 6 | 0 | 0 | 16 | execute |
 
 > 🎯 **Requires a goal** — the role to fill and what a successful hire must be able to do. Without one the graph refuses and runs no node.
 
@@ -40,7 +40,7 @@ A `kind: human` node holds an approval contract that no model may sign — the l
 - **Exit contract** — an offer requires at least three structured scorecards and a panel signature
 - **Machine-checked** — `output.scorecard_count >= 3`
 - **Machine-checked** — `output.signed_off == true`
-- **Bounded** — hard stop after 35 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 16 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval hiring-lifecycle` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/hiring-lifecycle.md)
 

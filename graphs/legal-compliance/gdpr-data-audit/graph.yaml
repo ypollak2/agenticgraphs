@@ -1,7 +1,6 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: gdpr-data-audit
-description: Map personal data across systems, classify lawful basis, find gaps, and produce a remediation
-  plan.
+description: Map personal data across systems, classify lawful basis, find gaps, and produce a remediation plan.
 category: legal-compliance
 nodes:
 - id: discover
@@ -52,8 +51,8 @@ nodes:
   - attested
   - output
   - unclassified_stores: int
-  criteria: Every store holding personal data carries a lawful basis, and every gap carries a named owner
-    and a due date. An unclassified store is the finding, not an omission from the report.
+  criteria: Every store holding personal data carries a lawful basis, and every gap carries a named owner and a due date.
+    An unclassified store is the finding, not an omission from the report.
 edges:
 - from: discover
   to: classify
@@ -64,7 +63,7 @@ edges:
 - from: remediate
   to: attest
 termination:
-  max_steps: 30
+  max_steps: 14
   contract: every store carries a lawful basis; every gap carries an owner and a due date
 verification:
 - describe: every mapped store has a stated lawful basis

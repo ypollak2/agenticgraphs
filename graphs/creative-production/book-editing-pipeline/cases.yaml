@@ -20,3 +20,25 @@ cases:
         typeset: true
     escalate-manuscript: {}
   goal: the 90k-word Ridgeline draft, against the Kestrel style guide
+  inputs:
+    manuscript:
+      title: Ridgeline
+      word_count: 90000
+      chapters:
+      - n: 1
+        words: 4200
+        text_sample: The ridge held the last of the light, and Mara counted the switchbacks she had left.
+      - n: 2
+        words: 5100
+        text_sample: Very unique among the peaks, it was literally breathtaking to behold.
+      - n: 3
+        words: 4800
+        text_sample: She checked the fixed line twice, then a third time, before committing her weight.
+      style_guide:
+        name: Kestrel
+        banned:
+        - very unique
+        - literally
+        - breathtaking
+        serial_comma: true
+    approver: Managing Editor

@@ -1,0 +1,81 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "scanner_output": [
+      {
+        "finding_id": "v1",
+        "cve": "CVE-2026-2211",
+        "asset": "node-pool-a",
+        "cvss": 8.1,
+        "scanner_evidence": "kubelet 1.31.0"
+      },
+      {
+        "finding_id": "v2",
+        "cve": "CVE-2026-1988",
+        "asset": "build-runner",
+        "cvss": 5.4,
+        "scanner_evidence": "openssl 3.0.9"
+      }
+    ],
+    "asset_map": [
+      {
+        "asset_map_ref": "AM-1",
+        "asset": "node-pool-a",
+        "exposure": "internet",
+        "tier": "prod"
+      },
+      {
+        "asset_map_ref": "AM-2",
+        "asset": "build-runner",
+        "exposure": "internal",
+        "tier": "ci"
+      }
+    ],
+    "goal": "the weekly scanner output, against the prod asset map"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "CVE-2026-2211 (CVSS 8.1) found on node-pool-a (prod tier, internet exposure) with kubelet 1.31.0 evidence. CVE-2026-1988 (CVSS 5.4) found on build-runner (ci tier, internal exposure) with openssl 3.0.9 evidence."
+    },
+    "produce": {
+      "ranking": [
+        {
+          "asset_map_ref": "AM-1",
+          "scanner_evidence": "kubelet 1.31.0"
+        },
+        {
+          "asset_map_ref": "AM-2",
+          "scanner_evidence": "openssl 3.0.9"
+        }
+      ]
+    },
+    "review": {
+      "output": {
+        "ranking": [
+          {
+            "asset_map_ref": "AM-1",
+            "scanner_evidence": "kubelet 1.31.0"
+          },
+          {
+            "asset_map_ref": "AM-2",
+            "scanner_evidence": "openssl 3.0.9"
+          }
+        ]
+      },
+      "revision_requested": false
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

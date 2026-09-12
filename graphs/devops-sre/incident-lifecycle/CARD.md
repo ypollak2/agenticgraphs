@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-116` | devops-sre | **lifecycle** | 7 | 7 | 1 | 0 | 45 | execute |
+| `AGR-116` | devops-sre | **lifecycle** | 7 | 7 | 1 | 0 | 28 | execute |
 
 > 🎯 **Requires a goal** — the alert to work and what 'resolved' means for this service. Without one the graph refuses and runs no node.
 
@@ -42,7 +42,7 @@ A multi-phase workflow where each phase is itself a motif and hand-offs are expl
 - **Exit contract** — mitigation is proven effective before the postmortem is written; every postmortem yields owned actions
 - **Machine-checked** — `output.residual_blast_radius < output.blast_radius`
 - **Machine-checked** — `len(output.actions) >= 1 and all(a.owner for a in output.actions)`
-- **Bounded** — hard stop after 45 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 28 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval incident-lifecycle` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/incident-lifecycle.md)
 

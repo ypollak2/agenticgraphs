@@ -24,3 +24,15 @@ cases:
       - system: github
         requested_on: '2026-08-20'
   goal: a senior data analyst joining growth
+  inputs:
+    role: Senior Data Analyst
+    team: growth
+    systems:
+    - name: warehouse
+      access: read
+    - name: looker
+      access: editor
+    - name: github
+      access: read
+    start_date: '2026-10-01'
+    manager: growth-lead

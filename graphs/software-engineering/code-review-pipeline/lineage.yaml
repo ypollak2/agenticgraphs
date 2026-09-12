@@ -11,3 +11,11 @@ mutations:
   op: infuse
   node: style-review
   ability: classify_risk
+- at: '2026-09-10T13:35:41+00:00'
+  op: optimize
+  status: accepted
+  changes:
+  - max_steps 12 -> 8 (observed worst-case 4 across passing cases)
+  live_score: 1.0
+  episodes: 8
+  gated: true

@@ -1,0 +1,30 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "threshold": 0.01,
+    "goal": "api v2.14.0 at 5%, on p99 latency and 5xx rate"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Attempt 1 initiated. Monitoring api v2.14.0 p99 latency and 5xx rate against 0.01 threshold."
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "attempt: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

@@ -49,3 +49,17 @@ cases:
         actions: *id001
     escalate-incident: {}
   goal: work the checkout-latency page; resolved means p99 back under 400ms
+  inputs:
+    alert:
+      id: PAGE-4412
+      service: checkout
+      symptom: p99 latency 2.4s
+      slo: p99 < 800ms
+      started: 09:01
+      blast_radius: all checkout traffic, 3 regions
+      signals:
+      - source: db
+        note: connection pool saturated
+      - source: deploy
+        note: release 4c1a9e 20m before onset
+      oncall: platform-sre

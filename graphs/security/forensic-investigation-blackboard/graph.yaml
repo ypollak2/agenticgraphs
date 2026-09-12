@@ -1,7 +1,6 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: forensic-investigation-blackboard
-description: Specialists contribute independently to shared evidence; a controller decides when the picture
-  closes.
+description: Specialists contribute independently to shared evidence; a controller decides when the picture closes.
 category: security
 nodes:
 - id: seed
@@ -43,9 +42,8 @@ nodes:
     op: union
     over: evidence
   kind: verifier
-  criteria: Every conclusion cites the evidence on the blackboard that supports it, and questions the
-    investigation could not settle are stated as open rather than dropped. A clean narrative that omits
-    its gaps is the failure mode of an investigation.
+  criteria: Every conclusion cites the evidence on the blackboard that supports it, and questions the investigation could
+    not settle are stated as open rather than dropped. A clean narrative that omits its gaps is the failure mode of an investigation.
 edges:
 - from: seed
   to: investigate
@@ -55,7 +53,7 @@ edges:
 - from: investigate
   to: assess
 termination:
-  max_steps: 40
+  max_steps: 14
   contract: conclusions cite evidence; unresolved questions are stated, not dropped
 verification:
 - describe: every conclusion cites the evidence it rests on

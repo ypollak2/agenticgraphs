@@ -1,82 +1,84 @@
 {
-  "model": "lfm2.5:8b",
-  "recorded": "2026-09-01",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
-  },
-  "inputs": {
-    "goal": "issue 481, reproducing in the checkout service"
-  },
-  "node_outputs": {
-    "plan": {
-      "plan": "decompose_goal",
-      "steps": [
-        {
-          "name": "Identify root cause of test failure in checkout service",
-          "type": "investigate"
-        },
-        {
-          "name": "Analyze logs and error reports from the checkout service",
-          "type": "diagnose"
-        },
-        {
-          "name": "Implement fix for identified issue",
-          "type": "resolve"
-        },
-        {
-          "name": "Run regression tests to verify fix",
-          "type": "verify"
-        },
-        {
-          "name": "Update blackboard with successful reproduction status",
-          "type": "update"
-        }
-      ]
+ "model": "lfm2.5:8b",
+ "recorded": "2026-09-01",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "issue 481, reproducing in the checkout service"
+ },
+ "node_outputs": {
+  "plan": {
+   "plan": "decompose_goal",
+   "steps": [
+    {
+     "name": "Identify root cause of test failure in checkout service",
+     "type": "investigate"
     },
-    "execute": [
-      {
-        "step_result": "reproduce"
-      },
-      {
-        "step_result": "reproduce"
-      },
-      {
-        "step_result": "reproduce"
-      }
-    ],
-    "verify": [
-      {
-        "exit_after": 481,
-        "exit_before": 480,
-        "output": {
-          "exit_after": 481,
-          "exit_before": 480
-        },
-        "verify_failed": true
-      },
-      {
-        "exit_after": 481,
-        "exit_before": 480,
-        "output": {
-          "exit_after": 481,
-          "exit_before": 480
-        },
-        "verify_failed": true
-      },
-      {
-        "exit_after": 481,
-        "exit_before": 480,
-        "output": {
-          "exit_after": 481,
-          "exit_before": 480
-        },
-        "verify_failed": true
-      }
-    ]
+    {
+     "name": "Analyze logs and error reports from the checkout service",
+     "type": "diagnose"
+    },
+    {
+     "name": "Implement fix for identified issue",
+     "type": "resolve"
+    },
+    {
+     "name": "Run regression tests to verify fix",
+     "type": "verify"
+    },
+    {
+     "name": "Update blackboard with successful reproduction status",
+     "type": "update"
+    }
+   ]
   },
-  "tool_calls": []
+  "execute": [
+   {
+    "step_result": "reproduce"
+   },
+   {
+    "step_result": "reproduce"
+   },
+   {
+    "step_result": "reproduce"
+   }
+  ],
+  "verify": [
+   {
+    "exit_after": 481,
+    "exit_before": 480,
+    "output": {
+     "exit_after": 481,
+     "exit_before": 480
+    },
+    "verify_failed": true
+   },
+   {
+    "exit_after": 481,
+    "exit_before": 480,
+    "output": {
+     "exit_after": 481,
+     "exit_before": 480
+    },
+    "verify_failed": true
+   },
+   {
+    "exit_after": 481,
+    "exit_before": 480,
+    "output": {
+     "exit_after": 481,
+     "exit_before": 480
+    },
+    "verify_failed": true
+   }
+  ]
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

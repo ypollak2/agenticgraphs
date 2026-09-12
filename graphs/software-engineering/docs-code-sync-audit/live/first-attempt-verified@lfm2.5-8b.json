@@ -1,49 +1,51 @@
 {
-  "model": "lfm2.5:8b",
-  "recorded": "2026-09-01",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
-  },
-  "inputs": {
-    "goal": "docs/ against src/ at the current HEAD"
-  },
-  "node_outputs": {
-    "plan": {
-      "tasks": [
-        {
-          "doc": "Goal: docs/ against src/ at the current HEAD",
-          "snippet": "Decompose the goal into actionable steps for documentation and source code alignment."
-        }
-      ]
-    },
-    "work": {
-      "work_result": {
-        "doc": "Decompose the goal into actionable steps for documentation and source code alignment.",
-        "command": "git diff --name-only HEAD~1..HEAD",
-        "exit_code": 0
-      }
-    },
-    "verify": {
-      "examples": [
-        {
-          "doc": "Decompose the goal into actionable steps for documentation and source code alignment.",
-          "exit_code": 0
-        }
-      ],
-      "output": {
-        "examples": [
-          {
-            "doc": "Decompose the goal into actionable steps for documentation and source code alignment.",
-            "exit_code": 0
-          }
-        ]
-      },
-      "verify_failed": false
+ "model": "lfm2.5:8b",
+ "recorded": "2026-09-01",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "docs/ against src/ at the current HEAD"
+ },
+ "node_outputs": {
+  "plan": {
+   "tasks": [
+    {
+     "doc": "Goal: docs/ against src/ at the current HEAD",
+     "snippet": "Decompose the goal into actionable steps for documentation and source code alignment."
     }
+   ]
   },
-  "tool_calls": []
+  "work": {
+   "work_result": {
+    "doc": "Decompose the goal into actionable steps for documentation and source code alignment.",
+    "command": "git diff --name-only HEAD~1..HEAD",
+    "exit_code": 0
+   }
+  },
+  "verify": {
+   "examples": [
+    {
+     "doc": "Decompose the goal into actionable steps for documentation and source code alignment.",
+     "exit_code": 0
+    }
+   ],
+   "output": {
+    "examples": [
+     {
+      "doc": "Decompose the goal into actionable steps for documentation and source code alignment.",
+      "exit_code": 0
+     }
+    ]
+   },
+   "verify_failed": false
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

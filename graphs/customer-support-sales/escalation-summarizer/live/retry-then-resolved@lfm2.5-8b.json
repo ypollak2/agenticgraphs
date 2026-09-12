@@ -1,39 +1,41 @@
 {
-  "model": "lfm2.5:8b",
-  "recorded": "2026-09-01",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "lfm2.5:8b",
+ "recorded": "2026-09-01",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "ticket 84120, escalating to tier 3"
+ },
+ "node_outputs": {
+  "intake": {
+   "summary": "ticket 84120, escalating to tier 3"
   },
-  "inputs": {
-    "goal": "ticket 84120, escalating to tier 3"
-  },
-  "node_outputs": {
-    "intake": {
-      "summary": "ticket 84120, escalating to tier 3"
-    },
-    "produce": {
-      "all_asks_covered": true,
-      "asks": [
-        {
-          "quote": "ticket 84120, escalating to tier 3"
-        }
-      ]
-    },
-    "review": {
-      "output": {
-        "all_asks_covered": true,
-        "asks": [
-          {
-            "quote": "ticket 84120, escalating to tier 3"
-          }
-        ]
-      },
-      "revision_requested": false
+  "produce": {
+   "all_asks_covered": true,
+   "asks": [
+    {
+     "quote": "ticket 84120, escalating to tier 3"
     }
+   ]
   },
-  "tool_calls": []
+  "review": {
+   "output": {
+    "all_asks_covered": true,
+    "asks": [
+     {
+      "quote": "ticket 84120, escalating to tier 3"
+     }
+    ]
+   },
+   "revision_requested": false
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

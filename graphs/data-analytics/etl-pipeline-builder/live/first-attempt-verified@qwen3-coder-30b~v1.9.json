@@ -1,0 +1,48 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "model_name": "daily_revenue_by_plan",
+    "source": {
+      "system": "Stripe",
+      "stream": "events",
+      "expected_rows": 1440
+    },
+    "target": {
+      "table": "analytics.daily_revenue_by_plan",
+      "grain": "day x plan"
+    },
+    "goal": "Stripe events into the warehouse, daily revenue by plan"
+  },
+  "node_outputs": {
+    "plan": {
+      "steps": [
+        "decompose_goal"
+      ]
+    },
+    "execute": {
+      "step_result": "decomposed goal into actionable steps for processing Stripe events and aggregating daily revenue by plan"
+    },
+    "verify": {
+      "actual_rows": 1440,
+      "expected_rows": 1440,
+      "output": {
+        "actual_rows": 1440,
+        "expected_rows": 1440
+      },
+      "verify_failed": false
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

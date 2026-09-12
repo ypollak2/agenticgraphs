@@ -20,6 +20,40 @@ cases:
         - line_id: L-12
           policy_rule: T&E-4
   goal: August EMEA reports, against the 2026 travel policy
+  inputs:
+    reports: &id002
+    - line_id: L1
+      employee: e1
+      amount: 420.0
+      category: hotel
+      region: EMEA
+      nights: 2
+    - line_id: L2
+      employee: e1
+      amount: 95.0
+      category: meal
+      region: EMEA
+      attendees: 1
+    - line_id: L3
+      employee: e2
+      amount: 1450.0
+      category: flight
+      region: EMEA
+      class: business
+    - line_id: L4
+      employee: e3
+      amount: 38.0
+      category: taxi
+      region: EMEA
+    policy: &id003
+      year: 2026
+      rules:
+      - policy_rule: TR-1
+        text: meals capped at 60 EMEA
+      - policy_rule: TR-4
+        text: economy only under 6 hours
+      - policy_rule: TR-9
+        text: hotel capped at 180/night
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -42,3 +76,6 @@ cases:
         - line_id: L-12
           policy_rule: T&E-4
   goal: August EMEA reports, against the 2026 travel policy
+  inputs:
+    reports: *id002
+    policy: *id003

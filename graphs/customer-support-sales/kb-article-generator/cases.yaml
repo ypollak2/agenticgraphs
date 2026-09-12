@@ -29,6 +29,22 @@ cases:
     dedupe-search: &id007
       existing_articles: []
   goal: ticket 79004, written for self-serve customers
+  inputs:
+    ticket: &id008
+      id: 79004
+      problem: users cannot reset password when SSO is enabled
+      resolution_steps:
+      - action: open account settings
+        expected: the security tab is visible
+      - action: choose 'reset via identity provider'
+        expected: redirect to the IdP
+      - action: complete the IdP reset
+        expected: return to the app signed in
+    existing_articles: &id009
+    - id: kb-221
+      title: Changing your email address
+    - id: kb-318
+      title: Setting up SSO
 - id: retry-then-resolved
   node_outputs:
     intake:
@@ -65,3 +81,6 @@ cases:
         near_duplicates: *id006
     dedupe-search: *id007
   goal: ticket 79004, written for self-serve customers
+  inputs:
+    ticket: *id008
+    existing_articles: *id009

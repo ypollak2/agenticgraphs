@@ -28,3 +28,25 @@ cases:
         listings_published: 40
     escalate-listing: {}
   goal: list the spring hardware line on Amazon under its claims policy
+  inputs:
+    spec_sheets:
+    - sku: HW-114
+      title: Ridge 12mm Hex Driver
+      claims:
+      - hardened S2 steel
+      - fits 12mm hex
+      evidence:
+      - claim: hardened S2 steel
+        source: mill cert 44-19
+    - sku: HW-115
+      title: Ridge Torque Bar
+      claims:
+      - rated to 60Nm
+      evidence:
+      - claim: rated to 60Nm
+        source: test report TR-88
+    policy:
+      banned_claims:
+      - best in the world
+      - medical grade
+      require_evidence: true

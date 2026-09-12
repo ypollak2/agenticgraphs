@@ -1,0 +1,37 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "threshold": 0.01,
+    "goal": "api v2.14.0 at 5%, on p99 latency and 5xx rate"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "API v2.14.0 deployment showing 5% error rate and p99 latency exceeding threshold, requiring rollback due to exceeding 1% error rate tolerance"
+    },
+    "attempt": {
+      "error_rate": 0.05,
+      "rollback_fired": true
+    },
+    "measure": {
+      "output": {
+        "error_rate": 0.05,
+        "rollback_fired": true,
+        "threshold": 0.01
+      },
+      "below_target": false
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

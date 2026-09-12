@@ -23,6 +23,16 @@ cases:
       unique_requirements: &id003
       - python
   goal: a staff platform engineer on the infra team
+  inputs:
+    role: &id007
+      title: Staff Platform Engineer
+      team: infrastructure
+      draft_requirements:
+      - 10+ years experience
+      - strong Kubernetes background
+      - strong Kubernetes background
+      - a cultural fit for our young dynamic team
+      - on-call participation
 - id: revised-after-rejection
   node_outputs:
     intake:
@@ -53,3 +63,5 @@ cases:
       requirements: *id001
       unique_requirements: *id003
   goal: a staff platform engineer on the infra team
+  inputs:
+    role: *id007

@@ -14,6 +14,20 @@ cases:
       revision_requested: false
       attempts: 1
   goal: the Q2 2026 call, against the guidance given in Q1
+  inputs:
+    transcript: &id001
+      quarter: Q2 2026
+      statements:
+      - speaker: CFO
+        text: Revenue was 412 million, up 14 percent year over year.
+      - speaker: CFO
+        text: We now expect full-year margin of 21 to 22 percent.
+      - speaker: CEO
+        text: Net retention held at 118 percent.
+    prior_guidance: &id002
+      quarter: Q1 2026
+      revenue_guide_musd: 405
+      margin_guide: 20 to 22 percent
 - id: retry-then-resolved
   node_outputs:
     intake:
@@ -37,3 +51,6 @@ cases:
     - revision_requested: false
       attempts: 2
   goal: the Q2 2026 call, against the guidance given in Q1
+  inputs:
+    transcript: *id001
+    prior_guidance: *id002

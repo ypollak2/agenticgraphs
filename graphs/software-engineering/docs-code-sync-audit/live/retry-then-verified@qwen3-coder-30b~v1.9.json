@@ -1,0 +1,88 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "docs_path": "docs/",
+    "examples": [
+      {
+        "file": "docs/quickstart.md",
+        "lang": "python",
+        "code": "print('hello')"
+      },
+      {
+        "file": "docs/api.md",
+        "lang": "python",
+        "code": "import json; json.dumps({})"
+      }
+    ],
+    "src_path": "src/",
+    "goal": "docs/ against src/ at the current HEAD"
+  },
+  "node_outputs": {
+    "plan": {
+      "tasks": [
+        {
+          "doc": "docs/quickstart.md",
+          "snippet": "print('hello')"
+        },
+        {
+          "doc": "docs/api.md",
+          "snippet": "import json; json.dumps({})"
+        }
+      ]
+    },
+    "work": [
+      {
+        "work_result": {
+          "doc": "docs/quickstart.md",
+          "command": "python -c \"print('hello')\"",
+          "exit_code": 0
+        }
+      },
+      {
+        "work_result": {
+          "doc": "docs/api.md",
+          "command": "python -c \"import json; json.dumps({})\"",
+          "exit_code": 0
+        }
+      }
+    ],
+    "verify": {
+      "examples": [
+        {
+          "doc": "docs/quickstart.md",
+          "exit_code": 0
+        },
+        {
+          "doc": "docs/api.md",
+          "exit_code": 0
+        }
+      ],
+      "output": {
+        "examples": [
+          {
+            "doc": "docs/quickstart.md",
+            "exit_code": 0
+          },
+          {
+            "doc": "docs/api.md",
+            "exit_code": 0
+          }
+        ]
+      },
+      "verify_failed": false
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

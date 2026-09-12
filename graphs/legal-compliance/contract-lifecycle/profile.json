@@ -10,18 +10,18 @@
     "max_fan_out": 3,
     "loops": 1,
     "loops_bounded": true,
-    "max_steps": 35,
+    "max_steps": 16,
     "verification_asserts": 3,
     "risk_surface": "execute"
   },
   "refs": {
-    "legal-compliance/contract-redline-pipeline": "b1502f610e80"
+    "legal-compliance/contract-redline-pipeline": "f1d8fc88bc41"
   },
   "measured": {
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-09-04",
+    "date": "2026-09-10",
     "cases": 1,
     "passed": 1,
     "pass_rate": 1.0,
@@ -65,19 +65,19 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:qwen3-coder:30b",
+    "runner": "llm-replay:qwen3-coder:30b,qwen3.5:latest",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-09-04",
-    "cases": 3,
+    "date": "2026-09-10",
+    "cases": 2,
     "passed": 0,
     "pass_rate": 0.0,
-    "mean_steps": 8.0,
+    "mean_steps": 7.0,
     "results": [
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
+        "recorded": "2026-09-10",
         "gate_auto_approved": true,
         "passed": false,
         "steps": 8,
@@ -118,27 +118,31 @@
       },
       {
         "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
+        "model": "qwen3.5:latest",
+        "recorded": "2026-09-10",
         "gate_auto_approved": true,
         "passed": false,
-        "steps": 8,
+        "steps": 6,
         "trace": [
           "intake",
           "redline.intake",
           "redline.playbook-lookup",
           "redline.produce",
           "redline.review",
-          "risk-assess",
-          "counsel-approval",
-          "execute"
+          "risk-assess"
         ],
         "goal_missing": "",
-        "unreached_terminals": [],
+        "unreached_terminals": [
+          "escalate-contract",
+          "execute"
+        ],
         "shape_violations": [],
         "state_violations": [],
         "assert_failures": [
-          "all(s.party and s.dated for s in output.signatures)"
+          "all(s.party and s.dated for s in output.signatures) (AttributeError: signatures)",
+          "output.residual_risk_level in ['low','medium'] (AttributeError: residual_risk_level)",
+          "output.signed_off == true (AttributeError: signed_off)",
+          "[redline] all(r.playbook_ref for r in output.redlines) (AttributeError: redlines)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -148,53 +152,12 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [
-          "assert"
+          "assert",
+          "stall"
         ],
         "overwritten_inputs": [],
         "rejected_approvals": [],
-        "auto_approved": true,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
-        "gate_auto_approved": true,
-        "passed": false,
-        "steps": 8,
-        "trace": [
-          "intake",
-          "redline.intake",
-          "redline.playbook-lookup",
-          "redline.produce",
-          "redline.review",
-          "risk-assess",
-          "counsel-approval",
-          "execute"
-        ],
-        "goal_missing": "",
-        "unreached_terminals": [],
-        "shape_violations": [],
-        "state_violations": [],
-        "assert_failures": [
-          "all(s.party and s.dated for s in output.signatures)"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "parse_failures": [],
-        "gate_refused": "",
-        "timeouts": [],
-        "failure_kinds": [
-          "assert"
-        ],
-        "overwritten_inputs": [],
-        "rejected_approvals": [],
-        "auto_approved": true,
+        "auto_approved": false,
         "subgraphs_expanded": true,
         "truncations": [],
         "grounded": false,
@@ -202,18 +165,21 @@
       }
     ],
     "models": [
-      "qwen3-coder:30b"
+      "qwen3-coder:30b",
+      "qwen3.5:latest"
     ],
-    "recorded": "2026-08-31",
-    "age_days": 4,
+    "recorded": "2026-09-10",
+    "age_days": 0,
     "per_model_pass_rate": {
-      "qwen3-coder:30b": 0.0
+      "qwen3-coder:30b": 0.0,
+      "qwen3.5:latest": 0.0
     },
     "models_disagree": false,
     "fails_every_model": true,
     "flaky_models": [],
     "samples_per_model": {
-      "qwen3-coder:30b": 3
+      "qwen3-coder:30b": 1,
+      "qwen3.5:latest": 1
     },
     "gate_auto_approved": true
   }

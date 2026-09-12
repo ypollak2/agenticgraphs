@@ -1,0 +1,48 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "role": "Senior Data Analyst",
+    "team": "growth",
+    "systems": [
+      {
+        "name": "warehouse",
+        "access": "read"
+      },
+      {
+        "name": "looker",
+        "access": "editor"
+      },
+      {
+        "name": "github",
+        "access": "read"
+      }
+    ],
+    "start_date": "2026-10-01",
+    "manager": "growth-lead",
+    "goal": "a senior data analyst joining growth"
+  },
+  "node_outputs": {
+    "gather": {
+      "role_context": "Senior Data Analyst on Growth team, start date 2026-10-01, manager growth-lead, systems access: warehouse (read), looker (editor), github (read)"
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "access-map: no JSON object in model reply: ''",
+    "draft-plan: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

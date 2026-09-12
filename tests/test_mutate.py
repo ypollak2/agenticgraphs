@@ -54,10 +54,25 @@ def test_infuse_unknown_ability_rejected():
 
 
 def test_optimize_dry_run_tightens_measured_budget():
+    """Dry-run proposes a tightening and writes nothing.
+
+    The precondition is established here rather than read off the registry. This
+    test used to assert `verifier-swarm` sat at max_steps 30, which made it a
+    record of one graph's current budget: the moment `agr optimize --apply` ran
+    over the registry the budget moved to 14 and the test failed, reporting a
+    stale constant as a regression. Widening the budget inside the snapshot means
+    the assertion is about the operator, not about whatever the registry happens
+    to hold today.
+    """
     g = find_graph("verifier-swarm")
-    res = optimize("verifier-swarm", apply=False)
-    assert any("max_steps" in n for n in res["notes"])   # profile says worst-case 7 << 30
-    assert res["changed"] is False and load(g)["termination"]["max_steps"] == 30  # dry-run untouched
+    with _snapshot(g):
+        doc = load(g)
+        doc["termination"]["max_steps"] = 30
+        g.write_text(yaml.safe_dump(doc, sort_keys=False, width=120))
+        res = optimize("verifier-swarm", apply=False)
+        assert any("max_steps" in n for n in res["notes"])
+        assert res["changed"] is False
+        assert load(g)["termination"]["max_steps"] == 30  # dry-run untouched
 
 
 def test_optimize_apply_survives_gate_and_cases():

@@ -13,6 +13,21 @@ cases:
         - quote: the argument lacks a counterpoint
           rubric_id: R1
   goal: a 1200-word essay, against the 'causes of the Dust Bowl' brief
+  inputs:
+    essay: &id001
+      words: 1200
+      prompt: causes of the Dust Bowl
+      paragraphs:
+      - The Dust Bowl was caused mainly by drought that struck the plains.
+      - Farmers also ploughed deep, which broke the grass that held the soil.
+      - Government policy encouraged more planting than the land could bear.
+    rubric: &id002
+    - rubric_id: r1
+      criterion: thesis clarity
+    - rubric_id: r2
+      criterion: use of evidence
+    - rubric_id: r3
+      criterion: causal reasoning
 - id: revised-after-rejection
   node_outputs:
     intake:
@@ -30,3 +45,6 @@ cases:
         - quote: the argument lacks a counterpoint
           rubric_id: R1
   goal: a 1200-word essay, against the 'causes of the Dust Bowl' brief
+  inputs:
+    essay: *id001
+    rubric: *id002

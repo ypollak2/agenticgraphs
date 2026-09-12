@@ -1,0 +1,56 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "page_limit": 10,
+    "goal": "the Acme Health RFP, answered from the 2026 solutions library"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        "Executive Summary",
+        "Security Architecture",
+        "Compliance Framework",
+        "Data Privacy Controls",
+        "Interoperability Solutions",
+        "Implementation Plan",
+        "Pricing Strategy",
+        "Support Services",
+        "Risk Management",
+        "Conclusion"
+      ]
+    },
+    "map": [
+      {
+        "shard_result": "Executive Summary: Acme Health RFP Response. Our 2026 Solutions Library provides a comprehensive, future-ready healthcare infrastructure tailored to Acme Health's needs. This proposal outlines our secure, compliant, and interoperable architecture designed to scale with your growth. We commit to delivering robust security, strict compliance adherence, seamless data integration, and dedicated support services within the agreed timeline and budget."
+      },
+      {
+        "shard_result": "Security Architecture: Our 2026 solution employs a Zero Trust Network Access (ZTNA) framework ensuring least-privilege access. All data is encrypted using AES-256 at rest and TLS 1.3 in transit. Identity and Access Management (IAM) utilizes OAuth 2.0/OIDC with FIDO2 hardware authentication. We maintain a Security Operations Center (SOC) with AI-driven anomaly detection. Architecture supports HIPAA, HITECH, and GDPR compliance through built-in audit logging and data residency controls."
+      },
+      {
+        "shard_result": "Our Compliance Framework ensures full adherence to HIPAA, HITECH, and emerging 2026 state privacy mandates. We maintain HITRUST CSF certification readiness with automated audit trails, real-time policy updates, and annual third-party assessments. All data processing activities are logged for immutable record-keeping, ensuring transparency and accountability across all clinical and administrative workflows."
+      },
+      {
+        "shard_result": "Comprehensive Data Privacy Controls implemented including AES-256 encryption at rest and TLS 1.3 in transit. Identity and Access Management (IAM) enforces strict RBAC with MFA. Immutable audit logs retained for 7+ years per HIPAA. Automated data discovery scans identify PHI exposure risks. Consent management platform tracks patient opt-in/opt-out preferences. Data residency controls ensure PHI remains within approved geographic boundaries."
+      }
+    ]
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "map: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

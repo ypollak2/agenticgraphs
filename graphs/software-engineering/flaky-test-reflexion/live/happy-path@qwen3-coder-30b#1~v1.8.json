@@ -1,103 +1,105 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-08-31",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "stabilize test_checkout_timeout; it must go 3 consecutive greens"
+ },
+ "node_outputs": {
+  "reproduce": {
+   "observed": "test_checkout_timeout failed on attempt 1 with timeout error",
+   "seed": "2023-10-15-14-30-00"
   },
-  "inputs": {
-    "goal": "stabilize test_checkout_timeout; it must go 3 consecutive greens"
-  },
-  "node_outputs": {
-    "reproduce": {
-      "observed": "test_checkout_timeout failed on attempt 1 with timeout error",
-      "seed": "2023-10-15-14-30-00"
+  "hypothesise": [
+   {
+    "hypothesis": "The test_checkout_timeout failure was caused by environmental instability or resource contention during the initial run. Running the test multiple times in succession will reveal whether this was an isolated incident or a systemic issue requiring code changes."
+   },
+   {
+    "hypothesis": "The test_checkout_timeout failure was caused by environmental instability or resource contention during the initial run. Running the test multiple times in succession with increased timeout and retry mechanisms will reveal whether this was an isolated incident or a systemic issue requiring code changes. The current candidate fix of executing the test with max_retries=3 and timeout=60 should provide sufficient resilience to achieve 3 consecutive greens."
+   },
+   {
+    "hypothesis": "The test_checkout_timeout failure was caused by environmental instability or resource contention during the initial run. Running the test multiple times in succession with increased timeout and retry mechanisms will reveal whether this was an isolated incident or a systemic issue requiring code changes. The current candidate fix of executing the test with max_retries=3 and timeout=60 should provide sufficient resilience to achieve 3 consecutive greens."
+   },
+   {
+    "hypothesis": "The test_checkout_timeout failure was caused by environmental instability or resource contention during the initial run. Running the test multiple times in succession with increased timeout and retry mechanisms will reveal whether this was an isolated incident or a systemic issue requiring code changes. The current candidate fix of executing the test with max_retries=3 and timeout=60 should provide sufficient resilience to achieve 3 consecutive greens."
+   }
+  ],
+  "test-fix": [
+   {
+    "candidate_fix": "execute_step('test_checkout_timeout', max_retries=3, timeout=60)"
+   },
+   {
+    "candidate_fix": "execute_step('test_checkout_timeout', max_retries=3, timeout=60)"
+   },
+   {
+    "candidate_fix": "execute_step('test_checkout_timeout', max_retries=3, timeout=60)"
+   },
+   {
+    "candidate_fix": "execute_step('test_checkout_timeout', max_retries=3, timeout=60)"
+   }
+  ],
+  "evaluate": [
+   {
+    "consecutive_green": 0,
+    "lessons": [
+     "test_checkout_timeout failed on attempt 1 with timeout error"
+    ],
+    "output": {
+     "consecutive_green": 0,
+     "lessons": [
+      "test_checkout_timeout failed on attempt 1 with timeout error"
+     ]
     },
-    "hypothesise": [
-      {
-        "hypothesis": "The test_checkout_timeout failure was caused by environmental instability or resource contention during the initial run. Running the test multiple times in succession will reveal whether this was an isolated incident or a systemic issue requiring code changes."
-      },
-      {
-        "hypothesis": "The test_checkout_timeout failure was caused by environmental instability or resource contention during the initial run. Running the test multiple times in succession with increased timeout and retry mechanisms will reveal whether this was an isolated incident or a systemic issue requiring code changes. The current candidate fix of executing the test with max_retries=3 and timeout=60 should provide sufficient resilience to achieve 3 consecutive greens."
-      },
-      {
-        "hypothesis": "The test_checkout_timeout failure was caused by environmental instability or resource contention during the initial run. Running the test multiple times in succession with increased timeout and retry mechanisms will reveal whether this was an isolated incident or a systemic issue requiring code changes. The current candidate fix of executing the test with max_retries=3 and timeout=60 should provide sufficient resilience to achieve 3 consecutive greens."
-      },
-      {
-        "hypothesis": "The test_checkout_timeout failure was caused by environmental instability or resource contention during the initial run. Running the test multiple times in succession with increased timeout and retry mechanisms will reveal whether this was an isolated incident or a systemic issue requiring code changes. The current candidate fix of executing the test with max_retries=3 and timeout=60 should provide sufficient resilience to achieve 3 consecutive greens."
-      }
+    "stable": false
+   },
+   {
+    "consecutive_green": 0,
+    "lessons": [
+     "test_checkout_timeout failed on attempt 1 with timeout error"
     ],
-    "test-fix": [
-      {
-        "candidate_fix": "execute_step('test_checkout_timeout', max_retries=3, timeout=60)"
-      },
-      {
-        "candidate_fix": "execute_step('test_checkout_timeout', max_retries=3, timeout=60)"
-      },
-      {
-        "candidate_fix": "execute_step('test_checkout_timeout', max_retries=3, timeout=60)"
-      },
-      {
-        "candidate_fix": "execute_step('test_checkout_timeout', max_retries=3, timeout=60)"
-      }
+    "output": {
+     "consecutive_green": 0,
+     "lessons": [
+      "test_checkout_timeout failed on attempt 1 with timeout error"
+     ]
+    },
+    "stable": false
+   },
+   {
+    "consecutive_green": 0,
+    "lessons": [
+     "test_checkout_timeout failed on attempt 1 with timeout error"
     ],
-    "evaluate": [
-      {
-        "consecutive_green": 0,
-        "lessons": [
-          "test_checkout_timeout failed on attempt 1 with timeout error"
-        ],
-        "output": {
-          "consecutive_green": 0,
-          "lessons": [
-            "test_checkout_timeout failed on attempt 1 with timeout error"
-          ]
-        },
-        "stable": false
-      },
-      {
-        "consecutive_green": 0,
-        "lessons": [
-          "test_checkout_timeout failed on attempt 1 with timeout error"
-        ],
-        "output": {
-          "consecutive_green": 0,
-          "lessons": [
-            "test_checkout_timeout failed on attempt 1 with timeout error"
-          ]
-        },
-        "stable": false
-      },
-      {
-        "consecutive_green": 0,
-        "lessons": [
-          "test_checkout_timeout failed on attempt 1 with timeout error"
-        ],
-        "output": {
-          "consecutive_green": 0,
-          "lessons": [
-            "test_checkout_timeout failed on attempt 1 with timeout error"
-          ]
-        },
-        "stable": false
-      },
-      {
-        "consecutive_green": 0,
-        "lessons": [
-          "test_checkout_timeout failed on attempt 1 with timeout error"
-        ],
-        "output": {
-          "consecutive_green": 0,
-          "lessons": [
-            "test_checkout_timeout failed on attempt 1 with timeout error"
-          ]
-        },
-        "stable": false
-      }
-    ]
-  },
-  "tool_calls": []
+    "output": {
+     "consecutive_green": 0,
+     "lessons": [
+      "test_checkout_timeout failed on attempt 1 with timeout error"
+     ]
+    },
+    "stable": false
+   },
+   {
+    "consecutive_green": 0,
+    "lessons": [
+     "test_checkout_timeout failed on attempt 1 with timeout error"
+    ],
+    "output": {
+     "consecutive_green": 0,
+     "lessons": [
+      "test_checkout_timeout failed on attempt 1 with timeout error"
+     ]
+    },
+    "stable": false
+   }
+  ]
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

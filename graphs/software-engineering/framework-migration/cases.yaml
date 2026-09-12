@@ -27,3 +27,26 @@ cases:
         slices_remaining: 0
     escalate-migration: {}
   goal: port the admin app from Flask to FastAPI in verifiable slices
+  inputs:
+    repo:
+      name: admin-app
+      from_framework: Flask
+      to_framework: FastAPI
+      slices:
+      - id: sl1
+        module: auth
+        endpoints: 4
+        tests: 12
+        ported: false
+      - id: sl2
+        module: reports
+        endpoints: 6
+        tests: 9
+        ported: false
+      - id: sl3
+        module: settings
+        endpoints: 3
+        tests: 7
+        ported: false
+      test_command: pytest -q
+      snapshot_command: python -m admin_app.snapshot

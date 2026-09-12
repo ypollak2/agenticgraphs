@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-090` | security | **map-reduce** | 4 | 4 | 1 | 0 | 30 | write |
+| `AGR-090` | security | **map-reduce** | 4 | 4 | 1 | 0 | 22 | write |
 
 > 🎯 **Requires a goal** — the control framework to evidence and the audit period. Without one the graph refuses and runs no node.
 
@@ -35,7 +35,7 @@ Work fans out over shards and the reduce step merges with explicit dedupe and co
 
 - **Exit contract** — no control is silently unevidenced; the uncovered list is explicit
 - **Machine-checked** — `output.controls_total == output.controls_evidenced + len(output.uncovered)`
-- **Bounded** — hard stop after 30 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 22 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval compliance-evidence-collector` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/compliance-evidence-collector.md)
 

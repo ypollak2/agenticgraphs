@@ -1,40 +1,42 @@
 {
-  "model": "lfm2.5:8b",
-  "recorded": "2026-09-01",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
-  },
-  "inputs": {
-    "goal": "summarize the H1 2026 cycle for a senior engineer on the infra team"
-  },
-  "node_outputs": {
-    "gather": {
-      "inputs": [
-        {
-          "name": "h1_2026_cycle",
-          "type": "summary",
-          "target_audience": "senior engineer on the infra team"
-        }
-      ]
-    },
-    "synthesize": {
-      "draft_summary": "H1 2026 cycle summary for senior infra engineer"
-    },
-    "bias-check": {
-      "bias_flags": []
-    },
-    "calibrate": {
-      "calibrated_summary": "H1 2026 cycle summary for senior infra engineer",
-      "output": {
-        "bias_flags": [],
-        "uncited_claims": []
-      },
-      "uncited_claims": []
+ "model": "lfm2.5:8b",
+ "recorded": "2026-09-01",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "summarize the H1 2026 cycle for a senior engineer on the infra team"
+ },
+ "node_outputs": {
+  "gather": {
+   "inputs": [
+    {
+     "name": "h1_2026_cycle",
+     "type": "summary",
+     "target_audience": "senior engineer on the infra team"
     }
+   ]
   },
-  "tool_calls": []
+  "synthesize": {
+   "draft_summary": "H1 2026 cycle summary for senior infra engineer"
+  },
+  "bias-check": {
+   "bias_flags": []
+  },
+  "calibrate": {
+   "calibrated_summary": "H1 2026 cycle summary for senior infra engineer",
+   "output": {
+    "bias_flags": [],
+    "uncited_claims": []
+   },
+   "uncited_claims": []
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

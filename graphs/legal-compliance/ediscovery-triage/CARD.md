@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-059` | legal-compliance | **router** | 4 | 4 | 1 | 1 | 12 | write |
+| `AGR-059` | legal-compliance | **router** | 4 | 4 | 1 | 1 | 6 | write |
 
 > 🎯 **Requires a goal** — the document set to triage and the matter that defines relevance. Without one the graph refuses and runs no node.
 
@@ -35,7 +35,7 @@ A cheap classifier sends every item down the narrowest branch that can handle it
 
 - **Exit contract** — recall on seeded relevant set above threshold
 - **Machine-checked** — `output.recall >= output.threshold`
-- **Bounded** — hard stop after 12 steps; the topology is acyclic
+- **Bounded** — hard stop after 6 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval ediscovery-triage` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/ediscovery-triage.md)
 

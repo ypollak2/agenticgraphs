@@ -20,6 +20,31 @@ cases:
         - rule_id: null-check
           count: 3
   goal: the customers table, against the CDM completeness rules
+  inputs:
+    model_name: customers
+    rules: &id002
+    - rule_id: cdm-001
+      column: email
+      check: not_null
+    - rule_id: cdm-002
+      column: country
+      check: in_iso3166
+    - rule_id: cdm-003
+      column: created_at
+      check: not_future
+    sample_rows: &id003
+    - id: 1
+      email: a@x.com
+      country: GB
+      created_at: '2026-01-04'
+    - id: 2
+      email: null
+      country: GB
+      created_at: '2026-02-11'
+    - id: 3
+      email: c@x.com
+      country: ZZ
+      created_at: '2026-03-01'
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -42,3 +67,7 @@ cases:
         - rule_id: null-check
           count: 3
   goal: the customers table, against the CDM completeness rules
+  inputs:
+    model_name: customers
+    rules: *id002
+    sample_rows: *id003

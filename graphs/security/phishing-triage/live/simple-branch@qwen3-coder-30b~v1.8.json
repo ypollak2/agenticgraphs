@@ -1,36 +1,38 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-08-31",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "labeled_corpus": {
+   "invoice-from-known-vendor": "benign",
+   "password-expiry-lookalike-domain": "phish",
+   "ceo-gift-card-request": "phish"
   },
-  "inputs": {
-    "labeled_corpus": {
-      "invoice-from-known-vendor": "benign",
-      "password-expiry-lookalike-domain": "phish",
-      "ceo-gift-card-request": "phish"
-    },
-    "goal": "the reported email 'invoice-from-known-vendor', against the labelled corpus"
+  "goal": "the reported email 'invoice-from-known-vendor', against the labelled corpus"
+ },
+ "node_outputs": {
+  "route": {
+   "complexity": "low"
   },
-  "node_outputs": {
-    "route": {
-      "complexity": "low"
-    },
-    "branch-simple": {
-      "assigned_verdict": "benign"
-    },
-    "verify": {
-      "expected_verdict": "benign",
-      "assigned_verdict": "benign",
-      "output": {
-        "assigned_verdict": "benign",
-        "expected_verdict": "benign"
-      }
-    }
+  "branch-simple": {
+   "assigned_verdict": "benign"
   },
-  "tool_calls": []
+  "verify": {
+   "expected_verdict": "benign",
+   "assigned_verdict": "benign",
+   "output": {
+    "assigned_verdict": "benign",
+    "expected_verdict": "benign"
+   }
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

@@ -37,3 +37,40 @@ cases:
         po_id: PO-1
         receipt_id: GR-1
   goal: reconcile the March 2026 supplier invoice batch against POs and receipts
+  inputs:
+    invoices:
+    - invoice_id: INV-3001
+      po_id: PO-771
+      receipt_id: GRN-551
+      supplier: Northwind
+      amount: 12400.0
+      currency: USD
+      date: '2026-03-04'
+    - invoice_id: INV-3002
+      po_id: PO-772
+      receipt_id: GRN-552
+      supplier: Baltic
+      amount: 3150.5
+      currency: USD
+      date: '2026-03-09'
+    - invoice_id: INV-3003
+      po_id: PO-773
+      receipt_id: GRN-553
+      supplier: Kyoto
+      amount: 8790.0
+      currency: USD
+      date: '2026-03-17'
+    purchase_orders:
+    - po_id: PO-771
+      amount: 12400.0
+    - po_id: PO-772
+      amount: 3150.5
+    - po_id: PO-773
+      amount: 8790.0
+    receipts:
+    - receipt_id: GRN-551
+      po_id: PO-771
+    - receipt_id: GRN-552
+      po_id: PO-772
+    - receipt_id: GRN-553
+      po_id: PO-773

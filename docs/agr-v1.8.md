@@ -1,3 +1,5 @@
+> **Superseded by [AGR v1.9](agr-v1.9.md).** This page describes an earlier version and is kept for the record; the current spec is agr-v1.9.md.
+
 # AGR v1.8 — the claim
 
 A graph now carries what it knows, and every claim it makes is checked by

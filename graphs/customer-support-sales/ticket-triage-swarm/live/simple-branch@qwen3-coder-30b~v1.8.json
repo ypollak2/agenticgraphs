@@ -1,37 +1,43 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "ownership_map": {
+   "refund not received": "billing-tier2",
+   "cannot log in": "identity-tier1",
+   "invoice wrong amount": "billing-tier2",
+   "app crashes on upload": "mobile-tier2"
   },
-  "inputs": {
-    "ownership_map": {
-      "refund not received": "billing-tier2",
-      "cannot log in": "identity-tier1",
-      "invoice wrong amount": "billing-tier2",
-      "app crashes on upload": "mobile-tier2"
-    },
-    "goal": "the ticket 'refund not received', against the queue ownership map"
+  "goal": "the ticket 'refund not received', against the queue ownership map"
+ },
+ "node_outputs": {
+  "route": {
+   "complexity": "low"
   },
-  "node_outputs": {
-    "route": {
-      "complexity": "low"
-    },
-    "branch-simple": {
-      "assigned_queue": "billing-tier2"
-    },
-    "verify": {
-      "expected_queue": "billing-tier2",
-      "assigned_queue": "billing-tier2",
-      "output": {
-        "assigned_queue": "billing-tier2",
-        "expected_queue": "billing-tier2"
-      }
-    }
+  "branch-simple": {
+   "assigned_queue": "billing-tier2"
   },
-  "tool_calls": []
+  "verify": {
+   "expected_queue": "billing-tier2",
+   "assigned_queue": "billing-tier2",
+   "output": {
+    "assigned_queue": "billing-tier2",
+    "expected_queue": "billing-tier2"
+   }
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
 }

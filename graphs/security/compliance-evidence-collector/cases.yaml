@@ -29,3 +29,17 @@ cases:
         - id: AC-7
         - id: AU-3
   goal: collect SOC 2 Type II evidence for the 2026 audit period
+  inputs:
+    framework:
+      name: SOC 2 Type II
+      period: '2026'
+      controls:
+      - id: CC6.1
+        desc: logical access
+        evidence_source: idp export
+      - id: CC7.2
+        desc: monitoring
+        evidence_source: alerting config
+      - id: CC8.1
+        desc: change management
+        evidence_source: pr history

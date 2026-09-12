@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: ticket-triage-swarm
 description: Classify and route tickets with priority and sentiment.
 category: customer-support-sales
@@ -18,21 +18,23 @@ nodes:
   - complexity
   outputs:
   - assigned_queue
-  criteria: Sentiment is assessed independently of complexity, because an angry customer with a simple
-    problem and a calm one with an outage need different queues and the routing rule cannot see both from
-    one classification.
+  criteria: Sentiment is assessed independently of complexity, because an angry customer with a simple problem and a calm
+    one with an outage need different queues and the routing rule cannot see both from one classification.
+  parallel_group: auto-route
 - id: branch-simple
   speciality: producer
   abilities:
   - generate
   outputs:
   - assigned_queue
+  parallel_group: auto-route
 - id: branch-complex
   speciality: producer
   abilities:
   - generate
   outputs:
   - assigned_queue
+  parallel_group: auto-route
 - id: verify
   speciality: critic
   abilities:
@@ -42,8 +44,8 @@ nodes:
   - expected_queue
   - assigned_queue
   - output
-  criteria: The queue each ticket was routed to matches the labeled backlog, and priority reflects the
-    customer's stated impact rather than the tone they used to state it.
+  criteria: The queue each ticket was routed to matches the labeled backlog, and priority reflects the customer's stated impact
+    rather than the tone they used to state it.
   inputs:
   - ownership_map
 edges:
@@ -62,7 +64,7 @@ edges:
 - from: branch-sentiment
   to: verify
 termination:
-  max_steps: 12
+  max_steps: 6
   contract: routing accuracy measured on labeled backlog
 verification:
 - describe: the decision agrees with the ownership map the caller supplied

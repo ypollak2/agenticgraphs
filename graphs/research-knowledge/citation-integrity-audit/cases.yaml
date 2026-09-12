@@ -21,6 +21,21 @@ cases:
           resolves: true
         mismatches: []
   goal: the systematic review draft and its 96 references
+  inputs:
+    document_path: drafts/systematic-review.md
+    references: &id002
+    - n: 1
+      doi: 10.1000/aaa
+      title: Cohort study A
+      resolves: true
+    - n: 2
+      doi: 10.1000/bbb
+      title: Meta-analysis B
+      resolves: true
+    - n: 3
+      doi: 10.1000/ccc
+      title: Trial C
+      resolves: true
 - id: retry-then-verified
   node_outputs:
     plan:
@@ -44,3 +59,6 @@ cases:
           resolves: true
         mismatches: []
   goal: the systematic review draft and its 96 references
+  inputs:
+    document_path: drafts/systematic-review.md
+    references: *id002

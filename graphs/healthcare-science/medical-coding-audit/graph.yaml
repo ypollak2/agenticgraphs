@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: medical-coding-audit
 description: Workers verify diagnosis and procedure codes against notes.
 category: healthcare-science
@@ -23,8 +23,8 @@ nodes:
   retries:
     max: 2
     reissue_effects: true
-  unbound_ok: 'narrated: edit_files has no binding in this runtime; the effect is the model''s account
-    of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: edit_files has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 - id: recode
   speciality: compensator
   abilities:
@@ -35,10 +35,10 @@ nodes:
   outputs:
   - corrections
   - recode_failed: bool
-  criteria: Every disputed code is paired with the code the documentation does support, so the finding
-    tells the coder what to change it to rather than only that it is wrong.
-  unbound_ok: 'narrated: backfill, rollback has no binding in this runtime; the effect is the model''s
-    account of it until the ability is bound (audit 2026-09-04, Q1)'
+  criteria: Every disputed code is paired with the code the documentation does support, so the finding tells the coder what
+    to change it to rather than only that it is wrong.
+  unbound_ok: 'narrated: backfill, rollback has no binding in this runtime; the effect is the model''s account of it until
+    the ability is bound (audit 2026-09-04, Q1)'
 - id: verify
   speciality: verifier
   abilities:
@@ -48,8 +48,8 @@ nodes:
   - codes: list[{note_span:any}]
   - output
   - verify_failed: bool
-  criteria: Every assigned code points at the note span that documents it. A code the chart supports only
-    by inference is an unsupported code, however clinically likely.
+  criteria: Every assigned code points at the note span that documents it. A code the chart supports only by inference is
+    an unsupported code, however clinically likely.
   retries:
     max: 2
     reissue_effects: true
@@ -60,10 +60,10 @@ nodes:
   inputs: []
   outputs:
   - reverse_claim_filed
-  criteria: A resubmitted code has already been claimed against. Undoing it means issuing the reversing
-    adjustment, so the payer's ledger and the chart agree.
-  unbound_ok: 'narrated: rollback has no binding in this runtime; the effect is the model''s account of
-    it until the ability is bound (audit 2026-09-04, Q1)'
+  criteria: A resubmitted code has already been claimed against. Undoing it means issuing the reversing adjustment, so the
+    payer's ledger and the chart agree.
+  unbound_ok: 'narrated: rollback has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 edges:
 - from: plan
   to: work
@@ -79,7 +79,7 @@ edges:
   kind: compensate
   when: recode_failed
 termination:
-  max_steps: 30
+  max_steps: 14
   contract: code assignments justified by note spans
 verification:
 - assert: all(c.note_span for c in output.codes)
@@ -89,3 +89,4 @@ goal:
 state:
   inputs:
   - goal
+  - encounters

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: contract-redline-pipeline
 description: Compare against playbook, propose redlines with rationale.
 category: legal-compliance
@@ -17,9 +17,8 @@ nodes:
   - summary
   outputs:
   - playbook_positions
-  criteria: Each flagged clause is matched to the playbook position that governs it, including the fallback
-    the business has already agreed to accept. A clause with no retrieved position is escalated, not negotiated
-    from first principles.
+  criteria: Each flagged clause is matched to the playbook position that governs it, including the fallback the business has
+    already agreed to accept. A clause with no retrieved position is escalated, not negotiated from first principles.
   retries:
     max: 2
 - id: produce
@@ -36,8 +35,8 @@ nodes:
   outputs:
   - output
   - revision_requested: bool
-  criteria: Every redline cites the playbook position it enforces and says what risk the original language
-    creates. A stylistic edit with no playbook reference is noise in a negotiation.
+  criteria: Every redline cites the playbook position it enforces and says what risk the original language creates. A stylistic
+    edit with no playbook reference is noise in a negotiation.
 edges:
 - from: intake
   to: playbook-lookup
@@ -59,3 +58,5 @@ goal:
 state:
   inputs:
   - goal
+  - contract
+  - playbook

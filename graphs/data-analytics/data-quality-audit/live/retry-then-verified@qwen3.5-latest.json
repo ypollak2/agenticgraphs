@@ -1,0 +1,63 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "model_name": "customers",
+    "rules": [
+      {
+        "rule_id": "cdm-001",
+        "column": "email",
+        "check": "not_null"
+      },
+      {
+        "rule_id": "cdm-002",
+        "column": "country",
+        "check": "in_iso3166"
+      },
+      {
+        "rule_id": "cdm-003",
+        "column": "created_at",
+        "check": "not_future"
+      }
+    ],
+    "sample_rows": [
+      {
+        "id": 1,
+        "email": "a@x.com",
+        "country": "GB",
+        "created_at": "2026-01-04"
+      },
+      {
+        "id": 2,
+        "email": null,
+        "country": "GB",
+        "created_at": "2026-02-11"
+      },
+      {
+        "id": 3,
+        "email": "c@x.com",
+        "country": "ZZ",
+        "created_at": "2026-03-01"
+      }
+    ],
+    "goal": "the customers table, against the CDM completeness rules"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "plan: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

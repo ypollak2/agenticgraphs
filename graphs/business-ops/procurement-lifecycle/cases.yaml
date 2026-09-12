@@ -31,3 +31,22 @@ cases:
         signed_off: true
         awarded: true
   goal: source a data-warehouse vendor under a 120k budget, award by Q4
+  inputs:
+    requirement:
+      need: cloud data warehouse for analytics
+      budget_usd: 120000
+      term_months: 24
+      must_have:
+      - SSO
+      - EU data residency
+      - SQL interface
+      candidates:
+      - name: Snowflake
+        list_price_usd: 110000
+      - name: BigQuery
+        list_price_usd: 98000
+      - name: Redshift
+        list_price_usd: 105000
+      - name: Databricks SQL
+        list_price_usd: 118000
+      approver: VP Finance

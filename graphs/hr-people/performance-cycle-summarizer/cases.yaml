@@ -14,3 +14,18 @@ cases:
         bias_flags: []
     escalate-review: {}
   goal: summarize the H1 2026 cycle for a senior engineer on the infra team
+  inputs:
+    cycle:
+      name: H1 2026
+      level: senior
+      team: infrastructure
+      evidence:
+      - src: pr
+        ref: PR-4412
+        note: led the storage migration
+      - src: incident
+        ref: INC-221
+        note: IC on the March outage
+      - src: peer
+        ref: feedback-7
+        note: mentored two juniors through on-call

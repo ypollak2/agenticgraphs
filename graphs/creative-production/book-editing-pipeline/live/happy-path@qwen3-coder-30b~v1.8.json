@@ -1,37 +1,107 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
-  },
-  "inputs": {
-    "goal": "the 90k-word Ridgeline draft, against the Kestrel style guide"
-  },
-  "node_outputs": {
-    "assess": {
-      "dev_notes": "Ridgeline draft contains 12 style violations including inconsistent heading hierarchy, missing author sign-off, 3 instances of passive voice where active voice required, 2 sections with improper citation formatting, and 1 paragraph exceeding 150 words without proper subheadings. All violations must be corrected before final typesetting can proceed."
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "manuscript": {
+   "title": "Ridgeline",
+   "word_count": 90000,
+   "chapters": [
+    {
+     "n": 1,
+     "words": 4200,
+     "text_sample": "The ridge held the last of the light, and Mara counted the switchbacks she had left."
     },
-    "dev-edit": {
-      "dev_draft": "Ridgeline Draft\n\n1. Introduction\n\nThe Ridgeline project represents a comprehensive analysis of contemporary landscape architecture practices. This document establishes foundational principles for sustainable design methodologies that integrate environmental stewardship with aesthetic innovation.\n\n2. Methodology\n\nOur approach incorporates three primary frameworks: ecological impact assessment, community engagement protocols, and design optimization algorithms. Each framework operates independently while maintaining cohesive integration throughout the project lifecycle.\n\n3. Design Principles\n\nThe core tenets of Ridgeline architecture emphasize adaptive reuse, minimal environmental footprint, and contextual responsiveness. These principles guide all decision-making processes from initial concept through final implementation phases.\n\n4. Implementation Strategies\n\nStrategic deployment requires careful consideration of local regulations, stakeholder interests, and resource availability. Our methodology prioritizes iterative development cycles that accommodate feedback while maintaining project integrity.\n\n5. Case Studies\n\nMultiple projects demonstrate successful application of Ridgeline principles across diverse geographical contexts. Each case study includes detailed documentation of challenges encountered and solutions implemented.\n\n6. Conclusion\n\nThe Ridgeline framework provides a robust foundation for future landscape architecture initiatives. Continued research and development will enhance our understanding of sustainable design practices while maintaining focus on community needs.\n\nAuthor Sign-Off: [Author Name]\nDate: [Current Date]"
+    {
+     "n": 2,
+     "words": 5100,
+     "text_sample": "Very unique among the peaks, it was literally breathtaking to behold."
     },
-    "line-edit": {
-      "line_draft": "Ridgeline Draft\n\n1. Introduction\n\nThe Ridgeline project represents a comprehensive analysis of contemporary landscape architecture practices. This document establishes foundational principles for sustainable design methodologies that integrate environmental stewardship with aesthetic innovation.\n\n2. Methodology\n\nOur approach incorporates three primary frameworks: ecological impact assessment, community engagement protocols, and design optimization algorithms. Each framework operates independently while maintaining cohesive integration throughout the project lifecycle.\n\n3. Design Principles\n\nThe core tenets of Ridgeline architecture emphasize adaptive reuse, minimal environmental footprint, and contextual responsiveness. These principles guide all decision-making processes from initial concept through final implementation phases.\n\n4. Implementation Strategies\n\nStrategic deployment requires careful consideration of local regulations, stakeholder interests, and resource availability. Our methodology prioritizes iterative development cycles that accommodate feedback while maintaining project integrity.\n\n5. Case Studies\n\nMultiple projects demonstrate successful application of Ridgeline principles across diverse geographical contexts. Each case study includes detailed documentation of challenges encountered and solutions implemented.\n\n6. Conclusion\n\nThe Ridgeline framework provides a robust foundation for future landscape architecture initiatives. Continued research and development will enhance our understanding of sustainable design practices while maintaining focus on community needs.\n\nAuthor Sign-Off: [Author Name]\nDate: [Current Date]"
-    },
-    "copy-edit": {
-      "copy_clean": "Ridgeline Draft\n\n1. Introduction\n\nThe Ridgeline project represents a comprehensive analysis of contemporary landscape architecture practices. This document establishes foundational principles for sustainable design methodologies that integrate environmental stewardship with aesthetic innovation.\n\n2. Methodology\n\nOur approach incorporates three primary frameworks: ecological impact assessment, community engagement protocols, and design optimization algorithms. Each framework operates independently while maintaining cohesive integration throughout the project lifecycle.\n\n3. Design Principles\n\nThe core tenets of Ridgeline architecture emphasize adaptive reuse, minimal environmental footprint, and contextual responsiveness. These principles guide all decision-making processes from initial concept through final implementation phases.\n\n4. Implementation Strategies\n\nStrategic deployment requires careful consideration of local regulations, stakeholder interests, and resource availability. Our methodology prioritizes iterative development cycles that accommodate feedback while maintaining project integrity.\n\n5. Case Studies\n\nMultiple projects demonstrate successful application of Ridgeline principles across diverse geographical contexts. Each case study includes detailed documentation of challenges encountered and solutions implemented.\n\n6. Conclusion\n\nThe Ridgeline framework provides a robust foundation for future landscape architecture initiatives. Continued research and development will enhance our understanding of sustainable design practices while maintaining focus on community needs.\n\nAuthor Sign-Off: [Author Name]\nDate: [Current Date]",
-      "style_violations": []
-    },
-    "typeset": {
-      "output": {
-        "signed_off": true,
-        "style_violations": []
-      },
-      "typeset": false
+    {
+     "n": 3,
+     "words": 4800,
+     "text_sample": "She checked the fixed line twice, then a third time, before committing her weight."
     }
+   ],
+   "style_guide": {
+    "name": "Kestrel",
+    "banned": [
+     "very unique",
+     "literally",
+     "breathtaking"
+    ],
+    "serial_comma": true
+   }
   },
-  "tool_calls": []
+  "approver": "Managing Editor",
+  "goal": "the 90k-word Ridgeline draft, against the Kestrel style guide"
+ },
+ "node_outputs": {
+  "assess": {
+   "dev_notes": "Style guide violations found: 'very unique' in chapter 2, 'literally' in chapter 2, and 'breathtaking' in chapter 2. Serial comma usage is correct. Recommend revising chapter 2 to remove banned terms and ensure all instances of banned words are replaced with more precise, active language. Chapter 1 and 3 do not contain style guide violations."
+  },
+  "dev-edit": {
+   "dev_draft": {
+    "title": "Ridgeline",
+    "word_count": 90000,
+    "chapters": [
+     {
+      "n": 1,
+      "words": 4200,
+      "text_sample": "The ridge held the last of the light, and Mara counted the switchbacks she had left."
+     },
+     {
+      "n": 2,
+      "words": 5100,
+      "text_sample": "Among the peaks, it was striking to behold."
+     },
+     {
+      "n": 3,
+      "words": 4800,
+      "text_sample": "She checked the fixed line twice, then a third time, before committing her weight."
+     }
+    ],
+    "style_guide": {
+     "name": "Kestrel",
+     "banned": [
+      "very unique",
+      "literally",
+      "breathtaking"
+     ],
+     "serial_comma": true
+    },
+    "approver": "Managing Editor",
+    "goal": "the 90k-word Ridgeline draft, against the Kestrel style guide",
+    "attempts": 1,
+    "dev_notes": "Style guide violations found: 'very unique' in chapter 2, 'literally' in chapter 2, and 'breathtaking' in chapter 2. Serial comma usage is correct. Recommend revising chapter 2 to remove banned terms and ensure all instances of banned words are replaced with more precise, active language. Chapter 1 and 3 do not contain style guide violations."
+   }
+  },
+  "line-edit": {
+   "line_draft": "The ridge held the last of the light, and Mara counted the switchbacks she had left.\n\nAmong the peaks, it was striking to behold.\n\nShe checked the fixed line twice, then a third time, before committing her weight."
+  },
+  "copy-edit": {
+   "copy_clean": "The ridge held the last of the light, and Mara counted the switchbacks she had left.\n\nAmong the peaks, it was striking to behold.\n\nShe checked the fixed line twice, then a third time, before committing her weight.",
+   "style_violations": []
+  },
+  "typeset": {
+   "output": {
+    "signed_off": true,
+    "style_violations": []
+   },
+   "typeset": "The ridge held the last of the light, and Mara counted the switchbacks she had left.\n\nAmong the peaks, it was striking to behold.\n\nShe checked the fixed line twice, then a third time, before committing her weight."
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
 }

@@ -15,3 +15,27 @@ cases:
         variance: 0.14
         final_score: 78
   goal: the Northwind discovery call, against the MEDDIC rubric
+  inputs:
+    transcript:
+      call: Northwind discovery
+      duration_s: 1860
+      rubric: MEDDIC
+      turns:
+      - t: 0
+        speaker: rep
+        text: What's driving the evaluation now?
+      - t: 18
+        speaker: buyer
+        text: Our warehouse spend doubled and finance wants it capped this quarter.
+      - t: 95
+        speaker: rep
+        text: Who signs off on a change like that?
+      - t: 110
+        speaker: buyer
+        text: Our VP Finance, with the CTO as a technical approver.
+      - t: 400
+        speaker: rep
+        text: What happens if nothing changes by Q3?
+      - t: 417
+        speaker: buyer
+        text: We'd have to shut off two dashboards and that's politically hard.

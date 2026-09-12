@@ -10,18 +10,18 @@
     "max_fan_out": 1,
     "loops": 0,
     "loops_bounded": true,
-    "max_steps": 25,
+    "max_steps": 12,
     "verification_asserts": 2,
     "risk_surface": "read"
   },
   "refs": {
-    "research-knowledge/competitive-intelligence": "9753d03162ec"
+    "research-knowledge/competitive-intelligence": "49ca903585ed"
   },
   "measured": {
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-09-04",
+    "date": "2026-09-10",
     "cases": 1,
     "passed": 1,
     "pass_rate": 1.0,
@@ -63,11 +63,11 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:qwen3-coder:30b",
+    "runner": "llm-replay:qwen3-coder:30b,qwen3.5:latest",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-09-04",
-    "cases": 3,
+    "date": "2026-09-10",
+    "cases": 2,
     "passed": 0,
     "pass_rate": 0.0,
     "mean_steps": 6.0,
@@ -75,7 +75,7 @@
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
+        "recorded": "2026-09-10",
         "gate_auto_approved": false,
         "passed": false,
         "steps": 6,
@@ -92,8 +92,8 @@
         "shape_violations": [],
         "state_violations": [],
         "assert_failures": [
-          "output.above_appetite == output.mitigations_planned",
-          "all(c.single_source == (c.supplier_count == 1) for c in output.concentration)"
+          "all(c.single_source == (c.supplier_count == 1) for c in output.concentration)",
+          "[ingest] all(f.source_url and f.source_date for f in output.findings) (AttributeError: 'str' object has no attribute 'source_url')"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -115,8 +115,8 @@
       },
       {
         "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
+        "model": "qwen3.5:latest",
+        "recorded": "2026-09-10",
         "gate_auto_approved": false,
         "passed": false,
         "steps": 6,
@@ -133,49 +133,9 @@
         "shape_violations": [],
         "state_violations": [],
         "assert_failures": [
-          "output.above_appetite == output.mitigations_planned",
-          "all(c.single_source == (c.supplier_count == 1) for c in output.concentration)"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "parse_failures": [],
-        "gate_refused": "",
-        "timeouts": [],
-        "failure_kinds": [
-          "assert"
-        ],
-        "overwritten_inputs": [],
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 6,
-        "trace": [
-          "ingest.partition",
-          "ingest.map",
-          "ingest.reduce",
-          "score",
-          "concentrate",
-          "mitigate"
-        ],
-        "goal_missing": "",
-        "unreached_terminals": [],
-        "shape_violations": [],
-        "state_violations": [],
-        "assert_failures": [
-          "output.above_appetite == output.mitigations_planned",
-          "all(c.single_source == (c.supplier_count == 1) for c in output.concentration)"
+          "output.above_appetite == output.mitigations_planned (AttributeError: above_appetite)",
+          "all(c.single_source == (c.supplier_count == 1) for c in output.concentration) (AttributeError: concentration)",
+          "[ingest] all(f.source_url and f.source_date for f in output.findings) (AttributeError: findings)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -197,18 +157,21 @@
       }
     ],
     "models": [
-      "qwen3-coder:30b"
+      "qwen3-coder:30b",
+      "qwen3.5:latest"
     ],
-    "recorded": "2026-08-31",
-    "age_days": 4,
+    "recorded": "2026-09-10",
+    "age_days": 0,
     "per_model_pass_rate": {
-      "qwen3-coder:30b": 0.0
+      "qwen3-coder:30b": 0.0,
+      "qwen3.5:latest": 0.0
     },
     "models_disagree": false,
     "fails_every_model": true,
     "flaky_models": [],
     "samples_per_model": {
-      "qwen3-coder:30b": 3
+      "qwen3-coder:30b": 1,
+      "qwen3.5:latest": 1
     },
     "gate_auto_approved": false
   }

@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: kb-article-generator
 description: Mine resolved tickets into draft knowledge-base articles.
 category: customer-support-sales
@@ -17,8 +17,8 @@ nodes:
   - summary
   outputs:
   - existing_articles
-  criteria: The existing knowledge base is searched for the same symptom before anything is written. A
-    near-duplicate is an article to update, not a second article to publish.
+  criteria: The existing knowledge base is searched for the same symptom before anything is written. A near-duplicate is an
+    article to update, not a second article to publish.
   retries:
     max: 2
 - id: produce
@@ -38,8 +38,8 @@ nodes:
   - output
   - steps: list[{action:any, expected:any}]
   - revision_requested: bool
-  criteria: "The steps, followed literally by someone who never saw the ticket, reproduce the resolution\
-    \ \u2014 and the article does not duplicate an existing one covering the same symptom."
+  criteria: "The steps, followed literally by someone who never saw the ticket, reproduce the resolution \u2014 and the article\
+    \ does not duplicate an existing one covering the same symptom."
 edges:
 - from: intake
   to: dedupe-search
@@ -54,8 +54,7 @@ termination:
   max_steps: 12
   contract: steps reproduce resolution; duplicates deduped
 verification:
-- describe: every step names the action and the result to expect, so someone who never saw the ticket
-    can follow it
+- describe: every step names the action and the result to expect, so someone who never saw the ticket can follow it
   assert: all(s.action and s.expected for s in output.steps)
 - describe: nothing in the existing base covers the same symptom
   assert: len(output.near_duplicates) == 0
@@ -65,3 +64,5 @@ goal:
 state:
   inputs:
   - goal
+  - ticket
+  - existing_articles

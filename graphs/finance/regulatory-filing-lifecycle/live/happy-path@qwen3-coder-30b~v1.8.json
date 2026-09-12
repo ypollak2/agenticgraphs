@@ -1,52 +1,76 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "period": {
+   "quarter": "Q1 2026",
+   "regime": "SEC",
+   "ledger": {
+    "revenue": 18400000,
+    "cogs": 7100000,
+    "opex": 6900000,
+    "total": 4400000
+   },
+   "signatory": "CFO",
+   "filing_deadline": "2026-05-10"
   },
-  "inputs": {
-    "goal": "file Q1 2026 under the SEC regime with reconciled figures"
+  "goal": "file Q1 2026 under the SEC regime with reconciled figures"
+ },
+ "node_outputs": {
+  "collect": {
+   "figures": {
+    "revenue": 18400000,
+    "cogs": 7100000,
+    "opex": 6900000,
+    "total": 4400000
+   }
   },
-  "node_outputs": {
-    "collect": [
-      {
-        "figures": "Q1 2026 SEC reconciliation pending source figure alignment and controller signature"
-      },
-      {
-        "figures": "Q1 2026 SEC reconciliation pending source figure alignment and controller signature"
-      },
-      {
-        "figures": "Q1 2026 SEC reconciliation pending source figure alignment and controller signature"
-      }
-    ],
-    "reconcile": [
-      {
-        "variance": 0,
-        "filing_total": 0,
-        "ledger_total": 0,
-        "reconciled": false
-      },
-      {
-        "variance": 0,
-        "filing_total": 0,
-        "ledger_total": 0,
-        "reconciled": false
-      },
-      {
-        "variance": 0,
-        "filing_total": 0,
-        "ledger_total": 0,
-        "reconciled": false
-      }
-    ],
-    "abandon-filing": {
-      "escalated": true,
-      "escalation_reason": "Q1 2026 filing cannot proceed due to unreconciled figures and missing controller signature; formal abandonment required per workflow exit contract"
-    }
+  "reconcile": {
+   "variance": 0,
+   "filing_total": 4400000,
+   "ledger_total": 4400000,
+   "reconciled": true
   },
-  "tool_calls": []
+  "file": {
+   "filed": {
+    "period": "Q1 2026",
+    "regime": "SEC",
+    "ledger": {
+     "revenue": 18400000,
+     "cogs": 7100000,
+     "opex": 6900000,
+     "total": 4400000
+    },
+    "signatory": "CFO",
+    "filing_deadline": "2026-05-10"
+   },
+   "confirmation_id": "SEC-Q1-2026-RECONCILED-4400000",
+   "file_failed": false
+  },
+  "retain": {
+   "evidence_pack": "SEC-Q1-2026-RECONCILED-4400000",
+   "filing_total": 4400000,
+   "ledger_total": 4400000,
+   "output": {
+    "evidence_pack": "SEC-Q1-2026-RECONCILED-4400000",
+    "filing_total": 4400000,
+    "ledger_total": 4400000,
+    "signed_off": true
+   }
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
 }

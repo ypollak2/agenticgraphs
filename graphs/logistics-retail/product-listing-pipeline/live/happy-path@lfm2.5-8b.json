@@ -1,57 +1,59 @@
 {
-  "model": "lfm2.5:8b",
-  "recorded": "2026-09-01",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "lfm2.5:8b",
+ "recorded": "2026-09-01",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "list the spring hardware line on Amazon under its claims policy"
+ },
+ "node_outputs": {
+  "extract": {
+   "attributes": []
   },
-  "inputs": {
-    "goal": "list the spring hardware line on Amazon under its claims policy"
+  "write": {
+   "listing_copy": "[Concrete value]"
   },
-  "node_outputs": {
-    "extract": {
-      "attributes": []
-    },
-    "write": {
-      "listing_copy": "[Concrete value]"
-    },
-    "claim-check.intake": {
-      "summary": "[Concrete value]"
-    },
-    "policy-check": {
-      "policy_violations": []
-    },
-    "claim-check.produce": {
-      "verdicts": [
-        {
-          "quote_span": "Spring hardware line on Amazon under its claims policy",
-          "source_url": "https://www.amazon.com/s?k=Spring+hardware"
-        }
-      ]
-    },
-    "claim-check.review": {
-      "output": {
-        "policy_violations": []
-      },
-      "revision_requested": false,
-      "unsupported_claims": [],
-      "verdicts": [
-        {
-          "quote_span": "Spring hardware line on Amazon under its claims policy",
-          "source_url": "https://www.amazon.com/s?k=Spring+hardware"
-        }
-      ]
-    },
-    "publish": {
-      "listings_published": [],
-      "output": {
-        "policy_violations": [],
-        "unsupported_claims": []
-      }
+  "claim-check.intake": {
+   "summary": "[Concrete value]"
+  },
+  "policy-check": {
+   "policy_violations": []
+  },
+  "claim-check.produce": {
+   "verdicts": [
+    {
+     "quote_span": "Spring hardware line on Amazon under its claims policy",
+     "source_url": "https://www.amazon.com/s?k=Spring+hardware"
     }
+   ]
   },
-  "tool_calls": []
+  "claim-check.review": {
+   "output": {
+    "policy_violations": []
+   },
+   "revision_requested": false,
+   "unsupported_claims": [],
+   "verdicts": [
+    {
+     "quote_span": "Spring hardware line on Amazon under its claims policy",
+     "source_url": "https://www.amazon.com/s?k=Spring+hardware"
+    }
+   ]
+  },
+  "publish": {
+   "listings_published": [],
+   "output": {
+    "policy_violations": [],
+    "unsupported_claims": []
+   }
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

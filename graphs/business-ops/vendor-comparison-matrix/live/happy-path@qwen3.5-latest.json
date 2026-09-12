@@ -1,0 +1,48 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "vendors": [
+      {
+        "name": "Snowflake",
+        "doc_url": "https://docs.snowflake.com/pricing",
+        "notes": "per-second compute billing"
+      },
+      {
+        "name": "BigQuery",
+        "doc_url": "https://cloud.google.com/bigquery/pricing",
+        "notes": "on-demand bytes scanned"
+      },
+      {
+        "name": "Redshift",
+        "doc_url": "https://docs.aws.amazon.com/redshift/pricing",
+        "notes": "provisioned RA3 nodes"
+      }
+    ],
+    "criteria": [
+      "pricing model",
+      "EU residency",
+      "SSO",
+      "max concurrency"
+    ],
+    "goal": "compare Snowflake, BigQuery and Redshift for our warehouse migration"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "collect.partition: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

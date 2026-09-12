@@ -1,0 +1,32 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "policy_table": {
+      "arrived damaged": "refund",
+      "changed mind, 40 days": "reject",
+      "wrong size": "exchange",
+      "third return this month": "fraud-review"
+    },
+    "goal": "return R-55911, reason 'changed mind, 40 days', against the 2026 returns policy"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "route: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

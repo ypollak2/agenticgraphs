@@ -1,0 +1,142 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "target": {
+      "name": "public API",
+      "auth": "tenant-scoped bearer",
+      "endpoints": [
+        {
+          "path": "/v1/orders",
+          "methods": [
+            "GET",
+            "POST"
+          ]
+        },
+        {
+          "path": "/v1/exports",
+          "methods": [
+            "POST"
+          ]
+        }
+      ]
+    },
+    "exploit_suite": [
+      {
+        "id": "e1",
+        "name": "tenant id substitution",
+        "expects": "403"
+      },
+      {
+        "id": "e2",
+        "name": "export path traversal",
+        "expects": "400"
+      }
+    ],
+    "goal": "the public API, against an authenticated-tenant attacker"
+  },
+  "node_outputs": {
+    "scope": {
+      "surface": [
+        "/v1/orders",
+        "/v1/exports"
+      ],
+      "rules_of_engagement": [
+        "execute tenant id substitution against /v1/orders expecting 403",
+        "execute export path traversal against /v1/exports expecting 400"
+      ]
+    },
+    "attack": [
+      {
+        "bypass": false,
+        "severity": "medium"
+      },
+      {
+        "bypass": false,
+        "severity": "high"
+      },
+      {
+        "bypass": false,
+        "severity": "medium"
+      },
+      {
+        "bypass": false,
+        "severity": "low"
+      },
+      {
+        "bypass": true,
+        "severity": "high"
+      },
+      {
+        "bypass": true,
+        "severity": "high"
+      },
+      {
+        "bypass": true,
+        "severity": "high"
+      },
+      {
+        "bypass": true,
+        "severity": "high"
+      }
+    ],
+    "defend": [
+      {
+        "mitigation": "execute tenant id substitution against /v1/orders expecting 403"
+      },
+      {
+        "mitigation": "execute tenant id substitution against /v1/orders expecting 403"
+      }
+    ],
+    "retest": [
+      {
+        "bypasses": [
+          {
+            "mitigation_ref": "e1"
+          }
+        ],
+        "output": {
+          "bypasses": [
+            {
+              "mitigation_ref": "e1"
+            }
+          ],
+          "unmitigated": []
+        },
+        "unmitigated": [],
+        "attacker_exhausted": false
+      },
+      {
+        "bypasses": [
+          {
+            "mitigation_ref": "e1"
+          }
+        ],
+        "output": {
+          "bypasses": [
+            {
+              "mitigation_ref": "e1"
+            }
+          ],
+          "unmitigated": []
+        },
+        "unmitigated": [],
+        "attacker_exhausted": true
+      }
+    ]
+  },
+  "tool_calls": [],
+  "failure_kinds": [
+    "assert"
+  ],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

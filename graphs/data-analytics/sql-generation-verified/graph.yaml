@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: sql-generation-verified
 description: Generate SQL, critic checks schema validity and row sanity.
 category: data-analytics
@@ -25,13 +25,13 @@ nodes:
   outputs:
   - row_count
   - exit_code
-  criteria: The query is run against the real schema and its exit code and row count are recorded. A query
-    judged correct without being executed has not been verified.
+  criteria: The query is run against the real schema and its exit code and row count are recorded. A query judged correct
+    without being executed has not been verified.
   retries:
     max: 2
     reissue_effects: true
-  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
-    of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 - id: critique
   speciality: critic
   abilities:
@@ -42,9 +42,8 @@ nodes:
   - output
   - row_count: int
   - rejected: bool
-  criteria: The query executes against the real schema and its result passes row-count sanity. A query
-    returning zero rows from a populated table, or every row where a filter was asked for, is wrong even
-    though it ran.
+  criteria: The query executes against the real schema and its result passes row-count sanity. A query returning zero rows
+    from a populated table, or every row where a filter was asked for, is wrong even though it ran.
 edges:
 - from: intake
   to: generate
@@ -61,8 +60,7 @@ termination:
 verification:
 - describe: the query ran, read off the exit code the `execute` node recorded
   assert: output.exit_code == 0
-- describe: "the result is not vacuous \u2014 a query returning nothing from a populated table is wrong\
-    \ even though it ran"
+- describe: "the result is not vacuous \u2014 a query returning nothing from a populated table is wrong even though it ran"
   assert: output.row_count > 0
 - describe: the query is executed against the real schema
   command: psql -v ON_ERROR_STOP=1 -f {query_path}
@@ -73,3 +71,5 @@ state:
   inputs:
   - goal
   - query_path
+  - schema
+  - expect_nonempty

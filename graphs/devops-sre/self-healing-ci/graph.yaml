@@ -1,7 +1,6 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: self-healing-ci
-description: Diagnose a red pipeline, attempt a bounded repair, and accumulate what did not work across
-  runs.
+description: Diagnose a red pipeline, attempt a bounded repair, and accumulate what did not work across runs.
 category: devops-sre
 nodes:
 - id: collect
@@ -33,8 +32,8 @@ nodes:
   - repair_applied
   inputs:
   - cause
-  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
-    of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 - id: confirm
   speciality: verifier
   abilities:
@@ -47,8 +46,8 @@ nodes:
   inputs:
   - repair_applied
   kind: verifier
-  criteria: "The pipeline ends green, or escalates with the diagnosis attached \u2014 and every attempted\
-    \ repair is recorded with why it failed, so the next run does not retry what already did not work."
+  criteria: "The pipeline ends green, or escalates with the diagnosis attached \u2014 and every attempted repair is recorded\
+    \ with why it failed, so the next run does not retry what already did not work."
   retries:
     max: 2
     reissue_effects: true
@@ -63,13 +62,12 @@ edges:
   to: classify
   when: not pipeline_green and attempts < 3
 termination:
-  max_steps: 35
+  max_steps: 20
   contract: a red pipeline ends green or escalated, never retried without a recorded reason
 verification:
 - describe: the pipeline is re-run to prove it is green, not reported green
   command: pytest -q
-- describe: every attempt is recorded as a lesson, so the next run does not retry what already did not
-    work
+- describe: every attempt is recorded as a lesson, so the next run does not retry what already did not work
   assert: len(output.lessons) >= 1 and output.attempts <= 3
 state:
   inputs:

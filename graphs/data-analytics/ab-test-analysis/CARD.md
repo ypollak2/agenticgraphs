@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-024` | data-analytics | **debate** | 3 | 2 | 1 | 0 | 8 | write |
+| `AGR-024` | data-analytics | **debate** | 3 | 2 | 1 | 0 | 6 | write |
 
 > 🎯 **Requires a goal** — the experiment's raw data and the effect the analysis claims. Without one the graph refuses and runs no node.
 
@@ -32,7 +32,7 @@ Adversarial positions force every claim to survive counter-argument before a jud
 
 - **Exit contract** — stats recomputed from raw data reproduce claimed effect
 - **Machine-checked** — `abs(output.recomputed_effect - output.claimed_effect) < 0.01`
-- **Bounded** — hard stop after 8 steps; the topology is acyclic
+- **Bounded** — hard stop after 6 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval ab-test-analysis` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/ab-test-analysis.md)
 

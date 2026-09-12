@@ -18,6 +18,13 @@ cases:
         escalated: false
       escalated: false
   goal: make tests/integration pass; proven by `pytest tests/integration`
+  inputs:
+    verify_command: pytest tests/integration -q
+    failing_tests: &id001
+    - test: tests/integration/test_orders.py::test_refund
+      error: 'AssertionError: status 500'
+    - test: tests/integration/test_orders.py::test_partial
+      error: 'KeyError: ''refund_id'''
 - id: retry-then-verified
   node_outputs:
     planner:
@@ -43,6 +50,9 @@ cases:
         escalated: false
       escalated: false
   goal: make tests/integration pass; proven by `pytest tests/integration`
+  inputs:
+    verify_command: pytest tests/integration -q
+    failing_tests: *id001
 - id: three-failures-escalates
   node_outputs:
     planner:
@@ -74,3 +84,6 @@ cases:
         escalated: false
       escalated: false
   goal: make tests/integration pass; proven by `pytest tests/integration`
+  inputs:
+    verify_command: pytest tests/integration -q
+    failing_tests: *id001

@@ -1,0 +1,55 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "requirement": {
+      "need": "cloud data warehouse for analytics",
+      "budget_usd": 120000,
+      "term_months": 24,
+      "must_have": [
+        "SSO",
+        "EU data residency",
+        "SQL interface"
+      ],
+      "candidates": [
+        {
+          "name": "Snowflake",
+          "list_price_usd": 110000
+        },
+        {
+          "name": "BigQuery",
+          "list_price_usd": 98000
+        },
+        {
+          "name": "Redshift",
+          "list_price_usd": 105000
+        },
+        {
+          "name": "Databricks SQL",
+          "list_price_usd": 118000
+        }
+      ],
+      "approver": "VP Finance"
+    },
+    "goal": "source a data-warehouse vendor under a 120k budget, award by Q4"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "rfp.partition: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

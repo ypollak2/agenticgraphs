@@ -1,47 +1,49 @@
 {
-  "model": "lfm2.5:8b",
-  "recorded": "2026-09-01",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
+ "model": "lfm2.5:8b",
+ "recorded": "2026-09-01",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "goal": "the Q2 2026 call, against the guidance given in Q1"
+ },
+ "node_outputs": {
+  "intake": {
+   "summary": "the Q2 2026 call, against the guidance given in Q1"
   },
-  "inputs": {
-    "goal": "the Q2 2026 call, against the guidance given in Q1"
-  },
-  "node_outputs": {
-    "intake": {
-      "summary": "the Q2 2026 call, against the guidance given in Q1"
+  "produce": {
+   "figures": [
+    {
+     "matches_transcript": true
     },
-    "produce": {
-      "figures": [
-        {
-          "matches_transcript": true
-        },
-        {
-          "matches_transcript": true
-        }
-      ],
-      "invented_numbers": []
-    },
-    "review": {
-      "figures": [
-        {
-          "matches_transcript": true
-        },
-        {
-          "matches_transcript": true
-        }
-      ],
-      "invented_numbers": [],
-      "output": [
-        "matches_transcript",
-        "matches_transcript"
-      ],
-      "revision_requested": false
+    {
+     "matches_transcript": true
     }
+   ],
+   "invented_numbers": []
   },
-  "tool_calls": []
+  "review": {
+   "figures": [
+    {
+     "matches_transcript": true
+    },
+    {
+     "matches_transcript": true
+    }
+   ],
+   "invented_numbers": [],
+   "output": [
+    "matches_transcript",
+    "matches_transcript"
+   ],
+   "revision_requested": false
+  }
+ },
+ "tool_calls": [],
+ "superseded_by": "v19-fixture-pass",
+ "reason": "recorded against goal-only cases: every case seeded a goal string and no subject data, so the run measured the model inventing its inputs rather than working on them. Superseded by the v19 fixture pass \u2014 see docs/plans/v19-finding-fixture-poverty.md"
 }

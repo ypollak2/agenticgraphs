@@ -1,0 +1,96 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "page_limit": 10,
+    "goal": "the Acme Health RFP, answered from the 2026 solutions library"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "requirement": "Solution Overview",
+          "status": "answered",
+          "content": "The 2026 solutions library provides comprehensive healthcare technology solutions including AI-powered diagnostic tools, telemedicine platforms, and patient management systems designed to enhance healthcare delivery and outcomes."
+        },
+        {
+          "requirement": "Compliance and Security",
+          "status": "answered",
+          "content": "All solutions in the 2026 library meet HIPAA, GDPR, and other relevant regulatory requirements with built-in encryption, access controls, and audit trails to ensure patient data protection."
+        },
+        {
+          "requirement": "Integration Capabilities",
+          "status": "answered",
+          "content": "Solutions offer seamless integration with existing EHR systems, medical devices, and third-party applications through standardized APIs and middleware solutions."
+        },
+        {
+          "requirement": "Scalability",
+          "status": "answered",
+          "content": "All platforms are designed for horizontal scaling to accommodate growing healthcare organizations from small clinics to large hospital networks."
+        },
+        {
+          "requirement": "Support and Maintenance",
+          "status": "answered",
+          "content": "Comprehensive 24/7 support with SLA guarantees, regular updates, and maintenance services included in all solution packages."
+        }
+      ]
+    },
+    "map": [
+      {
+        "shard_result": "answered"
+      },
+      {
+        "shard_result": "The 2026 solutions library meets HIPAA, GDPR, and other regulatory requirements with built-in encryption, access controls, and audit trails to ensure patient data protection."
+      },
+      {
+        "shard_result": "map_shard"
+      },
+      {
+        "shard_result": "map_shard"
+      },
+      {
+        "shard_result": "The 2026 solutions library provides comprehensive healthcare technology solutions including AI-powered diagnostic tools, telemedicine platforms, and patient management systems designed to enhance healthcare delivery and outcomes."
+      }
+    ],
+    "reduce": {
+      "output": {
+        "page_count": 5.0,
+        "page_limit": 10,
+        "requirements": [
+          {
+            "answered": true,
+            "flagged": false
+          },
+          {
+            "answered": true,
+            "flagged": false
+          },
+          {
+            "answered": true,
+            "flagged": false
+          },
+          {
+            "answered": true,
+            "flagged": false
+          },
+          {
+            "answered": true,
+            "flagged": false
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

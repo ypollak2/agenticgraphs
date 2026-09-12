@@ -74,6 +74,18 @@ cases:
         - file: README.md
           pr_url: https://x/pr/1
   goal: add SSO login to the web app in the platform repo
+  inputs:
+    repo: &id004
+      name: platform
+      app: web
+      feature: SSO login
+      touchpoints:
+      - auth service
+      - web app
+      - docs
+      docs:
+      - file: docs/auth.md
+      approver: Tech Lead
 - id: audit-requests-changes-then-approves
   node_outputs:
     research:
@@ -159,6 +171,8 @@ cases:
       output:
         doc_changes: *id003
   goal: add SSO login to the web app in the platform repo
+  inputs:
+    repo: *id004
 - id: failed-release-is-compensated
   node_outputs:
     research:
@@ -226,3 +240,5 @@ cases:
         doc_changes: *id003
       doc_changes: *id002
   goal: add SSO login to the web app in the platform repo
+  inputs:
+    repo: *id004

@@ -1,0 +1,57 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "manuscript": {
+      "title": "Ridgeline",
+      "word_count": 90000,
+      "chapters": [
+        {
+          "n": 1,
+          "words": 4200,
+          "text_sample": "The ridge held the last of the light, and Mara counted the switchbacks she had left."
+        },
+        {
+          "n": 2,
+          "words": 5100,
+          "text_sample": "Very unique among the peaks, it was literally breathtaking to behold."
+        },
+        {
+          "n": 3,
+          "words": 4800,
+          "text_sample": "She checked the fixed line twice, then a third time, before committing her weight."
+        }
+      ],
+      "style_guide": {
+        "name": "Kestrel",
+        "banned": [
+          "very unique",
+          "literally",
+          "breathtaking"
+        ],
+        "serial_comma": true
+      }
+    },
+    "approver": "Managing Editor",
+    "goal": "the 90k-word Ridgeline draft, against the Kestrel style guide"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert",
+    "stall"
+  ],
+  "parse_failures": [
+    "assess: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

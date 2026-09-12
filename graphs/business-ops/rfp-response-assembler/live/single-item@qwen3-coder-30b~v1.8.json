@@ -1,91 +1,98 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
-  },
-  "inputs": {
-    "goal": "the Acme Health RFP, answered from the 2026 solutions library"
-  },
-  "node_outputs": {
-    "partition": {
-      "shards": [
-        {
-          "requirement_id": "RFP-001",
-          "status": "answered",
-          "answer": "Our 2026 solution library includes comprehensive health analytics platforms that meet all specified requirements for data integration, compliance, and scalability."
-        },
-        {
-          "requirement_id": "RFP-002",
-          "status": "answered",
-          "answer": "All solutions in our 2026 library comply with HIPAA, GDPR, and other relevant healthcare regulations, ensuring full regulatory adherence."
-        },
-        {
-          "requirement_id": "RFP-003",
-          "status": "answered",
-          "answer": "Our platform offers multi-tenant architecture with customizable dashboards and real-time reporting capabilities as specified in the RFP."
-        },
-        {
-          "requirement_id": "RFP-004",
-          "status": "answered",
-          "answer": "The 2026 solutions library includes advanced AI/ML models for predictive analytics, population health management, and clinical decision support."
-        },
-        {
-          "requirement_id": "RFP-005",
-          "status": "flagged",
-          "answer": "Some requirements regarding third-party integrations may require additional configuration. Please confirm specific integration needs for detailed assessment."
-        }
-      ]
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "page_limit": 10,
+  "goal": "the Acme Health RFP, answered from the 2026 solutions library"
+ },
+ "node_outputs": {
+  "partition": {
+   "shards": [
+    {
+     "requirement": "Solution Overview",
+     "status": "answered",
+     "content": "The 2026 solutions library provides comprehensive healthcare technology solutions including AI-powered diagnostic tools, telemedicine platforms, and patient management systems designed to enhance healthcare delivery and outcomes."
     },
-    "map": [
-      {
-        "shard_result": "answered"
-      },
-      {
-        "shard_result": "answered"
-      },
-      {
-        "shard_result": "answered"
-      },
-      {
-        "shard_result": "flagged"
-      },
-      {
-        "shard_result": "flagged"
-      }
-    ],
-    "reduce": {
-      "output": {
-        "page_count": 1.0,
-        "page_limit": 5.0,
-        "requirements": [
-          {
-            "answered": true,
-            "flagged": false
-          },
-          {
-            "answered": true,
-            "flagged": false
-          },
-          {
-            "answered": true,
-            "flagged": false
-          },
-          {
-            "answered": true,
-            "flagged": false
-          },
-          {
-            "answered": false,
-            "flagged": true
-          }
-        ]
-      }
+    {
+     "requirement": "Compliance and Security",
+     "status": "answered",
+     "content": "All solutions in the 2026 library meet HIPAA, GDPR, and other relevant regulatory requirements with built-in encryption, access controls, and audit trails to ensure patient data protection."
+    },
+    {
+     "requirement": "Integration Capabilities",
+     "status": "answered",
+     "content": "Solutions offer seamless integration with existing EHR systems, medical devices, and third-party applications through standardized APIs and middleware solutions."
+    },
+    {
+     "requirement": "Scalability",
+     "status": "answered",
+     "content": "All platforms are designed for horizontal scaling to accommodate growing healthcare organizations from small clinics to large hospital networks."
+    },
+    {
+     "requirement": "Support and Maintenance",
+     "status": "answered",
+     "content": "Comprehensive 24/7 support with SLA guarantees, regular updates, and maintenance services included in all solution packages."
     }
+   ]
   },
-  "tool_calls": []
+  "map": [
+   {
+    "shard_result": "answered"
+   },
+   {
+    "shard_result": "The 2026 solutions library meets HIPAA, GDPR, and other regulatory requirements with built-in encryption, access controls, and audit trails to ensure patient data protection."
+   },
+   {
+    "shard_result": "map_shard"
+   },
+   {
+    "shard_result": "map_shard"
+   },
+   {
+    "shard_result": "The 2026 solutions library provides comprehensive healthcare technology solutions including AI-powered diagnostic tools, telemedicine platforms, and patient management systems designed to enhance healthcare delivery and outcomes."
+   }
+  ],
+  "reduce": {
+   "output": {
+    "page_count": 5.0,
+    "page_limit": 10,
+    "requirements": [
+     {
+      "answered": true,
+      "flagged": false
+     },
+     {
+      "answered": true,
+      "flagged": false
+     },
+     {
+      "answered": true,
+      "flagged": false
+     },
+     {
+      "answered": true,
+      "flagged": false
+     },
+     {
+      "answered": true,
+      "flagged": false
+     }
+    ]
+   }
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
 }

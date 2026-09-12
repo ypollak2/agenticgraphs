@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: etl-pipeline-builder
 description: Design and build an ETL job from source to warehouse.
 category: data-analytics
@@ -15,8 +15,8 @@ nodes:
   - execute_step
   outputs:
   - step_result
-  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
-    of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 - id: verify
   speciality: verifier
   abilities:
@@ -40,7 +40,7 @@ edges:
   to: execute
   when: verify_failed and attempts < 3
 termination:
-  max_steps: 25
+  max_steps: 10
   contract: end-to-end run loads expected row counts
 verification:
 - assert: output.actual_rows == output.expected_rows
@@ -53,3 +53,5 @@ state:
   inputs:
   - goal
   - model_name
+  - source
+  - target

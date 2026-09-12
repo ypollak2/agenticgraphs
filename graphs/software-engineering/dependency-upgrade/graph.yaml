@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: dependency-upgrade
 description: Upgrade pinned deps, scan changelogs for breakage, run suite.
 category: software-engineering
@@ -28,8 +28,8 @@ nodes:
   - new_deprecations: list
   - output
   - revision_requested: bool
-  criteria: The lockfile is updated, the suite passes, and no new deprecation warning was introduced.
-    A green suite that emits deprecations has deferred the breakage to the next upgrade, not avoided it.
+  criteria: The lockfile is updated, the suite passes, and no new deprecation warning was introduced. A green suite that emits
+    deprecations has deferred the breakage to the next upgrade, not avoided it.
 edges:
 - from: intake
   to: produce
@@ -39,13 +39,12 @@ edges:
   to: produce
   when: revision_requested and attempts < 2
 termination:
-  max_steps: 12
+  max_steps: 10
   contract: lockfile updated; tests pass; no new deprecation warnings
 verification:
 - describe: "the lockfile actually changed \u2014 a digest before and after, not a claim that it was updated"
   assert: output.lockfile_sha_before != output.lockfile_sha_after
-- describe: no new deprecation was introduced; a green suite that emits them has deferred the breakage,
-    not avoided it
+- describe: no new deprecation was introduced; a green suite that emits them has deferred the breakage, not avoided it
   assert: len(output.new_deprecations) == 0
 - describe: the suite passes against the upgraded lockfile
   command: pytest -q
@@ -64,3 +63,5 @@ goal:
 state:
   inputs:
   - goal
+  - lockfile
+  - test_command

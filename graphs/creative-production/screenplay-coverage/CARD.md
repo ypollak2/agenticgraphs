@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-105` | creative-production | **pipeline** | 4 | 4 | 1 | 0 | 25 | read |
+| `AGR-105` | creative-production | **pipeline** | 4 | 4 | 1 | 0 | 12 | read |
 
 > 🎯 **Requires a goal** — the screenplay to cover and the market it is being read for. Without one the graph refuses and runs no node.
 
@@ -36,7 +36,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 - **Exit contract** — coverage lands one of three verdicts, defended against at least two named comparables
 - **Machine-checked** — `output.recommendation in ['pass','consider','recommend']`
 - **Machine-checked** — `len(output.comps) >= 2`
-- **Bounded** — hard stop after 25 steps; the topology is acyclic
+- **Bounded** — hard stop after 12 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval screenplay-coverage` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/screenplay-coverage.md)
 

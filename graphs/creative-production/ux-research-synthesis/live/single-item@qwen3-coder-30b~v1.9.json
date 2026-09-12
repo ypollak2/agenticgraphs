@@ -1,0 +1,261 @@
+{
+  "model": "qwen3-coder:30b",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "interviews": [
+      {
+        "participant_id": "P01",
+        "notes": "signed up, never connected a data source"
+      },
+      {
+        "participant_id": "P02",
+        "notes": "confused by the workspace vs project split"
+      },
+      {
+        "participant_id": "P03",
+        "notes": "waited on an admin invite that never arrived"
+      },
+      {
+        "participant_id": "P04",
+        "notes": "tried the sample data, could not switch to real"
+      },
+      {
+        "participant_id": "P05",
+        "notes": "hit the row limit on day two"
+      },
+      {
+        "participant_id": "P06",
+        "notes": "did not find the import button"
+      },
+      {
+        "participant_id": "P07",
+        "notes": "expected SSO, got email login"
+      },
+      {
+        "participant_id": "P08",
+        "notes": "invited teammates before finishing setup"
+      },
+      {
+        "participant_id": "P09",
+        "notes": "abandoned at the billing prompt"
+      },
+      {
+        "participant_id": "P10",
+        "notes": "could not tell trial from paid"
+      },
+      {
+        "participant_id": "P11",
+        "notes": "wanted a template, found none"
+      },
+      {
+        "participant_id": "P12",
+        "notes": "stalled connecting the warehouse"
+      }
+    ],
+    "goal": "12 onboarding interviews, on why trial users stall at step 3"
+  },
+  "node_outputs": {
+    "partition": {
+      "shards": [
+        {
+          "insight": "Confusion around workspace vs project structure leads to stalled setup",
+          "participants": [
+            "P02",
+            "P08"
+          ]
+        },
+        {
+          "insight": "Missing or delayed admin invites prevent users from progressing",
+          "participants": [
+            "P03",
+            "P10"
+          ]
+        },
+        {
+          "insight": "Difficulty switching from sample to real data blocks trial progression",
+          "participants": [
+            "P04",
+            "P05"
+          ]
+        },
+        {
+          "insight": "Users unable to locate import functionality abandon setup early",
+          "participants": [
+            "P06",
+            "P11"
+          ]
+        },
+        {
+          "insight": "Mismatch between expected and actual login methods causes confusion",
+          "participants": [
+            "P07",
+            "P09"
+          ]
+        },
+        {
+          "insight": "Unclear trial vs paid plan distinctions result in abandonment",
+          "participants": [
+            "P10",
+            "P09"
+          ]
+        },
+        {
+          "insight": "Lack of templates or guidance makes setup feel overwhelming",
+          "participants": [
+            "P11",
+            "P04"
+          ]
+        },
+        {
+          "insight": "Technical barriers in connecting data sources halt trial completion",
+          "participants": [
+            "P01",
+            "P12"
+          ]
+        }
+      ]
+    },
+    "map": [
+      {
+        "shard_result": "Confusion around workspace vs project structure leads to stalled setup"
+      },
+      {
+        "shard_result": "Confirmed: Delayed or missing admin invites prevent users from progressing. Participants P03 (waited on admin invite that never arrived) and P10 (could not tell trial from paid, likely due to admin setup requirements) support this insight. This barrier directly impacts step 3 of the onboarding flow where users need admin approval to proceed."
+      },
+      {
+        "shard_result": "Users struggle to transition from sample to real data, causing delays in trial progression. Participants P04 and P05 both encountered this issue, with P04 unable to switch after trying sample data and P05 hitting a row limit on day two, indicating a systemic problem with data transition workflows."
+      },
+      {
+        "shard_result": "Users unable to locate import functionality abandon setup early"
+      },
+      {
+        "shard_result": "Mismatch between expected and actual login methods causes confusion"
+      },
+      {
+        "shard_result": "Unclear trial vs paid plan distinctions result in abandonment"
+      },
+      {
+        "shard_result": "Lack of templates or guidance makes setup feel overwhelming"
+      },
+      {
+        "shard_result": "Technical barriers in connecting data sources halt trial completion"
+      }
+    ],
+    "reduce": {
+      "insights": [
+        {
+          "participant_ids": [
+            "P02",
+            "P08"
+          ]
+        },
+        {
+          "participant_ids": [
+            "P03",
+            "P10"
+          ]
+        },
+        {
+          "participant_ids": [
+            "P04",
+            "P05"
+          ]
+        },
+        {
+          "participant_ids": [
+            "P06",
+            "P11"
+          ]
+        },
+        {
+          "participant_ids": [
+            "P07",
+            "P09"
+          ]
+        },
+        {
+          "participant_ids": [
+            "P10",
+            "P09"
+          ]
+        },
+        {
+          "participant_ids": [
+            "P11",
+            "P04"
+          ]
+        },
+        {
+          "participant_ids": [
+            "P01",
+            "P12"
+          ]
+        }
+      ],
+      "output": {
+        "insights": [
+          {
+            "participant_ids": [
+              "P02",
+              "P08"
+            ]
+          },
+          {
+            "participant_ids": [
+              "P03",
+              "P10"
+            ]
+          },
+          {
+            "participant_ids": [
+              "P04",
+              "P05"
+            ]
+          },
+          {
+            "participant_ids": [
+              "P06",
+              "P11"
+            ]
+          },
+          {
+            "participant_ids": [
+              "P07",
+              "P09"
+            ]
+          },
+          {
+            "participant_ids": [
+              "P10",
+              "P09"
+            ]
+          },
+          {
+            "participant_ids": [
+              "P11",
+              "P04"
+            ]
+          },
+          {
+            "participant_ids": [
+              "P01",
+              "P12"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

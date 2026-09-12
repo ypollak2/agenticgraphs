@@ -1,53 +1,117 @@
 {
-  "model": "qwen3-coder:30b",
-  "recorded": "2026-08-31",
-  "endpoint": "http://localhost:11434/v1",
-  "spec": "agr/v1.8",
-  "sampling": {
-    "temperature": 0,
-    "seed": 7,
-    "max_tokens": 2048
-  },
-  "inputs": {
-    "goal": "the Northwind discovery call, against the MEDDIC rubric"
-  },
-  "node_outputs": {
-    "segment": {
-      "segments": [
-        {
-          "node": "segment",
-          "ability": "map_shard",
-          "input": {
-            "goal": "the Northwind discovery call, against the MEDDIC rubric",
-            "attempts": 1
-          },
-          "output": {
-            "score": {
-              "spread": 0,
-              "median": 0
-            }
-          }
-        }
-      ]
+ "model": "qwen3-coder:30b",
+ "recorded": "2026-09-10",
+ "endpoint": "http://localhost:11434/v1",
+ "spec": "agr/v1.8",
+ "sampling": {
+  "temperature": 0,
+  "seed": 7,
+  "max_tokens": 2048
+ },
+ "inputs": {
+  "transcript": {
+   "call": "Northwind discovery",
+   "duration_s": 1860,
+   "rubric": "MEDDIC",
+   "turns": [
+    {
+     "t": 0,
+     "speaker": "rep",
+     "text": "What's driving the evaluation now?"
     },
-    "score-pass": {
-      "rubric_score": {
-        "spread": 0,
-        "median": 0
-      }
+    {
+     "t": 18,
+     "speaker": "buyer",
+     "text": "Our warehouse spend doubled and finance wants it capped this quarter."
     },
-    "consolidate": {
-      "final_score": {
-        "spread": 0,
-        "median": 0
-      },
-      "output": {
-        "segments_scored": 1,
-        "variance": 0
-      },
-      "segments_scored": 1,
-      "variance": 0
+    {
+     "t": 95,
+     "speaker": "rep",
+     "text": "Who signs off on a change like that?"
+    },
+    {
+     "t": 110,
+     "speaker": "buyer",
+     "text": "Our VP Finance, with the CTO as a technical approver."
+    },
+    {
+     "t": 400,
+     "speaker": "rep",
+     "text": "What happens if nothing changes by Q3?"
+    },
+    {
+     "t": 417,
+     "speaker": "buyer",
+     "text": "We'd have to shut off two dashboards and that's politically hard."
     }
+   ]
   },
-  "tool_calls": []
+  "goal": "the Northwind discovery call, against the MEDDIC rubric"
+ },
+ "node_outputs": {
+  "segment": {
+   "segments": [
+    {
+     "name": "Metrics",
+     "value": "Warehouse spend doubled, finance wants it capped this quarter"
+    },
+    {
+     "name": "Evaluation",
+     "value": "VP Finance signs off on changes, CTO as technical approver"
+    },
+    {
+     "name": "Decision Criteria",
+     "value": "Q3 deadline, risk of shutting off two dashboards if no action"
+    },
+    {
+     "name": "Decision Process",
+     "value": "VP Finance + CTO approval required for change"
+    },
+    {
+     "name": "Identify Pain",
+     "value": "Warehouse spend doubled, politically difficult to shut dashboards"
+    },
+    {
+     "name": "Champion",
+     "value": "VP Finance (primary decision maker)"
+    }
+   ]
+  },
+  "score-pass": [
+   {
+    "rubric_score": 0.6
+   },
+   {
+    "rubric_score": 0.6
+   },
+   {
+    "rubric_score": 0.6
+   },
+   {
+    "rubric_score": 0.6
+   },
+   {
+    "rubric_score": 0.6
+   },
+   {
+    "rubric_score": 0.6
+   }
+  ],
+  "consolidate": {
+   "final_score": 0.6,
+   "output": {
+    "segments_scored": 6,
+    "variance": 0
+   },
+   "segments_scored": 6,
+   "variance": 0
+  }
+ },
+ "tool_calls": [],
+ "failure_kinds": [],
+ "parse_failures": [],
+ "gate_refused": "",
+ "timeouts": [],
+ "superseded_by": "v19-spec-bump",
+ "reason": "recorded in the partial re-record that was stopped mid-run to bump SPEC_VERSION to agr/v1.9; stamped spec agr/v1.8 and therefore not current under the new version"
 }

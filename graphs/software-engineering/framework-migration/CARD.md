@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-005` | software-engineering | **planner-executor-verifier** | 6 | 6 | 1 | 0 | 60 | execute |
+| `AGR-005` | software-engineering | **planner-executor-verifier** | 6 | 6 | 1 | 0 | 14 | execute |
 
 > 🎯 **Requires a goal** — the codebase to port, its source framework and its target framework. Without one the graph refuses and runs no node.
 
@@ -40,7 +40,7 @@ The plan makes intent inspectable before anything touches the world, the executo
 - **Exit contract** — build and full test suite green on the target stack with no slice left behind
 - **Command-checked** — `pytest -q`
 - **Machine-checked** — `output.slices_remaining == 0`
-- **Bounded** — hard stop after 60 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 14 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval framework-migration` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/framework-migration.md)
 

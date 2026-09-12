@@ -18,6 +18,26 @@ cases:
           pr_url: https://github.com/org/repo/pull/1
         orphan_claims: []
   goal: the 41 PRs merged since v2.13, for v2.14.0
+  inputs:
+    pull_requests: &id002
+    - number: 770
+      pr_url: https://github.com/acme/app/pull/770
+      title: fix refund rounding
+      label: fix
+    - number: 771
+      pr_url: https://github.com/acme/app/pull/771
+      title: add SSO login
+      label: feat
+    - number: 772
+      pr_url: https://github.com/acme/app/pull/772
+      title: speed up export
+      label: perf
+    - number: 773
+      pr_url: https://github.com/acme/app/pull/773
+      title: update docs for auth
+      label: docs
+    from_tag: v2.13
+    to_tag: v2.14.0
 - id: multi-item
   node_outputs:
     partition:
@@ -37,3 +57,7 @@ cases:
           pr_url: https://github.com/org/repo/pull/2
         orphan_claims: []
   goal: the 41 PRs merged since v2.13, for v2.14.0
+  inputs:
+    pull_requests: *id002
+    from_tag: v2.13
+    to_tag: v2.14.0

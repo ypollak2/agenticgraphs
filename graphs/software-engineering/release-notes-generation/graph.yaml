@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: release-notes-generation
 description: Summarize merged PRs per area, reduce into release notes.
 category: software-engineering
@@ -29,8 +29,8 @@ nodes:
   - notes: list[{pr_url:any}]
   - orphan_claims
   - output
-  criteria: Every note links the merged PR it describes, and no note claims a change that no PR made.
-    An orphan claim in release notes becomes a support ticket.
+  criteria: Every note links the merged PR it describes, and no note claims a change that no PR made. An orphan claim in release
+    notes becomes a support ticket.
   retries:
     max: 2
     reissue_effects: true
@@ -40,7 +40,7 @@ edges:
 - from: map
   to: reduce
 termination:
-  max_steps: 20
+  max_steps: 6
   contract: every note links a merged PR; no orphan claims
 verification:
 - assert: all(n.pr_url for n in output.notes) and not output.orphan_claims
@@ -50,3 +50,6 @@ goal:
 state:
   inputs:
   - goal
+  - pull_requests
+  - from_tag
+  - to_tag

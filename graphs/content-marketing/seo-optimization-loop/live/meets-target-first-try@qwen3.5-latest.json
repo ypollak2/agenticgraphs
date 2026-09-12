@@ -1,0 +1,37 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "threshold": 75,
+    "goal": "/pricing, for 'agent workflow pricing'"
+  },
+  "node_outputs": {
+    "intake": {
+      "summary": "Pricing analysis completed for agent workflow pricing."
+    },
+    "attempt": {
+      "seo_score": 85.0,
+      "stuffing_flags": []
+    },
+    "measure": {
+      "output": {
+        "seo_score": 85.0,
+        "stuffing_flags": [],
+        "threshold": 75
+      },
+      "below_target": false
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

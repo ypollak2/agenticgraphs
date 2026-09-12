@@ -12,6 +12,20 @@ cases:
           sources:
           - src-1
   goal: what drives churn in usage-based pricing, cited to primary sources
+  inputs:
+    sources: &id001
+    - id: s1
+      url: https://example.org/usage-pricing-churn
+      date: '2026-05-02'
+      claim: usage plans churn on billing surprise
+    - id: s2
+      url: https://example.org/seat-vs-usage
+      date: '2026-06-11'
+      claim: seat plans churn on budget cycles
+    - id: s3
+      url: https://example.org/pricing-elasticity
+      date: '2026-07-19'
+      claim: overage caps reduce involuntary churn
 - id: low-confidence-escalates
   node_outputs:
     router:
@@ -28,6 +42,8 @@ cases:
           - src-1
           - src-2
   goal: what drives churn in usage-based pricing, cited to primary sources
+  inputs:
+    sources: *id001
 - id: complex-goes-deep
   node_outputs:
     router:
@@ -41,3 +57,5 @@ cases:
           sources:
           - src-1
   goal: what drives churn in usage-based pricing, cited to primary sources
+  inputs:
+    sources: *id001

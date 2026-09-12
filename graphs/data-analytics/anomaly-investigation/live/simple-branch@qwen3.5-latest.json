@@ -1,0 +1,40 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "holdout_labels": {
+      "friday-signup-dip": "seasonal",
+      "null-spike-2026-08-12": "data-bug",
+      "eu-latency-step": "real-change"
+    },
+    "goal": "the friday-signup-dip anomaly, against the labelled holdout"
+  },
+  "node_outputs": {
+    "route": {
+      "complexity": "low"
+    },
+    "branch-simple": {
+      "assigned_class": "seasonal"
+    },
+    "verify": {
+      "expected_class": "seasonal",
+      "assigned_class": "seasonal",
+      "output": {
+        "assigned_class": "seasonal",
+        "expected_class": "seasonal"
+      }
+    }
+  },
+  "tool_calls": [],
+  "failure_kinds": [],
+  "parse_failures": [],
+  "gate_refused": "",
+  "timeouts": []
+}

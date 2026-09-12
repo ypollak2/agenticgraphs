@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-058` | legal-compliance | **parallel-swarm** | 5 | 4 | 1 | 0 | 30 | read |
+| `AGR-058` | legal-compliance | **parallel-swarm** | 5 | 4 | 1 | 0 | 14 | read |
 
 > 🎯 **Requires a goal** — the systems in scope and the lawful-basis question being answered. Without one the graph refuses and runs no node.
 
@@ -37,7 +37,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 - **Exit contract** — every store carries a lawful basis; every gap carries an owner and a due date
 - **Machine-checked** — `output.unclassified_stores == 0`
 - **Machine-checked** — `all(gp.owner and gp.due for gp in output.gaps)`
-- **Bounded** — hard stop after 30 steps; the topology is acyclic
+- **Bounded** — hard stop after 14 steps; the topology is acyclic
 - **Golden cases** — `uv run agr eval gdpr-data-audit` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/gdpr-data-audit.md)
 

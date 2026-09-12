@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: expense-audit-swarm
 description: Workers audit expense lines against policy in parallel.
 category: finance
@@ -23,8 +23,8 @@ nodes:
   retries:
     max: 2
     reissue_effects: true
-  unbound_ok: 'narrated: edit_files has no binding in this runtime; the effect is the model''s account
-    of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: edit_files has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 - id: verify
   speciality: verifier
   abilities:
@@ -34,8 +34,8 @@ nodes:
   - output
   - violations: list[{line_id:any, policy_rule:any}]
   - verify_failed: bool
-  criteria: Every violation names the expense line id and the specific policy rule it breaches, so the
-    claimant can see what to fix rather than that something was wrong.
+  criteria: Every violation names the expense line id and the specific policy rule it breaches, so the claimant can see what
+    to fix rather than that something was wrong.
   retries:
     max: 2
     reissue_effects: true
@@ -48,7 +48,7 @@ edges:
   to: work
   when: verify_failed and attempts < 3
 termination:
-  max_steps: 30
+  max_steps: 10
   contract: violations carry line id and policy rule
 verification:
 - assert: all(v.line_id and v.policy_rule for v in output.violations)
@@ -58,3 +58,5 @@ goal:
 state:
   inputs:
   - goal
+  - reports
+  - policy

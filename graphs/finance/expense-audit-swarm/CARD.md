@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-055` | finance | **parallel-swarm** | 3 | 3 | 1 | 0 | 30 | execute |
+| `AGR-055` | finance | **parallel-swarm** | 3 | 3 | 1 | 0 | 10 | execute |
 
 > 🎯 **Requires a goal** — the expense reports to audit and the policy that governs them. Without one the graph refuses and runs no node.
 
@@ -33,7 +33,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 
 - **Exit contract** — violations carry line id and policy rule
 - **Machine-checked** — `all(v.line_id and v.policy_rule for v in output.violations)`
-- **Bounded** — hard stop after 30 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 10 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval expense-audit-swarm` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/expense-audit-swarm.md)
 

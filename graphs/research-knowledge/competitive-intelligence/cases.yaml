@@ -18,6 +18,20 @@ cases:
           source_url: https://example.com/blog
           source_date: '2026-07-01'
   goal: three workflow vendors, informing Q4 positioning
+  inputs:
+    sources: &id002
+    - vendor: Zapier
+      source_url: https://zapier.com/pricing
+      source_date: '2026-08-01'
+      note: task-based tiers
+    - vendor: Make
+      source_url: https://make.com/pricing
+      source_date: '2026-08-03'
+      note: operations-based tiers
+    - vendor: n8n
+      source_url: https://n8n.io/pricing
+      source_date: '2026-08-05'
+      note: self-host option
 - id: multi-item
   node_outputs:
     partition:
@@ -38,3 +52,5 @@ cases:
           source_url: https://example.com/news
           source_date: '2026-07-15'
   goal: three workflow vendors, informing Q4 positioning
+  inputs:
+    sources: *id002

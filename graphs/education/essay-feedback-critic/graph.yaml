@@ -1,4 +1,4 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: essay-feedback-critic
 description: Rubric-based feedback with evidence quotes from the essay.
 category: education
@@ -24,8 +24,8 @@ nodes:
   - comments: list[{quote:any, rubric_id:any}]
   - output
   - rejected: bool
-  criteria: Every comment quotes the essay text it responds to and cites the rubric criterion it applies,
-    so the student sees both what was read and what standard it was held to.
+  criteria: Every comment quotes the essay text it responds to and cites the rubric criterion it applies, so the student sees
+    both what was read and what standard it was held to.
 edges:
 - from: intake
   to: generate
@@ -45,3 +45,5 @@ goal:
 state:
   inputs:
   - goal
+  - essay
+  - rubric

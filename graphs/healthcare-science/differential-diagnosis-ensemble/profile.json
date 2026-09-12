@@ -10,7 +10,7 @@
     "max_fan_out": 1,
     "loops": 0,
     "loops_bounded": true,
-    "max_steps": 30,
+    "max_steps": 6,
     "verification_asserts": 2,
     "risk_surface": "read"
   },
@@ -18,7 +18,7 @@
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-09-04",
+    "date": "2026-09-10",
     "cases": 1,
     "passed": 1,
     "pass_rate": 1.0,
@@ -57,21 +57,21 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:qwen3-coder:30b",
+    "runner": "llm-replay:qwen3-coder:30b,qwen3.5:latest",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-09-04",
-    "cases": 3,
-    "passed": 0,
-    "pass_rate": 0.0,
+    "date": "2026-09-10",
+    "cases": 2,
+    "passed": 1,
+    "pass_rate": 0.5,
     "mean_steps": 3.0,
     "results": [
       {
         "id": "happy-path",
         "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
+        "recorded": "2026-09-10",
         "gate_auto_approved": false,
-        "passed": false,
+        "passed": true,
         "steps": 3,
         "trace": [
           "intake",
@@ -82,9 +82,7 @@
         "unreached_terminals": [],
         "shape_violations": [],
         "state_violations": [],
-        "assert_failures": [
-          "all(r.clinician_id in output.represented for r in output.ranking)"
-        ],
+        "assert_failures": [],
         "skipped_command_checks": 0,
         "commands_run": 0,
         "command_failures": [],
@@ -92,9 +90,7 @@
         "parse_failures": [],
         "gate_refused": "",
         "timeouts": [],
-        "failure_kinds": [
-          "assert"
-        ],
+        "failure_kinds": [],
         "overwritten_inputs": [],
         "rejected_approvals": [],
         "auto_approved": false,
@@ -105,8 +101,8 @@
       },
       {
         "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
+        "model": "qwen3.5:latest",
+        "recorded": "2026-09-10",
         "gate_auto_approved": false,
         "passed": false,
         "steps": 3,
@@ -120,44 +116,8 @@
         "shape_violations": [],
         "state_violations": [],
         "assert_failures": [
-          "all(r.clinician_id in output.represented for r in output.ranking)"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "parse_failures": [],
-        "gate_refused": "",
-        "timeouts": [],
-        "failure_kinds": [
-          "assert"
-        ],
-        "overwritten_inputs": [],
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": false,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 3,
-        "trace": [
-          "intake",
-          "diagnose",
-          "adjudicate"
-        ],
-        "goal_missing": "",
-        "unreached_terminals": [],
-        "shape_violations": [],
-        "state_violations": [],
-        "assert_failures": [
-          "all(r.clinician_id in output.represented for r in output.ranking)"
+          "output.consensus is not None or len(output.dissent) > 0 (AttributeError: consensus)",
+          "all(r.clinician_id in output.represented for r in output.ranking) (TypeError: 'NoneType' object is not iterable)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -179,18 +139,21 @@
       }
     ],
     "models": [
-      "qwen3-coder:30b"
+      "qwen3-coder:30b",
+      "qwen3.5:latest"
     ],
-    "recorded": "2026-08-31",
-    "age_days": 4,
+    "recorded": "2026-09-10",
+    "age_days": 0,
     "per_model_pass_rate": {
-      "qwen3-coder:30b": 0.0
+      "qwen3-coder:30b": 1.0,
+      "qwen3.5:latest": 0.0
     },
-    "models_disagree": false,
-    "fails_every_model": true,
+    "models_disagree": true,
+    "fails_every_model": false,
     "flaky_models": [],
     "samples_per_model": {
-      "qwen3-coder:30b": 3
+      "qwen3-coder:30b": 1,
+      "qwen3.5:latest": 1
     },
     "gate_auto_approved": false
   }

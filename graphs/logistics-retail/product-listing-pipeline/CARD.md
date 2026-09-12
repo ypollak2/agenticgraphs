@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-101` | logistics-retail | **pipeline** | 6 | 8 | 0 | 0 | 30 | execute |
+| `AGR-101` | logistics-retail | **pipeline** | 6 | 8 | 0 | 0 | 14 | execute |
 
 > 🎯 **Requires a goal** — the products to list and the marketplace policy that governs them. Without one the graph refuses and runs no node.
 
@@ -42,7 +42,7 @@ Staged specialists each own one narrow concern, so quality problems are localize
 - **Exit contract** — every published claim traces to the spec sheet and clears marketplace policy
 - **Machine-checked** — `len(output.unsupported_claims) == 0`
 - **Machine-checked** — `len(output.policy_violations) == 0`
-- **Bounded** — hard stop after 30 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 14 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval product-listing-pipeline` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/product-listing-pipeline.md)
 

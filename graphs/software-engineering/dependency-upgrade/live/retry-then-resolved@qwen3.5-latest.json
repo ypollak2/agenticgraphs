@@ -1,0 +1,41 @@
+{
+  "model": "qwen3.5:latest",
+  "recorded": "2026-09-10",
+  "endpoint": "http://localhost:11434/v1",
+  "spec": "agr/v1.9",
+  "sampling": {
+    "temperature": 0,
+    "seed": 7,
+    "max_tokens": 2048
+  },
+  "inputs": {
+    "lockfile": {
+      "sha": "a1b2c3",
+      "packages": [
+        {
+          "name": "requests",
+          "from": "2.31.0",
+          "to": "2.32.3"
+        },
+        {
+          "name": "pyyaml",
+          "from": "6.0.1",
+          "to": "6.0.2"
+        }
+      ]
+    },
+    "test_command": "pytest -q",
+    "goal": "the minor-version bumps in the lockfile, keeping tests/ green"
+  },
+  "node_outputs": {},
+  "tool_calls": [],
+  "failure_kinds": [
+    "parse",
+    "assert"
+  ],
+  "parse_failures": [
+    "intake: no JSON object in model reply: ''"
+  ],
+  "gate_refused": "",
+  "timeouts": []
+}

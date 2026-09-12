@@ -17,6 +17,25 @@ cases:
         spans:
         - s1
   goal: the vendor onboarding runbook, against InfoSec policy v4
+  inputs:
+    document: &id002
+      name: vendor onboarding runbook
+      sections:
+      - n: 1
+        text: Collect the vendor security questionnaire before signature.
+      - n: 2
+        text: Grant production access on day one so the vendor can self-serve.
+      - n: 3
+        text: Store completed questionnaires in the shared drive.
+    policy: &id003
+      name: InfoSec 2026
+      clauses:
+      - clause_id: IS-3.1
+        rule: least privilege on production access
+      - clause_id: IS-4.2
+        rule: security review before vendor signature
+      - clause_id: IS-7.5
+        rule: evidence retained in the GRC system, not shared drives
 - id: retry-then-resolved
   node_outputs:
     intake:
@@ -37,3 +56,6 @@ cases:
       attempts: 2
     clause-map: *id001
   goal: the vendor onboarding runbook, against InfoSec policy v4
+  inputs:
+    document: *id002
+    policy: *id003

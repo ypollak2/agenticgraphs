@@ -10,19 +10,19 @@
     "max_fan_out": 3,
     "loops": 1,
     "loops_bounded": true,
-    "max_steps": 45,
+    "max_steps": 28,
     "verification_asserts": 2,
     "risk_surface": "execute"
   },
   "refs": {
-    "devops-sre/incident-triage-router": "8db6c0eb0076",
-    "devops-sre/postmortem-writer": "2e20e36df3af"
+    "devops-sre/incident-triage-router": "33c24d32dc2c",
+    "devops-sre/postmortem-writer": "a70476264da8"
   },
   "measured": {
     "runner": "mock",
     "provisional": true,
     "verification_depth": "assert-fixture",
-    "date": "2026-09-04",
+    "date": "2026-09-10",
     "cases": 1,
     "passed": 1,
     "pass_rate": 1.0,
@@ -68,19 +68,19 @@
     ]
   },
   "measured_live": {
-    "runner": "llm-replay:lfm2.5:8b,qwen3-coder:30b",
+    "runner": "llm-replay:qwen3-coder:30b,qwen3.5:latest",
     "provisional": false,
     "verification_depth": "assert-live",
-    "date": "2026-09-04",
-    "cases": 4,
+    "date": "2026-09-10",
+    "cases": 2,
     "passed": 0,
     "pass_rate": 0.0,
-    "mean_steps": 13.0,
+    "mean_steps": 6.0,
     "results": [
       {
         "id": "happy-path",
-        "model": "lfm2.5:8b",
-        "recorded": "2026-09-01",
+        "model": "qwen3-coder:30b",
+        "recorded": "2026-09-10",
         "gate_auto_approved": false,
         "passed": false,
         "steps": 10,
@@ -101,55 +101,6 @@
         "shape_violations": [],
         "state_violations": [],
         "assert_failures": [
-          "output.residual_blast_radius < output.blast_radius",
-          "len(output.actions) >= 1 and all(a.owner for a in output.actions) (AttributeError: 'str' object has no attribute 'owner')"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "parse_failures": [],
-        "gate_refused": "",
-        "timeouts": [],
-        "failure_kinds": [
-          "assert"
-        ],
-        "overwritten_inputs": [],
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 14,
-        "trace": [
-          "detect",
-          "triage.route",
-          "triage.branch-simple",
-          "triage.verify",
-          "mitigate",
-          "confirm",
-          "mitigate",
-          "confirm",
-          "mitigate",
-          "confirm",
-          "postmortem.intake",
-          "postmortem.produce",
-          "postmortem.review",
-          "action-items"
-        ],
-        "goal_missing": "",
-        "unreached_terminals": [],
-        "shape_violations": [],
-        "state_violations": [],
-        "assert_failures": [
           "output.residual_blast_radius < output.blast_radius"
         ],
         "skipped_command_checks": 0,
@@ -172,33 +123,28 @@
       },
       {
         "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
+        "model": "qwen3.5:latest",
+        "recorded": "2026-09-10",
         "gate_auto_approved": false,
         "passed": false,
-        "steps": 14,
+        "steps": 2,
         "trace": [
           "detect",
-          "triage.route",
-          "triage.branch-simple",
-          "triage.verify",
-          "mitigate",
-          "confirm",
-          "mitigate",
-          "confirm",
-          "mitigate",
-          "confirm",
-          "postmortem.intake",
-          "postmortem.produce",
-          "postmortem.review",
-          "action-items"
+          "triage.route"
         ],
         "goal_missing": "",
-        "unreached_terminals": [],
+        "unreached_terminals": [
+          "action-items",
+          "escalate-incident"
+        ],
         "shape_violations": [],
         "state_violations": [],
         "assert_failures": [
-          "output.residual_blast_radius < output.blast_radius"
+          "output.residual_blast_radius < output.blast_radius (AttributeError: residual_blast_radius)",
+          "len(output.actions) >= 1 and all(a.owner for a in output.actions) (AttributeError: actions)",
+          "[triage] output.assigned_team == output.expected_team (AttributeError: assigned_team)",
+          "[triage] len(output.expected_team) > 0 (AttributeError: expected_team)",
+          "[postmortem] all(e.get('log_id') or e.get('message_id') for e in output.timeline) (AttributeError: timeline)"
         ],
         "skipped_command_checks": 0,
         "commands_run": 0,
@@ -208,55 +154,8 @@
         "gate_refused": "",
         "timeouts": [],
         "failure_kinds": [
-          "assert"
-        ],
-        "overwritten_inputs": [],
-        "rejected_approvals": [],
-        "auto_approved": false,
-        "subgraphs_expanded": true,
-        "truncations": [],
-        "grounded": false,
-        "tool_calls": []
-      },
-      {
-        "id": "happy-path",
-        "model": "qwen3-coder:30b",
-        "recorded": "2026-08-31",
-        "gate_auto_approved": false,
-        "passed": false,
-        "steps": 14,
-        "trace": [
-          "detect",
-          "triage.route",
-          "triage.branch-simple",
-          "triage.verify",
-          "mitigate",
-          "confirm",
-          "mitigate",
-          "confirm",
-          "mitigate",
-          "confirm",
-          "postmortem.intake",
-          "postmortem.produce",
-          "postmortem.review",
-          "action-items"
-        ],
-        "goal_missing": "",
-        "unreached_terminals": [],
-        "shape_violations": [],
-        "state_violations": [],
-        "assert_failures": [
-          "output.residual_blast_radius < output.blast_radius"
-        ],
-        "skipped_command_checks": 0,
-        "commands_run": 0,
-        "command_failures": [],
-        "deadlocked": false,
-        "parse_failures": [],
-        "gate_refused": "",
-        "timeouts": [],
-        "failure_kinds": [
-          "assert"
+          "assert",
+          "stall"
         ],
         "overwritten_inputs": [],
         "rejected_approvals": [],
@@ -268,21 +167,21 @@
       }
     ],
     "models": [
-      "lfm2.5:8b",
-      "qwen3-coder:30b"
+      "qwen3-coder:30b",
+      "qwen3.5:latest"
     ],
-    "recorded": "2026-08-31",
-    "age_days": 4,
+    "recorded": "2026-09-10",
+    "age_days": 0,
     "per_model_pass_rate": {
-      "lfm2.5:8b": 0.0,
-      "qwen3-coder:30b": 0.0
+      "qwen3-coder:30b": 0.0,
+      "qwen3.5:latest": 0.0
     },
     "models_disagree": false,
     "fails_every_model": true,
     "flaky_models": [],
     "samples_per_model": {
-      "lfm2.5:8b": 1,
-      "qwen3-coder:30b": 3
+      "qwen3-coder:30b": 1,
+      "qwen3.5:latest": 1
     },
     "gate_auto_approved": false
   }

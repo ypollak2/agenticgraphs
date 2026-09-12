@@ -5,7 +5,7 @@
 
 | Card ID | Domain | Pattern | Nodes | Edges | Verifiers | Routers | Max steps | Risk surface |
 |---|---|---|---|---|---|---|---|---|
-| `AGR-044` | business-ops | **parallel-swarm** | 4 | 4 | 1 | 0 | 25 | write |
+| `AGR-044` | business-ops | **parallel-swarm** | 4 | 4 | 1 | 0 | 12 | write |
 
 > 🎯 **Requires a goal** — the vendors to compare and the decision the matrix must inform. Without one the graph refuses and runs no node.
 
@@ -36,7 +36,7 @@ Independent workers cover disjoint slices of the input at the same time. Because
 - **Exit contract** — every matrix cell cites its source and all vendors share one criteria set
 - **Machine-checked** — `output.uncited_cells == 0`
 - **Machine-checked** — `all(all(c in output.criteria_grid for c in r.criteria) for r in output.matrix)`
-- **Bounded** — hard stop after 25 steps; every loop edge is condition-guarded
+- **Bounded** — hard stop after 12 steps; every loop edge is condition-guarded
 - **Golden cases** — `uv run agr eval vendor-comparison-matrix` replays recorded cases through the real edge/assert logic (mock runner proves mechanics; `--live` measures your model)
 - **Trace gallery** — [every case's route, node outputs, and checked asserts](../../../docs/traces/vendor-comparison-matrix.md)
 

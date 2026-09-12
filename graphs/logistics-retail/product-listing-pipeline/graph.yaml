@@ -1,7 +1,6 @@
-apiVersion: agr/v1.8
+apiVersion: agr/v1.9
 name: product-listing-pipeline
-description: Generate marketplace listings from spec sheets, checking claims against source and policy
-  before publish.
+description: Generate marketplace listings from spec sheets, checking claims against source and policy before publish.
 category: logistics-retail
 nodes:
 - id: extract
@@ -52,8 +51,8 @@ nodes:
   - listings_published
   - output
   join: all
-  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account
-    of it until the ability is bound (audit 2026-09-04, Q1)'
+  unbound_ok: 'narrated: execute_step has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 - id: escalate-listing
   speciality: escalator
   abilities:
@@ -62,10 +61,10 @@ nodes:
   outputs:
   - escalated: bool
   - escalation_reason
-  criteria: The listing is held with the claims that could not be substantiated. An unsupported product
-    claim is a regulatory exposure, not a copy defect.
-  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of
-    it until the ability is bound (audit 2026-09-04, Q1)'
+  criteria: The listing is held with the claims that could not be substantiated. An unsupported product claim is a regulatory
+    exposure, not a copy defect.
+  unbound_ok: 'narrated: escalate has no binding in this runtime; the effect is the model''s account of it until the ability
+    is bound (audit 2026-09-04, Q1)'
 edges:
 - from: extract
   to: write
@@ -89,7 +88,7 @@ edges:
   to: escalate-listing
   when: len(policy_violations) > 0
 termination:
-  max_steps: 30
+  max_steps: 14
   contract: every published claim traces to the spec sheet and clears marketplace policy
 verification:
 - describe: no listing claim lacks a spec-sheet source
@@ -100,6 +99,7 @@ state:
   inputs:
   - goal
   - spec_sheets
+  - policy
 goal:
   required: true
   description: the products to list and the marketplace policy that governs them
