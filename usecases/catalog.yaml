@@ -1,5 +1,58 @@
 apiVersion: agr/v1
 kind: UseCaseCatalog
+coverage:
+  use_cases: 131
+  with_a_graph: 83
+  backlog: 48
+  backlog_names:
+  - ad-variant-tournament
+  - api-design-review
+  - bioinformatics-pipeline-builder
+  - brand-consistency-audit
+  - budget-variance-analysis
+  - capacity-forecaster
+  - case-law-research
+  - churn-signal-analysis
+  - cloud-cost-optimizer
+  - course-localization
+  - crm-enrichment-pipeline
+  - curriculum-designer
+  - dashboard-builder
+  - data-catalog-enrichment
+  - demand-signal-digest
+  - engagement-survey-analysis
+  - fraud-pattern-triage
+  - game-npc-dialogue
+  - grant-proposal-pipeline
+  - image-asset-qa
+  - interview-question-bank
+  - inventory-forecast-critic
+  - ip-portfolio-review
+  - lab-notebook-summarizer
+  - learning-path-planner
+  - level-design-review
+  - music-metadata-tagging
+  - newsletter-assembler
+  - okr-drafting-debate
+  - patent-landscape
+  - pentest-report-synthesis
+  - planogram-compliance-review
+  - policy-qa-assistant
+  - portfolio-report-generation
+  - process-documentation-miner
+  - protocol-drafting-critic
+  - quote-configurator
+  - regulatory-filing-check
+  - route-optimization-review
+  - schema-migration-planner
+  - social-campaign-planner
+  - supply-chain-audit
+  - survey-design-critic
+  - systematic-meta-analysis
+  - tos-diff-monitor
+  - training-gap-analyzer
+  - tutoring-router
+  - video-script-writer
 entries:
 - id: uc-001
   name: code-review-pipeline

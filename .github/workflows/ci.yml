@@ -3,16 +3,44 @@ on:
   push: {branches: [main]}
   pull_request:
 jobs:
+  # The package claims 3.10-3.13 in its classifiers and `requires-python = ">=3.10"`,
+  # and CI ran exactly one interpreter — whichever setup-uv defaulted to — while
+  # the maintainer's venv is 3.14. The support matrix was asserted and never
+  # exercised (2026-09-12 audit, D16).
+  #
+  # This installs the package and the `mcp` extra, NOT `--all-extras`: the
+  # `adapters` extra pulls crewai -> onnxruntime, which publishes no cp310 wheel,
+  # so `uv sync --all-extras` cannot resolve on 3.10 at all. The adapter tests
+  # importorskip, so they are covered by the `gate` job and skipped here — which
+  # is the honest shape, because the *package* supports 3.10 and the adapters
+  # extra does not.
+  versions:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
+      - run: uv sync --extra mcp --python ${{ matrix.python }}
+      - run: uv run --extra mcp --python ${{ matrix.python }} agr validate
+      - run: uv run --extra mcp --python ${{ matrix.python }} pytest -q -p no:cacheprovider
+        env:
+          # Coverage gates the single-version `gate` job; here the point is that
+          # the code runs at all on this interpreter.
+          PYTEST_ADDOPTS: "--no-cov"
+
   gate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           # audit_recordings.py attributes every recording to the commit that
           # introduced it; a shallow clone resolves them all to HEAD and the
           # committed reports/a4-stale-recordings.json can never match.
           fetch-depth: 0
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v7
       # --frozen installs exactly what uv.lock pins. Without it CI re-resolved
       # every dependency on every run, which is the wrong posture for a repo
       # whose publish job holds `id-token: write` against PyPI.
@@ -53,7 +81,7 @@ jobs:
   onboarding:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
       - run: uv sync --all-extras
       - run: uv run agr validate && uv run pytest -q

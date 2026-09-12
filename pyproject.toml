@@ -59,16 +59,22 @@ packages = ["src/agenticgraphs"]
 dev = [
     "pytest>=8.0",
     "pytest-cov>=5.0",
-    "ruff>=0.6",
+    "ruff>=0.16.6",
     "mypy>=1.11",
 ]
 
 [project.optional-dependencies]
-mcp = ["mcp>=1.2"]
+mcp = [
+    "mcp>=2.1.1",
+]
 # The adapters emit source for these three. Until now nothing imported them, so
 # `test_adapters` could only `ast.parse` the output — a syntax check that would
 # pass forever while the upstream API drifted underneath it. Installed here so
 # the smoke tests can actually build the graph they claim to compile.
+# NOTE: this extra needs Python >= 3.11. crewai pulls onnxruntime, which
+# publishes no cp310 wheel, so `uv sync --all-extras` cannot resolve on 3.10.
+# The package itself supports 3.10 and CI proves it (the `versions` matrix
+# installs core + the mcp extra); the adapter tests importorskip.
 adapters = ["langgraph>=0.2", "crewai>=0.60", "pyautogen>=0.3"]
 
 [tool.pytest.ini_options]

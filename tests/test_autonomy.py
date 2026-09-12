@@ -264,12 +264,22 @@ def test_mcp_infuse_ability_persist_refused_without_env(monkeypatch):
 
     monkeypatch.delenv("AGR_AUTONOMOUS", raising=False)
     server = create_server()
-    with pytest.raises(Exception, match="AGR_AUTONOMOUS is not set"):
+    with pytest.raises(Exception) as caught:
         asyncio.run(server.call_tool(
             "infuse_ability",
             {"name": "code-review-pipeline", "node_id": "style-review",
              "ability": "edit_files", "persist": True},
         ))
+
+    # mcp 1.x raises the tool's own exception; mcp 2.x wraps it in an
+    # UnexpectedToolError whose message is the generic "Error executing tool"
+    # and whose __cause__ carries the reason. A refusal is only useful if the
+    # caller can read *why*, so walk the chain rather than loosening the match.
+    reasons, err = [], caught.value
+    while err is not None:
+        reasons.append(str(err))
+        err = err.__cause__
+    assert any("AGR_AUTONOMOUS is not set" in r for r in reasons), reasons
 
 
 # ---------------------------------------------------------------------------
