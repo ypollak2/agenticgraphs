@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased] — AGR v1.9, the subject
+## [0.10.0] — 2026-09-12 — AGR v1.9, the subject, and the first release that could run
 
 A case now supplies what its goal names, and the Live column measures the graph
 instead of the model's imagination. Spec: [agr-v1.9.md](docs/agr-v1.9.md).
@@ -73,8 +73,46 @@ instead of the model's imagination. Spec: [agr-v1.9.md](docs/agr-v1.9.md).
 - The seeded fixtures are authored, not sourced. A graph passing on data written to
   fit its contract is weaker evidence than one passing on data from its domain.
 - The guidance result is one model (`qwen3-coder:30b`) at one size.
-- The version gates in `validate.py` compare `apiVersion` as strings (`< "agr/v1.8"`).
-  Correct through v1.9; will misorder at v1.10.
+- The seeded fixtures are authored, not drawn from the domain.
+
+### The 2026-09-12 audit, remediated in the same release
+
+A read-only audit of the v1.9 tree ([audit-gaps-2026-09-12.md](docs/plans/audit-gaps-2026-09-12.md),
+[plan](docs/plans/audit-gaps-remediation-2026-09-12.md)). The suite was green at
+91.7% coverage and every finding was something the gate could not see.
+
+- **The staleness gate had a hole exactly where the headline lives.**
+  `gen_breadth_report.py` and `gen_catalog.py` were the only two `scripts/gen_*.py`
+  in neither `make regen` nor `clean-check`, so `docs/live-coverage.md` claimed
+  **38 of 83** graphs satisfy their contract on every model where a fresh regen says
+  **5** — 7.6x, against a README that already said 5. Both are wired now, and
+  `tests/test_regen_coverage.py` fails if a generator is ever added without landing
+  on both lists. The repo had learned this once already, in v1.1, and fixed it with
+  a hand-maintained list; the list is checked by the suite from here on.
+- **`agr/v1.10` sorted below `agr/v1.8`.** Eleven version gates compared the raw
+  string, so the next minor bump would have classified every new graph as pre-v1.8
+  and silently stopped enforcing. `apiver()` parses to an orderable tuple; an
+  unreadable version sorts to `(0,)`, which keeps the gates *on* for it.
+- **`inputs` reached the MCP surface and went no further.** `run_graph` accepted the
+  argument, ignored it, and attached a note telling the caller to use `goal` — so the
+  only way to run a graph over MCP was the goal-only path v1.9 proved starves 71 of
+  83 graphs. `inputs` now threads through `case_inputs`, `eval_graph`, `run_graph`
+  and `agr eval --inputs`.
+- **A steered run no longer overwrites a profile.** `agr goal` has passed a goal
+  override since v1.7 with `write` at its default, quietly rewriting checked-in
+  evidence on every exploratory run. A profile is a claim about the fixtures; a
+  steered run measured something else.
+- **`publish.yml` could never have published.** It asserted the installed wheel held
+  `52` graphs — the count when the line was written, 31 stale by now — and the job
+  only runs on a tag push, so the gate had been failing unobserved since `v0.1.1`.
+  **"Never released" was a bug, not a decision.** Both sides are computed now, and
+  `tests/test_publish_gate.py` refuses a reintroduced literal.
+- **A daemon now says what it serves.** `server_info` reports package version, spec
+  version, the short SHA of the checkout being served, uptime and whether the
+  transport is authenticated. The LaunchAgent's `KeepAlive: true` had kept one
+  process alive since 9 Aug serving a four-tool `main` while six tools shipped on
+  4 Sep sat unreachable, and `tools/list` answered happily throughout.
+  `install_service.sh` gains `--restart` and kickstarts on install.
 
 ## [0.9.5] — the gap audit, remediated
 

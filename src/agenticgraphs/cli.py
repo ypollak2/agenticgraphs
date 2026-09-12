@@ -13,6 +13,27 @@ from .registry import Registry, iter_graphs, iter_yaml, load
 from .validate import validate_graph_file, validate_schema
 
 
+def _read_inputs(raw: str | None) -> dict | None:
+    """Parse `--inputs`: a JSON object, or `@path` to read one from a file.
+
+    Anything but an object is refused by name rather than surfacing later as a
+    confusing blackboard error — the entry state is a mapping of the keys a
+    graph's `state.inputs` declares.
+    """
+    if not raw:
+        return None
+    text = Path(raw[1:]).read_text() if raw.startswith("@") else raw
+    try:
+        val = json.loads(text)
+    except json.JSONDecodeError as e:
+        print(f"--inputs is not valid JSON: {e}", file=sys.stderr)
+        sys.exit(2)
+    if not isinstance(val, dict):
+        print(f"--inputs must be a JSON object, got {type(val).__name__}", file=sys.stderr)
+        sys.exit(2)
+    return val
+
+
 def _need(name: str) -> dict:
     g = find_graph(name)
     if g is None:
@@ -53,6 +74,12 @@ def main(argv: list[str] | None = None) -> int:
     ep.add_argument("--goal", metavar="TEXT",
                     help="what this run is about; overrides the goal in each case. "
                          "Graphs with goal.required refuse to run without one.")
+    ep.add_argument("--inputs", metavar="JSON|@FILE",
+                    help="the subject itself, as a JSON object overlaid on each case's "
+                         "entry blackboard (or @path to read it from a file). --goal names "
+                         "the subject; this supplies it. See the graph's state.inputs for "
+                         "what it expects: v1.9 found a graph given only a goal invents its "
+                         "own data (0.614 mean pass rate against 0.898 when seeded).")
     gp = sub.add_parser("goal", help="run one graph against a stated goal (v1.6)")
     gp.add_argument("name")
     gp.add_argument("goal", help="what this run is about, in plain language")
@@ -131,7 +158,8 @@ def main(argv: list[str] | None = None) -> int:
                              run_commands=args.run_commands,
                              replay=not args.no_replay,
                              resume_from=args.resume_from,
-                             goal=args.goal, journal_dir=args.journal)
+                             goal=args.goal, journal_dir=args.journal,
+                             inputs=_read_inputs(args.inputs))
         print(json.dumps(profile["measured"], indent=2))
         return 0 if profile["measured"]["pass_rate"] == 1.0 else 1
     if args.cmd == "goal":

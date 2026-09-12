@@ -24,6 +24,29 @@ from .shapes import names as _out_names
 from .shapes import parse as _parse_shape
 from .subgraphs import MAX_DEPTH, entry_nodes
 
+
+def apiver(doc: dict) -> tuple[int, ...]:
+    """The graph's `apiVersion` as an orderable tuple: `agr/v1.10` -> `(1, 10)`.
+
+    Every version gate in this module compared the raw string until 2026-09-12.
+    That is correct for exactly as long as no component reaches two digits:
+    `"agr/v1.10" < "agr/v1.8"` is **True**, so at the next minor bump eleven
+    gates would have silently classified new graphs as pre-v1.8 and stopped
+    enforcing — a whole validation tier switching itself off with no error
+    anywhere. The limit was recorded in docs/agr-v1.9.md; this is the fix.
+
+    An unparseable or missing version sorts below everything, which keeps the
+    gates *on* for it: a graph that does not say what it is gets checked.
+    """
+    raw = str(doc.get("apiVersion", "")).removeprefix("agr/v")
+    parts = raw.split(".")
+    try:
+        nums = tuple(int(x) for x in parts)
+    except ValueError:
+        return (0,)
+    # `agr/v1` is v1.0; pad so (1,) and (1, 0) compare equal.
+    return nums + (0,) * (2 - len(nums)) if len(nums) < 2 else nums
+
 #: Node/edge/graph keys introduced in AGR v1.1.
 _V11_NODE_KEYS = {"ref", "join", "inputs", "outputs", "on_error", "retries", "approval"}
 #: Node keys introduced in AGR v1.2.
@@ -289,7 +312,7 @@ def _lint_self_graded(doc: dict) -> list[str]:
     # graphs it currently finds are written to `reports/self-graded.json` by
     # scripts/gen_self_graded.py (regenerated in `make regen`, diffed in CI) and
     # migrated one at a time, each with a real check replacing the flag.
-    if doc.get("apiVersion", "") < "agr/v1.8":
+    if apiver(doc) < (1, 8):
         return []
     return msgs
 
@@ -303,7 +326,7 @@ def _lint_criteria(doc: dict) -> list[str]:
     requiring it on the node that makes the judgement is what stops a graph from
     being a shape the reader could have typed themselves.
     """
-    if doc.get("apiVersion", "") < "agr/v1.8":
+    if apiver(doc) < (1, 8):
         return []
     return [
         f"node '{n['id']}' is kind: verifier but declares no `criteria` — state what it "
@@ -383,7 +406,7 @@ def _lint_irreversible(doc: dict) -> list[str]:
     calls itself. `regulatory-filing-lifecycle` files with a regulator and had no
     way back.
     """
-    if doc.get("apiVersion", "") < "agr/v1.8":
+    if apiver(doc) < (1, 8):
         return []
     compensated = {e["from"] for e in doc.get("edges", []) if e.get("kind") == "compensate"}
     return [
@@ -410,7 +433,7 @@ def _lint_motif(doc: dict, root: Path = ROOT) -> list[str]:
     fan-out; a router is defined by mutually exclusive conditional edges, so a
     `kind: router` node is sufficient but not necessary.
     """
-    if doc.get("apiVersion", "") < "agr/v1.8":
+    if apiver(doc) < (1, 8):
         return []
     pattern = doc.get("__pattern__")
     if not pattern:
@@ -503,7 +526,7 @@ def _lint_runtime_keys(doc: dict) -> list[str]:
     fall-through to the blackboard, so a contract can read the real counter while
     no node claims to produce it.
     """
-    if doc.get("apiVersion", "") < "agr/v1.8":
+    if apiver(doc) < (1, 8):
         return []
     return [
         f"node '{n['id']}' declares '{key}', which the runtime owns — declaring it "
@@ -533,7 +556,7 @@ def _lint_flow_keys(doc: dict) -> list[str]:
     Control flow deserves it more: a broken assert reports a failure, a broken
     guard reports nothing at all.
     """
-    if doc.get("apiVersion", "") < "agr/v1.8":
+    if apiver(doc) < (1, 8):
         return []
     produced = {o for n in doc.get("nodes", []) for o in _out_names(n)}
     produced |= set((doc.get("state") or {}).get("inputs") or [])
@@ -571,7 +594,7 @@ def _lint_stall(doc: dict) -> list[str]:
     neither the retry nor the sole success path. What that edge does is the
     author's business; that one exists is not.
     """
-    if doc.get("apiVersion", "") < "agr/v1.8":
+    if apiver(doc) < (1, 8):
         return []
     order = {n["id"]: i for i, n in enumerate(doc.get("nodes", []))}
     out: dict[str, list[dict]] = {}
@@ -734,12 +757,12 @@ def _lint_v11(doc: dict, root: Path) -> list[str]:
         )
 
     v12_used = used & (_V12_NODE_KEYS | {"kind: search", "verification.phase", "memory"})
-    if v12_used and doc.get("apiVersion") in ("agr/v1", "agr/v1.1"):
+    if v12_used and apiver(doc) < (1, 2):
         errors.append(
             f"lint: uses v1.2 features {sorted(v12_used)} but declares apiVersion "
             f"'{doc.get('apiVersion')}' — bump to 'agr/v1.2'"
         )
-    if used and doc.get("apiVersion") == "agr/v1":
+    if used and apiver(doc) < (1, 1):
         errors.append(
             f"lint: uses v1.1 features {sorted(used)} but declares apiVersion 'agr/v1' — "
             "bump to 'agr/v1.1'"
@@ -831,7 +854,7 @@ def _lint_unbound(doc: dict, abilities: dict[str, dict]) -> list[str]:
     later). The node may keep the ability, but must say `unbound_ok: <why>` so
     the narration is declared rather than implicit.
     """
-    if doc.get("apiVersion", "") < "agr/v1.8":
+    if apiver(doc) < (1, 8):
         return []
     bindable = _bindable(abilities)
 
@@ -867,7 +890,7 @@ def _lint_retry_reissue(doc: dict, abilities: dict[str, dict]) -> list[str]:
     the node must then declare `retries.reissue_effects: true` to say it accepts
     a repeated effect, or drop the retry.
     """
-    if doc.get("apiVersion", "") < "agr/v1.8":
+    if apiver(doc) < (1, 8):
         return []
     errors = []
     for n in doc.get("nodes", []):
