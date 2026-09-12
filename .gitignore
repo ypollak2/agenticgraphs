@@ -6,3 +6,8 @@ dist/
 
 # Accumulated reflexion memory is a runtime artifact, not a source file.
 graphs/**/memory.jsonl
+
+# Coverage data: a binary that every test run rewrites. It was tracked, so it
+# dirtied the working tree on every `make test` and blocked branch switches.
+.coverage
+.coverage.*

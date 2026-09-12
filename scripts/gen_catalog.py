@@ -58,12 +58,23 @@ def main() -> int:
         print(f"FAIL duplicate ids: {sorted(dupes)}", file=sys.stderr)
         return 1
     out = ROOT / "usecases" / "catalog.yaml"
+    backlog = sorted(e["name"] for e in rows
+                     if (ROOT / "usecases" / "backlog" / (e["name"] + ".yaml")).exists())
+    # The gap was printed to stdout and written nowhere, so "83 graphs" could be
+    # read as coverage of the catalogue when 48 of 131 use cases have no graph.
+    # It is a diffed field now (2026-09-12 audit, C14).
+    coverage = {
+        "use_cases": len(rows),
+        "with_a_graph": len(rows) - len(backlog),
+        "backlog": len(backlog),
+        "backlog_names": backlog,
+    }
     out.write_text(yaml.safe_dump(
-        {"apiVersion": "agr/v1", "kind": "UseCaseCatalog", "entries": rows},
+        {"apiVersion": "agr/v1", "kind": "UseCaseCatalog",
+         "coverage": coverage, "entries": rows},
         sort_keys=False, width=120, allow_unicode=True))
     print(f"wrote {out.relative_to(ROOT)} with {len(rows)} entries "
-          f"({sum(1 for e in rows if (ROOT / 'usecases' / 'backlog' / (e['name'] + '.yaml')).exists())} "
-          f"still without a graph)")
+          f"({len(backlog)} still without a graph)")
     return 0
 
 
