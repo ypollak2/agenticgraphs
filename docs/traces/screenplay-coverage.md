@@ -29,7 +29,7 @@ flowchart LR
 |---|---|---|
 | 1 | `read` | `synopsis=[], beats=[]` |
 | 2 | `structure` | `structure_notes=[]` |
-| 3 | `comparables.partition` | `shard_count=1` |
+| 3 | `comparables.partition` | `shard_count=1, shards=[{'window': 'contained thrillers, 2018-2022, mid-budget'}, {'window': 'contained thrillers, 2023-2026, mid-budget'}]` |
 | 4 | `comparables.map` | *(no fixture — empty output)* |
 | 5 | `comparables.reduce` | `comps=[{'title': 'A'}, {'title': 'B'}], output={'findings': [{'title': 'competitor launched feature X', 'source_url': 'https://example.com/blog', 'source_date': '2026-07-01'}]}` |
 | 6 | `recommend` | `recommendation='consider', rationale='rationale-value', output={'recommendation': 'consider', 'comps': [{'title': 'A'}, {'title': 'B'}]}` |

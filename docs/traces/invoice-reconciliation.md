@@ -28,7 +28,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `auto-match.plan` | `steps=['decompose goal']` |
+| 1 | `auto-match.plan` | `steps=['decompose goal'], tasks=[{'task': 'three-way match INV-3001 against PO-771 and GRN-551', 'invoice_id': 'INV-3001'}, {'task': 'three-way match INV-3002 against PO-772 and GRN-552', 'invoice_id': 'INV-3002'}, {'task': 'three-way match INV-3003 against PO-773 and GRN-553', 'invoice_id': 'INV-3003'}]` |
 | 2 | `auto-match.work` | *(no fixture — empty output)* |
 | 3 | `auto-match.verify` | `exceptions=[], matched=[{'invoice_id': 'INV-1', 'po_id': 'PO-1', 'receipt_id': 'GR-1'}], verify_failed=False, attempts=1, output={'violations': [{'line_id': 'L-12', 'policy_rule': 'T&E-4'}]}` |
 | 4 | `post` | `posted=True, unreviewed_exceptions=0, output={'posted': 128, 'unreviewed_exceptions': 0, 'three_way_matched': True, 'matched': [{'invoice_id': 'INV-1', 'po_id': 'PO-1', 'receipt_id': 'GR-1'}]}, matched=[{'invoice_id': 'INV-1', 'po_id': 'PO-1', 'receipt_id': 'GR-1'}]` |

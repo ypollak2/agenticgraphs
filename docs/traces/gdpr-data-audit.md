@@ -28,7 +28,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `discover.plan` | `steps=['decompose goal']` |
+| 1 | `discover.plan` | `steps=['decompose goal'], tasks=[{'task': 'enumerate personal-data stores in CRM', 'system': 'CRM'}, {'task': 'enumerate personal-data stores in billing', 'system': 'billing'}, {'task': 'enumerate personal-data stores in support', 'system': 'support'}]` |
 | 2 | `discover.work` | *(no fixture — empty output)* |
 | 3 | `discover.verify` | `data_map=[], verify_failed=False, attempts=1, output={'violations': [{'rule_id': 'null-check', 'count': 3}]}` |
 | 4 | `classify` | `lawful_basis=[]` |

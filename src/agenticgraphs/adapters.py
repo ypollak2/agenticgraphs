@@ -7,6 +7,7 @@ the implementer (human or agent) must bind. Structure is compiled; behavior is b
 """
 from __future__ import annotations
 
+from .shapes import names as _out_names
 from .subgraphs import expand, has_subgraphs
 
 
@@ -158,6 +159,10 @@ def _with_retries(fn, max_attempts: int, reissue_effects: bool):
 '''
 
 _PRELUDE = _EMITTED_GUARD + '''\
+from typing import Annotated as _Annotated
+from typing import Any as _Any
+from typing import TypedDict as _TypedDict
+
 from langgraph.graph import END, START, StateGraph
 
 _ORDER = {"trivial": -1, "low": 0, "simple": 0, "medium": 1, "moderate": 1,
@@ -223,6 +228,48 @@ def _kind_doc(n: dict) -> list[str]:
     return []
 
 
+def _state_keys(doc: dict) -> list[str]:
+    """Every blackboard key this graph declares.
+
+    v1.4 requires each key an assert reads to be some node's declared output and
+    v1.5 requires every depended-on node to declare what it produces, so the
+    union below is the graph's whole state — the same guarantee the harness
+    relies on.
+    """
+    keys: set[str] = set((doc.get("state") or {}).get("inputs") or [])
+    keys.add("goal")
+    for n in doc.get("nodes", []):
+        keys.update(_out_names(n))
+        fo = n.get("fan_out") or {}
+        if fo.get("over"):
+            keys.add(fo["over"])
+        keys.update({"shard", "shard_index", "shard_count"} if fo else set())
+    return sorted(k for k in keys if k.isidentifier())
+
+
+def _state_class(doc: dict) -> str:
+    """A TypedDict whose every key merges rather than collides.
+
+    `_keep` takes the newer value and falls back to the older, which is what a
+    blackboard does: a node that did not write a key must not erase it, and two
+    branches writing the same key in one superstep must not abort the run.
+    """
+    lines = [
+        "def _keep(old, new):",
+        '    """Reducer: last writer wins, but a branch that wrote nothing erases nothing."""',
+        "    return old if new is None else new",
+        "",
+        "",
+        "# Functional TypedDict form on purpose: the class form defers annotation",
+        "# evaluation (PEP 649), which fails when this module is exec'd into a bare",
+        "# namespace — as `agr adapt | python -` and every test harness does.",
+        "_State = _TypedDict(\"_State\", {",
+    ]
+    lines += [f'    "{k}": _Annotated[_Any, _keep],' for k in _state_keys(doc)]
+    lines += ["}, total=False)"]
+    return "\n".join(lines)
+
+
 def emit_langgraph(doc: dict) -> str:
     doc = _executable(doc)
     order = {n["id"]: i for i, n in enumerate(doc["nodes"])}
@@ -269,7 +316,14 @@ def emit_langgraph(doc: dict) -> str:
             out += [f"{fn} = _with_retries({fn}, {int(r['max'])}, {bool(r.get('reissue_effects'))})", ""]
         if n["id"] in terminals:
             out += [f"{fn} = _checked({fn})", ""]
-    out += ["g = StateGraph(dict)"]
+    # `StateGraph(dict)` gives LangGraph an unannotated `__root__` whose reducer
+    # refuses two writes in one superstep: every graph with a fan_out or a join
+    # compiled cleanly and raised InvalidUpdateError the moment it ran. Nothing
+    # noticed, because no test had ever executed an emitted app (2026-09-12
+    # audit, C12). A declared state whose keys carry a reducer is what LangGraph
+    # wants; the keys come from the graph, which has declared every one of them
+    # since v1.4 (assert keys) and v1.5 (node outputs).
+    out += [_state_class(doc), "", "g = StateGraph(_State)"]
     for n in doc["nodes"]:
         out.append(f'g.add_node("{n["id"]}", {_fn(n["id"])})')
     has_in = {e["to"] for e in doc["edges"]}

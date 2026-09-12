@@ -29,7 +29,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `rfp.partition` | `shard_count=1` |
+| 1 | `rfp.partition` | `shard_count=1, shards=[{'section': 'functional requirements', 'items': ['cloud data warehouse for analytics']}, {'section': 'commercials', 'items': ['budget 120000 USD', '24-month term']}]` |
 | 2 | `rfp.map` | *(no fixture — empty output)* |
 | 3 | `rfp.reduce` | `rfp_responses=[], output={'requirements': [{'id': 'R1', 'answered': True, 'flagged': False}, {'id': 'R2', 'answered': False, 'flagged': True}], 'page_count': 8, 'page_limit': 10}` |
 | 4 | `score` | `vendor_scores=[]` |

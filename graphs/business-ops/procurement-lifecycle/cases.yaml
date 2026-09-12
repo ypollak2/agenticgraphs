@@ -3,6 +3,14 @@ cases:
   node_outputs:
     rfp.partition:
       shard_count: 1
+      shards:
+      - section: functional requirements
+        items:
+        - cloud data warehouse for analytics
+      - section: commercials
+        items:
+        - budget 120000 USD
+        - 24-month term
     rfp.map: {}
     rfp.reduce:
       rfp_responses: []
