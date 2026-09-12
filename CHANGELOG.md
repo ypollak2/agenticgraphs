@@ -60,11 +60,13 @@ instead of the model's imagination. Spec: [agr-v1.9.md](docs/agr-v1.9.md).
 
   | | `qwen3-coder:30b` (30B) | `qwen3.5:latest` (9.7B) |
   |---|---|---|
-  | contracts satisfied | **113 of 138 (82%)** | 12 of 139 (8%) |
+  | contracts satisfied | **113 of 139 (81%)** | 12 of 139 (9%) |
 
   The second model is what makes the column mean anything. Cross-tabulated across the registry: **5** pass on both, **60** pass only on the larger model
-  (a capability gap — the contract is fine), **17** fail on both (a contract problem
-  no model delivers), and **0** pass only on the smaller one. The scoreboard has had
+  (a capability gap — the contract is fine), **18** fail on both (a contract problem
+  no model delivers), and **0** pass only on the smaller one. The 5 is an
+  intersection and therefore a fact about the 9.7B, not about the registry; it
+  stopped leading any of these documents on 2026-09-12. The scoreboard has had
   a per-model column since v1.2 for exactly this reason and had one model in it;
   18 graphs are now marked `fails_every_model` and 60 `models_disagree`.
 

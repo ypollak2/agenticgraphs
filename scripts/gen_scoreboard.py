@@ -61,8 +61,11 @@ def scoreboard_block(rows: list[dict]) -> str:
         BEGIN,
         "## 📊 Eval scoreboard",
         "",
-        f"{len(with_cases)}/{len(rows)} graphs have golden eval cases "
-        f"({total_cases} cases total, {fully_passing}/{len(with_cases)} graphs at 100% pass rate). "
+        f"{len(with_cases)}/{len(rows)} graphs have golden eval cases ({total_cases} cases "
+        f"total). **{fully_passing}/{len(with_cases)} graphs pass every case against mock "
+        "fixtures** — that number measures mechanics, not model quality, and every profile "
+        "in the registry is stamped `provisional` because of it. What a real model does is "
+        "the Live column below, and it is a different number. "
         "Regenerate with `uv run python scripts/gen_scoreboard.py`.",
         "",
         "**Read the Depth column before the Pass rate column.** A 100% pass rate at "
@@ -79,9 +82,12 @@ def scoreboard_block(rows: list[dict]) -> str:
         "| `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |",
         "",
         f"**Real-model evidence:** {len(lived)} graphs carry checked-in recordings of actual "
-        f"model runs across {n_models} models (`graphs/<domain>/<graph>/live/`); **{live_pass} of "
-        f"{len(lived)}** satisfy their contract on every model, and **{unsat} satisfy it on "
-        "none** (🚫). "
+        f"model runs across {n_models} models (`graphs/<domain>/<graph>/live/`). "
+        f"{_per_model_sentence(lived)} "
+        f"**{unsat} graphs are satisfied by no model** (🚫), which is a contract problem "
+        f"rather than a model one. {live_pass} are satisfied by every model — an "
+        "intersection, so it tracks the weakest model in the set rather than this registry; "
+        "[docs/live-coverage.md](docs/live-coverage.md) breaks it down. "
         "⚠️ marks graphs where models disagree, which is the only way to tell a weak model "
         "from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the "
         "headline pass rate — a contract a real model cannot satisfy must not be able to hide "
@@ -156,6 +162,30 @@ def scoreboard_block(rows: list[dict]) -> str:
                  if undeclared else "No node is silent.")]
     lines.append(END)
     return "\n".join(lines)
+
+
+def _per_model_sentence(lived: list[dict]) -> str:
+    """Contracts satisfied per model — the number that describes the registry.
+
+    The scoreboard led with "N satisfied on every model", which reads as a claim
+    about the graphs and is a claim about the weakest model: with a 30B at 81%
+    and a 9.7B at 9%, the intersection is 5 and moves only when the 9.7B moves
+    (2026-09-12 audit, B5).
+    """
+    from collections import Counter
+
+    passed: Counter = Counter()
+    total: Counter = Counter()
+    for r in lived:
+        for res in (r["live"].get("results") or []):
+            total[res["model"]] += 1
+            passed[res["model"]] += bool(res["passed"])
+    if not total:
+        return ""
+    ranked = sorted(total, key=lambda m: -passed[m] / total[m])
+    parts = [f"`{m}` satisfies **{passed[m]} of {total[m]}** "
+             f"({round(100 * passed[m] / total[m])}%)" for m in ranked]
+    return "Contracts satisfied, per model: " + "; ".join(parts) + "."
 
 
 def main() -> int:

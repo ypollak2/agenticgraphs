@@ -3,6 +3,13 @@ cases:
   node_outputs:
     collect.partition:
       shard_count: 1
+      shards:
+      - vendor: Snowflake
+        doc_url: https://docs.snowflake.com/pricing
+      - vendor: BigQuery
+        doc_url: https://cloud.google.com/bigquery/pricing
+      - vendor: Redshift
+        doc_url: https://aws.amazon.com/redshift/pricing/
     collect.map: {}
     collect.reduce:
       vendor_docs: []

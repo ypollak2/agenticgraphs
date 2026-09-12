@@ -3,6 +3,9 @@ cases:
   node_outputs:
     comparables.partition:
       shard_count: 1
+      shards:
+      - window: contained thrillers, 2018-2022, mid-budget
+      - window: contained thrillers, 2023-2026, mid-budget
     comparables.map: {}
     comparables.reduce:
       comps: &id001

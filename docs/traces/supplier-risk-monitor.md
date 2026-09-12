@@ -26,7 +26,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `ingest.partition` | `shard_count=1` |
+| 1 | `ingest.partition` | `shard_count=1, shards=[{'suppliers': ['s1', 's2', 's3']}, {'suppliers': ['s4', 's5']}]` |
 | 2 | `ingest.map` | *(no fixture — empty output)* |
 | 3 | `ingest.reduce` | `supplier_signals=[], output={'findings': [{'title': 'competitor launched feature X', 'source_url': 'https://example.com/blog', 'source_date': '2026-07-01'}]}` |
 | 4 | `score` | `risk_scores=[]` |

@@ -4,6 +4,13 @@ cases:
     discover.plan:
       steps:
       - decompose goal
+      tasks:
+      - task: enumerate personal-data stores in CRM
+        system: CRM
+      - task: enumerate personal-data stores in billing
+        system: billing
+      - task: enumerate personal-data stores in support
+        system: support
     discover.work: {}
     discover.verify:
       data_map: []

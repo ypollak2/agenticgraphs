@@ -22,7 +22,31 @@ the registry.
 | composite | 14 | 0 |
 | human-gated | 4 | 0 |
 
-- ✅ **5** satisfied on every model, every sample
+## Contracts satisfied, per model
+
+**Read this before the cross-tab below.** A count of graphs satisfied by
+*every* model is an intersection, so it moves only when the weakest model
+moves — it describes that model, not this registry.
+
+| Model | contracts satisfied |
+|---|---|
+| `qwen3-coder:30b` | **113 of 139** (81%) |
+| `qwen3.5:latest` | **12 of 139** (9%) |
+
+### What a second model separates
+
+Graphs satisfied on every sample, cross-tabulated against `qwen3-coder:30b`:
+
+| | count | what it means |
+|---|---|---|
+| both models | **5** | satisfied outright |
+| larger only | **60** | a capability gap — the contract is fine |
+| neither | **18** | a contract problem no model delivers |
+| smaller only | **0** | none, as expected |
+
+## Reliability of the evidence itself
+
+- ✅ **5** satisfied on every model, every sample (an intersection — see above)
 - 🎲 **1** where one model both passed and failed across samples
 - 🚫 **18** satisfied by no model
 
@@ -35,6 +59,45 @@ is what that looks like once there is more than one.
 | Graph | Model | Pass rate across samples |
 |---|---|---|
 | `anomaly-investigation` | `qwen3.5:latest` | 50% of 2 |
+
+## ⚠️ Tiers that depend on shape-stale recordings
+
+`scripts/audit_recordings.py` finds **19 graphs** whose published
+tier would change if recordings taken against an older *shape* of the graph
+were dropped. The recordings are not wrong — they are replies to a prompt
+this graph no longer sends — so the tier below them is softer than it looks.
+
+| tier | published | without shape-stale recordings |
+|---|---|---|
+| flaky | 1 | 1 |
+| models-disagree | 59 | 40 |
+| satisfied-all | 5 | 5 |
+| unsatisfiable | 18 | 37 |
+
+| Graph | published | without stale | recordings dropped |
+|---|---|---|---|
+| `procurement-lifecycle` | models-disagree | unsatisfiable | 1 |
+| `book-editing-pipeline` | models-disagree | unsatisfiable | 1 |
+| `screenplay-coverage` | models-disagree | unsatisfiable | 1 |
+| `sales-call-scorer` | models-disagree | unsatisfiable | 1 |
+| `schema-migration-saga` | models-disagree | unsatisfiable | 1 |
+| `regulatory-filing-lifecycle` | models-disagree | unsatisfiable | 1 |
+| `differential-diagnosis-ensemble` | models-disagree | unsatisfiable | 1 |
+| `trial-eligibility-screener` | models-disagree | unsatisfiable | 1 |
+| `hiring-lifecycle` | models-disagree | unsatisfiable | 1 |
+| `onboarding-plan-builder` | models-disagree | unsatisfiable | 1 |
+| `performance-cycle-summarizer` | models-disagree | unsatisfiable | 1 |
+| `gdpr-data-audit` | models-disagree | unsatisfiable | 1 |
+| `product-listing-pipeline` | models-disagree | unsatisfiable | 1 |
+| `prompt-graph-optimization` | models-disagree | unsatisfiable | 1 |
+| `compliance-evidence-collector` | models-disagree | unsatisfiable | 1 |
+| `forensic-investigation-blackboard` | models-disagree | unsatisfiable | 1 |
+| `vuln-remediation-lifecycle` | models-disagree | unsatisfiable | 1 |
+| `benchmark-driven-optimization-search` | models-disagree | unsatisfiable | 1 |
+| `framework-migration` | models-disagree | unsatisfiable | 1 |
+
+Re-record these against the current shape rather than reading the
+published tier as settled.
 
 ## 🚫 Satisfied by no model
 

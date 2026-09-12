@@ -3,6 +3,14 @@ cases:
   node_outputs:
     ingest.partition:
       shard_count: 1
+      shards:
+      - suppliers:
+        - s1
+        - s2
+        - s3
+      - suppliers:
+        - s4
+        - s5
     ingest.map: {}
     ingest.reduce:
       supplier_signals: []

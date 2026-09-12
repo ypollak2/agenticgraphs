@@ -27,7 +27,7 @@ flowchart LR
 
 | # | Node | Output |
 |---|---|---|
-| 1 | `collect.partition` | `shard_count=1` |
+| 1 | `collect.partition` | `shard_count=1, shards=[{'vendor': 'Snowflake', 'doc_url': 'https://docs.snowflake.com/pricing'}, {'vendor': 'BigQuery', 'doc_url': 'https://cloud.google.com/bigquery/pricing'}, {'vendor': 'Redshift', 'doc_url': 'https://aws.amazon.com/redshift/pricing/'}]` |
 | 2 | `collect.map` | *(no fixture — empty output)* |
 | 3 | `collect.reduce` | `vendor_docs=[], output={'findings': [{'title': 'competitor launched feature X', 'source_url': 'https://example.com/blog', 'source_date': '2026-07-01'}]}` |
 | 4 | `normalize` | `criteria_grid=[]` |
