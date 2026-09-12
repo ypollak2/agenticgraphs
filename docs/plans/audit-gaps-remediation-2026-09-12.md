@@ -65,9 +65,31 @@ because the fix was actually executed rather than described:
   exception surfaces (wrapped, reason on `__cause__`), which the autonomy refusal
   test now handles on either major.
 
-**Still open: P5-02** — sourcing real fixtures for the 18 graphs no model
-satisfies. It needs ~120 live episodes against a real endpoint, which is the one
-part of this plan a checkout cannot do for itself.
+**Still open, both needing something a checkout cannot do for itself:**
+
+- **P5-02** — sourcing real fixtures for the 18 graphs no model satisfies.
+  ~120 live episodes against a real endpoint.
+- **P3-03 (half)** — `v0.10.0` is tagged and released on GitHub, and the publish
+  workflow now gets all the way to the last step: `uv build` succeeds and the
+  wheel verifies (**"graphs in checkout: 83 — in installed wheel: 83"**, the
+  comparison that used to read `test "$n" -eq 52`). It then fails with
+  `invalid-publisher`, because **PyPI has no trusted publisher registered for
+  this repository**. That is an account-side setting, not a repo one.
+
+  To finish it, on pypi.org → *Your projects* → *Publishing* → *Add a pending
+  publisher*:
+
+  | field | value |
+  |---|---|
+  | PyPI project name | `vitruvian-graphs` |
+  | Owner | `ypollak2` |
+  | Repository name | `agenticgraphs` |
+  | Workflow name | `publish.yml` |
+  | Environment name | `pypi` |
+
+  Then re-run the publish workflow against the `v0.10.0` tag
+  (`gh workflow run publish.yml --ref v0.10.0`). Nothing in the repo needs to
+  change — the claims the failed run printed already match the table above.
 
 | # | Finding | Question | Recommended | If chosen, unlocks |
 |---|---|---|---|---|
