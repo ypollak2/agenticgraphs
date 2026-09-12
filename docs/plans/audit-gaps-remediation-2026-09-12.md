@@ -21,6 +21,54 @@ therefore Phase 0 on `main` immediately after PR #10 merges, Phases 1-3 in
 sequence, Phase 4 once P2-02 lands, Phase 5 scoped to the 18 unsatisfiable
 graphs, Phase 6 last.
 
+## Status 2026-09-12: phases 0-6 landed, except P5-02
+
+PR #10 merged (63 commits), then #11 (phases 0-3) and #12 (phases 4-5); phase 6
+on `remediation-2026-09-12-phase6`. 637 tests, 91.9% coverage, `make check`
+clean. Five things were found on the way that the audit had not seen, each
+because the fix was actually executed rather than described:
+
+- **The daemon restart did not restart anything.** The plist ran `uv run agr mcp`,
+  which forks a child python, so `kickstart -k` killed the `uv` parent and
+  orphaned the child to pid 1 — deaf to SIGTERM, needing SIGKILL. The process
+  found alive from 9 Aug was one of these, meaning a restart had probably already
+  been attempted and had reported success. launchd execs the venv binary now.
+- **`publish.yml` asserted the wheel held 52 graphs**, against a registry of 83.
+  The job only runs on a tag push and no tag had been pushed since `v0.1.1`, so
+  the gate had been failing unobserved. **A3 "never released" was a bug, not a
+  decision** — which is why Q3 was answered by fixing one line.
+- **Every emitted graph with a fan_out or a join raised at runtime.**
+  `StateGraph(dict)` gives LangGraph an unannotated `__root__` that refuses two
+  writes in one superstep: 25 fan_out and 9 join graphs compiled cleanly and died
+  with `InvalidUpdateError`. Found by P5-01 on its first run, which is what that
+  item was for.
+- **Six composites fan out over a key nothing produces.** The mock harness runs
+  the map node once on an empty list and scores 1.0; the export sends zero shards
+  and halts. v1.9's finding one level down — a node declaring an output whose
+  fixture produces something else.
+- **A steered run overwrote the graph's checked-in profile.** `agr goal` has
+  passed a goal override since v1.7 with `write` at its default.
+
+**Deviations from the plan, each deliberate:**
+
+- **P5-03 was pulled forward into Phase 1.** It is the same file as P1-02 and the
+  same failure: the plist carried no `EnvironmentVariables` at all, which turned
+  off `bearer_guard` *and* made `run_graph(live=True)` permanently refuse.
+- **P4-01 keeps both models** (Q2 as recommended) — the intersection stopped
+  leading, the per-model row and the 5/60/18/0 cross-tab lead instead.
+- **P6-02 tests core + the `mcp` extra, not `--all-extras`.** `crewai` pulls
+  `onnxruntime`, which has no cp310 wheel, so `uv sync --all-extras` cannot
+  resolve on 3.10. The package supports 3.10 (608 tests pass there) and the
+  adapters extra needs 3.11+; both facts are now written down.
+- **P6-01 applied the six dependabot bumps directly** rather than merging six PRs
+  against a main that had moved 65 commits. `mcp` 2.x changes how a tool's
+  exception surfaces (wrapped, reason on `__cause__`), which the autonomy refusal
+  test now handles on either major.
+
+**Still open: P5-02** — sourcing real fixtures for the 18 graphs no model
+satisfies. It needs ~120 live episodes against a real endpoint, which is the one
+part of this plan a checkout cannot do for itself.
+
 | # | Finding | Question | Recommended | If chosen, unlocks |
 |---|---|---|---|---|
 | **Q1** | A2 | Merge PR #10 to `main` first and remediate there, or stack this plan onto `audit-remediation` and merge once? | **Merge #10 first.** It is 63 commits, green, and two days old; stacking 18 more items on an unmerged branch is the habit that produced a 63-commit backlog. Phase 0 then lands on `main` in hours. | Phases 1, 3 |
