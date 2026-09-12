@@ -3,6 +3,15 @@
 Two limits have been stated in the README since v1.3 without ever being measured:
 recordings covered 27 of 83 graphs, and each cell was a single sample. This
 reports both, so "the registry passes" can never be read off a slice.
+
+**The headline is per-model, not the intersection** (2026-09-12 audit, B5). This
+file led with "N satisfied on every model", which sounds like a statement about
+the registry and is a statement about the weakest model in the set: with a 30B
+satisfying 82% of contracts and a 9.7B satisfying 8%, the intersection is 5, and
+it moves only when the 9.7B moves. Nothing passes on the smaller model alone, so
+the small arm separates a capability gap from a contract problem — which is what
+it is for — and tells you nothing about how good the registry is. Both numbers
+are reported, and the cross-tab that distinguishes them leads.
 """
 from __future__ import annotations
 
@@ -72,9 +81,67 @@ def main() -> int:
     ]
     for shape in ("primitive", "composite", "human-gated"):
         md.append(f"| {shape} | {kinds[(shape, True)]} | {kinds[(shape, False)]} |")
+    # Contracts satisfied per model: the number that says how good the registry
+    # is. `cases` counts graph+case+model recordings, so count them per model.
+    per_model: Counter = Counter()
+    per_model_total: Counter = Counter()
+    for _d, _s, lv in lived:
+        for r in lv.get("results", []):
+            per_model_total[r["model"]] += 1
+            per_model[r["model"]] += bool(r["passed"])
+
+    # The cross-tab. A graph is "satisfied" by a model when that model passed
+    # every sample of it; anything less is not a contract a reader can rely on.
+    strongest = max(models, key=lambda m: per_model[m] / max(per_model_total[m], 1),
+                    default=None)
+    both, larger_only, smaller_only, neither = [], [], [], []
+    if len(models) >= 2 and strongest:
+        others = [m for m in models if m != strongest]
+        for d, _s, lv in lived:
+            rates = lv.get("per_model_pass_rate") or {}
+            big = rates.get(strongest) == 1.0
+            small = any(rates.get(m) == 1.0 for m in others)
+            (both if big and small else
+             larger_only if big else
+             smaller_only if small else neither).append(d["name"])
+
+    md += [""]
+    if per_model:
+        md += [
+            "## Contracts satisfied, per model",
+            "",
+            "**Read this before the cross-tab below.** A count of graphs satisfied by",
+            "*every* model is an intersection, so it moves only when the weakest model",
+            "moves — it describes that model, not this registry.",
+            "",
+            "| Model | contracts satisfied |",
+            "|---|---|",
+        ]
+        for m in sorted(models, key=lambda m: -per_model[m] / max(per_model_total[m], 1)):
+            n, tot = per_model[m], per_model_total[m]
+            md.append(f"| `{m}` | **{n} of {tot}** ({round(100 * n / max(tot, 1))}%) |")
+        md += [""]
+    if strongest and (both or larger_only or neither):
+        md += [
+            "### What a second model separates",
+            "",
+            f"Graphs satisfied on every sample, cross-tabulated against `{strongest}`:",
+            "",
+            "| | count | what it means |",
+            "|---|---|---|",
+            f"| both models | **{len(both)}** | satisfied outright |",
+            f"| larger only | **{len(larger_only)}** | a capability gap — the contract is fine |",
+            f"| neither | **{len(neither)}** | a contract problem no model delivers |",
+            f"| smaller only | **{len(smaller_only)}** | "
+            + ("would be a contract that rewards a weaker model — investigate"
+               if smaller_only else "none, as expected") + " |",
+            "",
+        ]
     md += [
+        "## Reliability of the evidence itself",
         "",
-        f"- ✅ **{len(clean)}** satisfied on every model, every sample",
+        f"- ✅ **{len(clean)}** satisfied on every model, every sample "
+        "(an intersection — see above)",
         f"- 🎲 **{len(flaky)}** where one model both passed and failed across samples",
         f"- 🚫 **{len(unsat)}** satisfied by no model",
         "",
@@ -92,6 +159,36 @@ def main() -> int:
                 md.append(f"| `{d['name']}` | `{m}` | "
                           f"{int(lv['per_model_pass_rate'][m] * 100)}% of {n} |")
         md.append("")
+    # P4-03: the published tier for some graphs rests on recordings the recording
+    # audit calls shape-stale. That lived only inside a 482KB JSON until now.
+    stale_report = ROOT / "reports" / "a4-stale-recordings.json"
+    if stale_report.exists():
+        rep = json.loads(stale_report.read_text())
+        moved = rep.get("tier_moved") or []
+        if moved:
+            pub, excl = rep.get("tier_published", {}), rep.get("tier_without_stale", {})
+            md += [
+                "## ⚠️ Tiers that depend on shape-stale recordings",
+                "",
+                f"`scripts/audit_recordings.py` finds **{len(moved)} graphs** whose published",
+                "tier would change if recordings taken against an older *shape* of the graph",
+                "were dropped. The recordings are not wrong — they are replies to a prompt",
+                "this graph no longer sends — so the tier below them is softer than it looks.",
+                "",
+                "| tier | published | without shape-stale recordings |",
+                "|---|---|---|",
+            ]
+            for tier in sorted(set(pub) | set(excl)):
+                md.append(f"| {tier} | {pub.get(tier, 0)} | {excl.get(tier, 0)} |")
+            md += ["", "| Graph | published | without stale | recordings dropped |",
+                   "|---|---|---|---|"]
+            for r in moved:
+                md.append(f"| `{r['graph']}` | {r['published']} | {r['without_stale']} "
+                          f"| {r['dropped']} |")
+            md += ["",
+                   "Re-record these against the current shape rather than reading the",
+                   "published tier as settled.", ""]
+
     if unsat:
         md += ["## 🚫 Satisfied by no model", "", "| Graph | Shape |", "|---|---|"]
         for d, _lv in unsat:

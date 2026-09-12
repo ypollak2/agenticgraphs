@@ -197,7 +197,7 @@ pie showData title Graphs per domain
 <!-- scoreboard:begin -->
 ## 📊 Eval scoreboard
 
-83/83 graphs have golden eval cases (139 cases total, 83/83 graphs at 100% pass rate). Regenerate with `uv run python scripts/gen_scoreboard.py`.
+83/83 graphs have golden eval cases (139 cases total). **83/83 graphs pass every case against mock fixtures** — that number measures mechanics, not model quality, and every profile in the registry is stamped `provisional` because of it. What a real model does is the Live column below, and it is a different number. Regenerate with `uv run python scripts/gen_scoreboard.py`.
 
 **Read the Depth column before the Pass rate column.** A 100% pass rate at `assert-fixture` means the assert held against a mock fixture written alongside the graph — it proves the graph routes the value through, not that the claim was earned. Depth grades, weakest first:
 
@@ -208,7 +208,7 @@ pie showData title Graphs per domain
 | `assert-live` | assert held against real model output (`agr eval --live`) |
 | `command` | an executable check ran and exited 0 (`agr eval --run-commands`) |
 
-**Real-model evidence:** 83 graphs carry checked-in recordings of actual model runs across 2 models (`graphs/<domain>/<graph>/live/`); **5 of 83** satisfy their contract on every model, and **18 satisfy it on none** (🚫). ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
+**Real-model evidence:** 83 graphs carry checked-in recordings of actual model runs across 2 models (`graphs/<domain>/<graph>/live/`). Contracts satisfied, per model: `qwen3-coder:30b` satisfies **113 of 139** (81%); `qwen3.5:latest` satisfies **12 of 139** (9%). **18 graphs are satisfied by no model** (🚫), which is a contract problem rather than a model one. 5 are satisfied by every model — an intersection, so it tracks the weakest model in the set rather than this registry; [docs/live-coverage.md](docs/live-coverage.md) breaks it down. ⚠️ marks graphs where models disagree, which is the only way to tell a weak model from an unsatisfiable contract. Percentages are per model, alphabetical. That column is reported separately, never blended into the headline pass rate — a contract a real model cannot satisfy must not be able to hide inside an average. Each cell shows the model and the date it was recorded; ⏳ marks a recording older than 90 days. Re-record with `scripts/record_live.py`.
 
 > **Reading the Live column.** Every case seeds the subject its goal names as of v1.9 — before that, 71 of 83 graphs were scored on a goal string and no data, so a graph could fail for having nothing to work on ([the finding](docs/plans/v19-finding-fixture-poverty.md)). Two models now separate the two things that used to look identical: a graph **both** models fail is a contract problem (🚫), while one only the smaller model fails is a capability gap (⚠️). The fixtures are authored rather than sourced from the domain, which is the main limit on what these numbers prove.
 
@@ -475,12 +475,20 @@ column can tell two things apart that used to look identical:
 
 | | `qwen3-coder:30b` (30B) | `qwen3.5:latest` (9.7B) |
 |---|---|---|
-| contracts satisfied | **113 of 138 (82%)** | 12 of 139 (8%) |
+| contracts satisfied | **113 of 139 (81%)** | 12 of 139 (9%) |
 
 Cross-tabulated across the registry: 5 pass on both, **60 pass only on
-the larger model** (a capability gap — the contract is fine), and **17 fail on both**
-(a contract problem no model delivers). Nothing passes only on the smaller model. See
-[docs/live-coverage.md](docs/live-coverage.md) and
+the larger model** (a capability gap — the contract is fine), and **18 fail on both**
+(a contract problem no model delivers). Nothing passes only on the smaller model.
+
+**The 5 is the least interesting number here**, and it led this section until the
+2026-09-12 audit. A count of graphs satisfied on *every* model is an intersection,
+so it tracks the weakest model in the set: it says the 9.7B satisfies 5 contracts
+that the 30B also satisfies. What describes the registry is the per-model row above,
+and what the second model buys is the 60/18 split — telling a capability gap from a
+contract problem, which is the only reason to record a weak model at all. Generated
+in full, including which published tiers rest on shape-stale recordings, in
+[docs/live-coverage.md](docs/live-coverage.md); history in
 [docs/evidence-history.md](docs/evidence-history.md).
 
 The fixtures are authored rather than sourced from each domain, which is the main
@@ -639,7 +647,7 @@ Project Link: [https://github.com/ypollak2/agenticgraphs][repo-url]
 [domains-shield]: https://img.shields.io/badge/domains-15-2ea44f?style=for-the-badge
 [patterns-shield]: https://img.shields.io/badge/motifs-17-2ea44f?style=for-the-badge
 [patterns-url]: #the-motifs
-[tests-shield]: https://img.shields.io/badge/tests-583-blue?style=for-the-badge
+[tests-shield]: https://img.shields.io/badge/tests-599-blue?style=for-the-badge
 [tests-url]: tests/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
 [license-url]: LICENSE

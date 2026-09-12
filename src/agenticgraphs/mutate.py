@@ -238,8 +238,50 @@ def op_tighten_max_steps(doc: dict, ctx: dict) -> list[str]:
 
 OPERATORS = [op_dedupe_edges, op_parallelize_siblings, op_tighten_max_steps]
 
+#: Fields that decide what a node is *told* rather than how the graph runs.
+#: `_live_score` replays fixed recorded outputs, so a mutation touching one of
+#: these replays byte-identically and passes gate 2 without the gate having
+#: looked at anything. Every current operator is structural, so this refuses a
+#: class of mutation that does not exist yet — which is the point: v1.9 already
+#: found this optimizer hill-climbing a constant once, and the blind spot for
+#: content is the same shape as the one that was fixed for structure
+#: (2026-09-12 audit, C11).
+UNGATEABLE_KEYS = frozenset({
+    "description", "criteria", "guidance", "pitfalls", "prompt", "goal", "contract",
+})
 
-def optimize(name: str, apply: bool = False, root: Path = ROOT) -> dict:
+UNGATEABLE_MSG = (
+    "changes what a node is told, which replay cannot judge — recorded outputs are "
+    "fixed, so this would replay identically and pass the quality gate without being "
+    "measured. Gate it with a fresh live A/B (scripts/guidance_ab.py) instead."
+)
+
+
+def _content_fields(doc: dict) -> dict:
+    """Every ungateable field in the doc, keyed by where it lives."""
+    out = {}
+    for k in UNGATEABLE_KEYS & doc.keys():
+        out[f"graph.{k}"] = json.dumps(doc[k], sort_keys=True, default=str)
+    for coll in ("nodes", "edges"):
+        for i, item in enumerate(doc.get(coll) or []):
+            if not isinstance(item, dict):
+                continue
+            # Edges have no id; index them by endpoints, and by position if
+            # even that is missing, so two edges never collide into one key.
+            ident = item.get("id") or f"{item.get('from', '?')}->{item.get('to', '?')}#{i}"
+            for k in UNGATEABLE_KEYS & item.keys():
+                out[f"{coll}.{ident}.{k}"] = json.dumps(item[k], sort_keys=True, default=str)
+    return out
+
+
+def touches_ungateable(before: dict, after: dict) -> list[str]:
+    """Which ungateable fields a mutation changed, added or removed."""
+    b, a = _content_fields(before), _content_fields(after)
+    return sorted({k for k in b.keys() | a.keys() if b.get(k) != a.get(k)})
+
+
+def optimize(name: str, apply: bool = False, root: Path = ROOT,
+             require_gain: bool = False) -> dict:
     gpath = find_graph(name, root)
     if gpath is None:
         raise SystemExit(f"no graph named '{name}'")
@@ -249,11 +291,21 @@ def optimize(name: str, apply: bool = False, root: Path = ROOT) -> dict:
     ctx = {"profile": json.loads(pf.read_text()) if pf.exists() else None}
     notes: list[str] = []
     rejected: list[dict] = []
+    neutral: list[str] = []
     baseline, episodes = _live_score(name, doc, root)
     for op in OPERATORS:
         before = yaml.safe_dump(doc)
         applied = op(doc, ctx)
         if not applied:
+            continue
+        # Gate 0 — is this mutation gateable at all? A change to what a node is
+        # told replays identically, so gates 1 and 2 would both wave it through
+        # without measuring anything. Refuse rather than accept unmeasured.
+        content = touches_ungateable(yaml.safe_load(before), doc)
+        if content:
+            doc = yaml.safe_load(before)
+            rejected.append({"op": op.__name__, "changes": applied,
+                             "why": f"{UNGATEABLE_MSG} Fields: {content}"})
             continue
         # Gate 1 — mechanics. Canned fixtures prove the graph still runs at all.
         if not _cases_still_pass(name, doc, root):
@@ -272,10 +324,22 @@ def optimize(name: str, apply: bool = False, root: Path = ROOT) -> dict:
                 rejected.append({"op": op.__name__, "changes": applied,
                                  "why": f"live score {score} < {baseline}"})
                 continue
+            # A neutral mutation moves the registry without moving the measurement.
+            # That is fine for cleanup (op_dedupe_edges is neutral by design) and
+            # is not fine when a caller wanted the optimizer to earn each change,
+            # so it is recorded either way and refusable with require_gain.
+            if score == baseline:
+                if require_gain:
+                    doc = yaml.safe_load(before)
+                    rejected.append({"op": op.__name__, "changes": applied,
+                                     "why": f"no measured gain (live score stayed {score}) "
+                                            f"and require_gain is set"})
+                    continue
+                neutral.append(op.__name__)
             baseline = score  # accepted: the candidate is the new bar
         notes.extend(applied)
     result_scores = {"live_score": baseline, "episodes": episodes,
-                     "gated": bool(episodes)}
+                     "gated": bool(episodes), "neutral_ops": neutral}
     if not notes:
         return {"changed": False, "notes": [], "rejected": rejected, **result_scores}
     if apply:

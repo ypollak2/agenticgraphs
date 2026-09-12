@@ -92,6 +92,10 @@ def main(argv: list[str] | None = None) -> int:
     ip.add_argument("node")
     ip.add_argument("ability")
     op = sub.add_parser("optimize", help="v0 structural optimizer: dry-run by default (M2)")
+    op.add_argument("--require-gain", action="store_true",
+                    help="reject a mutation that replays to the same live score it started "
+                         "from. The default keeps neutral cleanups (op_dedupe_edges is "
+                         "neutral by design) and reports them as `neutral_ops`.")
     op.add_argument("name")
     op.add_argument("--apply", action="store_true")
     op.add_argument("--autonomous", action="store_true",
@@ -204,7 +208,7 @@ def main(argv: list[str] | None = None) -> int:
 
             res = optimize_autonomous(args.name)
         else:
-            res = optimize(args.name, apply=args.apply)
+            res = optimize(args.name, apply=args.apply, require_gain=args.require_gain)
         for note in res["notes"] or ["nothing to change"]:
             print(("applied: " if args.apply else "proposed: ") + note)
         if res.get("commit"):
