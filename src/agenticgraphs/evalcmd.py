@@ -69,16 +69,27 @@ def _recordings(root: Path, name: str, case_id: str) -> list[Path]:
     return sorted(p for p in live.glob(f"{case_id}*.json") if current(p))
 
 
-def case_inputs(case: dict, goal: str | None = None) -> dict:
+def case_inputs(case: dict, goal: str | None = None,
+                inputs: dict | None = None) -> dict:
     """The blackboard a case supplies at entry.
 
     A case's `goal` is the common shape; `inputs` carries anything else the
     graph's `state.inputs` declares. An explicit `--goal` overrides the case, so
     one graph can be exercised against a real subject without editing fixtures.
+
+    `inputs` is the same override one level down, and it is the half that was
+    missing. v1.9's whole finding is that a case supplying only a goal starves
+    the graph — 71 of 83 were scored that way, and `alert-noise-reduction` was
+    asked to deduplicate alerts it was never given. `--goal` alone can rename the
+    subject but cannot supply it, so the only way to point a graph at real data
+    was to edit its fixtures. Keys given here replace the case's, one by one; the
+    rest of the case still stands (2026-09-12 audit, C9).
     """
     seed = dict(case.get("inputs") or {})
     if case.get("goal"):
         seed["goal"] = case["goal"]
+    if inputs:
+        seed.update(inputs)
     if goal:
         seed["goal"] = goal
     return seed
@@ -131,11 +142,21 @@ def write_profile(gpath: Path, profile: dict) -> bool:
 def eval_graph(name: str, root: Path = ROOT, live: bool = False,
                auto_approve: bool = False, run_commands: bool = False,
                replay: bool = True, resume_from=None, goal: str | None = None,
-               write: bool = True, journal_dir: Path | None = None) -> dict:
+               write: bool | None = None, journal_dir: Path | None = None,
+               inputs: dict | None = None) -> dict:
     """Run a graph's golden cases and return its profile.
 
-    `write=True` persists the profile via `write_profile` (change-gated);
-    `write=False` is a pure computation for report generators. `journal_dir`
+    `inputs` overlays onto every case's entry blackboard, the way `goal` does —
+    so a graph can be run against real data without editing its fixtures.
+
+    **An override run does not persist.** `write` defaults to None, which means
+    "write unless this run was steered", because a result produced under a `goal`
+    or `inputs` the fixtures do not carry is exploration, not the measurement the
+    profile claims to hold. `agr goal` has passed a goal override since v1.7 with
+    `write` left at its default, so every exploratory run was quietly overwriting
+    the graph's checked-in evidence; `--inputs` would have widened that from the
+    goal string to the whole blackboard. Pass `write=True` to force a persist, or
+    `write=False` for a pure computation as the report generators do. `journal_dir`
     writes each case's journal to `<journal_dir>/<case_id>.jsonl` when the graph
     checkpoints — the file `--resume-from` reads. Nothing wrote one before
     (2026-09-04 audit, D3-04): resume existed with no producer.
@@ -206,7 +227,7 @@ def eval_graph(name: str, root: Path = ROOT, live: bool = False,
         runner = LLMRunner() if live else MockRunner(case["node_outputs"])
         runner_name = runner.name
         primary.append({"id": case["id"],
-                        **_run(runner, inputs=case_inputs(case, goal), case_id=case["id"])})
+                        **_run(runner, inputs=case_inputs(case, goal, inputs), case_id=case["id"])})
 
     profile = structural_profile(doc, root)
     profile["measured"] = _block(primary, runner_name)
@@ -226,7 +247,7 @@ def eval_graph(name: str, root: Path = ROOT, live: bool = False,
                 # mistaken for evidence that the approval itself happened.
                 gated = any(n.get("kind") == "human" for n in doc["nodes"])
                 res = _run(runner, approve=gated or auto_approve,
-                           inputs=case_inputs(case, goal))
+                           inputs=case_inputs(case, goal, inputs))
                 live_results.append({"id": case["id"], "model": runner.model,
                                      "recorded": runner.recorded,
                                      "gate_auto_approved": gated, **res})
@@ -260,6 +281,11 @@ def eval_graph(name: str, root: Path = ROOT, live: bool = False,
             block["gate_auto_approved"] = any(r.get("gate_auto_approved") for r in live_results)
             profile["measured_live"] = block
 
+    # None means "write unless this run was steered". An override run measured
+    # something the fixtures do not describe, and a profile is a claim about the
+    # fixtures (2026-09-12 audit, C9).
+    if write is None:
+        write = goal is None and inputs is None
     if write:
         write_profile(gpath, profile)
     return profile

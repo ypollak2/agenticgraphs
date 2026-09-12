@@ -202,6 +202,15 @@ def create_server():
                   live: bool = False, run_commands: bool = False) -> dict:
         """Run a graph's golden cases and return the measured block.
 
+        `goal` and `inputs` overlay onto each case's entry blackboard, so a graph
+        can be pointed at a real subject without editing its fixtures. Supplying
+        `inputs` matters more than it looks: v1.9 found that a case seeding only a
+        goal starves the graph — `alert-noise-reduction` was asked to deduplicate
+        alerts it was never given, and its `map` node returned the literal string
+        `"map_shard"`. Goal-only graphs averaged 0.614 live against 0.898 for the
+        twelve that seeded real data. Read the graph's `state.inputs` (via
+        `get_graph`) to learn what it expects.
+
         Mock fixtures by default (mechanics, not model quality). `live=True`
         uses AGR_LLM_BASE_URL/AGR_LLM_MODEL and requires AGR_MCP_TOKEN to be set,
         so an unauthenticated loopback caller cannot spend on the endpoint.
@@ -218,12 +227,11 @@ def create_server():
             raise ValueError("run_commands over MCP requires AGR_AUTONOMOUS_ALLOW_EXECUTE=1")
         if find_graph(name) is None:
             raise ValueError(f"no graph named '{name}'")
+        if inputs is not None and not isinstance(inputs, dict):
+            raise ValueError("inputs must be an object mapping the graph's state.inputs to values")
         profile = eval_graph(name, live=live, run_commands=run_commands, goal=goal or None,
-                             write=False, replay=not live)
-        block = dict(profile["measured"])
-        if inputs:
-            block["note"] = "inputs are supplied by the graph's golden cases; use `goal` to set the subject"
-        return block
+                             write=False, replay=not live, inputs=inputs or None)
+        return dict(profile["measured"])
 
     @mcp.tool()
     def list_abilities() -> list[dict]:
