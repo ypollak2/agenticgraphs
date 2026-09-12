@@ -117,3 +117,35 @@ def test_server_info_reports_unknown_outside_a_git_checkout(tmp_path):
     from agenticgraphs.mcp_server import served_revision
 
     assert served_revision(tmp_path) == {"revision": "unknown", "dirty": False}
+
+
+# ---------------------------------------------------------- 2026-09-12 audit, C13
+
+
+def test_the_installer_ships_a_token_and_supervises_the_server_itself():
+    """Two failures the plist caused, both invisible until they were looked for.
+
+    It carried no `EnvironmentVariables`, so `AGR_MCP_TOKEN` was unset:
+    `bearer_guard` was never installed **and** `run_graph(live=True)` — which
+    refuses to spend on an endpoint for an unauthenticated caller — was
+    permanently unreachable. One absent variable turned off the guard and the
+    feature it guards.
+
+    And it launched the server through `uv run`, which forks a child python.
+    `launchctl kickstart -k` killed the `uv` parent and left the child orphaned
+    to pid 1, deaf to SIGTERM. One was found alive from 9 Aug, five weeks and a
+    merge behind, while a restart reported success.
+    """
+    from pathlib import Path
+
+    script = (Path(__file__).resolve().parents[1] / "scripts" / "install_service.sh").read_text()
+
+    assert "AGR_MCP_TOKEN" in script and "EnvironmentVariables" in script
+    assert "openssl rand -hex 32" in script, "a token must be minted, not left to the operator"
+    assert 'chmod 600 "$PLIST_PATH"' in script, "the plist holds the token"
+    assert "--no-token" in script, "the old posture must stay reachable, deliberately"
+
+    argv = script.split("<key>ProgramArguments</key>", 1)[1].split("</array>", 1)[0]
+    assert "${AGR_BIN}" in argv, "launchd must exec the server, not a launcher"
+    assert "<string>run</string>" not in argv, "`uv run` reintroduces the orphan"
+    assert "plist_is_direct" in script, "--restart must refuse a plist that orphans"
