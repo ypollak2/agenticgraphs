@@ -31,6 +31,8 @@ jobs:
       - run: uv run --all-extras python scripts/gen_contract_findings.py
       - run: uv run --all-extras python scripts/gen_clone_report.py
       - run: uv run --all-extras python scripts/gen_self_graded.py
+      - run: uv run --all-extras python scripts/gen_breadth_report.py
+      - run: uv run --all-extras python scripts/gen_catalog.py
       # Exits 1 on a verdict that flipped without a re-recording; that is a gate.
       - run: uv run --all-extras python scripts/audit_recordings.py --json reports/a4-stale-recordings.json
       - run: uv run --all-extras python scripts/gen_spec_banners.py
@@ -40,7 +42,8 @@ jobs:
           # committed. profile.json is on the list since R1-04 made its writes
           # change-gated: a diff there means the evidence actually moved.
           git diff --exit-code -- README.md CARDS.md 'graphs/**/CARD.md' 'graphs/**/profile.json' \
-            'docs/traces/**' docs/contract-findings.md 'reports/*.json' 'docs/agr-v*.md' || {
+            'docs/traces/**' docs/contract-findings.md 'reports/*.json' 'docs/agr-v*.md' \
+            docs/live-coverage.md usecases/catalog.yaml || {
             echo "::error::Generated artifacts are stale — run 'make regen' and commit the result.";
             exit 1;
           }
