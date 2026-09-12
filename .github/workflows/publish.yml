@@ -19,11 +19,19 @@ jobs:
           uv run --all-extras agr validate
           uv run --all-extras pytest -q
       - run: uv build
+      # The wheel force-includes the registry, so an installed copy must hold
+      # every graph the checkout does. This compared against a hardcoded 52 until
+      # 2026-09-12 — the count when it was written, and 31 graphs stale by the
+      # time anyone noticed. Because the only way to run this job is to push a
+      # tag, and no tag had been pushed since v0.1.1, the gate had been failing
+      # every release unobserved: "never published" was a bug, not a decision.
+      # Both sides are computed now, so it cannot go stale again.
       - name: Verify the built wheel is self-contained
         run: |
           uv venv /tmp/verify
           uv pip install --python /tmp/verify/bin/python dist/*.whl
-          n=$(/tmp/verify/bin/agr list | wc -l)
-          echo "graphs in installed wheel: $n"
-          test "$n" -eq 52
+          expected=$(find graphs -name graph.yaml | wc -l | tr -d ' ')
+          n=$(/tmp/verify/bin/agr list | wc -l | tr -d ' ')
+          echo "graphs in checkout: $expected — in installed wheel: $n"
+          test "$n" -eq "$expected"
       - uses: pypa/gh-action-pypi-publish@release/v1
