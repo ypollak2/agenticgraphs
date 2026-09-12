@@ -76,3 +76,44 @@ def test_persist_is_refused_without_the_autonomy_opt_in(tools, monkeypatch):
     monkeypatch.delenv("AGR_AUTONOMOUS", raising=False)
     with pytest.raises(ValueError, match="AGR_AUTONOMOUS"):
         tools["infuse_ability"]("code-review-pipeline", "triage", "web_search", persist=True)
+
+
+# ---------------------------------------------------------- 2026-09-12 audit, A1
+
+
+def test_server_info_reports_the_revision_it_serves(tools):
+    """A long-lived daemon is not a current one.
+
+    The LaunchAgent sets `KeepAlive: true`, so the process survives every merge.
+    The audit found one serving a 34-day-old checkout — six tools shipped five
+    weeks earlier were unreachable while `tools/list` answered happily. Nothing
+    in the protocol let a caller notice, so the server now says what it is.
+    """
+    info = tools["server_info"]()
+    assert info["revision"], "a caller must be able to compare this against HEAD"
+    assert info["spec_version"].startswith("agr/v")
+    assert info["graphs"] == 83
+    assert isinstance(info["dirty"], bool)
+    assert info["uptime_seconds"] >= 0
+    assert info["transport_authenticated"] is False  # no AGR_MCP_TOKEN under pytest
+    assert info["autonomous"] is False
+
+
+def test_server_info_never_raises_when_git_is_unavailable(monkeypatch, tmp_path):
+    """A server must not fail to describe itself because git is missing."""
+    import subprocess
+
+    from agenticgraphs import mcp_server
+
+    def boom(*a, **kw):
+        assert kw.get("timeout"), "subprocess.run called without a timeout"
+        raise FileNotFoundError("git")
+
+    monkeypatch.setattr(subprocess, "run", boom)
+    assert mcp_server.served_revision(tmp_path) == {"revision": "unknown", "dirty": False}
+
+
+def test_server_info_reports_unknown_outside_a_git_checkout(tmp_path):
+    from agenticgraphs.mcp_server import served_revision
+
+    assert served_revision(tmp_path) == {"revision": "unknown", "dirty": False}

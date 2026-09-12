@@ -11,8 +11,16 @@
 # writes the plist and asks launchd to bootstrap it (RunAtLoad + KeepAlive).
 #
 # Usage:
-#   scripts/install_service.sh              # install + load
+#   scripts/install_service.sh              # install + load (restarts if running)
+#   scripts/install_service.sh --restart    # pick up new code, plist unchanged
 #   scripts/install_service.sh --uninstall  # unload + remove
+#
+# KeepAlive keeps this daemon alive across every merge, and nothing restarts it
+# when the checkout moves. The 2026-09-12 audit found one that had been serving a
+# 34-day-old revision: six tools shipped five weeks earlier were unreachable, and
+# `tools/list` looked perfectly healthy. Run --restart after a merge, and call the
+# server's `server_info` tool to confirm the revision it reports is the one you
+# expect.
 #
 # This script must be run manually by a human; it is never invoked by `agr`
 # itself or by any headless/autonomous recipe.
@@ -32,12 +40,26 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PORT="${AGR_MCP_PORT:-8765}"
 
 UNINSTALL=0
+RESTART=0
 for arg in "$@"; do
   case "$arg" in
     --uninstall) UNINSTALL=1 ;;
+    --restart) RESTART=1 ;;
     *) echo "error: unknown argument '$arg'" >&2; exit 1 ;;
   esac
 done
+
+if [[ "$RESTART" -eq 1 ]]; then
+  if [[ ! -f "$PLIST_PATH" ]]; then
+    echo "error: $LABEL is not installed — run without --restart first" >&2
+    exit 1
+  fi
+  echo "restarting $LABEL ..."
+  launchctl kickstart -k "gui/$(id -u)/${LABEL}"
+  echo "restarted. Confirm what it now serves:"
+  echo "  the MCP \`server_info\` tool reports {revision, dirty, spec_version, graphs}"
+  exit 0
+fi
 
 if [[ "$UNINSTALL" -eq 1 ]]; then
   echo "unloading $LABEL ..."
@@ -95,5 +117,11 @@ launchctl bootout "gui/$(id -u)" "$PLIST_PATH" 2>/dev/null || true
 launchctl bootstrap "gui/$(id -u)" "$PLIST_PATH"
 launchctl enable "gui/$(id -u)/${LABEL}"
 
+# Bootstrapping a plist that launchd already holds is a no-op for a running
+# process, so kickstart unconditionally: an installer that leaves the old code
+# running is exactly the failure this script now documents.
+launchctl kickstart -k "gui/$(id -u)/${LABEL}"
+
 echo "installed and bootstrapped ${LABEL} (logs: ${LOG_PATH})"
 echo "check with: launchctl print gui/$(id -u)/${LABEL}"
+echo "confirm the served revision with the MCP \`server_info\` tool"

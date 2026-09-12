@@ -93,6 +93,9 @@ def test_mcp_tools_registered():
         # R6-01: what the CLI could do and the MCP surface could not
         "validate_graph", "run_graph", "list_abilities", "list_specialities", "get_profile",
         "diff_graphs",
+        # 2026-09-12 audit A1: a caller must be able to tell it is talking to a
+        # daemon that has been up since before the code it expects was written.
+        "server_info",
     }
 
 

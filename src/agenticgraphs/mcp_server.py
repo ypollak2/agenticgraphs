@@ -16,15 +16,25 @@ from __future__ import annotations
 import hmac
 import json
 import os
+import subprocess
 import sys
+import time
+from pathlib import Path
 
 import yaml
 
 from .adapters import emit_autogen, emit_crewai, emit_langgraph
 from .autonomy import AutonomyError, is_autonomous
 from .inspect import find_graph
-from .registry import Registry, iter_yaml, load
+from .registry import ROOT, SPEC_VERSION, Registry, iter_graphs, iter_yaml, load
 from .validate import lint_graph, validate_schema
+
+#: When this process started. The 2026-09-12 audit found the LaunchAgent had been
+#: serving a 34-day-old checkout: `KeepAlive: true` keeps a daemon alive across
+#: any number of merges, and nothing in the protocol let a caller notice. Six
+#: tools added five weeks earlier were simply unreachable, and the client saw a
+#: perfectly healthy four-tool server.
+_STARTED_AT = time.time()
 
 TOKEN_ENV = "AGR_MCP_TOKEN"  # noqa: S105 — the env var NAME, not a secret
 
@@ -36,6 +46,31 @@ NO_TOKEN_WHILE_AUTONOMOUS_MSG = (
 )
 
 
+def served_revision(root: Path = ROOT) -> dict:
+    """The commit this process is serving, so a caller can tell it is stale.
+
+    Returns `{"revision": <short sha>, "dirty": bool}`, or `revision: "unknown"`
+    when the checkout is not a git repository or git is unavailable. Never
+    raises: a server must not fail to describe itself.
+    """
+    def _git(*args: str) -> str | None:
+        try:
+            # Fixed argv, no shell, 5s cap. `git` resolves off PATH the same way
+            # every other call site in this package does.
+            res = subprocess.run(  # noqa: S603
+                ["git", "-C", str(root), *args],  # noqa: S607
+                capture_output=True, text=True, timeout=5,
+            )
+        except (OSError, subprocess.SubprocessError):
+            return None
+        return res.stdout.strip() if res.returncode == 0 else None
+
+    sha = _git("rev-parse", "--short", "HEAD")
+    if sha is None:
+        return {"revision": "unknown", "dirty": False}
+    return {"revision": sha, "dirty": bool(_git("status", "--porcelain"))}
+
+
 def create_server():
     try:  # mcp SDK 1.x
         from mcp.server.fastmcp import FastMCP as _Server
@@ -43,6 +78,35 @@ def create_server():
         from mcp.server.mcpserver import MCPServer as _Server
 
     mcp = _Server("agenticgraphs")
+
+    @mcp.tool()
+    def server_info() -> dict:
+        """What this process is: version, spec, the commit it serves, and its uptime.
+
+        A long-lived server is not necessarily a current one. The daemon this
+        project ships as a LaunchAgent sets `KeepAlive: true`, so it survives
+        every merge; the 2026-09-12 audit found one that had been serving a
+        34-day-old checkout, missing six tools that had shipped five weeks
+        earlier, while answering `tools/list` perfectly happily.
+
+        Compare `revision` against the checkout's HEAD before trusting that a
+        fix is deployed. `dirty` means the working tree has uncommitted changes,
+        so `revision` alone does not describe what is running.
+        """
+        try:
+            from importlib.metadata import version as _version
+            pkg = _version("vitruvian-graphs")
+        except Exception:  # a source checkout has no installed dist
+            pkg = "unknown"
+        return {
+            "package_version": pkg,
+            "spec_version": SPEC_VERSION,
+            **served_revision(),
+            "graphs": len(iter_graphs()),
+            "uptime_seconds": round(time.time() - _STARTED_AT, 1),
+            "transport_authenticated": bool(os.environ.get(TOKEN_ENV)),
+            "autonomous": is_autonomous(),
+        }
 
     @mcp.tool()
     def search_graphs(term: str) -> list[dict]:
